@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lacønis — preise wireframe</title>
+<style>
+  body { font-family: monospace; font-size: 13px; max-width: 900px; margin: 0 auto; padding: 2rem; background: #fff; color: #111; }
+  h1 { font-size: 13px; font-weight: normal; color: #999; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 2rem; }
+  .sec { border: 1px dashed #ccc; border-radius: 4px; margin-bottom: 1.5rem; }
+  .sec-head { background: #f5f5f5; padding: 6px 12px; font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px dashed #ccc; display: flex; justify-content: space-between; align-items: center; }
+  .sec-head .tag { background: #111; color: #fff; font-size: 9px; padding: 2px 6px; border-radius: 2px; }
+  .sec-head .tag.launch { background: #E1FD52; color: #111; }
+  .sec-body { padding: 1rem 1.25rem; }
+  .placeholder { background: #f0f0f0; border: 1px dashed #bbb; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #999; text-align: center; padding: 1rem; line-height: 1.6; }
+  .row { display: flex; gap: 1rem; margin-bottom: 1rem; }
+  .row > * { flex: 1; }
+  .text-block { margin-bottom: 0.75rem; }
+  .label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
+  .content { font-size: 13px; line-height: 1.6; }
+  .content.big { font-size: 32px; font-weight: bold; line-height: 1; }
+  .content.medium { font-size: 16px; font-weight: bold; }
+  .content.muted { color: #666; }
+  .btn { border: 1px solid #111; padding: 6px 14px; font-family: monospace; font-size: 11px; background: none; cursor: pointer; }
+  .btn.primary { background: #E1FD52; border-color: #E1FD52; }
+  .btn-row { display: flex; gap: 8px; margin-top: 0.75rem; }
+  .divider { border: none; border-top: 1px dashed #eee; margin: 1rem 0; }
+  .note { font-size: 11px; color: #999; font-style: italic; margin-top: 6px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .card { border: 1px solid #ddd; padding: 1rem; border-radius: 3px; }
+  .card-title { font-weight: bold; margin-bottom: 6px; }
+  .card-desc { color: #666; font-size: 12px; line-height: 1.5; }
+  .highlight-box { background: #fffbe6; border: 1px solid #E1FD52; border-radius: 4px; padding: 10px 14px; font-size: 12px; margin: 8px 0; }
+  .tab-row { display: flex; gap: 0; border-bottom: 2px solid #111; margin-bottom: 1rem; }
+  .tab { padding: 6px 20px; font-family: monospace; font-size: 11px; cursor: pointer; border: none; background: none; }
+  .tab.active { background: #E1FD52; font-weight: bold; }
+  .payment-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+  .payment-card { border: 1px solid #ddd; padding: 12px 14px; border-radius: 3px; }
+  .footer-note { margin-top: 2rem; font-size: 11px; color: #999; border-top: 1px solid #eee; padding-top: 1rem; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<h1>lacønis — preise wireframe · v1 · April 2026</h1>
+<div style="font-size:11px;color:#999;margin-bottom:2rem;background:#f9f9f9;padding:8px 12px;border-radius:3px">
+  ℹ️ Interaktiver Kalkulator → siehe <strong>laconis_pakete.html</strong> · Diese Seite zeigt den vollständigen Seitenaufbau
+</div>
+
+<!-- NAV -->
+<div class="sec">
+  <div class="sec-head"><span>nav</span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0">
+      <div style="font-weight:bold;font-size:16px">lacønis</div>
+      <div style="display:flex;gap:2rem;font-size:12px;color:#666">
+        <span>leistungen</span><span>referenzen</span>
+        <span style="font-weight:bold;text-decoration:underline">preise</span>
+        <span>über mich</span><span style="color:#ccc">shop</span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px">DE</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px;color:#999">FR</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px;color:#999">EN</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 7px;color:#ccc">login</span>
+        <button class="btn primary">projekt starten</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="sec">
+  <div class="sec-head"><span>hero</span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="text-block"><div class="label">headline</div><div class="content big">preise.</div></div>
+    <div class="text-block"><div class="label">subline</div><div class="content muted">Transparent. Kein Kleingedrucktes. Kein "auf Anfrage" bei allem.</div></div>
+  </div>
+</div>
+
+<!-- PAKETE TABS -->
+<div class="sec">
+  <div class="sec-head"><span>pakete — 3 tabs <span style="color:#bbb;font-weight:normal">· web / grafik / bundle · interaktiv aus laconis_pakete.html</span></span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="tab-row">
+      <button class="tab active">web</button>
+      <button class="tab">grafik</button>
+      <button class="tab">bundle</button>
+    </div>
+    <div class="grid3">
+      <div class="card">
+        <div style="font-size:18px;margin-bottom:8px">🌱</div>
+        <div class="card-title">starter</div>
+        <div style="font-size:18px;font-weight:bold;color:#111;margin:8px 0">1.990 €</div>
+        <div class="card-desc">Onepager • 1 CMS-Bereich • SEO • SSL • Backups</div>
+        <div style="font-size:11px;color:#999;margin-top:6px">+ 20 €/Mt Hosting (fix)</div>
+      </div>
+      <div class="card" style="border-color:#E1FD52;border-width:2px">
+        <div style="font-size:18px;margin-bottom:8px">⚡</div>
+        <div class="card-title">standard <span style="font-size:10px;background:#E1FD52;padding:1px 5px">empfohlen</span></div>
+        <div style="font-size:18px;font-weight:bold;color:#111;margin:8px 0">2.890 €</div>
+        <div class="card-desc">4 Seiten • 2 CMS-Bereiche • alles aus Starter</div>
+        <div style="font-size:11px;color:#999;margin-top:6px">+ 30 €/Mt Hosting (fix)</div>
+      </div>
+      <div class="card">
+        <div style="font-size:18px;margin-bottom:8px">🚀</div>
+        <div class="card-title">pro</div>
+        <div style="font-size:18px;font-weight:bold;color:#111;margin:8px 0">3.650 €</div>
+        <div class="card-desc">6 Seiten • 3 CMS • 2 Sprachen • alles aus Standard</div>
+        <div style="font-size:11px;color:#999;margin-top:6px">+ 40 €/Mt Hosting (fix)</div>
+      </div>
+    </div>
+    <div class="note">Domain & Mail optional • ab 2 €/Mt Domain • 5 €/Mt Mail • jährlich fakturiert</div>
+  </div>
+</div>
+
+<!-- KALKULATOR -->
+<div class="sec">
+  <div class="sec-head"><span>kalkulator — "mach dir dein eigenes paket" <span style="color:#bbb;font-weight:normal">· core feature</span></span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="highlight-box">
+      <strong>✦ mach dir dein eigenes paket</strong><br>
+      Paket als Startpunkt • dann individuell Seiten, CMS-Bereiche, Sprachen, Domain, Mail konfigurieren. Preis passt sich live an. → Referenz: <strong>laconis_pakete.html</strong>
+    </div>
+    <div class="placeholder" style="height:200px">
+      Interaktiver Kalkulator<br>aus laconis_pakete.html einbetten<br><br>
+      Auswahl → Preis live<br>Domain ja/nein Toggle<br>E-Mail Counter
+    </div>
+    <div class="note">Technisch: der Kalkulator aus laconis_pakete.html wird hier direkt eingebettet — gleiche Logik, gleiche Komponente</div>
+  </div>
+</div>
+
+<!-- ZAHLUNGSOPTIONEN -->
+<div class="sec">
+  <div class="sec-head"><span>zahlungsoptionen <span style="color:#bbb;font-weight:normal">· 3 modelle</span></span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="text-block"><div class="label">headline</div><div class="content medium">so kannst du zahlen.</div></div>
+    <div class="payment-grid">
+      <div class="payment-card">
+        <div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">modell 1</div>
+        <div style="font-weight:bold;margin-bottom:4px">komplett bei lieferung</div>
+        <div style="font-size:12px;color:#666">Einmalig bei Launch • keine Zinsen</div>
+      </div>
+      <div class="payment-card">
+        <div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">modell 2</div>
+        <div style="font-weight:bold;margin-bottom:4px">50% anzahlung</div>
+        <div style="font-size:12px;color:#666">Rest in bis zu 5 Raten • 2% Zinsen/Monat • max 10%</div>
+      </div>
+      <div class="payment-card">
+        <div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">modell 3</div>
+        <div style="font-weight:bold;margin-bottom:4px">vollständig in raten</div>
+        <div style="font-size:12px;color:#666">bis 6 Monate • 4% Zinsen/Monat</div>
+      </div>
+    </div>
+    <div class="note">Hosting immer bei lacønis • nicht verhandelbar • jährlich fakturiert • Preis wird pro Monat kommuniziert</div>
+  </div>
+</div>
+
+<!-- CTA — PAKET ZUSAMMENGESTELLT -->
+<div class="sec">
+  <div class="sec-head"><span>cta — paket zusammengestellt? <span style="color:#bbb;font-weight:normal">· verbindet kalkulator mit kontakt</span></span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="highlight-box">
+      <strong>paket zusammengestellt?</strong><br>
+      Button überträgt die Kalkulator-Auswahl via URL-Parameter zu /kontakt#projekt. Der Multistep-Formular startet direkt bei der Zusammenfassung (Schritt 3).
+    </div>
+    <div class="row" style="align-items:center;margin-top:1rem">
+      <div>
+        <div class="text-block"><div class="label">headline</div><div class="content medium">paket zusammengestellt?</div></div>
+        <div class="content muted" style="font-size:12px">Anfrage schicken • ich melde mich innerhalb von 24h.</div>
+      </div>
+      <div style="text-align:right">
+        <button class="btn primary" style="font-size:13px;padding:10px 24px">anfrage starten →</button>
+        <div class="note">→ /kontakt#projekt?paket=standard&seiten=4&...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-note">
+  <span>laconis.be/preise</span>
+  <span>wireframe v1 · April 2026</span>
+</div>
+
+</body>
+</html>

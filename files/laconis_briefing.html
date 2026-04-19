@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lacønis — self-briefing</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --lime: #E1FD52;
+    --anthrazit: #383838;
+    --offwhite: #F2F2F2;
+    --grey: #D3D3D3;
+    --muted: #888;
+    --border: #E0E0E0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--offwhite);
+    color: var(--anthrazit);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 3rem 1.5rem;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--anthrazit);
+  }
+
+  .logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 36px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .logo .o {
+    background: var(--anthrazit);
+    color: var(--lime);
+    padding: 1px 3px;
+    border-radius: 3px;
+  }
+
+  .header-meta {
+    text-align: right;
+  }
+
+  .header-meta .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .progress-wrap {
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+
+  .progress-bar {
+    width: 100px;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 58%;
+    background: var(--lime);
+    border-radius: 2px;
+  }
+
+  .progress-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* SECTIONS */
+  .section {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  /* PILLS */
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .pill {
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 0.5px solid var(--border);
+    background: white;
+    color: var(--anthrazit);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .pill.hi {
+    background: var(--lime);
+    color: var(--anthrazit);
+    border-color: transparent;
+    font-weight: 500;
+  }
+
+  /* FLOW */
+  .flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .step {
+    font-size: 12px;
+    padding: 5px 11px;
+    border-radius: 6px;
+    background: white;
+    border: 0.5px solid var(--border);
+    color: var(--anthrazit);
+  }
+
+  .step.hi {
+    background: var(--lime);
+    color: var(--anthrazit);
+    border-color: transparent;
+    font-weight: 500;
+  }
+
+  .arr {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* VS GRID */
+  .vs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .vc {
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 0.5px solid var(--border);
+    background: white;
+  }
+
+  .vc.lac {
+    border-color: var(--lime);
+    border-width: 1.5px;
+  }
+
+  .vc .vn {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 5px;
+  }
+
+  .vc.lac .vn {
+    background: var(--lime);
+    color: var(--anthrazit);
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 3px;
+    margin-bottom: 6px;
+  }
+
+  .vc .vd {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  /* QUOTE */
+  .quote {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-style: italic;
+    color: #555;
+    border-left: 2px solid var(--lime);
+    padding: 4px 0 4px 12px;
+    margin: 5px 0;
+  }
+
+  /* GRID 2 */
+  .grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .card {
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 0.5px solid var(--border);
+    background: white;
+  }
+
+  .card .ct {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+
+  .card .cb {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--anthrazit);
+  }
+
+  .card .cs {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  /* MEDALS */
+  .medals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .medal {
+    font-size: 12px;
+    padding: 4px 11px;
+    border-radius: 20px;
+    border: 0.5px solid var(--border);
+    background: white;
+    color: var(--anthrazit);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .medal.bronze { border-color: #cd7f32; }
+  .medal.silver { border-color: #aaa; }
+  .medal.gold { border-color: #d4a017; }
+  .medal.plat { border-color: #7ec8e3; }
+
+  /* SERVER ARCH */
+  .arch {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+
+  .arch-box {
+    text-align: center;
+  }
+
+  .arch-box .ab-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .arch-box .ab-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--anthrazit);
+  }
+
+  .arch-box .ab-sub {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .arch-sep {
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .arch-sep .api-badge {
+    background: var(--lime);
+    color: var(--anthrazit);
+    font-size: 9px;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+
+  /* TODO */
+  .todo {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-style: italic;
+    color: var(--muted);
+    padding: 10px 14px;
+    border: 0.5px dashed var(--border);
+    border-radius: 8px;
+    line-height: 1.8;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 0.5px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer .fl {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .footer .fr {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--lime);
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  @media (max-width: 520px) {
+    .vs, .grid2 { grid-template-columns: 1fr; }
+    .arch { grid-template-columns: 1fr; }
+    .arch-sep { display: none; }
+    .header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .header-meta { text-align: left; }
+    .progress-wrap { justify-content: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="logo">lac<span class="o">ø</span>nis</div>
+    <div class="header-meta">
+      <div class="label">self-briefing · work in progress</div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+        <span class="progress-pct">~58%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Identität</div>
+    <div class="pills">
+      <span class="pill hi">Nicolas Spies</span>
+      <span class="pill">Eupen, Ostbelgien</span>
+      <span class="pill">Solo</span>
+      <span class="pill">DE / FR / EN</span>
+      <span class="pill">Graphic · Web Design · Dev</span>
+      <span class="pill">nicolas@laconis.be</span>
+      <span class="pill">laconis.be</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Persönlichkeit & Stil</div>
+    <div class="pills">
+      <span class="pill hi">lakonisch</span>
+      <span class="pill hi">direkt</span>
+      <span class="pill">respektvoll</span>
+      <span class="pill">strategisch</span>
+      <span class="pill">berät statt abzunicken</span>
+      <span class="pill">denkt aus Sicht der Zielperson</span>
+      <span class="pill">kein Bullshit</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Arbeitsweise</div>
+    <div class="flow">
+      <div class="step">Kunde fragt</div><div class="arr">→</div>
+      <div class="step">Nicolas findet die beste Lösung</div><div class="arr">→</div>
+      <div class="step">Kunde überlegt</div><div class="arr">→</div>
+      <div class="step">Kunde stimmt zu</div><div class="arr">→</div>
+      <div class="step hi">Nicolas macht</div>
+    </div>
+    <div class="vs">
+      <div class="vc">
+        <div class="vn">Nexo</div>
+        <div class="vd">Kunde fragt → Nexo macht. Kein Hinterfragen, kein Mehrwert.</div>
+      </div>
+      <div class="vc lac">
+        <div class="vn">lacønis</div>
+        <div class="vd">Echte Beratung zuerst. Nicolas denkt mit — und spricht auch aus wenn's nötig ist.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Services & Markt</div>
+    <div class="pills">
+      <span class="pill hi">Web (Hauptfokus)</span>
+      <span class="pill">Branding</span>
+      <span class="pill">Starter-Pakete für Startups</span>
+      <span class="pill">KMUs</span>
+      <span class="pill">Kleine Lokalbetriebe</span>
+      <span class="pill">Start regional → ausweiten</span>
+      <span class="pill">Website DE / FR / EN</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">ContentCore — eigenes CMS</div>
+    <div class="pills" style="margin-bottom:12px">
+      <span class="pill hi">selbst gebaut</span>
+      <span class="pill hi">selbst gehostet</span>
+      <span class="pill">Headless Architektur</span>
+      <span class="pill">Mehrsprachigkeit</span>
+      <span class="pill">KI / DeepL Übersetzung</span>
+      <span class="pill">4-fach Sicherheit + 2FA</span>
+      <span class="pill">Statistiken inkl.</span>
+      <span class="pill">kein Cookie-Banner</span>
+      <span class="pill">Newsletter</span>
+      <span class="pill">Shop</span>
+      <span class="pill">Image Optimiser</span>
+      <span class="pill">Rollen: Admin / Redakteur</span>
+    </div>
+    <div class="quote">WordPress à la Nicolas — sauber, intuitiv, ohne Bloat.</div>
+
+    <div style="margin-top:16px">
+      <div class="section-title" style="font-size:9px;margin-bottom:8px">Gamification</div>
+      <div class="medals">
+        <span class="medal bronze">🥉 Bronze — Dark Mode</span>
+        <span class="medal silver">🥈 Silber — eigene Akzentfarbe</span>
+        <span class="medal gold">🥇 Gold — Gratis-Hosting</span>
+        <span class="medal plat">💠 Platin — Essen mit Nicolas</span>
+      </div>
+      <div style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace">+ Steam-ähnliche Achievement-Badges — reine Spielerei</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Server-Architektur</div>
+    <div class="arch">
+      <div class="arch-box">
+        <div class="ab-label">Cloud-Server</div>
+        <div class="ab-name">Kunden-Frontends</div>
+        <div class="ab-sub">Hostinger VPS</div>
+      </div>
+      <div class="arch-sep">
+        <span>←</span>
+        <span class="api-badge">API</span>
+        <span>→</span>
+      </div>
+      <div class="arch-box">
+        <div class="ab-label">Separater VPS</div>
+        <div class="ab-name">ContentCore</div>
+        <div class="ab-sub">CMS / Backend</div>
+      </div>
+    </div>
+    <div class="quote" style="margin-top:10px">Ich stehe mit meinem Namen für die Performance.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Hosting — inkl. im Abo</div>
+    <div class="pills">
+      <span class="pill hi">Hostinger VPS Cloud</span>
+      <span class="pill">Dedizierter Server</span>
+      <span class="pill">SSL</span>
+      <span class="pill">Tägliche Backups</span>
+      <span class="pill">Updates & Monitoring</span>
+      <span class="pill">Laufender Service inkl.</span>
+      <span class="pill">Große Features = separate Pauschale</span>
+    </div>
+    <div style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:8px">Preis pro Monat kommuniziert · jährlich abgerechnet · nicht verhandelbar</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Preismodelle Web</div>
+    <div class="grid2">
+      <div class="card">
+        <div class="ct">Modell 1</div>
+        <div class="cb">Komplett sofort</div>
+        <div class="cs">+ monatl. Hosting / Email / Domain</div>
+      </div>
+      <div class="card">
+        <div class="ct">Modell 2</div>
+        <div class="cb">50% Anzahlung</div>
+        <div class="cs">Rest in bis zu 5 Raten · 2% Zinsen/Monat</div>
+      </div>
+      <div class="card">
+        <div class="ct">Modell 3</div>
+        <div class="cb">Vollständig in Raten</div>
+        <div class="cs">bis 6 Monate · 4% Zinsen/Monat</div>
+      </div>
+      <div class="card" style="border-style:dashed">
+        <div class="ct">Grafik</div>
+        <div class="cb" style="color:var(--muted);font-weight:400;font-style:italic">Noch offen</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Slogans</div>
+    <div class="quote">say less, mean more</div>
+    <div class="quote">no noise, just work</div>
+    <div class="quote">built to speak for itself</div>
+    <div class="quote">quiet design, loud results</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Noch offen / kommt noch</div>
+    <div class="todo">
+      Zielgruppe detaillierter · Referenzen / Portfolio · Grafik-Preismodell<br>
+      Tonalität Website-Copy · Über mich Text · USP visuell<br>
+      Was macht eine lacønis-Website einzigartig?
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="fl"><span class="dot"></span>laconis.be · nicolas@laconis.be</div>
+    <div class="fr">self-briefing v1 · 2026</div>
+  </div>
+
+</div>
+</body>
+</html>

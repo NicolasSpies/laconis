@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lacønis — referenzen wireframe</title>
+<style>
+  body { font-family: monospace; font-size: 13px; max-width: 900px; margin: 0 auto; padding: 2rem; background: #fff; color: #111; }
+  h1 { font-size: 13px; font-weight: normal; color: #999; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 2rem; }
+  .sec { border: 1px dashed #ccc; border-radius: 4px; margin-bottom: 1.5rem; }
+  .sec-head { background: #f5f5f5; padding: 6px 12px; font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px dashed #ccc; display: flex; justify-content: space-between; align-items: center; }
+  .sec-head .tag { background: #111; color: #fff; font-size: 9px; padding: 2px 6px; border-radius: 2px; }
+  .sec-head .tag.launch { background: #E1FD52; color: #111; }
+  .sec-body { padding: 1rem 1.25rem; }
+  .placeholder { background: #f0f0f0; border: 1px dashed #bbb; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #999; text-align: center; padding: 1rem; line-height: 1.6; }
+  .row { display: flex; gap: 1rem; margin-bottom: 1rem; }
+  .row > * { flex: 1; }
+  .text-block { margin-bottom: 0.75rem; }
+  .label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
+  .content { font-size: 13px; line-height: 1.6; }
+  .content.big { font-size: 32px; font-weight: bold; line-height: 1; }
+  .content.medium { font-size: 16px; font-weight: bold; }
+  .content.muted { color: #666; }
+  .btn { border: 1px solid #111; padding: 6px 14px; font-family: monospace; font-size: 11px; background: none; cursor: pointer; }
+  .btn.primary { background: #E1FD52; border-color: #E1FD52; }
+  .note { font-size: 11px; color: #999; font-style: italic; margin-top: 6px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .card { border: 1px solid #ddd; padding: 1rem; border-radius: 3px; }
+  .card-title { font-weight: bold; margin-bottom: 4px; }
+  .card-desc { color: #666; font-size: 12px; line-height: 1.5; }
+  .filter-row { display: flex; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .filter-btn { border: 1px solid #ddd; padding: 5px 14px; font-family: monospace; font-size: 11px; cursor: pointer; border-radius: 2px; }
+  .filter-btn.active { background: #E1FD52; border-color: #E1FD52; font-weight: bold; }
+  .footer-note { margin-top: 2rem; font-size: 11px; color: #999; border-top: 1px solid #eee; padding-top: 1rem; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<h1>lacønis — referenzen wireframe · v1 · April 2026</h1>
+
+<!-- NAV -->
+<div class="sec">
+  <div class="sec-head"><span>nav</span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0">
+      <div style="font-weight:bold;font-size:16px">lacønis</div>
+      <div style="display:flex;gap:2rem;font-size:12px;color:#666">
+        <span>leistungen</span>
+        <span style="font-weight:bold;text-decoration:underline">referenzen</span>
+        <span>preise</span><span>über mich</span><span style="color:#ccc">shop</span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px">DE</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px;color:#999">FR</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px;color:#999">EN</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 7px;color:#ccc">login</span>
+        <button class="btn primary">projekt starten</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="sec">
+  <div class="sec-head"><span>hero</span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="text-block"><div class="label">headline</div><div class="content big">referenzen.</div></div>
+    <div class="text-block"><div class="label">subline</div><div class="content muted">Ergebnisse die für sich sprechen. Jedes Projekt dynamisch aus dem eigenen CMS.</div></div>
+  </div>
+</div>
+
+<!-- FILTER -->
+<div class="sec">
+  <div class="sec-head"><span>filter <span style="color:#bbb;font-weight:normal">· filtert das grid live</span></span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="filter-row">
+      <button class="filter-btn active">alle</button>
+      <button class="filter-btn">web</button>
+      <button class="filter-btn">branding</button>
+      <button class="filter-btn">grafik</button>
+    </div>
+    <div class="note">Filter ist JS-seitig • kein Seitenneuladen • aktiver Filter hervorgehoben</div>
+  </div>
+</div>
+
+<!-- PROJEKT GRID -->
+<div class="sec">
+  <div class="sec-head"><span>projekt grid <span style="color:#bbb;font-weight:normal">· dynamisch aus CMS · 2-spaltig</span></span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="grid2">
+      <div class="card">
+        <div class="placeholder" style="aspect-ratio:16/9">Screenshot fabry-baumpflege.be<br>+ PageSpeed 95/97 badge</div>
+        <div style="margin-top:10px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <div class="card-title">Fabry Baumpflege</div>
+            <span style="font-size:10px;background:#E1FD52;padding:2px 6px;font-weight:bold">web</span>
+          </div>
+          <div class="card-desc">Onepager • Design & Development • eigenes CMS • Eupen, Belgien</div>
+          <div style="margin-top:6px;font-size:12px;font-style:italic">ansehen →</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="placeholder" style="aspect-ratio:16/9">Logo • Visitenkarte • Brand Guide</div>
+        <div style="margin-top:10px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <div class="card-title">Holoroom</div>
+            <span style="font-size:10px;background:#E1FD52;padding:2px 6px;font-weight:bold">branding</span>
+          </div>
+          <div class="card-desc">Logo • Mini Brand Guide • Visitenkarte • Website kommt</div>
+          <div style="margin-top:6px;font-size:12px;font-style:italic">ansehen →</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="placeholder" style="aspect-ratio:16/9">Branding + Website Preview<br>Léspoir ASBL</div>
+        <div style="margin-top:10px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <div class="card-title">Léspoir ASBL</div>
+            <span style="font-size:10px;background:#E1FD52;padding:2px 6px;font-weight:bold">web + branding</span>
+          </div>
+          <div class="card-desc">Branding + Website • Huy, Belgien • in Arbeit</div>
+          <div style="margin-top:6px;font-size:12px;font-style:italic">ansehen →</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="placeholder" style="aspect-ratio:16/9">Portfolio-Website Fotografin</div>
+        <div style="margin-top:10px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <div class="card-title">Fotografin</div>
+            <span style="font-size:10px;background:#E1FD52;padding:2px 6px;font-weight:bold">web</span>
+          </div>
+          <div class="card-desc">Portfolio-Website • Design & Development • in Arbeit</div>
+          <div style="margin-top:6px;font-size:12px;font-style:italic">ansehen →</div>
+        </div>
+      </div>
+    </div>
+    <div class="note">Referenzen dynamisch aus eigenem CMS • neue Projekte einfach hinzufügen • "ansehen →" führt zu /referenzen/[slug] • "in Arbeit" Badge wenn noch nicht live</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="sec">
+  <div class="sec-head"><span>cta</span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="row" style="align-items:center">
+      <div>
+        <div class="text-block"><div class="label">headline</div><div class="content medium">dein projekt als nächstes?</div></div>
+        <div class="content muted" style="font-size:12px">nicolas@laconis.be</div>
+      </div>
+      <div style="text-align:right">
+        <button class="btn primary" style="font-size:13px;padding:10px 24px">projekt starten →</button>
+        <div class="note">→ /kontakt#projekt</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-note">
+  <span>laconis.be/referenzen</span>
+  <span>wireframe v1 · April 2026</span>
+</div>
+
+</body>
+</html>

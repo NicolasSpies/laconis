@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lacønis — Homepage Wireframe</title>
+<style>
+  body { font-family: monospace; font-size: 13px; max-width: 900px; margin: 0 auto; padding: 2rem; background: #fff; color: #111; }
+  h1 { font-size: 13px; font-weight: normal; color: #999; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 2rem; }
+  .sec { border: 1px dashed #ccc; border-radius: 4px; margin-bottom: 1.5rem; }
+  .sec-head { background: #f5f5f5; padding: 6px 12px; font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px dashed #ccc; display: flex; justify-content: space-between; align-items: center; }
+  .sec-head .tag { background: #111; color: #fff; font-size: 9px; padding: 2px 6px; border-radius: 2px; letter-spacing: 0.1em; }
+  .sec-head .tag.launch { background: #E1FD52; color: #111; }
+  .sec-body { padding: 1rem 1.25rem; }
+  .placeholder { background: #f0f0f0; border: 1px dashed #bbb; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #999; text-align: center; padding: 1rem; line-height: 1.6; }
+  .row { display: flex; gap: 1rem; margin-bottom: 1rem; }
+  .row > * { flex: 1; }
+  .col { display: flex; flex-direction: column; gap: 1rem; }
+  .text-block { margin-bottom: 0.75rem; }
+  .text-block .label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
+  .text-block .content { font-size: 13px; line-height: 1.6; }
+  .text-block .content.big { font-size: 22px; font-weight: bold; line-height: 1.1; }
+  .text-block .content.medium { font-size: 16px; font-weight: bold; }
+  .text-block .content.muted { color: #666; }
+  .btn-row { display: flex; gap: 8px; margin-top: 0.75rem; flex-wrap: wrap; }
+  .btn { border: 1px solid #111; padding: 6px 14px; font-family: monospace; font-size: 11px; background: none; cursor: pointer; }
+  .btn.primary { background: #E1FD52; border-color: #E1FD52; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .tag-item { border: 1px solid #ccc; padding: 3px 8px; font-size: 11px; border-radius: 2px; }
+  .tag-item.hi { background: #E1FD52; border-color: #E1FD52; font-weight: bold; }
+  .metric-row { display: flex; gap: 0; border: 1px solid #ddd; }
+  .metric-item { flex: 1; padding: 0.75rem 1rem; border-right: 1px solid #ddd; text-align: center; }
+  .metric-item:last-child { border-right: none; }
+  .metric-num { font-size: 22px; font-weight: bold; color: #E1FD52; background: #111; display: inline-block; padding: 2px 6px; border-radius: 2px; margin-bottom: 4px; }
+  .metric-label { font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 0.1em; }
+  .divider { border: none; border-top: 1px dashed #eee; margin: 1rem 0; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .card { border: 1px solid #ddd; padding: 1rem; border-radius: 3px; }
+  .card .card-title { font-weight: bold; margin-bottom: 6px; }
+  .card .card-desc { color: #666; font-size: 12px; line-height: 1.5; }
+  .note { font-size: 11px; color: #999; font-style: italic; margin-top: 6px; }
+  .cms-mock { border: 1px solid #ddd; border-radius: 3px; overflow: hidden; }
+  .cms-mock-bar { background: #f5f5f5; border-bottom: 1px solid #ddd; padding: 6px 10px; font-size: 10px; color: #999; }
+  .cms-mock-body { padding: 10px; }
+  .cms-mock-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #f0f0f0; font-size: 11px; }
+  .cms-mock-row:last-child { border-bottom: none; }
+  .cms-spruch { background: #f9f9f9; border: 1px dashed #ddd; padding: 8px; margin-top: 8px; font-size: 11px; font-style: italic; color: #666; }
+  .form-field { margin-bottom: 10px; }
+  .form-field label { display: block; font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .form-field input, .form-field textarea { width: 100%; border: 1px solid #ddd; padding: 8px 10px; font-family: monospace; font-size: 12px; }
+  .form-field textarea { height: 70px; }
+  .fsteps { display: flex; gap: 4px; margin-bottom: 1rem; }
+  .fstep { flex: 1; height: 3px; background: #ddd; }
+  .fstep.active { background: #E1FD52; border: 1px solid #111; }
+  .fopts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+  .fopt { border: 1px solid #ddd; padding: 6px 12px; font-family: monospace; font-size: 11px; cursor: pointer; }
+  .fopt.sel { border-color: #111; font-weight: bold; }
+  .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 2rem; border-top: 2px solid #111; padding-top: 1.5rem; }
+  .footer-col-title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #999; margin-bottom: 8px; }
+  .footer-links { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
+  .footer-links a { color: #666; text-decoration: none; }
+  .footer-bottom { grid-column: 1 / -1; padding-top: 1rem; border-top: 1px solid #eee; display: flex; justify-content: space-between; font-size: 11px; color: #999; }
+  .pt-custom { border: 1px dashed #111; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+  .pt-custom .pt-custom-title { font-weight: bold; font-size: 13px; }
+  .pt-custom .pt-custom-sub { font-size: 11px; color: #666; }
+  nav-wf { display: flex; justify-content: space-between; align-items: center; border: 1px solid #ddd; padding: 10px 16px; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<h1>lacønis — homepage wireframe · v1 · April 2026</h1>
+
+<!-- ══════════════════════════════════════════
+     NAV
+══════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <span>Navigation <span style="color:#bbb;font-weight:normal">· sticky · blur backdrop</span></span>
+    <span class="tag launch">Launch</span>
+  </div>
+  <div class="sec-body">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0">
+      <div style="font-weight:bold;font-size:16px">lacønis</div>
+      <div style="display:flex;gap:2rem;font-size:12px;color:#666">
+        <span>leistungen</span>
+        <span>referenzen</span>
+        <span>preise</span>
+        <span>über mich</span>
+        <span style="color:#ccc">shop</span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px">DE</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px;color:#999">FR</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px;color:#999">EN</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 7px;color:#ccc">login</span>
+        <button class="btn primary">projekt starten</button>
+      </div>
+    </div>
+    <div class="note">logo links · links mitte · sprache + login + cta rechts · login ausgegraut bis Phase 3 · "projekt starten" scrollt zu #kontakt · shop ausgegraut bis Phase 2</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <span>Hero <span style="color:#bbb;font-weight:normal">· 100vh · fullscreen · grid-bg · NUR TYPO — kein Bild!</span></span>
+    <span class="tag launch">Launch</span>
+  </div>
+  <div class="sec-body">
+    <div class="text-block">
+      <div class="label">Eyebrow</div>
+      <div class="content muted">Freelance • Eupen, Belgien</div>
+    </div>
+    <div class="text-block">
+      <div class="label">Headline — groß • für sich stehend</div>
+      <div class="content big">Design<br>mit Meinung.<br>Web mit Seele.</div>
+    </div>
+    <div class="text-block">
+      <div class="label">subline</div>
+      <div class="content muted">Deine Website sollte für dich arbeiten • nicht nur gut aussehen. Keine 0815-Websites. Identitäten die bleiben.</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary">projekt starten →</button>
+      <button class="btn">referenzen ansehen</button>
+    </div>
+    <div class="note">Reiner Typo-Hero • kein Bild • Headline steht für sich • Einlauf-Animation • Foto kommt erst bei "über mich"</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SOCIAL PROOF
+══════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <span>Social Proof <span style="color:#bbb;font-weight:normal">· 1 Zeile · kompakt</span></span>
+    <span class="tag launch">Launch</span>
+  </div>
+  <div class="sec-body">
+    <div class="metric-row">
+      <div class="metric-item"><div class="metric-num">5+</div><div class="metric-label">projekte</div></div>
+      <div class="metric-item"><div class="metric-num">3</div><div class="metric-label">sprachen</div></div>
+      <div class="metric-item"><div class="metric-num">100%</div><div class="metric-label">selbst entwickelt</div></div>
+      <div class="metric-item"><div class="metric-num">1</div><div class="metric-label">ansprechpartner</div></div>
+      
+    </div>
+    <div class="note">Zahlen wachsen mit jedem Projekt • animiert rein beim ersten Scroll</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     LEISTUNGEN
+══════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <span>Leistungen <span style="color:#bbb;font-weight:normal">· Web volle Breite oben · Kreatives + Werbetechnik unten</span></span>
+    <span class="tag launch">Launch</span>
+  </div>
+  <div class="sec-body">
+    <div class="text-block">
+      <div class="label">section headline</div>
+      <div class="content medium">Websites die für sich selbst sprechen.</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Web - volle Breite, 2-geteilt -->
+    <div class="card" style="margin-bottom:1rem">
+
+      <!-- OBERER TEIL: Allgemeine Web-Beschreibung -->
+      <div style="display:flex;gap:2rem;padding-bottom:1rem;margin-bottom:1rem;border-bottom:2px solid #E1FD52">
+        <div style="flex:1">
+          <div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">01 — Web</div>
+          <div class="card-title" style="font-size:16px;margin-bottom:8px">Deine Website. Responsive, schnell, für Google optimiert.</div>
+          <div class="card-desc">Von der ersten Idee bis zum Launch. Design • Development • SEO • alles inklusive. Kein Cookie-Banner nötig • eigene Statistiken direkt dabei.</div>
+          <div style="display:inline-flex;align-items:center;gap:8px;background:#f9f9f9;border:1px solid #E1FD52;border-radius:4px;padding:6px 12px;margin-top:10px">
+            <span style="font-size:18px;font-weight:bold">⚡</span>
+            <div>
+              <div style="font-weight:bold;font-size:12px">blitzschnell • mobile & desktop</div>
+              <div style="font-size:11px;color:#666">95+ google pagespeed score • messbar • kein marketing-versprechen</div>
+            </div>
+          </div>
+          <div class="tag-list" style="margin-top:10px">
+            <span class="tag-item">Design</span>
+            <span class="tag-item">Development</span>
+            <span class="tag-item">SEO inkl.</span>
+            <span class="tag-item">Mehrsprachig</span>
+            <span class="tag-item">Kein Cookie-Banner</span>
+            <span class="tag-item">Responsiv</span>
+          </div>
+        </div>
+        <div style="width:280px;flex-shrink:0">
+          <div class="placeholder" style="height:160px">
+            Bild • fertige Website Beispiel<br>
+            Screenshot einer lacønis-Referenz<br>
+            oder animiertes Mockup
+          </div>
+        </div>
+      </div>
+
+      <!-- UNTERER TEIL: Eigenes CMS inklusive -->
+      <div style="display:flex;gap:2rem">
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <span style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:0.1em">Eigenes headless CMS</span>
+            <span style="background:#E1FD52;font-size:10px;padding:2px 8px;font-weight:bold;border-radius:2px">inklusive</span>
+          </div>
+          <div style="background:#f9f9f9;border:1px solid #E1FD52;border-radius:4px;padding:10px 12px;margin-bottom:10px">
+            <div style="font-weight:bold;font-size:13px;margin-bottom:3px">Jeder kann seine Website selbst bearbeiten.</div>
+            <div style="font-size:12px;color:#555">Egal ob Onepager oder 10 Seiten • jeder bekommt Zugang zum CMS und kann Inhalte selbst pflegen. Kein Anruf nötig für kleine Textänderungen.</div>
+          </div>
+          <div class="card-desc" style="margin-bottom:10px">Selbst gebaut • selbst gehostet • volle Kontrolle. Kein WordPress-Bloat. Sauber • intuitiv • kein Entwickler nötig für tägliche Inhalte.</div>
+          <div class="tag-list">
+            <span class="tag-item hi">Selbst gebaut</span>
+            <span class="tag-item hi">Selbst gehostet</span>
+            <span class="tag-item hi">Jeder editiert selbst</span>
+            <span class="tag-item">KI / DeepL Übersetzung</span>
+            <span class="tag-item">4-fach Sicherheit + 2FA</span>
+            <span class="tag-item">Eigene Stats</span>
+            <span class="tag-item">Newsletter</span>
+            <span class="tag-item">Shop-Bereich</span>
+          </div>
+          <div style="margin-top:10px;font-size:12px;font-style:italic">Mehr erfahren →</div>
+        </div>
+        <div style="width:280px;flex-shrink:0">
+          <div class="col" style="gap:8px">
+            <div class="cms-mock">
+              <div class="cms-mock-bar">Screenshot 1 • Dashboard Übersicht</div>
+              <div class="placeholder" style="height:80px">Dashboard • Statistiken • Schnellzugriff</div>
+            </div>
+            <div class="cms-mock">
+              <div class="cms-mock-bar">Screenshot 2 • Post erstellen</div>
+              <div class="placeholder" style="height:80px">Editor • sauber • intuitiv</div>
+            </div>
+            <div class="cms-mock">
+              <div class="cms-mock-bar">Screenshot 3 • Statistiken</div>
+              <div class="placeholder" style="height:80px">Besucher • kein Google Analytics nötig</div>
+            </div>
+          </div>
+          <div class="note">2-3 echte Screenshots • zeigen statt erklären</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Kreatives + Werbetechnik nebeneinander -->
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">02 — Kreatives.</div>
+        <div class="card-desc">Logo, Brand Guide, Visitenkarte, Flyer, Plakat • alles aus einer Hand. Damit alles im gleichen Look ist.</div>
+        <div class="tag-list">
+          <span class="tag-item">Branding</span>
+          <span class="tag-item">Grafik</span>
+          <span class="tag-item">Druck</span>
+        </div>
+        <div class="placeholder" style="height:100px;margin-top:10px">Bild • Beispiel Branding-Arbeit<br>Logo • Visitenkarte • Briefpapier</div>
+        <div style="margin-top:8px;font-size:12px;font-style:italic">Mehr erfahren →</div>
+      </div>
+      <div class="card">
+        <div class="card-title">03 — Werbetechnik.</div>
+        <div class="card-desc">Fassadenbeschriftung, Autobeschriftung inkl. Montage. Physische und digitale Sichtbarkeit aus einer Hand.</div>
+        <div class="tag-list">
+          <span class="tag-item">Autobeschriftung</span>
+          <span class="tag-item">Fassaden</span>
+          <span class="tag-item">Montage inkl.</span>
+        </div>
+        <div class="placeholder" style="height:100px;margin-top:10px">Bild • Autobeschriftung oder<br>Fassadenbeschriftung Beispiel</div>
+        <div style="margin-top:8px;font-size:12px;font-style:italic">Mehr erfahren →</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     REFERENZEN
+══════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <span>Referenzen <span style="color:#bbb;font-weight:normal">· 2x2 Grid · dynamisch aus CMS</span></span>
+    <span class="tag launch">Launch</span>
+  </div>
+  <div class="sec-body">
+    <div class="text-block">
+      <div class="label">section headline</div>
+      <div class="content medium">Ergebnisse die für sich sprechen.</div>
+    </div>
+    <div class="grid2" style="margin-top:1rem">
+      <div class="card">
+        <div class="placeholder" style="aspect-ratio:16/9">Screenshot fabry-baumpflege.be</div>
+        <div style="padding-top:10px">
+          <div class="card-title">Fabry Baumpflege</div>
+          <div class="card-desc">Website • Design & Development • eigenes CMS • Eupen</div>
+          <span style="font-size:10px;background:#E1FD52;padding:2px 6px;font-weight:bold">Web</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="placeholder" style="aspect-ratio:16/9">Logo • Visitenkarte • Brand Identity</div>
+        <div style="padding-top:10px">
+          <div class="card-title">Holoroom</div>
+          <div class="card-desc">Branding • Logo • Mini Brand Guide • Website kommt</div>
+          <span style="font-size:10px;background:#E1FD52;padding:2px 6px;font-weight:bold">Branding</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="placeholder" style="aspect-ratio:16/9">Branding + Website in Arbeit</div>
+        <div style="padding-top:10px">
+          <div class="card-title">Léspoir ASBL</div>
+          <div class="card-desc">Branding + Website • Huy • in Arbeit</div>
+          <span style="font-size:10px;background:#E1FD52;padding:2px 6px;font-weight:bold">Web + Branding</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="placeholder" style="aspect-ratio:16/9">Portfolio-Website Fotografin • in Arbeit</div>
+        <div style="padding-top:10px">
+          <div class="card-title">Fotografin</div>
+          <div class="card-desc">Portfolio-Website • Design & Development • in Arbeit</div>
+          <span style="font-size:10px;background:#E1FD52;padding:2px 6px;font-weight:bold">Web</span>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:1rem">
+      <button class="btn">alle referenzen ansehen</button>
+    </div>
+    <div class="note">Referenzen dynamisch aus eigenem CMS • Filter: Web • Branding • Grafik</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ÜBER MICH
+══════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <span>über mich. <span style="color:#bbb;font-weight:normal">· Foto links · Text rechts · Link zur vollen Seite</span></span>
+    <span class="tag launch">Launch</span>
+  </div>
+  <div class="sec-body">
+    <div class="row">
+      <div style="max-width:240px;flex-shrink:0">
+        <div class="placeholder" style="aspect-ratio:3/4">
+          Foto von mir<br>
+          <br>
+          Vibe: natürliches Licht<br>
+          candid • nicht gestellt<br>
+          interessanter Winkel<br>
+          locker • authentisch<br>
+          <br>
+          Fotografin macht das 📸
+        </div>
+      </div>
+      <div>
+        <div class="text-block">
+          <div class="label">section headline</div>
+          <div class="content medium">über mich.</div>
+        </div>
+        <div class="text-block">
+          <div class="label">haupt-quote</div>
+          <div class="content medium">Hinter lacønis stecke nur ich.<br>Und ich nehme das persönlich.</div>
+        </div>
+        <div class="text-block">
+          <div class="label">body text</div>
+          <div class="content muted">Jedes Projekt wird aus zwei Perspektiven betrachtet • deiner und der deiner Kunden. Die wichtigste Frage dabei: was soll bei deinen Kunden ankommen?</div>
+        </div>
+        <div class="text-block">
+          <div class="label">zweiter absatz</div>
+          <div class="content muted">Perfect imperfection • keine sterilen Websites. Dinge die nach jemandem aussehen.</div>
+        </div>
+        <div class="tag-list">
+          <span class="tag-item hi">Direkt & locker</span>
+          <span class="tag-item hi">Perfect imperfection</span>
+          <span class="tag-item">Autodidakt Web</span>
+          <span class="tag-item">Mediengestalter</span>
+          <span class="tag-item">Eupen • Belgien</span>
+          <span class="tag-item">DE • FR • EN</span>
+        </div>
+        <div class="btn-row">
+          <button class="btn">mehr über mich →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- ══════════════════════════════════════════
+     KONTAKT STRIP
+══════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <span>kontakt strip <span style="color:#bbb;font-weight:normal">· ganz unten · simpel · kein Formular</span></span>
+    <span class="tag launch">Launch</span>
+  </div>
+  <div class="sec-body">
+    <div class="row" style="align-items:center">
+      <div>
+        <div class="text-block">
+          <div class="label">headline</div>
+          <div class="content medium">bereit loszulegen?</div>
+        </div>
+        <div style="display:flex;gap:2rem;margin-top:8px">
+          <div>
+            <div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">e-mail</div>
+            <div style="font-size:13px;font-weight:bold">nicolas@laconis.be</div>
+          </div>
+          <div>
+            <div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">telefon</div>
+            <div style="font-size:13px">+32 488 43 91 47</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <button class="btn primary" style="font-size:13px;padding:10px 24px">projekt starten →</button>
+        <div class="note" style="margin-top:6px">führt zu /kontakt#projekt • direkt zum multistep</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <span>Footer</span>
+    <span class="tag launch">Launch</span>
+  </div>
+  <div class="sec-body">
+    <div class="footer-grid">
+      <div>
+        <div style="font-size:18px;font-weight:bold;margin-bottom:6px">lacønis</div>
+        <div style="font-size:12px;font-style:italic;color:#666">say less, mean more</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Seiten</div>
+        <ul class="footer-links">
+          <li><a href="#">leistungen web</a></li>
+          <li><a href="#">leistungen kreatives</a></li>
+          <li><a href="#">preise</a></li>
+          <li><a href="#">referenzen</a></li>
+          <li><a href="#">über mich</a></li>
+          <li style="color:#ccc">shop</li>
+          <li style="color:#ccc">kundenlogin</li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Kontakt</div>
+        <ul class="footer-links">
+          <li><a href="#">nicolas@laconis.be</a></li>
+          <li><a href="#">+32 488 43 91 47</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Sprache</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span style="font-size:11px;border:1px solid #ddd;padding:2px 8px;display:inline-block">DE</span>
+          <span style="font-size:11px;border:1px solid #ddd;padding:2px 8px;display:inline-block;color:#999">FR</span>
+          <span style="font-size:11px;border:1px solid #ddd;padding:2px 8px;display:inline-block;color:#999">EN</span>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 lacønis • Nicolas Spies • Impressum • Datenschutz</span>
+        <span>laconis.be</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

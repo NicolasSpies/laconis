@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lacønis — über mich wireframe</title>
+<style>
+  body { font-family: monospace; font-size: 13px; max-width: 900px; margin: 0 auto; padding: 2rem; background: #fff; color: #111; }
+  h1 { font-size: 13px; font-weight: normal; color: #999; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 2rem; }
+  .sec { border: 1px dashed #ccc; border-radius: 4px; margin-bottom: 1.5rem; }
+  .sec-head { background: #f5f5f5; padding: 6px 12px; font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px dashed #ccc; display: flex; justify-content: space-between; align-items: center; }
+  .sec-head .tag { background: #111; color: #fff; font-size: 9px; padding: 2px 6px; border-radius: 2px; }
+  .sec-head .tag.launch { background: #E1FD52; color: #111; }
+  .sec-body { padding: 1rem 1.25rem; }
+  .placeholder { background: #f0f0f0; border: 1px dashed #bbb; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #999; text-align: center; padding: 1rem; line-height: 1.6; }
+  .row { display: flex; gap: 1rem; margin-bottom: 1rem; }
+  .row > * { flex: 1; }
+  .text-block { margin-bottom: 0.75rem; }
+  .label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
+  .content { font-size: 13px; line-height: 1.6; }
+  .content.big { font-size: 28px; font-weight: bold; line-height: 1.1; }
+  .content.medium { font-size: 16px; font-weight: bold; }
+  .content.muted { color: #666; }
+  .btn { border: 1px solid #111; padding: 6px 14px; font-family: monospace; font-size: 11px; background: none; cursor: pointer; }
+  .btn.primary { background: #E1FD52; border-color: #E1FD52; }
+  .divider { border: none; border-top: 1px dashed #eee; margin: 1rem 0; }
+  .note { font-size: 11px; color: #999; font-style: italic; margin-top: 6px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag-item { border: 1px solid #ccc; padding: 3px 8px; font-size: 11px; border-radius: 2px; }
+  .tag-item.hi { background: #E1FD52; border-color: #E1FD52; font-weight: bold; }
+  .quote-block { border-left: 3px solid #E1FD52; padding: 8px 0 8px 14px; font-size: 15px; font-style: italic; margin: 10px 0; line-height: 1.5; }
+  .timeline-item { display: flex; gap: 14px; margin-bottom: 12px; }
+  .tl-dot { width: 8px; height: 8px; border-radius: 50%; background: #E1FD52; margin-top: 5px; flex-shrink: 0; }
+  .tl-content { font-size: 12px; line-height: 1.6; }
+  .tl-label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2px; }
+  .footer-note { margin-top: 2rem; font-size: 11px; color: #999; border-top: 1px solid #eee; padding-top: 1rem; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<h1>lacønis — über mich wireframe · v1 · April 2026</h1>
+
+<!-- NAV -->
+<div class="sec">
+  <div class="sec-head"><span>nav</span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0">
+      <div style="font-weight:bold;font-size:16px">lacønis</div>
+      <div style="display:flex;gap:2rem;font-size:12px;color:#666">
+        <span>leistungen</span><span>referenzen</span><span>preise</span>
+        <span style="font-weight:bold;text-decoration:underline">über mich</span>
+        <span style="color:#ccc">shop</span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px">DE</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px;color:#999">FR</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px;color:#999">EN</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 7px;color:#ccc">login</span>
+        <button class="btn primary">projekt starten</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="sec">
+  <div class="sec-head"><span>hero <span style="color:#bbb;font-weight:normal">· foto + quote</span></span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="row">
+      <div style="max-width:260px;flex-shrink:0">
+        <div class="placeholder" style="aspect-ratio:3/4">
+          Foto<br>natürliches Licht<br>candid • authentisch<br>nicht gestellt<br><br>Fotografin 📸
+        </div>
+      </div>
+      <div>
+        <div class="text-block"><div class="label">headline</div><div class="content big">über mich.</div></div>
+        <div class="quote-block">Hinter lacønis stecke nur ich.<br>Und ich nehme das persönlich.</div>
+        <div class="text-block" style="margin-top:10px"><div class="label">body</div><div class="content muted">Jedes Projekt wird aus zwei Perspektiven betrachtet • deiner und der deiner Kunden. Die wichtigste Frage dabei: was soll bei deinen Kunden ankommen?</div></div>
+        <div class="tag-list">
+          <span class="tag-item hi">direkt & locker</span>
+          <span class="tag-item hi">perfect imperfection</span>
+          <span class="tag-item">29 jahre</span>
+          <span class="tag-item">eupen • belgien</span>
+          <span class="tag-item">DE • FR • EN</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WERTE & PERSÖNLICHKEIT -->
+<div class="sec">
+  <div class="sec-head"><span>werte & persönlichkeit</span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="text-block"><div class="label">headline</div><div class="content medium">perfect imperfection.</div></div>
+    <div class="text-block"><div class="label">body</div><div class="content muted">Keine sterilen Websites. Dinge die nach jemandem aussehen. Minimalismus der trotzdem Charakter hat. Imperfektionen die das "Menschliche" zeigen — das ist was eine Arbeit von einer Vorlage unterscheidet.</div></div>
+    <div style="margin-top:1rem">
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content"><div class="tl-label">direkt & respektvoll</div>Ich sage was ich denke • immer mit Respekt. Kein Abnicken • kein "der Kunde hat immer recht"-Prinzip. Echte Beratung statt Auftragserledigung.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content"><div class="tl-label">autodidakt web</div>Web habe ich nie in der Schule gelernt. Komplett selbst erarbeitet — weil ich's wollte. Das erklärt auch warum ich lieber selbst baue als fremde Systeme zu nutzen.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content"><div class="tl-label">perfektionistisch & sauber</div>Was rausgeht muss stimmen. Kein halbfertiger Kram. Lieber nochmal schauen als was rausschicken das nicht sitzt.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content"><div class="tl-label">liebt automatisierung</div>Prozesse optimieren • Zeit sparen • effizienter werden. Das gilt für mich genauso wie für meine Kunden.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HINTERGRUND -->
+<div class="sec">
+  <div class="sec-head"><span>hintergrund <span style="color:#bbb;font-weight:normal">· ausbildung & werdegang</span></span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="text-block"><div class="label">headline</div><div class="content medium">wo das alles herkommt.</div></div>
+    <div style="margin-top:1rem">
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content"><div class="tl-label">heute</div>Freelance Designer & Developer • lacønis • Eupen</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content"><div class="tl-label">ausbildung • pavonet eupen</div>Grafik + Werbetechnik • Autobeschriftung • Fassadenbeschriftung • Drucksachen</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content"><div class="tl-label">ausbildung • pixelbar eupen</div>Webdesign • erste Web-Erfahrungen • WordPress (aber dann selbst alles besser gemacht 😄)</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content"><div class="tl-label">mediengestalter</div>Gelernter Mediengestalter • Grundlage für alles was danach kam</div>
+      </div>
+    </div>
+    <div class="note">Nexo nicht erwähnen — kleiner Markt • jeder kennt jeden</div>
+  </div>
+</div>
+
+<!-- X41 - DJ IDENTITY -->
+<div class="sec">
+  <div class="sec-head"><span>nebenbei <span style="color:#bbb;font-weight:normal">· optionaler block · dezent</span></span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="text-block"><div class="label">headline</div><div class="content medium">nach feierabend.</div></div>
+    <div class="text-block"><div class="label">body</div><div class="content muted">Wenn nicht am Rechner — dann hinter den Decks. Als X41 spiele ich Techno • Trance • Breakbeats. Komplett separate Energie von lacønis.</div></div>
+    <div class="note">Kurz & locker halten • zeigt den Menschen hinter der Arbeit • keine langen Erklärungen</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="sec">
+  <div class="sec-head"><span>cta</span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="row" style="align-items:center">
+      <div>
+        <div class="text-block"><div class="label">headline</div><div class="content medium">genug gelesen?</div></div>
+        <div class="content muted" style="font-size:12px">Einfach schreiben • ich melde mich.</div>
+      </div>
+      <div style="text-align:right">
+        <button class="btn primary" style="font-size:13px;padding:10px 24px">projekt starten →</button>
+        <div class="note">→ /kontakt#projekt</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-note">
+  <span>laconis.be/über-mich</span>
+  <span>wireframe v1 · April 2026</span>
+</div>
+
+</body>
+</html>

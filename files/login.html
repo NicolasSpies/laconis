@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lacønis — kundenlogin wireframe</title>
+<style>
+  body { font-family: monospace; font-size: 13px; max-width: 900px; margin: 0 auto; padding: 2rem; background: #fff; color: #111; }
+  h1 { font-size: 13px; font-weight: normal; color: #999; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 2rem; }
+  .phase-banner { background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; padding: 8px 14px; font-size: 12px; color: #666; margin-bottom: 2rem; }
+  .sec { border: 1px dashed #ccc; border-radius: 4px; margin-bottom: 1.5rem; }
+  .sec-head { background: #f5f5f5; padding: 6px 12px; font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px dashed #ccc; display: flex; justify-content: space-between; align-items: center; }
+  .sec-head .tag { background: #555; color: #fff; font-size: 9px; padding: 2px 6px; border-radius: 2px; }
+  .sec-body { padding: 1rem 1.25rem; }
+  .placeholder { background: #f0f0f0; border: 1px dashed #bbb; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #999; text-align: center; padding: 1rem; line-height: 1.6; }
+  .row { display: flex; gap: 1rem; margin-bottom: 1rem; }
+  .row > * { flex: 1; }
+  .text-block { margin-bottom: 0.75rem; }
+  .label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
+  .content { font-size: 13px; line-height: 1.6; }
+  .content.medium { font-size: 16px; font-weight: bold; }
+  .content.muted { color: #666; }
+  .btn { border: 1px solid #111; padding: 6px 14px; font-family: monospace; font-size: 11px; background: none; cursor: pointer; }
+  .btn.primary { background: #E1FD52; border-color: #E1FD52; }
+  .note { font-size: 11px; color: #999; font-style: italic; margin-top: 6px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .card { border: 1px solid #ddd; padding: 1rem; border-radius: 3px; }
+  .form-field { margin-bottom: 10px; }
+  .form-field label { display: block; font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .form-field input { width: 100%; border: 1px solid #ddd; padding: 8px 10px; font-family: monospace; font-size: 12px; }
+  .dashboard-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 12px; }
+  .dashboard-row:last-child { border-bottom: none; }
+  .status-badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; }
+  .status-badge.active { background: #E1FD52; }
+  .status-badge.done { background: #111; color: #fff; }
+  .status-badge.pending { background: #ddd; }
+  .footer-note { margin-top: 2rem; font-size: 11px; color: #999; border-top: 1px solid #eee; padding-top: 1rem; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<h1>lacønis — kundenlogin wireframe · Phase 3 · v1 · April 2026</h1>
+<div class="phase-banner">⏳ <strong>Phase 3</strong> — kommt wenn Phase 1 + 2 stabil laufen. Technisch: eigenes CMS + Auth-System.</div>
+
+<!-- LOGIN FORM -->
+<div class="sec">
+  <div class="sec-head"><span>login form <span style="color:#bbb;font-weight:normal">· /login · nicht in nav gelistet · nur Button</span></span><span class="tag">Phase 3</span></div>
+  <div class="sec-body">
+    <div style="max-width:400px;margin:0 auto">
+      <div class="text-block" style="text-align:center;margin-bottom:1.5rem">
+        <div style="font-size:22px;font-weight:bold;margin-bottom:6px">lacønis</div>
+        <div style="font-size:13px;color:#666">kundenbereich</div>
+      </div>
+      <div class="form-field"><label>e-mail</label><input type="text" placeholder="deine@email.be"></div>
+      <div class="form-field"><label>passwort</label><input type="password" placeholder="••••••••"></div>
+      <button class="btn primary" style="width:100%;padding:10px;font-size:12px;margin-top:4px">einloggen</button>
+      <div style="font-size:11px;color:#999;text-align:center;margin-top:10px">passwort vergessen?</div>
+      <div class="note" style="text-align:center">Zugangsdaten werden von Nicolas bei Projektstart eingerichtet</div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="sec">
+  <div class="sec-head"><span>dashboard <span style="color:#bbb;font-weight:normal">· nach login · /dashboard</span></span><span class="tag">Phase 3</span></div>
+  <div class="sec-body">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+      <div>
+        <div style="font-weight:bold;font-size:15px">hallo, Max. 👋</div>
+        <div style="font-size:12px;color:#666">dein lacønis kundenbereich</div>
+      </div>
+      <button class="btn" style="font-size:11px">ausloggen</button>
+    </div>
+
+    <!-- PROJEKTSTAND -->
+    <div class="card" style="margin-bottom:1rem">
+      <div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">projektstand</div>
+      <div class="dashboard-row">
+        <span>briefing & konzept</span>
+        <span class="status-badge done">✓ abgeschlossen</span>
+      </div>
+      <div class="dashboard-row">
+        <span>design</span>
+        <span class="status-badge done">✓ abgeschlossen</span>
+      </div>
+      <div class="dashboard-row">
+        <span>development</span>
+        <span class="status-badge active">⚡ in arbeit</span>
+      </div>
+      <div class="dashboard-row">
+        <span>cms-einrichtung</span>
+        <span class="status-badge pending">ausstehend</span>
+      </div>
+      <div class="dashboard-row">
+        <span>launch</span>
+        <span class="status-badge pending">ausstehend</span>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <!-- DOKUMENTE -->
+      <div class="card">
+        <div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">dokumente</div>
+        <div class="dashboard-row"><span>angebot_2026.pdf</span><span style="font-size:11px;color:#999">↓</span></div>
+        <div class="dashboard-row"><span>konzept_v1.pdf</span><span style="font-size:11px;color:#999">↓</span></div>
+        <div class="dashboard-row"><span>brand_guide.pdf</span><span style="font-size:11px;color:#999">↓</span></div>
+      </div>
+
+      <!-- RECHNUNGEN -->
+      <div class="card">
+        <div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">rechnungen</div>
+        <div class="dashboard-row"><span>rechnung_001.pdf</span><span style="font-size:10px;background:#E1FD52;padding:1px 6px">bezahlt</span></div>
+        <div class="dashboard-row"><span>rechnung_002.pdf</span><span style="font-size:10px;background:#ddd;padding:1px 6px">offen</span></div>
+      </div>
+    </div>
+
+    <div class="note">Alle Daten aus eigenem CMS • Nicolas verwaltet Projektstand & Uploads direkt</div>
+  </div>
+</div>
+
+<div class="footer-note">
+  <span>laconis.be/login · laconis.be/dashboard</span>
+  <span>wireframe Phase 3 · v1 · April 2026</span>
+</div>
+
+</body>
+</html>

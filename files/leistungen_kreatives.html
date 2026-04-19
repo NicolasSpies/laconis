@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lacønis — leistungen kreatives wireframe</title>
+<style>
+  body { font-family: monospace; font-size: 13px; max-width: 900px; margin: 0 auto; padding: 2rem; background: #fff; color: #111; }
+  h1 { font-size: 13px; font-weight: normal; color: #999; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 2rem; }
+  .sec { border: 1px dashed #ccc; border-radius: 4px; margin-bottom: 1.5rem; }
+  .sec-head { background: #f5f5f5; padding: 6px 12px; font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px dashed #ccc; display: flex; justify-content: space-between; align-items: center; }
+  .sec-head .tag { background: #111; color: #fff; font-size: 9px; padding: 2px 6px; border-radius: 2px; }
+  .sec-head .tag.launch { background: #E1FD52; color: #111; }
+  .sec-body { padding: 1rem 1.25rem; }
+  .placeholder { background: #f0f0f0; border: 1px dashed #bbb; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #999; text-align: center; padding: 1rem; line-height: 1.6; }
+  .row { display: flex; gap: 1rem; margin-bottom: 1rem; }
+  .row > * { flex: 1; }
+  .text-block { margin-bottom: 0.75rem; }
+  .label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
+  .content { font-size: 13px; line-height: 1.6; }
+  .content.big { font-size: 32px; font-weight: bold; line-height: 1; }
+  .content.medium { font-size: 16px; font-weight: bold; }
+  .content.muted { color: #666; }
+  .btn { border: 1px solid #111; padding: 6px 14px; font-family: monospace; font-size: 11px; background: none; cursor: pointer; }
+  .btn.primary { background: #E1FD52; border-color: #E1FD52; }
+  .btn-row { display: flex; gap: 8px; margin-top: 0.75rem; }
+  .divider { border: none; border-top: 1px dashed #eee; margin: 1rem 0; }
+  .note { font-size: 11px; color: #999; font-style: italic; margin-top: 6px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .card { border: 1px solid #ddd; padding: 1rem; border-radius: 3px; }
+  .card-title { font-weight: bold; margin-bottom: 6px; }
+  .card-desc { color: #666; font-size: 12px; line-height: 1.5; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .tag-item { border: 1px solid #ccc; padding: 3px 8px; font-size: 11px; border-radius: 2px; }
+  .tag-item.hi { background: #E1FD52; border-color: #E1FD52; font-weight: bold; }
+  .price-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f0f0f0; font-size: 12px; }
+  .price-row:last-child { border-bottom: none; }
+  .footer-note { margin-top: 2rem; font-size: 11px; color: #999; border-top: 1px solid #eee; padding-top: 1rem; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<h1>lacønis — leistungen / kreatives wireframe · v1 · April 2026</h1>
+
+<!-- NAV -->
+<div class="sec">
+  <div class="sec-head"><span>nav <span style="color:#bbb;font-weight:normal">· identisch auf allen seiten</span></span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0">
+      <div style="font-weight:bold;font-size:16px">lacønis</div>
+      <div style="display:flex;gap:2rem;font-size:12px;color:#666">
+        <span style="font-weight:bold;text-decoration:underline">leistungen</span>
+        <span>referenzen</span><span>preise</span><span>über mich</span><span style="color:#ccc">shop</span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px">DE</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px;color:#999">FR</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px;color:#999">EN</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 7px;color:#ccc">login</span>
+        <button class="btn primary">projekt starten</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="sec">
+  <div class="sec-head"><span>hero</span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="text-block"><div class="label">eyebrow</div><div class="content muted">leistungen</div></div>
+    <div class="text-block"><div class="label">headline</div><div class="content big">kreatives.</div></div>
+    <div class="text-block"><div class="label">subline</div><div class="content muted">Branding • Grafik • Werbetechnik. Alles aus einer Hand • damit alles im gleichen Look ist.</div></div>
+    <div class="note">Breadcrumb: lacønis → leistungen → kreatives</div>
+  </div>
+</div>
+
+<!-- BRANDING -->
+<div class="sec">
+  <div class="sec-head"><span>branding <span style="color:#bbb;font-weight:normal">· logo + identität</span></span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="row">
+      <div>
+        <div class="text-block"><div class="label">headline</div><div class="content medium">deine identität. einmalig.</div></div>
+        <div class="text-block"><div class="label">body</div><div class="content muted">Ein Logo das nach dir aussieht • nicht nach einer Vorlage. Mit Mini Brand Guide damit du weißt wie du's überall einsetzt.</div></div>
+        <div style="border:1px solid #ddd;border-radius:4px;padding:10px 14px;margin-top:10px">
+          <div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">branding-paket • 1.200 €</div>
+          <div class="price-row"><span>logo • varianten • favicon</span><span style="color:#999">inkl.</span></div>
+          <div class="price-row"><span>mini brand guide</span><span style="color:#999">inkl.</span></div>
+          <div class="price-row"><span>visitenkarte</span><span style="color:#999">inkl.</span></div>
+          <div class="price-row"><span>briefpapier DIN A4</span><span style="color:#999">inkl.</span></div>
+          <div class="price-row"><span>3 social media templates</span><span style="color:#999">inkl.</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="placeholder" style="height:200px">Bild • Beispiel Branding-Arbeit<br>Logo • Visitenkarte • Brand Guide<br>z.B. Holoroom</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GRAFIK -->
+<div class="sec">
+  <div class="sec-head"><span>grafik <span style="color:#bbb;font-weight:normal">· print + digital</span></span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="text-block"><div class="label">headline</div><div class="content medium">print & digital.</div></div>
+    <div class="text-block"><div class="label">subline</div><div class="content muted">Alles einmalig pauschal. Für größere Kampagnen oder Social Media Pakete — da gibt es Partner die das übernehmen.</div></div>
+    <div class="grid3" style="margin-top:1rem">
+      <div class="card">
+        <div class="card-title">flyer & plakat</div>
+        <div class="card-desc">Einseitig ab 200 € • beidseitig ab 300 € • Plakat alle Formate ab 200 €</div>
+        <div class="placeholder" style="height:80px;margin-top:8px">Beispiel Flyer/Plakat</div>
+      </div>
+      <div class="card">
+        <div class="card-title">rollup & broschüre</div>
+        <div class="card-desc">Rollup Gestaltung 200 € • Broschüre 75 €/Seite</div>
+        <div class="placeholder" style="height:80px;margin-top:8px">Beispiel Rollup/Broschüre</div>
+      </div>
+      <div class="card">
+        <div class="card-title">social & signatur</div>
+        <div class="card-desc">Social Media Visual 75 €/Stück • E-Mail Signatur 75 €</div>
+        <div class="placeholder" style="height:80px;margin-top:8px">Beispiel Social Visuals</div>
+      </div>
+    </div>
+    <div class="note">Druck auf Anfrage • Aufschlag auf Einkaufspreis • VK +200% • Rest +40%</div>
+  </div>
+</div>
+
+<!-- WERBETECHNIK -->
+<div class="sec">
+  <div class="sec-head"><span>werbetechnik <span style="color:#bbb;font-weight:normal">· physische sichtbarkeit</span></span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="row">
+      <div>
+        <div class="text-block"><div class="label">headline</div><div class="content medium">sichtbar. digital und physisch.</div></div>
+        <div class="text-block"><div class="label">body</div><div class="content muted">Wer seine Website hat und auch physisch sichtbar sein will — Autobeschriftung und Fassadenbeschriftung inkl. Montage.</div></div>
+        <div style="border:1px solid #ddd;border-radius:4px;padding:10px 14px;margin-top:10px">
+          <div class="price-row"><span>autobeschriftung gestaltung (links + rechts)</span><span style="font-weight:bold">150 €/Auto</span></div>
+          <div class="price-row"><span>vorne + hinten (zusatz)</span><span style="font-weight:bold">+75 €</span></div>
+          <div class="price-row"><span>montage (ich klebe selbst)</span><span style="font-weight:bold">150 €/Auto</span></div>
+          <div class="price-row"><span>fassadenbeschriftung</span><span style="font-weight:bold">auf anfrage</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="placeholder" style="height:180px">Foto • Autobeschriftung Beispiel<br>oder Fassadenbeschriftung</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PARTNER MODELL -->
+<div class="sec">
+  <div class="sec-head"><span>was ich nicht anbiete <span style="color:#bbb;font-weight:normal">· aber trotzdem erledigt wird</span></span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="text-block"><div class="label">headline</div><div class="content medium">kein einziger kontaktwechsel.</div></div>
+    <div class="text-block"><div class="label">body</div><div class="content muted">Für größere Social Media Kampagnen oder Aufträge außerhalb meiner Stärken — gibt es Partner die das übernehmen. Du hast immer nur Kontakt mit mir. Ich koordiniere den Rest.</div></div>
+    <div class="note">Bewusst dezent halten — kein langer Disclaimer. Nur wenn relevant erwähnen.</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="sec">
+  <div class="sec-head"><span>cta</span><span class="tag launch">Launch</span></div>
+  <div class="sec-body">
+    <div class="row" style="align-items:center">
+      <div>
+        <div class="text-block"><div class="label">headline</div><div class="content medium">bereit loszulegen?</div></div>
+        <div class="content muted" style="font-size:12px">nicolas@laconis.be • +32 488 43 91 47</div>
+      </div>
+      <div style="text-align:right">
+        <button class="btn primary" style="font-size:13px;padding:10px 24px">projekt starten →</button>
+        <div class="note">→ /kontakt#projekt</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-note">
+  <span>laconis.be/leistungen/kreatives</span>
+  <span>wireframe v1 · April 2026</span>
+</div>
+
+</body>
+</html>

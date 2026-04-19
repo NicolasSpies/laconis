@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lacønis — Homepage Struktur</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500&display=swap');
+:root{--lime:#E1FD52;--anthrazit:#383838;--offwhite:#F2F2F2;--white:#ffffff;--muted:#888;--border:#D8D8D8;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--offwhite);color:var(--anthrazit);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.7;padding:3rem 1.5rem 5rem;}
+.page{max-width:820px;margin:0 auto;}
+.cover{margin-bottom:3rem;padding-bottom:2rem;border-bottom:1.5px solid var(--anthrazit);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;}
+.logo{font-family:'DM Mono',monospace;font-size:36px;font-weight:400;letter-spacing:-1px;line-height:1;}
+.logo .o{background:var(--anthrazit);color:var(--lime);padding:1px 4px;border-radius:3px;}
+.cover-meta{text-align:right;}
+.cover-meta .doc-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:4px;}
+.cover-meta .doc-date{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
+.intro{background:var(--anthrazit);color:#f0ede6;border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:2.5rem;font-size:13px;line-height:1.7;}
+.intro strong{color:var(--lime);font-weight:500;}
+.stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.stack-pill{font-family:'DM Mono',monospace;font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,0.08);color:#f0ede6;border:0.5px solid rgba(255,255,255,0.15);}
+.stack-pill.hi{background:var(--lime);color:var(--anthrazit);border-color:transparent;font-weight:500;}
+.sections{display:flex;flex-direction:column;gap:12px;}
+.sec{background:var(--white);border:0.5px solid var(--border);border-radius:8px;overflow:hidden;}
+.sec-header{display:flex;align-items:stretch;}
+.sec-num-col{background:var(--anthrazit);color:var(--lime);font-family:'DM Mono',monospace;font-size:11px;font-weight:500;writing-mode:vertical-rl;padding:12px 8px;display:flex;align-items:center;justify-content:center;min-width:32px;letter-spacing:0.08em;}
+.sec-body{flex:1;padding:14px 16px;}
+.sec-meta{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.sec-type{font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);border:0.5px solid var(--border);padding:2px 7px;border-radius:10px;}
+.sec-prio{font-family:'DM Mono',monospace;font-size:9px;padding:2px 7px;border-radius:10px;}
+.sec-prio.must{background:var(--lime);color:var(--anthrazit);font-weight:500;}
+.sec-prio.p2{background:var(--offwhite);color:var(--muted);border:0.5px solid var(--border);}
+.sec-prio.p3{background:var(--offwhite);color:var(--muted);border:0.5px solid var(--border);}
+.sec-title{font-size:15px;font-weight:500;color:var(--anthrazit);margin-bottom:4px;}
+.sec-subtitle{font-size:12px;color:var(--muted);margin-bottom:10px;font-family:'DM Mono',monospace;}
+.sec-details{display:flex;flex-direction:column;gap:5px;}
+.detail-row{display:flex;gap:8px;align-items:flex-start;}
+.detail-dot{width:5px;height:5px;border-radius:50%;background:var(--lime);margin-top:6px;flex-shrink:0;}
+.detail-dot.grey{background:var(--border);}
+.detail-text{font-size:12px;color:var(--anthrazit);line-height:1.6;}
+.detail-text.muted{color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;}
+.quote-inline{font-family:'DM Mono',monospace;font-size:12px;font-style:italic;color:var(--anthrazit);border-left:2px solid var(--lime);padding:4px 0 4px 10px;margin:8px 0 4px;}
+.height-indicator{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border);}
+.height-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);white-space:nowrap;}
+.height-bar{flex:1;height:4px;background:var(--offwhite);border-radius:2px;overflow:hidden;border:0.5px solid var(--border);}
+.height-fill{height:100%;background:var(--anthrazit);border-radius:2px;}
+.phase{background:var(--offwhite);border:0.5px solid var(--border);border-radius:8px;padding:1rem 1.25rem;margin-top:2.5rem;}
+.phase-title{font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:10px;}
+.phase-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.phase-card{background:var(--white);border-radius:6px;border:0.5px solid var(--border);padding:10px 12px;}
+.phase-card .pc-num{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:4px;}
+.phase-card .pc-title{font-size:12px;font-weight:500;color:var(--anthrazit);margin-bottom:4px;}
+.phase-card .pc-items{font-size:11px;color:var(--muted);line-height:1.6;}
+.phase-card.active{border-color:var(--lime);}
+.phase-card.active .pc-num{color:var(--anthrazit);background:var(--lime);display:inline-block;padding:1px 6px;border-radius:3px;}
+.footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--anthrazit);display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);flex-wrap:wrap;gap:6px;}
+@media(max-width:580px){.phase-grid{grid-template-columns:1fr}.cover{flex-direction:column;align-items:flex-start}.cover-meta{text-align:left}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div class="logo">lac<span class="o">ø</span>nis</div>
+    <div class="cover-meta">
+      <div class="doc-title">Homepage • Struktur & Inhalt</div>
+      <div class="doc-date">April 2026 • v2</div>
+    </div>
+  </div>
+
+  <div class="intro">
+    <strong>Tech Stack:</strong> Next.js • Tailwind CSS • Framer Motion • Eigenes headless CMS • Hostinger VPS
+    <div class="stack">
+      <span class="stack-pill hi">Next.js</span>
+      <span class="stack-pill hi">Tailwind CSS</span>
+      <span class="stack-pill hi">Framer Motion</span>
+      <span class="stack-pill hi">Eigenes headless CMS</span>
+      <span class="stack-pill">Resend / Nodemailer</span>
+      <span class="stack-pill">Stripe (Shop)</span>
+      <span class="stack-pill">Hostinger VPS</span>
+      <span class="stack-pill">DE • FR • EN</span>
+    </div>
+  </div>
+
+  <div class="sections">
+
+    <div class="sec">
+      <div class="sec-header">
+        <div class="sec-num-col">01</div>
+        <div class="sec-body">
+          <div class="sec-meta"><span class="sec-type">Navigation</span><span class="sec-prio must">Launch</span></div>
+          <div class="sec-title">Sticky Navigation</div>
+          <div class="sec-subtitle">Bleibt beim Scrollen oben • immer erreichbar</div>
+          <div class="sec-details">
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Logo links • klick → zurück zu Home</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Links: Leistungen • Referenzen • Preise • Über mich</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Sprachumschalter: DE • FR • EN</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">CTA-Button rechts: "Projekt starten" → scrollt zu #kontakt</div></div>
+          </div>
+          <div class="height-indicator"><span class="height-label">Höhe</span><div class="height-bar"><div class="height-fill" style="width:10%"></div></div><span class="height-label">klein • sticky</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-header">
+        <div class="sec-num-col">02</div>
+        <div class="sec-body">
+          <div class="sec-meta"><span class="sec-type">Hero</span><span class="sec-prio must">Launch</span></div>
+          <div class="sec-title">Hero • Erster Eindruck</div>
+          <div class="sec-subtitle">Fullscreen • sofort klar wer Nicolas ist und was er macht</div>
+          <div class="sec-details">
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text"><strong>Headline:</strong> "Design mit Meinung. Web mit Seele."</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text"><strong>Subline:</strong> "Deine Website sollte für dich arbeiten • nicht nur gut aussehen."</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Zwei CTAs: primär "Projekt starten" • sekundär "Referenzen ansehen"</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Foto Nicolas rechts • menschlich • nicht gestellt</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Elegante Einlauf-Animation • ein Moment, kein Overload</div></div>
+            <div class="detail-row"><div class="detail-dot grey"></div><div class="detail-text muted">Dark background • Neon Lime als Akzent • kein 0815-Hero • Grid-Hintergrund subtil</div></div>
+          </div>
+          <div class="height-indicator"><span class="height-label">Höhe</span><div class="height-bar"><div class="height-fill" style="width:100%"></div></div><span class="height-label">100vh • fullscreen</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-header">
+        <div class="sec-num-col">03</div>
+        <div class="sec-body">
+          <div class="sec-meta"><span class="sec-type">Social Proof</span><span class="sec-prio must">Launch</span></div>
+          <div class="sec-title">Zahlen & Vertrauen</div>
+          <div class="sec-subtitle">Kurze Metriken • locker formuliert, nicht überheblich</div>
+          <div class="sec-details">
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">5 Metriken: 5+ Projekte • 3 Sprachen • 100% selbst entwickelt • 1 Ansprechpartner • ∞ Kein 0815</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Scrollt animiert rein beim ersten Besuch</div></div>
+            <div class="detail-row"><div class="detail-dot grey"></div><div class="detail-text muted">Zahlen wachsen mit jedem Projekt • immer aktuell halten</div></div>
+          </div>
+          <div class="height-indicator"><span class="height-label">Höhe</span><div class="height-bar"><div class="height-fill" style="width:20%"></div></div><span class="height-label">kompakt • 1 Zeile</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-header">
+        <div class="sec-num-col">04</div>
+        <div class="sec-body">
+          <div class="sec-meta"><span class="sec-type">Leistungen</span><span class="sec-prio must">Launch</span></div>
+          <div class="sec-title">Was ich mache</div>
+          <div class="sec-subtitle">Web volle Breite oben • Kreatives + Werbetechnik nebeneinander unten</div>
+          <div class="sec-details">
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text"><strong>Web</strong> • volle Breite • mit CMS-Demo rechts eingebettet (Screenshot/Animation Dashboard)</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text"><strong>Kreatives</strong> • Branding, Grafik, Druck • Bild-Platzhalter</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text"><strong>Werbetechnik</strong> • Autobeschriftung, Fassaden, Montage • Bild-Platzhalter</div></div>
+            <div class="detail-row"><div class="detail-dot grey"></div><div class="detail-text muted">Jede Karte: kurzer Text • Tags • "Mehr erfahren →" • Hover-Effekt</div></div>
+          </div>
+          <div class="quote-inline">"Websites die für sich selbst sprechen."</div>
+          <div class="height-indicator"><span class="height-label">Höhe</span><div class="height-bar"><div class="height-fill" style="width:60%"></div></div><span class="height-label">groß • 3 Karten + CMS-Demo</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-header">
+        <div class="sec-num-col">05</div>
+        <div class="sec-body">
+          <div class="sec-meta"><span class="sec-type">Referenzen</span><span class="sec-prio must">Launch</span></div>
+          <div class="sec-title">Referenzen • Preview</div>
+          <div class="sec-subtitle">2x2 Grid • dynamisch aus eigenem CMS</div>
+          <div class="sec-details">
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Cards: Bild • Name • Kategorie • kurze Beschreibung</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Filter: Web • Branding • Grafik</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Aktuell: Fabry-Baumpflege • Holoroom • Léspoir ASBL • Fotografin</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Button: "Alle Referenzen ansehen" → /referenzen</div></div>
+            <div class="detail-row"><div class="detail-dot grey"></div><div class="detail-text muted">Nicolas fügt neue Projekte einfach per eigenem CMS hinzu</div></div>
+          </div>
+          <div class="height-indicator"><span class="height-label">Höhe</span><div class="height-bar"><div class="height-fill" style="width:55%"></div></div><span class="height-label">mittel-groß • 4 Cards</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-header">
+        <div class="sec-num-col">06</div>
+        <div class="sec-body">
+          <div class="sec-meta"><span class="sec-type">Über mich</span><span class="sec-prio must">Launch</span></div>
+          <div class="sec-title">Über mich • kurz & persönlich</div>
+          <div class="sec-subtitle">Foto links • Text rechts • locker, humorvoll, einladend</div>
+          <div class="sec-details">
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Foto Nicolas • menschlich, nicht gestellt • kein Stockphoto-Feeling</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Haupt-Quote: "Ich bin kein Ja-Sager."</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Ton: locker, direkt, kein Lebenslauf • jeder soll denken "den kann ich einfach anschreiben"</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Tags: Direkt & locker • Perfect imperfection • Autodidakt Web • DE • FR • EN</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Button: "Mehr über mich" → /über-mich</div></div>
+          </div>
+          <div class="quote-inline">"Ich bau keine Websites. Ich bau Identitäten • und sag dir, wenn ich denke es geht besser."</div>
+          <div class="height-indicator"><span class="height-label">Höhe</span><div class="height-bar"><div class="height-fill" style="width:45%"></div></div><span class="height-label">mittel • Bild + Text</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-header">
+        <div class="sec-num-col">07</div>
+        <div class="sec-body">
+          <div class="sec-meta"><span class="sec-type">Preise</span><span class="sec-prio must">Launch</span></div>
+          <div class="sec-title">Preise • Teaser</div>
+          <div class="sec-subtitle">Links Text • rechts Pakete-Liste + Kalkulator</div>
+          <div class="sec-details">
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Headline: "Transparent. Kein Kleingedrucktes."</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">3 Pakete: Web Starter ab 1.990 € • Web Standard ab 2.890 € • Full Identity Bundle ab 5.500 €</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">"✦ Mach dir dein eigenes Paket" • Kalkulator-Link • individuelle Zusammenstellung</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Kleiner Hinweis: Ratenzahlung möglich • senkt die Hemmschwelle</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Button: "Alle Preise ansehen →" → /preise</div></div>
+            <div class="detail-row"><div class="detail-dot grey"></div><div class="detail-text muted">Hosting immer bei Nicolas • nicht verhandelbar • klar kommunizieren</div></div>
+          </div>
+          <div class="height-indicator"><span class="height-label">Höhe</span><div class="height-bar"><div class="height-fill" style="width:35%"></div></div><span class="height-label">mittel • Teaser</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-header">
+        <div class="sec-num-col">08</div>
+        <div class="sec-body">
+          <div class="sec-meta"><span class="sec-type">Shop</span><span class="sec-prio p2">Phase 2</span></div>
+          <div class="sec-title">lacønis Merch • Shop</div>
+          <div class="sec-subtitle">Kleiner Shop • eigenes CMS • Stripe Integration</div>
+          <div class="sec-details">
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Headline: "lacønis Merch."</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Subline: "Wenn du lacønis magst • trag's raus. Kleine Auflage • echter Charakter."</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">3 Produkt-Cards: Tee • Tote Bag • Sticker Pack (Produkte noch offen)</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Shop über eigenes CMS verwaltet • Stripe für Zahlungen</div></div>
+            <div class="detail-row"><div class="detail-dot grey"></div><div class="detail-text muted">Merch-Ideen noch offen • Produkte anpassen wenn's so weit ist</div></div>
+          </div>
+          <div class="height-indicator"><span class="height-label">Höhe</span><div class="height-bar"><div class="height-fill" style="width:40%"></div></div><span class="height-label">mittel • 3 Produkt-Cards</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-header">
+        <div class="sec-num-col">09</div>
+        <div class="sec-body">
+          <div class="sec-meta"><span class="sec-type">Kontakt</span><span class="sec-prio must">Launch</span></div>
+          <div class="sec-title">Projekt starten • CTA</div>
+          <div class="sec-subtitle">Einladender Abschluss • Multistep-Formular direkt eingebettet</div>
+          <div class="sec-details">
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Headline: "Lass uns reden." • locker, kein Anzug-Deutsch</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text"><strong>Schritt 1:</strong> Was brauchst du? (Website • Branding • Grafik • Werbetechnik • Alles davon 😄)</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text"><strong>Schritt 2:</strong> Name • E-Mail oder Telefon • kurze Beschreibung</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text"><strong>Schritt 3:</strong> Absenden • Bestätigung</div></div>
+            <div class="detail-row"><div class="detail-dot grey"></div><div class="detail-text muted">Direkt: nicolas@laconis.be • +32 488 43 91 47</div></div>
+          </div>
+          <div class="height-indicator"><span class="height-label">Höhe</span><div class="height-bar"><div class="height-fill" style="width:65%"></div></div><span class="height-label">groß • Formular eingebettet</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-header">
+        <div class="sec-num-col">10</div>
+        <div class="sec-body">
+          <div class="sec-meta"><span class="sec-type">Footer</span><span class="sec-prio must">Launch</span></div>
+          <div class="sec-title">Footer</div>
+          <div class="sec-subtitle">Links • Kontakt • Socials • Legal • Sprache</div>
+          <div class="sec-details">
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Logo + Tagline "say less, mean more" links</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Links: Leistungen Web • Leistungen Kreatives • Preise • Referenzen • Über mich</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Socials: Instagram • evtl. LinkedIn</div></div>
+            <div class="detail-row"><div class="detail-dot"></div><div class="detail-text">Impressum • Datenschutz • Sprache DE/FR/EN</div></div>
+          </div>
+          <div class="height-indicator"><span class="height-label">Höhe</span><div class="height-bar"><div class="height-fill" style="width:25%"></div></div><span class="height-label">kompakt</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="phase">
+    <div class="phase-title">Launch-Phasen</div>
+    <div class="phase-grid">
+      <div class="phase-card active">
+        <div class="pc-num">Phase 1 • Launch</div>
+        <div class="pc-title">MVP</div>
+        <div class="pc-items">Home • Über mich • Leistungen Web • Leistungen Kreatives • Preise • Referenzen • Kontakt</div>
+      </div>
+      <div class="phase-card">
+        <div class="pc-num">Phase 2</div>
+        <div class="pc-title">Kurz danach</div>
+        <div class="pc-items">Shop (Merch) • News / Blog</div>
+      </div>
+      <div class="phase-card">
+        <div class="pc-num">Phase 3</div>
+        <div class="pc-title">Wenn's Zeit gibt</div>
+        <div class="pc-items">Kundenlogin • Projektstand • Kundendaten • Rechnungen</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>laconis.be • nicolas@laconis.be</span>
+    <span>homepage struktur v2 • April 2026</span>
+  </div>
+
+</div>
+</body>
+</html>

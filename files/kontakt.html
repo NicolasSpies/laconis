@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lacønis — kontakt wireframe</title>
+<style>
+  body { font-family: monospace; font-size: 13px; max-width: 900px; margin: 0 auto; padding: 2rem; background: #fff; color: #111; }
+  h1 { font-size: 13px; font-weight: normal; color: #999; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 2rem; }
+  .sec { border: 1px dashed #ccc; border-radius: 4px; margin-bottom: 1.5rem; }
+  .sec-head { background: #f5f5f5; padding: 6px 12px; font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px dashed #ccc; display: flex; justify-content: space-between; align-items: center; }
+  .sec-head .tag { background: #111; color: #fff; font-size: 9px; padding: 2px 6px; border-radius: 2px; letter-spacing: 0.1em; }
+  .sec-head .tag.launch { background: #E1FD52; color: #111; }
+  .sec-body { padding: 1rem 1.25rem; }
+  .placeholder { background: #f0f0f0; border: 1px dashed #bbb; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #999; text-align: center; padding: 1rem; line-height: 1.6; }
+  .row { display: flex; gap: 1rem; margin-bottom: 1rem; }
+  .row > * { flex: 1; }
+  .col { display: flex; flex-direction: column; gap: 1rem; }
+  .text-block { margin-bottom: 0.75rem; }
+  .text-block .label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
+  .text-block .content { font-size: 13px; line-height: 1.6; }
+  .text-block .content.big { font-size: 28px; font-weight: bold; line-height: 1.1; }
+  .text-block .content.medium { font-size: 16px; font-weight: bold; }
+  .text-block .content.muted { color: #666; }
+  .btn { border: 1px solid #111; padding: 6px 14px; font-family: monospace; font-size: 11px; background: none; cursor: pointer; }
+  .btn.primary { background: #E1FD52; border-color: #E1FD52; }
+  .btn-row { display: flex; gap: 8px; margin-top: 0.75rem; flex-wrap: wrap; }
+  .divider { border: none; border-top: 1px dashed #eee; margin: 1.5rem 0; }
+  .note { font-size: 11px; color: #999; font-style: italic; margin-top: 6px; }
+  .form-field { margin-bottom: 10px; }
+  .form-field label { display: block; font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .form-field input, .form-field textarea, .form-field select { width: 100%; border: 1px solid #ddd; padding: 8px 10px; font-family: monospace; font-size: 12px; }
+  .form-field textarea { height: 80px; resize: vertical; }
+  .fsteps { display: flex; gap: 4px; margin-bottom: 6px; }
+  .fstep { flex: 1; height: 3px; background: #ddd; border-radius: 2px; }
+  .fstep.active { background: #E1FD52; border: 1px solid #111; }
+  .fstep.done { background: #111; }
+  .fopts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+  .fopt { border: 1px solid #ddd; padding: 6px 12px; font-family: monospace; font-size: 11px; cursor: pointer; }
+  .fopt.sel { border-color: #111; background: #E1FD52; font-weight: bold; }
+  .step-box { border: 1px solid #ddd; border-radius: 4px; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+  .step-box.active { border-color: #E1FD52; border-width: 2px; }
+  .step-box.inactive { opacity: 0.4; }
+  .step-num { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .step-num span { background: #111; color: #fff; font-size: 10px; padding: 1px 6px; border-radius: 2px; }
+  .step-num span.done { background: #E1FD52; color: #111; }
+  .summary-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f0f0f0; font-size: 12px; }
+  .summary-row:last-child { border-bottom: none; }
+  .anchor-note { background: #fffbe6; border: 1px solid #E1FD52; border-radius: 4px; padding: 8px 12px; font-size: 11px; color: #666; margin-bottom: 1rem; }
+  .flow-box { background: #f9f9f9; border: 1px dashed #ddd; border-radius: 4px; padding: 1rem; margin-bottom: 1rem; }
+  .flow-step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; font-size: 12px; }
+  .flow-step:last-child { margin-bottom: 0; }
+  .flow-num { background: #111; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 2px; flex-shrink: 0; margin-top: 1px; }
+  .flow-num.lime { background: #E1FD52; color: #111; }
+  .contact-item { margin-bottom: 12px; }
+  .contact-item .ci-label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
+  .contact-item .ci-val { font-size: 14px; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<h1>lacønis — kontakt wireframe · v1 · April 2026</h1>
+
+<!-- ══════════════════════════════════════════
+     NAV (same as homepage)
+══════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <span>nav <span style="color:#bbb;font-weight:normal">· identisch wie homepage</span></span>
+    <span class="tag launch">Launch</span>
+  </div>
+  <div class="sec-body">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0">
+      <div style="font-weight:bold;font-size:16px">lacønis</div>
+      <div style="display:flex;gap:2rem;font-size:12px;color:#666">
+        <span>leistungen</span>
+        <span>referenzen</span>
+        <span>preise</span>
+        <span>über mich</span>
+        <span style="color:#ccc">shop</span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px">DE</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px;color:#999">FR</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 6px;color:#999">EN</span>
+        <span style="font-size:11px;border:1px solid #ddd;padding:2px 7px;color:#ccc">login</span>
+        <button class="btn primary">projekt starten</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     KONTAKT — OBEN: HEADER + DATEN
+══════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <span>kontakt · header + direkte kontaktdaten <span style="color:#bbb;font-weight:normal">· für wer einfach nur fragen will</span></span>
+    <span class="tag launch">Launch</span>
+  </div>
+  <div class="sec-body">
+    <div class="row">
+      <div>
+        <div class="text-block">
+          <div class="label">headline</div>
+          <div class="content big">lass uns reden.</div>
+        </div>
+        <div class="text-block">
+          <div class="label">subline</div>
+          <div class="content muted">Eine kurze Nachricht reicht. Einfach schreiben was du brauchst.</div>
+        </div>
+      </div>
+      <div>
+        <div class="contact-item">
+          <div class="ci-label">e-mail</div>
+          <div class="ci-val">nicolas@laconis.be</div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-label">telefon</div>
+          <div class="ci-val">+32 488 43 91 47</div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-label">instagram</div>
+          <div class="ci-val">@laconis.be</div>
+        </div>
+        <div class="note">Wer nur kurz fragen will • Mail oder Anruf reicht immer</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TRENNLINIE + ANCHOR #projekt
+══════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <span>trennlinie + anchor <span style="color:#bbb;font-weight:normal">· #projekt anchor hier setzen</span></span>
+    <span class="tag launch">Launch</span>
+  </div>
+  <div class="sec-body">
+    <div class="anchor-note">
+      ⚓ <strong>id="projekt"</strong> — anchor wird hier gesetzt. "projekt starten" von überall auf der Seite springt genau hier hin. Auch der Kalkulator auf /preise verlinkt auf /kontakt#projekt mit den ausgewählten Daten als URL-Parameter.
+    </div>
+    <div style="text-align:center;font-size:13px;font-weight:bold;padding:0.5rem 0">ein projekt starten.</div>
+    <div class="note" style="text-align:center">Headline die den Übergang markiert</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MULTISTEP FORMULAR #projekt
+══════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <span>multistep formular <span style="color:#bbb;font-weight:normal">· 4 Schritte · anchor #projekt</span></span>
+    <span class="tag launch">Launch</span>
+  </div>
+  <div class="sec-body">
+
+    <!-- FLOW ERKLÄRUNG -->
+    <div class="flow-box">
+      <div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Logik • zwei Einstiege</div>
+      <div class="flow-step">
+        <span class="flow-num">A</span>
+        <div><strong>Direkt von /kontakt</strong> — startet bei Schritt 1 (Was brauchst du?)</div>
+      </div>
+      <div class="flow-step">
+        <span class="flow-num lime">B</span>
+        <div><strong>Vom Kalkulator /preise</strong> — Schritt 1 + 2 automatisch befüllt via URL-Parameter → startet bei Schritt 3 (Zusammenfassung)</div>
+      </div>
+    </div>
+
+    <!-- PROGRESS BAR -->
+    <div style="font-size:10px;color:#999;margin-bottom:4px">voortgang</div>
+    <div class="fsteps" style="margin-bottom:1.5rem">
+      <div class="fstep done"></div>
+      <div class="fstep done"></div>
+      <div class="fstep active"></div>
+      <div class="fstep"></div>
+    </div>
+
+    <!-- SCHRITT 1 -->
+    <div class="step-box inactive">
+      <div class="step-num"><span class="done">✓</span> schritt 1 • was brauchst du?</div>
+      <div class="fopts">
+        <button class="fopt sel">website</button>
+        <button class="fopt">branding</button>
+        <button class="fopt">grafik</button>
+        <button class="fopt">werbetechnik</button>
+        <button class="fopt">alles davon 😄</button>
+      </div>
+      <div class="note">Wird übersprungen wenn vom Kalkulator kommend • Auswahl bereits bekannt</div>
+    </div>
+
+    <!-- SCHRITT 2 -->
+    <div class="step-box inactive">
+      <div class="step-num"><span class="done">✓</span> schritt 2 • details</div>
+      <div class="fopts">
+        <button class="fopt sel">web starter</button>
+        <button class="fopt">web standard</button>
+        <button class="fopt">web pro</button>
+        <button class="fopt">bundle</button>
+        <button class="fopt">noch nicht sicher</button>
+      </div>
+      <div class="note">Wird übersprungen wenn vom Kalkulator kommend • Paket bereits bekannt</div>
+    </div>
+
+    <!-- SCHRITT 3 — ZUSAMMENFASSUNG (aktiv wenn vom Kalkulator) -->
+    <div class="step-box active">
+      <div class="step-num"><span>3</span> schritt 3 • zusammenfassung deiner auswahl</div>
+      <div style="border:1px solid #ddd;border-radius:4px;padding:10px 14px;margin-bottom:10px">
+        <div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">deine auswahl</div>
+        <div class="summary-row"><span>paket</span><span style="font-weight:bold">web standard</span></div>
+        <div class="summary-row"><span>seiten</span><span>4 Seiten</span></div>
+        <div class="summary-row"><span>cms-bereiche</span><span>2 Bereiche</span></div>
+        <div class="summary-row"><span>sprachen</span><span>DE + FR</span></div>
+        <div class="summary-row"><span>hosting</span><span>30 €/Mt</span></div>
+        <div class="summary-row" style="font-weight:bold;border-top:1px solid #ddd;margin-top:4px;padding-top:4px"><span>gesamt einmalig</span><span>2.890 €</span></div>
+      </div>
+      <div class="note">Automatisch befüllt vom Kalkulator via URL-Parameter • editierbar falls der was ändern will</div>
+      <div class="btn-row"><button class="btn">zurück & anpassen</button><button class="btn primary">passt so → weiter</button></div>
+    </div>
+
+    <!-- SCHRITT 4 — KONTAKTDATEN -->
+    <div class="step-box inactive">
+      <div class="step-num"><span>4</span> schritt 4 • fast geschafft.</div>
+      <div class="form-field"><label>dein name</label><input type="text" placeholder="Max Mustermann"></div>
+      <div class="row">
+        <div class="form-field"><label>e-mail</label><input type="text" placeholder="max@firma.be"></div>
+        <div class="form-field"><label>telefon (optional)</label><input type="text" placeholder="+32 ..."></div>
+      </div>
+      <div class="form-field"><label>notiz (optional)</label><textarea placeholder="Gibt es noch was zu sagen? Deadline • Budget • besondere Wünsche..."></textarea></div>
+      <div class="btn-row">
+        <button class="btn primary" style="font-size:13px">anfrage abschicken →</button>
+      </div>
+      <div class="note">Nach Absenden: Bestätigungsseite mit "ich melde mich innerhalb von 24h"</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     FOOTER (same as homepage)
+══════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-head">
+    <span>footer <span style="color:#bbb;font-weight:normal">· identisch wie homepage</span></span>
+    <span class="tag launch">Launch</span>
+  </div>
+  <div class="sec-body">
+    <div style="font-size:12px;color:#999;font-style:italic">→ gleicher Footer wie homepage</div>
+  </div>
+</div>
+
+</body>
+</html>
