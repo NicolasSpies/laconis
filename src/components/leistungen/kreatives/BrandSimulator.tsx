@@ -109,7 +109,7 @@ function BrandSimulatorInner() {
           <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.75rem)] text-offwhite leading-[1.05]">
             probier's aus.{" "}
             <span className="text-offwhite/35">
-              name, farben, stimmung — sieh live, wie eine marke daraus werden
+              name, farben, stimmung • sieh live, wie eine marke daraus werden
               könnte.
             </span>
           </h2>
@@ -144,7 +144,7 @@ function BrandSimulatorInner() {
                 value={name}
                 onChange={(e) => setName(e.target.value.slice(0, 24))}
                 placeholder="müller, lacønis, acme…"
-                className="w-full h-11 bg-ink/[0.04] border border-ink/15 rounded-lg px-4 text-offwhite placeholder:text-offwhite/30 font-sans text-[15px] focus:outline-none focus:border-lime/60 focus:bg-ink/[0.08] transition-colors"
+                className="w-full h-11 bg-ink/[0.04] border border-ink/15 rounded-lg px-4 text-offwhite placeholder:text-offwhite/45 font-sans text-[15px] focus:outline-none focus:border-lime/60 focus:bg-ink/[0.08] transition-colors"
                 maxLength={24}
                 autoComplete="off"
                 spellCheck="false"
@@ -320,14 +320,14 @@ function BrandSimulatorInner() {
         {/* DISCLAIMER */}
         <div className="mt-10 rounded-xl border border-ink/10 bg-gradient-to-br from-ink/[0.03] to-transparent p-6 md:p-8 max-w-[820px]">
           <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
-            ⓘ was das hier ist — und was nicht
+            ⓘ was das hier ist • und was nicht
           </span>
           <p className="mt-3 text-[14px] leading-relaxed text-offwhite/65">
             eine{" "}
             <strong className="text-offwhite font-normal">
               spielerei zum fühlen
             </strong>
-            , wie ein brand-system aufgebaut ist — nicht ein fertiges design,
+            , wie ein brand-system aufgebaut ist • nicht ein fertiges design,
             das du so übernehmen könntest. echte markenarbeit beginnt mit
             recherche (wer bist du, wer sind die anderen?), entwickelt
             <em className="not-italic text-offwhite/80"> zwei bis drei</em>{" "}
@@ -495,7 +495,7 @@ function SimTile({
             {title}
           </h3>
         </div>
-        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/30 text-right">
+        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55 text-right">
           {note}
         </span>
       </div>
@@ -968,7 +968,7 @@ function BrandGuideRow({
               <span className="font-mono text-[10px] text-offwhite/60 tabular-nums flex-1 truncate">
                 {c.hex.toUpperCase()}
               </span>
-              <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/30">
+              <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
                 {c.label}
               </span>
             </div>
@@ -1513,7 +1513,7 @@ function SocialRow({
                   color: lightInkAlpha(0.55),
                 }}
               >
-                — {name}
+                • {name}
               </span>
             </div>
           </div>

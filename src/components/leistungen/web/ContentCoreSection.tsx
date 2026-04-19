@@ -50,9 +50,6 @@ export function ContentCoreSection() {
               <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
                 dashboard · live-ansicht
               </span>
-              <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/25">
-                platzhalter · echter screenshot folgt
-              </span>
             </div>
           </div>
 
@@ -64,9 +61,6 @@ export function ContentCoreSection() {
                 <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
                   editor
                 </span>
-                <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/25">
-                  platzhalter
-                </span>
               </div>
             </div>
             <div className="rounded-2xl border border-ink/10 bg-gradient-to-b from-ink/[0.02] to-transparent p-4 md:p-5">
@@ -74,9 +68,6 @@ export function ContentCoreSection() {
               <div className="mt-3 flex items-baseline justify-between gap-3">
                 <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
                   stats ohne cookies
-                </span>
-                <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/25">
-                  platzhalter
                 </span>
               </div>
             </div>

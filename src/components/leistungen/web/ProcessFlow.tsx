@@ -39,7 +39,7 @@ export function ProcessFlow() {
           </h2>
           <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/60">
             ich weiss nach gespräch eins, ob wir zusammenpassen. du weisst es
-            nach gespräch zwei. ab dann bauen wir, nicht verhandeln.
+            nach gespräch zwei. ab dann wird gebaut, nicht verhandelt.
           </p>
         </div>
 

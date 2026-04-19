@@ -155,7 +155,7 @@ export function downloadBonPdf({
 
   doc.setFontSize(8);
   doc.setTextColor(30);
-  centerText(doc, "danke — und schönen tag.", y);
+  centerText(doc, "danke • und schönen tag.", y);
   y += 5;
 
   doc.setFontSize(6);

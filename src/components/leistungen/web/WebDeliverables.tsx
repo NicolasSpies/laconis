@@ -16,7 +16,7 @@ const GROUPS: { titel: string; sub: string; items: Item[] }[] = [
       { label: "pagespeed 95+", meta: "lighthouse-report im repo" },
       { label: "responsive getestet", meta: "desktop · tablet · mobile · safari/chrome/firefox" },
       { label: "SEO-basis", meta: "sitemap · robots.txt · schema-markup · meta-tags" },
-      { label: "cookie-freie analytics", meta: "plausible oder umami — DSGVO-konform" },
+      { label: "cookie-freie analytics", meta: "plausible oder umami • DSGVO-konform" },
     ],
   },
   {
@@ -54,7 +54,7 @@ export function WebDeliverables() {
           </h2>
           <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/60">
             keine „datei schicke ich dir nächste woche". am launch-tag ist
-            alles da — technisch sauber, eingerichtet, erklärt. du drückst den
+            alles da • technisch sauber, eingerichtet, erklärt. du drückst den
             knopf, die seite ist live.
           </p>
         </div>
@@ -103,7 +103,7 @@ export function WebDeliverables() {
 
         <p className="mt-8 max-w-[640px] text-[13px] leading-relaxed text-offwhite/45">
           alles dokumentiert in einem geteilten ordner. du hast volle
-          transparenz — was ich gebaut habe, wie&apos;s läuft, wo was liegt.
+          transparenz • was ich gebaut habe, wie&apos;s läuft, wo was liegt.
         </p>
       </div>
     </section>

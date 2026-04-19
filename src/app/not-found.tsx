@@ -59,7 +59,7 @@ export default function NotFound() {
           </h1>
           <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55 max-w-[440px] mx-auto">
             vielleicht ein tippfehler, vielleicht ein alter link, vielleicht
-            ist die seite umgezogen. egal — zurück zur startseite ist immer
+            ist die seite umgezogen. egal • zurück zur startseite ist immer
             ein guter plan.
           </p>
 
@@ -73,8 +73,8 @@ export default function NotFound() {
           </div>
 
           {/* tiny footer note */}
-          <p className="mt-12 font-mono text-[10px] uppercase tracking-label text-offwhite/30">
-            wenn du denkst, das ist ein bug — {" "}
+          <p className="mt-12 font-mono text-[10px] uppercase tracking-label text-offwhite/55">
+            wenn du denkst, das ist ein bug • {" "}
             <a
               href="mailto:hallo@laconis.be"
               className="text-accent-ink hover:underline"

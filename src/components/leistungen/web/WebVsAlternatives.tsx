@@ -59,7 +59,7 @@ const OPTIONEN: Option[] = [
     gut: [
       "eigenes system, handgeschrieben",
       "pagespeed 95+ out of the box",
-      "ein gesprächspartner — jahrelang",
+      "ein gesprächspartner • jahrelang",
     ],
     schlecht: [
       "nicht für ‚morgen bitte fertig'",
@@ -102,7 +102,7 @@ export function WebVsAlternatives() {
             ?
           </h2>
           <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/60">
-            ehrliche antwort: nicht immer. hier vier wege zu einer website — mit
+            ehrliche antwort: nicht immer. hier vier wege zu einer website • mit
             dem, was sie wirklich können und wo sie aussteigen. wenn baukasten
             für dich reicht, nimm baukasten. ich will nur die projekte, bei
             denen&apos;s sinn ergibt.

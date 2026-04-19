@@ -167,7 +167,7 @@ export function BeforeAfterSlider() {
             );
           })}
         </div>
-        <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/30 ml-auto">
+        <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 ml-auto">
           {accent.hex}
         </span>
       </div>
@@ -527,9 +527,9 @@ function LaconisMock({ accentRgb }: { accentRgb: string }) {
               className="font-mono text-[8px] uppercase tracking-[0.24em]"
               style={{ color: ac }}
             >
-              kapitel 01 — brot
+              kapitel 01 • brot
             </span>
-            <span className="font-mono text-[8px] text-offwhite/30">
+            <span className="font-mono text-[8px] text-offwhite/50">
               (01)
             </span>
           </div>
@@ -578,7 +578,7 @@ function LaconisMock({ accentRgb }: { accentRgb: string }) {
               <span
                 className="mt-1 inline-block font-mono text-[7px] uppercase tracking-[0.2em] text-offwhite/35"
               >
-                — pierre müller, 3. generation
+                • pierre müller, 3. generation
               </span>
             </div>
           </div>
@@ -736,9 +736,9 @@ function LaconisMock({ accentRgb }: { accentRgb: string }) {
             className="font-mono text-[7px] uppercase tracking-[0.24em]"
             style={{ color: ac }}
           >
-            — heute im werk —
+            • heute im werk •
           </span>
-          <span className="font-mono text-[7px] uppercase tracking-[0.18em] text-offwhite/30">
+          <span className="font-mono text-[7px] uppercase tracking-[0.18em] text-offwhite/55">
             stand 06:12 · live
           </span>
         </div>
@@ -763,7 +763,7 @@ function LaconisMock({ accentRgb }: { accentRgb: string }) {
                     : "rgba(255,255,255,0.015)",
               }}
             >
-              <span className="font-mono text-[7px] text-offwhite/30 pt-0.5">
+              <span className="font-mono text-[7px] text-offwhite/55 pt-0.5">
                 {p.n}
               </span>
               <div className="min-w-0 flex-1">

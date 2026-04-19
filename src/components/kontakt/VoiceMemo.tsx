@@ -167,7 +167,7 @@ export function VoiceMemo({
             lieber quatschen als tippen?
           </h3>
           <p className="mt-1 text-[13px] leading-relaxed text-offwhite/55">
-            sprich mir kurz rein — bis zu 90 sekunden. erzähl, was du vorhast.
+            sprich mir kurz rein • bis zu 90 sekunden. erzähl, was du vorhast.
             ich hör's mir an und melde mich.
           </p>
         </div>
@@ -221,7 +221,7 @@ export function VoiceMemo({
             </div>
             <div className="flex flex-col items-end gap-2 shrink-0">
               <span className="font-mono text-[12px] text-accent-ink tabular-nums">
-                {fmt(seconds)} <span className="text-offwhite/30">/ {fmt(MAX_SECONDS)}</span>
+                {fmt(seconds)} <span className="text-offwhite/55">/ {fmt(MAX_SECONDS)}</span>
               </span>
               <button
                 type="button"

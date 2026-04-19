@@ -76,6 +76,11 @@ export default function Page({ params }: Props) {
                 in arbeit
               </span>
             )}
+            {!r.istEcht && (
+              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/75 bg-offwhite/5 border border-offwhite/15 rounded-full px-2.5 py-1">
+                konzept-studie
+              </span>
+            )}
             {r.urlExtern && (
               <a
                 href={r.urlExtern}
@@ -91,6 +96,14 @@ export default function Page({ params }: Props) {
           <p className="mt-10 max-w-[680px] text-[16px] md:text-[18px] leading-relaxed text-offwhite/70">
             {r.kurz}
           </p>
+
+          {!r.istEcht && (
+            <p className="mt-5 max-w-[680px] text-[13px] leading-relaxed text-offwhite/55 italic">
+              ehrlich-hinweis · dies ist eine konzept-studie, kein
+              veröffentlichtes kunden-projekt. die arbeitsweise ist aber die
+              gleiche.
+            </p>
+          )}
         </div>
       </section>
 
@@ -186,7 +199,7 @@ export default function Page({ params }: Props) {
                   : r.kategorie === "branding"
                     ? "ein branding-projekt"
                     : "eine grafische arbeit"}{" "}
-                aus {r.ort.split(",")[0]}. {r.kurz} — ausgangspunkt war der
+                aus {r.ort.split(",")[0]}. {r.kurz} • ausgangspunkt war der
                 wunsch, sich aus dem grundrauschen ähnlicher angebote
                 abzuheben und eine identität zu bauen, die zur person
                 dahinter passt.
@@ -198,16 +211,16 @@ export default function Page({ params }: Props) {
                 der prozess
               </h2>
               <p>
-                wir sind mit einem intensiven moodboarding-termin gestartet.
+                ich starte jeden auftrag mit einem intensiven moodboarding-termin.
                 vor der ersten pixel-entscheidung stand die frage: wer seid
                 ihr wirklich, und wer sind die anderen? aus den antworten
-                ist das visuelle system gewachsen — farbe, typografie,
+                ist das visuelle system gewachsen • farbe, typografie,
                 tonalität.
               </p>
               <p className="mt-4">
                 die umsetzung lief in kurzen iterationen, mit
-                zwischenabgaben statt black-box. so konnten wir gemeinsam
-                lenken, wo es hingehen sollte — ohne überraschung am
+                zwischenabgaben statt black-box. so können wir gemeinsam
+                lenken, wo es hingehen sollte • ohne überraschung am
                 launch-tag.
               </p>
             </div>
@@ -218,8 +231,8 @@ export default function Page({ params }: Props) {
               </h2>
               <p>
                 {r.inArbeit
-                  ? "das projekt befindet sich aktuell noch in der bauphase — erste screens und der branding-rahmen stehen. launch ist für die kommenden wochen geplant."
-                  : "das projekt ist live und wird aktiv genutzt. feedback bisher: die seite fühlt sich endlich nach den leuten an, die dahinter stehen — und nicht nach template."}
+                  ? "das projekt befindet sich aktuell noch in der bauphase • erste screens und der branding-rahmen stehen. launch ist für die kommenden wochen geplant."
+                  : "das projekt ist live und wird aktiv genutzt. feedback bisher: die seite fühlt sich endlich nach den leuten an, die dahinter stehen • und nicht nach template."}
               </p>
             </div>
           </div>
@@ -241,9 +254,6 @@ export default function Page({ params }: Props) {
               <RefThumb ref_={r} aspect="4 / 3" />
             </div>
           </div>
-          <p className="mt-6 font-mono text-[10px] uppercase tracking-label text-offwhite/30">
-            platzhalter • echte screenshots folgen
-          </p>
         </div>
       </section>
 
@@ -282,7 +292,7 @@ export default function Page({ params }: Props) {
               sowas auch für dich?
             </h2>
             <p className="mt-5 max-w-[480px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
-              jedes projekt ist eigen. schreib mir, was dir vorschwebt — wir
+              jedes projekt ist eigen. schreib mir, was dir vorschwebt • wir
               besprechen, was passt.
             </p>
             <div className="mt-8">

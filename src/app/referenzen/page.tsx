@@ -19,6 +19,11 @@ export default function Page() {
             logos. einfach sachen, die zu den leuten passen, die dahinter
             stehen.
           </p>
+          <p className="mt-4 max-w-[560px] font-mono text-[11px] uppercase tracking-label text-offwhite/55">
+            ehrlich-hinweis · ein teil der gezeigten arbeiten sind
+            konzept-studien (mit „konzept"-badge markiert). echte kunden-
+            projekte kommen laufend dazu.
+          </p>
         </div>
 
         <div className="mt-16">

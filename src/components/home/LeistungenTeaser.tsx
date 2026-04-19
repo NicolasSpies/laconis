@@ -127,7 +127,7 @@ function MockPage({ isMobile }: { isMobile: boolean }) {
             <span className="block w-4 h-[1.5px] bg-offwhite/45" />
           </div>
         ) : (
-          <div className="flex gap-3 font-mono text-[9px] uppercase tracking-label text-offwhite/30 flex-shrink-0">
+          <div className="flex gap-3 font-mono text-[9px] uppercase tracking-label text-offwhite/55 flex-shrink-0">
             <span>leistungen</span>
             <span>über</span>
             <span>kontakt</span>
@@ -213,7 +213,7 @@ function MockPage({ isMobile }: { isMobile: boolean }) {
 
       <div className="px-5 py-6 border-t border-ink/5">
         <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/40 mb-3">
-          über uns
+          über mich
         </div>
         <div className="space-y-1.5">
           <div className="h-1 w-full max-w-[200px] rounded bg-offwhite/10" />
@@ -309,12 +309,25 @@ export function LeistungenTeaser() {
                 ))}
               </div>
 
-              <Link
-                href="/leistungen/web"
-                className="mt-auto pt-8 inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-accent-ink hover:gap-3 transition-all w-fit"
-              >
-                mehr erfahren <span>→</span>
-              </Link>
+              <div className="mt-auto pt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
+                <div className="flex items-baseline gap-2">
+                  <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
+                    ab
+                  </span>
+                  <span className="heading-sans text-[20px] text-offwhite tabular-nums">
+                    1.400 €
+                  </span>
+                  <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/45">
+                    einmalig
+                  </span>
+                </div>
+                <Link
+                  href="/leistungen/web"
+                  className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-accent-ink hover:gap-3 transition-all w-fit"
+                >
+                  mehr erfahren <span>→</span>
+                </Link>
+              </div>
             </div>
 
             <div className="relative p-6 md:p-10 border-t md:border-t-0 md:border-l border-ink/5">
@@ -346,12 +359,41 @@ export function LeistungenTeaser() {
               gleichen Look.
             </p>
 
-            <Link
-              href="/leistungen/kreatives"
-              className="mt-auto pt-8 inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-offwhite/70 hover:text-accent-ink hover:gap-3 transition-all w-fit"
-            >
-              mehr erfahren <span>→</span>
-            </Link>
+            <ul className="mt-5 space-y-2">
+              {[
+                "logo · varianten · favicon",
+                "brand guide + visitenkarte",
+                "3 social-media-templates",
+              ].map((b) => (
+                <li
+                  key={b}
+                  className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-label text-offwhite/65"
+                >
+                  <span className="w-1 h-1 rounded-full bg-lime flex-shrink-0" />
+                  {b}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-auto pt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <div className="flex items-baseline gap-2">
+                <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
+                  ab
+                </span>
+                <span className="heading-sans text-[18px] text-offwhite tabular-nums">
+                  600 €
+                </span>
+                <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/45">
+                  einmalig
+                </span>
+              </div>
+              <Link
+                href="/leistungen/kreatives"
+                className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-offwhite/70 hover:text-accent-ink hover:gap-3 transition-all w-fit"
+              >
+                mehr erfahren <span>→</span>
+              </Link>
+            </div>
           </motion.article>
 
           <motion.article
@@ -375,12 +417,38 @@ export function LeistungenTeaser() {
               Montage inklusive.
             </p>
 
-            <Link
-              href="/leistungen/kreatives#werbetechnik"
-              className="mt-auto pt-8 inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-offwhite/70 hover:text-accent-ink hover:gap-3 transition-all w-fit"
-            >
-              mehr erfahren <span>→</span>
-            </Link>
+            <ul className="mt-5 space-y-2">
+              {[
+                "folie · schild · banner",
+                "fahrzeug-beschriftung",
+                "montage vor ort inkl.",
+              ].map((b) => (
+                <li
+                  key={b}
+                  className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-label text-offwhite/65"
+                >
+                  <span className="w-1 h-1 rounded-full bg-lime flex-shrink-0" />
+                  {b}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-auto pt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <div className="flex items-baseline gap-2">
+                <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
+                  preis
+                </span>
+                <span className="heading-sans text-[14px] text-offwhite/80">
+                  nach maß
+                </span>
+              </div>
+              <Link
+                href="/leistungen/kreatives#werbetechnik"
+                className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-offwhite/70 hover:text-accent-ink hover:gap-3 transition-all w-fit"
+              >
+                mehr erfahren <span>→</span>
+              </Link>
+            </div>
           </motion.article>
         </div>
       </div>

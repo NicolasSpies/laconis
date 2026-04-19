@@ -30,7 +30,7 @@ const LEISTUNGEN = [
     num: "04",
     titel: "print + packaging",
     kurz:
-      "etiketten, flyer, speisekarten, verpackung. druckfertig mit den richtigen farbprofilen — nicht nur fürs screen-hübsch.",
+      "etiketten, flyer, speisekarten, verpackung. druckfertig mit den richtigen farbprofilen • nicht nur fürs screen-hübsch.",
   },
   {
     num: "05",
@@ -69,7 +69,7 @@ export default function Page() {
   return (
     <>
       {/* HERO */}
-      <section className="pt-36 pb-20">
+      <section className="pt-36 pb-24">
         <div className="container-site">
           <SectionLabel num="02">leistungen • kreatives</SectionLabel>
 
@@ -81,7 +81,7 @@ export default function Page() {
             </h1>
             <p className="mt-8 max-w-[580px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/60">
               branding ist kein logo. branding ist das gefühl, das jemand
-              bekommt, wenn er deinen namen hört — und die visuellen werkzeuge,
+              bekommt, wenn er deinen namen hört • und die visuellen werkzeuge,
               die dieses gefühl transportieren. ich baue beides.
             </p>
           </div>

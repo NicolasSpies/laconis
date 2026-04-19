@@ -15,6 +15,14 @@ export type Referenz = {
   pagespeedDesktop?: number;
   urlExtern?: string;
   inArbeit?: boolean;
+  /**
+   * echtes, veröffentlichtes kundenprojekt?
+   * - `false` oder `undefined` → konzept-studie · bekommt "konzept"-badge
+   * - `true` → echter kunde · kein badge
+   * default ist **nicht** real, damit neue einträge nicht versehentlich
+   * als live-projekt erscheinen, wenn das flag vergessen wird.
+   */
+  istEcht?: boolean;
 };
 
 export const referenzen: Referenz[] = [
@@ -33,6 +41,7 @@ export const referenzen: Referenz[] = [
     urlExtern: "https://fabry-baumpflege.be",
     farbe: "#2f5d3a",
     notiz: "erstes CMS-projekt • ging richtig schnell",
+    istEcht: true,
   },
   {
     slug: "holoroom",

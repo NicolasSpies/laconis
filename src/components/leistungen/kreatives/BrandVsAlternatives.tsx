@@ -57,7 +57,7 @@ const OPTIONEN: Option[] = [
     gut: [
       "recherche vor design",
       "system, nicht einzelteile",
-      "ein gesprächspartner — jahrelang",
+      "ein gesprächspartner • jahrelang",
     ],
     schlecht: [
       "nicht für ‚heute bitte fertig'",
@@ -101,7 +101,7 @@ export function BrandVsAlternatives() {
           </h2>
           <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/60">
             ehrliche antwort: nicht immer. hier vier wege zu einem logo und
-            einer marke — mit dem, was sie wirklich können und wo sie
+            einer marke • mit dem, was sie wirklich können und wo sie
             aussteigen.
           </p>
         </div>
@@ -191,7 +191,7 @@ export function BrandVsAlternatives() {
         </div>
 
         <p className="mt-10 max-w-[680px] text-[13px] leading-relaxed text-offwhite/45">
-          wenn canva oder ki für dich passt —{" "}
+          wenn canva oder ki für dich passt •{" "}
           <span className="text-offwhite/70">nimm das.</span> ich will nicht
           dein geld, ich will die projekte, bei denen's sinn ergibt.
         </p>

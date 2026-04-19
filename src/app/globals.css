@@ -10,7 +10,7 @@
     --accent: 225 253 82; /* #E1FD52 — fill */
     --accent-ink: 225 253 82; /* text-accent on dark = same lime */
 
-    --bg: 17 17 17; /* #111 page bg */
+    --bg: 26 26 26; /* #1A1A1A page bg */
     --bg-root: 0 0 0; /* deepest shell behind everything */
     --surface: 20 20 20; /* elevated surfaces */
     --surface-elev: 24 24 24;
@@ -49,9 +49,11 @@
   }
 
   html {
-    scroll-behavior: smooth;
     background: rgb(var(--bg-root));
     transition: background 0.35s ease;
+    /* firefox scrollbar — lime thumb on transparent track */
+    scrollbar-color: rgb(var(--accent)) transparent;
+    scrollbar-width: thin;
   }
   body {
     @apply text-offwhite font-sans antialiased;
@@ -65,6 +67,41 @@
   ::selection {
     background: rgb(var(--accent));
     color: #0a0a0a;
+  }
+
+  /* ═══════════ lacønis scrollbar · webkit (chrome, safari, edge) ═══════════ */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--accent) / 0.55);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    transition: background 0.2s ease;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--accent) / 0.9);
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  /* ═══════════ custom cursor (desktop only, disabled on touch) ═══════════ */
+  @media (hover: hover) and (pointer: fine) {
+    * {
+      cursor: none !important;
+    }
+    .cursor-dot.is-hovering .cursor-dot-inner {
+      width: 24px;
+      height: 24px;
+      background-color: rgba(225, 253, 82, 0.25);
+    }
   }
 }
 

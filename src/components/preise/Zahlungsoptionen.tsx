@@ -24,7 +24,7 @@ const MODELLE: Modell[] = [
     details: [
       "voller betrag mit projekt-abschluss",
       "keine zinsen, keine teilbeträge",
-      "einfachste variante — am schnellsten durch",
+      "einfachste variante • am schnellsten durch",
     ],
     highlight: true,
   },
@@ -35,7 +35,7 @@ const MODELLE: Modell[] = [
     details: [
       "50 % bei auftrag",
       "rest aufgeteilt auf bis zu 5 monate",
-      "läuft automatisiert — SEPA-lastschrift oder überweisung",
+      "läuft automatisiert • SEPA-lastschrift oder überweisung",
     ],
     zinsNote: "2 % / monat · gedeckelt bei max 10 %",
   },
@@ -66,7 +66,7 @@ export function Zahlungsoptionen() {
           </h2>
           <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/60">
             keine „auf anfrage"-spielchen bei den zinsen. du siehst, was eine
-            rate dich mehr kostet — bevor du fragst. such dir aus, was zu
+            rate dich mehr kostet • bevor du fragst. such dir aus, was zu
             deinem cashflow passt.
           </p>
         </div>
@@ -145,7 +145,7 @@ export function Zahlungsoptionen() {
             <span className="text-offwhite/85">hosting läuft immer über lacønis.</span>{" "}
             jährlich fakturiert, der preis wird pro monat kommuniziert damit du
             ihn gegen deine laufenden kosten halten kannst. das ist kein extra
-            produkt zum mitverhandeln — es ist teil vom service, damit ich
+            produkt zum mitverhandeln • es ist teil vom service, damit ich
             weiß, dass das ding läuft.
           </p>
         </div>

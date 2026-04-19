@@ -85,7 +85,7 @@ export function Moodboard() {
               <span
                 className={
                   "ml-1.5 text-[9px] " +
-                  (active ? "text-accent-ink/70" : "text-offwhite/30")
+                  (active ? "text-accent-ink/70" : "text-offwhite/55")
                 }
               >
                 {String(count).padStart(2, "0")}

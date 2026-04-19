@@ -10,10 +10,13 @@ import {
   generateLineItems,
   computeTotals,
   hasAnySelection,
+  hasAnyGrafikOrBranding,
   closestPaket as closestPaketFn,
   generateBonNumber,
 } from "@/lib/paket-pricing";
 import { Kassenzettel } from "@/components/preise/Kassenzettel";
+import { VerfuegbarkeitWidget } from "@/components/VerfuegbarkeitWidget";
+import { type ProjektTyp } from "@/data/verfuegbarkeit";
 
 /**
  * KontaktMultistep — 4-schritte-projektformular.
@@ -36,21 +39,21 @@ import { Kassenzettel } from "@/components/preise/Kassenzettel";
 
 type PaketEntry = {
   name: string;
-  tab: "web" | "grafik" | "bundle";
+  tab: "web" | "kreatives" | "bundle";
   price: number;
   baseMonthly?: number;
 };
 
 const PAKETE: Record<string, PaketEntry> = {
-  "web-starter": { name: "web · starter", tab: "web", price: 1990, baseMonthly: 20 },
-  "web-standard": { name: "web · standard", tab: "web", price: 2890, baseMonthly: 30 },
-  "web-pro": { name: "web · pro", tab: "web", price: 3650, baseMonthly: 40 },
-  "grafik-print": { name: "grafik · print", tab: "grafik", price: 700 },
-  "grafik-brand": { name: "grafik · brand identity", tab: "grafik", price: 1200 },
-  "grafik-social": { name: "grafik · social", tab: "grafik", price: 600 },
-  "bundle-launch": { name: "bundle · launch", tab: "bundle", price: 2990, baseMonthly: 20 },
-  "bundle-grow": { name: "bundle · grow", tab: "bundle", price: 3890, baseMonthly: 30 },
-  "bundle-full": { name: "bundle · full identity", tab: "bundle", price: 5500, baseMonthly: 40 },
+  "web-basis": { name: "web · basis", tab: "web", price: 1400, baseMonthly: 20 },
+  "web-standard": { name: "web · standard", tab: "web", price: 2800, baseMonthly: 40 },
+  "web-pro": { name: "web · pro", tab: "web", price: 4200, baseMonthly: 40 },
+  "grafik-print": { name: "kreatives · print", tab: "kreatives", price: 700 },
+  "grafik-brand": { name: "kreatives · brand identity", tab: "kreatives", price: 1200 },
+  "grafik-social": { name: "kreatives · social", tab: "kreatives", price: 600 },
+  "bundle-launch": { name: "bundle · launch", tab: "bundle", price: 2340, baseMonthly: 20 },
+  "bundle-grow": { name: "bundle · grow", tab: "bundle", price: 3600, baseMonthly: 40 },
+  "bundle-full": { name: "bundle · full identity", tab: "bundle", price: 5400, baseMonthly: 40 },
 };
 
 /* ══════════════════════════ state-modell ══════════════════════════ */
@@ -58,7 +61,7 @@ const PAKETE: Record<string, PaketEntry> = {
 type Bedarf = "website" | "branding" | "grafik-print" | "alles" | "was-anderes";
 type Seiten = "onepager" | "2-5" | "6-10" | "10+" | "weiss-nicht";
 type Sprachen = "1" | "2" | "3+";
-type Zeitplan = "flexibel" | "1-3-monate" | "dringend";
+type Zeitplan = "flexibel" | "dringend";
 type Budget = "<2k" | "2-5k" | "5-10k" | "10k+" | "weiss-nicht";
 
 type State = {
@@ -98,9 +101,46 @@ const INITIAL: State = {
 
 /* bedarf ableiten aus paket-tab (für URL-einstieg) */
 function bedarfFromTab(tab: PaketEntry["tab"]): Bedarf {
-  if (tab === "grafik") return "grafik-print";
+  if (tab === "kreatives") return "grafik-print";
   if (tab === "bundle") return "alles";
   return "website";
+}
+
+/* projekt-typ für VerfuegbarkeitWidget ableiten */
+function deriveProjektTyp(state: State): ProjektTyp {
+  // paket-preset vorrang
+  if (state.paketId) {
+    if (state.paketId === "web-basis") return "onepager";
+    if (state.paketId === "web-standard") return "klein";
+    if (state.paketId === "web-pro") return "mittel";
+    if (state.paketId === "bundle-launch") return "onepager";
+    if (state.paketId === "bundle-grow") return "bundle";
+    if (state.paketId === "bundle-full") return "bundle";
+    if (state.paketId.startsWith("grafik-")) return "branding";
+  }
+  // custom-builder
+  if (state.customBuilder) {
+    const b = state.customBuilder;
+    const hasVisuals = hasAnyGrafikOrBranding(b);
+    if (b.web && hasVisuals) return "bundle";
+    if (b.web) {
+      const total = 1 + b.unterseiten;
+      if (total === 1) return "onepager";
+      if (total <= 5) return "klein";
+      if (total <= 10) return "mittel";
+      return "gross";
+    }
+    if (hasVisuals) return "branding";
+  }
+  // bedarf + seiten fallback
+  if (state.bedarf === "branding" || state.bedarf === "grafik-print")
+    return "branding";
+  if (state.bedarf === "alles") return "bundle";
+  if (state.seiten === "onepager") return "onepager";
+  if (state.seiten === "2-5") return "klein";
+  if (state.seiten === "6-10") return "mittel";
+  if (state.seiten === "10+") return "gross";
+  return "klein";
 }
 
 /* ══════════════════════════ wrapper mit suspense ══════════════════════════ */
@@ -128,38 +168,34 @@ function Inner() {
       if (!hasAnySelection(builder)) return { state: INITIAL, startStep: 1 };
 
       // bedarf aus builder-state ableiten
-      const hasGrafik =
-        builder.grafikPrint || builder.grafikBrand || builder.grafikSocial;
+      const hasVisuals = hasAnyGrafikOrBranding(builder);
       const bedarf: Bedarf =
-        builder.web && hasGrafik
+        builder.web && hasVisuals
           ? "alles"
           : builder.web
           ? "website"
-          : builder.grafikBrand
+          : builder.branding
           ? "branding"
           : "grafik-print";
 
-      // scope-mapping builder → multistep-seiten
+      // scope-mapping builder.unterseiten → multistep-seiten
+      const totalSeiten = 1 + builder.unterseiten;
       const seiten: Seiten =
-        builder.webScope === "onepager"
+        !builder.web
+          ? "weiss-nicht"
+          : totalSeiten === 1
           ? "onepager"
-          : builder.webScope === "small"
+          : totalSeiten <= 5
           ? "2-5"
-          : builder.webScope === "medium"
+          : totalSeiten <= 10
           ? "6-10"
-          : builder.webScope === "large"
-          ? "10+"
-          : "weiss-nicht";
+          : "10+";
 
       const sprachen: Sprachen =
-        builder.sprachen === 1 ? "1" : builder.sprachen === 2 ? "2" : "3+";
+        builder.sprachen <= 1 ? "1" : builder.sprachen === 2 ? "2" : "3+";
 
       const zeitplan: Zeitplan =
-        builder.deadline === "dringend"
-          ? "dringend"
-          : builder.deadline === "flex"
-          ? "flexibel"
-          : "1-3-monate";
+        builder.deadline === "dringend" ? "dringend" : "flexibel";
 
       return {
         state: {
@@ -190,7 +226,7 @@ function Inner() {
 
     // scope-defaults ableiten aus paket-id
     const seiten: Seiten =
-      paketId === "web-starter" || paketId === "bundle-launch"
+      paketId === "web-basis" || paketId === "bundle-launch"
         ? "onepager"
         : paketId === "web-standard" || paketId === "bundle-grow"
         ? "2-5"
@@ -218,6 +254,10 @@ function Inner() {
   const [state, setState] = useState<State>(initialFromParams.state);
   const [step, setStep] = useState<StepId>(initialFromParams.startStep);
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
+  /* honeypot-feld · bleibt leer. bots füllen es aus, wir lehnen dann ab. */
+  const [hp, setHp] = useState("");
 
   const update = <K extends keyof State>(key: K, value: State[K]) =>
     setState((s) => ({ ...s, [key]: value }));
@@ -240,13 +280,62 @@ function Inner() {
     return false;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO: hook up real backend (resend / formspree)
-    // eslint-disable-next-line no-console
-    console.log("projekt-anfrage", state);
-    setSent(true);
+    if (sending) return;
+    setSending(true);
+    setSendError(null);
+
+    const priceInfoNow = derivePriceInfo(state);
+    const payload = {
+      hp, // honeypot · muss leer bleiben
+      name: state.name,
+      email: state.email,
+      telefon: state.telefon,
+      notiz: state.notiz,
+      bedarf: bedarfLabel(state.bedarf),
+      seiten: seitenLabel(state.seiten),
+      sprachen: sprachenLabel(state.sprachen),
+      zeitplan: state.zeitplan,
+      budget: state.budget ? budgetLabel(state.budget) : "•",
+      paketName: state.paketId ? PAKETE[state.paketId]?.name ?? "" : "",
+      hasDomain: state.hasDomain,
+      mails: state.mails,
+      customBuilderJson: state.customBuilder
+        ? JSON.stringify(state.customBuilder)
+        : "",
+      priceOneTime: priceInfoNow?.oneTime ?? 0,
+      priceMonthly: priceInfoNow?.monthly ?? 0,
+      priceSurcharge: priceInfoNow?.surcharge ?? 0,
+    };
+
+    try {
+      const res = await fetch("/api/kontakt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) {
+        setSendError(
+          data?.error === "rate-limit"
+            ? "zu viele anfragen · bitte in einer stunde nochmal probieren."
+            : "konnte nicht gesendet werden. schreib mir direkt an nicolas@laconis.be.",
+        );
+        setSending(false);
+        return;
+      }
+      setSent(true);
+    } catch {
+      setSendError(
+        "netzwerk-fehler. schreib mir direkt an nicolas@laconis.be.",
+      );
+      setSending(false);
+    }
   };
+
+  /* preis-bar: live aus state ableiten — muss vor dem sent-early-return stehen */
+  const priceInfo = useMemo(() => derivePriceInfo(state), [state]);
 
   if (sent) {
     return (
@@ -263,7 +352,7 @@ function Inner() {
           ich hab deine anfrage bekommen und melde mich innerhalb von 24 std
           (werktags) per {state.email.includes("@") ? "mail" : "nachricht"}
           {state.telefon ? ` oder telefon (${state.telefon})` : ""}. bis
-          dahin — mach's gut.
+          dahin • mach's gut.
         </p>
         <div className="mt-8 flex justify-center gap-3 flex-wrap">
           <Button href="/" variant="glass" size="md">
@@ -307,6 +396,7 @@ function Inner() {
             {step === 3 && (
               <Step3
                 state={state}
+                update={update}
                 onEdit={(s) => goTo(s)}
               />
             )}
@@ -316,11 +406,22 @@ function Inner() {
                 update={update}
                 onSubmit={handleSubmit}
                 onBack={() => goTo(3)}
+                sending={sending}
+                sendError={sendError}
+                hp={hp}
+                setHp={setHp}
               />
             )}
           </motion.div>
         </AnimatePresence>
       </div>
+
+      {/* sticky preis-bar · nur wenn paket oder custom-builder gewählt · ab step 2 */}
+      {priceInfo && step >= 2 && (
+        <div className="sticky bottom-4 z-20 mt-8">
+          <PriceBar info={priceInfo} />
+        </div>
+      )}
 
       {/* nav (step 4 hat eigene submit-logik) */}
       {step !== 4 && (
@@ -413,7 +514,7 @@ const BEDARF_OPTIONS: { id: Bedarf; titel: string; kurz: string }[] = [
   {
     id: "branding",
     titel: "branding",
-    kurz: "logo, brand guide, identität — visuelles system.",
+    kurz: "logo, brand guide, identität • visuelles system.",
   },
   {
     id: "grafik-print",
@@ -423,7 +524,7 @@ const BEDARF_OPTIONS: { id: Bedarf; titel: string; kurz: string }[] = [
   {
     id: "alles",
     titel: "alles zusammen",
-    kurz: "web + branding + print — aus einer hand.",
+    kurz: "web + branding + print • aus einer hand.",
   },
   {
     id: "was-anderes",
@@ -445,7 +546,7 @@ function Step1({
         was brauchst du?
       </h3>
       <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-        grob reicht. du kannst im nächsten schritt präzisieren — oder später
+        grob reicht. du kannst im nächsten schritt präzisieren • oder später
         ändern, wenn sich herausstellt dass es doch was anderes ist.
       </p>
 
@@ -507,11 +608,8 @@ const SPRACHEN_OPTS: { id: Sprachen; label: string }[] = [
   { id: "3+", label: "drei oder mehr" },
 ];
 
-const ZEITPLAN_OPTS: { id: Zeitplan; label: string }[] = [
-  { id: "flexibel", label: "flexibel" },
-  { id: "1-3-monate", label: "1–3 monate" },
-  { id: "dringend", label: "dringend · <4 wochen" },
-];
+/* zeitplan-werte werden nicht mehr als chip-row benutzt — nur noch über das
+   queue-widget gesetzt. der typ selbst bleibt als state-feld. */
 
 const BUDGET_OPTS: { id: Budget; label: string }[] = [
   { id: "<2k", label: "< 2 000 €" },
@@ -536,7 +634,7 @@ function Step2({
         präzisieren.
       </h3>
       <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-        wenige klicks — so krieg ich ein bild, ob wir ins selbe paket passen
+        wenige klicks • so krieg ich ein bild, ob wir ins selbe paket passen
         oder was sonderanfertigung brauchen.
       </p>
 
@@ -561,14 +659,6 @@ function Step2({
           />
         )}
 
-        {/* timing */}
-        <ChipField
-          label="zeitplan"
-          value={state.zeitplan}
-          options={ZEITPLAN_OPTS}
-          onChange={(v) => update("zeitplan", v)}
-        />
-
         {/* budget */}
         <ChipField
           label="budget-rahmen"
@@ -576,6 +666,27 @@ function Step2({
           options={BUDGET_OPTS}
           onChange={(v) => update("budget", v)}
           hint="grob reicht. keine trickfragen, ich pass das angebot an was realistisch ist."
+        />
+      </div>
+
+      {/* ─── zeitplan · als live-queue-widget (flex | dringend) ─── */}
+      <div className="mt-10">
+        <div className="mb-3">
+          <label className="block font-mono text-[10px] uppercase tracking-label text-offwhite/50 mb-1">
+            zeitplan · deine queue-position
+          </label>
+          <p className="text-[12.5px] leading-relaxed text-offwhite/45 max-w-[520px]">
+            klick auf „flexibel" oder „dringend" — der slot updatet sich live
+            mit deinem wunschstart.
+          </p>
+        </div>
+        <VerfuegbarkeitWidget
+          compact
+          modus={state.zeitplan === "dringend" ? "urgent" : "flex"}
+          onModusChange={(m) =>
+            update("zeitplan", m === "urgent" ? "dringend" : "flexibel")
+          }
+          lockedProjektTyp={deriveProjektTyp(state)}
         />
       </div>
     </div>
@@ -632,15 +743,18 @@ function ChipField<T extends string>({
 
 function Step3({
   state,
+  update,
   onEdit,
 }: {
   state: State;
+  update: <K extends keyof State>(key: K, value: State[K]) => void;
   onEdit: (step: StepId) => void;
 }) {
   const paket = state.paketId ? PAKETE[state.paketId] : null;
+  // hasDomain=true → eigene domain (kein extra) · false → laconis registriert (+2 €/Mt)
   const monthly =
     paket?.baseMonthly !== undefined
-      ? paket.baseMonthly + (state.hasDomain ? 2 : 0) + state.mails * 5
+      ? paket.baseMonthly + (state.hasDomain ? 0 : 2) + state.mails * 5
       : null;
 
   /* custom-builder-mode: eigener kassenzettel statt paket-header */
@@ -664,7 +778,7 @@ function Step3({
 
   if (paket?.baseMonthly !== undefined) {
     const parts: string[] = ["hosting"];
-    if (state.hasDomain) parts.push("+ domain");
+    if (!state.hasDomain) parts.push("+ domain");
     if (state.mails > 0)
       parts.push(`+ ${state.mails} mail${state.mails > 1 ? "s" : ""}`);
     rows.push({
@@ -687,17 +801,13 @@ function Step3({
     });
   }
 
-  rows.push({
-    label: "zeitplan",
-    value: zeitplanLabel(state.zeitplan),
-    editStep: 2,
-  });
+  // zeitplan steht unten direkt am queue-widget · zweite anzeige wäre redundant
 
   // budget-zeile nur wenn weder paket noch custom-builder — sonst überflüssig
   if (!paket && !state.customBuilder) {
     rows.push({
       label: "budget",
-      value: state.budget ? budgetLabel(state.budget) : "— noch offen",
+      value: state.budget ? budgetLabel(state.budget) : "• noch offen",
       editStep: 2,
     });
   }
@@ -715,9 +825,9 @@ function Step3({
       </h3>
       <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
         {isCustom
-          ? "alles was du im konfigurator ausgewählt hast — als richtpreis. das finale angebot kommt von mir innerhalb 24 std."
+          ? "alles was du im konfigurator ausgewählt hast • als richtpreis. das finale angebot kommt von mir innerhalb 24 std."
           : paket
-          ? 'alles wie von der preisseite übernommen. korrigierbar — klick auf „ändern" neben jeder zeile.'
+          ? 'alles wie von der preisseite übernommen. korrigierbar • klick auf „ändern" neben jeder zeile.'
           : "kurze kontrolle bevor wir zum kontakt gehen. jede zeile ist änderbar."}
       </p>
 
@@ -744,7 +854,11 @@ function Step3({
       )}
 
       {/* paket-preis-header — nur wenn paket via URL vorausgewählt */}
-      {paket && (
+      {paket && (() => {
+        const isDringend = state.zeitplan === "dringend";
+        const aufschlag = isDringend ? Math.round(paket.price * 0.25) : 0;
+        const einmaligTotal = paket.price + aufschlag;
+        return (
         <div className="mt-8 rounded-2xl border border-lime/25 bg-gradient-to-br from-lime/[0.06] to-transparent p-6 md:p-7">
           <div className="flex items-baseline justify-between gap-3 flex-wrap">
             <div>
@@ -770,9 +884,14 @@ function Step3({
                 einmalig
               </div>
               <div className="mt-1 heading-display text-[clamp(1.75rem,4vw,2.5rem)] text-offwhite leading-none">
-                {paket.price.toLocaleString("de-DE")}{" "}
+                {einmaligTotal.toLocaleString("de-DE")}{" "}
                 <span className="text-offwhite/40 text-[0.6em]">€</span>
               </div>
+              {isDringend && (
+                <div className="mt-2 font-mono text-[10px] uppercase tracking-label text-accent-ink/80">
+                  inkl. dringend-aufschlag · +{aufschlag.toLocaleString("de-DE")} € (+25 %)
+                </div>
+              )}
               <div className="mt-1 text-[11px] text-offwhite/40">
                 bei projekt-abschluss
               </div>
@@ -789,7 +908,7 @@ function Step3({
                 </div>
                 <div className="mt-1 text-[11px] text-offwhite/40">
                   hosting
-                  {state.hasDomain ? " · domain" : ""}
+                  {!state.hasDomain ? " · + domain" : ""}
                   {state.mails > 0
                     ? ` · ${state.mails} mail${state.mails > 1 ? "s" : ""}`
                     : ""}
@@ -798,7 +917,8 @@ function Step3({
             )}
           </div>
         </div>
-      )}
+        );
+      })()}
 
       <div className="mt-6 rounded-2xl border border-ink/10 bg-ink/[0.015] overflow-hidden">
         {rows.map((r, i) => (
@@ -828,6 +948,21 @@ function Step3({
         wenn alles stimmt, nächster schritt: deine kontaktdaten + optional eine
         notiz. angebot kommt innerhalb 24 std.
       </p>
+
+      {/* queue-position · interaktiv · zeitplan-toggle direkt am slot */}
+      <div className="mt-10">
+        <p className="mb-3 font-mono text-[10px] uppercase tracking-label text-offwhite/50">
+          zeitplan · kannst du hier nochmal umstellen
+        </p>
+        <VerfuegbarkeitWidget
+          compact
+          modus={state.zeitplan === "dringend" ? "urgent" : "flex"}
+          onModusChange={(m) =>
+            update("zeitplan", m === "urgent" ? "dringend" : "flexibel")
+          }
+          lockedProjektTyp={deriveProjektTyp(state)}
+        />
+      </div>
     </div>
   );
 }
@@ -839,13 +974,22 @@ function Step4({
   update,
   onSubmit,
   onBack,
+  sending,
+  sendError,
+  hp,
+  setHp,
 }: {
   state: State;
   update: <K extends keyof State>(key: K, value: State[K]) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   onBack: () => void;
+  sending: boolean;
+  sendError: string | null;
+  hp: string;
+  setHp: (v: string) => void;
 }) {
-  const canSend = state.name.trim() !== "" && state.email.trim() !== "";
+  const canSend =
+    !sending && state.name.trim() !== "" && state.email.trim() !== "";
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-6">
@@ -897,7 +1041,7 @@ function Step4({
           onChange={(e) => update("notiz", e.target.value)}
           rows={5}
           placeholder="was sollte ich vor unserem gespräch wissen? (zeitliche zwänge, besonderheiten, links zu inspiration …)"
-          className="w-full bg-ink/[0.03] border border-ink/12 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/30 outline-none resize-none transition-colors"
+          className="w-full bg-ink/[0.03] border border-ink/12 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/45 outline-none resize-none transition-colors"
         />
       </div>
 
@@ -917,11 +1061,44 @@ function Step4({
         </span>
       </label>
 
+      {/* honeypot · unsichtbar für menschen, bots füllen aus und werden ausgefiltert */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          left: "-10000px",
+          width: "1px",
+          height: "1px",
+          overflow: "hidden",
+        }}
+      >
+        <label>
+          nicht ausfüllen (spam-schutz)
+          <input
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            value={hp}
+            onChange={(e) => setHp(e.target.value)}
+          />
+        </label>
+      </div>
+
+      {sendError && (
+        <div
+          role="alert"
+          className="rounded-lg border border-rose-400/40 bg-rose-500/[0.06] px-4 py-3 text-[13px] text-rose-200"
+        >
+          {sendError}
+        </div>
+      )}
+
       <div className="mt-2 flex items-center justify-between gap-4 flex-wrap">
         <button
           type="button"
           onClick={onBack}
-          className="font-mono text-[10px] uppercase tracking-label text-offwhite/50 hover:text-accent-ink transition-colors"
+          disabled={sending}
+          className="font-mono text-[10px] uppercase tracking-label text-offwhite/50 hover:text-accent-ink disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
           ← zurück
         </button>
@@ -930,12 +1107,8 @@ function Step4({
           <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
             schritt 4 / 4
           </span>
-          <Button
-            variant="primary"
-            size="md"
-            disabled={!canSend}
-          >
-            anfrage senden →
+          <Button variant="primary" size="md" disabled={!canSend}>
+            {sending ? "sende …" : "anfrage senden →"}
           </Button>
         </div>
       </div>
@@ -973,8 +1146,98 @@ function TextField({
         autoComplete={autoComplete}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-ink/[0.03] border border-ink/12 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/30 outline-none transition-colors"
+        className="w-full bg-ink/[0.03] border border-ink/12 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/45 outline-none transition-colors"
       />
+    </div>
+  );
+}
+
+/* ══════════════════════════ preis-bar (sticky bottom) ══════════════════════════ */
+
+type PriceInfo = {
+  label: string;
+  oneTime: number;
+  monthly: number;
+  surcharge?: number; // dringend-aufschlag in euro
+};
+
+/**
+ * preisinfo aus state ableiten.
+ * - paketId gesetzt: PAKETE-einträge + (eventuell) dringend-aufschlag
+ * - customBuilder gesetzt: generateLineItems + computeTotals
+ * - sonst: null (bar wird nicht gezeigt)
+ */
+function derivePriceInfo(state: State): PriceInfo | null {
+  // paket-mode
+  if (state.paketId) {
+    const paket = PAKETE[state.paketId];
+    if (!paket) return null;
+    const isDringend = state.zeitplan === "dringend";
+    const surcharge = isDringend ? Math.round(paket.price * 0.25) : 0;
+    const monthly =
+      paket.baseMonthly !== undefined
+        ? paket.baseMonthly + (state.hasDomain ? 0 : 2) + state.mails * 5
+        : 0;
+    return {
+      label: paket.name,
+      oneTime: paket.price + surcharge,
+      monthly,
+      surcharge: surcharge || undefined,
+    };
+  }
+
+  // custom-builder-mode
+  if (state.customBuilder) {
+    const items = generateLineItems(state.customBuilder);
+    const totals = computeTotals(items);
+    return {
+      label: "eigene konfiguration",
+      oneTime: totals.oneTime,
+      monthly: totals.monthly,
+    };
+  }
+
+  return null;
+}
+
+function PriceBar({ info }: { info: PriceInfo }) {
+  return (
+    <div className="rounded-2xl border border-lime/35 bg-dark/95 backdrop-blur-md shadow-[0_16px_40px_-20px_rgba(0,0,0,0.6)] px-5 py-4 md:px-6 md:py-4 flex items-center justify-between gap-4 flex-wrap">
+      <div className="min-w-0 flex items-baseline gap-3 flex-wrap">
+        <span className="font-mono text-[9px] uppercase tracking-label text-accent-ink">
+          dein preis · live
+        </span>
+        <span className="font-mono text-[10.5px] uppercase tracking-label text-offwhite/65 truncate">
+          {info.label}
+        </span>
+      </div>
+      <div className="flex items-baseline gap-5 flex-wrap">
+        <div className="flex items-baseline gap-1.5">
+          <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/45">
+            einmalig
+          </span>
+          <span className="heading-display text-[18px] md:text-[20px] text-offwhite tabular-nums leading-none">
+            {info.oneTime.toLocaleString("de-DE")}
+            <span className="text-offwhite/40 text-[0.65em] ml-0.5">€</span>
+          </span>
+          {info.surcharge !== undefined && (
+            <span className="font-mono text-[9px] text-accent-ink/80 ml-1">
+              (+{info.surcharge.toLocaleString("de-DE")} € dringend)
+            </span>
+          )}
+        </div>
+        {info.monthly > 0 && (
+          <div className="flex items-baseline gap-1.5">
+            <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/45">
+              monatlich
+            </span>
+            <span className="heading-display text-[18px] md:text-[20px] text-accent-ink tabular-nums leading-none">
+              {info.monthly.toLocaleString("de-DE")}
+              <span className="text-accent-ink/55 text-[0.65em] ml-0.5">€/Mt</span>
+            </span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -982,7 +1245,7 @@ function TextField({
 /* ══════════════════════════ label-helpers ══════════════════════════ */
 
 function bedarfLabel(b: Bedarf | null) {
-  if (!b) return "—";
+  if (!b) return "•";
   return BEDARF_OPTIONS.find((o) => o.id === b)?.titel ?? b;
 }
 function seitenLabel(s: Seiten) {
@@ -990,9 +1253,6 @@ function seitenLabel(s: Seiten) {
 }
 function sprachenLabel(s: Sprachen) {
   return SPRACHEN_OPTS.find((o) => o.id === s)?.label ?? s;
-}
-function zeitplanLabel(z: Zeitplan) {
-  return ZEITPLAN_OPTS.find((o) => o.id === z)?.label ?? z;
 }
 function budgetLabel(b: Budget) {
   return BUDGET_OPTS.find((o) => o.id === b)?.label ?? b;

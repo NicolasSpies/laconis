@@ -12,6 +12,8 @@ import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { CursorSpotlight } from "@/components/CursorSpotlight";
+import { CursorDot } from "@/components/CursorDot";
+import { PageTransition } from "@/components/PageTransition";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -102,8 +104,11 @@ export default function RootLayout({
           style={{ top: "100svh", zIndex: -1 }}
         />
         <CursorSpotlight />
+        <CursorDot />
         <Nav />
-        <main className="relative z-[1]">{children}</main>
+        <main className="relative z-[1]">
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer />
       </body>
     </html>

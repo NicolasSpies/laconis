@@ -5,51 +5,6 @@ import { Zahlungsoptionen } from "@/components/preise/Zahlungsoptionen";
 
 export const metadata = { title: "preise" };
 
-const FAKTOREN = [
-  {
-    num: "a",
-    name: "anzahl seiten",
-    impact: "hoch",
-    kurz:
-      "je mehr unterseiten, desto mehr design- und content-entscheidungen. ein onepager ist nicht ein sechstel eines 6-seiters.",
-  },
-  {
-    num: "b",
-    name: "mehrsprachigkeit",
-    impact: "mittel",
-    kurz:
-      "zwei sprachen heißen zweimal strukturieren, verlinken, pflegen. technisch kein problem, inhaltlich ein denker mehr.",
-  },
-  {
-    num: "c",
-    name: "cms-bereiche",
-    impact: "mittel",
-    kurz:
-      "jeder cms-bereich (blog, team, projekte, …) ist ein eigenes stück logik. macht dich unabhängig, kostet initial etwas extra. lohnt sich ab seite 3.",
-  },
-  {
-    num: "d",
-    name: "shop oder buchung",
-    impact: "hoch",
-    kurz:
-      "onlineshop, terminbuchung, login-bereich — da wird aus einer website eine kleine software. anderes kaliber, eigenes angebot.",
-  },
-  {
-    num: "e",
-    name: "content-lieferung",
-    impact: "klein",
-    kurz:
-      "hast du texte + bilder schon fertig? ich schreibe mit oder unterstütze beim shooting — kostet extra zeit.",
-  },
-  {
-    num: "f",
-    name: "deadline",
-    impact: "klein-mittel",
-    kurz:
-      "komfortable deadline = normaler preis. next-week-urgent = aufschlag, weil andere projekte warten.",
-  },
-];
-
 const FAQ = [
   {
     frage: 'was kommt nach dem klick auf „anfragen"?',
@@ -57,24 +12,24 @@ const FAQ = [
       "du landest im projekt-formular mit deinem paket schon vorausgefüllt. du ergänzt nur noch, was zu deinem fall gehört (timing, besonderheiten, fragen) und ich melde mich innerhalb von 24 std mit einem konkreten angebot.",
   },
   {
-    frage: "was heißt 2 % zinsen / monat konkret?",
+    frage: "was heißt das mit den raten-zinsen genau?",
     antwort:
-      "bei modell 2 zahlst du 50 % anzahlung. der rest läuft in bis zu 5 raten mit 2 % / monat auf den noch offenen betrag — gedeckelt bei 10 %. beispiel: 2.000 € rest in 5 raten → gesamt ~2.100 € statt 2.000 €. modell 3 ist teurer (4 % / monat), weil das ganze projekt vorfinanziert wird.",
+      "ratenzahlung ist optional. modell 1 (vorkasse oder nach-abschluss) ist komplett zinsfrei. modell 2 · 50 % anzahlung, rest in bis zu 5 monatsraten — darauf werden 2 % pro monat auf den noch offenen betrag berechnet, gedeckelt bei 10 % gesamtaufschlag. beispiel: 2.000 € rest in 5 raten → du zahlst ca. 2.100 € statt 2.000 €. modell 3 (ganz ohne anzahlung, projekt vorfinanziert) kostet 4 % / monat, weil mein risiko höher ist. alle drei modelle sind transparent · keine versteckten gebühren, keine verzugszinsen bei pünktlicher zahlung.",
   },
   {
-    frage: "was kostet hosting wirklich?",
+    frage: "wie lange dauert so ein projekt?",
     antwort:
-      "20 bis 40 €/monat je nach paket — dafür bekommst du SSL, tägliche backups, monitoring, eigenes analytics-system (kein google), kein cookie-banner. jährlich fakturiert, pro monat kommuniziert. domain dazu 2 €/mt, e-mail-postfach 5 €/mt pro adresse.",
+      "ein onepager ca. 2 wochen, ein multipager 3–5 wochen, ein cms-projekt 4–6 wochen. kommt auf content-lieferung und feedback-tempo an. wenn du eine harte deadline hast, sag bescheid · planen wir rückwärts.",
   },
   {
-    frage: "kann ich ein bundle später aufstocken?",
+    frage: "was passiert wenn ich eine rate verpasse?",
     antwort:
-      "ja — jederzeit. weitere seiten, extra cms-bereiche, neue sprachen, zusätzliche social-visuals kannst du nachbuchen. du fängst nicht bei null an, wir bauen auf dem drauf was steht.",
+      "erst mal nichts dramatisches · ich schreibe dich an. wenn eine rate trotz erinnerung länger als 14 tage überfällig ist, kommt der gesetzliche verzugszinssatz (belgische regelung, aktuell um 8 % p.a.) dazu, ggf. plus 40 € mahn-pauschale. das ist EU/BE-standard, nicht meine erfindung. im regelfall finden wir aber einfach eine neue zahl-lösung.",
   },
   {
-    frage: "kannst du meine alte wordpress-seite übernehmen?",
+    frage: "was ist im preis nicht enthalten?",
     antwort:
-      "content übernehmen ja, wordpress als system — nein. ich baue neu und sauber. das ist ehrlicher und langfristig günstiger. alle alten urls werden korrekt weitergeleitet, dein seo bleibt.",
+      "stock-fotos / premium-fonts / externe tools mit eigenen kosten (z.b. mailchimp, adobe fonts lizenz) liegen beim kunden, es sei denn wir reden vorher was anderes aus. domain-registrierung ist optional: entweder du hast schon eine · oder ich registriere sie für dich (läuft über hosting, ca. 2 € / monat je nach TLD). alles, was kosten verursacht, sag ich dir vorab.",
   },
 ];
 
@@ -82,7 +37,7 @@ export default function Page() {
   return (
     <>
       {/* HERO */}
-      <section className="pt-36 pb-20">
+      <section className="pt-36 pb-24">
         <div className="container-site">
           <SectionLabel num="01">preise</SectionLabel>
 
@@ -93,7 +48,7 @@ export default function Page() {
             </h1>
             <p className="mt-8 max-w-[620px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/60">
               transparent. kein kleingedrucktes. kein „auf anfrage" bei allem.
-              drei tabs unten — web, grafik, bundle — jedes paket mit
+              drei tabs unten · web, kreatives, bundle · jedes paket mit
               eingebautem mini-konfigurator, damit du den monatspreis schwarz
               auf weiß siehst bevor du fragst.
             </p>
@@ -114,7 +69,7 @@ export default function Page() {
             </h2>
             <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/60">
               bei web und bundle stellst du domain & e-mail-postfächer direkt
-              ein — der monatspreis rechnet live mit. grafik-pakete haben nur
+              ein • der monatspreis rechnet live mit. grafik-pakete haben nur
               einmalpreise, kein laufender posten.
             </p>
           </div>
@@ -169,7 +124,7 @@ export default function Page() {
                 <p className="mt-4 text-[14px] leading-relaxed text-offwhite/60">
                   schalter umlegen, rechts wächst der kassenzettel live mit.
                   als pdf mitnehmen oder direkt anfragen. so einfach wie
-                  beim bäcker — nur transparenter.
+                  beim bäcker • nur transparenter.
                 </p>
 
                 <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -186,51 +141,6 @@ export default function Page() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAKTOREN */}
-      <section className="pb-28">
-        <div className="container-site">
-          <div className="max-w-[820px]">
-            <SectionLabel num="03">was den preis bewegt</SectionLabel>
-            <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.5rem)] text-offwhite leading-[1.05]">
-              sechs faktoren.{" "}
-              <span className="text-offwhite/35">
-                keine geheimen aufschläge.
-              </span>
-            </h2>
-            <p className="mt-6 max-w-[620px] text-[14px] leading-relaxed text-offwhite/55">
-              damit du vorher einschätzen kannst, ob dein projekt eher am
-              unteren oder oberen ende landet — und warum.
-            </p>
-          </div>
-
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
-            {FAKTOREN.map((f) => (
-              <div
-                key={f.num}
-                className="flex gap-5 p-5 rounded-xl border border-ink/8 bg-ink/[0.015] hover:border-ink/15 transition-colors"
-              >
-                <span className="font-mono text-[11px] uppercase tracking-label text-accent-ink shrink-0 pt-0.5">
-                  {f.num}
-                </span>
-                <div className="min-w-0">
-                  <div className="flex items-baseline justify-between gap-3">
-                    <h3 className="heading-sans text-[18px] text-offwhite">
-                      {f.name}
-                    </h3>
-                    <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/40 shrink-0">
-                      impact • {f.impact}
-                    </span>
-                  </div>
-                  <p className="mt-1.5 text-[13px] leading-relaxed text-offwhite/55">
-                    {f.kurz}
-                  </p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -278,7 +188,7 @@ export default function Page() {
             </h2>
             <p className="mt-5 max-w-[540px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
               schreib mir kurz, was du vorhast. ich sag dir innerhalb von 24
-              std, wohin es preislich geht — kostenlos, unverbindlich.
+              std, wohin es preislich geht • kostenlos, unverbindlich.
             </p>
             <div className="mt-8 flex justify-center gap-3 flex-wrap">
               <Button href="/kontakt#projekt" variant="primary" size="lg">

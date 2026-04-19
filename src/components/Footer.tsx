@@ -25,7 +25,7 @@ export function Footer() {
           </span>
         </div>
 
-        <div className="mt-6 pt-4 border-t border-ink/5 flex flex-col md:flex-row justify-between gap-3 font-mono text-[10px] text-offwhite/30 uppercase tracking-mono">
+        <div className="mt-6 pt-4 border-t border-ink/5 flex flex-col md:flex-row justify-between gap-3 font-mono text-[10px] text-offwhite/55 uppercase tracking-mono">
           <span>© 2026 lacønis</span>
           <div className="flex gap-5">
             <Link href="/impressum">impressum</Link>

@@ -7,12 +7,13 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Kassenzettel } from "./Kassenzettel";
 import {
   type BuilderState,
-  type CmsBereich,
-  type WebScope,
-  type SeitenSprachen,
   type ContentHelp,
   type Deadline,
+  type PresetId,
   DEFAULT_STATE,
+  PRESETS,
+  applyPreset,
+  matchingPreset,
   generateLineItems,
   computeTotals,
   closestPaket as getClosestPaket,
@@ -20,16 +21,15 @@ import {
   stateToParams,
   paramsToState,
   generateBonNumber,
+  formatEUR,
 } from "@/lib/paket-pricing";
 
 /**
  * PaketBuilder — interaktiver konfigurator für eigene pakete.
- * Links: entscheidungen als toggles + chips, eine sektion pro block.
- * Rechts: live-kassenzettel (sticky auf desktop) mit PDF-download & CTA.
+ * Granulare UX über counter + toggles für: web, branding, grafik-items, autobeschriftung.
+ * Presets als schnellstart (basis · standard · pro) für web.
  *
- * URL state: ?web=0/1 & scope=onepager|small|medium|large & lang=1|2|3 & ...
- * - URL wird live geupdatet (ohne re-render) via window.history.replaceState
- * - eingehende URL-params werden beim mount eingelesen (Suspense-wrapper für useSearchParams)
+ * URL state: ?web=0/1 & u=N & cms=N & lang=N & shop=1 & br=1 & gr=1 & f1=N … & domain=1 & …
  */
 
 export function PaketBuilder() {
@@ -66,6 +66,7 @@ function Inner() {
     () => getClosestPaket(state, totals),
     [state, totals]
   );
+  const activePreset = useMemo(() => matchingPreset(state), [state]);
   const any = hasAnySelection(state);
 
   /* ────────────── state-updater helper ────────────── */
@@ -74,17 +75,7 @@ function Inner() {
     value: BuilderState[K]
   ) => setState((s) => ({ ...s, [key]: value }));
 
-  const toggleCms = (b: CmsBereich) => {
-    setState((s) => {
-      const has = s.cmsBereiche.includes(b);
-      return {
-        ...s,
-        cmsBereiche: has
-          ? s.cmsBereiche.filter((x) => x !== b)
-          : [...s.cmsBereiche, b],
-      };
-    });
-  };
+  const pickPreset = (id: PresetId) => setState((s) => applyPreset(s, id));
 
   /* ────────────── aktionen ────────────── */
   const handleDownloadPdf = async () => {
@@ -113,32 +104,32 @@ function Inner() {
         {/* ─── sektion: was brauchst du ─── */}
         <Block
           title="was brauchst du?"
-          hint="web, grafik oder beides — einfach anschalten. was aus ist, kostet nix."
+          hint="web, branding, grafik oder autobeschriftung • einfach anschalten. was aus ist, kostet nix."
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <ToggleCard
               active={state.web}
               onToggle={() => update("web", !state.web)}
               title="website"
-              subtitle="eine seite oder ganzes universum — du entscheidest unten."
+              subtitle="onepager, multipager oder mehrsprachig • du baust unten zusammen."
             />
             <ToggleCard
-              active={state.grafikBrand}
-              onToggle={() => update("grafikBrand", !state.grafikBrand)}
-              title="brand identity"
-              subtitle="logo, farben, schrift — das basis-set für alles."
+              active={state.branding}
+              onToggle={() => update("branding", !state.branding)}
+              title="branding-paket"
+              subtitle="logo, brand guide, vk, briefpapier, 3 social templates · 1.200 €."
             />
             <ToggleCard
-              active={state.grafikPrint}
-              onToggle={() => update("grafikPrint", !state.grafikPrint)}
+              active={state.grafik}
+              onToggle={() => update("grafik", !state.grafik)}
               title="print & grafik"
-              subtitle="flyer, visitenkarten, menüs, schilder — was du in der hand brauchst."
+              subtitle="flyer, plakat, broschüre, präsentation, social, signatur …"
             />
             <ToggleCard
-              active={state.grafikSocial}
-              onToggle={() => update("grafikSocial", !state.grafikSocial)}
-              title="social templates"
-              subtitle="instagram-posts & stories als vorlagen zum selbstbefüllen."
+              active={state.autoWrap}
+              onToggle={() => update("autoWrap", !state.autoWrap)}
+              title="autobeschriftung"
+              subtitle="L+R-gestaltung, zusatz V+H, montage auf anfrage."
             />
           </div>
         </Block>
@@ -147,50 +138,73 @@ function Inner() {
         {state.web && (
           <Block
             title="wie gross wird die website?"
-            hint="grobe einordnung reicht — wir feilen später am exakten umfang."
+            hint="preset als schnellstart · oder granular +/− bauen. jede zeile skaliert den preis live."
           >
-            {/* seiten-scope */}
-            <Field label="umfang">
-              <ChipRow
-                value={state.webScope}
-                options={WEB_SCOPE_OPTIONS}
-                onChange={(v) => update("webScope", v as WebScope)}
-              />
-            </Field>
-
-            {/* sprachen */}
-            <Field label="sprachen" hint="mehrsprachig? fügt inhalt + pflege dazu.">
-              <ChipRow
-                value={String(state.sprachen)}
-                options={[
-                  { v: "1", label: "nur eine" },
-                  { v: "2", label: "zwei" },
-                  { v: "3", label: "drei oder mehr" },
-                ]}
-                onChange={(v) =>
-                  update("sprachen", Number(v) as SeitenSprachen)
-                }
-              />
-            </Field>
-
-            {/* cms-bereiche (multi) */}
-            <Field
-              label="selbst pflegbare bereiche"
-              hint="alles hier kannst du später allein aktualisieren — kein anruf bei mir nötig."
-            >
+            {/* PRESET-ROW */}
+            <Field label="schnellstart" hint="nimmt dir die entscheidung ab · du kannst danach trotzdem feinjustieren.">
               <div className="flex flex-wrap gap-2">
-                {CMS_OPTIONS.map((opt) => (
-                  <MultiChip
-                    key={opt.v}
-                    active={state.cmsBereiche.includes(opt.v as CmsBereich)}
-                    label={opt.label}
-                    onClick={() => toggleCms(opt.v as CmsBereich)}
-                  />
-                ))}
+                {(Object.keys(PRESETS) as PresetId[]).map((id) => {
+                  const active = activePreset === id;
+                  return (
+                    <button
+                      key={id}
+                      type="button"
+                      onClick={() => pickPreset(id)}
+                      className={[
+                        "font-mono text-[11px] uppercase tracking-mono px-4 py-2 rounded-full border transition-all",
+                        active
+                          ? "border-lime/50 bg-lime/15 text-accent-ink"
+                          : "border-ink/15 text-offwhite/65 hover:border-ink/35 hover:text-offwhite",
+                      ].join(" ")}
+                    >
+                      {id}
+                    </button>
+                  );
+                })}
               </div>
             </Field>
 
-            {/* shop */}
+            <PriceRow
+              label="basis · startseite inkl. design, entwicklung, launch"
+              amount={1400}
+              fixed
+            />
+
+            <CounterField
+              label="unterseiten"
+              hint="je 300 € · über/unter, leistungen, kontakt, … (startseite zählt nicht)"
+              value={state.unterseiten}
+              min={0}
+              max={30}
+              unitPrice={300}
+              onChange={(v) => update("unterseiten", v)}
+            />
+
+            <CounterField
+              label="cms-bereiche · selbst pflegbar"
+              hint="je 500 € · z.b. blog, team, projekte, termine, katalog"
+              value={state.cms}
+              min={0}
+              max={10}
+              unitPrice={500}
+              onChange={(v) => update("cms", v)}
+            />
+
+            <div>
+              <CounterField
+                label="sprachen insgesamt"
+                hint={
+                  state.sprachen > 1
+                    ? `zusatzsprachen skalieren mit seiten · ${1 + state.unterseiten} × ${state.sprachen - 1} × 50 €`
+                    : "50 € pro seite · pro zusatzsprache (skaliert mit seitenzahl)"
+                }
+                value={state.sprachen}
+                min={1}
+                max={5}
+                onChange={(v) => update("sprachen", v)}
+              />
+            </div>
+
             <Field
               label="shop oder terminbuchung?"
               hint="wenn hier ja: wird aus der website eine kleine software."
@@ -199,7 +213,7 @@ function Inner() {
                 value={state.shop ? "1" : "0"}
                 options={[
                   { v: "0", label: "nein" },
-                  { v: "1", label: "ja, brauch ich" },
+                  { v: "1", label: "ja · +1.800 €" },
                 ]}
                 onChange={(v) => update("shop", v === "1")}
               />
@@ -207,10 +221,149 @@ function Inner() {
           </Block>
         )}
 
+        {/* ─── sektion: branding-details ─── */}
+        {state.branding && (
+          <Block
+            title="branding-paket"
+            hint="pauschalpreis · alles was du für einen einheitlichen auftritt brauchst."
+          >
+            <PriceRow
+              label="branding-paket · logo, brand guide, vk, briefpapier, 3 social-templates"
+              hint="komplettpaket · einheitliche basis für alles weitere"
+              amount={1200}
+              fixed
+            />
+          </Block>
+        )}
+
+        {/* ─── sektion: grafik-details ─── */}
+        {state.grafik && (
+          <Block
+            title="print & grafik · was brauchst du?"
+            hint="jede zeile einzeln +/− · was auf 0 steht, wird nicht berechnet."
+          >
+            <CounterField
+              label="flyer einseitig"
+              hint="je 200 € · gestaltung druckfertig"
+              value={state.flyer1}
+              min={0}
+              max={30}
+              unitPrice={200}
+              onChange={(v) => update("flyer1", v)}
+            />
+            <CounterField
+              label="flyer beidseitig"
+              hint="je 300 € · gestaltung druckfertig"
+              value={state.flyer2}
+              min={0}
+              max={30}
+              unitPrice={300}
+              onChange={(v) => update("flyer2", v)}
+            />
+            <CounterField
+              label="plakat"
+              hint="je 200 € · alle formate"
+              value={state.plakat}
+              min={0}
+              max={30}
+              unitPrice={200}
+              onChange={(v) => update("plakat", v)}
+            />
+            <CounterField
+              label="rollup"
+              hint="je 200 € · gestaltung"
+              value={state.rollup}
+              min={0}
+              max={20}
+              unitPrice={200}
+              onChange={(v) => update("rollup", v)}
+            />
+            <CounterField
+              label="broschüre · seiten"
+              hint="je 75 €/seite"
+              value={state.broschuere}
+              min={0}
+              max={120}
+              unitPrice={75}
+              onChange={(v) => update("broschuere", v)}
+            />
+            <CounterField
+              label="präsentation · slides"
+              hint="je 75 €/slide"
+              value={state.praes}
+              min={0}
+              max={120}
+              unitPrice={75}
+              onChange={(v) => update("praes", v)}
+            />
+            <CounterField
+              label="social media visual"
+              hint="je 75 €/stück"
+              value={state.social}
+              min={0}
+              max={60}
+              unitPrice={75}
+              onChange={(v) => update("social", v)}
+            />
+            <CounterField
+              label="e-mail-signatur"
+              hint="75 € erste · +25 € pro weitere"
+              value={state.signatur}
+              min={0}
+              max={30}
+              onChange={(v) => update("signatur", v)}
+            />
+            <CounterField
+              label="visitenkarte"
+              hint="75 € erste · +25 € pro weitere"
+              value={state.vk}
+              min={0}
+              max={30}
+              onChange={(v) => update("vk", v)}
+            />
+          </Block>
+        )}
+
+        {/* ─── sektion: autobeschriftung ─── */}
+        {state.autoWrap && (
+          <Block
+            title="autobeschriftung"
+            hint="je auto einzeln. montage wird zusätzlich gerechnet."
+          >
+            <CounterField
+              label="gestaltung L+R"
+              hint="je 150 €/auto · beide seitenflächen"
+              value={state.autoLR}
+              min={0}
+              max={30}
+              unitPrice={150}
+              onChange={(v) => update("autoLR", v)}
+            />
+            <CounterField
+              label="zusätzlich V+H"
+              hint="+75 €/auto · vorne und hinten als addon"
+              value={state.autoVH}
+              min={0}
+              max={30}
+              unitPrice={75}
+              onChange={(v) => update("autoVH", v)}
+            />
+            <CounterField
+              label="montage"
+              hint="je 150 €/auto · folierung vor ort"
+              value={state.montage}
+              min={0}
+              max={30}
+              unitPrice={150}
+              onChange={(v) => update("montage", v)}
+            />
+          </Block>
+        )}
+
         {/* ─── sektion: content & deadline ─── */}
         <Block
           title="inhalte & timing"
-          hint="beeinflusst zeit — und damit preis."
+          hint="beeinflusst zeit • und damit preis."
         >
           <Field
             label="hast du texte & bilder schon?"
@@ -220,8 +373,8 @@ function Inner() {
               value={state.content}
               options={[
                 { v: "selbst", label: "kommt von mir selbst" },
-                { v: "mit-hilfe", label: "mit deiner hilfe" },
-                { v: "komplett", label: "mach du alles bitte" },
+                { v: "mit-hilfe", label: "mit deiner hilfe · +450 €" },
+                { v: "komplett", label: "mach du alles bitte · +1.200 €" },
               ]}
               onChange={(v) => update("content", v as ContentHelp)}
             />
@@ -229,14 +382,14 @@ function Inner() {
 
           <Field
             label="wie eilig ist es?"
-            hint="eil-aufschlag nur bei 'next week' — normale projekte ohne extra."
+            hint="dringend-aufschlag (+25 %) nur bei 'next week' • normale projekte ohne extra."
           >
             <ChipRow
               value={state.deadline}
               options={[
                 { v: "flex", label: "zeit ist egal" },
                 { v: "normal", label: "normal (4–8 wochen)" },
-                { v: "dringend", label: "dringend (+20%)" },
+                { v: "dringend", label: "dringend (+25%)" },
               ]}
               onChange={(v) => update("deadline", v as Deadline)}
             />
@@ -247,30 +400,48 @@ function Inner() {
         {state.web && (
           <Block
             title="hosting & addons"
-            hint="läuft monatlich — damit dein projekt 24/7 erreichbar bleibt."
+            hint="läuft monatlich • damit dein projekt 24/7 erreichbar bleibt."
           >
-            <Field label="domain">
+            <PriceRow
+              label={
+                state.cms > 0
+                  ? "hosting · cms"
+                  : state.unterseiten > 0
+                  ? "hosting · multipager"
+                  : "hosting · onepager"
+              }
+              amount={
+                state.cms > 0 ? 40 : state.unterseiten > 0 ? 30 : 20
+              }
+              monthly
+              fixed
+              hint="passt sich automatisch deiner konfiguration an."
+            />
+
+            <Field
+              label="domain vorhanden?"
+              hint="wenn nein: laconis registriert mit · kann je nach domain (.be/.de/.com/…) leicht variieren."
+            >
               <ChipRow
                 value={state.hasDomain ? "1" : "0"}
                 options={[
-                  { v: "0", label: "hab ich schon" },
-                  { v: "1", label: "bitte mitregistrieren (+ 2 €/Mt)" },
+                  { v: "1", label: "ja · hab ich schon" },
+                  { v: "0", label: "nein · +2 €/Mt (kann variieren)" },
                 ]}
                 onChange={(v) => update("hasDomain", v === "1")}
               />
             </Field>
 
-            <Field
+            <CounterField
               label="mail-postfächer"
-              hint="z.b. hallo@deinefirma.be — je adresse 5 €/Mt."
-            >
-              <Counter
-                value={state.mails}
-                onChange={(v) => update("mails", v)}
-                min={0}
-                max={10}
-              />
-            </Field>
+              hint="z.b. hallo@deinefirma.be · je 5 €/Mt"
+              value={state.mails}
+              min={0}
+              max={10}
+              unitPrice={5}
+              unitSuffix="€/Mt"
+              onChange={(v) => update("mails", v)}
+            />
           </Block>
         )}
 
@@ -321,7 +492,7 @@ function Inner() {
         </div>
 
         <p className="mt-4 text-[11px] leading-relaxed text-offwhite/40">
-          richtpreis — kein verbindliches angebot. ich antworte innerhalb
+          richtpreis • kein verbindliches angebot. ich antworte innerhalb
           24 std mit der finalen zahl (werktags).
         </p>
       </div>
@@ -377,6 +548,91 @@ function Field({
         )}
       </div>
       {children}
+    </div>
+  );
+}
+
+function PriceRow({
+  label,
+  hint,
+  amount,
+  monthly,
+  fixed,
+}: {
+  label: string;
+  hint?: string;
+  amount: number;
+  monthly?: boolean;
+  fixed?: boolean;
+}) {
+  return (
+    <div
+      className={[
+        "flex items-start justify-between gap-3 rounded-lg border px-4 py-3",
+        fixed
+          ? "border-lime/20 bg-lime/[0.04]"
+          : "border-ink/10 bg-ink/[0.02]",
+      ].join(" ")}
+    >
+      <div className="min-w-0">
+        <div className="font-mono text-[11px] uppercase tracking-label text-offwhite/75">
+          {label}
+        </div>
+        {hint && (
+          <div className="mt-1 text-[11.5px] leading-relaxed text-offwhite/40">
+            {hint}
+          </div>
+        )}
+      </div>
+      <div className="shrink-0 text-right">
+        <span className="font-mono text-[13px] text-accent-ink tabular-nums">
+          {formatEUR(amount)} {monthly ? "€/Mt" : "€"}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function CounterField({
+  label,
+  hint,
+  value,
+  min,
+  max,
+  onChange,
+  unitPrice,
+  unitSuffix = "€",
+}: {
+  label: string;
+  hint?: string;
+  value: number;
+  min: number;
+  max: number;
+  onChange: (v: number) => void;
+  unitPrice?: number;
+  unitSuffix?: string;
+}) {
+  const showUnit = unitPrice !== undefined && value > 0;
+  return (
+    <div className="flex items-start justify-between gap-4">
+      <div className="min-w-0">
+        <div className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
+          {label}
+        </div>
+        {hint && (
+          <div className="mt-1 text-[12px] leading-relaxed text-offwhite/40 max-w-[420px]">
+            {hint}
+          </div>
+        )}
+      </div>
+      <div className="shrink-0 flex flex-col items-end gap-1.5">
+        <Counter value={value} onChange={onChange} min={min} max={max} />
+        {showUnit && (
+          <span className="font-mono text-[10.5px] tabular-nums text-accent-ink/80">
+            = {formatEUR(unitPrice! * value)} {unitSuffix}
+          </span>
+        )}
+      </div>
     </div>
   );
 }
@@ -475,38 +731,6 @@ function ChipRow({
   );
 }
 
-function MultiChip({
-  active,
-  label,
-  onClick,
-}: {
-  active: boolean;
-  label: string;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={[
-        "font-mono text-[11px] px-3 py-1.5 rounded-full border transition-all inline-flex items-center gap-1.5",
-        active
-          ? "border-lime/40 bg-lime/10 text-accent-ink"
-          : "border-ink/10 text-offwhite/55 hover:border-ink/25 hover:text-offwhite/85",
-      ].join(" ")}
-    >
-      <span
-        aria-hidden
-        className={[
-          "inline-block w-1.5 h-1.5 rounded-full",
-          active ? "bg-accent-ink" : "bg-offwhite/25",
-        ].join(" ")}
-      />
-      {label}
-    </button>
-  );
-}
-
 function Counter({
   value,
   onChange,
@@ -529,7 +753,7 @@ function Counter({
       >
         −
       </button>
-      <span className="min-w-[48px] text-center font-mono text-[14px] text-offwhite">
+      <span className="min-w-[48px] text-center font-mono text-[14px] text-offwhite tabular-nums">
         {value}
       </span>
       <button
@@ -544,20 +768,3 @@ function Counter({
     </div>
   );
 }
-
-/* ══════════════════════════ options ══════════════════════════ */
-
-const WEB_SCOPE_OPTIONS: ChipOption[] = [
-  { v: "onepager", label: "onepager (1 seite)" },
-  { v: "small", label: "klein (bis 5)" },
-  { v: "medium", label: "mittel (bis 10)" },
-  { v: "large", label: "gross (10+)" },
-];
-
-const CMS_OPTIONS: ChipOption[] = [
-  { v: "blog", label: "blog / news" },
-  { v: "team", label: "team-seiten" },
-  { v: "projekte", label: "projekte / portfolio" },
-  { v: "termine", label: "termine / events" },
-  { v: "katalog", label: "katalog" },
-];

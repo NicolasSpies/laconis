@@ -58,7 +58,7 @@ export function Deliverables() {
           </h2>
           <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/60">
             keine nachlieferungen per e-mail, keine „ach die datei schicke ich
-            dir morgen". am übergabetag hast du alles, was du brauchst —
+            dir morgen". am übergabetag hast du alles, was du brauchst •
             print-ready und web-ready.
           </p>
         </div>

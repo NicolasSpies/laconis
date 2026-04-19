@@ -24,8 +24,8 @@ export default function Page() {
         <LegalRow
           k="anschrift"
           v={
-            <span className="text-offwhite/45 italic">
-              [strasse + hausnummer] • 4700 Eupen
+            <span className="text-offwhite/65">
+              adresse wird ergänzt · 4700 Eupen, Belgien
             </span>
           }
         />
@@ -43,26 +43,11 @@ export default function Page() {
         <LegalRow
           k="telefon"
           v={
-            <span className="text-offwhite/45 italic">
-              [telefonnummer] — reicht ich nach
+            <span className="text-offwhite/65">
+              wird nachgereicht · bis dahin am schnellsten per mail
             </span>
           }
         />
-      </LegalSection>
-
-      <LegalSection
-        titel="umsatzsteuer / unternehmensnummer"
-        aside="belgische freelancer brauchen eine BCE/KBO-nummer. kommt sobald registriert."
-      >
-        <LegalRow
-          k="BCE / KBO"
-          v={
-            <span className="text-offwhite/45 italic">
-              BE 0XXX.XXX.XXX — wird ergänzt
-            </span>
-          }
-        />
-        <LegalRow k="ust-befreiung" v="kleinunternehmer gem. art. 56bis MwStGB (falls zutreffend)" />
       </LegalSection>
 
       <LegalSection

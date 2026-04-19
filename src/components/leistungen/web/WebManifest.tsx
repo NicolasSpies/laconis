@@ -47,7 +47,7 @@ export function WebManifest() {
             </h2>
             <p className="mt-6 text-[14px] leading-relaxed text-offwhite/55 max-w-[320px]">
               sechs dinge, die bei mir nicht drin sind. damit du weißt, worauf
-              du dich einlässt — und was du stattdessen bekommst.
+              du dich einlässt • und was du stattdessen bekommst.
             </p>
           </div>
 
@@ -58,7 +58,7 @@ export function WebManifest() {
                 key={i}
                 className="group grid grid-cols-[auto_1fr] gap-5 py-7 md:py-8"
               >
-                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/30 pt-1 tabular-nums">
+                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/50 pt-1 tabular-nums">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>

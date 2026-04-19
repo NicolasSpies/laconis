@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
 import { Button } from "./ui/Button";
-import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/cn";
 
 type SubLink = { href: string; label: string; kurz: string };
@@ -170,10 +169,13 @@ export function Nav() {
           })}
           <span
             aria-disabled
-            className="font-mono text-[12px] lowercase tracking-mono text-offwhite/20 cursor-not-allowed"
+            className="inline-flex items-baseline gap-1.5 font-mono text-[12px] lowercase tracking-mono text-offwhite/55 cursor-not-allowed"
             title="bald verfügbar"
           >
             shop
+            <span className="text-[8px] uppercase tracking-label text-accent-ink/70">
+              bald
+            </span>
           </span>
         </nav>
 
@@ -188,7 +190,7 @@ export function Nav() {
                   "font-mono text-[10px] uppercase px-1.5 py-0.5 rounded",
                   i === 0
                     ? "text-offwhite"
-                    : "text-offwhite/25 cursor-not-allowed",
+                    : "text-offwhite/50 cursor-not-allowed",
                 )}
                 title={i !== 0 ? "bald verfügbar" : undefined}
               >
@@ -197,14 +199,15 @@ export function Nav() {
             ))}
           </div>
           <span className="h-4 w-px bg-ink/15" />
-          <ThemeToggle />
-          <span className="h-4 w-px bg-ink/15" />
           <span
             aria-disabled
-            className="font-mono text-[11px] lowercase tracking-mono text-offwhite/25 cursor-not-allowed"
+            className="inline-flex items-baseline gap-1.5 font-mono text-[11px] lowercase tracking-mono text-offwhite/55 cursor-not-allowed"
             title="bald verfügbar"
           >
             login
+            <span className="text-[8px] uppercase tracking-label text-accent-ink/70">
+              bald
+            </span>
           </span>
           <Button href="/kontakt#projekt" size="sm">
             projekt starten →
@@ -263,7 +266,7 @@ export function Nav() {
                       className="font-mono text-[12px] lowercase text-offwhite/60 hover:text-accent-ink transition-colors"
                     >
                       → {c.label}
-                      <span className="ml-2 text-offwhite/30 normal-case">
+                      <span className="ml-2 text-offwhite/55 normal-case">
                         {c.kurz}
                       </span>
                     </Link>
@@ -272,17 +275,23 @@ export function Nav() {
               )}
             </div>
           ))}
-          <span className="font-mono text-[14px] lowercase text-offwhite/30">
+          <span
+            className="font-mono text-[14px] lowercase text-offwhite/55"
+            aria-label="shop · bald"
+            title="bald verfügbar"
+          >
             shop
+            <span className="ml-2 font-mono text-[9px] uppercase tracking-label text-offwhite/45">
+              bald
+            </span>
           </span>
           <div className="flex items-center gap-3 pt-2 border-t border-ink/10">
-            <ThemeToggle className="mr-2" />
             {langs.map((l, i) => (
               <span
                 key={l}
                 className={cn(
                   "font-mono text-[11px] uppercase",
-                  i === 0 ? "text-offwhite" : "text-offwhite/30",
+                  i === 0 ? "text-offwhite" : "text-offwhite/55",
                 )}
               >
                 {l}

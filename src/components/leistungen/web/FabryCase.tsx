@@ -1,49 +1,44 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { useInView } from "framer-motion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
-function Ring({
-  wert,
-  label,
-}: {
-  wert: number;
-  label: string;
-}) {
-  const r = 42;
-  const c = 2 * Math.PI * r;
-  const dash = (wert / 100) * c;
+function AnimatedScore({ score, label }: { score: number; label: string }) {
+  const [current, setCurrent] = useState(0);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  useEffect(() => {
+    if (!inView) return;
+    const duration = 1800;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setCurrent(Math.round(eased * score));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [inView, score]);
+
   return (
-    <div className="flex flex-col items-center gap-3">
-      <svg width="120" height="120" viewBox="0 0 120 120">
-        {/* Track */}
-        <circle cx="60" cy="60" r={r} stroke="rgba(255,255,255,0.08)" strokeWidth="6" fill="none" />
-        {/* Active arc */}
-        <circle
-          cx="60"
-          cy="60"
-          r={r}
-          stroke="#E1FD52"
-          strokeWidth="6"
-          strokeLinecap="round"
-          fill="none"
-          strokeDasharray={`${dash} ${c}`}
-          transform="rotate(-90 60 60)"
+    <div ref={ref} className="space-y-2">
+      <div className="flex items-baseline justify-between">
+        <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/50">
+          {label}
+        </span>
+        <span className="heading-display text-[40px] text-accent-ink leading-none">
+          {current}
+        </span>
+      </div>
+      <div className="h-1 w-full rounded-full bg-ink/20 overflow-hidden">
+        <div
+          className="h-full bg-lime rounded-full transition-[width] duration-[1800ms] ease-out"
+          style={{ width: inView ? `${score}%` : "0%" }}
         />
-        <text
-          x="60"
-          y="66"
-          textAnchor="middle"
-          fontFamily="system-ui, sans-serif"
-          fontSize="30"
-          fontWeight="700"
-          fill="#F2F2F2"
-          letterSpacing="-0.02em"
-        >
-          {wert}
-        </text>
-      </svg>
-      <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/50">
-        {label}
-      </span>
+      </div>
     </div>
   );
 }
@@ -188,10 +183,6 @@ function FabryScreenshotPlaceholder() {
         </div>
       </div>
 
-      {/* Marker */}
-      <div className="absolute bottom-2 right-3 font-mono text-[8px] uppercase tracking-label text-offwhite/30">
-        platzhalter · echter screenshot folgt
-      </div>
     </div>
   );
 }
@@ -247,9 +238,9 @@ export function FabryCase() {
               </span>
             </div>
 
-            <div className="mt-6 flex items-center justify-around">
-              <Ring wert={96} label="mobile" />
-              <Ring wert={98} label="desktop" />
+            <div className="mt-6 space-y-5">
+              <AnimatedScore score={96} label="mobile" />
+              <AnimatedScore score={98} label="desktop" />
             </div>
 
             <div className="mt-8">

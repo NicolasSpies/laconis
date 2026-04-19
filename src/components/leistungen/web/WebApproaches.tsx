@@ -16,7 +16,7 @@ const NEU: Card[] = [
   {
     num: "01",
     titel: "briefing von null",
-    text: "wir klären wer du bist, was du brauchst, wer dein zielpublikum ist. ohne altbestand, ohne ‚das war schon immer so'.",
+    text: "ich kläre mit dir wer du bist, was du brauchst, wer dein zielpublikum ist. ohne altbestand, ohne ‚das war schon immer so'.",
   },
   {
     num: "02",
@@ -39,7 +39,7 @@ const REDESIGN: Card[] = [
   {
     num: "01",
     titel: "inhalte behalten",
-    text: "deine texte, deine bilder, deine historie. wir übernehmen was du behalten willst, räumen auf was raus soll, du fängst nicht bei null an.",
+    text: "deine texte, deine bilder, deine historie. ich übernehme was du behalten willst, räume auf was raus soll, du fängst nicht bei null an.",
   },
   {
     num: "02",
@@ -49,7 +49,7 @@ const REDESIGN: Card[] = [
   {
     num: "03",
     titel: "kein ausfall",
-    text: "deine alte seite bleibt online bis die neue live ist. wir schalten erst um, wenn du den knopf drückst.",
+    text: "deine alte seite bleibt online bis die neue live ist. ich schalte erst um, wenn du den knopf drückst.",
   },
   {
     num: "04",
@@ -81,14 +81,14 @@ export function WebApproaches() {
               <>
                 du hast schon eine seite.{" "}
                 <span className="text-offwhite/35">
-                  wir machen eine, mit der du wieder gern rausgehst.
+                  ich bau dir eine, mit der du wieder gern rausgehst.
                 </span>
               </>
             )}
           </h2>
           <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/60">
             {tab === "neu"
-              ? "du startest bei null. keine alten URLs, kein legacy-content, kein seo-gepäck. freiere gestaltung, aber mehr entscheidungen am anfang — dafür mache ich den kompass."
+              ? "du startest bei null. keine alten URLs, kein legacy-content, kein seo-gepäck. freiere gestaltung, aber mehr entscheidungen am anfang • dafür mache ich den kompass."
               : "die meisten kommen nicht bei null. eine wordpress-seite von 2016, ein baukasten der jedes jahr 240 € frisst, eine wix-seite die keiner mehr aufmacht. das meiste meiner arbeit ist redesign, nicht neubau."}
           </p>
         </div>

@@ -1,5 +1,6 @@
 import { Hero } from "@/components/home/Hero";
 import { SocialProof } from "@/components/home/SocialProof";
+import { QuickPreisCheck } from "@/components/home/QuickPreisCheck";
 import { LeistungenTeaser } from "@/components/home/LeistungenTeaser";
 import { Manifest } from "@/components/home/Manifest";
 import { ReferenzenTeaser } from "@/components/home/ReferenzenTeaser";
@@ -11,6 +12,7 @@ export default function HomePage() {
     <>
       <Hero />
       <SocialProof />
+      <QuickPreisCheck />
       <LeistungenTeaser />
       <Manifest />
       <ReferenzenTeaser />

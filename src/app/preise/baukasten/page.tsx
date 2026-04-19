@@ -8,12 +8,12 @@ const SCHRITTE = [
   {
     num: "1",
     titel: "anschalten",
-    text: "web, grafik oder beides — jede kategorie ist ein eigener schalter. was aus ist, kostet nichts.",
+    text: "web, grafik oder beides • jede kategorie ist ein eigener schalter. was aus ist, kostet nichts.",
   },
   {
     num: "2",
     titel: "feinjustieren",
-    text: "umfang, sprachen, cms-bereiche, hosting — alles mit kurzen erklärungen. keine fachbegriffe ohne übersetzung.",
+    text: "umfang, sprachen, cms-bereiche, hosting • alles mit kurzen erklärungen. keine fachbegriffe ohne übersetzung.",
   },
   {
     num: "3",
@@ -51,7 +51,7 @@ export default function Page() {
             </h1>
             <p className="mt-8 max-w-[620px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/60">
               keine fertigpackung, die ein bisschen zu klein oder ein bisschen
-              zu viel ist. du schaltest ein was du brauchst — ich rechne live
+              zu viel ist. du schaltest ein was du brauchst • ich rechne live
               mit, inklusive rabatten und hosting. am ende nimmst du den bon
               als pdf mit oder schickst mir die anfrage direkt.
             </p>
@@ -113,7 +113,7 @@ export default function Page() {
         <div className="container-site">
           <div className="max-w-[820px] mx-auto text-center">
             <p className="text-[13px] leading-relaxed text-offwhite/45">
-              unsicher bei einer entscheidung? lass sie einfach offen — im
+              unsicher bei einer entscheidung? lass sie einfach offen • im
               gespräch klären wir das in 10 minuten und ich rechne dir die
               finalen zahlen.
             </p>

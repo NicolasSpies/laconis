@@ -6,15 +6,13 @@ import {
   useMotionTemplate,
   useMotionValue,
   useScroll,
-  useSpring,
   useTransform,
 } from "framer-motion";
 
 export function CursorSpotlight() {
+  // direct motion values — no spring, kein trailing. folgt cursor 1:1.
   const x = useMotionValue(-1000);
   const y = useMotionValue(-1000);
-  const sx = useSpring(x, { stiffness: 140, damping: 24, mass: 0.5 });
-  const sy = useSpring(y, { stiffness: 140, damping: 24, mass: 0.5 });
 
   const { scrollY } = useScroll();
   // invisible in hero, fades in after ~half viewport scroll
@@ -22,11 +20,11 @@ export function CursorSpotlight() {
 
   // document-relative cursor Y (viewport Y + scroll offset) so mask aligns with absolute base grid
   const docY = useTransform<number, number>(
-    [sy, scrollY] as unknown as never,
+    [y, scrollY] as unknown as never,
     (vals: number[]) => vals[0] + vals[1],
   );
 
-  const revealMask = useMotionTemplate`radial-gradient(circle 440px at ${sx}px ${docY}px, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 30%, transparent 85%)`;
+  const revealMask = useMotionTemplate`radial-gradient(circle 440px at ${x}px ${docY}px, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 30%, transparent 85%)`;
 
   useEffect(() => {
     if (window.matchMedia("(pointer: coarse)").matches) return;
@@ -67,8 +65,8 @@ export function CursorSpotlight() {
       <motion.div
         aria-hidden
         style={{
-          x: sx,
-          y: sy,
+          x,
+          y,
           translateX: "-50%",
           translateY: "-50%",
           opacity,

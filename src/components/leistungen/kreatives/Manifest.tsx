@@ -58,7 +58,7 @@ export function Manifest() {
                 key={i}
                 className="group grid grid-cols-[auto_1fr] gap-5 py-7 md:py-8"
               >
-                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/30 pt-1 tabular-nums">
+                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/50 pt-1 tabular-nums">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>

@@ -1,5 +1,6 @@
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { KontaktMultistep } from "@/components/kontakt/KontaktMultistep";
+import { VerfuegbarkeitCollapse } from "@/components/kontakt/VerfuegbarkeitCollapse";
 
 export const metadata = { title: "kontakt" };
 
@@ -7,31 +8,17 @@ export default function Page() {
   return (
     <>
       {/* HERO */}
-      <section className="pt-36 pb-16">
+      <section className="pt-36 pb-24">
         <div className="container-site">
           <SectionLabel num="01">kontakt</SectionLabel>
 
           <div className="mt-8 max-w-[900px]">
             <h1 className="heading-display text-[clamp(2.5rem,8vw,6rem)] text-offwhite">
-              sag hallo.{" "}
-              <span className="text-offwhite/35">ich beisse nicht.</span>
+              sag hallo.
             </h1>
             <p className="mt-8 max-w-[580px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/60">
-              drei schnelle wege oder — weiter unten — das projekt-formular
-              mit budget & scope. kein pflichtprogramm, nur was ich brauche,
-              um zu wissen worum's geht. antwort innerhalb 24 std (werktags).
+              eine kurze nachricht reicht. antwort innerhalb 24h.
             </p>
-          </div>
-
-          {/* availability signal */}
-          <div className="mt-10 inline-flex items-center gap-3 px-4 py-2 rounded-full border border-lime/25 bg-lime/[0.04]">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inset-0 rounded-full bg-lime animate-ping opacity-70" />
-              <span className="relative rounded-full h-2 w-2 bg-lime" />
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/75">
-              im atelier • diese woche 3 slots für kennenlerngespräche
-            </span>
           </div>
         </div>
       </section>
@@ -52,24 +39,31 @@ export default function Page() {
           <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4">
             <ContactCard
               label="e-mail"
-              value="hallo@laconis.be"
-              href="mailto:hallo@laconis.be"
-              note="klassisch. antwort innerhalb 24h — meistens deutlich schneller."
+              value="nicolas@laconis.be"
+              href="mailto:nicolas@laconis.be"
+              note="klassisch. antwort innerhalb 24h • meistens deutlich schneller."
             />
             <ContactCard
               label="call buchen"
               value="30 min kennenlernen"
-              href="/kontakt#projekt"
-              note="noch nicht verlinkt — bis dahin einfach kurz per mail melden."
+              href="mailto:nicolas@laconis.be"
+              note="noch nicht verfügbar • einfach per mail melden."
             />
             <ContactCard
               label="in person"
               value="eupen • belgien"
               href="https://maps.google.com/?q=Eupen,Belgien"
               external
-              note="kaffee? gern — kurz vorher schreiben, damit ich da bin."
+              note="kaffee? gern • kurz vorher schreiben, damit ich da bin."
             />
           </div>
+        </div>
+      </section>
+
+      {/* VERFÜGBARKEIT · collapsible */}
+      <section className="pb-20">
+        <div className="container-site">
+          <VerfuegbarkeitCollapse />
         </div>
       </section>
 
@@ -80,7 +74,7 @@ export default function Page() {
             <div className="h-px bg-gradient-to-r from-transparent via-ink/15 to-transparent" />
             <div className="mt-6 text-center">
               <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
-                oder — das ausführliche formular
+                oder • das ausführliche formular
               </span>
             </div>
           </div>
@@ -91,7 +85,7 @@ export default function Page() {
       <section id="projekt" className="pb-36 scroll-mt-24">
         <div className="container-site">
           <div className="max-w-[820px] mx-auto">
-            <SectionLabel num="03">projekt anfragen</SectionLabel>
+            <SectionLabel num="04">projekt anfragen</SectionLabel>
             <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.5rem)] text-offwhite leading-[1.05]">
               sag mir,{" "}
               <span className="text-offwhite/35">was du vorhast.</span>
@@ -99,7 +93,7 @@ export default function Page() {
             <p className="mt-6 max-w-[620px] text-[14px] leading-relaxed text-offwhite/60">
               vier kurze schritte. kommst du von der preise-seite mit einem
               paket im kopf, springt das formular direkt in die
-              zusammenfassung — änderbar natürlich.
+              zusammenfassung • änderbar natürlich.
             </p>
           </div>
 
