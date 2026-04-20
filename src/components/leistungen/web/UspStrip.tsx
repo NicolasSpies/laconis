@@ -25,7 +25,7 @@ export function UspStrip() {
   return (
     <section className="pb-20">
       <div className="container-site">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/8 rounded-xl overflow-hidden border border-ink/8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/10 rounded-xl overflow-hidden border border-ink/10">
           {USPS.map((u) => (
             <div
               key={u.label}
@@ -35,7 +35,7 @@ export function UspStrip() {
                 <div className="heading-display text-[clamp(2.25rem,5vw,3.5rem)] text-accent-ink leading-none">
                   {u.wert}
                 </div>
-                <div className="mt-2 font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+                <div className="mt-2 font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                   {u.label}
                 </div>
               </div>

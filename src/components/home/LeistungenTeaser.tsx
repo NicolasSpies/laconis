@@ -67,11 +67,11 @@ function BrowserMock() {
             </div>
             <div className="ml-2 flex-1 flex items-center gap-2 px-3 py-1 rounded-md bg-ink/[0.03] border border-ink/5 min-w-0">
               <span className="w-1 h-1 rounded-full bg-lime flex-shrink-0" />
-              <span className="font-mono text-[10px] tracking-mono text-offwhite/50 lowercase truncate">
+              <span className="font-mono text-[10px] tracking-mono text-offwhite/55 lowercase truncate">
                 deinefirma.be
               </span>
               {maxW > 0 && (
-                <span className="ml-auto font-mono text-[9px] tracking-mono text-offwhite/30 flex-shrink-0">
+                <span className="ml-auto font-mono text-[9px] tracking-mono text-offwhite/35 flex-shrink-0">
                   {Math.round(currentW)}px
                 </span>
               )}
@@ -94,7 +94,7 @@ function BrowserMock() {
           <span
             aria-hidden
             className={
-              "absolute inset-0 m-auto w-8 h-8 rounded-full bg-lime/30 blur-md " +
+              "absolute inset-0 m-auto w-8 h-8 rounded-full bg-lime/25 blur-md " +
               (dragging ? "opacity-0" : "animate-pulse group-hover:opacity-0")
             }
           />
@@ -116,15 +116,15 @@ function MockPage({ isMobile }: { isMobile: boolean }) {
       <div className="flex items-center justify-between px-5 py-3 border-b border-ink/5">
         <div className="flex items-center gap-1.5 min-w-0">
           <span className="w-2 h-2 rounded-full bg-lime flex-shrink-0" />
-          <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/50 truncate">
+          <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55 truncate">
             deine firma
           </span>
         </div>
         {isMobile ? (
           <div className="flex flex-col gap-[3px] flex-shrink-0">
-            <span className="block w-4 h-[1.5px] bg-offwhite/45" />
-            <span className="block w-4 h-[1.5px] bg-offwhite/45" />
-            <span className="block w-4 h-[1.5px] bg-offwhite/45" />
+            <span className="block w-4 h-[1.5px] bg-offwhite/55" />
+            <span className="block w-4 h-[1.5px] bg-offwhite/55" />
+            <span className="block w-4 h-[1.5px] bg-offwhite/55" />
           </div>
         ) : (
           <div className="flex gap-3 font-mono text-[9px] uppercase tracking-label text-offwhite/55 flex-shrink-0">
@@ -168,7 +168,7 @@ function MockPage({ isMobile }: { isMobile: boolean }) {
               anfragen →
             </div>
             {!isMobile && (
-              <div className="px-3 py-1.5 rounded-full border border-ink/10 font-mono text-[9px] uppercase tracking-label text-offwhite/60">
+              <div className="px-3 py-1.5 rounded-full border border-ink/10 font-mono text-[9px] uppercase tracking-label text-offwhite/55">
                 mehr erfahren
               </div>
             )}
@@ -177,7 +177,7 @@ function MockPage({ isMobile }: { isMobile: boolean }) {
       </div>
 
       <div className="px-5 py-6 border-t border-ink/5">
-        <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/40 mb-3">
+        <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/35 mb-3">
           leistungen
         </div>
         <div className={isMobile ? "space-y-2" : "grid grid-cols-3 gap-2"}>
@@ -198,7 +198,7 @@ function MockPage({ isMobile }: { isMobile: boolean }) {
       </div>
 
       <div className="px-5 py-6 border-t border-ink/5">
-        <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/40 mb-3">
+        <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/35 mb-3">
           referenzen
         </div>
         <div className={isMobile ? "space-y-2" : "grid grid-cols-2 gap-2"}>
@@ -212,7 +212,7 @@ function MockPage({ isMobile }: { isMobile: boolean }) {
       </div>
 
       <div className="px-5 py-6 border-t border-ink/5">
-        <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/40 mb-3">
+        <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/35 mb-3">
           über mich
         </div>
         <div className="space-y-1.5">
@@ -223,7 +223,7 @@ function MockPage({ isMobile }: { isMobile: boolean }) {
       </div>
 
       <div className="px-5 py-6 border-t border-ink/5">
-        <div className="rounded-lg bg-lime/[0.08] border border-lime/20 p-4 flex items-center justify-between gap-3">
+        <div className="rounded-lg bg-lime/[0.08] border border-lime/25 p-4 flex items-center justify-between gap-3">
           <div className="font-sans text-[12px] lowercase text-offwhite">
             projekt starten?
           </div>
@@ -267,7 +267,7 @@ export function LeistungenTeaser() {
               duration={1.3}
               strokeWidth={1.2}
               replayOnHover
-              className="absolute -inset-x-4 -inset-y-3 w-[calc(100%+2rem)] h-[calc(100%+1.5rem)] text-accent-ink/60"
+              className="absolute -inset-x-4 -inset-y-3 w-[calc(100%+2rem)] h-[calc(100%+1.5rem)] text-accent-ink/80"
             />
           </span>{" "}
           sprechen.
@@ -285,7 +285,7 @@ export function LeistungenTeaser() {
             <div className="p-8 md:p-12 flex flex-col">
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-lime" />
-                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/50">
+                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
                   web
                 </span>
               </div>
@@ -317,7 +317,7 @@ export function LeistungenTeaser() {
                   <span className="heading-sans text-[20px] text-offwhite tabular-nums">
                     1.400 €
                   </span>
-                  <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/45">
+                  <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
                     einmalig
                   </span>
                 </div>
@@ -336,7 +336,7 @@ export function LeistungenTeaser() {
           </div>
         </motion.article>
 
-        {/* Kreatives + Werbetechnik */}
+        {/* Grafik + Werbetechnik */}
         <div className="mt-8 grid md:grid-cols-2 gap-6">
           <motion.article
             initial={{ opacity: 0, y: 24 }}
@@ -347,8 +347,8 @@ export function LeistungenTeaser() {
           >
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-lime" />
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/50">
-                kreatives
+              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
+                grafik
               </span>
             </div>
             <h3 className="mt-5 heading-sans text-[clamp(1.5rem,2.4vw,1.85rem)] text-offwhite">
@@ -367,7 +367,7 @@ export function LeistungenTeaser() {
               ].map((b) => (
                 <li
                   key={b}
-                  className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-label text-offwhite/65"
+                  className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-label text-offwhite/55"
                 >
                   <span className="w-1 h-1 rounded-full bg-lime flex-shrink-0" />
                   {b}
@@ -383,13 +383,13 @@ export function LeistungenTeaser() {
                 <span className="heading-sans text-[18px] text-offwhite tabular-nums">
                   600 €
                 </span>
-                <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/45">
+                <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
                   einmalig
                 </span>
               </div>
               <Link
-                href="/leistungen/kreatives"
-                className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-offwhite/70 hover:text-accent-ink hover:gap-3 transition-all w-fit"
+                href="/leistungen/grafik"
+                className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-offwhite/75 hover:text-accent-ink hover:gap-3 transition-all w-fit"
               >
                 mehr erfahren <span>→</span>
               </Link>
@@ -405,7 +405,7 @@ export function LeistungenTeaser() {
           >
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-lime" />
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/50">
+              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
                 werbetechnik
               </span>
             </div>
@@ -425,7 +425,7 @@ export function LeistungenTeaser() {
               ].map((b) => (
                 <li
                   key={b}
-                  className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-label text-offwhite/65"
+                  className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-label text-offwhite/55"
                 >
                   <span className="w-1 h-1 rounded-full bg-lime flex-shrink-0" />
                   {b}
@@ -438,13 +438,13 @@ export function LeistungenTeaser() {
                 <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
                   preis
                 </span>
-                <span className="heading-sans text-[14px] text-offwhite/80">
+                <span className="heading-sans text-[14px] text-offwhite/75">
                   nach maß
                 </span>
               </div>
               <Link
-                href="/leistungen/kreatives#werbetechnik"
-                className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-offwhite/70 hover:text-accent-ink hover:gap-3 transition-all w-fit"
+                href="/leistungen/grafik"
+                className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-offwhite/75 hover:text-accent-ink hover:gap-3 transition-all w-fit"
               >
                 mehr erfahren <span>→</span>
               </Link>

@@ -8,7 +8,7 @@
  *
  * flex-modus:     nimmt die erste "free"-woche.
  * dringend-modus: nimmt die erste nicht-"urgent" woche und vordrängelt
- *                 damit einen "normal"-slot (+25 % aufschlag).
+ *                 damit einen "normal"-slot (+25% aufschlag).
  */
 
 export type SlotStatus = "urgent" | "normal" | "free";

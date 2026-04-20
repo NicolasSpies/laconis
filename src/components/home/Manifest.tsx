@@ -1,51 +1,49 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Scribble } from "@/components/ui/Scribble";
+import { useReveal } from "@/lib/useReveal";
+
+/**
+ * Manifest · css-driven reveal stagger.
+ * ein einziger IntersectionObserver (via useReveal) setzt data-show="1"
+ * auf dem root-wrapper · die CSS-regeln in globals.css sorgen für die
+ * cascade der kinder-reveals. kein framer-motion mehr in diesem component
+ * → entfernt ~14 motion-nodes aus dem bundle dieses chunks.
+ */
 
 export function Manifest() {
+  const ref = useReveal<HTMLDivElement>({ margin: "-80px 0px" });
+
   return (
     <section className="relative py-32 md:py-48">
       <div className="container-site">
-        <div className="max-w-[900px] relative">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6 }}
-            className="flex items-center gap-3 mb-10"
+        <div ref={ref} className="reveal-root max-w-[900px] relative">
+          <div
+            className="reveal-up flex items-center gap-3 mb-10"
+            style={{ "--rd": "0ms" } as React.CSSProperties}
           >
-            <span className="h-px w-8 bg-lime/60" />
-            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+            <span className="h-px w-8 bg-lime/50" />
+            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
               eine überzeugung
             </span>
-          </motion.div>
+          </div>
 
           <h2 className="heading-display text-[clamp(2.5rem,7.5vw,6rem)] leading-[0.95]">
-            <motion.span
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="block text-offwhite"
+            <span
+              className="reveal-up block text-offwhite"
+              style={{ "--rd": "100ms" } as React.CSSProperties}
             >
               Eine Website
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              className="block text-offwhite"
+            </span>
+            <span
+              className="reveal-up block text-offwhite"
+              style={{ "--rd": "220ms" } as React.CSSProperties}
             >
               ist kein Produkt.
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.9, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
-              className="block text-offwhite/35"
+            </span>
+            <span
+              className="reveal-up block text-offwhite/35"
+              style={{ "--rd": "340ms" } as React.CSSProperties}
             >
               es ist das{" "}
               <span className="relative inline-block">
@@ -56,36 +54,32 @@ export function Manifest() {
                   duration={1.8}
                   strokeWidth={1.2}
                   replayOnHover
-                  className="absolute -inset-x-[6%] -inset-y-[30%] w-[112%] h-[160%] text-accent-ink/70 pointer-events-none"
+                  className="absolute -inset-x-[6%] -inset-y-[30%] w-[112%] h-[160%] text-accent-ink/80 pointer-events-none"
                 />
               </span>
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.9, delay: 0.46, ease: [0.22, 1, 0.36, 1] }}
-              className="block text-offwhite/35"
+            </span>
+            <span
+              className="reveal-up block text-offwhite/35"
+              style={{ "--rd": "460ms" } as React.CSSProperties}
             >
               das deine Kunden
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.9, delay: 0.58, ease: [0.22, 1, 0.36, 1] }}
-              className="block text-accent-ink"
+            </span>
+            <span
+              className="reveal-up block text-accent-ink"
+              style={{ "--rd": "580ms" } as React.CSSProperties}
             >
               von dir hören.
-            </motion.span>
+            </span>
           </h2>
 
-          <motion.div
-            initial={{ opacity: 0, rotate: -8, y: 8 }}
-            whileInView={{ opacity: 1, rotate: -4, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.9, delay: 1.6, ease: [0.22, 1, 0.36, 1] }}
-            className="hidden xl:flex items-center gap-2 absolute right-0 top-[38%] font-hand leading-[1]"
+          <div
+            className="reveal-fade hidden xl:flex items-center gap-2 absolute right-0 top-[38%] font-hand leading-[1]"
+            style={
+              {
+                "--rd": "1600ms",
+                transform: "rotate(-4deg)",
+              } as React.CSSProperties
+            }
           >
             <Scribble
               variant="arrow"
@@ -97,18 +91,15 @@ export function Manifest() {
             <span className="whitespace-nowrap text-[26px] text-accent-ink/80">
               genau das.
             </span>
-          </motion.div>
+          </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, delay: 0.9 }}
-            className="mt-12 text-[14px] leading-relaxed text-offwhite/55 whitespace-nowrap"
+          <p
+            className="reveal-up mt-12 text-[14px] leading-relaxed text-offwhite/55 whitespace-nowrap"
+            style={{ "--rd": "900ms" } as React.CSSProperties}
           >
             Zuerst verstehen • dann bauen. So entsteht etwas, das wirklich zu
             dir passt.
-          </motion.p>
+          </p>
         </div>
       </div>
     </section>

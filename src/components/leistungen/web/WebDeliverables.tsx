@@ -1,110 +1,177 @@
+import Link from "next/link";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
 /**
- * WebDeliverables — was du am launch-tag konkret bekommst.
- * 3 gruppen: die seite selbst / dein zugang / der übergang von alt zu neu.
+ * WebDeliverables · slim version.
+ * 3 klare versprechen statt 14 technische bullets · mehr atmung, weniger
+ * datenblatt. alle details liegen auf /leistungen/web/technik.
  */
 
-type Item = { label: string; meta?: string };
+type Promise = {
+  num: string;
+  titel: string;
+  kurz: string;
+  /** kleines icon als SVG · passt zur scribble-ästhetik */
+  icon: React.ReactNode;
+};
 
-const GROUPS: { titel: string; sub: string; items: Item[] }[] = [
+const PROMISES: Promise[] = [
   {
-    titel: "die website",
-    sub: "technisch sauber. sofort belastbar.",
-    items: [
-      { label: "live auf deiner domain", meta: "HTTPS · EU-edge · CDN" },
-      { label: "pagespeed 95+", meta: "lighthouse-report im repo" },
-      { label: "responsive getestet", meta: "desktop · tablet · mobile · safari/chrome/firefox" },
-      { label: "SEO-basis", meta: "sitemap · robots.txt · schema-markup · meta-tags" },
-      { label: "cookie-freie analytics", meta: "plausible oder umami • DSGVO-konform" },
-    ],
+    num: "01",
+    titel: "die seite",
+    kurz:
+      "schnell, klar, auffindbar · pagespeed 95+, SEO von anfang an, lesbar auf jedem bildschirm.",
+    icon: (
+      <svg viewBox="0 0 48 48" className="w-8 h-8" fill="none" aria-hidden>
+        <rect
+          x="6"
+          y="10"
+          width="36"
+          height="28"
+          rx="2"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        />
+        <path
+          d="M6 17 L42 17"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        />
+        <circle cx="10" cy="13.5" r="0.9" fill="currentColor" />
+        <circle cx="13" cy="13.5" r="0.9" fill="currentColor" />
+        <circle cx="16" cy="13.5" r="0.9" fill="currentColor" />
+        <path
+          d="M12 24 L22 24 M12 28 L30 28 M12 32 L24 32"
+          stroke="currentColor"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+          opacity="0.6"
+        />
+      </svg>
+    ),
   },
   {
+    num: "02",
     titel: "dein zugang",
-    sub: "damit du die seite selbst führst.",
-    items: [
-      { label: "contentcore admin-login", meta: "dein eigenes cms, dein passwort" },
-      { label: "45-min video-einweisung", meta: "live per zoom + aufgezeichnet" },
-      { label: "support unbefristet", meta: "fragen per email, immer kostenlos" },
-      { label: "mehrsprachig einpflegen", meta: "wenn nötig: deutsch · français · english" },
-    ],
+    kurz:
+      "du pflegst die seite selbst · mit contentcore, meinem eigenen CMS. eine kurze einweisung, unbefristeter support.",
+    icon: (
+      <svg viewBox="0 0 48 48" className="w-8 h-8" fill="none" aria-hidden>
+        <path
+          d="M10 20 A6 6 0 0 1 22 20 L22 26 L26 26"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          fill="none"
+        />
+        <rect
+          x="24"
+          y="22"
+          width="18"
+          height="12"
+          rx="2"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        />
+        <circle cx="33" cy="28" r="1.5" fill="currentColor" />
+        <path
+          d="M33 30 L33 32"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
   },
   {
-    titel: "der übergang",
-    sub: "von der alten seite, nahtlos.",
-    items: [
-      { label: "301-redirects", meta: "alle alten URLs → neue struktur" },
-      { label: "google search console", meta: "verknüpft, sitemap eingereicht" },
-      { label: "kontaktformular", meta: "direkt an deine mail, spam-geschützt" },
-      { label: "DNS-umschaltung vorbereitet", meta: "du drückst den knopf, ich stehe daneben" },
-      { label: "alte seite bleibt online", meta: "bis die neue wirklich läuft" },
-    ],
+    num: "03",
+    titel: "der wechsel",
+    kurz:
+      "keine überraschung am launch-tag · google behält alle rankings, deine alte seite bleibt online bis es losgeht.",
+    icon: (
+      <svg viewBox="0 0 48 48" className="w-8 h-8" fill="none" aria-hidden>
+        <circle
+          cx="14"
+          cy="24"
+          r="6"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        />
+        <circle
+          cx="34"
+          cy="24"
+          r="6"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeDasharray="2 2"
+        />
+        <path
+          d="M20 24 L28 24"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M26 21 L29 24 L26 27"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          fill="none"
+        />
+      </svg>
+    ),
   },
 ];
 
-export function WebDeliverables() {
+export function WebDeliverables({ num = "05" }: { num?: string } = {}) {
   return (
     <section className="pb-32">
       <div className="container-site">
-        <div className="max-w-[780px]">
-          <SectionLabel num="05">deliverables</SectionLabel>
+        <div className="max-w-[760px]">
+          <SectionLabel num={num}>was du bekommst</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(2rem,5vw,3.5rem)] text-offwhite leading-[1.05]">
-            was du am launch-tag{" "}
-            <span className="text-offwhite/35">wirklich in der hand hast.</span>
+            drei versprechen,{" "}
+            <span className="text-offwhite/35">
+              sauber einlösbar.
+            </span>
           </h2>
-          <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/60">
-            keine „datei schicke ich dir nächste woche". am launch-tag ist
-            alles da • technisch sauber, eingerichtet, erklärt. du drückst den
-            knopf, die seite ist live.
+          <p className="mt-6 max-w-[600px] text-[15px] leading-relaxed text-offwhite/55">
+            keine endlose checkliste. das hier ist der kern · alles andere
+            (hosting, CMS-architektur, technische details) liegt für neugierige
+            auf einer eigenen seite.
           </p>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-px bg-ink/8 border border-ink/8 rounded-2xl overflow-hidden">
-          {GROUPS.map((g) => (
-            <div key={g.titel} className="bg-dark p-8 md:p-10">
-              <div className="flex items-baseline justify-between">
-                <h3 className="heading-sans text-[18px] text-offwhite">
-                  {g.titel}
-                </h3>
-                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-                  {g.items.length} punkte
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-4">
+          {PROMISES.map((p) => (
+            <div
+              key={p.num}
+              className="rounded-2xl border border-ink/10 bg-gradient-to-b from-ink/[0.02] to-transparent p-7 md:p-8 hover:border-lime/25 transition-colors"
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
+                  {p.num}
                 </span>
+                <span className="text-accent-ink">{p.icon}</span>
               </div>
-              <p className="mt-2 text-[12.5px] leading-relaxed text-offwhite/45">
-                {g.sub}
+              <h3 className="heading-sans mt-6 text-[22px] text-offwhite">
+                {p.titel}
+              </h3>
+              <p className="mt-3 text-[14px] leading-relaxed text-offwhite/55">
+                {p.kurz}
               </p>
-
-              <ul className="mt-6 space-y-4">
-                {g.items.map((it, idx) => (
-                  <li
-                    key={idx}
-                    className="group flex items-start gap-3 pb-4 border-b border-ink/6 last:border-0 last:pb-0"
-                  >
-                    <span
-                      aria-hidden
-                      className="mt-[7px] h-[6px] w-[6px] rounded-full bg-accent-ink shrink-0"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-[14px] text-offwhite leading-snug">
-                        {it.label}
-                      </p>
-                      {it.meta && (
-                        <p className="mt-1 font-mono text-[10.5px] uppercase tracking-mono text-offwhite/40">
-                          {it.meta}
-                        </p>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
             </div>
           ))}
         </div>
 
-        <p className="mt-8 max-w-[640px] text-[13px] leading-relaxed text-offwhite/45">
-          alles dokumentiert in einem geteilten ordner. du hast volle
-          transparenz • was ich gebaut habe, wie&apos;s läuft, wo was liegt.
-        </p>
+        <div className="mt-8">
+          <Link
+            href="/leistungen/web/technik"
+            className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label text-offwhite/55 hover:text-accent-ink transition-colors"
+          >
+            alle technik-details →
+          </Link>
+        </div>
       </div>
     </section>
   );

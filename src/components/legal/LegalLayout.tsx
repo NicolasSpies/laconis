@@ -25,7 +25,7 @@ export function LegalLayout({ num, label, titel, intro, children }: Props) {
           )}
         </div>
 
-        <div className="mt-14 max-w-[820px] space-y-12 text-[14px] leading-relaxed text-offwhite/70">
+        <div className="mt-14 max-w-[820px] space-y-12 text-[14px] leading-relaxed text-offwhite/75">
           {children}
         </div>
       </div>
@@ -52,7 +52,7 @@ export function LegalSection({
       </div>
       {aside && (
         <aside
-          className="font-hand text-[17px] leading-snug text-offwhite/55 lg:pt-10 lg:border-l lg:border-ink/8 lg:pl-5"
+          className="font-hand text-[17px] leading-snug text-offwhite/55 lg:pt-10 lg:border-l lg:border-ink/10 lg:pl-5"
           style={{ transform: "rotate(-0.4deg)" }}
         >
           {aside}
@@ -71,7 +71,7 @@ export function LegalRow({
 }) {
   return (
     <div className="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-5">
-      <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40 md:w-[160px] shrink-0">
+      <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 md:w-[160px] shrink-0">
         {k}
       </span>
       <span className="text-offwhite/75">{v}</span>

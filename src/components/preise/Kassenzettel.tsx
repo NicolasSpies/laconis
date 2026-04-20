@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   type LineItem,
@@ -30,16 +31,27 @@ export function Kassenzettel({
   closestPaket,
   empty,
 }: Props) {
-  const now = new Date();
-  const dateStr = now.toLocaleDateString("de-DE", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
-  const timeStr = now.toLocaleTimeString("de-DE", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  // Hydration-safe: date/time werden erst nach mount gesetzt (sonst mismatch
+  // wegen millisekunden-genauigkeit zwischen server + client render)
+  const [dateStr, setDateStr] = useState("—");
+  const [timeStr, setTimeStr] = useState("—");
+
+  useEffect(() => {
+    const now = new Date();
+    setDateStr(
+      now.toLocaleDateString("de-DE", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      }),
+    );
+    setTimeStr(
+      now.toLocaleTimeString("de-DE", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    );
+  }, []);
 
   return (
     <div

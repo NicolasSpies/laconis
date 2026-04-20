@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { CONTACT } from "@/config/contact";
 
 export function KontaktStrip() {
   return (
@@ -17,7 +18,7 @@ export function KontaktStrip() {
           {/* Local lime glow inside the card */}
           <div
             aria-hidden
-            className="absolute -right-20 -top-20 w-[420px] h-[420px] rounded-full bg-lime/15 blur-[120px]"
+            className="absolute -right-20 -top-20 w-[420px] h-[420px] rounded-full bg-lime/25 blur-[120px]"
           />
 
           <div className="relative">
@@ -29,29 +30,35 @@ export function KontaktStrip() {
               <div>
                 <div className="label-mono mb-1.5">e-mail</div>
                 <a
-                  href="mailto:nicolas@laconis.be"
+                  href={`mailto:${CONTACT.email}`}
                   className="font-sans text-[15px] text-offwhite hover:text-accent-ink transition-colors"
                 >
-                  nicolas@laconis.be
+                  {CONTACT.email}
                 </a>
               </div>
-              <div>
-                <div className="label-mono mb-1.5">telefon</div>
-                <a
-                  href="tel:+32488439147"
-                  className="font-sans text-[15px] text-offwhite hover:text-accent-ink transition-colors"
-                >
-                  +32 488 43 91 47
-                </a>
-              </div>
+              {CONTACT.phone && (
+                <div>
+                  <div className="label-mono mb-1.5">telefon</div>
+                  <a
+                    href={`tel:${CONTACT.phoneE164}`}
+                    className="font-sans text-[15px] text-offwhite hover:text-accent-ink transition-colors"
+                  >
+                    {CONTACT.phone}
+                  </a>
+                </div>
+              )}
             </div>
           </div>
 
           <div className="relative flex flex-col items-start md:items-end gap-2">
-            <Button href="/kontakt#projekt" size="lg">
+            <Button
+              href="/kontakt#projekt"
+              size="lg"
+              analyticsLabel="home_kontakt_strip"
+            >
               projekt starten →
             </Button>
-            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
               multistep • dauert 60 sekunden
             </span>
           </div>

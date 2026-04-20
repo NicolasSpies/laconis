@@ -2,72 +2,105 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 
 /**
  * WebManifest — "was ich nicht mache" für /leistungen/web
- * Personality-statement, mirror zu /kreatives.
+ * Personality-statement, mirror zu /grafik.
  */
 
-const ZEILEN = [
+type Zeile = {
+  nicht: string;
+  stattdessen: string;
+  detail?: string;
+};
+
+const ZEILEN: Zeile[] = [
   {
-    nicht: "keine baukasten-templates. (wix, jimdo, squarespace.)",
-    stattdessen: "jede seite ein eigenes system, handgeschrieben.",
+    nicht: "Websites auf brüchigem Brand-Fundament.",
+    stattdessen: "Wenn die grafische Linie wackelt, sag ich dir's ehrlich.",
+    detail:
+      "Eine Website komplett ab null neu bauen · oft sogar mein Lieblings-Szenario. Aber wenn der Brand dahinter schon unklar ist, empfehl ich: Erst die Marke, dann die Seite. Sonst tapezieren wir nur ein Fundament, das nicht hält. Ab und zu geht's in die andere Richtung: Du kommst für die Website, und wir fangen mit der Marke an.",
   },
   {
-    nicht: "kein wordpress-plugin-friedhof.",
-    stattdessen: "mein eigenes cms. gewartet. keine updates, die dinge brechen.",
+    nicht: "Keine Baukasten-Templates. (Wix, Jimdo, Squarespace.)",
+    stattdessen: "Jede Seite ein eigenes System, handgeschrieben.",
   },
   {
-    nicht: "keine launch ohne 301-redirects.",
-    stattdessen: "deine google-rankings bleiben, wo sie sind.",
+    nicht: "Kein WordPress-Plugin-Friedhof.",
+    stattdessen: "Mein eigenes CMS. Gewartet. Keine Updates, die Dinge brechen.",
   },
   {
-    nicht: "keine seite ohne test-domain.",
-    stattdessen: "du siehst alles vorher auf einer privaten url.",
+    nicht: "Kein Launch ohne 301-Redirects.",
+    stattdessen: "Deine Google-Rankings bleiben, wo sie sind.",
   },
   {
-    nicht: "keine 8-monats-wartezeit für eine landing page.",
-    stattdessen: "2 bis 8 wochen. kalenderwoche, nicht quartal.",
+    nicht: "Keine Seite ohne Test-Domain.",
+    stattdessen: "Du siehst alles vorher auf einer privaten URL.",
   },
   {
-    nicht: "kein hosting-lotto bei godaddy oder 1&1.",
-    stattdessen: "eu-server, eigener vps, dsgvo von anfang an.",
+    nicht: "Keine 8-Monats-Wartezeit für eine Landing Page.",
+    stattdessen: "2 bis 8 Wochen. Kalenderwoche, nicht Quartal.",
+  },
+  {
+    nicht: "Kein Hosting-Lotto bei GoDaddy oder 1&1.",
+    stattdessen: "EU-Server, eigener VPS, DSGVO von Anfang an.",
   },
 ];
 
-export function WebManifest() {
+type WebManifestProps = {
+  num?: string;
+  hideHeader?: boolean;
+};
+
+export function WebManifest({
+  num = "08",
+  hideHeader = false,
+}: WebManifestProps = {}) {
   return (
     <section className="pb-32">
       <div className="container-site">
-        <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-12 lg:gap-20">
-          {/* LEFT: Intro */}
-          <div className="lg:sticky lg:top-32 lg:self-start">
-            <SectionLabel num="12">manifest</SectionLabel>
-            <h2 className="heading-display mt-4 text-[clamp(2rem,4.5vw,3rem)] text-offwhite leading-[1.05]">
-              was ich{" "}
-              <span className="italic font-serif text-accent-ink">nicht</span>{" "}
-              mache.
-            </h2>
-            <p className="mt-6 text-[14px] leading-relaxed text-offwhite/55 max-w-[320px]">
-              sechs dinge, die bei mir nicht drin sind. damit du weißt, worauf
-              du dich einlässt • und was du stattdessen bekommst.
-            </p>
-          </div>
+        <div
+          className={
+            hideHeader
+              ? "max-w-[880px] mx-auto"
+              : "grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-12 lg:gap-20"
+          }
+        >
+          {/* LEFT: Intro (verstecken wenn im toggle-kontext) */}
+          {!hideHeader && (
+            <div className="lg:sticky lg:top-32 lg:self-start">
+              <SectionLabel num={num}>manifest</SectionLabel>
+              <h2 className="heading-display mt-4 text-[clamp(2rem,4.5vw,3rem)] text-offwhite leading-[1.05]">
+                was ich{" "}
+                <span className="italic font-serif text-accent-ink">nicht</span>{" "}
+                mache.
+              </h2>
+              <p className="mt-6 text-[14px] leading-relaxed text-offwhite/55 max-w-[320px]">
+                Vorab ehrlich, was bei mir nicht drin ist. Und was du stattdessen
+                bekommst.
+              </p>
+            </div>
+          )}
 
           {/* RIGHT: Anti-list */}
-          <ol className="divide-y divide-ink/8 border-y border-ink/8">
+          <ol className="divide-y divide-ink/10 border-y border-ink/10">
             {ZEILEN.map((z, i) => (
               <li
                 key={i}
                 className="group grid grid-cols-[auto_1fr] gap-5 py-7 md:py-8"
               >
-                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/50 pt-1 tabular-nums">
+                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 pt-1 tabular-nums">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <p className="heading-sans text-[clamp(1.15rem,2vw,1.5rem)] text-offwhite/40 line-through decoration-[1px] decoration-offwhite/25">
+                  <p className="heading-sans text-[clamp(1.15rem,2vw,1.5rem)] text-offwhite/35 line-through decoration-[1px] decoration-offwhite/25">
                     {z.nicht}
                   </p>
                   <p className="mt-3 text-[14px] md:text-[15px] leading-relaxed text-accent-ink">
                     → {z.stattdessen}
                   </p>
+                  {z.detail && (
+                    <p className="mt-3 max-w-[560px] text-[13px] leading-relaxed text-offwhite/55">
+                      {z.detail}
+                    </p>
+                  )}
                 </div>
               </li>
             ))}

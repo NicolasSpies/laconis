@@ -3,8 +3,13 @@ import {
   LegalSection,
   LegalRow,
 } from "@/components/legal/LegalLayout";
+import { getMeta } from "@/lib/seo/getMeta";
+import { CONTACT } from "@/config/contact";
+import type { Metadata } from "next";
 
-export const metadata = { title: "impressum" };
+export async function generateMetadata(): Promise<Metadata> {
+  return getMeta("/impressum");
+}
 
 export default function Page() {
   return (
@@ -24,7 +29,7 @@ export default function Page() {
         <LegalRow
           k="anschrift"
           v={
-            <span className="text-offwhite/65">
+            <span className="text-offwhite/55">
               adresse wird ergänzt · 4700 Eupen, Belgien
             </span>
           }
@@ -33,17 +38,17 @@ export default function Page() {
           k="e-mail"
           v={
             <a
-              href="mailto:hallo@laconis.be"
+              href={`mailto:${CONTACT.email}`}
               className="text-accent-ink hover:underline"
             >
-              hallo@laconis.be
+              {CONTACT.email}
             </a>
           }
         />
         <LegalRow
           k="telefon"
           v={
-            <span className="text-offwhite/65">
+            <span className="text-offwhite/55">
               wird nachgereicht · bis dahin am schnellsten per mail
             </span>
           }
@@ -114,7 +119,7 @@ export default function Page() {
         </p>
       </LegalSection>
 
-      <p className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 pt-6 border-t border-ink/8">
+      <p className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 pt-6 border-t border-ink/10">
         stand: april 2026 • diese seite wird aktualisiert, sobald die business-
         registrierung abgeschlossen ist.
       </p>

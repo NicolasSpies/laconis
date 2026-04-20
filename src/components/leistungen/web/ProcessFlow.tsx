@@ -27,17 +27,17 @@ const SCHRITTE = [
   },
 ];
 
-export function ProcessFlow() {
+export function ProcessFlow({ num = "06" }: { num?: string } = {}) {
   return (
     <section className="pb-32">
       <div className="container-site">
         <div className="max-w-[720px]">
-          <SectionLabel num="10">ablauf</SectionLabel>
+          <SectionLabel num={num}>ablauf</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.75rem)] text-offwhite">
             vier schritte.{" "}
             <span className="text-offwhite/35">keine blackbox.</span>
           </h2>
-          <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/60">
+          <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/55">
             ich weiss nach gespräch eins, ob wir zusammenpassen. du weisst es
             nach gespräch zwei. ab dann wird gebaut, nicht verhandelt.
           </p>
@@ -46,9 +46,9 @@ export function ProcessFlow() {
         {/* Flow */}
         <div className="mt-16 relative">
           {/* vertikale Linie links (mobile) */}
-          <div className="absolute left-[14px] top-4 bottom-4 w-px bg-ink/8 md:hidden" />
+          <div className="absolute left-[14px] top-4 bottom-4 w-px bg-ink/10 md:hidden" />
           {/* horizontale Linie (desktop) */}
-          <div className="absolute hidden md:block left-0 right-0 top-[44px] h-px bg-ink/8" />
+          <div className="absolute hidden md:block left-0 right-0 top-[44px] h-px bg-ink/10" />
 
           <div className="grid md:grid-cols-4 gap-10 md:gap-6">
             {SCHRITTE.map((s, i) => (
@@ -70,14 +70,14 @@ export function ProcessFlow() {
                   <p className="mt-2 font-mono text-[9px] uppercase tracking-label text-offwhite/35">
                     {s.dauer}
                   </p>
-                  <p className="mt-4 text-[13px] leading-relaxed text-offwhite/60 max-w-[280px]">
+                  <p className="mt-4 text-[13px] leading-relaxed text-offwhite/55 max-w-[280px]">
                     {s.kurz}
                   </p>
                 </div>
 
                 {/* Pfeil zu nächstem Schritt (desktop) */}
                 {i < SCHRITTE.length - 1 && (
-                  <span className="hidden md:inline absolute top-[34px] -right-3 font-mono text-[12px] text-offwhite/30">
+                  <span className="hidden md:inline absolute top-[34px] -right-3 font-mono text-[12px] text-offwhite/35">
                     →
                   </span>
                 )}

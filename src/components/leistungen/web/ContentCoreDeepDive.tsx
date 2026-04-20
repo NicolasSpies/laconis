@@ -17,7 +17,7 @@ const FEATURES: Feature[] = [
     titel: "ein klick übersetzt alles",
     stichwort: "02 · mehrsprachig",
     beschreibung:
-      "deutsch, französisch, niederländisch, englisch, was du brauchst. KI macht den groben wurf, du schleifst nach. jede sprache hat eigene URL, eigene SEO, eigenen übersetzungsstatus.",
+      "deutsch, französisch, englisch, was du brauchst. KI macht den groben wurf, du schleifst nach. jede sprache hat eigene URL, eigene SEO, eigenen übersetzungsstatus.",
   },
   {
     titel: "bilder, die sich selbst optimieren",
@@ -69,19 +69,21 @@ const FEATURES: Feature[] = [
   },
 ];
 
-export function ContentCoreDeepDive() {
+export function ContentCoreDeepDive({
+  num = "08",
+}: { num?: string } = {}) {
   return (
     <section className="pb-32">
       <div className="container-site">
         <div className="max-w-[720px]">
-          <SectionLabel num="08">was contentcore alles kann</SectionLabel>
+          <SectionLabel num={num}>was contentcore alles kann</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.75rem)] text-offwhite">
             ein system.{" "}
             <span className="text-offwhite/35">
               alles was du brauchst, nichts was du nicht willst.
             </span>
           </h2>
-          <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/60">
+          <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/55">
             kein shopify für den shop, kein mailchimp für den newsletter, kein
             WPML für die übersetzung, kein analytics-dschungel für die
             statistik. alles an einem ort, alles aufeinander abgestimmt, alles

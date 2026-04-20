@@ -1,8 +1,12 @@
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { KontaktMultistep } from "@/components/kontakt/KontaktMultistep";
-import { VerfuegbarkeitCollapse } from "@/components/kontakt/VerfuegbarkeitCollapse";
+import { CONTACT } from "@/config/contact";
+import { getMeta } from "@/lib/seo/getMeta";
+import type { Metadata } from "next";
 
-export const metadata = { title: "kontakt" };
+export async function generateMetadata(): Promise<Metadata> {
+  return getMeta("/kontakt");
+}
 
 export default function Page() {
   return (
@@ -16,7 +20,7 @@ export default function Page() {
             <h1 className="heading-display text-[clamp(2.5rem,8vw,6rem)] text-offwhite">
               sag hallo.
             </h1>
-            <p className="mt-8 max-w-[580px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/60">
+            <p className="mt-8 max-w-[580px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
               eine kurze nachricht reicht. antwort innerhalb 24h.
             </p>
           </div>
@@ -39,15 +43,15 @@ export default function Page() {
           <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4">
             <ContactCard
               label="e-mail"
-              value="nicolas@laconis.be"
-              href="mailto:nicolas@laconis.be"
+              value={CONTACT.email}
+              href={`mailto:${CONTACT.email}`}
               note="klassisch. antwort innerhalb 24h • meistens deutlich schneller."
             />
             <ContactCard
               label="call buchen"
               value="30 min kennenlernen"
-              href="mailto:nicolas@laconis.be"
-              note="noch nicht verfügbar • einfach per mail melden."
+              href={`mailto:${CONTACT.email}?subject=call-termin`}
+              note="noch nicht buchbar über tool • kurz per mail melden."
             />
             <ContactCard
               label="in person"
@@ -60,20 +64,13 @@ export default function Page() {
         </div>
       </section>
 
-      {/* VERFÜGBARKEIT · collapsible */}
-      <section className="pb-20">
-        <div className="container-site">
-          <VerfuegbarkeitCollapse />
-        </div>
-      </section>
-
       {/* TRENNLINIE */}
       <section className="pb-16">
         <div className="container-site">
           <div className="max-w-[820px] mx-auto">
-            <div className="h-px bg-gradient-to-r from-transparent via-ink/15 to-transparent" />
+            <div className="h-px bg-gradient-to-r from-transparent via-ink/10 to-transparent" />
             <div className="mt-6 text-center">
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                 oder • das ausführliche formular
               </span>
             </div>
@@ -81,19 +78,19 @@ export default function Page() {
         </div>
       </section>
 
-      {/* PROJEKT-FORMULAR */}
+      {/* PROJEKT-FORMULAR · enthält step 3 die queue/verfügbarkeit inline */}
       <section id="projekt" className="pb-36 scroll-mt-24">
         <div className="container-site">
           <div className="max-w-[820px] mx-auto">
-            <SectionLabel num="04">projekt anfragen</SectionLabel>
+            <SectionLabel num="03">projekt anfragen</SectionLabel>
             <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.5rem)] text-offwhite leading-[1.05]">
               sag mir,{" "}
               <span className="text-offwhite/35">was du vorhast.</span>
             </h2>
-            <p className="mt-6 max-w-[620px] text-[14px] leading-relaxed text-offwhite/60">
+            <p className="mt-6 max-w-[620px] text-[14px] leading-relaxed text-offwhite/55">
               vier kurze schritte. kommst du von der preise-seite mit einem
-              paket im kopf, springt das formular direkt in die
-              zusammenfassung • änderbar natürlich.
+              paket im kopf, landest du direkt beim anpassen • seiten,
+              sprachen, extras, preis live.
             </p>
           </div>
 
@@ -101,7 +98,7 @@ export default function Page() {
             <KontaktMultistep />
           </div>
 
-          <p className="mt-10 text-center font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+          <p className="mt-10 text-center font-mono text-[10px] uppercase tracking-label text-offwhite/35">
             keine tracker · keine spam-liste · dsgvo-konform
           </p>
         </div>
@@ -130,20 +127,20 @@ function ContactCard({
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
-      className="group block rounded-xl border border-ink/10 bg-ink/[0.015] p-6 hover:border-lime/30 hover:bg-ink/[0.03] transition-all"
+      className="group block rounded-xl border border-ink/10 bg-ink/[0.015] p-6 hover:border-lime/25 hover:bg-ink/[0.03] transition-all"
     >
       <div className="flex items-baseline justify-between gap-3">
-        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/40">
+        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
           {label}
         </span>
-        <span className="text-offwhite/30 group-hover:text-accent-ink group-hover:translate-x-0.5 transition-all">
+        <span className="text-offwhite/35 group-hover:text-accent-ink group-hover:translate-x-0.5 transition-all">
           →
         </span>
       </div>
       <div className="mt-2 heading-sans text-[18px] md:text-[20px] text-offwhite group-hover:text-accent-ink transition-colors">
         {value}
       </div>
-      <p className="mt-2 text-[12.5px] leading-relaxed text-offwhite/50">
+      <p className="mt-2 text-[12.5px] leading-relaxed text-offwhite/55">
         {note}
       </p>
     </a>

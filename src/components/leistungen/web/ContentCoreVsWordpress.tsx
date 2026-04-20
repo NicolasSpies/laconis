@@ -30,7 +30,7 @@ const ROWS: Row[] = [
   {
     thema: "mehrsprachigkeit",
     wordpress: "plugin (WPML) kostet extra",
-    contentcore: "eingebaut: DE · FR · NL · EN",
+    contentcore: "eingebaut: DE · FR · EN",
   },
   {
     thema: "besucher-stats",
@@ -91,17 +91,19 @@ const SCHICHTEN = [
   },
 ];
 
-export function ContentCoreVsWordpress() {
+export function ContentCoreVsWordpress({
+  num = "07",
+}: { num?: string } = {}) {
   return (
     <section className="pb-32">
       <div className="container-site">
         <div className="max-w-[720px]">
-          <SectionLabel num="07">contentcore vs. wordpress</SectionLabel>
+          <SectionLabel num={num}>contentcore vs. wordpress</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.75rem)] text-offwhite">
             der direkte vergleich.{" "}
             <span className="text-offwhite/35">ohne schönmalen.</span>
           </h2>
-          <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/60">
+          <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/55">
             wordpress läuft auf 43 prozent aller websites. das macht es nicht
             besser, es macht es zum lieblingsziel für angriffe. hier steht,
             warum ich stattdessen contentcore gebaut habe und was dir das im
@@ -114,19 +116,19 @@ export function ContentCoreVsWordpress() {
           {/* Header */}
           <div className="grid grid-cols-[1fr_1fr_1fr] border-b border-ink/10 bg-ink/[0.02]">
             <div className="px-5 py-4">
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                 thema
               </span>
             </div>
-            <div className="px-5 py-4 border-l border-ink/8">
+            <div className="px-5 py-4 border-l border-ink/10">
               <div className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-red-400/60" />
-                <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/50">
+                <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/55">
                   wordpress
                 </span>
               </div>
             </div>
-            <div className="px-5 py-4 border-l border-ink/8">
+            <div className="px-5 py-4 border-l border-ink/10">
               <div className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-lime" />
                 <span className="font-mono text-[11px] uppercase tracking-label text-accent-ink">
@@ -150,7 +152,7 @@ export function ContentCoreVsWordpress() {
                   {r.thema}
                 </span>
               </div>
-              <div className="px-5 py-5 border-l border-ink/8">
+              <div className="px-5 py-5 border-l border-ink/10">
                 <div className="flex items-start gap-2">
                   <span className="font-mono text-[11px] text-red-400/70 mt-0.5 shrink-0">
                     ⚠
@@ -160,12 +162,12 @@ export function ContentCoreVsWordpress() {
                   </span>
                 </div>
               </div>
-              <div className="px-5 py-5 border-l border-ink/8">
+              <div className="px-5 py-5 border-l border-ink/10">
                 <div className="flex items-start gap-2">
                   <span className="font-mono text-[11px] text-accent-ink mt-0.5 shrink-0">
                     ✓
                   </span>
-                  <span className="text-[13px] leading-relaxed text-offwhite/85">
+                  <span className="text-[13px] leading-relaxed text-offwhite/75">
                     {r.contentcore}
                   </span>
                 </div>
@@ -220,7 +222,7 @@ export function ContentCoreVsWordpress() {
             ].map((b) => (
               <span
                 key={b}
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-ink/10 bg-ink/[0.015] text-[12px] text-offwhite/70"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-ink/10 bg-ink/[0.015] text-[12px] text-offwhite/75"
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-lime" />
                 {b}

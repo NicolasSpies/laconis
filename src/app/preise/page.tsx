@@ -2,8 +2,16 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { PaketTabs } from "@/components/preise/PaketTabs";
 import { Zahlungsoptionen } from "@/components/preise/Zahlungsoptionen";
+import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { FAQSchema } from "@/components/seo/FAQSchema";
+import { getMeta } from "@/lib/seo/getMeta";
+import type { Metadata } from "next";
 
-export const metadata = { title: "preise" };
+const BASE = "https://laconis.be";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return getMeta("/preise");
+}
 
 const FAQ = [
   {
@@ -14,7 +22,7 @@ const FAQ = [
   {
     frage: "was heißt das mit den raten-zinsen genau?",
     antwort:
-      "ratenzahlung ist optional. modell 1 (vorkasse oder nach-abschluss) ist komplett zinsfrei. modell 2 · 50 % anzahlung, rest in bis zu 5 monatsraten — darauf werden 2 % pro monat auf den noch offenen betrag berechnet, gedeckelt bei 10 % gesamtaufschlag. beispiel: 2.000 € rest in 5 raten → du zahlst ca. 2.100 € statt 2.000 €. modell 3 (ganz ohne anzahlung, projekt vorfinanziert) kostet 4 % / monat, weil mein risiko höher ist. alle drei modelle sind transparent · keine versteckten gebühren, keine verzugszinsen bei pünktlicher zahlung.",
+      "ratenzahlung ist optional. modell 1 (vorkasse oder nach-abschluss) ist komplett zinsfrei. modell 2 · 50% anzahlung, rest in bis zu 5 monatsraten — darauf werden 2% pro monat auf den noch offenen betrag berechnet, gedeckelt bei 10% gesamtaufschlag. beispiel: 2.000 € rest in 5 raten → du zahlst ca. 2.100 € statt 2.000 €. modell 3 (ganz ohne anzahlung, projekt vorfinanziert) kostet 4% / monat, weil mein risiko höher ist. alle drei modelle sind transparent · keine versteckten gebühren, keine verzugszinsen bei pünktlicher zahlung.",
   },
   {
     frage: "wie lange dauert so ein projekt?",
@@ -24,7 +32,7 @@ const FAQ = [
   {
     frage: "was passiert wenn ich eine rate verpasse?",
     antwort:
-      "erst mal nichts dramatisches · ich schreibe dich an. wenn eine rate trotz erinnerung länger als 14 tage überfällig ist, kommt der gesetzliche verzugszinssatz (belgische regelung, aktuell um 8 % p.a.) dazu, ggf. plus 40 € mahn-pauschale. das ist EU/BE-standard, nicht meine erfindung. im regelfall finden wir aber einfach eine neue zahl-lösung.",
+      "erst mal nichts dramatisches · ich schreibe dich an. wenn eine rate trotz erinnerung länger als 14 tage überfällig ist, kommt der gesetzliche verzugszinssatz (belgische regelung, aktuell um 8% p.a.) dazu, ggf. plus 40 € mahn-pauschale. das ist EU/BE-standard, nicht meine erfindung. im regelfall finden wir aber einfach eine neue zahl-lösung.",
   },
   {
     frage: "was ist im preis nicht enthalten?",
@@ -36,6 +44,14 @@ const FAQ = [
 export default function Page() {
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: "home", url: `${BASE}/` },
+          { name: "preise", url: `${BASE}/preise` },
+        ]}
+      />
+      <FAQSchema items={FAQ.map((f) => ({ q: f.frage, a: f.antwort }))} />
+
       {/* HERO */}
       <section className="pt-36 pb-24">
         <div className="container-site">
@@ -46,9 +62,9 @@ export default function Page() {
               ehrliche preise,{" "}
               <span className="text-offwhite/35">keine sternchen.</span>
             </h1>
-            <p className="mt-8 max-w-[620px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/60">
+            <p className="mt-8 max-w-[620px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
               transparent. kein kleingedrucktes. kein „auf anfrage" bei allem.
-              drei tabs unten · web, kreatives, bundle · jedes paket mit
+              drei tabs unten · web, grafik, bundle · jedes paket mit
               eingebautem mini-konfigurator, damit du den monatspreis schwarz
               auf weiß siehst bevor du fragst.
             </p>
@@ -67,7 +83,7 @@ export default function Page() {
                 innerhalb jeder: klein · mittel · groß.
               </span>
             </h2>
-            <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/60">
+            <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/55">
               bei web und bundle stellst du domain & e-mail-postfächer direkt
               ein • der monatspreis rechnet live mit. grafik-pakete haben nur
               einmalpreise, kein laufender posten.
@@ -80,7 +96,7 @@ export default function Page() {
 
           {/* BAUKASTEN-CTA · direkt unter den bundles */}
           <div className="mt-10">
-            <div className="relative rounded-2xl border border-ink/12 bg-gradient-to-br from-lime/[0.04] via-ink/[0.02] to-transparent p-8 md:p-10 overflow-hidden">
+            <div className="relative rounded-2xl border border-ink/10 bg-gradient-to-br from-lime/[0.04] via-ink/[0.02] to-transparent p-8 md:p-10 overflow-hidden">
               {/* deko: winziger receipt-tease rechts */}
               <div
                 aria-hidden
@@ -116,12 +132,12 @@ export default function Page() {
                   alternative
                 </span>
                 <h3 className="mt-2 heading-display text-[clamp(1.5rem,3.5vw,2.5rem)] text-offwhite leading-[1.1]">
-                  nichts passt 100 %?{" "}
-                  <span className="text-offwhite/45">
+                  nichts passt 100%?{" "}
+                  <span className="text-offwhite/55">
                     bau dir dein eigenes paket.
                   </span>
                 </h3>
-                <p className="mt-4 text-[14px] leading-relaxed text-offwhite/60">
+                <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55">
                   schalter umlegen, rechts wächst der kassenzettel live mit.
                   als pdf mitnehmen oder direkt anfragen. so einfach wie
                   beim bäcker • nur transparenter.
@@ -135,7 +151,7 @@ export default function Page() {
                   >
                     zum baukasten →
                   </Button>
-                  <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+                  <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                     · live-preis · pdf-bon · link-teilbar
                   </span>
                 </div>
@@ -158,18 +174,18 @@ export default function Page() {
             </h2>
           </div>
 
-          <div className="mt-12 divide-y divide-ink/8 border-y border-ink/8 max-w-[820px]">
+          <div className="mt-12 divide-y divide-ink/10 border-y border-ink/10 max-w-[820px]">
             {FAQ.map((q) => (
               <details key={q.frage} className="group py-6 cursor-pointer">
                 <summary className="flex items-center justify-between gap-4 list-none">
                   <h3 className="heading-sans text-[17px] md:text-[18px] text-offwhite group-hover:text-accent-ink transition-colors">
                     {q.frage}
                   </h3>
-                  <span className="font-mono text-[16px] text-offwhite/40 group-open:rotate-45 transition-transform">
+                  <span className="font-mono text-[16px] text-offwhite/35 group-open:rotate-45 transition-transform">
                     +
                   </span>
                 </summary>
-                <p className="mt-4 max-w-[680px] text-[14px] leading-relaxed text-offwhite/60">
+                <p className="mt-4 max-w-[680px] text-[14px] leading-relaxed text-offwhite/55">
                   {q.antwort}
                 </p>
               </details>
@@ -181,9 +197,9 @@ export default function Page() {
       {/* CTA */}
       <section className="pb-36">
         <div className="container-site">
-          <div className="rounded-2xl border border-ink/10 bg-gradient-to-br from-ink/[0.03] to-transparent p-10 md:p-16 text-center">
+          <div className="liquid-glass rounded-2xl p-10 md:p-16 text-center">
             <h2 className="heading-display text-[clamp(1.75rem,4.5vw,3rem)] text-offwhite max-w-[680px] mx-auto">
-              nichts passt 100 %?{" "}
+              nichts passt 100%?{" "}
               <span className="text-offwhite/35">normal.</span>
             </h2>
             <p className="mt-5 max-w-[540px] mx-auto text-[14px] leading-relaxed text-offwhite/55">

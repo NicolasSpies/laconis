@@ -1,37 +1,33 @@
 import type { Metadata } from "next";
-import {
-  DM_Sans,
-  DM_Mono,
-  Caveat,
-  Instrument_Serif,
-  Fraunces,
-  Space_Grotesk,
-  Syne,
-} from "next/font/google";
+import { DM_Sans, DM_Mono, Caveat, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { CursorSpotlight } from "@/components/CursorSpotlight";
 import { CursorDot } from "@/components/CursorDot";
 import { PageTransition } from "@/components/PageTransition";
+import { StructuredData } from "@/components/seo/StructuredData";
+import { Tracker } from "@/components/analytics/Tracker";
+import { ConsoleGreeting } from "@/components/ConsoleGreeting";
+import { KonamiListener } from "@/components/easteregg/KonamiListener";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "700", "800", "900"],
+  weight: ["400", "700", "900"],
   variable: "--font-dm-sans",
   display: "swap",
 });
 
 const dmMono = DM_Mono({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["400", "500"],
   variable: "--font-dm-mono",
   display: "swap",
 });
 
 const caveat = Caveat({
   subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: ["400"],
   variable: "--font-caveat",
   display: "swap",
 });
@@ -44,40 +40,46 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "600", "900"],
-  variable: "--font-fraunces",
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
-
-const syne = Syne({
-  subsets: ["latin"],
-  weight: ["400", "700", "800"],
-  variable: "--font-syne",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://laconis.be"),
   title: {
-    default: "lacønis • design mit meinung • web mit seele",
-    template: "%s • lacønis",
+    default: "lacønis · design mit meinung · web mit seele",
+    template: "%s · lacønis",
   },
   description:
-    "Freelance Graphic & Web Design aus Eupen, Belgien. Websites die für sich selbst sprechen. Eigenes CMS inklusive.",
+    "Freelance Graphic & Web Design aus Eupen, Belgien. Websites die für sich selbst sprechen. Eigenes CMS inklusive. Dreisprachig: Deutsch, Französisch, Englisch.",
+  applicationName: "lacønis",
+  authors: [{ name: "Nicolas Spies", url: "https://laconis.be/ueber-mich" }],
+  creator: "Nicolas Spies",
+  publisher: "lacønis",
+  keywords: [
+    "freelance design eupen",
+    "webentwicklung belgien",
+    "branding eupen",
+    "webdesign eifel",
+    "grafik design ostbelgien",
+    "freelance designer belgien",
+  ],
   openGraph: {
     title: "lacønis",
-    description: "design mit meinung • web mit seele",
+    description: "design mit meinung · web mit seele",
     locale: "de_BE",
+    alternateLocale: ["fr_BE", "en_BE"],
     type: "website",
+    siteName: "lacønis",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "lacønis",
+    description: "design mit meinung · web mit seele",
+  },
+  alternates: { canonical: "/" },
+  manifest: "/site.webmanifest",
+  other: {
+    "geo.region": "BE-WLG",
+    "geo.placename": "Eupen",
+    "geo.position": "50.6288;6.0384",
+    ICBM: "50.6288, 6.0384",
   },
 };
 
@@ -92,7 +94,7 @@ export default function RootLayout({
       lang="de"
       data-theme="dark"
       suppressHydrationWarning
-      className={`${dmSans.variable} ${dmMono.variable} ${caveat.variable} ${instrumentSerif.variable} ${fraunces.variable} ${spaceGrotesk.variable} ${syne.variable}`}
+      className={`${dmSans.variable} ${dmMono.variable} ${caveat.variable} ${instrumentSerif.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
@@ -106,6 +108,10 @@ export default function RootLayout({
         <CursorSpotlight />
         <CursorDot />
         <Nav />
+        <StructuredData />
+        <Tracker />
+        <ConsoleGreeting />
+        <KonamiListener />
         <main className="relative z-[1]">
           <PageTransition>{children}</PageTransition>
         </main>

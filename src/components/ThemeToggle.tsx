@@ -61,7 +61,7 @@ export function ThemeToggle({ className }: { className?: string }) {
         aria-hidden
         className={cn(
           "relative z-10 inline-flex h-[22px] w-[26px] items-center justify-center transition-colors",
-          !isLight ? "text-black" : "text-offwhite/45",
+          !isLight ? "text-black" : "text-offwhite/55",
         )}
       >
         <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
@@ -77,7 +77,7 @@ export function ThemeToggle({ className }: { className?: string }) {
         aria-hidden
         className={cn(
           "relative z-10 inline-flex h-[22px] w-[26px] items-center justify-center transition-colors",
-          isLight ? "text-black" : "text-offwhite/45",
+          isLight ? "text-black" : "text-offwhite/55",
         )}
       >
         <svg width="12" height="12" viewBox="0 0 14 14" fill="none">

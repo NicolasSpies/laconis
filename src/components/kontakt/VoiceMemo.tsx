@@ -182,7 +182,7 @@ export function VoiceMemo({
               onClick={start}
               className="group relative h-16 w-16 rounded-full bg-lime text-black flex items-center justify-center shadow-[0_10px_30px_rgba(225,253,82,0.25)] hover:shadow-[0_12px_40px_rgba(225,253,82,0.4)] transition-shadow"
             >
-              <span className="absolute inset-0 rounded-full bg-lime/30 animate-ping" />
+              <span className="absolute inset-0 rounded-full bg-lime/25 animate-ping" />
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none" className="relative">
                 <rect
                   x="7"
@@ -200,7 +200,7 @@ export function VoiceMemo({
                 />
               </svg>
             </button>
-            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/45">
+            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
               tippen zum aufnehmen
             </span>
           </div>
@@ -226,7 +226,7 @@ export function VoiceMemo({
               <button
                 type="button"
                 onClick={stop}
-                className="h-10 w-10 rounded-full bg-ink/10 hover:bg-ink/20 text-offwhite flex items-center justify-center transition-colors"
+                className="h-10 w-10 rounded-full bg-ink/10 hover:bg-ink/25 text-offwhite flex items-center justify-center transition-colors"
                 aria-label="stopp"
               >
                 <span className="h-3 w-3 rounded-sm bg-lime" />
@@ -245,7 +245,7 @@ export function VoiceMemo({
               <button
                 type="button"
                 onClick={reset}
-                className="font-mono text-[10px] uppercase tracking-label text-offwhite/50 hover:text-accent-ink transition-colors"
+                className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 hover:text-accent-ink transition-colors"
               >
                 ↻ neu aufnehmen
               </button>
@@ -265,7 +265,7 @@ export function VoiceMemo({
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="mt-4 font-mono text-[11px] text-offwhite/60"
+            className="mt-4 font-mono text-[11px] text-offwhite/55"
           >
             {error}
           </motion.p>

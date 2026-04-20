@@ -99,13 +99,13 @@ function PolaroidCard({
       className="absolute w-[240px] cursor-grab active:cursor-grabbing will-change-transform"
     >
       <div
-        className="group relative text-offwhite rounded-md p-2.5 pb-3 border border-ink/10 hover:border-lime/40 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.9),0_2px_6px_rgba(0,0,0,0.5)] transition-colors"
+        className="group relative text-offwhite rounded-md p-2.5 pb-3 border border-ink/10 hover:border-lime/50 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.9),0_2px_6px_rgba(0,0,0,0.5)] transition-colors"
         style={{ background: CARD_BG }}
       >
         {/* thin lime accent at top — the "tape" moment */}
         <span
           aria-hidden
-          className="pointer-events-none absolute -top-[1px] left-5 right-5 h-[2px] bg-lime/60"
+          className="pointer-events-none absolute -top-[1px] left-5 right-5 h-[2px] bg-lime/50"
         />
 
         <div className="relative overflow-hidden rounded-[2px]">
@@ -121,11 +121,11 @@ function PolaroidCard({
             <h3 className="heading-sans text-[16px] leading-none text-offwhite truncate lowercase">
               {ref_.name}
             </h3>
-            <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/40 shrink-0">
+            <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/35 shrink-0">
               {ref_.jahr}
             </span>
           </div>
-          <p className="mt-1.5 font-mono text-[9px] uppercase tracking-label text-offwhite/40 truncate">
+          <p className="mt-1.5 font-mono text-[9px] uppercase tracking-label text-offwhite/35 truncate">
             {ref_.ort}
           </p>
 
@@ -199,13 +199,13 @@ export function PolaroidBoard({ items: itemsProp }: { items?: Referenz[] } = {})
       {/* Desktop — physics board */}
       <div className="hidden md:block relative">
         <div className="flex items-center justify-between mb-6">
-          <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+          <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
             tipp • karten lassen sich verschieben
           </span>
           <button
             type="button"
             onClick={reset}
-            className="group flex items-center gap-2 font-mono text-[10px] uppercase tracking-label text-offwhite/60 hover:text-accent-ink transition-colors"
+            className="group flex items-center gap-2 font-mono text-[10px] uppercase tracking-label text-offwhite/55 hover:text-accent-ink transition-colors"
           >
             <span className="inline-block transition-transform duration-500 group-hover:rotate-180">
               ↻
@@ -268,7 +268,7 @@ export function PolaroidBoard({ items: itemsProp }: { items?: Referenz[] } = {})
               >
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -top-[1px] left-4 right-4 h-[2px] bg-lime/60"
+                  className="pointer-events-none absolute -top-[1px] left-4 right-4 h-[2px] bg-lime/50"
                 />
                 <div className="relative overflow-hidden rounded-[2px]">
                   <RefThumb ref_={r} aspect="4 / 5" />
@@ -280,7 +280,7 @@ export function PolaroidBoard({ items: itemsProp }: { items?: Referenz[] } = {})
                   <h3 className="heading-sans text-[15px] leading-none truncate lowercase">
                     {r.name}
                   </h3>
-                  <p className="mt-1 font-mono text-[8px] uppercase tracking-label text-offwhite/40 truncate">
+                  <p className="mt-1 font-mono text-[8px] uppercase tracking-label text-offwhite/35 truncate">
                     {r.ort} • {r.jahr}
                   </p>
                 </div>

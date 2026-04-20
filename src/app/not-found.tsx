@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/Button";
+import { CONTACT } from "@/config/contact";
+import { CssPlayground } from "@/components/404/CssPlayground";
 
 export default function NotFound() {
   return (
-    <section className="min-h-[80vh] flex items-center justify-center py-24">
+    <>
+    <section className="pt-24 pb-12 flex items-center justify-center">
       <div className="container-site">
         <div className="relative mx-auto max-w-[640px] text-center">
           {/* big 404 */}
@@ -35,7 +38,7 @@ export default function NotFound() {
               height="60"
               viewBox="0 0 120 60"
               fill="none"
-              className="text-accent-ink/70"
+              className="text-accent-ink/80"
             >
               <path
                 d="M10 30 Q 40 50, 70 30 T 110 30"
@@ -64,10 +67,20 @@ export default function NotFound() {
           </p>
 
           <div className="mt-10 flex justify-center gap-3 flex-wrap">
-            <Button href="/" variant="primary" size="lg">
+            <Button
+              href="/"
+              variant="primary"
+              size="lg"
+              analyticsLabel="notfound_home"
+            >
               ← zurück zur startseite
             </Button>
-            <Button href="/referenzen" variant="glass" size="lg">
+            <Button
+              href="/referenzen"
+              variant="glass"
+              size="lg"
+              analyticsLabel="notfound_referenzen"
+            >
               referenzen ansehen
             </Button>
           </div>
@@ -76,7 +89,7 @@ export default function NotFound() {
           <p className="mt-12 font-mono text-[10px] uppercase tracking-label text-offwhite/55">
             wenn du denkst, das ist ein bug • {" "}
             <a
-              href="mailto:hallo@laconis.be"
+              href={`mailto:${CONTACT.email}`}
               className="text-accent-ink hover:underline"
             >
               sag bescheid
@@ -86,5 +99,7 @@ export default function NotFound() {
         </div>
       </div>
     </section>
+    <CssPlayground />
+    </>
   );
 }

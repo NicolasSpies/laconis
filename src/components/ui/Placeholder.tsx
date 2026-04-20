@@ -53,14 +53,14 @@ export function Placeholder({ label, className, aspect }: Props) {
       {/* center dot */}
       <div
         aria-hidden
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-lime/60 shadow-[0_0_16px_rgba(225,253,82,0.6)]"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-lime/50 shadow-[0_0_16px_rgba(225,253,82,0.6)]"
       />
 
       {/* label — bottom-left corner */}
       {label && (
         <div className="absolute bottom-4 left-4 flex items-center gap-2">
           <span className="w-1 h-1 rounded-full bg-lime" />
-          <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/50">
+          <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
             {label}
           </span>
         </div>

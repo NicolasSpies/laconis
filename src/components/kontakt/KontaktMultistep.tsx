@@ -1,11 +1,13 @@
 "use client";
 
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import {
   type BuilderState,
+  DEFAULT_STATE,
+  applyPreset,
   paramsToState,
   generateLineItems,
   computeTotals,
@@ -17,6 +19,8 @@ import {
 import { Kassenzettel } from "@/components/preise/Kassenzettel";
 import { VerfuegbarkeitWidget } from "@/components/VerfuegbarkeitWidget";
 import { type ProjektTyp } from "@/data/verfuegbarkeit";
+import { track } from "@/lib/analytics";
+import { CONTACT } from "@/config/contact";
 
 /**
  * KontaktMultistep — 4-schritte-projektformular.
@@ -39,7 +43,7 @@ import { type ProjektTyp } from "@/data/verfuegbarkeit";
 
 type PaketEntry = {
   name: string;
-  tab: "web" | "kreatives" | "bundle";
+  tab: "web" | "grafik" | "bundle";
   price: number;
   baseMonthly?: number;
 };
@@ -48,9 +52,9 @@ const PAKETE: Record<string, PaketEntry> = {
   "web-basis": { name: "web · basis", tab: "web", price: 1400, baseMonthly: 20 },
   "web-standard": { name: "web · standard", tab: "web", price: 2800, baseMonthly: 40 },
   "web-pro": { name: "web · pro", tab: "web", price: 4200, baseMonthly: 40 },
-  "grafik-print": { name: "kreatives · print", tab: "kreatives", price: 700 },
-  "grafik-brand": { name: "kreatives · brand identity", tab: "kreatives", price: 1200 },
-  "grafik-social": { name: "kreatives · social", tab: "kreatives", price: 600 },
+  "grafik-print": { name: "grafik · print", tab: "grafik", price: 700 },
+  "grafik-brand": { name: "grafik · brand identity", tab: "grafik", price: 1200 },
+  "grafik-social": { name: "grafik · social", tab: "grafik", price: 600 },
   "bundle-launch": { name: "bundle · launch", tab: "bundle", price: 2340, baseMonthly: 20 },
   "bundle-grow": { name: "bundle · grow", tab: "bundle", price: 3600, baseMonthly: 40 },
   "bundle-full": { name: "bundle · full identity", tab: "bundle", price: 5400, baseMonthly: 40 },
@@ -101,9 +105,22 @@ const INITIAL: State = {
 
 /* bedarf ableiten aus paket-tab (für URL-einstieg) */
 function bedarfFromTab(tab: PaketEntry["tab"]): Bedarf {
-  if (tab === "kreatives") return "grafik-print";
+  if (tab === "grafik") return "grafik-print";
   if (tab === "bundle") return "alles";
   return "website";
+}
+
+/**
+ * paket-id → preset-id mapping. web-basis/bundle-launch = "basis",
+ * web-standard/bundle-grow = "standard", web-pro/bundle-full = "pro".
+ * null für grafik-pakete (die haben keinen builder-preset).
+ */
+function paketToPreset(paketId: string): "basis" | "standard" | "pro" | null {
+  if (paketId === "web-basis" || paketId === "bundle-launch") return "basis";
+  if (paketId === "web-standard" || paketId === "bundle-grow")
+    return "standard";
+  if (paketId === "web-pro" || paketId === "bundle-full") return "pro";
+  return null;
 }
 
 /* projekt-typ für VerfuegbarkeitWidget ableiten */
@@ -213,37 +230,80 @@ function Inner() {
       };
     }
 
-    /* modus B: ?paket=web-xxx → preset-paket */
+    /* modus B: ?paket=web-xxx → preset-paket
+     *
+     * Für web-* und bundle-* pakete seeden wir gleich einen customBuilder
+     * aus den PRESETS und landen in step 2 — dort kann der user alle knobs
+     * anpassen (unterseiten, cms, sprachen, domain, mails, extras) mit
+     * live-preis. Für grafik-* pakete bleiben wir beim alten pfad (step 3),
+     * weil die keinen builder haben.
+     */
     const paketId = params.get("paket");
     const entry = paketId ? PAKETE[paketId] : null;
-    if (!entry) return { state: INITIAL, startStep: 1 };
+    if (!entry || !paketId) return { state: INITIAL, startStep: 1 };
 
-    const hasDomain = params.get("domain") === "1";
-    const mails = Math.max(
+    const hasDomainParam = params.get("domain") === "1";
+    const mailsParam = Math.max(
       0,
-      Math.min(99, parseInt(params.get("mails") ?? "0", 10) || 0)
+      Math.min(99, parseInt(params.get("mails") ?? "-1", 10)),
     );
 
-    // scope-defaults ableiten aus paket-id
-    const seiten: Seiten =
-      paketId === "web-basis" || paketId === "bundle-launch"
-        ? "onepager"
-        : paketId === "web-standard" || paketId === "bundle-grow"
-        ? "2-5"
-        : paketId === "web-pro" || paketId === "bundle-full"
-        ? "6-10"
-        : "weiss-nicht";
+    // preset-mapping: welcher paket-preset matched auf welche paket-id?
+    const presetId = paketToPreset(paketId);
+    const isBundle = paketId.startsWith("bundle-");
 
-    const sprachen: Sprachen =
-      paketId === "web-pro" || paketId === "bundle-full" ? "2" : "1";
+    if (presetId || isBundle) {
+      // builder-state aus preset bauen · bundle = preset + branding=true
+      const fallbackPreset = presetId ?? "basis";
+      let builder: BuilderState = applyPreset(
+        DEFAULT_STATE,
+        fallbackPreset,
+      );
+      // override aus URL falls mitgegeben
+      if (params.get("domain") !== null) builder.hasDomain = hasDomainParam;
+      if (mailsParam >= 0) builder.mails = mailsParam;
+      // bundle: branding dazu (dann greift auch der 10% bundle-rabatt aus der engine)
+      if (isBundle) builder = { ...builder, branding: true };
+
+      // scope-defaults für rückwärtskompatibilität / step-3-fallback-rows
+      const totalSeiten = 1 + builder.unterseiten;
+      const seiten: Seiten =
+        totalSeiten === 1
+          ? "onepager"
+          : totalSeiten <= 5
+          ? "2-5"
+          : totalSeiten <= 10
+          ? "6-10"
+          : "10+";
+      const sprachen: Sprachen =
+        builder.sprachen <= 1 ? "1" : builder.sprachen === 2 ? "2" : "3+";
+
+      return {
+        state: {
+          ...INITIAL,
+          bedarf: bedarfFromTab(entry.tab),
+          paketId,
+          customBuilder: builder,
+          hasDomain: builder.hasDomain,
+          mails: builder.mails,
+          seiten,
+          sprachen,
+        },
+        startStep: 2,
+      };
+    }
+
+    // grafik-pakete ohne builder-preset: alter pfad, step 3
+    const seiten: Seiten = "weiss-nicht";
+    const sprachen: Sprachen = "1";
 
     return {
       state: {
         ...INITIAL,
         bedarf: bedarfFromTab(entry.tab),
         paketId,
-        hasDomain,
-        mails,
+        hasDomain: hasDomainParam,
+        mails: mailsParam >= 0 ? mailsParam : 0,
         seiten,
         sprachen,
       },
@@ -270,6 +330,26 @@ function Inner() {
       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
+
+  /**
+   * step-abandonment-tracking · fired bei beforeunload/pagehide, wenn der
+   * user mitten im formular abbricht (step < 4 und nicht abgesendet).
+   * nutzt navigator.sendBeacon via track() falls verfügbar.
+   */
+  useEffect(() => {
+    const handler = () => {
+      if (sent) return;
+      if (step < 4) {
+        track({
+          type: "step_abandoned",
+          step,
+          paket: state.paketId ?? undefined,
+        });
+      }
+    };
+    window.addEventListener("pagehide", handler);
+    return () => window.removeEventListener("pagehide", handler);
+  }, [sent, step, state.paketId]);
 
   const canAdvance = (from: StepId): boolean => {
     if (from === 1) return state.bedarf !== null;
@@ -320,15 +400,21 @@ function Inner() {
         setSendError(
           data?.error === "rate-limit"
             ? "zu viele anfragen · bitte in einer stunde nochmal probieren."
-            : "konnte nicht gesendet werden. schreib mir direkt an nicolas@laconis.be.",
+            : `konnte nicht gesendet werden. schreib mir direkt an ${CONTACT.email}.`,
         );
         setSending(false);
         return;
       }
+      track({
+        type: "form_submit",
+        form: "kontakt",
+        paket: payload.paketName || undefined,
+        priceOneTime: payload.priceOneTime || undefined,
+      });
       setSent(true);
     } catch {
       setSendError(
-        "netzwerk-fehler. schreib mir direkt an nicolas@laconis.be.",
+        `netzwerk-fehler. schreib mir direkt an ${CONTACT.email}.`,
       );
       setSending(false);
     }
@@ -342,17 +428,65 @@ function Inner() {
       <motion.div
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-[640px] mx-auto rounded-2xl border border-lime/30 bg-gradient-to-br from-lime/[0.06] to-transparent p-10 md:p-14 text-center"
+        className="max-w-[640px] mx-auto rounded-2xl border border-lime/25 bg-gradient-to-br from-lime/[0.06] to-transparent p-10 md:p-14 text-center"
       >
-        <div className="text-accent-ink text-[40px] mb-4">✓</div>
+        {/* handgezeichneter haken · draw-in */}
+        <motion.svg
+          viewBox="0 0 120 80"
+          className="mx-auto w-24 h-16 text-accent-ink mb-2"
+          aria-hidden
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.path
+            d="M 15 45 Q 35 60 50 65 T 105 15"
+            stroke="currentColor"
+            strokeWidth="5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+            variants={{
+              hidden: { pathLength: 0 },
+              visible: {
+                pathLength: 1,
+                transition: { duration: 0.8, ease: "easeOut" },
+              },
+            }}
+          />
+          <motion.path
+            d="M 100 10 L 105 15 L 100 22"
+            stroke="currentColor"
+            strokeWidth="5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+            variants={{
+              hidden: { pathLength: 0, opacity: 0 },
+              visible: {
+                pathLength: 1,
+                opacity: 1,
+                transition: { delay: 0.7, duration: 0.25 },
+              },
+            }}
+          />
+        </motion.svg>
+
         <h2 className="heading-display text-[clamp(1.75rem,4vw,2.5rem)] text-offwhite">
           danke, {state.name.trim().split(" ")[0] || "moin"}.
         </h2>
-        <p className="mt-4 text-[14px] leading-relaxed text-offwhite/60">
-          ich hab deine anfrage bekommen und melde mich innerhalb von 24 std
-          (werktags) per {state.email.includes("@") ? "mail" : "nachricht"}
+
+        <p
+          className="mt-4 font-hand text-[22px] md:text-[24px] text-accent-ink"
+          style={{ transform: "rotate(-1deg)" }}
+        >
+          ich meld mich diese woche.
+        </p>
+
+        <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55 max-w-[440px] mx-auto">
+          deine anfrage ist da · antwort kommt innerhalb von 24 std (werktags)
+          per {state.email.includes("@") ? "mail" : "nachricht"}
           {state.telefon ? ` oder telefon (${state.telefon})` : ""}. bis
-          dahin • mach's gut.
+          dahin · mach's gut.
         </p>
         <div className="mt-8 flex justify-center gap-3 flex-wrap">
           <Button href="/" variant="glass" size="md">
@@ -430,7 +564,7 @@ function Inner() {
             type="button"
             onClick={() => goTo(Math.max(1, step - 1) as StepId)}
             disabled={step === 1}
-            className="font-mono text-[10px] uppercase tracking-label text-offwhite/50 hover:text-accent-ink disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:text-offwhite/50 transition-colors"
+            className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 hover:text-accent-ink disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:text-offwhite/55 transition-colors"
           >
             ← zurück
           </button>
@@ -462,44 +596,119 @@ function Inner() {
 function Progress({ step }: { step: StepId }) {
   const labels = ["bedarf", "scope", "zusammenfassung", "kontakt"];
   return (
-    <div className="flex items-center gap-2 flex-wrap">
+    <div className="flex items-start justify-between gap-2 max-w-[560px]">
       {labels.map((label, i) => {
         const s = (i + 1) as StepId;
         const active = s === step;
         const done = s < step;
         return (
-          <div key={label} className="flex items-center gap-2">
-            <div
+          <div key={label} className="flex-1 flex flex-col items-center gap-2 relative">
+            {/* scribble-kreis */}
+            <ScribbleCircle state={active ? "active" : done ? "done" : "idle"} index={i} />
+
+            {/* label · aktiv = accent-ink & unterstrichen mit scribble */}
+            <span
               className={[
-                "flex items-center gap-2 px-3 py-1.5 rounded-full border font-mono text-[10px] uppercase tracking-label transition-all",
+                "font-mono text-[9px] md:text-[10px] uppercase tracking-label text-center leading-tight transition-colors",
                 active
-                  ? "border-lime/50 bg-lime/10 text-accent-ink"
+                  ? "text-accent-ink"
                   : done
-                  ? "border-lime/20 bg-ink/[0.02] text-offwhite/55"
-                  : "border-ink/10 bg-ink/[0.015] text-offwhite/35",
+                  ? "text-offwhite/55"
+                  : "text-offwhite/35",
               ].join(" ")}
             >
-              <span
-                className={[
-                  "w-4 h-4 rounded-full flex items-center justify-center text-[9px]",
-                  active
-                    ? "bg-lime text-black"
-                    : done
-                    ? "bg-lime/30 text-accent-ink"
-                    : "bg-ink/10 text-offwhite/50",
-                ].join(" ")}
-              >
-                {done ? "✓" : s}
-              </span>
-              <span>{label}</span>
-            </div>
+              {label}
+            </span>
+
+            {/* wellige verbindung zum nächsten kreis (rechts) */}
             {i < labels.length - 1 && (
-              <span className="font-mono text-[10px] text-offwhite/25">·</span>
+              <svg
+                aria-hidden
+                viewBox="0 0 60 12"
+                className="absolute top-5 left-[calc(50%+22px)] w-[calc(100%-44px)] h-3 pointer-events-none"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M 2 6 Q 15 1 30 6 T 58 6"
+                  stroke={done ? "#d9ff00" : "rgba(242,240,231,0.15)"}
+                  strokeWidth="1.2"
+                  strokeLinecap="round"
+                  fill="none"
+                  strokeDasharray={done ? "0" : "3,3"}
+                />
+              </svg>
             )}
           </div>
         );
       })}
     </div>
+  );
+}
+
+/** einzelner handgezeichneter kreis — idle / active / done. */
+function ScribbleCircle({
+  state,
+  index,
+}: {
+  state: "idle" | "active" | "done";
+  index: number;
+}) {
+  // leichte, deterministische rotation pro kreis — wirkt handgezeichnet
+  const rot = [-3, 2, -1.5, 3][index] ?? 0;
+  const stroke =
+    state === "active"
+      ? "#d9ff00"
+      : state === "done"
+      ? "rgba(217,255,0,0.7)"
+      : "rgba(242,240,231,0.25)";
+  const fill =
+    state === "active"
+      ? "rgba(217,255,0,0.18)"
+      : state === "done"
+      ? "rgba(217,255,0,0.08)"
+      : "transparent";
+
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 40 40"
+      style={{ transform: `rotate(${rot}deg)` }}
+      className="w-10 h-10 shrink-0"
+    >
+      {/* scribble-kreis · zwei leicht versetzte pfade für „doppelt gezogen" */}
+      <path
+        d="M20 5 Q 34 8, 35 20 Q 34 32, 20 35 Q 6 32, 5 20 Q 6 8, 20 5 Z"
+        stroke={stroke}
+        strokeWidth={state === "active" ? 2 : 1.4}
+        strokeLinecap="round"
+        fill={fill}
+      />
+      {state === "idle" && (
+        <path
+          d="M22 6 Q 33 10, 34 21 Q 33 30, 20 34"
+          stroke={stroke}
+          strokeWidth="0.7"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.5"
+        />
+      )}
+      {state === "done" && (
+        /* scribble-haken */
+        <path
+          d="M11 20 L18 27 L30 13"
+          stroke="#d9ff00"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      )}
+      {state === "active" && (
+        /* active-dot im zentrum */
+        <circle cx="20" cy="20" r="3.5" fill="#d9ff00" />
+      )}
+    </svg>
   );
 }
 
@@ -626,7 +835,15 @@ function Step2({
   state: State;
   update: <K extends keyof State>(key: K, value: State[K]) => void;
 }) {
+  // Wenn ein builder-preset aktiv ist (kam über ?paket=web-xxx oder bundle-xxx),
+  // wird step 2 zum paket-anpassen-formular mit granularen knöpfen.
+  if (state.customBuilder && state.paketId) {
+    return <BuilderStep2 state={state} update={update} />;
+  }
+
   const isBranding = state.bedarf === "branding" || state.bedarf === "grafik-print";
+  // budget-chip verstecken, wenn ein paket aktiv ist (preis ist schon live sichtbar).
+  const showBudget = !state.paketId;
 
   return (
     <div>
@@ -659,36 +876,428 @@ function Step2({
           />
         )}
 
-        {/* budget */}
-        <ChipField
-          label="budget-rahmen"
-          value={state.budget}
-          options={BUDGET_OPTS}
-          onChange={(v) => update("budget", v)}
-          hint="grob reicht. keine trickfragen, ich pass das angebot an was realistisch ist."
+        {/* budget · nur wenn kein paket aktiv */}
+        {showBudget && (
+          <ChipField
+            label="budget-rahmen"
+            value={state.budget}
+            options={BUDGET_OPTS}
+            onChange={(v) => update("budget", v)}
+            hint="grob reicht. keine trickfragen, ich pass das angebot an was realistisch ist."
+          />
+        )}
+      </div>
+
+      {/* zeitplan-widget ist in step 3 — hier nicht mehr, damit step 2 schlank bleibt. */}
+    </div>
+  );
+}
+
+/* ══════════════════════════ step 2 · builder-mode ══════════════════════════
+ *
+ * Ersetzt step 2, wenn der user via ?paket=web-xxx oder ?paket=bundle-xxx
+ * kam. Nutzt die bestehende preis-engine aus paket-pricing.ts — alle knöpfe
+ * bearbeiten state.customBuilder, und derivePriceInfo() rendert die sticky
+ * preis-bar live (inkl. dringend-aufschlag, der in step 3 gesetzt wird).
+ */
+
+function BuilderStep2({
+  state,
+  update,
+}: {
+  state: State;
+  update: <K extends keyof State>(key: K, value: State[K]) => void;
+}) {
+  const builder = state.customBuilder!;
+  const paket = state.paketId ? PAKETE[state.paketId] : null;
+  const presetLabel = paketToPreset(state.paketId ?? "");
+
+  const [extrasOpen, setExtrasOpen] = useState(false);
+
+  /**
+   * Patch helper · schreibt in customBuilder. Synchronisiert zusätzlich
+   * state.hasDomain / state.mails, damit nicht-builder-seiten (z.B. step 3
+   * fallback-rows, payload) konsistent bleiben.
+   */
+  const setBuilder = (patch: Partial<BuilderState>) => {
+    const next = { ...builder, ...patch };
+    update("customBuilder", next);
+    if ("hasDomain" in patch) update("hasDomain", next.hasDomain);
+    if ("mails" in patch) update("mails", next.mails);
+  };
+
+  return (
+    <div>
+      {/* kopf */}
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <h3 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
+            paket anpassen.
+          </h3>
+          <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
+            startpunkt:{" "}
+            <span className="text-offwhite">
+              {paket?.name ?? "paket"}
+            </span>
+            {presetLabel ? ` · preset „${presetLabel}"` : ""}. schraub dran
+            bis's passt — preis unten passt sich live an.
+          </p>
+        </div>
+      </div>
+
+      {/* web-block · unterseiten / cms / sprachen / shop */}
+      <div className="mt-8 rounded-2xl border border-ink/10 bg-ink/[0.015] p-5 md:p-6 flex flex-col gap-5">
+        <div className="flex items-center justify-between">
+          <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
+            website-umfang
+          </span>
+          <span className="font-mono text-[9.5px] uppercase tracking-label text-offwhite/35">
+            einmalig
+          </span>
+        </div>
+
+        <CounterRow
+          label="unterseiten"
+          hint="je 300 € · über die startseite hinaus"
+          value={builder.unterseiten}
+          min={0}
+          max={20}
+          onChange={(v) => setBuilder({ unterseiten: v })}
+        />
+
+        <CounterRow
+          label="cms-bereiche"
+          hint="je 500 € · selbst pflegbar (blog, team, news…)"
+          value={builder.cms}
+          min={0}
+          max={8}
+          onChange={(v) => setBuilder({ cms: v })}
+        />
+
+        <div>
+          <div className="flex items-baseline justify-between gap-3">
+            <label className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
+              sprachen
+            </label>
+            <span className="font-mono text-[9.5px] text-offwhite/35">
+              je zusatzsprache: 50 €/seite
+            </span>
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {[1, 2, 3].map((n) => {
+              const active = builder.sprachen === n;
+              return (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => setBuilder({ sprachen: n })}
+                  aria-pressed={active}
+                  className={[
+                    "font-mono text-[11px] uppercase tracking-mono px-3.5 py-2 rounded-full border transition-all",
+                    active
+                      ? "border-lime/50 bg-lime/10 text-accent-ink"
+                      : "border-ink/10 bg-ink/[0.02] text-offwhite/55 hover:border-ink/25 hover:text-offwhite",
+                  ].join(" ")}
+                >
+                  {n === 1 ? "eine" : n === 2 ? "zwei" : "drei"}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <ToggleRow
+          label="shop / buchungs-system"
+          hint="onlineshop oder termin-system · +1.800 €"
+          value={builder.shop}
+          onChange={(v) => setBuilder({ shop: v })}
         />
       </div>
 
-      {/* ─── zeitplan · als live-queue-widget (flex | dringend) ─── */}
-      <div className="mt-10">
-        <div className="mb-3">
-          <label className="block font-mono text-[10px] uppercase tracking-label text-offwhite/50 mb-1">
-            zeitplan · deine queue-position
-          </label>
-          <p className="text-[12.5px] leading-relaxed text-offwhite/45 max-w-[520px]">
-            klick auf „flexibel" oder „dringend" — der slot updatet sich live
-            mit deinem wunschstart.
-          </p>
+      {/* hosting · domain / mails */}
+      <div className="mt-5 rounded-2xl border border-ink/10 bg-ink/[0.015] p-5 md:p-6 flex flex-col gap-5">
+        <div className="flex items-center justify-between">
+          <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
+            hosting · domain · mail
+          </span>
+          <span className="font-mono text-[9.5px] uppercase tracking-label text-offwhite/35">
+            laufend · monatlich
+          </span>
         </div>
-        <VerfuegbarkeitWidget
-          compact
-          modus={state.zeitplan === "dringend" ? "urgent" : "flex"}
-          onModusChange={(m) =>
-            update("zeitplan", m === "urgent" ? "dringend" : "flexibel")
-          }
-          lockedProjektTyp={deriveProjektTyp(state)}
+
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          <div>
+            <span className="text-[14px] text-offwhite/75">
+              hast du schon eine domain?
+            </span>
+            <p className="mt-0.5 text-[11.5px] text-offwhite/35">
+              nein → ich registriere mit (+2 €/Mt, je nach domain variabel).
+            </p>
+          </div>
+          <div className="inline-flex rounded-full border border-ink/10 bg-dark p-0.5 shrink-0">
+            <button
+              type="button"
+              aria-pressed={builder.hasDomain}
+              onClick={() => setBuilder({ hasDomain: true })}
+              className={[
+                "px-3 py-1.5 rounded-full font-mono text-[10px] uppercase tracking-mono transition-colors",
+                builder.hasDomain
+                  ? "bg-lime text-black"
+                  : "text-offwhite/55 hover:text-offwhite",
+              ].join(" ")}
+            >
+              ja
+            </button>
+            <button
+              type="button"
+              aria-pressed={!builder.hasDomain}
+              onClick={() => setBuilder({ hasDomain: false })}
+              className={[
+                "px-3 py-1.5 rounded-full font-mono text-[10px] uppercase tracking-mono transition-colors",
+                !builder.hasDomain
+                  ? "bg-lime text-black"
+                  : "text-offwhite/55 hover:text-offwhite",
+              ].join(" ")}
+            >
+              nein
+            </button>
+          </div>
+        </div>
+
+        <CounterRow
+          label="e-mail-postfächer"
+          hint="je 5 €/Mt · info@, hallo@, …"
+          value={builder.mails}
+          min={0}
+          max={20}
+          onChange={(v) => setBuilder({ mails: v })}
         />
       </div>
+
+      {/* extras · collapsible */}
+      <div className="mt-5 rounded-2xl border border-ink/10 bg-ink/[0.015] overflow-hidden">
+        <button
+          type="button"
+          onClick={() => setExtrasOpen((v) => !v)}
+          aria-expanded={extrasOpen}
+          className="w-full flex items-center justify-between gap-3 px-5 md:px-6 py-4 hover:bg-ink/[0.03] transition-colors"
+        >
+          <div className="text-left">
+            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
+              extras
+            </span>
+            <p className="mt-0.5 text-[12.5px] text-offwhite/35">
+              branding dazu, content-hilfe · optional
+            </p>
+          </div>
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 10 10"
+            className={[
+              "transition-transform text-offwhite/55",
+              extrasOpen ? "rotate-180" : "",
+            ].join(" ")}
+            aria-hidden
+          >
+            <path
+              d="M2 3.5L5 6.5L8 3.5"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+
+        <AnimatePresence initial={false}>
+          {extrasOpen && (
+            <motion.div
+              key="extras"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{
+                height: "auto",
+                opacity: 1,
+                transition: { duration: 0.28, ease: "easeOut" },
+              }}
+              exit={{
+                height: 0,
+                opacity: 0,
+                transition: { duration: 0.22, ease: "easeIn" },
+              }}
+              className="overflow-hidden"
+            >
+              <div className="px-5 md:px-6 pb-6 flex flex-col gap-5 border-t border-ink/10 pt-5">
+                <ToggleRow
+                  label="branding dazu"
+                  hint="logo, brand guide, vk, briefpapier, 3 social-templates · +1.200 € · −10% bundle-rabatt greift automatisch"
+                  value={builder.branding}
+                  onChange={(v) => setBuilder({ branding: v })}
+                />
+
+                <div>
+                  <div className="flex items-baseline justify-between gap-3">
+                    <label className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
+                      content · texte & fotos
+                    </label>
+                  </div>
+                  <p className="mt-1 text-[12px] text-offwhite/35">
+                    wer schreibt die texte und liefert die bilder?
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {(
+                      [
+                        { id: "selbst", label: "selber", note: "inklusive" },
+                        {
+                          id: "mit-hilfe",
+                          label: "mit hilfe",
+                          note: "+450 €",
+                        },
+                        {
+                          id: "komplett",
+                          label: "komplett von mir",
+                          note: "+1.200 €",
+                        },
+                      ] as const
+                    ).map((o) => {
+                      const active = builder.content === o.id;
+                      return (
+                        <button
+                          key={o.id}
+                          type="button"
+                          onClick={() => setBuilder({ content: o.id })}
+                          aria-pressed={active}
+                          className={[
+                            "font-mono text-[11px] uppercase tracking-mono px-3.5 py-2 rounded-full border transition-all flex items-baseline gap-2",
+                            active
+                              ? "border-lime/50 bg-lime/10 text-accent-ink"
+                              : "border-ink/10 bg-ink/[0.02] text-offwhite/55 hover:border-ink/25 hover:text-offwhite",
+                          ].join(" ")}
+                        >
+                          <span>{o.label}</span>
+                          <span
+                            className={[
+                              "text-[9.5px]",
+                              active ? "text-accent-ink/75" : "text-offwhite/35",
+                            ].join(" ")}
+                          >
+                            {o.note}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* hinweis unten */}
+      <p className="mt-6 text-[12.5px] leading-relaxed text-offwhite/55 max-w-[580px]">
+        zeitplan & dringend-aufschlag kommen im nächsten schritt — dann siehst
+        du den finalen bon.
+      </p>
+    </div>
+  );
+}
+
+/* ══════════════════════════ builder-primitives ══════════════════════════ */
+
+function CounterRow({
+  label,
+  hint,
+  value,
+  min,
+  max,
+  onChange,
+}: {
+  label: string;
+  hint?: string;
+  value: number;
+  min: number;
+  max: number;
+  onChange: (v: number) => void;
+}) {
+  const dec = () => onChange(Math.max(min, value - 1));
+  const inc = () => onChange(Math.min(max, value + 1));
+  return (
+    <div className="flex items-center justify-between gap-3 flex-wrap">
+      <div>
+        <span className="text-[14px] text-offwhite/75">{label}</span>
+        {hint && (
+          <p className="mt-0.5 text-[11.5px] text-offwhite/35">{hint}</p>
+        )}
+      </div>
+      <div className="inline-flex items-center gap-3 rounded-full border border-ink/10 bg-dark px-1.5 py-0.5 shrink-0">
+        <button
+          type="button"
+          onClick={dec}
+          disabled={value <= min}
+          aria-label={`${label} verringern`}
+          className="w-7 h-7 rounded-full flex items-center justify-center text-offwhite/55 hover:text-accent-ink disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+        >
+          −
+        </button>
+        <span className="font-mono text-[13px] tabular-nums text-offwhite min-w-[18px] text-center">
+          {value}
+        </span>
+        <button
+          type="button"
+          onClick={inc}
+          disabled={value >= max}
+          aria-label={`${label} erhöhen`}
+          className="w-7 h-7 rounded-full flex items-center justify-center text-offwhite/55 hover:text-accent-ink disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+        >
+          +
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function ToggleRow({
+  label,
+  hint,
+  value,
+  onChange,
+}: {
+  label: string;
+  hint?: string;
+  value: boolean;
+  onChange: (v: boolean) => void;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-3 flex-wrap">
+      <div>
+        <span className="text-[14px] text-offwhite/75">{label}</span>
+        {hint && (
+          <p className="mt-0.5 text-[11.5px] text-offwhite/35 max-w-[400px]">
+            {hint}
+          </p>
+        )}
+      </div>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={value}
+        onClick={() => onChange(!value)}
+        className={[
+          "relative inline-flex h-[28px] w-[52px] shrink-0 items-center rounded-full border transition-all",
+          value
+            ? "border-lime/50 bg-lime/25"
+            : "border-ink/10 bg-dark hover:border-ink/25",
+        ].join(" ")}
+      >
+        <span
+          className={[
+            "inline-block h-[20px] w-[20px] rounded-full bg-offwhite transition-transform",
+            value ? "translate-x-[27px] bg-lime" : "translate-x-[3px]",
+          ].join(" ")}
+        />
+      </button>
     </div>
   );
 }
@@ -708,7 +1317,7 @@ function ChipField<T extends string>({
 }) {
   return (
     <div>
-      <label className="block font-mono text-[10px] uppercase tracking-label text-offwhite/50 mb-3">
+      <label className="block font-mono text-[10px] uppercase tracking-label text-offwhite/55 mb-3">
         {label}
       </label>
       <div className="flex flex-wrap gap-2">
@@ -724,7 +1333,7 @@ function ChipField<T extends string>({
                 "font-mono text-[11px] uppercase tracking-mono px-3.5 py-2 rounded-full border transition-all",
                 active
                   ? "border-lime/50 bg-lime/10 text-accent-ink"
-                  : "border-ink/10 bg-ink/[0.02] text-offwhite/60 hover:border-ink/30 hover:text-offwhite",
+                  : "border-ink/10 bg-ink/[0.02] text-offwhite/55 hover:border-ink/25 hover:text-offwhite",
               ].join(" ")}
             >
               {o.label}
@@ -733,7 +1342,7 @@ function ChipField<T extends string>({
         })}
       </div>
       {hint && (
-        <p className="mt-2 text-[12px] text-offwhite/40">{hint}</p>
+        <p className="mt-2 text-[12px] text-offwhite/35">{hint}</p>
       )}
     </div>
   );
@@ -757,16 +1366,27 @@ function Step3({
       ? paket.baseMonthly + (state.hasDomain ? 0 : 2) + state.mails * 5
       : null;
 
-  /* custom-builder-mode: eigener kassenzettel statt paket-header */
-  const customItems = state.customBuilder
-    ? generateLineItems(state.customBuilder)
+  /* custom-builder-mode: eigener kassenzettel statt paket-header.
+   * zeitplan wird in builder.deadline gespiegelt, damit der dringend-aufschlag
+   * live im bon erscheint wenn der user oben am queue-widget umstellt. */
+  const syncedBuilder: BuilderState | null = state.customBuilder
+    ? {
+        ...state.customBuilder,
+        deadline: state.zeitplan === "dringend" ? "dringend" : "normal",
+      }
     : null;
+  const customItems = syncedBuilder ? generateLineItems(syncedBuilder) : null;
   const customTotals = customItems ? computeTotals(customItems) : null;
   const customClosest =
-    state.customBuilder && customTotals
-      ? closestPaketFn(state.customBuilder, customTotals)
+    syncedBuilder && customTotals
+      ? closestPaketFn(syncedBuilder, customTotals)
       : null;
-  const customBonNumber = useMemo(() => generateBonNumber(), []);
+  // Hydration-safe: bon-nummer erst nach mount generieren (Math.random im
+  // generateBonNumber würde sonst server vs client abweichen)
+  const [customBonNumber, setCustomBonNumber] = useState("");
+  useEffect(() => {
+    setCustomBonNumber(generateBonNumber());
+  }, []);
 
   const rows: { label: string; value: string; editStep: StepId }[] = [];
 
@@ -776,7 +1396,10 @@ function Step3({
     editStep: 1,
   });
 
-  if (paket?.baseMonthly !== undefined) {
+  // In builder-mode ist alles im kassenzettel — die zeilen unten wären redundant.
+  const isBuilderMode = state.customBuilder !== null;
+
+  if (paket?.baseMonthly !== undefined && !isBuilderMode) {
     const parts: string[] = ["hosting"];
     if (!state.hasDomain) parts.push("+ domain");
     if (state.mails > 0)
@@ -788,7 +1411,11 @@ function Step3({
     });
   }
 
-  if (state.bedarf !== "branding" && state.bedarf !== "grafik-print") {
+  if (
+    state.bedarf !== "branding" &&
+    state.bedarf !== "grafik-print" &&
+    !isBuilderMode
+  ) {
     rows.push({
       label: "seiten",
       value: seitenLabel(state.seiten),
@@ -844,17 +1471,18 @@ function Step3({
           <div className="mt-3 text-center">
             <button
               type="button"
-              onClick={() => (window.location.href = "/preise/baukasten")}
-              className="font-mono text-[10px] uppercase tracking-label text-offwhite/40 hover:text-accent-ink transition-colors"
+              onClick={() => onEdit(2)}
+              className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 hover:text-accent-ink transition-colors"
             >
-              ← konfiguration ändern
+              ← konfiguration anpassen
             </button>
           </div>
         </div>
       )}
 
-      {/* paket-preis-header — nur wenn paket via URL vorausgewählt */}
-      {paket && (() => {
+      {/* paket-preis-header — nur wenn paket OHNE builder (z.B. grafik-paket),
+          sonst hat der kassenzettel oben schon alle zahlen. */}
+      {paket && !isCustom && (() => {
         const isDringend = state.zeitplan === "dringend";
         const aufschlag = isDringend ? Math.round(paket.price * 0.25) : 0;
         const einmaligTotal = paket.price + aufschlag;
@@ -872,7 +1500,7 @@ function Step3({
             <button
               type="button"
               onClick={() => onEdit(1)}
-              className="font-mono text-[10px] uppercase tracking-label text-offwhite/45 hover:text-accent-ink transition-colors"
+              className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 hover:text-accent-ink transition-colors"
             >
               paket wechseln
             </button>
@@ -880,33 +1508,33 @@ function Step3({
 
           <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4 pt-5 border-t border-ink/10">
             <div>
-              <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/40">
+              <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
                 einmalig
               </div>
               <div className="mt-1 heading-display text-[clamp(1.75rem,4vw,2.5rem)] text-offwhite leading-none">
                 {einmaligTotal.toLocaleString("de-DE")}{" "}
-                <span className="text-offwhite/40 text-[0.6em]">€</span>
+                <span className="text-offwhite/35 text-[0.6em]">€</span>
               </div>
               {isDringend && (
                 <div className="mt-2 font-mono text-[10px] uppercase tracking-label text-accent-ink/80">
-                  inkl. dringend-aufschlag · +{aufschlag.toLocaleString("de-DE")} € (+25 %)
+                  inkl. dringend-aufschlag · +{aufschlag.toLocaleString("de-DE")} € (+25%)
                 </div>
               )}
-              <div className="mt-1 text-[11px] text-offwhite/40">
+              <div className="mt-1 text-[11px] text-offwhite/35">
                 bei projekt-abschluss
               </div>
             </div>
 
             {monthly !== null && (
               <div className="sm:border-l sm:border-ink/10 sm:pl-4">
-                <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/40">
+                <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
                   pro monat
                 </div>
                 <div className="mt-1 heading-display text-[clamp(1.75rem,4vw,2.5rem)] text-offwhite leading-none">
                   {monthly}{" "}
-                  <span className="text-offwhite/40 text-[0.6em]">€/Mt</span>
+                  <span className="text-offwhite/35 text-[0.6em]">€/Mt</span>
                 </div>
-                <div className="mt-1 text-[11px] text-offwhite/40">
+                <div className="mt-1 text-[11px] text-offwhite/35">
                   hosting
                   {!state.hasDomain ? " · + domain" : ""}
                   {state.mails > 0
@@ -926,17 +1554,17 @@ function Step3({
             key={r.label + i}
             className={[
               "grid grid-cols-[120px_1fr_auto] gap-4 items-baseline px-5 md:px-6 py-4",
-              i < rows.length - 1 ? "border-b border-ink/8" : "",
+              i < rows.length - 1 ? "border-b border-ink/10" : "",
             ].join(" ")}
           >
-            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/45">
+            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
               {r.label}
             </span>
-            <span className="text-[14px] text-offwhite/85">{r.value}</span>
+            <span className="text-[14px] text-offwhite/75">{r.value}</span>
             <button
               type="button"
               onClick={() => onEdit(r.editStep)}
-              className="font-mono text-[10px] uppercase tracking-label text-offwhite/40 hover:text-accent-ink transition-colors"
+              className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 hover:text-accent-ink transition-colors"
             >
               ändern
             </button>
@@ -944,14 +1572,14 @@ function Step3({
         ))}
       </div>
 
-      <p className="mt-5 text-[12.5px] leading-relaxed text-offwhite/45">
+      <p className="mt-5 text-[12.5px] leading-relaxed text-offwhite/55">
         wenn alles stimmt, nächster schritt: deine kontaktdaten + optional eine
         notiz. angebot kommt innerhalb 24 std.
       </p>
 
       {/* queue-position · interaktiv · zeitplan-toggle direkt am slot */}
       <div className="mt-10">
-        <p className="mb-3 font-mono text-[10px] uppercase tracking-label text-offwhite/50">
+        <p className="mb-3 font-mono text-[10px] uppercase tracking-label text-offwhite/55">
           zeitplan · kannst du hier nochmal umstellen
         </p>
         <VerfuegbarkeitWidget
@@ -1033,7 +1661,7 @@ function Step4({
       />
 
       <div>
-        <label className="block font-mono text-[10px] uppercase tracking-label text-offwhite/50 mb-2">
+        <label className="block font-mono text-[10px] uppercase tracking-label text-offwhite/55 mb-2">
           notiz · optional
         </label>
         <textarea
@@ -1041,7 +1669,7 @@ function Step4({
           onChange={(e) => update("notiz", e.target.value)}
           rows={5}
           placeholder="was sollte ich vor unserem gespräch wissen? (zeitliche zwänge, besonderheiten, links zu inspiration …)"
-          className="w-full bg-ink/[0.03] border border-ink/12 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/45 outline-none resize-none transition-colors"
+          className="w-full bg-ink/[0.03] border border-ink/10 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/55 outline-none resize-none transition-colors"
         />
       </div>
 
@@ -1098,7 +1726,7 @@ function Step4({
           type="button"
           onClick={onBack}
           disabled={sending}
-          className="font-mono text-[10px] uppercase tracking-label text-offwhite/50 hover:text-accent-ink disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 hover:text-accent-ink disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
           ← zurück
         </button>
@@ -1135,7 +1763,7 @@ function TextField({
 }) {
   return (
     <div>
-      <label className="block font-mono text-[10px] uppercase tracking-label text-offwhite/50 mb-2">
+      <label className="block font-mono text-[10px] uppercase tracking-label text-offwhite/55 mb-2">
         {label}
         {required && <span className="text-accent-ink ml-1">*</span>}
       </label>
@@ -1146,7 +1774,7 @@ function TextField({
         autoComplete={autoComplete}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-ink/[0.03] border border-ink/12 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/45 outline-none transition-colors"
+        className="w-full bg-ink/[0.03] border border-ink/10 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/55 outline-none transition-colors"
       />
     </div>
   );
@@ -1163,12 +1791,37 @@ type PriceInfo = {
 
 /**
  * preisinfo aus state ableiten.
- * - paketId gesetzt: PAKETE-einträge + (eventuell) dringend-aufschlag
- * - customBuilder gesetzt: generateLineItems + computeTotals
+ * - customBuilder gesetzt: generateLineItems + computeTotals (inkl. dringend-aufschlag)
+ * - paketId gesetzt (ohne builder, z.B. grafik-pakete): PAKETE-werte + aufschlag
  * - sonst: null (bar wird nicht gezeigt)
+ *
+ * WICHTIG: state.zeitplan wird in customBuilder.deadline gespiegelt, bevor
+ * die engine läuft — sonst zeigt die sticky-bar nicht, was step 3 am
+ * queue-widget umstellt.
  */
 function derivePriceInfo(state: State): PriceInfo | null {
-  // paket-mode
+  // custom-builder-mode hat vorrang: das gilt für alle web-/bundle-pakete
+  // (weil beim URL-handoff customBuilder aus dem preset geseedet wird)
+  if (state.customBuilder) {
+    // zeitplan → deadline spiegeln, damit der aufschlag in der engine greift
+    const deadline = state.zeitplan === "dringend" ? "dringend" : "normal";
+    const synced: BuilderState = { ...state.customBuilder, deadline };
+    const items = generateLineItems(synced);
+    const totals = computeTotals(items);
+    // surcharge-zeile finden (engine label: "dringend-aufschlag")
+    const surchargeItem = items.find(
+      (i) => i.label === "dringend-aufschlag" && !i.monthly,
+    );
+    const paketName = state.paketId ? PAKETE[state.paketId]?.name : undefined;
+    return {
+      label: paketName ?? "eigene konfiguration",
+      oneTime: totals.oneTime,
+      monthly: totals.monthly,
+      surcharge: surchargeItem ? surchargeItem.amount : undefined,
+    };
+  }
+
+  // paket-mode ohne builder (z.B. grafik-*)
   if (state.paketId) {
     const paket = PAKETE[state.paketId];
     if (!paket) return null;
@@ -1186,39 +1839,28 @@ function derivePriceInfo(state: State): PriceInfo | null {
     };
   }
 
-  // custom-builder-mode
-  if (state.customBuilder) {
-    const items = generateLineItems(state.customBuilder);
-    const totals = computeTotals(items);
-    return {
-      label: "eigene konfiguration",
-      oneTime: totals.oneTime,
-      monthly: totals.monthly,
-    };
-  }
-
   return null;
 }
 
 function PriceBar({ info }: { info: PriceInfo }) {
   return (
-    <div className="rounded-2xl border border-lime/35 bg-dark/95 backdrop-blur-md shadow-[0_16px_40px_-20px_rgba(0,0,0,0.6)] px-5 py-4 md:px-6 md:py-4 flex items-center justify-between gap-4 flex-wrap">
+    <div className="rounded-2xl border border-lime/25 bg-dark/95 backdrop-blur-md shadow-[0_16px_40px_-20px_rgba(0,0,0,0.6)] px-5 py-4 md:px-6 md:py-4 flex items-center justify-between gap-4 flex-wrap">
       <div className="min-w-0 flex items-baseline gap-3 flex-wrap">
         <span className="font-mono text-[9px] uppercase tracking-label text-accent-ink">
           dein preis · live
         </span>
-        <span className="font-mono text-[10.5px] uppercase tracking-label text-offwhite/65 truncate">
+        <span className="font-mono text-[10.5px] uppercase tracking-label text-offwhite/55 truncate">
           {info.label}
         </span>
       </div>
       <div className="flex items-baseline gap-5 flex-wrap">
         <div className="flex items-baseline gap-1.5">
-          <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/45">
+          <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
             einmalig
           </span>
           <span className="heading-display text-[18px] md:text-[20px] text-offwhite tabular-nums leading-none">
             {info.oneTime.toLocaleString("de-DE")}
-            <span className="text-offwhite/40 text-[0.65em] ml-0.5">€</span>
+            <span className="text-offwhite/35 text-[0.65em] ml-0.5">€</span>
           </span>
           {info.surcharge !== undefined && (
             <span className="font-mono text-[9px] text-accent-ink/80 ml-1">
@@ -1228,12 +1870,12 @@ function PriceBar({ info }: { info: PriceInfo }) {
         </div>
         {info.monthly > 0 && (
           <div className="flex items-baseline gap-1.5">
-            <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/45">
+            <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
               monatlich
             </span>
             <span className="heading-display text-[18px] md:text-[20px] text-accent-ink tabular-nums leading-none">
               {info.monthly.toLocaleString("de-DE")}
-              <span className="text-accent-ink/55 text-[0.65em] ml-0.5">€/Mt</span>
+              <span className="text-accent-ink/80 text-[0.65em] ml-0.5">€/Mt</span>
             </span>
           </div>
         )}

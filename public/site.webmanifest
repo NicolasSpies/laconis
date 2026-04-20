@@ -1,0 +1,14 @@
+{
+  "name": "lacønis · design mit meinung · web mit seele",
+  "short_name": "lacønis",
+  "description": "freelance design + web development aus Eupen, Belgien.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0f0f",
+  "theme_color": "#0d0f0f",
+  "lang": "de-BE",
+  "icons": [
+    { "src": "/icon.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/apple-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

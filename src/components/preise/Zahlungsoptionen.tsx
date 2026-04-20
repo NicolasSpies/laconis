@@ -30,14 +30,14 @@ const MODELLE: Modell[] = [
   },
   {
     num: "02",
-    titel: "50 % anzahlung + raten",
+    titel: "50% anzahlung + raten",
     kurz: "hälfte zum start, rest in bis zu 5 raten.",
     details: [
-      "50 % bei auftrag",
+      "50% bei auftrag",
       "rest aufgeteilt auf bis zu 5 monate",
       "läuft automatisiert • SEPA-lastschrift oder überweisung",
     ],
-    zinsNote: "2 % / monat · gedeckelt bei max 10 %",
+    zinsNote: "2% / monat · gedeckelt bei max 10%",
   },
   {
     num: "03",
@@ -48,7 +48,7 @@ const MODELLE: Modell[] = [
       "gleichbleibende monatsrate",
       "für kleinere betriebe mit monatlichem cashflow gedacht",
     ],
-    zinsNote: "4 % / monat auf laufenden restbetrag",
+    zinsNote: "4% / monat auf laufenden restbetrag",
   },
 ];
 
@@ -64,7 +64,7 @@ export function Zahlungsoptionen() {
               drei wege, offen kommuniziert.
             </span>
           </h2>
-          <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/60">
+          <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/55">
             keine „auf anfrage"-spielchen bei den zinsen. du siehst, was eine
             rate dich mehr kostet • bevor du fragst. such dir aus, was zu
             deinem cashflow passt.
@@ -79,8 +79,8 @@ export function Zahlungsoptionen() {
               className={[
                 "relative rounded-2xl p-6 md:p-7 flex flex-col gap-4",
                 m.highlight
-                  ? "border border-lime/30 bg-gradient-to-b from-lime/[0.03] to-transparent"
-                  : "border border-ink/10 bg-ink/[0.015] hover:border-ink/20 transition-colors",
+                  ? "border border-lime/25 bg-gradient-to-b from-lime/[0.03] to-transparent"
+                  : "border border-ink/10 bg-ink/[0.015] hover:border-ink/25 transition-colors",
               ].join(" ")}
             >
               <div className="flex items-baseline justify-between">
@@ -88,8 +88,8 @@ export function Zahlungsoptionen() {
                   modell {m.num}
                 </span>
                 {m.highlight && (
-                  <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/50">
-                    0 % zinsen
+                  <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
+                    0% zinsen
                   </span>
                 )}
               </div>
@@ -107,7 +107,7 @@ export function Zahlungsoptionen() {
                 {m.details.map((d, i) => (
                   <li
                     key={i}
-                    className="flex items-start gap-2.5 text-[12.5px] leading-relaxed text-offwhite/65"
+                    className="flex items-start gap-2.5 text-[12.5px] leading-relaxed text-offwhite/55"
                   >
                     <span className="text-accent-ink/80 mt-[6px] shrink-0">
                       <svg width="8" height="8" viewBox="0 0 8 8" fill="none" aria-hidden>
@@ -120,8 +120,8 @@ export function Zahlungsoptionen() {
               </ul>
 
               {m.zinsNote && (
-                <div className="pt-3 border-t border-ink/8">
-                  <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/40">
+                <div className="pt-3 border-t border-ink/10">
+                  <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
                     zinsen
                   </div>
                   <div className="mt-1.5 font-mono text-[11.5px] text-offwhite/75">
@@ -141,8 +141,8 @@ export function Zahlungsoptionen() {
           >
             ⓘ
           </span>
-          <p className="text-[13px] leading-relaxed text-offwhite/60">
-            <span className="text-offwhite/85">hosting läuft immer über lacønis.</span>{" "}
+          <p className="text-[13px] leading-relaxed text-offwhite/55">
+            <span className="text-offwhite/75">hosting läuft immer über lacønis.</span>{" "}
             jährlich fakturiert, der preis wird pro monat kommuniziert damit du
             ihn gegen deine laufenden kosten halten kannst. das ist kein extra
             produkt zum mitverhandeln • es ist teil vom service, damit ich

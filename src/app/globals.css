@@ -6,7 +6,7 @@
   :root,
   [data-theme="dark"] {
     /* ═══════════ DARK THEME (default) ═══════════ */
-    /* accent color as RGB triplet so tailwind `lime/40` etc. keep working */
+    /* accent color as RGB triplet so tailwind `lime/50` etc. keep working */
     --accent: 225 253 82; /* #E1FD52 — fill */
     --accent-ink: 225 253 82; /* text-accent on dark = same lime */
 
@@ -110,7 +110,7 @@
     @apply mx-auto w-full max-w-[1200px] px-6 md:px-10;
   }
   .label-mono {
-    @apply font-mono text-[11px] uppercase tracking-label text-offwhite/50;
+    @apply font-mono text-[11px] uppercase tracking-label text-offwhite/55;
   }
   .quote-lime {
     @apply border-l-2 border-lime pl-4 italic text-offwhite;
@@ -128,6 +128,20 @@
     letter-spacing: -0.055em;
     line-height: 0.92;
     text-transform: lowercase;
+  }
+
+  /* Heading-size-tokens · 3 canonical clamps · für konsistente h-hierarchie */
+  .heading-hero-xl {
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    line-height: 0.98;
+  }
+  .heading-hero-lg {
+    font-size: clamp(2rem, 5.5vw, 3.75rem);
+    line-height: 1.02;
+  }
+  .heading-section {
+    font-size: clamp(1.75rem, 4.5vw, 3rem);
+    line-height: 1.08;
   }
 
   /* Glass — deep obsidian, lets the lime orb glow through */
@@ -215,6 +229,99 @@
     -webkit-backdrop-filter: blur(20px);
     border: 0.5px solid rgb(var(--accent) / 0.22);
     isolation: isolate;
+  }
+
+  /* Liquid glass — alias auf .glass damit alle cards konsistent den
+     apple-liquid-look aus der startseite bekommen. */
+  .liquid-glass {
+    position: relative;
+    background:
+      linear-gradient(
+        135deg,
+        rgba(12, 14, 12, 0.55) 0%,
+        rgba(8, 10, 8, 0.42) 50%,
+        rgba(14, 18, 10, 0.55) 100%
+      );
+    backdrop-filter: blur(28px) saturate(130%);
+    -webkit-backdrop-filter: blur(28px) saturate(130%);
+    border: 0.5px solid rgba(255, 255, 255, 0.07);
+    isolation: isolate;
+  }
+  .liquid-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 180px 180px;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: -1;
+  }
+  .liquid-glass::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.02) 40%,
+      transparent 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* lime-tint modifier · liquid-glass mit grünem akzent
+     für "mein platz"-cards in einordnung-sections */
+  .liquid-glass-lime-tint {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--accent) / 0.10) 0%,
+      rgb(var(--accent) / 0.04) 50%,
+      rgb(var(--accent) / 0.08) 100%
+    );
+    border-color: rgb(var(--accent) / 0.38);
+  }
+
+  /* dunkle variante · liquid-glass mit obsidian-tönung
+     für sticky-bars über hellem content (z.b. brand-simulator) */
+  .liquid-glass-dark {
+    position: relative;
+    background:
+      linear-gradient(
+        135deg,
+        rgba(10, 12, 10, 0.92) 0%,
+        rgba(6, 8, 6, 0.88) 50%,
+        rgba(12, 16, 10, 0.92) 100%
+      ),
+      rgba(8, 10, 8, 0.6);
+    backdrop-filter: blur(52px) saturate(180%) brightness(92%);
+    -webkit-backdrop-filter: blur(52px) saturate(180%) brightness(92%);
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    isolation: isolate;
+    box-shadow:
+      0 20px 50px -20px rgba(0, 0, 0, 0.85),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+  .liquid-glass-dark::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.045 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.55;
+    mix-blend-mode: overlay;
+    z-index: -1;
   }
 
   .card-lift {
@@ -338,4 +445,119 @@ textarea:-webkit-autofill {
   box-shadow:
     0 24px 60px -28px rgb(var(--accent) / 0.25),
     0 0 0 1px rgba(17, 17, 17, 0.04) inset;
+}
+
+/* ═══════════ reveal-on-view · zero-js stagger ═══════════ */
+/* einsatz: element bekommt .reveal-up + optional style={{ "--rd": "240ms" }}
+   und wird via shared IntersectionObserver-hook (useReveal) auf data-show="1"
+   gesetzt. kein framer-motion für simple fade-in-up reveals. */
+.reveal-up,
+.reveal-root .reveal-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--rd, 0ms),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--rd, 0ms);
+  will-change: opacity, transform;
+}
+.reveal-up[data-show="1"],
+.reveal-root[data-show="1"] .reveal-up {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-fade,
+.reveal-root .reveal-fade {
+  opacity: 0;
+  transition: opacity 0.7s ease-out var(--rd, 0ms);
+}
+.reveal-fade[data-show="1"],
+.reveal-root[data-show="1"] .reveal-fade {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up,
+  .reveal-fade {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ═══════════ page-transition · zero-js fade ═══════════ */
+@keyframes pt-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.page-transition {
+  animation: pt-fade 0.3s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-transition {
+    animation: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   scribble-mode — easter-egg aktiviert via konami-code.
+   sessionStorage-flag + body.class = "scribble-mode".
+   nur sichtbar auf geräten mit fine pointer · nichts was
+   auf mobile oder reduce-motion aufträgt.
+   ══════════════════════════════════════════════════════════ */
+body.scribble-mode a:not([role="tab"]):hover,
+body.scribble-mode button:not([role="tab"]):hover {
+  text-decoration: underline wavy var(--c-accent-ink, #d9ff00);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
+
+body.scribble-mode h1,
+body.scribble-mode h2 {
+  position: relative;
+}
+
+body.scribble-mode h1::after,
+body.scribble-mode h2::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  bottom: -2px;
+  height: 8px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8'><path d='M2 4 Q 15 0 30 4 T 60 4 T 90 4 T 118 4' stroke='%23d9ff00' stroke-width='1.4' fill='none' stroke-linecap='round' opacity='0.65'/></svg>");
+  background-repeat: repeat-x;
+  background-size: 120px 8px;
+  pointer-events: none;
+  opacity: 0;
+  animation: scribble-draw 0.6s ease-out 0.1s forwards;
+}
+
+@keyframes scribble-draw {
+  from {
+    opacity: 0;
+    transform: translateX(-6px) scaleX(0.95);
+  }
+  to {
+    opacity: 0.8;
+    transform: translateX(0) scaleX(1);
+  }
+}
+
+@media (pointer: coarse) {
+  /* touch-geräte → kein cursor-/hover-scribble */
+  body.scribble-mode a:not([role="tab"]):hover,
+  body.scribble-mode button:not([role="tab"]):hover {
+    text-decoration: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.scribble-mode h1::after,
+  body.scribble-mode h2::after {
+    animation: none;
+    opacity: 0.8;
+  }
 }

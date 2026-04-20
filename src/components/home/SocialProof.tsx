@@ -68,7 +68,7 @@ export function SocialProof() {
                 <span className="inline-block heading-display text-[44px] md:text-[60px] text-accent-ink [text-shadow:0_0_40px_rgba(225,253,82,0.35)]">
                   <CountUp value={m.num} inView={inView} />
                 </span>
-                <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/50">
+                <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/55">
                   {m.label}
                 </span>
               </motion.div>

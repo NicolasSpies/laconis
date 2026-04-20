@@ -21,7 +21,7 @@ export function VerfuegbarkeitCollapse() {
         wann ich für dich da bin.{" "}
         <span className="text-offwhite/35">ehrlich, kein fake-kalender.</span>
       </h2>
-      <p className="mt-6 max-w-[620px] text-[14px] leading-relaxed text-offwhite/60">
+      <p className="mt-6 max-w-[620px] text-[14px] leading-relaxed text-offwhite/55">
         keine agentur · kein team. du siehst, was ich sehe: die nächsten 12
         wochen. öffne die queue, wenn du direkt einen realistischen start-slot
         willst.
@@ -32,7 +32,7 @@ export function VerfuegbarkeitCollapse() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls="verfuegbarkeit-panel"
-        className="mt-6 inline-flex items-center gap-3 rounded-full border border-ink/15 bg-ink/[0.02] hover:border-lime/40 hover:bg-lime/[0.04] px-5 py-2.5 font-mono text-[11px] uppercase tracking-label text-offwhite/75 hover:text-accent-ink transition-colors"
+        className="mt-6 inline-flex items-center gap-3 rounded-full border border-ink/10 bg-ink/[0.02] hover:border-lime/50 hover:bg-lime/[0.04] px-5 py-2.5 font-mono text-[11px] uppercase tracking-label text-offwhite/75 hover:text-accent-ink transition-colors"
       >
         <span
           className={[

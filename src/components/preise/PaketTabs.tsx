@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { CounterUp } from "@/components/ui/CounterUp";
+import { track } from "@/lib/analytics";
 
 /**
  * PaketTabs — drei tabs (web · grafik · bundle), je drei pakete.
@@ -16,6 +18,14 @@ type MiniConfig = {
   baseMonthly: number;
 };
 
+/**
+ * Ein highlight ist entweder ein reiner string (z.B. "onepager") oder
+ * ein objekt mit label + mini-beschreibung (z.B. { label: "responsive",
+ * note: "mobile optimiert" }). Die beschreibung erscheint in kleiner,
+ * dezenter schrift unter dem label.
+ */
+type Highlight = string | { label: string; note: string };
+
 type Paket = {
   id: string;
   num: string;
@@ -24,8 +34,8 @@ type Paket = {
   price: number;
   einzeln?: number;
   saving?: number;
-  /** 3 kern-highlights · wird auf der slim-card gezeigt */
-  highlights: string[];
+  /** 3-4 kern-highlights · wird auf der slim-card gezeigt */
+  highlights: Highlight[];
   featured?: boolean;
   /** undefined = kein laufender posten (grafik-pakete) */
   config?: MiniConfig;
@@ -34,13 +44,13 @@ type Paket = {
 /**
  * terminologie:
  * - "web"       → websites (1:1 mit nav/leistungen/web)
- * - "kreatives" → branding + print + social (1:1 mit nav/leistungen/kreatives)
- * - "bundle"    → web + kreatives kombiniert
+ * - "grafik" → branding + print + social (1:1 mit nav/leistungen/grafik)
+ * - "bundle"    → web + grafik kombiniert
  *
  * die paket-IDs bleiben aus kompatibilitäts-gründen mit "grafik-" prefix,
  * weil URL-params und kontakt-multistep darauf referenzieren.
  */
-type TabId = "web" | "kreatives" | "bundle";
+type TabId = "web" | "grafik" | "bundle";
 
 /** ein eintrag in der vergleichstabelle · pro feature eine zeile */
 type CompareRow = {
@@ -71,9 +81,10 @@ const TABS: TabDef[] = [
         tagline: "für selbständige & neugründer.",
         price: 1400,
         highlights: [
-          "onepager · responsiv · seo-basics",
-          "domain + 1 mail inklusive",
-          "eigenes analytics · kein cookie-banner nötig",
+          "onepager",
+          { label: "responsive", note: "sieht auf handy und tablet genauso gut aus." },
+          { label: "seo", note: "damit google dich überhaupt findet." },
+          "ssl + backups + monitoring",
         ],
         config: { baseMonthly: 20 },
       },
@@ -84,12 +95,12 @@ const TABS: TabDef[] = [
         tagline: "für KMUs & lokalbetriebe.",
         price: 2800,
         highlights: [
-          "3 unterseiten · 1 cms-bereich",
-          "selbst pflegbare inhalte",
-          "2 mail-postfächer",
+          "alles aus basis, plus:",
+          { label: "bis zu 5 unterseiten", note: "mehr seiten jederzeit zubuchbar." },
+          { label: "1 cms-bereich", note: "du pflegst inhalte selbst." },
         ],
         featured: true,
-        config: { baseMonthly: 40 },
+        config: { baseMonthly: 30 },
       },
       {
         id: "web-pro",
@@ -98,16 +109,16 @@ const TABS: TabDef[] = [
         tagline: "für wachsende unternehmen.",
         price: 4200,
         highlights: [
-          "5 unterseiten · 2 cms-bereiche",
-          "mehrsprachig (2 sprachen inkl.)",
-          "3 mail-postfächer",
+          "alles aus standard, plus:",
+          { label: "bis zu 10 unterseiten · 2 cms-bereiche", note: "seiten und bereiche erweiterbar." },
+          { label: "mehrsprachig", note: "2 sprachen inklusive." },
         ],
         config: { baseMonthly: 40 },
       },
     ],
     compare: [
       {
-        label: "responsiv · seo-basics · ssl",
+        label: "responsiv · seo · ssl",
         values: { "web-basis": true, "web-standard": true, "web-pro": true },
       },
       {
@@ -123,15 +134,11 @@ const TABS: TabDef[] = [
         values: { "web-basis": true, "web-standard": true, "web-pro": true },
       },
       {
-        label: "domain inklusive",
-        values: { "web-basis": true, "web-standard": true, "web-pro": true },
-      },
-      {
         label: "unterseiten inklusive",
         values: {
           "web-basis": "onepager",
-          "web-standard": "3 stk",
-          "web-pro": "5 stk",
+          "web-standard": "bis 5",
+          "web-pro": "bis 10",
         },
       },
       {
@@ -151,14 +158,6 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "mail-postfächer",
-        values: {
-          "web-basis": "1 stk",
-          "web-standard": "2 stk",
-          "web-pro": "3 stk",
-        },
-      },
-      {
         label: "hosting · ssl · backups · monitoring",
         values: {
           "web-basis": "onepager-tier",
@@ -167,16 +166,20 @@ const TABS: TabDef[] = [
         },
       },
       {
+        label: "domain + mail-postfächer zubuchbar",
+        values: { "web-basis": true, "web-standard": true, "web-pro": true },
+      },
+      {
         label: "weitere seiten & extras zubuchbar",
         values: { "web-basis": true, "web-standard": true, "web-pro": true },
       },
     ],
   },
 
-  /* ──────────── kreatives ──────────── */
+  /* ──────────── grafik ──────────── */
   {
-    id: "kreatives",
-    label: "kreatives",
+    id: "grafik",
+    label: "grafik",
     subLabel: "brand identity, print, social • ohne website",
     pakete: [
       {
@@ -339,12 +342,12 @@ const TABS: TabDef[] = [
         einzeln: 4000,
         saving: 400,
         highlights: [
-          "3 unterseiten · 1 cms-bereich",
-          "komplettes branding dazu",
-          "2 mail-postfächer",
+          "alles aus launch, plus:",
+          "3 unterseiten statt onepager",
+          "1 cms-bereich · selbst pflegbar",
         ],
         featured: true,
-        config: { baseMonthly: 40 },
+        config: { baseMonthly: 30 },
       },
       {
         id: "bundle-full",
@@ -355,9 +358,9 @@ const TABS: TabDef[] = [
         einzeln: 6000,
         saving: 600,
         highlights: [
+          "alles aus grow, plus:",
           "5 unterseiten · 2 sprachen · 2 cms",
-          "6 social-visuals + signatur",
-          "3 mail-postfächer",
+          "6 social-visuals + e-mail-signatur",
         ],
         config: { baseMonthly: 40 },
       },
@@ -428,11 +431,11 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "mail-postfächer",
+        label: "domain + mail-postfächer zubuchbar",
         values: {
-          "bundle-launch": "1 stk",
-          "bundle-grow": "2 stk",
-          "bundle-full": "3 stk",
+          "bundle-launch": true,
+          "bundle-grow": true,
+          "bundle-full": true,
         },
       },
       {
@@ -451,11 +454,17 @@ const TABS: TabDef[] = [
 
 type CfgState = Record<string, { hasDomain: boolean; mails: number }>;
 
+/**
+ * Default-state für alle konfigurierbaren pakete:
+ * - hasDomain: false   → user braucht noch eine (laconis registriert mit · +2€/Mt)
+ * - mails:    1        → jeder normale kunde will mindestens eine info@-adresse
+ * Ergibt z.B. bei Basis: 20 + 2 + 5 = 27 €/Mt startpreis, ehrlich statt versteckt.
+ */
 function initialCfg(): CfgState {
   const s: CfgState = {};
   TABS.forEach((t) =>
     t.pakete.forEach((p) => {
-      if (p.config) s[p.id] = { hasDomain: false, mails: 0 };
+      if (p.config) s[p.id] = { hasDomain: false, mails: 1 };
     }),
   );
   return s;
@@ -481,8 +490,10 @@ export function PaketTabs() {
     }));
 
   // beim tab-wechsel: vergleich schliessen, damit der user nicht
-  // verwirrt die falsche tabelle sieht
+  // verwirrt die falsche tabelle sieht · plus analytics
   const switchTab = (next: TabId) => {
+    if (next === tab) return;
+    track({ type: "paket_tab_switched", from: tab, to: next });
     setTab(next);
     setCompareOpen(false);
   };
@@ -493,7 +504,7 @@ export function PaketTabs() {
       <div
         role="tablist"
         aria-label="pakete kategorie"
-        className="inline-flex rounded-full border border-ink/15 bg-ink/[0.03] p-1"
+        className="inline-flex rounded-full border border-ink/10 bg-ink/[0.03] p-1"
       >
         {TABS.map((t) => (
           <button
@@ -502,10 +513,10 @@ export function PaketTabs() {
             aria-selected={tab === t.id}
             onClick={() => switchTab(t.id)}
             className={[
-              "px-5 py-2.5 rounded-full font-mono text-[11px] uppercase tracking-mono transition-all",
+              "min-h-[44px] px-5 py-3 rounded-full font-mono text-[11px] uppercase tracking-mono transition-all",
               tab === t.id
                 ? "bg-lime text-[#111]"
-                : "text-offwhite/60 hover:text-offwhite",
+                : "text-offwhite/55 hover:text-offwhite",
             ].join(" ")}
           >
             {t.label}
@@ -513,7 +524,7 @@ export function PaketTabs() {
         ))}
       </div>
 
-      <p className="mt-5 max-w-[560px] text-[13px] leading-relaxed text-offwhite/50">
+      <p className="mt-5 max-w-[560px] text-[13px] leading-relaxed text-offwhite/55">
         {activeTab.subLabel}
       </p>
 
@@ -528,6 +539,7 @@ export function PaketTabs() {
             <PaketCard
               key={p.id}
               paket={p}
+              tab={tab}
               state={state}
               onToggleDomain={(v) => toggleDomain(p.id, v)}
               onChangeMails={(d) => changeMails(p.id, d)}
@@ -542,7 +554,7 @@ export function PaketTabs() {
           type="button"
           onClick={() => setCompareOpen((v) => !v)}
           aria-expanded={compareOpen}
-          className="group inline-flex items-center gap-2.5 rounded-full border border-ink/15 bg-ink/[0.03] hover:border-lime/40 hover:bg-lime/[0.04] px-5 py-2.5 font-mono text-[11px] uppercase tracking-mono text-offwhite/75 hover:text-accent-ink transition-all"
+          className="group inline-flex items-center gap-2.5 rounded-full border border-ink/10 bg-ink/[0.03] hover:border-lime/50 hover:bg-lime/[0.04] px-5 py-2.5 font-mono text-[11px] uppercase tracking-mono text-offwhite/75 hover:text-accent-ink transition-all"
         >
           <span>
             {compareOpen
@@ -597,10 +609,12 @@ export function PaketTabs() {
       </AnimatePresence>
 
       {/* FOOTER NOTE */}
-      <p className="mt-10 text-[12px] leading-relaxed text-offwhite/45 max-w-[760px]">
-        alle preise exkl. MwSt · hosting immer bei lacønis · jährlich
-        fakturiert · domain ab 2 €/Mt (kann je nach domain variieren) ·
-        e-mail 5 €/Mt pro mailbox · individuelle anpassungen auf anfrage.
+      <p className="mt-10 text-[12px] leading-relaxed text-offwhite/55 max-w-[760px]">
+        alle preise verstehen sich als startpreis („ab") · exkl. MwSt · hosting
+        immer bei lacønis · jährlich fakturiert · domain ab 2 €/Mt (kann je
+        nach domain variieren) · e-mail 5 €/Mt pro mailbox · im nächsten
+        schritt kannst du zusatzseiten, sprachen, cms-bereiche und extras
+        hinzufügen — preis passt sich live an.
       </p>
     </div>
   );
@@ -610,7 +624,7 @@ export function PaketTabs() {
 
 function CompareTable({ tabDef }: { tabDef: TabDef }) {
   return (
-    <div className="rounded-2xl border border-ink/12 bg-ink/[0.015] overflow-hidden">
+    <div className="rounded-2xl border border-ink/10 bg-ink/[0.015] overflow-hidden">
       {/* header */}
       <div className="grid grid-cols-[minmax(180px,1.4fr)_repeat(3,1fr)] border-b border-ink/10 bg-ink/[0.03]">
         <div className="px-5 py-4 font-mono text-[10px] uppercase tracking-label text-offwhite/55">
@@ -619,17 +633,17 @@ function CompareTable({ tabDef }: { tabDef: TabDef }) {
         {tabDef.pakete.map((p) => (
           <div
             key={p.id}
-            className="px-3 py-4 text-center border-l border-ink/8"
+            className="px-3 py-4 text-center border-l border-ink/10"
           >
             <div
               className={[
                 "font-mono text-[10px] uppercase tracking-label",
-                p.featured ? "text-accent-ink" : "text-offwhite/70",
+                p.featured ? "text-accent-ink" : "text-offwhite/75",
               ].join(" ")}
             >
               {p.name}
             </div>
-            <div className="mt-1 heading-display text-[15px] tabular-nums text-offwhite/90">
+            <div className="mt-1 heading-display text-[15px] tabular-nums text-offwhite/100">
               {p.price.toLocaleString("de-DE")} €
             </div>
           </div>
@@ -642,7 +656,7 @@ function CompareTable({ tabDef }: { tabDef: TabDef }) {
           key={row.label + i}
           className={[
             "grid grid-cols-[minmax(180px,1.4fr)_repeat(3,1fr)]",
-            i < tabDef.compare.length - 1 ? "border-b border-ink/8" : "",
+            i < tabDef.compare.length - 1 ? "border-b border-ink/10" : "",
           ].join(" ")}
         >
           <div className="px-5 py-3.5 text-[13px] leading-snug text-offwhite/75">
@@ -653,7 +667,7 @@ function CompareTable({ tabDef }: { tabDef: TabDef }) {
             return (
               <div
                 key={p.id}
-                className="px-3 py-3.5 text-center border-l border-ink/8 flex items-center justify-center"
+                className="px-3 py-3.5 text-center border-l border-ink/10 flex items-center justify-center"
               >
                 <CompareCell value={v} featured={p.featured} />
               </div>
@@ -679,7 +693,7 @@ function CompareCell({
         height="16"
         viewBox="0 0 16 16"
         aria-label="enthalten"
-        className={featured ? "text-accent-ink" : "text-lime/70"}
+        className={featured ? "text-accent-ink" : "text-lime/80"}
       >
         <path
           d="M3 8L7 12L13 4"
@@ -704,7 +718,7 @@ function CompareCell({
     <span
       className={[
         "font-mono text-[11px] tabular-nums",
-        featured ? "text-accent-ink" : "text-offwhite/80",
+        featured ? "text-accent-ink" : "text-offwhite/75",
       ].join(" ")}
     >
       {value}
@@ -716,11 +730,13 @@ function CompareCell({
 
 function PaketCard({
   paket,
+  tab,
   state,
   onToggleDomain,
   onChangeMails,
 }: {
   paket: Paket;
+  tab: TabId;
   state: { hasDomain: boolean; mails: number } | null;
   onToggleDomain: (v: boolean) => void;
   onChangeMails: (delta: number) => void;
@@ -746,8 +762,8 @@ function PaketCard({
       className={[
         "relative rounded-2xl p-7 md:p-8 flex flex-col transition-all",
         paket.featured
-          ? "border border-lime/40 bg-gradient-to-b from-lime/[0.04] to-transparent shadow-[0_24px_60px_-28px_rgba(225,253,82,0.25)]"
-          : "border border-ink/10 bg-ink/[0.015] hover:border-ink/20",
+          ? "border border-lime/50 bg-gradient-to-b from-lime/[0.04] to-transparent shadow-[0_24px_60px_-28px_rgba(225,253,82,0.25)]"
+          : "border border-ink/10 bg-ink/[0.015] hover:border-ink/25",
       ].join(" ")}
     >
       {/* TOP: num + optional featured chip */}
@@ -772,18 +788,21 @@ function PaketCard({
         </p>
       </div>
 
-      {/* PRICE */}
-      <div className="mt-6 pt-6 border-t border-ink/8">
+      {/* PRICE · „ab"-framing signalisiert: das ist der startpreis, extras möglich */}
+      <div className="mt-6 pt-6 border-t border-ink/10">
         <div className="flex items-baseline gap-2">
-          <span className="heading-display text-[32px] text-accent-ink leading-none tabular-nums">
-            {paket.price.toLocaleString("de-DE")} €
+          <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/55">
+            ab
           </span>
-          <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/45">
+          <span className="heading-display text-[32px] text-accent-ink leading-none tabular-nums">
+            <CounterUp value={paket.price} resetOnViewEnter /> €
+          </span>
+          <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
             einmalig
           </span>
         </div>
         <div className="mt-1.5 font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-          zzgl. mwst
+          zzgl. mwst · im nächsten schritt anpassbar
         </div>
         {paket.einzeln && paket.saving && (
           <div className="mt-3 flex items-baseline gap-2">
@@ -797,33 +816,44 @@ function PaketCard({
         )}
       </div>
 
-      {/* HIGHLIGHTS · nur 3 kernpunkte */}
-      <ul className="mt-6 space-y-2.5 flex-1">
-        {paket.highlights.map((h, i) => (
-          <li
-            key={i}
-            className="flex items-start gap-2.5 text-[13px] leading-snug text-offwhite/75"
-          >
-            <span className="text-accent-ink mt-[6px] shrink-0">
-              <svg
-                width="10"
-                height="10"
-                viewBox="0 0 10 10"
-                fill="none"
-                aria-hidden
-              >
-                <path
-                  d="M1 5L4 8L9 2"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
-            <span>{h}</span>
-          </li>
-        ))}
+      {/* HIGHLIGHTS · kernpunkte · optional mit mini-beschreibung */}
+      <ul className="mt-6 space-y-3 flex-1">
+        {paket.highlights.map((h, i) => {
+          const label = typeof h === "string" ? h : h.label;
+          const note = typeof h === "string" ? null : h.note;
+          return (
+            <li
+              key={i}
+              className="flex items-start gap-2.5 text-[13px] leading-snug text-offwhite/75"
+            >
+              <span className="text-accent-ink mt-[6px] shrink-0">
+                <svg
+                  width="10"
+                  height="10"
+                  viewBox="0 0 10 10"
+                  fill="none"
+                  aria-hidden
+                >
+                  <path
+                    d="M1 5L4 8L9 2"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+              <span className="flex flex-col gap-0.5">
+                <span>{label}</span>
+                {note && (
+                  <span className="text-[11px] leading-snug text-offwhite/35">
+                    {note}
+                  </span>
+                )}
+              </span>
+            </li>
+          );
+        })}
       </ul>
 
       {/* CONFIG — nur web + bundle */}
@@ -833,7 +863,7 @@ function PaketCard({
             <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
               domain vorhanden?
             </span>
-            <div className="inline-flex rounded-full border border-ink/15 bg-dark p-0.5">
+            <div className="inline-flex rounded-full border border-ink/10 bg-dark p-0.5">
               <button
                 type="button"
                 aria-pressed={state.hasDomain}
@@ -842,7 +872,7 @@ function PaketCard({
                   "px-3 py-1 rounded-full font-mono text-[9.5px] uppercase tracking-mono transition-colors",
                   state.hasDomain
                     ? "bg-lime text-black"
-                    : "text-offwhite/50 hover:text-offwhite",
+                    : "text-offwhite/55 hover:text-offwhite",
                 ].join(" ")}
               >
                 ja
@@ -855,7 +885,7 @@ function PaketCard({
                   "px-3 py-1 rounded-full font-mono text-[9.5px] uppercase tracking-mono transition-colors",
                   !state.hasDomain
                     ? "bg-lime text-black"
-                    : "text-offwhite/50 hover:text-offwhite",
+                    : "text-offwhite/55 hover:text-offwhite",
                 ].join(" ")}
               >
                 nein
@@ -867,13 +897,13 @@ function PaketCard({
             <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
               e-mail-adressen
             </span>
-            <div className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-dark px-1 py-0.5">
+            <div className="inline-flex items-center gap-2 rounded-full border border-ink/10 bg-dark px-1 py-0.5">
               <button
                 type="button"
                 onClick={() => onChangeMails(-1)}
                 disabled={state.mails === 0}
                 aria-label="e-mail-adresse entfernen"
-                className="w-6 h-6 rounded-full flex items-center justify-center text-offwhite/60 hover:text-accent-ink disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                className="w-6 h-6 rounded-full flex items-center justify-center text-offwhite/55 hover:text-accent-ink disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               >
                 −
               </button>
@@ -884,14 +914,14 @@ function PaketCard({
                 type="button"
                 onClick={() => onChangeMails(1)}
                 aria-label="e-mail-adresse hinzufügen"
-                className="w-6 h-6 rounded-full flex items-center justify-center text-offwhite/60 hover:text-accent-ink transition-colors"
+                className="w-6 h-6 rounded-full flex items-center justify-center text-offwhite/55 hover:text-accent-ink transition-colors"
               >
                 +
               </button>
             </div>
           </div>
 
-          <div className="pt-3 mt-1 border-t border-ink/8">
+          <div className="pt-3 mt-1 border-t border-ink/10">
             <div className="flex items-baseline justify-between gap-3">
               <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
                 laufend
@@ -903,7 +933,7 @@ function PaketCard({
                 {monthly} €/Mt
               </span>
             </div>
-            <div className="mt-1 text-right font-mono text-[9.5px] lowercase tracking-mono text-offwhite/40">
+            <div className="mt-1 text-right font-mono text-[9.5px] lowercase tracking-mono text-offwhite/35">
               {detailParts.join(" · ")}
             </div>
           </div>
@@ -917,8 +947,11 @@ function PaketCard({
           variant={paket.featured ? "primary" : "glass"}
           size="md"
           className="w-full !justify-center"
+          onClick={() =>
+            track({ type: "paket_selected", paket: paket.id, tab })
+          }
         >
-          {paket.featured ? "paket wählen →" : "anfragen →"}
+          paket wählen / anpassen →
         </Button>
       </div>
     </div>
@@ -934,8 +967,10 @@ function buildKontaktHref(
   const params = new URLSearchParams();
   params.set("paket", paket.id);
   if (state) {
-    if (state.hasDomain) params.set("domain", "1");
-    if (state.mails > 0) params.set("mails", String(state.mails));
+    // domain + mails IMMER mitgeben, damit der kontakt-step die explizite
+    // user-wahl übernimmt und nicht auf den preset-default zurückfällt.
+    params.set("domain", state.hasDomain ? "1" : "0");
+    params.set("mails", String(state.mails));
   }
   return `/kontakt?${params.toString()}#projekt`;
 }

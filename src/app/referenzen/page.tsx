@@ -1,7 +1,11 @@
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { Moodboard } from "@/components/referenzen/Moodboard";
+import { ContactSheet } from "@/components/referenzen/ContactSheet";
+import { getMeta } from "@/lib/seo/getMeta";
+import type { Metadata } from "next";
 
-export const metadata = { title: "referenzen" };
+export async function generateMetadata(): Promise<Metadata> {
+  return getMeta("/referenzen");
+}
 
 export default function Page() {
   return (
@@ -14,7 +18,7 @@ export default function Page() {
             ausgewählte{" "}
             <span className="text-offwhite/35">arbeiten.</span>
           </h1>
-          <p className="mt-8 max-w-[560px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/60">
+          <p className="mt-8 max-w-[560px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
             projekte, die bleiben • keine 0815-websites, keine austauschbaren
             logos. einfach sachen, die zu den leuten passen, die dahinter
             stehen.
@@ -27,7 +31,7 @@ export default function Page() {
         </div>
 
         <div className="mt-16">
-          <Moodboard />
+          <ContactSheet />
         </div>
       </div>
     </section>

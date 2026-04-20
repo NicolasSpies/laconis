@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { BeforeAfterSlider } from "@/components/leistungen/BeforeAfterSlider";
 
 /**
  * WebApproaches — tabs für zwei projekttypen:
@@ -60,45 +59,31 @@ const REDESIGN: Card[] = [
 
 type Tab = "neu" | "redesign";
 
-export function WebApproaches() {
+export function WebApproaches({ num = "02" }: { num?: string } = {}) {
   const [tab, setTab] = useState<Tab>("redesign");
   const cards = tab === "neu" ? NEU : REDESIGN;
 
   return (
     <section className="pb-32">
       <div className="container-site">
-        <div className="max-w-[820px]">
-          <SectionLabel num="03">zwei wege</SectionLabel>
-          <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.75rem)] text-offwhite leading-[1.05]">
-            {tab === "neu" ? (
-              <>
-                neue seite von null.{" "}
-                <span className="text-offwhite/35">
-                  freie gestaltung, mehr entscheidungen.
-                </span>
-              </>
-            ) : (
-              <>
-                du hast schon eine seite.{" "}
-                <span className="text-offwhite/35">
-                  ich bau dir eine, mit der du wieder gern rausgehst.
-                </span>
-              </>
-            )}
-          </h2>
-          <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/60">
-            {tab === "neu"
-              ? "du startest bei null. keine alten URLs, kein legacy-content, kein seo-gepäck. freiere gestaltung, aber mehr entscheidungen am anfang • dafür mache ich den kompass."
-              : "die meisten kommen nicht bei null. eine wordpress-seite von 2016, ein baukasten der jedes jahr 240 € frisst, eine wix-seite die keiner mehr aufmacht. das meiste meiner arbeit ist redesign, nicht neubau."}
-          </p>
-        </div>
+        {/* KEIN fetter h2 mehr · klein-label + tabs + mini-lead, direkt aus hero flow */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 border-t border-ink/10 pt-10">
+          <div>
+            <SectionLabel num={num}>zwei wege</SectionLabel>
+            <h2 className="sr-only">zwei wege. gleiches handwerk.</h2>
+            <p className="mt-4 max-w-[560px] text-[14px] md:text-[15px] leading-relaxed text-offwhite/55">
+              {tab === "neu"
+                ? "du startest bei null · keine alten URLs, kein legacy-content. freiere gestaltung, aber mehr entscheidungen am anfang. dafür mache ich den kompass."
+                : "das meiste meiner arbeit ist redesign, nicht neubau · eine wordpress-seite von 2016, ein baukasten der jedes jahr 240 € frisst, eine wix-seite die keiner mehr aufmacht."}
+            </p>
+          </div>
 
-        {/* TABS */}
-        <div
-          role="tablist"
-          aria-label="projekttyp"
-          className="mt-10 inline-flex rounded-full border border-ink/15 bg-ink/[0.03] p-1"
-        >
+          {/* TABS rechts oben */}
+          <div
+            role="tablist"
+            aria-label="projekttyp"
+            className="inline-flex rounded-full border border-ink/10 bg-ink/[0.03] p-1 shrink-0"
+          >
           <button
             role="tab"
             aria-selected={tab === "redesign"}
@@ -107,7 +92,7 @@ export function WebApproaches() {
               "px-5 py-2.5 rounded-full font-mono text-[11px] uppercase tracking-mono transition-all",
               tab === "redesign"
                 ? "bg-lime text-[#111]"
-                : "text-offwhite/60 hover:text-offwhite",
+                : "text-offwhite/55 hover:text-offwhite",
             ].join(" ")}
           >
             redesign
@@ -120,11 +105,12 @@ export function WebApproaches() {
               "px-5 py-2.5 rounded-full font-mono text-[11px] uppercase tracking-mono transition-all",
               tab === "neu"
                 ? "bg-lime text-[#111]"
-                : "text-offwhite/60 hover:text-offwhite",
+                : "text-offwhite/55 hover:text-offwhite",
             ].join(" ")}
           >
             neue seite
           </button>
+          </div>
         </div>
 
         {/* CARDS */}
@@ -150,31 +136,6 @@ export function WebApproaches() {
           ))}
         </div>
 
-        {/* BEFORE/AFTER SLIDER — ONLY IN REDESIGN TAB */}
-        {tab === "redesign" && (
-          <div className="mt-20 border-t border-ink/8 pt-14">
-            <div className="mb-8 flex items-end justify-between gap-6 flex-wrap">
-              <div className="max-w-[720px]">
-                <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/40">
-                  demo · vorher / nachher
-                </span>
-                <h3 className="heading-display mt-3 text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
-                  zieh den regler.{" "}
-                  <span className="text-offwhite/35">
-                    dieselbe bäckerei. einmal baukasten, einmal nach dem
-                    redesign.
-                  </span>
-                </h3>
-              </div>
-              <p className="max-w-[360px] text-[13px] leading-relaxed text-offwhite/50">
-                unter dem regler pickst du eine farbe, die neue seite zieht sich
-                direkt um.
-              </p>
-            </div>
-
-            <BeforeAfterSlider />
-          </div>
-        )}
       </div>
     </section>
   );

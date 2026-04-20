@@ -12,6 +12,8 @@ export function UeberMichTeaser() {
       <div className="container-site">
         <SectionLabel num="03">über mich</SectionLabel>
 
+        <h2 className="sr-only">hinter lacønis stecke nur ich.</h2>
+
         <div className="mt-10 grid md:grid-cols-[minmax(0,380px)_1fr] gap-10 md:gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -39,7 +41,7 @@ export function UeberMichTeaser() {
               <span className="text-accent-ink">Und ich nehme das persönlich.</span>
             </blockquote>
 
-            <div className="mt-8 max-w-[560px] space-y-5 text-[15px] text-offwhite/60 leading-relaxed">
+            <div className="mt-8 max-w-[560px] space-y-5 text-[15px] text-offwhite/55 leading-relaxed">
               <p>
                 Jedes Projekt wird aus zwei Perspektiven betrachtet • deiner
                 und der deiner Kunden. Die wichtigste Frage dabei: Was soll bei

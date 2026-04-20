@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 
 /**
- * PlaygroundContext — shared state für die kreatives-playground-sektion.
+ * PlaygroundContext — shared state für die grafik-playground-sektion.
  * LogoLab, MoodboardGenerator und BrandPreview lesen/schreiben hier.
  * So reagieren alle teile aufeinander → man sieht wirklich ein system.
  */

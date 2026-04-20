@@ -81,7 +81,7 @@ export function Logo({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: -4 }}
             transition={{ type: "spring", stiffness: 280, damping: 18 }}
-            className="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3 whitespace-nowrap rounded-full border border-lime/40 bg-lime/10 px-3 py-1 font-mono text-[10px] uppercase tracking-label text-accent-ink"
+            className="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3 whitespace-nowrap rounded-full border border-lime/50 bg-lime/10 px-3 py-1 font-mono text-[10px] uppercase tracking-label text-accent-ink"
           >
             du hast mich gefunden 👀
           </motion.span>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import {
   DashboardMock,
@@ -9,17 +10,19 @@ const FEATURES = [
   "texte live bearbeiten",
   "bilder hochladen",
   "vorschau vor freigabe",
-  "deutsch · français · nederlands",
+  "deutsch · français · english",
   "versionsverlauf",
   "keine cookies",
 ];
 
-export function ContentCoreSection() {
+export function ContentCoreSection({
+  num = "03",
+}: { num?: string } = {}) {
   return (
     <section className="pb-32">
       <div className="container-site">
         <div className="max-w-[760px]">
-          <SectionLabel num="02">contentcore</SectionLabel>
+          <SectionLabel num={num}>contentcore</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.75rem)] text-offwhite">
             mein eigenes CMS.{" "}
             <span className="text-offwhite/35">ich hab&apos;s contentcore getauft.</span>
@@ -32,7 +35,7 @@ export function ContentCoreSection() {
             damit du deine seite führst, nicht umgekehrt.
           </p>
 
-          <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/60">
+          <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/55">
             kein wordpress. kein plugin-chaos. ein system, das ich für dich baue
             und pflege, damit du texte, bilder und seiten selbst änderst, ohne
             angst etwas kaputt zu machen. mit kleinen tipps direkt im editor,
@@ -47,7 +50,7 @@ export function ContentCoreSection() {
             <div className="absolute -top-20 -left-20 w-60 h-60 rounded-full bg-lime/[0.06] blur-3xl pointer-events-none" />
             <DashboardMock className="w-full h-auto relative" />
             <div className="mt-4 flex items-baseline justify-between gap-3">
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                 dashboard · live-ansicht
               </span>
             </div>
@@ -58,7 +61,7 @@ export function ContentCoreSection() {
             <div className="rounded-2xl border border-ink/10 bg-gradient-to-b from-ink/[0.02] to-transparent p-4 md:p-5">
               <EditorMock className="w-full h-auto" />
               <div className="mt-3 flex items-baseline justify-between gap-3">
-                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                   editor
                 </span>
               </div>
@@ -66,7 +69,7 @@ export function ContentCoreSection() {
             <div className="rounded-2xl border border-ink/10 bg-gradient-to-b from-ink/[0.02] to-transparent p-4 md:p-5">
               <StatsMock className="w-full h-auto" />
               <div className="mt-3 flex items-baseline justify-between gap-3">
-                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                   stats ohne cookies
                 </span>
               </div>
@@ -87,9 +90,15 @@ export function ContentCoreSection() {
           ))}
         </div>
 
-        <p className="mt-8 max-w-[560px] text-[13px] leading-relaxed text-offwhite/45">
+        <p className="mt-8 max-w-[560px] text-[13px] leading-relaxed text-offwhite/55">
           alles technische dahinter (sicherheit, KI-bilderkennung, shop,
-          newsletter, mehrsprachigkeit) findest du weiter unten im techniker-teil.
+          newsletter, mehrsprachigkeit) liegt auf einer eigenen seite ·{" "}
+          <Link
+            href="/leistungen/web/technik"
+            className="text-accent-ink hover:underline"
+          >
+            technik-details →
+          </Link>
         </p>
       </div>
     </section>

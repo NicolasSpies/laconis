@@ -40,7 +40,7 @@ export function ContactSheet() {
   return (
     <div>
       {/* Filter bar */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-ink/8 pb-5">
+      <div className="flex flex-wrap items-center gap-2 border-b border-ink/10 pb-5">
         {FILTERS.map((f) => {
           const active = filter === f.key;
           const count = countFor(f.key);
@@ -52,15 +52,15 @@ export function ContactSheet() {
               className={
                 "group relative font-mono text-[11px] uppercase tracking-label px-3 py-1.5 rounded-full border transition-colors " +
                 (active
-                  ? "border-lime/40 bg-lime/10 text-accent-ink"
-                  : "border-ink/10 text-offwhite/55 hover:text-offwhite hover:border-ink/20")
+                  ? "border-lime/50 bg-lime/10 text-accent-ink"
+                  : "border-ink/10 text-offwhite/55 hover:text-offwhite hover:border-ink/25")
               }
             >
               <span>{f.label}</span>
               <span
                 className={
                   "ml-1.5 text-[9px] " +
-                  (active ? "text-accent-ink/70" : "text-offwhite/55")
+                  (active ? "text-accent-ink/80" : "text-offwhite/55")
                 }
               >
                 {String(count).padStart(2, "0")}
@@ -89,8 +89,8 @@ export function ContactSheet() {
                 href={`/referenzen/${r.slug}`}
                 className="group block"
               >
-                {/* Image frame */}
-                <div className="relative overflow-hidden rounded-md border border-ink/8 transition-all duration-300 group-hover:border-lime/60 group-hover:shadow-[0_18px_48px_-20px_rgba(225,253,82,0.25)]">
+                {/* Image frame · leichte hover-rotation */}
+                <div className="relative overflow-hidden rounded-md border border-ink/10 transition-all duration-300 group-hover:border-lime/50 group-hover:shadow-[0_18px_48px_-20px_rgba(225,253,82,0.25)] group-hover:rotate-[-0.5deg]">
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -103,6 +103,22 @@ export function ContactSheet() {
                   <span className="absolute top-3 left-3 font-mono text-[9px] uppercase tracking-label text-black bg-lime px-1.5 py-0.5 rounded-sm">
                     {r.kategorieLabel}
                   </span>
+
+                  {/* handgezeichneter haken · fadet in on hover */}
+                  <svg
+                    aria-hidden
+                    viewBox="0 0 40 40"
+                    className="absolute top-3 right-3 w-7 h-7 text-accent-ink opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  >
+                    <path
+                      d="M 6 22 Q 14 30 20 32 T 34 8"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      fill="none"
+                    />
+                  </svg>
                 </div>
 
                 {/* Meta */}
@@ -111,16 +127,16 @@ export function ContactSheet() {
                     <h3 className="heading-sans text-[20px] leading-tight text-offwhite group-hover:text-accent-ink transition-colors">
                       {r.name.toLowerCase()}
                     </h3>
-                    <p className="mt-1 font-mono text-[10px] uppercase tracking-label text-offwhite/45 truncate">
+                    <p className="mt-1 font-mono text-[10px] uppercase tracking-label text-offwhite/55 truncate">
                       {r.ort} • {r.jahr}
                     </p>
                   </div>
-                  <span className="font-mono text-[12px] text-offwhite/30 group-hover:text-accent-ink group-hover:translate-x-0.5 transition-all shrink-0">
+                  <span className="font-mono text-[12px] text-offwhite/35 group-hover:text-accent-ink group-hover:translate-x-0.5 transition-all shrink-0">
                     →
                   </span>
                 </div>
 
-                <p className="mt-2 text-[13px] leading-relaxed text-offwhite/50 line-clamp-2">
+                <p className="mt-2 text-[13px] leading-relaxed text-offwhite/55 line-clamp-2">
                   {r.kurz}
                 </p>
               </Link>
@@ -131,7 +147,7 @@ export function ContactSheet() {
 
       {items.length === 0 && (
         <div className="mt-16 text-center">
-          <p className="font-mono text-[12px] uppercase tracking-label text-offwhite/40">
+          <p className="font-mono text-[12px] uppercase tracking-label text-offwhite/35">
             nichts in dieser kategorie • schau gerne in einer anderen
           </p>
         </div>

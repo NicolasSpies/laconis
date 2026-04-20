@@ -13,14 +13,14 @@ export function TechAccordion({ children }: { children: React.ReactNode }) {
           className="group w-full flex items-center justify-between gap-4 px-6 py-4 rounded-xl border border-ink/10 hover:border-lime/25 transition-colors"
         >
           <div className="flex items-center gap-3">
-            <span className="font-mono text-[12px] lowercase tracking-mono text-offwhite/60 group-hover:text-offwhite transition-colors">
+            <span className="font-mono text-[12px] lowercase tracking-mono text-offwhite/55 group-hover:text-offwhite transition-colors">
               für die techniker unter euch
             </span>
           </div>
           <motion.span
             animate={{ rotate: open ? 180 : 0 }}
             transition={{ duration: 0.25 }}
-            className="font-mono text-[12px] text-offwhite/30 group-hover:text-accent-ink transition-colors"
+            className="font-mono text-[12px] text-offwhite/35 group-hover:text-accent-ink transition-colors"
           >
             ▼
           </motion.span>

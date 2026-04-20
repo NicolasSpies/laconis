@@ -1,10 +1,11 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Kassenzettel } from "./Kassenzettel";
+import { track } from "@/lib/analytics";
 import {
   type BuilderState,
   type ContentHelp,
@@ -46,7 +47,13 @@ function Inner() {
   /* ────────────── state + URL-einlesen einmalig ────────────── */
   const initial = useMemo(() => paramsToState(params), [params]);
   const [state, setState] = useState<BuilderState>(initial);
-  const bonNumberRef = useRef(generateBonNumber());
+
+  // Hydration-safe: bon-nummer erst nach mount setzen (generateBonNumber
+  // nutzt Math.random → server + client würden sonst divergieren)
+  const [bonNumber, setBonNumber] = useState<string>("");
+  useEffect(() => {
+    setBonNumber(generateBonNumber());
+  }, []);
 
   /* ────────────── URL live syncen (ohne rerender) ────────────── */
   useEffect(() => {
@@ -83,7 +90,7 @@ function Inner() {
     downloadBonPdf({
       items,
       totals,
-      bonNumber: bonNumberRef.current,
+      bonNumber,
       closestPaket: closest,
     });
   };
@@ -153,8 +160,8 @@ function Inner() {
                       className={[
                         "font-mono text-[11px] uppercase tracking-mono px-4 py-2 rounded-full border transition-all",
                         active
-                          ? "border-lime/50 bg-lime/15 text-accent-ink"
-                          : "border-ink/15 text-offwhite/65 hover:border-ink/35 hover:text-offwhite",
+                          ? "border-lime/50 bg-lime/25 text-accent-ink"
+                          : "border-ink/10 text-offwhite/55 hover:border-ink/25 hover:text-offwhite",
                       ].join(" ")}
                     >
                       {id}
@@ -382,7 +389,7 @@ function Inner() {
 
           <Field
             label="wie eilig ist es?"
-            hint="dringend-aufschlag (+25 %) nur bei 'next week' • normale projekte ohne extra."
+            hint="dringend-aufschlag (+25%) nur bei 'next week' • normale projekte ohne extra."
           >
             <ChipRow
               value={state.deadline}
@@ -450,7 +457,7 @@ function Inner() {
           <button
             type="button"
             onClick={handleReset}
-            className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 hover:text-offwhite/70 transition-colors"
+            className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 hover:text-offwhite/75 transition-colors"
           >
             alles zurücksetzen
           </button>
@@ -465,7 +472,7 @@ function Inner() {
           <Kassenzettel
             items={items}
             totals={totals}
-            bonNumber={bonNumberRef.current}
+            bonNumber={bonNumber}
             closestPaket={closest}
             empty={!any}
           />
@@ -478,6 +485,14 @@ function Inner() {
             variant="primary"
             size="lg"
             className={!any ? "opacity-40 pointer-events-none" : ""}
+            onClick={() => {
+              if (!any) return;
+              track({
+                type: "baukasten_anfrage",
+                priceOneTime: totals.oneTime,
+                priceMonthly: totals.monthly,
+              });
+            }}
           >
             so anfragen →
           </Button>
@@ -491,7 +506,7 @@ function Inner() {
           </Button>
         </div>
 
-        <p className="mt-4 text-[11px] leading-relaxed text-offwhite/40">
+        <p className="mt-4 text-[11px] leading-relaxed text-offwhite/35">
           richtpreis • kein verbindliches angebot. ich antworte innerhalb
           24 std mit der finalen zahl (werktags).
         </p>
@@ -517,7 +532,7 @@ function Block({
         {title}
       </h3>
       {hint && (
-        <p className="mt-2 text-[13px] leading-relaxed text-offwhite/50 max-w-[560px]">
+        <p className="mt-2 text-[13px] leading-relaxed text-offwhite/55 max-w-[560px]">
           {hint}
         </p>
       )}
@@ -542,7 +557,7 @@ function Field({
           {label}
         </div>
         {hint && (
-          <div className="mt-1 text-[12px] leading-relaxed text-offwhite/40">
+          <div className="mt-1 text-[12px] leading-relaxed text-offwhite/35">
             {hint}
           </div>
         )}
@@ -570,7 +585,7 @@ function PriceRow({
       className={[
         "flex items-start justify-between gap-3 rounded-lg border px-4 py-3",
         fixed
-          ? "border-lime/20 bg-lime/[0.04]"
+          ? "border-lime/25 bg-lime/[0.04]"
           : "border-ink/10 bg-ink/[0.02]",
       ].join(" ")}
     >
@@ -579,7 +594,7 @@ function PriceRow({
           {label}
         </div>
         {hint && (
-          <div className="mt-1 text-[11.5px] leading-relaxed text-offwhite/40">
+          <div className="mt-1 text-[11.5px] leading-relaxed text-offwhite/35">
             {hint}
           </div>
         )}
@@ -620,7 +635,7 @@ function CounterField({
           {label}
         </div>
         {hint && (
-          <div className="mt-1 text-[12px] leading-relaxed text-offwhite/40 max-w-[420px]">
+          <div className="mt-1 text-[12px] leading-relaxed text-offwhite/35 max-w-[420px]">
             {hint}
           </div>
         )}
@@ -655,7 +670,7 @@ function ToggleCard({
       className={[
         "group text-left rounded-xl p-5 border transition-all",
         active
-          ? "border-lime/40 bg-gradient-to-br from-lime/[0.06] to-transparent"
+          ? "border-lime/50 bg-gradient-to-br from-lime/[0.06] to-transparent"
           : "border-ink/10 bg-ink/[0.015] hover:border-ink/25",
       ].join(" ")}
     >
@@ -663,14 +678,14 @@ function ToggleCard({
         <span
           className={[
             "heading-sans text-[16px]",
-            active ? "text-offwhite" : "text-offwhite/80",
+            active ? "text-offwhite" : "text-offwhite/75",
           ].join(" ")}
         >
           {title}
         </span>
         <ToggleDot active={active} />
       </div>
-      <p className="mt-2 text-[12px] leading-relaxed text-offwhite/50">
+      <p className="mt-2 text-[12px] leading-relaxed text-offwhite/55">
         {subtitle}
       </p>
     </button>
@@ -683,13 +698,13 @@ function ToggleDot({ active }: { active: boolean }) {
       aria-hidden
       className={[
         "relative inline-block w-9 h-5 rounded-full transition-colors shrink-0",
-        active ? "bg-lime/60" : "bg-ink/15",
+        active ? "bg-lime/50" : "bg-ink/10",
       ].join(" ")}
     >
       <span
         className={[
           "absolute top-0.5 h-4 w-4 rounded-full transition-all",
-          active ? "left-[18px] bg-[#111]" : "left-0.5 bg-offwhite/80",
+          active ? "left-[18px] bg-[#111]" : "left-0.5 bg-offwhite/75",
         ].join(" ")}
       />
     </span>
@@ -719,8 +734,8 @@ function ChipRow({
             className={[
               "font-mono text-[11px] px-3 py-1.5 rounded-full border transition-all",
               active
-                ? "border-lime/40 bg-lime/10 text-accent-ink"
-                : "border-ink/10 text-offwhite/55 hover:border-ink/25 hover:text-offwhite/85",
+                ? "border-lime/50 bg-lime/10 text-accent-ink"
+                : "border-ink/10 text-offwhite/55 hover:border-ink/25 hover:text-offwhite/75",
             ].join(" ")}
           >
             {o.label}
@@ -748,7 +763,7 @@ function Counter({
         type="button"
         onClick={() => onChange(Math.max(min, value - 1))}
         disabled={value <= min}
-        className="w-9 h-9 rounded-full border border-ink/15 text-offwhite/70 hover:border-ink/35 hover:text-offwhite disabled:opacity-30 disabled:cursor-not-allowed font-mono text-[13px] transition-colors"
+        className="w-9 h-9 rounded-full border border-ink/10 text-offwhite/75 hover:border-ink/25 hover:text-offwhite disabled:opacity-30 disabled:cursor-not-allowed font-mono text-[13px] transition-colors"
         aria-label="weniger"
       >
         −
@@ -760,7 +775,7 @@ function Counter({
         type="button"
         onClick={() => onChange(Math.min(max, value + 1))}
         disabled={value >= max}
-        className="w-9 h-9 rounded-full border border-ink/15 text-offwhite/70 hover:border-ink/35 hover:text-offwhite disabled:opacity-30 disabled:cursor-not-allowed font-mono text-[13px] transition-colors"
+        className="w-9 h-9 rounded-full border border-ink/10 text-offwhite/75 hover:border-ink/25 hover:text-offwhite disabled:opacity-30 disabled:cursor-not-allowed font-mono text-[13px] transition-colors"
         aria-label="mehr"
       >
         +

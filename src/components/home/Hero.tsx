@@ -106,7 +106,7 @@ export function Hero() {
         >
           <motion.div variants={item} className="flex items-center gap-3 mb-10">
             <span className="inline-block w-2 h-2 rounded-full bg-lime animate-pulse" />
-            <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/60">
+            <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/55">
               lakonisch /la·ko·nisch/ • knapp gesagt, viel gemeint
             </span>
           </motion.div>
@@ -177,17 +177,26 @@ export function Hero() {
 
           <motion.p
             variants={item}
-            className="mt-10 max-w-[560px] text-[15px] md:text-[17px] leading-relaxed text-offwhite/60"
+            className="mt-10 max-w-[560px] text-[15px] md:text-[17px] leading-relaxed text-offwhite/55"
           >
             Deine Website sollte für dich arbeiten • nicht nur gut aussehen.
             Keine 0815-Websites • Identitäten, die bleiben.
           </motion.p>
 
           <motion.div variants={item} className="mt-10 flex flex-wrap gap-3">
-            <Button href="/kontakt#projekt" size="lg">
+            <Button
+              href="/kontakt#projekt"
+              size="lg"
+              analyticsLabel="home_hero_kontakt"
+            >
               projekt starten →
             </Button>
-            <Button href="/referenzen" size="lg" variant="glass">
+            <Button
+              href="/referenzen"
+              size="lg"
+              variant="glass"
+              analyticsLabel="home_hero_referenzen"
+            >
               referenzen ansehen
             </Button>
           </motion.div>
@@ -206,7 +215,7 @@ export function Hero() {
               window.scrollTo({ top: window.innerHeight, behavior: "smooth" })
             }
             aria-label="weiter scrollen"
-            className="text-offwhite/30 hover:text-offwhite/80 transition-colors"
+            className="text-offwhite/35 hover:text-offwhite/75 transition-colors"
           >
             <motion.span
               animate={{ y: [0, 5, 0] }}

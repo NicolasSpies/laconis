@@ -404,7 +404,7 @@ export function generateLineItems(state: BuilderState): LineItem[] {
     if (discount > 0) {
       items.push({
         label: "bundle-rabatt",
-        hint: "web + grafik/branding zusammen · 10 % runter",
+        hint: "web + grafik/branding zusammen · 10% runter",
         amount: -discount,
         discount: true,
       });
@@ -420,7 +420,7 @@ export function generateLineItems(state: BuilderState): LineItem[] {
     if (surcharge > 0) {
       items.push({
         label: "dringend-aufschlag",
-        hint: "vorziehen in die queue · +25 %",
+        hint: "vorziehen in die queue · +25%",
         amount: surcharge,
       });
     }

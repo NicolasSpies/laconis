@@ -1,8 +1,15 @@
 import Link from "next/link";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { PaketBuilder } from "@/components/preise/PaketBuilder";
+import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { getMeta } from "@/lib/seo/getMeta";
+import type { Metadata } from "next";
 
-export const metadata = { title: "baukasten · preise" };
+const BASE = "https://laconis.be";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return getMeta("/preise/baukasten");
+}
 
 const SCHRITTE = [
   {
@@ -25,12 +32,20 @@ const SCHRITTE = [
 export default function Page() {
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: "home", url: `${BASE}/` },
+          { name: "preise", url: `${BASE}/preise` },
+          { name: "baukasten", url: `${BASE}/preise/baukasten` },
+        ]}
+      />
+
       {/* BREADCRUMB */}
       <section className="pt-36 pb-6">
         <div className="container-site">
           <Link
             href="/preise"
-            className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-label text-offwhite/45 hover:text-accent-ink transition-colors"
+            className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-label text-offwhite/55 hover:text-accent-ink transition-colors"
           >
             <span aria-hidden>←</span> zurück zur preisübersicht
           </Link>
@@ -49,7 +64,7 @@ export default function Page() {
                 der bon wächst live mit.
               </span>
             </h1>
-            <p className="mt-8 max-w-[620px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/60">
+            <p className="mt-8 max-w-[620px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
               keine fertigpackung, die ein bisschen zu klein oder ein bisschen
               zu viel ist. du schaltest ein was du brauchst • ich rechne live
               mit, inklusive rabatten und hosting. am ende nimmst du den bon
@@ -70,7 +85,7 @@ export default function Page() {
             {SCHRITTE.map((s) => (
               <div
                 key={s.num}
-                className="rounded-xl border border-ink/8 bg-ink/[0.015] p-5 md:p-6"
+                className="rounded-xl border border-ink/10 bg-ink/[0.015] p-5 md:p-6"
               >
                 <div className="flex items-baseline justify-between">
                   <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
@@ -112,7 +127,7 @@ export default function Page() {
       <section className="pb-28">
         <div className="container-site">
           <div className="max-w-[820px] mx-auto text-center">
-            <p className="text-[13px] leading-relaxed text-offwhite/45">
+            <p className="text-[13px] leading-relaxed text-offwhite/55">
               unsicher bei einer entscheidung? lass sie einfach offen • im
               gespräch klären wir das in 10 minuten und ich rechne dir die
               finalen zahlen.
@@ -120,7 +135,7 @@ export default function Page() {
             <div className="mt-6">
               <Link
                 href="/preise"
-                className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-label text-offwhite/45 hover:text-accent-ink transition-colors"
+                className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-label text-offwhite/55 hover:text-accent-ink transition-colors"
               >
                 <span aria-hidden>←</span> zurück zur preisübersicht
               </Link>

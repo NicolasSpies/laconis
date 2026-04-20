@@ -1,17 +1,19 @@
 "use client";
-import { motion } from "framer-motion";
+
 import { usePathname } from "next/navigation";
+
+/**
+ * simple fade-in on route-change.
+ * zero-js animation · css `@keyframes pt-fade` mit key-reset via pathname.
+ * ersetzt den früheren framer-motion-wrapper → kein motion-import im
+ * shared bundle für dieses mini-effekt.
+ */
 
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
-    <motion.div
-      key={pathname}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-    >
+    <div key={pathname} className="page-transition">
       {children}
-    </motion.div>
+    </div>
   );
 }

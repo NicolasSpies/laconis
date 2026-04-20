@@ -3,8 +3,13 @@ import {
   LegalSection,
   LegalRow,
 } from "@/components/legal/LegalLayout";
+import { getMeta } from "@/lib/seo/getMeta";
+import { CONTACT } from "@/config/contact";
+import type { Metadata } from "next";
 
-export const metadata = { title: "datenschutz" };
+export async function generateMetadata(): Promise<Metadata> {
+  return getMeta("/datenschutz");
+}
 
 export default function Page() {
   return (
@@ -24,10 +29,10 @@ export default function Page() {
           k="e-mail"
           v={
             <a
-              href="mailto:hallo@laconis.be"
+              href={`mailto:${CONTACT.email}`}
               className="text-accent-ink hover:underline"
             >
-              hallo@laconis.be
+              {CONTACT.email}
             </a>
           }
         />
@@ -78,7 +83,7 @@ export default function Page() {
         <p>
           zur bereitstellung der website nutze ich:
         </p>
-        <ul className="list-disc pl-5 space-y-1.5 text-offwhite/70">
+        <ul className="list-disc pl-5 space-y-1.5 text-offwhite/75">
           <li>
             <strong className="text-offwhite">hosting:</strong> Vercel Inc. /
             OVH (je nach projekt). datenverarbeitung unter EU-standardvertrags-
@@ -101,7 +106,7 @@ export default function Page() {
         aside="gdpr gibt dir fünf hebel. alle kostenlos, alle per e-mail einforderbar."
       >
         <p>als betroffene person hast du das recht:</p>
-        <ul className="list-disc pl-5 space-y-1.5 text-offwhite/70">
+        <ul className="list-disc pl-5 space-y-1.5 text-offwhite/75">
           <li>auskunft zu erhalten, ob und welche daten ich über dich speichere (art. 15);</li>
           <li>berichtigung unrichtiger daten zu verlangen (art. 16);</li>
           <li>löschung deiner daten zu verlangen, sofern keine aufbewahrungspflicht besteht (art. 17);</li>
@@ -113,10 +118,10 @@ export default function Page() {
         <p>
           eine kurze e-mail reicht:{" "}
           <a
-            href="mailto:hallo@laconis.be"
+            href={`mailto:${CONTACT.email}`}
             className="text-accent-ink hover:underline"
           >
-            hallo@laconis.be
+            {CONTACT.email}
           </a>
           .
         </p>
@@ -145,7 +150,7 @@ export default function Page() {
         </p>
       </LegalSection>
 
-      <p className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 pt-6 border-t border-ink/8">
+      <p className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 pt-6 border-t border-ink/10">
         stand: april 2026
       </p>
     </LegalLayout>

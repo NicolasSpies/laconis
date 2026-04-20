@@ -119,7 +119,7 @@ export function FontPlayground() {
 
           {/* sub-claim */}
           <p
-            className="mt-6 text-offwhite/80 max-w-[520px]"
+            className="mt-6 text-offwhite/75 max-w-[520px]"
             style={{
               fontFamily: body.css,
               fontSize: "clamp(1rem, 1.6vw, 1.15rem)",
@@ -131,7 +131,7 @@ export function FontPlayground() {
           </p>
 
           {/* meta row */}
-          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-offwhite/40">
+          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-offwhite/35">
             <span
               className="text-[11px] uppercase tracking-label"
               style={{ fontFamily: body.css }}
@@ -158,7 +158,7 @@ export function FontPlayground() {
           <div className="mt-10 flex items-center gap-3">
             <label
               htmlFor="brand-name"
-              className="font-mono text-[10px] uppercase tracking-label text-offwhite/40"
+              className="font-mono text-[10px] uppercase tracking-label text-offwhite/35"
             >
               marke
             </label>
@@ -168,7 +168,7 @@ export function FontPlayground() {
               value={brand}
               onChange={(e) => setBrand(e.target.value.slice(0, 26))}
               placeholder="dein brand"
-              className="flex-1 max-w-[260px] bg-transparent border-b border-ink/15 focus:border-lime/60 font-mono text-[11px] text-offwhite/70 outline-none px-1 py-1 transition-colors"
+              className="flex-1 max-w-[260px] bg-transparent border-b border-ink/10 focus:border-lime/50 font-mono text-[11px] text-offwhite/75 outline-none px-1 py-1 transition-colors"
             />
           </div>
         </div>
@@ -189,8 +189,8 @@ export function FontPlayground() {
           onSelect={setBodyKey}
         />
 
-        <div className="pt-2 border-t border-ink/8">
-          <div className="font-mono text-[10px] uppercase tracking-label text-offwhite/45 mb-3">
+        <div className="pt-2 border-t border-ink/10">
+          <div className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 mb-3">
             akzentfarbe
           </div>
           <AccentSwitcher label="" className="!border-ink/10" />
@@ -213,7 +213,7 @@ function FontPicker({
 }) {
   return (
     <div>
-      <div className="font-mono text-[10px] uppercase tracking-label text-offwhite/45 mb-3">
+      <div className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 mb-3">
         {label}
       </div>
       <div className="space-y-1.5">
@@ -227,8 +227,8 @@ function FontPicker({
               className={
                 "w-full flex items-baseline justify-between gap-3 rounded-lg px-3 py-2.5 text-left border transition-all " +
                 (active
-                  ? "border-lime/40 bg-lime/[0.06] text-offwhite"
-                  : "border-ink/8 bg-ink/[0.015] text-offwhite/60 hover:border-ink/20 hover:text-offwhite")
+                  ? "border-lime/50 bg-lime/[0.06] text-offwhite"
+                  : "border-ink/10 bg-ink/[0.015] text-offwhite/55 hover:border-ink/25 hover:text-offwhite")
               }
             >
               <span

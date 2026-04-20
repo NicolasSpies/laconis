@@ -285,19 +285,19 @@ function ServerDiagram() {
   );
 }
 
-export function HostingBlock() {
+export function HostingBlock({ num = "06" }: { num?: string } = {}) {
   return (
     <section className="pb-32">
       <div className="container-site">
         <div className="max-w-[720px]">
-          <SectionLabel num="06">hosting</SectionLabel>
+          <SectionLabel num={num}>hosting</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.75rem)] text-offwhite">
             du änderst was.{" "}
             <span className="text-offwhite/35">
               besucher sehen es sofort.
             </span>
           </h2>
-          <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/60">
+          <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/55">
             dein CMS, eine saubere API, die öffentliche seite. drei ebenen auf
             zwei infrastrukturen: VPS in litauen für contentcore, globale
             edge-cloud für die öffentliche seite. kein geteilter server, keine
@@ -311,7 +311,7 @@ export function HostingBlock() {
 
         {/* ZWEI-SERVER-ARCHITEKTUR */}
         <div className="mt-20 max-w-[820px]">
-          <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/40">
+          <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/35">
             architektur · zwei getrennte infrastrukturen
           </span>
           <h3 className="heading-display mt-3 text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
@@ -320,7 +320,7 @@ export function HostingBlock() {
               deine website sitzt auf der edge.
             </span>
           </h3>
-          <p className="mt-5 max-w-[620px] text-[14px] leading-relaxed text-offwhite/60">
+          <p className="mt-5 max-w-[620px] text-[14px] leading-relaxed text-offwhite/55">
             das backend hat andere bedürfnisse als das frontend. ich trenne
             beides bewusst, damit jede ebene genau das bekommt, was sie braucht.
           </p>
@@ -334,7 +334,7 @@ export function HostingBlock() {
             <h4 className="heading-sans text-[18px] text-offwhite mt-3">
               contentcore auf hostinger cloud KVM · litauen (EU)
             </h4>
-            <ul className="mt-4 space-y-2 text-[13px] text-offwhite/60 leading-relaxed">
+            <ul className="mt-4 space-y-2 text-[13px] text-offwhite/55 leading-relaxed">
               <li>· eigene maschine, dedizierte CPU und RAM</li>
               <li>
                 · PostgreSQL auf demselben server, kein netzwerk-hop bei
@@ -353,7 +353,7 @@ export function HostingBlock() {
             <h4 className="heading-sans text-[18px] text-offwhite mt-3">
               next.js statisch auf globaler edge
             </h4>
-            <ul className="mt-4 space-y-2 text-[13px] text-offwhite/60 leading-relaxed">
+            <ul className="mt-4 space-y-2 text-[13px] text-offwhite/55 leading-relaxed">
               <li>· deine seite liegt an hunderten standorten weltweit</li>
               <li>
                 · besucher in eupen holt sie aus frankfurt, in brüssel aus
@@ -380,7 +380,7 @@ export function HostingBlock() {
 
         {/* SHARED HOSTING VERGLEICH */}
         <div className="mt-24 max-w-[820px]">
-          <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/40">
+          <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/35">
             vergleich · shared hosting vs. dedizierte infrastruktur
           </span>
           <h3 className="heading-display mt-3 text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
@@ -389,7 +389,7 @@ export function HostingBlock() {
               für eine ernsthafte website keine option ist.
             </span>
           </h3>
-          <p className="mt-5 max-w-[620px] text-[14px] leading-relaxed text-offwhite/60">
+          <p className="mt-5 max-w-[620px] text-[14px] leading-relaxed text-offwhite/55">
             10 € pro monat klingt günstig, bis du siehst, was in den 10 € fehlt.
             hier der direkte vergleich.
           </p>
@@ -398,19 +398,19 @@ export function HostingBlock() {
         <div className="mt-10 rounded-2xl border border-ink/10 bg-gradient-to-b from-ink/[0.02] to-transparent overflow-hidden">
           <div className="grid grid-cols-[1fr_1fr_1fr] border-b border-ink/10 bg-ink/[0.02]">
             <div className="px-5 py-4">
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                 thema
               </span>
             </div>
-            <div className="px-5 py-4 border-l border-ink/8">
+            <div className="px-5 py-4 border-l border-ink/10">
               <div className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-red-400/60" />
-                <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/50">
+                <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/55">
                   shared hosting
                 </span>
               </div>
             </div>
-            <div className="px-5 py-4 border-l border-ink/8">
+            <div className="px-5 py-4 border-l border-ink/10">
               <div className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-lime" />
                 <span className="font-mono text-[11px] uppercase tracking-label text-accent-ink">
@@ -432,7 +432,7 @@ export function HostingBlock() {
                   {r.thema}
                 </span>
               </div>
-              <div className="px-5 py-5 border-l border-ink/8">
+              <div className="px-5 py-5 border-l border-ink/10">
                 <div className="flex items-start gap-2">
                   <span className="font-mono text-[11px] text-red-400/70 mt-0.5 shrink-0">
                     ⚠
@@ -442,12 +442,12 @@ export function HostingBlock() {
                   </span>
                 </div>
               </div>
-              <div className="px-5 py-5 border-l border-ink/8">
+              <div className="px-5 py-5 border-l border-ink/10">
                 <div className="flex items-start gap-2">
                   <span className="font-mono text-[11px] text-accent-ink mt-0.5 shrink-0">
                     ✓
                   </span>
-                  <span className="text-[13px] leading-relaxed text-offwhite/85">
+                  <span className="text-[13px] leading-relaxed text-offwhite/75">
                     {r.laconis}
                   </span>
                 </div>
@@ -458,7 +458,7 @@ export function HostingBlock() {
 
         {/* Stufen */}
         <div className="mt-24 max-w-[720px]">
-          <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/40">
+          <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/35">
             preise · hosting als monatsbeitrag
           </span>
           <h3 className="heading-display mt-3 text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
@@ -483,7 +483,7 @@ export function HostingBlock() {
                   <span className="heading-display text-[22px] text-accent-ink leading-none">
                     {s.preis}
                   </span>
-                  <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+                  <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                     / {s.pro}
                   </span>
                 </div>

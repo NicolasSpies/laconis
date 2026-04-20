@@ -26,14 +26,14 @@ function AnimatedScore({ score, label }: { score: number; label: string }) {
   return (
     <div ref={ref} className="space-y-2">
       <div className="flex items-baseline justify-between">
-        <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/50">
+        <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
           {label}
         </span>
         <span className="heading-display text-[40px] text-accent-ink leading-none">
           {current}
         </span>
       </div>
-      <div className="h-1 w-full rounded-full bg-ink/20 overflow-hidden">
+      <div className="h-1 w-full rounded-full bg-ink/25 overflow-hidden">
         <div
           className="h-full bg-lime rounded-full transition-[width] duration-[1800ms] ease-out"
           style={{ width: inView ? `${score}%` : "0%" }}
@@ -55,7 +55,7 @@ function ScoreBadges() {
       {scores.map((s) => (
         <div
           key={s.label}
-          className="flex items-baseline justify-between gap-3 px-3 py-2 rounded-md border border-ink/8 bg-ink/[0.015]"
+          className="flex items-baseline justify-between gap-3 px-3 py-2 rounded-md border border-ink/10 bg-ink/[0.015]"
         >
           <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
             {s.label}
@@ -78,7 +78,7 @@ function FabryScreenshotPlaceholder() {
           <div className="h-2 w-2 rounded-full bg-[#2a2a2a]" />
         </div>
         <div className="ml-3 flex-1 max-w-[260px] h-3.5 rounded-sm bg-[#0f120d] border border-ink/5 flex items-center px-2">
-          <span className="font-mono text-[8px] text-offwhite/45 tracking-wide">
+          <span className="font-mono text-[8px] text-offwhite/55 tracking-wide">
             fabry-baumpflege.be
           </span>
         </div>
@@ -159,7 +159,7 @@ function FabryScreenshotPlaceholder() {
             >
               bäume in guten
               <br />
-              <span className="italic text-offwhite/90" style={{ fontWeight: 400 }}>
+              <span className="italic text-offwhite/100" style={{ fontWeight: 400 }}>
                 händen.
               </span>
             </h4>
@@ -167,7 +167,7 @@ function FabryScreenshotPlaceholder() {
               <div className="px-3 py-1.5 rounded-sm bg-lime text-[9px] font-mono uppercase tracking-wide text-black font-semibold">
                 anfrage stellen
               </div>
-              <div className="px-3 py-1.5 rounded-sm border border-offwhite/25 text-[9px] font-mono uppercase tracking-wide text-offwhite/70">
+              <div className="px-3 py-1.5 rounded-sm border border-offwhite/25 text-[9px] font-mono uppercase tracking-wide text-offwhite/75">
                 087 / 44 ·  ·  ·
               </div>
             </div>
@@ -175,7 +175,7 @@ function FabryScreenshotPlaceholder() {
 
           {/* Kleines Info-Panel rechts */}
           <div className="hidden sm:flex flex-col gap-1 items-end">
-            <span className="font-mono text-[8px] uppercase tracking-wide text-offwhite/45">
+            <span className="font-mono text-[8px] uppercase tracking-wide text-offwhite/55">
               rufbereitschaft
             </span>
             <span className="font-mono text-[10px] text-accent-ink">24 / 7</span>
@@ -197,7 +197,7 @@ export function FabryCase() {
             kein marketing-versprechen.{" "}
             <span className="text-offwhite/35">messbar.</span>
           </h2>
-          <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/60">
+          <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/55">
             fabry baumpflege, eupen. onepager, eigenes CMS, SEO von anfang an.
             google lighthouse sagt 96 mobil und 98 auf dem desktop. das ist
             nicht geschönt, das ist der live-test, den jeder besucher selbst
@@ -214,13 +214,13 @@ export function FabryCase() {
                 <h3 className="heading-sans text-[18px] text-offwhite">
                   fabry baumpflege
                 </h3>
-                <p className="mt-1 font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+                <p className="mt-1 font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                   onepager · 2025 · eupen
                 </p>
               </div>
               <Link
                 href="/referenzen/fabry-baumpflege"
-                className="font-mono text-[10px] uppercase tracking-label text-offwhite/60 hover:text-accent-ink transition-colors"
+                className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 hover:text-accent-ink transition-colors"
               >
                 case ansehen →
               </Link>
@@ -230,7 +230,7 @@ export function FabryCase() {
           {/* PageSpeed-Panel */}
           <div className="rounded-2xl border border-ink/10 bg-gradient-to-b from-ink/[0.02] to-transparent p-5 md:p-6 flex flex-col">
             <div className="flex items-baseline justify-between">
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                 google PageSpeed insights
               </span>
               <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/25">
@@ -247,7 +247,7 @@ export function FabryCase() {
               <ScoreBadges />
             </div>
 
-            <p className="mt-6 text-[12px] leading-relaxed text-offwhite/50">
+            <p className="mt-6 text-[12px] leading-relaxed text-offwhite/55">
               95+ bedeutet: seite lädt in unter einer sekunde, ist für
               screenreader lesbar und google versteht sie sofort.
             </p>

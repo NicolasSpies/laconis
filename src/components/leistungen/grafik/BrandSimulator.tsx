@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import {
   PlaygroundProvider,
   usePlayground,
@@ -8,7 +9,6 @@ import {
   type Theme,
   type ColorMode,
 } from "./PlaygroundContext";
-import { SectionLabel } from "@/components/ui/SectionLabel";
 
 /**
  * BrandSimulator — interaktive vorschau für eine mögliche markengestaltung.
@@ -103,48 +103,32 @@ function BrandSimulatorInner() {
   return (
     <section className="pb-32">
       <div className="container-site">
-        {/* HEADER */}
-        <div className="max-w-[860px]">
-          <SectionLabel num="04">brand-simulator</SectionLabel>
-          <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.75rem)] text-offwhite leading-[1.05]">
-            probier's aus.{" "}
-            <span className="text-offwhite/35">
-              name, farben, stimmung • sieh live, wie eine marke daraus werden
-              könnte.
-            </span>
-          </h2>
-          <p className="mt-6 max-w-[680px] text-[15px] leading-relaxed text-offwhite/60">
-            spiel mit den reglern. unten passen sich wordmark, brand-guide,
-            briefpapier, visitenkarte und social-posts sofort an. das gibt dir
-            eine ehrliche erste idee, <em className="not-italic text-offwhite/80">wie</em> markenarbeit
-            funktioniert: ein system, in dem alles miteinander redet.
-          </p>
-          <div className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent-ink/25 bg-accent-ink/[0.06]">
-            <span className="text-accent-ink text-[11px]">ⓘ</span>
-            <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
-              das ist eine vorschau · kein fertiges design
-            </span>
-          </div>
-        </div>
-
-        {/* ═══════════ CONTROLS (sticky) ═══════════ */}
-        <div className="mt-12 sticky top-4 z-30 rounded-2xl border border-ink/15 bg-black/70 backdrop-blur-xl p-5 md:p-6 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)]">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_minmax(200px,auto)] gap-5 md:gap-6 items-end">
+        {/* ═══════════ CONTROLS (sticky · klebt direkt unter der nav · liquid-glass) ═══════════ */}
+        <div className="liquid-glass-dark sticky top-16 z-30 rounded-2xl p-4 md:p-5">
+          <div
+            className={[
+              "grid gap-4 md:gap-5 items-end",
+              "grid-cols-1",
+              colorMode === "two"
+                ? "lg:grid-cols-[minmax(180px,1fr)_auto_minmax(150px,auto)_auto_auto]"
+                : "lg:grid-cols-[minmax(180px,1fr)_auto_minmax(150px,auto)_auto]",
+            ].join(" ")}
+          >
             {/* Name */}
             <div>
               <label
                 htmlFor="sim-name"
-                className="block font-mono text-[10px] uppercase tracking-label text-offwhite/45 mb-2"
+                className="block font-mono text-[9.5px] uppercase tracking-label text-offwhite/55 mb-1.5"
               >
-                dein markenname
+                markenname
               </label>
               <input
                 id="sim-name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value.slice(0, 24))}
-                placeholder="müller, lacønis, acme…"
-                className="w-full h-11 bg-ink/[0.04] border border-ink/15 rounded-lg px-4 text-offwhite placeholder:text-offwhite/45 font-sans text-[15px] focus:outline-none focus:border-lime/60 focus:bg-ink/[0.08] transition-colors"
+                placeholder="PointVirgule, lacønis…"
+                className="w-full h-10 bg-ink/[0.04] border border-ink/10 rounded-lg px-3 text-offwhite placeholder:text-offwhite/55 font-sans text-[14px] focus:outline-none focus:border-lime/50 focus:bg-ink/[0.08] transition-colors"
                 maxLength={24}
                 autoComplete="off"
                 spellCheck="false"
@@ -153,17 +137,17 @@ function BrandSimulatorInner() {
 
             {/* Color mode */}
             <div>
-              <label className="block font-mono text-[10px] uppercase tracking-label text-offwhite/45 mb-2">
-                farbmodus
+              <label className="block font-mono text-[9.5px] uppercase tracking-label text-offwhite/55 mb-1.5">
+                modus
               </label>
-              <div className="inline-flex rounded-full border border-ink/15 bg-ink/[0.04] p-1">
+              <div className="inline-flex h-10 items-center rounded-full border border-ink/10 bg-ink/[0.04] p-1">
                 <button
                   onClick={() => setColorMode("one")}
                   className={[
-                    "px-4 py-2 rounded-full font-mono text-[10px] uppercase tracking-mono transition-all",
+                    "px-3 h-full rounded-full font-mono text-[10px] uppercase tracking-mono transition-all",
                     colorMode === "one"
                       ? "bg-lime text-[#111]"
-                      : "text-offwhite/60 hover:text-offwhite",
+                      : "text-offwhite/55 hover:text-offwhite",
                   ].join(" ")}
                   aria-pressed={colorMode === "one"}
                 >
@@ -172,10 +156,10 @@ function BrandSimulatorInner() {
                 <button
                   onClick={() => setColorMode("two")}
                   className={[
-                    "px-4 py-2 rounded-full font-mono text-[10px] uppercase tracking-mono transition-all",
+                    "px-3 h-full rounded-full font-mono text-[10px] uppercase tracking-mono transition-all",
                     colorMode === "two"
                       ? "bg-lime text-[#111]"
-                      : "text-offwhite/60 hover:text-offwhite",
+                      : "text-offwhite/55 hover:text-offwhite",
                   ].join(" ")}
                   aria-pressed={colorMode === "two"}
                 >
@@ -188,7 +172,7 @@ function BrandSimulatorInner() {
             <div>
               <label
                 htmlFor="sim-mood"
-                className="block font-mono text-[10px] uppercase tracking-label text-offwhite/45 mb-2"
+                className="block font-mono text-[9.5px] uppercase tracking-label text-offwhite/55 mb-1.5"
               >
                 stimmung
               </label>
@@ -196,7 +180,7 @@ function BrandSimulatorInner() {
                 id="sim-mood"
                 value={moodId}
                 onChange={(e) => setMoodId(e.target.value)}
-                className="w-full h-11 bg-ink/[0.04] border border-ink/15 rounded-lg px-4 text-offwhite font-mono text-[11px] uppercase tracking-mono focus:outline-none focus:border-lime/60 transition-colors cursor-pointer"
+                className="w-full h-10 bg-ink/[0.04] border border-ink/10 rounded-lg px-3 text-offwhite font-mono text-[11px] uppercase tracking-mono focus:outline-none focus:border-lime/50 transition-colors cursor-pointer"
               >
                 {THEMES.map((t) => (
                   <option key={t.id} value={t.id} className="bg-dark">
@@ -205,26 +189,19 @@ function BrandSimulatorInner() {
                 ))}
               </select>
             </div>
-          </div>
 
-          {/* Color pickers */}
-          <div
-            className={[
-              "mt-5 pt-5 border-t border-ink/10 grid gap-5 md:gap-8",
-              colorMode === "two"
-                ? "grid-cols-1 md:grid-cols-2"
-                : "grid-cols-1",
-            ].join(" ")}
-          >
-            <ColorPickerRow
-              label={colorMode === "two" ? "primärfarbe" : "akzentfarbe"}
+            {/* Primary color */}
+            <ColorPickerCompact
+              label={colorMode === "two" ? "primär" : "akzent"}
               value={accent}
               onChange={setAccent}
               presets={PRIMARY_PRESETS}
             />
+
+            {/* Secondary color (conditional) */}
             {colorMode === "two" && (
-              <ColorPickerRow
-                label="sekundärfarbe"
+              <ColorPickerCompact
+                label="sekundär"
                 value={secondaryAccent}
                 onChange={setSecondaryAccent}
                 presets={SECONDARY_PRESETS}
@@ -317,27 +294,14 @@ function BrandSimulatorInner() {
           </SimTile>
         </div>
 
-        {/* DISCLAIMER */}
-        <div className="mt-10 rounded-xl border border-ink/10 bg-gradient-to-br from-ink/[0.03] to-transparent p-6 md:p-8 max-w-[820px]">
-          <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
-            ⓘ was das hier ist • und was nicht
-          </span>
-          <p className="mt-3 text-[14px] leading-relaxed text-offwhite/65">
-            eine{" "}
-            <strong className="text-offwhite font-normal">
-              spielerei zum fühlen
-            </strong>
-            , wie ein brand-system aufgebaut ist • nicht ein fertiges design,
-            das du so übernehmen könntest. echte markenarbeit beginnt mit
-            recherche (wer bist du, wer sind die anderen?), entwickelt
-            <em className="not-italic text-offwhite/80"> zwei bis drei</em>{" "}
-            echte richtungen, fährt korrekturen und verfeinert über wochen.
-          </p>
-          <p className="mt-3 text-[14px] leading-relaxed text-offwhite/65">
-            was du oben siehst, ist der rohling: name + farbe + stimmung
-            auf vorlagen gelegt. in der echten arbeit entsteht das system für
-            dich, nicht um dich herum.
-          </p>
+        {/* ⓘ · das einzige, was drunter bleibt. liquid-glass-chip. */}
+        <div className="mt-10 flex justify-center">
+          <div className="liquid-glass inline-flex items-center gap-2 rounded-full px-4 py-2">
+            <span className="text-accent-ink text-[11px]">ⓘ</span>
+            <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
+              vorschau · kein fertiges design
+            </span>
+          </div>
         </div>
       </div>
     </section>
@@ -346,7 +310,11 @@ function BrandSimulatorInner() {
 
 /* ══════════════════════════ sub-components ══════════════════════════ */
 
-function ColorPickerRow({
+/**
+ * ColorPickerCompact — single-row-fähiger picker.
+ * Trigger: kleiner swatch mit label drunter. Click → popover mit presets + eigene.
+ */
+function ColorPickerCompact({
   label,
   value,
   onChange,
@@ -357,118 +325,164 @@ function ColorPickerRow({
   onChange: (hex: string) => void;
   presets: { hex: string; label: string }[];
 }) {
+  const [open, setOpen] = useState(false);
   const isCustom = !presets.some(
     (p) => p.hex.toLowerCase() === value.toLowerCase()
   );
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDoc = (e: MouseEvent) => {
+      if (!ref.current) return;
+      if (!ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, [open]);
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-2">
-        <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/45">
-          {label}
-        </span>
-        <span className="font-mono text-[10px] tabular-nums text-offwhite/60">
-          {value.toLowerCase()}
-          {isCustom && (
-            <span className="ml-2 px-1.5 py-[1px] rounded-full bg-accent-ink/15 text-accent-ink text-[8.5px] uppercase tracking-mono">
-              eigene
-            </span>
-          )}
-        </span>
-      </div>
-      <div className="flex items-center gap-2 flex-wrap">
-        {presets.map((c) => (
-          <button
-            key={c.hex}
-            onClick={() => onChange(c.hex)}
-            className="w-8 h-8 rounded-full border-2 transition-transform hover:scale-110"
-            style={{
-              background: c.hex,
-              borderColor:
-                value.toLowerCase() === c.hex.toLowerCase()
-                  ? "rgba(255,255,255,0.85)"
-                  : "rgba(255,255,255,0.12)",
-            }}
-            title={c.label}
-            aria-label={c.label}
-          />
-        ))}
-
-        {/* divider dot */}
+    <div className="relative" ref={ref}>
+      <label className="block font-mono text-[9.5px] uppercase tracking-label text-offwhite/55 mb-1.5">
+        {label}
+      </label>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className="inline-flex items-center gap-2 h-10 pl-1 pr-3 rounded-full border border-ink/10 bg-ink/[0.04] hover:bg-ink/[0.08] transition-colors"
+        aria-expanded={open}
+        aria-haspopup="true"
+      >
         <span
-          aria-hidden
-          className="mx-1 h-4 w-px bg-offwhite/15"
+          className="w-8 h-8 rounded-full border border-offwhite/15 shrink-0"
+          style={{ background: value }}
         />
+        <span className="font-mono text-[10px] tabular-nums text-offwhite/75 leading-none">
+          {value.toLowerCase()}
+        </span>
+        <svg
+          width="10"
+          height="10"
+          viewBox="0 0 10 10"
+          className="text-offwhite/35"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+          aria-hidden
+        >
+          <path d={open ? "M2 7L5 4L8 7" : "M2 3L5 6L8 3"} />
+        </svg>
+      </button>
 
-        {isCustom ? (
-          /* Custom color selected → visible swatch + remove X */
-          <div className="relative inline-block">
-            <label
-              className="block w-8 h-8 rounded-full border-2 cursor-pointer transition-transform hover:scale-110"
-              style={{
-                background: value,
-                borderColor: "rgba(255,255,255,0.85)",
-              }}
-              title="eigene farbe ändern"
-            >
-              <input
-                type="color"
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                aria-label="eigene farbe ändern"
-              />
-            </label>
-            <button
-              type="button"
-              onClick={() => onChange(presets[0].hex)}
-              className="absolute -top-1.5 -right-1.5 w-[18px] h-[18px] rounded-full bg-dark border border-offwhite/40 flex items-center justify-center text-offwhite/80 hover:bg-offwhite hover:text-dark hover:border-offwhite transition-colors"
-              aria-label="eigene farbe entfernen"
-              title="eigene farbe entfernen"
-            >
-              <svg
-                width="7"
-                height="7"
-                viewBox="0 0 8 8"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-              >
-                <path d="M1 1L7 7M7 1L1 7" />
-              </svg>
-            </button>
-          </div>
-        ) : (
-          /* No custom color yet → picker trigger with + and label */
-          <label
-            className="relative inline-flex items-center gap-1.5 h-8 pl-1 pr-3 rounded-full border-2 border-dashed border-offwhite/30 cursor-pointer text-offwhite/55 hover:border-accent-ink/60 hover:text-accent-ink transition-colors"
-            title="eigene farbe wählen"
-          >
-            <span
-              className="w-6 h-6 rounded-full border border-offwhite/20 flex items-center justify-center"
-              style={{
-                background:
-                  "conic-gradient(from 0deg, #ff4d4d, #ffbe0b, #a3ff4d, #4dffd1, #4d9bff, #b44dff, #ff4dce, #ff4d4d)",
-              }}
-            >
-              <span className="w-3 h-3 rounded-full bg-dark/85 flex items-center justify-center text-offwhite text-[11px] leading-none font-semibold">
-                +
+      {open && (
+        <div
+          className="liquid-glass-dark absolute top-full left-0 mt-2 z-40 rounded-xl p-3 min-w-[240px]"
+          role="dialog"
+        >
+          <div className="flex items-center justify-between mb-2">
+            <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
+              {label}
+            </span>
+            {isCustom && (
+              <span className="px-1.5 py-[1px] rounded-full bg-accent-ink/10 text-accent-ink text-[8.5px] uppercase tracking-mono font-mono">
+                eigene
               </span>
-            </span>
-            <span className="font-mono text-[9.5px] uppercase tracking-mono leading-none">
-              eigene
-            </span>
-            <input
-              type="color"
-              value={value}
-              onChange={(e) => onChange(e.target.value)}
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-              aria-label="eigene farbe wählen"
-            />
-          </label>
-        )}
-      </div>
+            )}
+          </div>
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {presets.map((c) => (
+              <button
+                key={c.hex}
+                onClick={() => {
+                  onChange(c.hex);
+                  setOpen(false);
+                }}
+                className="w-7 h-7 rounded-full border-2 transition-transform hover:scale-110"
+                style={{
+                  background: c.hex,
+                  borderColor:
+                    value.toLowerCase() === c.hex.toLowerCase()
+                      ? "rgba(255,255,255,0.85)"
+                      : "rgba(255,255,255,0.12)",
+                }}
+                title={c.label}
+                aria-label={c.label}
+              />
+            ))}
+            <span aria-hidden className="mx-1 h-4 w-px bg-offwhite/15" />
+            {isCustom ? (
+              <div className="relative inline-block">
+                <label
+                  className="block w-7 h-7 rounded-full border-2 cursor-pointer transition-transform hover:scale-110"
+                  style={{
+                    background: value,
+                    borderColor: "rgba(255,255,255,0.85)",
+                  }}
+                  title="eigene farbe ändern"
+                >
+                  <input
+                    type="color"
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    aria-label="eigene farbe ändern"
+                  />
+                </label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onChange(presets[0].hex);
+                    setOpen(false);
+                  }}
+                  className="absolute -top-1.5 -right-1.5 w-[16px] h-[16px] rounded-full bg-dark border border-offwhite/35 flex items-center justify-center text-offwhite/75 hover:bg-offwhite hover:text-dark hover:border-offwhite transition-colors"
+                  aria-label="eigene farbe entfernen"
+                  title="eigene farbe entfernen"
+                >
+                  <svg
+                    width="6"
+                    height="6"
+                    viewBox="0 0 8 8"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                  >
+                    <path d="M1 1L7 7M7 1L1 7" />
+                  </svg>
+                </button>
+              </div>
+            ) : (
+              <label
+                className="relative inline-flex items-center gap-1 h-7 pl-0.5 pr-2 rounded-full border-2 border-dashed border-offwhite/35 cursor-pointer text-offwhite/55 hover:border-accent-ink/80 hover:text-accent-ink transition-colors"
+                title="eigene farbe wählen"
+              >
+                <span
+                  className="w-5 h-5 rounded-full border border-offwhite/20 flex items-center justify-center"
+                  style={{
+                    background:
+                      "conic-gradient(from 0deg, #ff4d4d, #ffbe0b, #a3ff4d, #4dffd1, #4d9bff, #b44dff, #ff4dce, #ff4d4d)",
+                  }}
+                >
+                  <span className="w-2.5 h-2.5 rounded-full bg-dark/85 flex items-center justify-center text-offwhite text-[9px] leading-none font-semibold">
+                    +
+                  </span>
+                </span>
+                <span className="font-mono text-[9px] uppercase tracking-mono leading-none">
+                  eigene
+                </span>
+                <input
+                  type="color"
+                  value={value}
+                  onChange={(e) => onChange(e.target.value)}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  aria-label="eigene farbe wählen"
+                />
+              </label>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -595,7 +609,7 @@ function WordmarkRow({
         >
           {firstLetter}
         </div>
-        <span className="mt-6 font-mono text-[9px] uppercase tracking-label text-offwhite/40">
+        <span className="mt-6 font-mono text-[9px] uppercase tracking-label text-offwhite/35">
           monogramm · avatar
         </span>
       </div>
@@ -955,7 +969,7 @@ function BrandGuideRow({
     <div className="grid grid-cols-1 md:grid-cols-4">
       {/* Colors */}
       <div className="p-6 md:border-r border-ink/5">
-        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/40">
+        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
           farben
         </span>
         <div className="mt-4 space-y-2">
@@ -965,7 +979,7 @@ function BrandGuideRow({
                 className="w-7 h-7 rounded shrink-0 border border-ink/10"
                 style={{ background: c.hex }}
               />
-              <span className="font-mono text-[10px] text-offwhite/60 tabular-nums flex-1 truncate">
+              <span className="font-mono text-[10px] text-offwhite/55 tabular-nums flex-1 truncate">
                 {c.hex.toUpperCase()}
               </span>
               <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
@@ -982,7 +996,7 @@ function BrandGuideRow({
 
       {/* Typography */}
       <div className="p-6 md:border-r border-ink/5 flex flex-col gap-5">
-        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/40">
+        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
           typografie
         </span>
         <div>
@@ -1003,7 +1017,7 @@ function BrandGuideRow({
         </div>
         <div>
           <div
-            className="text-offwhite/85"
+            className="text-offwhite/75"
             style={{
               fontFamily: bodyFont,
               fontSize: "clamp(0.82rem, 1.4vw, 0.95rem)",
@@ -1020,7 +1034,7 @@ function BrandGuideRow({
 
       {/* Voice */}
       <div className="p-6 md:border-r border-ink/5">
-        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/40">
+        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
           stimme
         </span>
         <div
@@ -1039,7 +1053,7 @@ function BrandGuideRow({
           {mood.keywords.slice(0, 4).map((k) => (
             <span
               key={k}
-              className="font-mono text-[9px] uppercase tracking-mono px-2 py-1 rounded-full border border-ink/12 text-offwhite/65"
+              className="font-mono text-[9px] uppercase tracking-mono px-2 py-1 rounded-full border border-ink/10 text-offwhite/55"
             >
               {k}
             </span>
@@ -1049,7 +1063,7 @@ function BrandGuideRow({
 
       {/* Formen & Texturen */}
       <div className="p-6">
-        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/40">
+        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
           formen & textur
         </span>
         <div className="mt-4 grid grid-cols-2 gap-2">
@@ -1069,7 +1083,7 @@ function BrandGuideRow({
           {mood.textures.slice(0, 3).map((t, i) => (
             <span
               key={i}
-              className="font-mono text-[8.5px] uppercase tracking-mono text-offwhite/40"
+              className="font-mono text-[8.5px] uppercase tracking-mono text-offwhite/35"
             >
               {t.label}
               {i < 2 ? " ·" : ""}
@@ -1357,7 +1371,7 @@ function SocialRow({
   return (
     <div className="p-5 md:p-6">
       {/* Profile header (instagram-style) */}
-      <div className="flex items-center justify-between mb-5 pb-5 border-b border-ink/8">
+      <div className="flex items-center justify-between mb-5 pb-5 border-b border-ink/10">
         <div className="flex items-center gap-3">
           {/* Avatar mit separator-ring + optionalem secondary-ring */}
           <div
@@ -1395,12 +1409,12 @@ function SocialRow({
                 />
               )}
             </div>
-            <div className="font-mono text-[9.5px] uppercase tracking-label text-offwhite/40">
+            <div className="font-mono text-[9.5px] uppercase tracking-label text-offwhite/35">
               {keywords.slice(0, 2).join(" · ")}
             </div>
           </div>
         </div>
-        <div className="hidden sm:flex items-center gap-5 font-mono text-[10px] text-offwhite/45">
+        <div className="hidden sm:flex items-center gap-5 font-mono text-[10px] text-offwhite/55">
           <div className="text-center">
             <div className="text-offwhite text-[13px] font-sans tabular-nums">
               142

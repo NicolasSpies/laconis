@@ -1,42 +1,147 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
 import { Button } from "./ui/Button";
 import { cn } from "@/lib/cn";
 
-type SubLink = { href: string; label: string; kurz: string };
 type NavLink = {
   href: string;
   label: string;
-  children?: readonly SubLink[];
 };
 
 const links: readonly NavLink[] = [
-  {
-    href: "/leistungen/web",
-    label: "leistungen",
-    children: [
-      {
-        href: "/leistungen/web",
-        label: "web",
-        kurz: "websites, cms, hosting",
-      },
-      {
-        href: "/leistungen/kreatives",
-        label: "kreatives",
-        kurz: "logo, brand, print",
-      },
-    ],
-  },
+  { href: "/leistungen", label: "leistungen" },
   { href: "/referenzen", label: "referenzen" },
   { href: "/preise", label: "preise" },
+  { href: "/ansatz", label: "ansatz" },
   { href: "/ueber-mich", label: "über mich" },
 ] as const;
 
-const langs = ["de", "fr", "en"] as const;
+type Lang = { code: "de" | "fr" | "en"; label: string; available: boolean };
+
+const LANGS: readonly Lang[] = [
+  { code: "de", label: "deutsch", available: true },
+  { code: "fr", label: "français", available: false },
+  { code: "en", label: "english", available: false },
+] as const;
+
+function LangDropdown() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const activeLang = LANGS.find((l) => l.available) ?? LANGS[0];
+
+  useEffect(() => {
+    if (!open) return;
+    const onClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        className={cn(
+          "inline-flex items-center gap-1.5 font-mono text-[11px] uppercase px-2 py-1 rounded transition-colors",
+          "text-offwhite hover:text-accent-ink",
+        )}
+      >
+        <span>{activeLang.code}</span>
+        <svg
+          width="8"
+          height="8"
+          viewBox="0 0 8 8"
+          fill="none"
+          aria-hidden
+          className={cn(
+            "transition-transform",
+            open && "rotate-180",
+          )}
+        >
+          <path
+            d="M 1 2.5 L 4 5.5 L 7 2.5"
+            stroke="currentColor"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+
+      {/* dropdown · zentriert unter button */}
+      <div
+        role="menu"
+        className={cn(
+          "absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[160px] origin-top transition-all duration-150",
+          open
+            ? "opacity-100 scale-100 pointer-events-auto"
+            : "opacity-0 scale-95 pointer-events-none",
+        )}
+      >
+        {/* caret */}
+        <div
+          className="absolute -top-[5px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rotate-45 bg-[rgba(10,12,10,0.78)] border-l border-t border-white/8"
+          aria-hidden
+        />
+        <div className="liquid-glass rounded-lg overflow-hidden">
+          <ul className="py-1.5">
+            {LANGS.map((l) => {
+              const isActive = l.available;
+              return (
+                <li key={l.code}>
+                  <button
+                    type="button"
+                    disabled={!l.available}
+                    className={cn(
+                      "w-full flex items-baseline justify-between gap-3 px-3.5 py-2 font-mono text-[11px] lowercase tracking-mono transition-colors",
+                      isActive
+                        ? "text-offwhite hover:text-accent-ink"
+                        : "text-offwhite/35 cursor-not-allowed",
+                    )}
+                  >
+                    <span className="flex items-baseline gap-2">
+                      <span
+                        className={cn(
+                          "uppercase text-[10px]",
+                          isActive && "text-accent-ink",
+                        )}
+                      >
+                        {l.code}
+                      </span>
+                      <span>{l.label}</span>
+                    </span>
+                    {!isActive && (
+                      <span className="text-[8px] uppercase tracking-label text-offwhite/35">
+                        bald
+                      </span>
+                    )}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -68,89 +173,7 @@ export function Nav() {
           {links.map((l) => {
             const active =
               pathname === l.href ||
-              (l.children?.some((c) => pathname === c.href) ?? false) ||
-              (l.href === "/leistungen/web" &&
-                pathname.startsWith("/leistungen"));
-
-            if (l.children) {
-              return (
-                <div key={l.href} className="relative group">
-                  <Link
-                    href={l.href}
-                    className={cn(
-                      "font-mono text-[12px] lowercase tracking-mono transition-colors inline-flex items-center gap-1",
-                      active
-                        ? "text-offwhite"
-                        : "text-offwhite/50 hover:text-offwhite",
-                    )}
-                  >
-                    {l.label}
-                    <svg
-                      aria-hidden
-                      width="8"
-                      height="8"
-                      viewBox="0 0 8 8"
-                      fill="none"
-                      className="mt-[1px] transition-transform group-hover:rotate-180"
-                    >
-                      <path
-                        d="M1.5 2.75L4 5.25L6.5 2.75"
-                        stroke="currentColor"
-                        strokeWidth="1.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </Link>
-
-                  {/* Hover bridge — kills the gap between link and menu */}
-                  <div
-                    aria-hidden
-                    className="absolute left-0 right-0 top-full h-3"
-                  />
-
-                  {/* Dropdown */}
-                  <div
-                    className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+0.75rem)] min-w-[240px] rounded-xl border border-ink/10 bg-dark/95 backdrop-blur-xl shadow-[0_24px_60px_-20px_rgba(0,0,0,0.9)] p-2 opacity-0 translate-y-1 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200"
-                  >
-                    {l.children.map((c) => {
-                      const sub = pathname === c.href;
-                      return (
-                        <Link
-                          key={c.href}
-                          href={c.href}
-                          className={cn(
-                            "block px-3 py-2.5 rounded-md transition-colors group/item",
-                            sub
-                              ? "bg-ink/[0.04]"
-                              : "hover:bg-ink/[0.03]",
-                          )}
-                        >
-                          <div className="flex items-baseline justify-between gap-4">
-                            <span
-                              className={cn(
-                                "font-mono text-[12px] lowercase tracking-mono transition-colors",
-                                sub
-                                  ? "text-accent-ink"
-                                  : "text-offwhite group-hover/item:text-accent-ink",
-                              )}
-                            >
-                              {c.label}
-                            </span>
-                            <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/30 group-hover/item:text-offwhite/50 transition-colors">
-                              →
-                            </span>
-                          </div>
-                          <span className="mt-0.5 block text-[11px] text-offwhite/45 lowercase">
-                            {c.kurz}
-                          </span>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
-              );
-            }
+              (l.href !== "/" && pathname.startsWith(l.href + "/"));
 
             return (
               <Link
@@ -160,7 +183,7 @@ export function Nav() {
                   "font-mono text-[12px] lowercase tracking-mono transition-colors",
                   active
                     ? "text-offwhite"
-                    : "text-offwhite/50 hover:text-offwhite",
+                    : "text-offwhite/55 hover:text-offwhite",
                 )}
               >
                 {l.label}
@@ -169,45 +192,22 @@ export function Nav() {
           })}
           <span
             aria-disabled
-            className="inline-flex items-baseline gap-1.5 font-mono text-[12px] lowercase tracking-mono text-offwhite/55 cursor-not-allowed"
             title="bald verfügbar"
+            className="font-mono text-[12px] lowercase tracking-mono text-offwhite/25 cursor-not-allowed select-none"
           >
             shop
-            <span className="text-[8px] uppercase tracking-label text-accent-ink/70">
-              bald
-            </span>
           </span>
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <div className="flex items-center gap-1">
-            {langs.map((l, i) => (
-              <button
-                key={l}
-                type="button"
-                disabled={i !== 0}
-                className={cn(
-                  "font-mono text-[10px] uppercase px-1.5 py-0.5 rounded",
-                  i === 0
-                    ? "text-offwhite"
-                    : "text-offwhite/50 cursor-not-allowed",
-                )}
-                title={i !== 0 ? "bald verfügbar" : undefined}
-              >
-                {l}
-              </button>
-            ))}
-          </div>
-          <span className="h-4 w-px bg-ink/15" />
+          <LangDropdown />
+          <span className="h-4 w-px bg-ink/10" />
           <span
             aria-disabled
-            className="inline-flex items-baseline gap-1.5 font-mono text-[11px] lowercase tracking-mono text-offwhite/55 cursor-not-allowed"
             title="bald verfügbar"
+            className="font-mono text-[11px] lowercase tracking-mono text-offwhite/25 cursor-not-allowed select-none"
           >
             login
-            <span className="text-[8px] uppercase tracking-label text-accent-ink/70">
-              bald
-            </span>
           </span>
           <Button href="/kontakt#projekt" size="sm">
             projekt starten →
@@ -245,56 +245,43 @@ export function Nav() {
       <div
         className={cn(
           "md:hidden overflow-hidden transition-[max-height,opacity] duration-300 bg-dark/90 backdrop-blur-xl border-t border-ink/10",
-          open ? "max-h-[420px] opacity-100" : "max-h-0 opacity-0",
+          open ? "max-h-[520px] opacity-100" : "max-h-0 opacity-0",
         )}
       >
         <div className="container-site py-6 flex flex-col gap-5">
           {links.map((l) => (
-            <div key={l.href} className="flex flex-col gap-3">
-              <Link
-                href={l.href}
-                className="font-mono text-[14px] lowercase text-offwhite"
-              >
-                {l.label}
-              </Link>
-              {l.children && (
-                <div className="flex flex-col gap-2 pl-4 border-l border-ink/10">
-                  {l.children.map((c) => (
-                    <Link
-                      key={c.href}
-                      href={c.href}
-                      className="font-mono text-[12px] lowercase text-offwhite/60 hover:text-accent-ink transition-colors"
-                    >
-                      → {c.label}
-                      <span className="ml-2 text-offwhite/55 normal-case">
-                        {c.kurz}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+            <Link
+              key={l.href}
+              href={l.href}
+              className="font-mono text-[14px] lowercase text-offwhite"
+            >
+              {l.label}
+            </Link>
           ))}
           <span
-            className="font-mono text-[14px] lowercase text-offwhite/55"
-            aria-label="shop · bald"
+            aria-disabled
             title="bald verfügbar"
+            className="font-mono text-[14px] lowercase text-offwhite/25 cursor-not-allowed select-none"
           >
             shop
-            <span className="ml-2 font-mono text-[9px] uppercase tracking-label text-offwhite/45">
-              bald
-            </span>
+          </span>
+          <span
+            aria-disabled
+            title="bald verfügbar"
+            className="font-mono text-[14px] lowercase text-offwhite/25 cursor-not-allowed select-none"
+          >
+            login
           </span>
           <div className="flex items-center gap-3 pt-2 border-t border-ink/10">
-            {langs.map((l, i) => (
+            {LANGS.map((l) => (
               <span
-                key={l}
+                key={l.code}
                 className={cn(
                   "font-mono text-[11px] uppercase",
-                  i === 0 ? "text-offwhite" : "text-offwhite/55",
+                  l.available ? "text-offwhite" : "text-offwhite/25",
                 )}
               >
-                {l}
+                {l.code}
               </span>
             ))}
           </div>

@@ -65,7 +65,7 @@ export function Moodboard() {
   return (
     <div>
       {/* Filter bar */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-ink/8 pb-5">
+      <div className="flex flex-wrap items-center gap-2 border-b border-ink/10 pb-5">
         {FILTERS.map((f) => {
           const active = filter === f.key;
           const count = countFor(f.key);
@@ -77,15 +77,15 @@ export function Moodboard() {
               className={
                 "group relative font-mono text-[11px] uppercase tracking-label px-3 py-1.5 rounded-full border transition-colors " +
                 (active
-                  ? "border-lime/40 bg-lime/10 text-accent-ink"
-                  : "border-ink/10 text-offwhite/55 hover:text-offwhite hover:border-ink/20")
+                  ? "border-lime/50 bg-lime/10 text-accent-ink"
+                  : "border-ink/10 text-offwhite/55 hover:text-offwhite hover:border-ink/25")
               }
             >
               <span>{f.label}</span>
               <span
                 className={
                   "ml-1.5 text-[9px] " +
-                  (active ? "text-accent-ink/70" : "text-offwhite/55")
+                  (active ? "text-accent-ink/80" : "text-offwhite/55")
                 }
               >
                 {String(count).padStart(2, "0")}
@@ -126,7 +126,7 @@ export function Moodboard() {
                 >
                   {/* dark card */}
                   <div
-                    className="relative text-offwhite rounded-md p-2.5 pb-3 border border-ink/10 group-hover:border-lime/40 shadow-[0_22px_50px_-20px_rgba(0,0,0,0.9),0_2px_6px_rgba(0,0,0,0.4)] transition-all duration-500 group-hover:-translate-y-1"
+                    className="relative text-offwhite rounded-md p-2.5 pb-3 border border-ink/10 group-hover:border-lime/50 shadow-[0_22px_50px_-20px_rgba(0,0,0,0.9),0_2px_6px_rgba(0,0,0,0.4)] transition-all duration-500 group-hover:-translate-y-1"
                     style={{ background: CARD_BG }}
                   >
                     {/* thin lime accent at top — the "tape" moment */}
@@ -134,7 +134,7 @@ export function Moodboard() {
                       <span
                         aria-hidden
                         className={
-                          "pointer-events-none absolute -top-[1px] h-[2px] bg-lime/60 " +
+                          "pointer-events-none absolute -top-[1px] h-[2px] bg-lime/50 " +
                           (s.tapeLeft
                             ? "left-5 right-1/3"
                             : "left-1/3 right-5")
@@ -171,11 +171,11 @@ export function Moodboard() {
                         <h3 className="heading-sans text-[17px] leading-none text-offwhite truncate lowercase group-hover:text-accent-ink transition-colors">
                           {r.name}
                         </h3>
-                        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/40 shrink-0">
+                        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/35 shrink-0">
                           {r.jahr}
                         </span>
                       </div>
-                      <p className="mt-1.5 font-mono text-[9px] uppercase tracking-label text-offwhite/40 truncate">
+                      <p className="mt-1.5 font-mono text-[9px] uppercase tracking-label text-offwhite/35 truncate">
                         {r.ort}
                       </p>
                       <p className="mt-2 text-[12px] leading-snug text-offwhite/55 line-clamp-2">
@@ -183,7 +183,7 @@ export function Moodboard() {
                       </p>
 
                       <div className="mt-3 flex items-center justify-end">
-                        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/45 group-hover:text-accent-ink transition-colors">
+                        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55 group-hover:text-accent-ink transition-colors">
                           ansehen →
                         </span>
                       </div>
@@ -212,7 +212,7 @@ export function Moodboard() {
 
       {items.length === 0 && (
         <div className="mt-16 text-center">
-          <p className="font-mono text-[12px] uppercase tracking-label text-offwhite/40">
+          <p className="font-mono text-[12px] uppercase tracking-label text-offwhite/35">
             nichts in dieser kategorie • schau gerne in einer anderen
           </p>
         </div>

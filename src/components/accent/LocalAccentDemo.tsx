@@ -43,7 +43,7 @@ export function LocalAccentDemo() {
         />
 
         <div className="relative p-8 md:p-10 min-h-[280px] flex flex-col">
-          <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/45">
+          <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
             Vorschau · mit {sel.label}
           </span>
           <h4 className="heading-display mt-5 text-[clamp(1.75rem,3.5vw,2.5rem)] text-offwhite leading-[1.05]">
@@ -72,7 +72,7 @@ export function LocalAccentDemo() {
             {/* ghost button */}
             <button
               type="button"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-[13px] font-medium text-offwhite/80 border border-ink/15 hover:border-ink/30 transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-[13px] font-medium text-offwhite/75 border border-ink/10 hover:border-ink/25 transition-colors"
             >
               Mehr ansehen
             </button>
@@ -98,7 +98,7 @@ export function LocalAccentDemo() {
 
       {/* Picker */}
       <div className="md:w-[200px] flex md:flex-col gap-2 md:gap-3">
-        <span className="hidden md:block font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+        <span className="hidden md:block font-mono text-[10px] uppercase tracking-label text-offwhite/35">
           Wähle deine Farbe
         </span>
         <div className="flex md:flex-col gap-2 md:gap-3 flex-wrap">

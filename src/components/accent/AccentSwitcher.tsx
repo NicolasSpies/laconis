@@ -18,7 +18,7 @@ export function AccentSwitcher({ label = "akzentfarbe", className = "" }: Props)
         className
       }
     >
-      <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/45 pl-1">
+      <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 pl-1">
         {label}
       </span>
       <div className="flex items-center gap-1.5">
@@ -37,7 +37,7 @@ export function AccentSwitcher({ label = "akzentfarbe", className = "" }: Props)
                 <motion.span
                   layoutId="accent-ring"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  className="absolute -inset-1 rounded-full border border-ink/70 pointer-events-none"
+                  className="absolute -inset-1 rounded-full border border-ink/80 pointer-events-none"
                 />
               )}
             </button>

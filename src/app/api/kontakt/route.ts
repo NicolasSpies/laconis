@@ -20,6 +20,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
+import { CONTACT } from "@/config/contact";
 
 export const runtime = "nodejs";
 
@@ -197,7 +198,7 @@ export async function POST(req: Request) {
   }
 
   const resend = new Resend(apiKey);
-  const to = process.env.KONTAKT_EMPFAENGER || "nicolas@laconis.be";
+  const to = process.env.KONTAKT_EMPFAENGER || CONTACT.emailPrivate;
   const from = process.env.KONTAKT_ABSENDER || "laconis <onboarding@resend.dev>";
 
   const { subject, html, text } = buildMailBody(payload);

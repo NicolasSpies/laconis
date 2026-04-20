@@ -5,6 +5,7 @@
  */
 
 import { jsPDF } from "jspdf";
+import { CONTACT } from "@/config/contact";
 import {
   type LineItem,
   type Totals,
@@ -160,7 +161,7 @@ export function downloadBonPdf({
 
   doc.setFontSize(6);
   doc.setTextColor(130);
-  centerText(doc, "laconis.be  ·  hallo@laconis.be", y);
+  centerText(doc, `laconis.be  ·  ${CONTACT.email}`, y);
   y += 3.5;
 
   doc.setFontSize(8);

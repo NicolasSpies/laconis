@@ -55,7 +55,7 @@ export function QuickPreisCheck() {
             <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
               quick-check · 10 sekunden
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/40">
+            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
               {Math.min(step + 1, STEPS.length)} / {STEPS.length}
             </span>
           </div>
@@ -78,12 +78,12 @@ export function QuickPreisCheck() {
                       key={o.value}
                       type="button"
                       onClick={() => pick(o.value)}
-                      className="group relative rounded-xl border border-ink/15 bg-ink/[0.02] px-5 py-5 text-left hover:border-lime/40 hover:bg-lime/[0.04] transition-all"
+                      className="group relative rounded-xl border border-ink/10 bg-ink/[0.02] px-5 py-5 text-left hover:border-lime/50 hover:bg-lime/[0.04] transition-all"
                     >
                       <span className="block heading-sans text-[18px] text-offwhite group-hover:text-accent-ink transition-colors">
                         {o.label}
                       </span>
-                      <span className="mt-2 block font-mono text-[10px] uppercase tracking-label text-offwhite/55 group-hover:text-accent-ink/70 transition-colors">
+                      <span className="mt-2 block font-mono text-[10px] uppercase tracking-label text-offwhite/55 group-hover:text-accent-ink/80 transition-colors">
                         wählen →
                       </span>
                     </button>
@@ -99,17 +99,17 @@ export function QuickPreisCheck() {
               >
                 <h3 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite leading-[1.1]">
                   passt.{" "}
-                  <span className="text-offwhite/40">
+                  <span className="text-offwhite/35">
                     dein richtwert wartet.
                   </span>
                 </h3>
 
                 <div className="mt-6 flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-label">
-                  <span className="px-2.5 py-1 rounded-full border border-ink/15 bg-ink/[0.02] text-offwhite/70">
+                  <span className="px-2.5 py-1 rounded-full border border-ink/10 bg-ink/[0.02] text-offwhite/75">
                     {paket}
                   </span>
-                  <span className="text-offwhite/30">+</span>
-                  <span className="px-2.5 py-1 rounded-full border border-ink/15 bg-ink/[0.02] text-offwhite/70">
+                  <span className="text-offwhite/35">+</span>
+                  <span className="px-2.5 py-1 rounded-full border border-ink/10 bg-ink/[0.02] text-offwhite/75">
                     {seiten}
                   </span>
                 </div>
@@ -117,14 +117,14 @@ export function QuickPreisCheck() {
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <Link
                     href={`/kontakt?paket=${paket}&seiten=${seiten}#projekt`}
-                    className="inline-flex items-center gap-2 rounded-full bg-lime text-black px-5 py-3 font-mono text-[12px] uppercase tracking-label hover:bg-lime/90 transition-colors"
+                    className="inline-flex items-center gap-2 rounded-full bg-lime text-black px-5 py-3 font-mono text-[12px] uppercase tracking-label hover:bg-lime/80 transition-colors"
                   >
                     projekt starten →
                   </Link>
                   <button
                     type="button"
                     onClick={reset}
-                    className="font-mono text-[10px] uppercase tracking-label text-offwhite/50 hover:text-accent-ink transition-colors"
+                    className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 hover:text-accent-ink transition-colors"
                   >
                     nochmal wählen
                   </button>

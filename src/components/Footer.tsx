@@ -11,17 +11,26 @@ export function Footer() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="flex items-center gap-4">
             <Logo size="md" variant="lime" />
-            <span className="font-sans text-[12px] text-offwhite/50 tracking-[-0.01em]">
+            <span className="font-sans text-[12px] text-offwhite/55 tracking-[-0.01em]">
               say less • mean møre
             </span>
           </div>
 
-          <span className="font-sans text-[12px] text-offwhite/45 flex items-center gap-1">
-            made with{" "}
-            <span className="text-accent-ink" aria-label="love">
-              ♥
-            </span>{" "}
-            by myself
+          {/* handwritten signature · wie am ende eines briefes */}
+          <span
+            className="flex items-center gap-2 text-accent-ink select-none"
+            style={{
+              fontFamily: "var(--font-caveat), cursive",
+              fontSize: "26px",
+              lineHeight: 1,
+              letterSpacing: "-0.01em",
+              transform: "rotate(-4deg)",
+            }}
+            aria-label="signiert von lacønis"
+            title="handmade in eupen"
+          >
+            <span aria-hidden className="text-offwhite/35 text-[18px]">~</span>
+            lacønis
           </span>
         </div>
 
