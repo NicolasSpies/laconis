@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
 import { Button } from "./ui/Button";
+import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/cn";
 
 type NavLink = {
@@ -160,10 +161,8 @@ export function Nav() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
-          ? "bg-dark/60 backdrop-blur-xl border-b border-ink/10"
-          : "bg-transparent border-b border-transparent",
+        "fixed top-0 left-0 right-0 z-[10000] transition-all duration-300 border-b",
+        scrolled ? "nav-glass-scrolled border-ink/15" : "nav-glass border-ink/5",
       )}
     >
       <div className="container-site flex items-center justify-between h-16">
@@ -180,35 +179,27 @@ export function Nav() {
                 key={l.href}
                 href={l.href}
                 className={cn(
-                  "font-mono text-[12px] lowercase tracking-mono transition-colors",
+                  "relative font-mono text-[12px] lowercase tracking-mono transition-colors",
                   active
                     ? "text-offwhite"
                     : "text-offwhite/55 hover:text-offwhite",
                 )}
               >
                 {l.label}
+                {active && (
+                  <span
+                    aria-hidden
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-lime"
+                  />
+                )}
               </Link>
             );
           })}
-          <span
-            aria-disabled
-            title="bald verfügbar"
-            className="font-mono text-[12px] lowercase tracking-mono text-offwhite/25 cursor-not-allowed select-none"
-          >
-            shop
-          </span>
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
           <LangDropdown />
-          <span className="h-4 w-px bg-ink/10" />
-          <span
-            aria-disabled
-            title="bald verfügbar"
-            className="font-mono text-[11px] lowercase tracking-mono text-offwhite/25 cursor-not-allowed select-none"
-          >
-            login
-          </span>
+          <ThemeToggle />
           <Button href="/kontakt#projekt" size="sm">
             projekt starten →
           </Button>
@@ -244,7 +235,7 @@ export function Nav() {
       {/* Mobile drawer */}
       <div
         className={cn(
-          "md:hidden overflow-hidden transition-[max-height,opacity] duration-300 bg-dark/90 backdrop-blur-xl border-t border-ink/10",
+          "md:hidden overflow-hidden transition-[max-height,opacity] duration-300 nav-glass-drawer border-t border-ink/10",
           open ? "max-h-[520px] opacity-100" : "max-h-0 opacity-0",
         )}
       >
@@ -258,32 +249,21 @@ export function Nav() {
               {l.label}
             </Link>
           ))}
-          <span
-            aria-disabled
-            title="bald verfügbar"
-            className="font-mono text-[14px] lowercase text-offwhite/25 cursor-not-allowed select-none"
-          >
-            shop
-          </span>
-          <span
-            aria-disabled
-            title="bald verfügbar"
-            className="font-mono text-[14px] lowercase text-offwhite/25 cursor-not-allowed select-none"
-          >
-            login
-          </span>
-          <div className="flex items-center gap-3 pt-2 border-t border-ink/10">
-            {LANGS.map((l) => (
-              <span
-                key={l.code}
-                className={cn(
-                  "font-mono text-[11px] uppercase",
-                  l.available ? "text-offwhite" : "text-offwhite/25",
-                )}
-              >
-                {l.code}
-              </span>
-            ))}
+          <div className="flex items-center justify-between gap-3 pt-2 border-t border-ink/10">
+            <div className="flex items-center gap-3">
+              {LANGS.map((l) => (
+                <span
+                  key={l.code}
+                  className={cn(
+                    "font-mono text-[11px] uppercase",
+                    l.available ? "text-offwhite" : "text-offwhite/25",
+                  )}
+                >
+                  {l.code}
+                </span>
+              ))}
+            </div>
+            <ThemeToggle />
           </div>
           <Button href="/kontakt#projekt" size="md" className="mt-2 self-start">
             projekt starten →

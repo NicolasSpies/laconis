@@ -30,7 +30,7 @@ export default function Page() {
           k="anschrift"
           v={
             <span className="text-offwhite/55">
-              adresse wird ergänzt · 4700 Eupen, Belgien
+              Adresse wird ergänzt · 4700 Eupen, Belgien
             </span>
           }
         />
@@ -49,7 +49,7 @@ export default function Page() {
           k="telefon"
           v={
             <span className="text-offwhite/55">
-              wird nachgereicht · bis dahin am schnellsten per mail
+              Wird nachgereicht · bis dahin am schnellsten per Mail
             </span>
           }
         />
@@ -60,7 +60,7 @@ export default function Page() {
         aside="dasselbe wie oben. der mensch hinter laconis, nicht eine redaktion."
       >
         <p>
-          Verantwortlich für den inhalt dieser website ist Nicolas Spies (anschrift
+          Verantwortlich für den Inhalt dieser Website ist Nicolas Spies (Anschrift
           wie oben).
         </p>
       </LegalSection>
@@ -70,15 +70,15 @@ export default function Page() {
         aside="jurist&apos;sche floskel. muss stehen — im kern: ich gebe mir mühe, garantiere aber nichts."
       >
         <p>
-          <strong className="text-offwhite">inhalte der website.</strong> alle
-          inhalte werden mit bestmöglicher sorgfalt erstellt. für richtigkeit,
-          vollständigkeit und aktualität wird dennoch keine gewähr übernommen.
+          <strong className="text-offwhite">Inhalte der Website.</strong> Alle
+          Inhalte werden mit bestmöglicher Sorgfalt erstellt. Für Richtigkeit,
+          Vollständigkeit und Aktualität wird dennoch keine Gewähr übernommen.
         </p>
         <p>
-          <strong className="text-offwhite">externe links.</strong> diese
-          website enthält links zu externen seiten. für deren inhalte ist
-          ausschließlich der jeweilige anbieter verantwortlich. zum zeitpunkt
-          der verlinkung waren keine rechtswidrigen inhalte erkennbar.
+          <strong className="text-offwhite">Externe Links.</strong> Diese
+          Website enthält Links zu externen Seiten. Für deren Inhalte ist
+          ausschließlich der jeweilige Anbieter verantwortlich. Zum Zeitpunkt
+          der Verlinkung waren keine rechtswidrigen Inhalte erkennbar.
         </p>
       </LegalSection>
 
@@ -87,14 +87,14 @@ export default function Page() {
         aside="kurz: was hier steht, gehört mir (oder den kunden). bitte nicht klauen."
       >
         <p>
-          alle auf dieser website veröffentlichten texte, bilder, grafiken und
-          gestaltungen sind — sofern nicht anders angegeben — urheberrechtlich
-          geschützt. eine verwendung außerhalb dieser website bedarf der
-          vorherigen schriftlichen zustimmung.
+          Alle auf dieser Website veröffentlichten Texte, Bilder, Grafiken und
+          Gestaltungen sind — sofern nicht anders angegeben — urheberrechtlich
+          geschützt. Eine Verwendung außerhalb dieser Website bedarf der
+          vorherigen schriftlichen Zustimmung.
         </p>
         <p>
-          projektbilder auf der referenzen-seite werden mit zustimmung der
-          jeweiligen kundinnen und kunden gezeigt.
+          Projektbilder auf der Referenzen-Seite werden mit Zustimmung der
+          jeweiligen Kundinnen und Kunden gezeigt.
         </p>
       </LegalSection>
 
@@ -103,8 +103,8 @@ export default function Page() {
         aside="muss drin stehen, damit die EU ruhig ist. praktisch relevant: selten."
       >
         <p>
-          die europäische kommission stellt eine plattform zur online-
-          streitbeilegung (OS) bereit:{" "}
+          Die Europäische Kommission stellt eine Plattform zur Online-
+          Streitbeilegung (OS) bereit:{" "}
           <a
             href="https://ec.europa.eu/consumers/odr"
             target="_blank"
@@ -113,8 +113,8 @@ export default function Page() {
           >
             ec.europa.eu/consumers/odr
           </a>
-          . zur teilnahme an einem streitbeilegungsverfahren vor einer
-          verbraucherschlichtungsstelle bin ich nicht verpflichtet und nicht
+          . Zur Teilnahme an einem Streitbeilegungsverfahren vor einer
+          Verbraucherschlichtungsstelle bin ich nicht verpflichtet und nicht
           bereit.
         </p>
       </LegalSection>

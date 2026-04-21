@@ -124,7 +124,8 @@ export function KonamiListener() {
     <div
       role="status"
       aria-live="polite"
-      className="fixed top-20 right-4 z-[100] rounded-xl border border-lime/50 bg-dark/95 backdrop-blur-md px-4 py-3 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.8)] pointer-events-none animate-in fade-in slide-in-from-top-2 duration-300"
+      className="glass fixed top-20 right-4 z-[100] rounded-xl px-4 py-3 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.8)] pointer-events-none animate-in fade-in slide-in-from-top-2 duration-300"
+      style={{ borderColor: "rgb(var(--accent) / 0.5)" }}
     >
       <div className="font-mono text-[9px] uppercase tracking-label text-lime/80 mb-1">
         easter egg

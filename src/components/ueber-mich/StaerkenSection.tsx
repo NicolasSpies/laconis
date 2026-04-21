@@ -35,6 +35,13 @@ const STAERKEN: Staerke[] = [
     text: "Nach der Übergabe beginnt die eigentliche Beziehung. Fragen, Nachträge, kleine Änderungen, neue Ideen · ich bin erreichbar, die ganze Zeit, über Jahre. Kein Ticketsystem, kein Support-Hotline-Robot. Eine Mail, eine Antwort.",
     beweis: "direkter draht · auch 2 jahre später.",
   },
+  {
+    num: "04",
+    titel: "in 3 jahren redest du mit demselben",
+    kicker: "\u201eOhh, der Kollege, der das damals gemacht hat, arbeitet leider nicht mehr hier.\u201c · Gibt's bei mir nicht.",
+    text: "Klassische Szene in meiner Branche: Du rufst zwei Jahre nach Launch an, willst eine Kleinigkeit ändern · und kriegst \u201eDer Kollege arbeitet hier nicht mehr, aber jemand Neues schaut sich das mal an\u201c. Oder der Laden heißt inzwischen anders. Oder den Laden gibt's nicht mehr. Bei mir: eine Person, ein Name, kein Personalroulette. Ich bin laconis. Und ich habe nicht vor, das nächstes Jahr umzubennen, an jemanden zu übergeben oder den Laden dichtzumachen, weil der Geschäftsführer sich umorientiert. Solo · mit Absicht.",
+    beweis: "keine fluktuation · kein rebrand · kein weg.",
+  },
 ];
 
 export function StaerkenSection() {
@@ -43,7 +50,7 @@ export function StaerkenSection() {
       <div className="container-site">
         <SectionLabel num="07">was mich ausmacht</SectionLabel>
         <h2 className="heading-display mt-4 text-[clamp(2rem,5vw,3.5rem)] text-offwhite leading-[1.05] max-w-[820px]">
-          drei dinge, auf die ich{" "}
+          vier dinge, auf die ich{" "}
           <span className="italic font-serif text-accent-ink">stehe</span>.
         </h2>
         <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/55">

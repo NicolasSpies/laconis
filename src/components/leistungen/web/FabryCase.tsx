@@ -120,8 +120,8 @@ function FabryScreenshotPlaceholder() {
           </g>
           {/* Sonnenstrahlen / Licht */}
           <g opacity="0.12">
-            <path d="M 420 -20 L 200 380 L 240 380 L 460 -20 Z" fill="#E1FD52" />
-            <path d="M 480 -20 L 300 380 L 320 380 L 500 -20 Z" fill="#E1FD52" />
+            <path d="M 420 -20 L 200 380 L 240 380 L 460 -20 Z" fill="rgb(var(--accent))" />
+            <path d="M 480 -20 L 300 380 L 320 380 L 500 -20 Z" fill="rgb(var(--accent))" />
           </g>
         </svg>
 
@@ -198,16 +198,16 @@ export function FabryCase() {
             <span className="text-offwhite/35">messbar.</span>
           </h2>
           <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/55">
-            fabry baumpflege, eupen. onepager, eigenes CMS, SEO von anfang an.
-            google lighthouse sagt 96 mobil und 98 auf dem desktop. das ist
-            nicht geschönt, das ist der live-test, den jeder besucher selbst
+            Fabry Baumpflege, Eupen. Onepager, eigenes CMS, SEO von Anfang an.
+            Google Lighthouse sagt 96 mobil und 98 auf dem Desktop. Das ist
+            nicht geschönt, das ist der Live-Test, den jeder Besucher selbst
             nachmachen kann.
           </p>
         </div>
 
         <div className="mt-12 grid lg:grid-cols-[1.35fr_1fr] gap-6 items-stretch">
           {/* Screenshot */}
-          <div className="rounded-2xl border border-ink/10 bg-gradient-to-b from-ink/[0.02] to-transparent p-5 md:p-6">
+          <div className="glass rounded-2xl p-5 md:p-6">
             <FabryScreenshotPlaceholder />
             <div className="mt-4 flex items-baseline justify-between gap-3">
               <div>
@@ -228,7 +228,7 @@ export function FabryCase() {
           </div>
 
           {/* PageSpeed-Panel */}
-          <div className="rounded-2xl border border-ink/10 bg-gradient-to-b from-ink/[0.02] to-transparent p-5 md:p-6 flex flex-col">
+          <div className="glass rounded-2xl p-5 md:p-6 flex flex-col">
             <div className="flex items-baseline justify-between">
               <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                 google PageSpeed insights
@@ -248,8 +248,8 @@ export function FabryCase() {
             </div>
 
             <p className="mt-6 text-[12px] leading-relaxed text-offwhite/55">
-              95+ bedeutet: seite lädt in unter einer sekunde, ist für
-              screenreader lesbar und google versteht sie sofort.
+              95+ bedeutet: Seite lädt in unter einer Sekunde, ist für
+              Screenreader lesbar und Google versteht sie sofort.
             </p>
           </div>
         </div>

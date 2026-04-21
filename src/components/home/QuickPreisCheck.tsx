@@ -78,7 +78,7 @@ export function QuickPreisCheck() {
                       key={o.value}
                       type="button"
                       onClick={() => pick(o.value)}
-                      className="group relative rounded-xl border border-ink/10 bg-ink/[0.02] px-5 py-5 text-left hover:border-lime/50 hover:bg-lime/[0.04] transition-all"
+                      className="group relative glass rounded-xl px-5 py-5 text-left hover:border-lime/50 hover:bg-lime/[0.04] transition-all"
                     >
                       <span className="block heading-sans text-[18px] text-offwhite group-hover:text-accent-ink transition-colors">
                         {o.label}

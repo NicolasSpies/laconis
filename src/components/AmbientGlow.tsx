@@ -27,13 +27,14 @@ export function AmbientGlow() {
       aria-hidden
       className="fixed inset-0 -z-10 overflow-hidden pointer-events-none"
     >
-      {/* Orb 1 — main lime, soft breathing opacity */}
+      {/* Orb 1 — main lime glow */}
       <motion.div
         style={{
           top: top1,
           left: left1,
           x: "-50%",
           y: "-50%",
+          background: "rgb(var(--accent) / 0.11)",
         }}
         animate={{ opacity: [0.7, 1, 0.7] }}
         transition={{
@@ -41,7 +42,7 @@ export function AmbientGlow() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute w-[52vw] h-[52vw] max-w-[720px] max-h-[720px] rounded-full bg-lime/[0.09] blur-[150px] will-change-transform"
+        className="absolute w-[70vw] h-[70vw] max-w-[960px] max-h-[960px] rounded-full blur-[180px] will-change-transform"
       />
 
       {/* Orb 2 — right-side companion */}
@@ -51,6 +52,7 @@ export function AmbientGlow() {
           left: left2,
           x: "-50%",
           y: "-50%",
+          background: "rgb(var(--accent) / 0.07)",
         }}
         animate={{ opacity: [0.55, 0.9, 0.55] }}
         transition={{
@@ -59,16 +61,17 @@ export function AmbientGlow() {
           ease: "easeInOut",
           delay: 3,
         }}
-        className="absolute w-[40vw] h-[40vw] max-w-[560px] max-h-[560px] rounded-full bg-lime/[0.055] blur-[170px] will-change-transform"
+        className="absolute w-[55vw] h-[55vw] max-w-[760px] max-h-[760px] rounded-full blur-[200px] will-change-transform"
       />
 
-      {/* Orb 3 — warm amber, counter-drift */}
+      {/* Orb 3 — sanfter warm-amber akzent (hardcoded amber, bleibt in beiden themes) */}
       <motion.div
         style={{
           top: top3,
           left: left3,
           x: "-50%",
           y: "-50%",
+          background: "rgb(var(--accent) / 0.045)",
         }}
         animate={{ opacity: [0.5, 0.85, 0.5] }}
         transition={{
@@ -77,11 +80,11 @@ export function AmbientGlow() {
           ease: "easeInOut",
           delay: 5,
         }}
-        className="absolute w-[36vw] h-[36vw] max-w-[520px] max-h-[520px] rounded-full bg-[#ffe9a0]/[0.03] blur-[190px] will-change-transform"
+        className="absolute w-[48vw] h-[48vw] max-w-[680px] max-h-[680px] rounded-full blur-[220px] will-change-transform"
       />
 
-      {/* Top vignette */}
-      <div className="absolute inset-x-0 top-0 h-[14vh] bg-gradient-to-b from-black/90 to-transparent" />
+      {/* Top vignette · bg-dark flippt mit theme */}
+      <div className="absolute inset-x-0 top-0 h-[14vh] bg-gradient-to-b from-dark/90 to-transparent" />
 
       {/* Global grain */}
       <div className="absolute inset-0 noise opacity-[0.06] mix-blend-soft-light" />

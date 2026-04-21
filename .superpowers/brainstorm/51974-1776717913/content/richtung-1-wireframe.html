@@ -1,0 +1,181 @@
+<h2>richtung 1 · drei akte</h2>
+<p class="subtitle">wireframe-shape der neuen startseite · links was bleibt/neu ist · rechts was gestrichen wird</p>
+
+<div style="display:grid; grid-template-columns: 1fr 280px; gap: 32px; align-items: start;">
+
+  <!-- ═══════ LINKE SPALTE · NEUE HOMEPAGE SHAPE ═══════ -->
+  <div style="display:flex; flex-direction:column; gap:14px;">
+
+    <!-- AKT 0 · HERO (bleibt wie jetzt) -->
+    <div style="position:relative; border:1.5px solid #2a2a2a; border-radius:6px; padding:24px; background:#1a1a1a; color:#f2f2f2; min-height: 340px;">
+      <span style="position:absolute; top:8px; right:12px; font-size:10px; font-family:monospace; color:#888; letter-spacing:0.1em; text-transform:uppercase;">akt 0 · bleibt</span>
+      <div style="font-family:monospace; font-size:10px; color:#888; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:12px;">hero</div>
+      <div style="font-size:38px; font-weight:500; line-height:1.1; margin-bottom:16px;">eure website, <span style="background:#E1FD52; color:#111; padding:0 10px;">klar</span> auf den punkt.</div>
+      <div style="font-size:13px; color:#bbb; max-width:520px; line-height:1.5;">placeholder für deinen bestehenden hero-text · bleibt 1:1 wie jetzt</div>
+      <div style="display:flex; gap:8px; margin-top:24px;">
+        <div style="background:#E1FD52; color:#111; padding:8px 16px; border-radius:999px; font-size:11px; font-family:monospace;">projekt starten →</div>
+        <div style="border:1px solid #444; color:#f2f2f2; padding:8px 16px; border-radius:999px; font-size:11px; font-family:monospace;">referenzen</div>
+      </div>
+    </div>
+
+    <!-- VISUAL BREAK statt section-padding -->
+    <div style="text-align:center; color:#666; font-family:monospace; font-size:10px; letter-spacing:0.15em;">· · ·</div>
+
+    <!-- AKT 1 · PERSONAL MOMENT (neu/umgebaut) -->
+    <div style="position:relative; padding:48px 24px; min-height: 280px; background: #f5f2ea; border-radius:6px; color:#111;">
+      <span style="position:absolute; top:8px; right:12px; font-size:10px; font-family:monospace; color:#9a876a; letter-spacing:0.1em; text-transform:uppercase;">akt 1 · neu · haltung</span>
+
+      <!-- asymmetrisches layout · KEIN max-w-section · KEINE glass-card -->
+      <div style="display:grid; grid-template-columns: 140px 1fr; gap: 28px; align-items:start; max-width: 640px; margin-left:8%;">
+        <!-- portrait-detail · klein, asymmetrisch · nicht polaroid-style -->
+        <div style="width:120px; height:160px; background:#d9d1bd; border:1px solid #b8ad92; transform:rotate(-2deg); position:relative;">
+          <div style="position:absolute; inset:10px; background:#c9bfa5; font-family:monospace; font-size:9px; color:#7a6e4e; display:flex; align-items:center; justify-content:center; text-align:center;">portrait<br>nicolas<br>detail-shot</div>
+        </div>
+        <!-- haltung in EINEM satz · handschriftlich-elementen · kein h2-labeling -->
+        <div>
+          <div style="font-family:serif; font-style:italic; font-size:24px; line-height:1.35; color:#222;">
+            ich bin nicolas.<br>
+            ich mache nicht viele websites,<br>
+            aber die richtig.
+          </div>
+          <div style="margin-top:18px; font-family: 'Caveat', cursive; font-size:16px; color:#8a7a4e; transform:rotate(-1deg); display:inline-block;">
+            — und wenn du keine brauchst, sag ich dir das auch.
+          </div>
+          <div style="margin-top:20px; font-size:12px; font-family:monospace; color:#5a5040;">
+            <span style="border-bottom:1px dashed #5a5040;">mehr über meine haltung →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISUAL BREAK · andere art · bewusst anderer rhythmus -->
+    <div style="text-align:center; color:#666; font-family:monospace; font-size:10px; letter-spacing:0.15em;">arbeiten</div>
+
+    <!-- AKT 2 · POLAROID-BOARD (bleibt) -->
+    <div style="position:relative; border:1.5px solid #2a2a2a; border-radius:6px; padding:40px 24px; background:#1a1a1a; color:#f2f2f2; min-height: 380px;">
+      <span style="position:absolute; top:8px; right:12px; font-size:10px; font-family:monospace; color:#888; letter-spacing:0.1em; text-transform:uppercase;">akt 2 · bleibt · beweis</span>
+
+      <!-- polaroid-board schematisch · verstreut, rotiert -->
+      <div style="position:relative; height:300px;">
+        <div style="position:absolute; top:20px; left:8%; width:150px; height:180px; background:#fafaf5; transform:rotate(-6deg); box-shadow:0 8px 20px rgba(0,0,0,0.4); padding:8px;">
+          <div style="width:100%; height:75%; background:#888;"></div>
+          <div style="text-align:center; font-family:'Caveat',cursive; font-size:13px; color:#222; margin-top:6px;">fabry baumpflege</div>
+        </div>
+        <div style="position:absolute; top:40px; left:36%; width:150px; height:180px; background:#fafaf5; transform:rotate(3deg); box-shadow:0 8px 20px rgba(0,0,0,0.4); padding:8px;">
+          <div style="width:100%; height:75%; background:#aaa;"></div>
+          <div style="text-align:center; font-family:'Caveat',cursive; font-size:13px; color:#222; margin-top:6px;">bäckerei meier</div>
+        </div>
+        <div style="position:absolute; top:10px; left:62%; width:150px; height:180px; background:#fafaf5; transform:rotate(-3deg); box-shadow:0 8px 20px rgba(0,0,0,0.4); padding:8px;">
+          <div style="width:100%; height:75%; background:#999;"></div>
+          <div style="text-align:center; font-family:'Caveat',cursive; font-size:13px; color:#222; margin-top:6px;">atelier k</div>
+        </div>
+        <!-- cta-chip dezent unten rechts -->
+        <div style="position:absolute; bottom:0; right:16px; font-family:monospace; font-size:11px; color:#E1FD52; border-bottom:1px dashed #E1FD52; padding-bottom:2px;">alle 8 projekte →</div>
+      </div>
+    </div>
+
+    <!-- AKT 3 · KONTAKT als kurze zeile (nicht als section) -->
+    <div style="background:#1a1a1a; color:#f2f2f2; padding: 28px 24px; position:relative; border-radius:6px; border:1.5px solid #2a2a2a;">
+      <span style="position:absolute; top:8px; right:12px; font-size:10px; font-family:monospace; color:#888; letter-spacing:0.1em; text-transform:uppercase;">akt 3 · neu · kontakt</span>
+      <div style="display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; font-size:15px; font-family:serif;">
+        <span style="font-style:italic;">wenn's passt, lass uns reden —</span>
+        <span style="font-family:monospace; color:#E1FD52; border-bottom:1px solid #E1FD52;">nicolas@laconis.be</span>
+        <span style="color:#888; font-family:monospace; font-size:12px;">· oder</span>
+        <span style="font-family:monospace; color:#E1FD52; border-bottom:1px solid #E1FD52;">30 min kennenlernen buchen →</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════ RECHTE SPALTE · WAS WEG FÄLLT ═══════ -->
+  <div style="border-left:1px dashed #d0c8b8; padding-left:20px; position:sticky; top:16px;">
+    <div style="font-family:monospace; font-size:10px; color:#c85a3c; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:16px;">gestrichen von home</div>
+
+    <div style="display:flex; flex-direction:column; gap:10px; font-size:12px;">
+      <div style="padding:8px 10px; border:1px solid #ddd; border-radius:3px; color:#888; text-decoration:line-through; background:#fafaf5;">
+        <div style="font-family:monospace; font-size:10px; color:#c85a3c; text-transform:uppercase; margin-bottom:2px;">socialproof</div>
+        5+ projekte · 3 sprachen · 100% massgeschneidert
+      </div>
+      <div style="padding:8px 10px; border:1px solid #ddd; border-radius:3px; color:#888; text-decoration:line-through; background:#fafaf5;">
+        <div style="font-family:monospace; font-size:10px; color:#c85a3c; text-transform:uppercase; margin-bottom:2px;">leistungenteaser</div>
+        websites · branding · mockup-cards
+      </div>
+      <div style="padding:8px 10px; border:1px solid #ddd; border-radius:3px; color:#888; text-decoration:line-through; background:#fafaf5;">
+        <div style="font-family:monospace; font-size:10px; color:#c85a3c; text-transform:uppercase; margin-bottom:2px;">manifest</div>
+        als eigene section · haltung wandert nach akt 1
+      </div>
+      <div style="padding:8px 10px; border:1px solid #ddd; border-radius:3px; color:#888; text-decoration:line-through; background:#fafaf5;">
+        <div style="font-family:monospace; font-size:10px; color:#c85a3c; text-transform:uppercase; margin-bottom:2px;">ueber-mich-teaser</div>
+        detail-karten · gehört auf /ueber-mich
+      </div>
+      <div style="padding:8px 10px; border:1px solid #ddd; border-radius:3px; color:#888; text-decoration:line-through; background:#fafaf5;">
+        <div style="font-family:monospace; font-size:10px; color:#c85a3c; text-transform:uppercase; margin-bottom:2px;">kontaktstrip</div>
+        große section mit 3 cards · wird zu zeile (akt 3)
+      </div>
+    </div>
+
+    <div style="margin-top:32px; font-family:monospace; font-size:10px; color:#666; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:12px;">was bleibt / wird</div>
+    <div style="display:flex; flex-direction:column; gap:8px; font-size:12px; color:#444;">
+      <div>✓ hero (1:1)</div>
+      <div>✓ polaroid-board (1:1)</div>
+      <div>+ personal moment (neu)</div>
+      <div>+ kontakt-zeile (ex-strip)</div>
+    </div>
+
+    <div style="margin-top:32px; padding:12px; background:#eae4d4; border-left:3px solid #8a7a4e; font-size:11px; color:#3a3525; line-height:1.5;">
+      <strong>sections vorher:</strong> 7<br>
+      <strong>sections nachher:</strong> 4<br>
+      <strong>visuell unterschiedliche sprachen:</strong> 3 (dark, paper-warm, dark) — kein repeated section-rhythmus
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:40px; padding-top:24px; border-top:1px dashed #c8c0a8;">
+  <div style="font-family:monospace; font-size:10px; color:#5a5040; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:12px;">die drei schlüssel-ideen</div>
+  <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:20px; font-size:13px; line-height:1.5;">
+    <div>
+      <div style="font-weight:600; margin-bottom:6px;">1 · sections brechen den rhythmus</div>
+      dark → warm-paper → dark. nicht alle max-w-7xl. nicht alle glass-cards. jeder akt hat seine eigene visuelle sprache.
+    </div>
+    <div>
+      <div style="font-weight:600; margin-bottom:6px;">2 · haltung asymmetrisch statt zentral</div>
+      akt 1 ist kein "zentrierter section-header mit manifest-bulletpoints". einspalte-italic-text, 8% linksversetzt, portrait-fetzen daneben. fühlt sich wie ein persönlicher brief an, nicht wie eine about-section.
+    </div>
+    <div>
+      <div style="font-weight:600; margin-bottom:6px;">3 · kontakt ist eine zeile</div>
+      nicht drei cards mit headlines. ein satz mit zwei verlinkten aktionen. "ruf mich an" als tatsächlicher satz, nicht als button-farm.
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:32px; padding:16px 20px; background:#fdf6d8; border:1px solid #e8d868; border-radius:4px; font-size:12px; color:#5a4e20; line-height:1.6;">
+  <strong>wichtig:</strong> das hier ist bewusst wireframe-level — keine echten styles, keine finalen schriften, keine echten bilder. es geht um die <em>shape</em> der seite: was wo sitzt, in welcher reihenfolge, mit welcher visuellen hierarchie. erst wenn du sagst "ja die shape passt", machen wir echte mockups mit deinen tokens/assets/fotos.
+</div>
+
+<div style="margin-top:32px;">
+  <h3>passt die shape?</h3>
+  <p class="subtitle">klick eine option (oder schreib in terminal)</p>
+  <div class="options">
+    <div class="option" data-choice="yes" onclick="toggleSelect(this)">
+      <div class="letter">A</div>
+      <div class="content">
+        <h3>ja · die shape sitzt</h3>
+        <p>reihenfolge + drei-akte-logik + streichungen stimmen · als nächstes echte mockups mit deinen tokens/assets</p>
+      </div>
+    </div>
+    <div class="option" data-choice="tweak" onclick="toggleSelect(this)">
+      <div class="letter">B</div>
+      <div class="content">
+        <h3>fast · aber eine sache stört</h3>
+        <p>shape ok, aber z.b. akt 1 zu viel/wenig, oder eine streichung will ich zurück, oder kontakt-zeile reicht nicht</p>
+      </div>
+    </div>
+    <div class="option" data-choice="different" onclick="toggleSelect(this)">
+      <div class="letter">C</div>
+      <div class="content">
+        <h3>nee · doch anders</h3>
+        <p>das hier ist nicht die richtige richtung · lass uns nochmal drüber reden</p>
+      </div>
+    </div>
+  </div>
+</div>

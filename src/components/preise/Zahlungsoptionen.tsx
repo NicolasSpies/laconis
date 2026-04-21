@@ -20,33 +20,33 @@ const MODELLE: Modell[] = [
   {
     num: "01",
     titel: "komplett bei lieferung",
-    kurz: "einmalig beim launch.",
+    kurz: "Einmalig beim Launch.",
     details: [
-      "voller betrag mit projekt-abschluss",
-      "keine zinsen, keine teilbeträge",
-      "einfachste variante • am schnellsten durch",
+      "Voller Betrag mit Projekt-Abschluss",
+      "Keine Zinsen, keine Teilbeträge",
+      "Einfachste Variante • am schnellsten durch",
     ],
     highlight: true,
   },
   {
     num: "02",
     titel: "50% anzahlung + raten",
-    kurz: "hälfte zum start, rest in bis zu 5 raten.",
+    kurz: "Hälfte zum Start, Rest in bis zu 5 Raten.",
     details: [
-      "50% bei auftrag",
-      "rest aufgeteilt auf bis zu 5 monate",
-      "läuft automatisiert • SEPA-lastschrift oder überweisung",
+      "50% bei Auftrag",
+      "Rest aufgeteilt auf bis zu 5 Monate",
+      "Läuft automatisiert • SEPA-Lastschrift oder Überweisung",
     ],
     zinsNote: "2% / monat · gedeckelt bei max 10%",
   },
   {
     num: "03",
     titel: "vollständig in raten",
-    kurz: "kein startbetrag, gleichmäßig über max 6 monate.",
+    kurz: "Kein Startbetrag, gleichmäßig über max. 6 Monate.",
     details: [
-      "ab erstem monat raten, bis 6 monate",
-      "gleichbleibende monatsrate",
-      "für kleinere betriebe mit monatlichem cashflow gedacht",
+      "Ab erstem Monat Raten, bis 6 Monate",
+      "Gleichbleibende Monatsrate",
+      "Für kleinere Betriebe mit monatlichem Cashflow gedacht",
     ],
     zinsNote: "4% / monat auf laufenden restbetrag",
   },
@@ -65,9 +65,9 @@ export function Zahlungsoptionen() {
             </span>
           </h2>
           <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/55">
-            keine „auf anfrage"-spielchen bei den zinsen. du siehst, was eine
-            rate dich mehr kostet • bevor du fragst. such dir aus, was zu
-            deinem cashflow passt.
+            Keine „auf Anfrage"-Spielchen bei den Zinsen. Du siehst, was eine
+            Rate dich mehr kostet · bevor du fragst. Such dir aus, was zu
+            deinem Cashflow passt.
           </p>
         </div>
 
@@ -134,7 +134,7 @@ export function Zahlungsoptionen() {
         </div>
 
         {/* HOSTING NOTE */}
-        <div className="mt-6 rounded-xl border border-ink/10 bg-ink/[0.015] px-5 py-4 flex items-start gap-3 max-w-[820px]">
+        <div className="mt-6 glass rounded-xl px-5 py-4 flex items-start gap-3 max-w-[820px]">
           <span
             aria-hidden
             className="mt-0.5 font-mono text-[11px] text-accent-ink shrink-0"
@@ -142,11 +142,11 @@ export function Zahlungsoptionen() {
             ⓘ
           </span>
           <p className="text-[13px] leading-relaxed text-offwhite/55">
-            <span className="text-offwhite/75">hosting läuft immer über lacønis.</span>{" "}
-            jährlich fakturiert, der preis wird pro monat kommuniziert damit du
-            ihn gegen deine laufenden kosten halten kannst. das ist kein extra
-            produkt zum mitverhandeln • es ist teil vom service, damit ich
-            weiß, dass das ding läuft.
+            <span className="text-offwhite/75">Hosting läuft immer über lacønis.</span>{" "}
+            Jährlich fakturiert, der Preis wird pro Monat kommuniziert, damit du
+            ihn gegen deine laufenden Kosten halten kannst. Das ist kein extra
+            Produkt zum Mitverhandeln · es ist Teil vom Service, damit ich
+            weiß, dass das Ding läuft.
           </p>
         </div>
       </div>

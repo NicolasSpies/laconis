@@ -11,61 +11,61 @@ const FEATURES: Feature[] = [
     titel: "KI, die mitliest",
     stichwort: "01 · intelligenz",
     beschreibung:
-      "lädst du ein foto hoch, beschreibt die KI automatisch was drauf ist, in allen sprachen. google dankt, screenreader auch. für texte gibt's tippfehler-, grammatik- und stil-hinweise direkt im editor.",
+      "Lädst du ein Foto hoch, beschreibt die KI automatisch, was drauf ist, in allen Sprachen. Google dankt, Screenreader auch. Für Texte gibt's Tippfehler-, Grammatik- und Stil-Hinweise direkt im Editor.",
   },
   {
     titel: "ein klick übersetzt alles",
     stichwort: "02 · mehrsprachig",
     beschreibung:
-      "deutsch, französisch, englisch, was du brauchst. KI macht den groben wurf, du schleifst nach. jede sprache hat eigene URL, eigene SEO, eigenen übersetzungsstatus.",
+      "Deutsch, Französisch, Englisch · was du brauchst. KI macht den groben Wurf, du schleifst nach. Jede Sprache hat eigene URL, eigene SEO, eigenen Übersetzungsstatus.",
   },
   {
     titel: "bilder, die sich selbst optimieren",
     stichwort: "03 · performance",
     beschreibung:
-      "foto hochladen, fertig. contentcore wandelt in webp (30% kleiner), schneidet fünf grössen für handy bis desktop, und bei bildermonstern wie fotograf:innen landet alles im cloud-speicher.",
+      "Foto hochladen, fertig. ContentCore wandelt in WebP (30% kleiner), schneidet fünf Größen für Handy bis Desktop, und bei Bildermonstern wie Fotograf:innen landet alles im Cloud-Speicher.",
   },
   {
     titel: "newsletter direkt im system",
     stichwort: "04 · kontakt",
     beschreibung:
-      "kein mailchimp-abo mehr. drag-&-drop-editor, abonnenten-verwaltung, öffnungsraten, versand geplant oder sofort, alles in contentcore.",
+      "Kein Mailchimp-Abo mehr. Drag-&-Drop-Editor, Abonnenten-Verwaltung, Öffnungsraten, Versand geplant oder sofort, alles in ContentCore.",
   },
   {
     titel: "shop ohne shopify",
     stichwort: "05 · verkauf",
     beschreibung:
-      "produkte, varianten, lagerbestand, stripe-checkout mit apple pay und SEPA. 1,5% + 25 cent pro transaktion, keine shopify-grundgebühr.",
+      "Produkte, Varianten, Lagerbestand, Stripe-Checkout mit Apple Pay und SEPA. 1,5% + 25 Cent pro Transaktion, keine Shopify-Grundgebühr.",
   },
   {
     titel: "versionsverlauf als sicherheitsnetz",
     stichwort: "06 · ruhe",
     beschreibung:
-      "alle 30 sekunden automatisch speichern. jede änderung bleibt in der historie, du kannst jederzeit zurück. wenn zwei gleichzeitig am selben artikel sind, warnt das system, bevor was doppelt entsteht.",
+      "Alle 30 Sekunden automatisch speichern. Jede Änderung bleibt in der Historie, du kannst jederzeit zurück. Wenn zwei gleichzeitig am selben Artikel sind, warnt das System, bevor was doppelt entsteht.",
   },
   {
     titel: "redaktionskalender",
     stichwort: "07 · planung",
     beschreibung:
-      "monats- und wochenansicht, artikel per drag & drop verschieben, farbcodiert nach inhaltstyp. für alle, die mehr als drei posts im jahr machen.",
+      "Monats- und Wochenansicht, Artikel per Drag & Drop verschieben, farbcodiert nach Inhaltstyp. Für alle, die mehr als drei Posts im Jahr machen.",
   },
   {
     titel: "jahresrückblick, automatisch",
     stichwort: "08 · gimmick",
     beschreibung:
-      "jedes jahr am 1. dezember bekommt jeder kunde eine animierte story, wie bei instagram, nur für deine seite. meistgelesener artikel, bester monat, total-besucher. teilbar, vollautomatisch.",
+      "Jedes Jahr am 1. Dezember bekommt jeder Kunde eine animierte Story, wie bei Instagram, nur für deine Seite. Meistgelesener Artikel, bester Monat, Total-Besucher. Teilbar, vollautomatisch.",
   },
   {
     titel: "dein branding, nicht meins",
     stichwort: "09 · white-label",
     beschreibung:
-      "im contentcore siehst du dein logo, deine firmenfarben, deinen namen. das wort „contentcore\" taucht nirgends auf. es fühlt sich an wie dein eigenes system, weil es das ist.",
+      "Im ContentCore siehst du dein Logo, deine Firmenfarben, deinen Namen. Das Wort „ContentCore\" taucht nirgends auf. Es fühlt sich an wie dein eigenes System, weil es das ist.",
   },
   {
     titel: "statistiken ohne spionage",
     stichwort: "10 · ehrlich",
     beschreibung:
-      "keine cookies, kein google analytics, kein banner. du siehst trotzdem: besucherzahl, top-seiten, geräteverteilung, herkunft. sauber, DSGVO-konform, ohne ballast.",
+      "Keine Cookies, kein Google Analytics, kein Banner. Du siehst trotzdem: Besucherzahl, Top-Seiten, Geräteverteilung, Herkunft. Sauber, DSGVO-konform, ohne Ballast.",
   },
 ];
 
@@ -84,9 +84,9 @@ export function ContentCoreDeepDive({
             </span>
           </h2>
           <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/55">
-            kein shopify für den shop, kein mailchimp für den newsletter, kein
-            WPML für die übersetzung, kein analytics-dschungel für die
-            statistik. alles an einem ort, alles aufeinander abgestimmt, alles
+            Kein Shopify für den Shop, kein Mailchimp für den Newsletter, kein
+            WPML für die Übersetzung, kein Analytics-Dschungel für die
+            Statistik. Alles an einem Ort, alles aufeinander abgestimmt, alles
             von mir gewartet.
           </p>
         </div>
@@ -95,7 +95,7 @@ export function ContentCoreDeepDive({
           {FEATURES.map((f) => (
             <div
               key={f.titel}
-              className="rounded-xl border border-ink/10 bg-gradient-to-b from-ink/[0.02] to-transparent p-6 flex flex-col gap-3 hover:border-lime/25 transition-colors"
+              className="glass rounded-xl p-6 flex flex-col gap-3 hover:border-lime/25 transition-colors"
             >
               <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink/80">
                 {f.stichwort}

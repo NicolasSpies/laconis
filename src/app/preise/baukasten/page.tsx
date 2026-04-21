@@ -15,17 +15,17 @@ const SCHRITTE = [
   {
     num: "1",
     titel: "anschalten",
-    text: "web, grafik oder beides • jede kategorie ist ein eigener schalter. was aus ist, kostet nichts.",
+    text: "Web, Branding oder beides · jede Kategorie ist ein eigener Schalter. Was aus ist, kostet nichts.",
   },
   {
     num: "2",
     titel: "feinjustieren",
-    text: "umfang, sprachen, cms-bereiche, hosting • alles mit kurzen erklärungen. keine fachbegriffe ohne übersetzung.",
+    text: "Umfang, Sprachen, CMS-Bereiche, Hosting · alles mit kurzen Erklärungen. Keine Fachbegriffe ohne Übersetzung.",
   },
   {
     num: "3",
     titel: "bon nehmen",
-    text: "rechts wächst dein kassenzettel live mit. als pdf speichern, link teilen, oder direkt bei mir anfragen.",
+    text: "Rechts wächst dein Kassenzettel live mit. Als PDF speichern, Link teilen, oder direkt bei mir anfragen.",
   },
 ];
 
@@ -65,10 +65,10 @@ export default function Page() {
               </span>
             </h1>
             <p className="mt-8 max-w-[620px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-              keine fertigpackung, die ein bisschen zu klein oder ein bisschen
-              zu viel ist. du schaltest ein was du brauchst • ich rechne live
-              mit, inklusive rabatten und hosting. am ende nimmst du den bon
-              als pdf mit oder schickst mir die anfrage direkt.
+              Keine Fertigpackung, die ein bisschen zu klein oder ein bisschen
+              zu viel ist. Du schaltest ein, was du brauchst · ich rechne live
+              mit, inklusive Rabatten und Hosting. Am Ende nimmst du den Bon
+              als PDF mit oder schickst mir die Anfrage direkt.
             </p>
           </div>
         </div>
@@ -85,7 +85,7 @@ export default function Page() {
             {SCHRITTE.map((s) => (
               <div
                 key={s.num}
-                className="rounded-xl border border-ink/10 bg-ink/[0.015] p-5 md:p-6"
+                className="glass rounded-xl p-5 md:p-6"
               >
                 <div className="flex items-baseline justify-between">
                   <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
@@ -128,9 +128,9 @@ export default function Page() {
         <div className="container-site">
           <div className="max-w-[820px] mx-auto text-center">
             <p className="text-[13px] leading-relaxed text-offwhite/55">
-              unsicher bei einer entscheidung? lass sie einfach offen • im
-              gespräch klären wir das in 10 minuten und ich rechne dir die
-              finalen zahlen.
+              Unsicher bei einer Entscheidung? Lass sie einfach offen · im
+              Gespräch klären wir das in 10 Minuten und ich rechne dir die
+              finalen Zahlen.
             </p>
             <div className="mt-6">
               <Link

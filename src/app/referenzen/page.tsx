@@ -19,8 +19,8 @@ export default function Page() {
             <span className="text-offwhite/35">arbeiten.</span>
           </h1>
           <p className="mt-8 max-w-[560px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-            projekte, die bleiben • keine 0815-websites, keine austauschbaren
-            logos. einfach sachen, die zu den leuten passen, die dahinter
+            Projekte, die bleiben • keine 0815-Websites, keine austauschbaren
+            Logos. Einfach Sachen, die zu den Leuten passen, die dahinter
             stehen.
           </p>
           <p className="mt-4 max-w-[560px] font-mono text-[11px] uppercase tracking-label text-offwhite/55">

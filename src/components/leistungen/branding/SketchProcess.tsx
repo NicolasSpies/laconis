@@ -12,28 +12,28 @@ const STEPS = [
     num: "01",
     titel: "kennenlernen",
     handNote: "wer bist du?",
-    kurz: "wir reden über dich, nicht übers logo. je ehrlicher, desto besser das ergebnis.",
+    kurz: "Wir reden über dich, nicht übers Logo. Je ehrlicher, desto besser das Ergebnis.",
     dauer: "~1 h",
   },
   {
     num: "02",
     titel: "moodboard",
     handNote: "richtung, nicht lösung",
-    kurz: "3-5 welten zur auswahl. wir picken, was anfühlt.",
+    kurz: "3-5 Welten zur Auswahl. Wir picken, was sich anfühlt.",
     dauer: "~3-5 tage",
   },
   {
     num: "03",
     titel: "entwurf",
     handNote: "tiefer, nicht breiter",
-    kurz: "zwei richtungen, kein 27-optionen-schaufenster. wir gehen in die substanz.",
+    kurz: "Zwei Richtungen, kein 27-Optionen-Schaufenster. Wir gehen in die Substanz.",
     dauer: "~1-2 wochen",
   },
   {
     num: "04",
     titel: "feinschliff + lieferung",
     handNote: "du bekommst alles",
-    kurz: "alle dateien, kurz-manual, print-ready. keine nachlieferungen.",
+    kurz: "Alle Dateien, Kurz-Manual, Print-ready. Keine Nachlieferungen.",
     dauer: "~3-5 tage",
   },
 ];
@@ -49,14 +49,14 @@ export function SketchProcess({ num = "03" }: { num?: string } = {}) {
             <span className="text-offwhite/35">vom gespräch bis zur übergabe.</span>
           </h2>
           <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/55">
-            kein agentur-gantt-chart, kein 42-seiten-prozess-dokument. vier
-            schritte · jeder mit einem klaren ergebnis, bevor der nächste
+            Kein Agentur-Gantt-Chart, kein 42-Seiten-Prozess-Dokument. Vier
+            Schritte · jeder mit einem klaren Ergebnis, bevor der nächste
             anfängt.
           </p>
         </div>
 
         {/* sketchbook */}
-        <div className="mt-16 relative rounded-2xl border border-ink/10 bg-gradient-to-b from-ink/[0.02] to-transparent p-6 md:p-12 overflow-hidden">
+        <div className="mt-16 relative glass rounded-2xl p-6 md:p-12 overflow-hidden">
           {/* papier-grid subtiler background */}
           <div
             className="absolute inset-0 opacity-[0.08] pointer-events-none"

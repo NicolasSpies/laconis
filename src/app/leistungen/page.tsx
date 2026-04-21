@@ -10,14 +10,14 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 type Leistung = {
-  key: "web" | "grafik";
+  key: "web" | "branding";
   label: string;
   href: string;
 };
 
 const LEISTUNGEN: Leistung[] = [
   { key: "web", label: "web", href: "/leistungen/web" },
-  { key: "grafik", label: "grafik", href: "/leistungen/grafik" },
+  { key: "branding", label: "branding", href: "/leistungen/branding" },
 ];
 
 export default function Page() {
@@ -28,7 +28,7 @@ export default function Page() {
         <div className="container-site">
           {/* h1 · sichtbar nur für screenreader, visual hierarchy über demos
               → trotzdem SEO-wirksam, klare primäre aussage für die route */}
-          <h1 className="sr-only">web + grafik. aus einem kopf.</h1>
+          <h1 className="sr-only">web + branding. aus einem kopf.</h1>
 
           {/* kleine pre-h-aufklärung für sehende user */}
           <div className="flex justify-center mb-8 md:mb-12">
@@ -38,35 +38,27 @@ export default function Page() {
           </div>
 
           <div className="relative grid lg:grid-cols-2 gap-10 lg:gap-14">
-            {LEISTUNGEN.map((w, i) => (
+            {LEISTUNGEN.map((w) => (
               <Link
                 key={w.key}
                 href={w.href}
                 className="group relative flex flex-col"
               >
-                {/* kringel-nummer · handgezeichnet */}
-                <span
-                  aria-hidden
-                  className="absolute -top-6 -left-2 z-10 font-hand text-[38px] leading-none text-accent-ink"
-                  style={{
-                    transform: `rotate(${i === 0 ? -8 : 6}deg)`,
-                  }}
-                >
-                  {i === 0 ? "i." : "ii."}
-                </span>
                 <div className="relative">
-                  {w.key === "web" ? <WebDemo /> : <GrafikDemo />}
+                  {w.key === "web" ? <WebDemo /> : <GrafikDemo />}{/* GrafikDemo = branding-visual */}
                 </div>
               </Link>
             ))}
 
-            {/* hand-aside zwischen den cards · nur desktop sichtbar */}
+            {/* hand-aside zwischen den cards · nur desktop sichtbar · 1 wort pro zeile */}
             <span
               aria-hidden
-              className="hidden lg:block pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-hand text-[22px] text-accent-ink/80 whitespace-nowrap"
+              className="hidden lg:flex flex-col items-center pointer-events-none absolute left-1/2 top-1/2 font-hand text-[26px] md:text-[30px] leading-[0.95] text-accent-ink/85"
               style={{ transform: "translate(-50%, -50%) rotate(-4deg)" }}
             >
-              am liebsten beides.
+              <span>am</span>
+              <span>liebsten</span>
+              <span>beides.</span>
             </span>
           </div>
 

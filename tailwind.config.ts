@@ -11,7 +11,7 @@ const config: Config = {
       colors: {
         lime: "rgb(var(--accent) / <alpha-value>)",
         accent: "rgb(var(--accent) / <alpha-value>)",
-        "accent-ink": "rgb(var(--accent-ink) / <alpha-value>)",
+        "accent-ink": "rgb(var(--accent) / <alpha-value>)",
         anthrazit: "rgb(var(--anthrazit) / <alpha-value>)",
         offwhite: "rgb(var(--fg) / <alpha-value>)",
         grey: "rgb(var(--fg-muted) / <alpha-value>)",

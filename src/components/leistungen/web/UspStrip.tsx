@@ -29,7 +29,7 @@ export function UspStrip() {
           {USPS.map((u) => (
             <div
               key={u.label}
-              className="bg-black/40 px-6 py-7 md:py-8 flex flex-col justify-between min-h-[160px]"
+              className="bg-dark/40 px-6 py-7 md:py-8 flex flex-col justify-between min-h-[160px]"
             >
               <div>
                 <div className="heading-display text-[clamp(2.25rem,5vw,3.5rem)] text-accent-ink leading-none">

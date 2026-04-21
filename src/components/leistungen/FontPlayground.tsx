@@ -94,7 +94,10 @@ export function FontPlayground() {
         className="relative rounded-xl border border-ink/10 bg-[#0e0e0e] p-8 md:p-12 overflow-hidden min-h-[420px]"
       >
         {/* subtle accent glow */}
-        <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-lime/[0.1] blur-3xl pointer-events-none" />
+        <div
+          className="absolute -top-24 -right-24 w-64 h-64 rounded-full blur-3xl pointer-events-none"
+          style={{ background: "rgb(var(--accent) / 0.1)" }}
+        />
 
         <div className="relative">
           {/* small brand label */}

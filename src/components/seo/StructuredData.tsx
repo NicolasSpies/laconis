@@ -74,7 +74,7 @@ const schema = {
       "@id": `${BASE}/#local`,
       name: "lacønis",
       description:
-        "Freelance Design + Web Development · websites, branding, print, werbetechnik.",
+        "Freelance Design + Web Development · websites, branding, print.",
       url: BASE,
       image: `${BASE}/opengraph-image`,
       email: `mailto:${CONTACT.email}`,

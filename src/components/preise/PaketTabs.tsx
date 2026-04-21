@@ -44,7 +44,7 @@ type Paket = {
 /**
  * terminologie:
  * - "web"       → websites (1:1 mit nav/leistungen/web)
- * - "grafik" → branding + print + social (1:1 mit nav/leistungen/grafik)
+ * - "grafik" → branding + print + social (1:1 mit nav/leistungen/branding)
  * - "bundle"    → web + grafik kombiniert
  *
  * die paket-IDs bleiben aus kompatibilitäts-gründen mit "grafik-" prefix,
@@ -72,19 +72,19 @@ const TABS: TabDef[] = [
   {
     id: "web",
     label: "web",
-    subLabel: "websites von einseiter bis mehrsprachig",
+    subLabel: "Websites von Einseiter bis mehrsprachig.",
     pakete: [
       {
         id: "web-basis",
         num: "01",
         name: "Basis",
-        tagline: "für selbständige & neugründer.",
+        tagline: "Für Selbständige & Neugründer.",
         price: 1400,
         highlights: [
-          "onepager",
-          { label: "responsive", note: "sieht auf handy und tablet genauso gut aus." },
-          { label: "seo", note: "damit google dich überhaupt findet." },
-          "ssl + backups + monitoring",
+          "Onepager",
+          { label: "responsive", note: "Sieht auf Handy und Tablet genauso gut aus." },
+          { label: "seo", note: "Damit Google dich überhaupt findet." },
+          "SSL + Backups + Monitoring",
         ],
         config: { baseMonthly: 20 },
       },
@@ -92,12 +92,12 @@ const TABS: TabDef[] = [
         id: "web-standard",
         num: "02",
         name: "Standard",
-        tagline: "für KMUs & lokalbetriebe.",
+        tagline: "Für KMUs & Lokalbetriebe.",
         price: 2800,
         highlights: [
-          "alles aus basis, plus:",
-          { label: "bis zu 5 unterseiten", note: "mehr seiten jederzeit zubuchbar." },
-          { label: "1 cms-bereich", note: "du pflegst inhalte selbst." },
+          "Alles aus Basis, plus:",
+          { label: "bis zu 5 unterseiten", note: "Mehr Seiten jederzeit zubuchbar." },
+          { label: "1 cms-bereich", note: "Du pflegst Inhalte selbst." },
         ],
         featured: true,
         config: { baseMonthly: 30 },
@@ -106,35 +106,35 @@ const TABS: TabDef[] = [
         id: "web-pro",
         num: "03",
         name: "Pro",
-        tagline: "für wachsende unternehmen.",
+        tagline: "Für wachsende Unternehmen.",
         price: 4200,
         highlights: [
-          "alles aus standard, plus:",
-          { label: "bis zu 10 unterseiten · 2 cms-bereiche", note: "seiten und bereiche erweiterbar." },
-          { label: "mehrsprachig", note: "2 sprachen inklusive." },
+          "Alles aus Standard, plus:",
+          { label: "bis zu 10 unterseiten · 2 cms-bereiche", note: "Seiten und Bereiche erweiterbar." },
+          { label: "mehrsprachig", note: "2 Sprachen inklusive." },
         ],
         config: { baseMonthly: 40 },
       },
     ],
     compare: [
       {
-        label: "responsiv · seo · ssl",
+        label: "Responsiv · SEO · SSL",
         values: { "web-basis": true, "web-standard": true, "web-pro": true },
       },
       {
-        label: "eigenes analytics (kein cookie-banner)",
+        label: "Eigenes Analytics (kein Cookie-Banner)",
         values: { "web-basis": true, "web-standard": true, "web-pro": true },
       },
       {
-        label: "kontaktformular · impressum · datenschutz",
+        label: "Kontaktformular · Impressum · Datenschutz",
         values: { "web-basis": true, "web-standard": true, "web-pro": true },
       },
       {
-        label: "einführungs-videocall",
+        label: "Einführungs-Videocall",
         values: { "web-basis": true, "web-standard": true, "web-pro": true },
       },
       {
-        label: "unterseiten inklusive",
+        label: "Unterseiten inklusive",
         values: {
           "web-basis": "onepager",
           "web-standard": "bis 5",
@@ -142,7 +142,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "cms-bereiche (selbst pflegbar)",
+        label: "CMS-Bereiche (selbst pflegbar)",
         values: {
           "web-basis": false,
           "web-standard": "1 bereich",
@@ -150,7 +150,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "mehrsprachigkeit",
+        label: "Mehrsprachigkeit",
         values: {
           "web-basis": false,
           "web-standard": false,
@@ -158,7 +158,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "hosting · ssl · backups · monitoring",
+        label: "Hosting · SSL · Backups · Monitoring",
         values: {
           "web-basis": "onepager-tier",
           "web-standard": "multipager-tier",
@@ -166,44 +166,44 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "domain + mail-postfächer zubuchbar",
+        label: "Domain + Mail-Postfächer zubuchbar",
         values: { "web-basis": true, "web-standard": true, "web-pro": true },
       },
       {
-        label: "weitere seiten & extras zubuchbar",
+        label: "Weitere Seiten & Extras zubuchbar",
         values: { "web-basis": true, "web-standard": true, "web-pro": true },
       },
     ],
   },
 
-  /* ──────────── grafik ──────────── */
+  /* ──────────── branding (tab-id bleibt "grafik" für URL-kompat) ──────────── */
   {
     id: "grafik",
-    label: "grafik",
-    subLabel: "brand identity, print, social • ohne website",
+    label: "branding",
+    subLabel: "Logo, Brand Identity, Print, Social · ohne Website.",
     pakete: [
       {
         id: "grafik-print",
         num: "01",
         name: "Print",
-        tagline: "für schnelle drucksachen.",
+        tagline: "Für schnelle Drucksachen.",
         price: 700,
         highlights: [
-          "flyer beidseitig + plakat",
-          "rollup · gestaltung",
-          "druckdaten druckfertig",
+          "Flyer beidseitig + Plakat",
+          "Rollup · Gestaltung",
+          "Druckdaten druckfertig",
         ],
       },
       {
         id: "grafik-brand",
         num: "02",
         name: "Brand Identity",
-        tagline: "deine komplette identität.",
+        tagline: "Deine komplette Identität.",
         price: 1200,
         highlights: [
-          "logo · varianten · favicon",
-          "brand guide + vk + briefpapier",
-          "3 social-templates",
+          "Logo · Varianten · Favicon",
+          "Brand Guide + VK + Briefpapier",
+          "3 Social-Templates",
         ],
         featured: true,
       },
@@ -211,18 +211,18 @@ const TABS: TabDef[] = [
         id: "grafik-social",
         num: "03",
         name: "Social",
-        tagline: "für social-media-präsenz.",
+        tagline: "Für Social-Media-Präsenz.",
         price: 600,
         highlights: [
-          "6 social-media-visuals",
-          "e-mail-signatur + visitenkarte",
-          "alle formate geliefert",
+          "6 Social-Media-Visuals",
+          "E-Mail-Signatur + Visitenkarte",
+          "Alle Formate geliefert",
         ],
       },
     ],
     compare: [
       {
-        label: "logo · varianten · favicon",
+        label: "Logo · Varianten · Favicon",
         values: {
           "grafik-print": false,
           "grafik-brand": true,
@@ -230,7 +230,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "mini brand guide",
+        label: "Mini Brand Guide",
         values: {
           "grafik-print": false,
           "grafik-brand": true,
@@ -238,7 +238,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "visitenkarte",
+        label: "Visitenkarte",
         values: {
           "grafik-print": false,
           "grafik-brand": true,
@@ -246,7 +246,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "briefpapier (DIN A4)",
+        label: "Briefpapier (DIN A4)",
         values: {
           "grafik-print": false,
           "grafik-brand": true,
@@ -254,7 +254,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "social-media-templates",
+        label: "Social-Media-Templates",
         values: {
           "grafik-print": false,
           "grafik-brand": "3 stk",
@@ -262,7 +262,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "social-media-visuals",
+        label: "Social-Media-Visuals",
         values: {
           "grafik-print": false,
           "grafik-brand": false,
@@ -270,7 +270,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "e-mail-signatur",
+        label: "E-Mail-Signatur",
         values: {
           "grafik-print": false,
           "grafik-brand": false,
@@ -278,7 +278,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "flyer (beidseitig)",
+        label: "Flyer (beidseitig)",
         values: {
           "grafik-print": true,
           "grafik-brand": false,
@@ -286,7 +286,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "plakat (alle formate)",
+        label: "Plakat (alle Formate)",
         values: {
           "grafik-print": true,
           "grafik-brand": false,
@@ -294,7 +294,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "rollup · gestaltung",
+        label: "Rollup · Gestaltung",
         values: {
           "grafik-print": true,
           "grafik-brand": false,
@@ -302,7 +302,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "druckdaten druckfertig",
+        label: "Druckdaten druckfertig",
         values: {
           "grafik-print": true,
           "grafik-brand": false,
@@ -316,20 +316,20 @@ const TABS: TabDef[] = [
   {
     id: "bundle",
     label: "bundle",
-    subLabel: "web + grafik zusammen • mit nachlass",
+    subLabel: "Web + Branding zusammen · mit Nachlass.",
     pakete: [
       {
         id: "bundle-launch",
         num: "01",
         name: "Launch",
-        tagline: "web basis + brand identity.",
+        tagline: "Web Basis + Brand Identity.",
         price: 2340,
         einzeln: 2600,
         saving: 260,
         highlights: [
-          "web basis + komplettes branding",
-          "logo, brand guide, vk, briefpapier",
-          "alles im selben look · aus einer hand",
+          "Web Basis + komplettes Branding",
+          "Logo, Brand Guide, VK, Briefpapier",
+          "Alles im selben Look · aus einer Hand",
         ],
         config: { baseMonthly: 20 },
       },
@@ -337,14 +337,14 @@ const TABS: TabDef[] = [
         id: "bundle-grow",
         num: "02",
         name: "Grow",
-        tagline: "web standard + brand identity.",
+        tagline: "Web Standard + Brand Identity.",
         price: 3600,
         einzeln: 4000,
         saving: 400,
         highlights: [
-          "alles aus launch, plus:",
-          "3 unterseiten statt onepager",
-          "1 cms-bereich · selbst pflegbar",
+          "Alles aus Launch, plus:",
+          "3 Unterseiten statt Onepager",
+          "1 CMS-Bereich · selbst pflegbar",
         ],
         featured: true,
         config: { baseMonthly: 30 },
@@ -353,21 +353,21 @@ const TABS: TabDef[] = [
         id: "bundle-full",
         num: "03",
         name: "Full Identity",
-        tagline: "komplett von null auf fertig.",
+        tagline: "Komplett von null auf fertig.",
         price: 5400,
         einzeln: 6000,
         saving: 600,
         highlights: [
-          "alles aus grow, plus:",
-          "5 unterseiten · 2 sprachen · 2 cms",
-          "6 social-visuals + e-mail-signatur",
+          "Alles aus Grow, plus:",
+          "5 Unterseiten · 2 Sprachen · 2 CMS",
+          "6 Social-Visuals + E-Mail-Signatur",
         ],
         config: { baseMonthly: 40 },
       },
     ],
     compare: [
       {
-        label: "website-basis (responsiv · seo · ssl)",
+        label: "Website-Basis (responsiv · SEO · SSL)",
         values: {
           "bundle-launch": true,
           "bundle-grow": true,
@@ -375,7 +375,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "komplettes branding (logo · guide · vk · briefpapier)",
+        label: "Komplettes Branding (Logo · Guide · VK · Briefpapier)",
         values: {
           "bundle-launch": true,
           "bundle-grow": true,
@@ -383,7 +383,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "3 social-templates",
+        label: "3 Social-Templates",
         values: {
           "bundle-launch": true,
           "bundle-grow": true,
@@ -391,7 +391,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "unterseiten",
+        label: "Unterseiten",
         values: {
           "bundle-launch": "onepager",
           "bundle-grow": "3 stk",
@@ -399,7 +399,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "cms-bereiche (selbst pflegbar)",
+        label: "CMS-Bereiche (selbst pflegbar)",
         values: {
           "bundle-launch": false,
           "bundle-grow": "1 bereich",
@@ -407,7 +407,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "mehrsprachigkeit",
+        label: "Mehrsprachigkeit",
         values: {
           "bundle-launch": false,
           "bundle-grow": false,
@@ -415,7 +415,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "6 social-media-visuals",
+        label: "6 Social-Media-Visuals",
         values: {
           "bundle-launch": false,
           "bundle-grow": false,
@@ -423,7 +423,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "e-mail-signatur",
+        label: "E-Mail-Signatur",
         values: {
           "bundle-launch": false,
           "bundle-grow": false,
@@ -431,7 +431,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "domain + mail-postfächer zubuchbar",
+        label: "Domain + Mail-Postfächer zubuchbar",
         values: {
           "bundle-launch": true,
           "bundle-grow": true,
@@ -439,7 +439,7 @@ const TABS: TabDef[] = [
         },
       },
       {
-        label: "bundle-ersparnis",
+        label: "Bundle-Ersparnis",
         values: {
           "bundle-launch": "260 €",
           "bundle-grow": "400 €",
@@ -610,11 +610,11 @@ export function PaketTabs() {
 
       {/* FOOTER NOTE */}
       <p className="mt-10 text-[12px] leading-relaxed text-offwhite/55 max-w-[760px]">
-        alle preise verstehen sich als startpreis („ab") · exkl. MwSt · hosting
-        immer bei lacønis · jährlich fakturiert · domain ab 2 €/Mt (kann je
-        nach domain variieren) · e-mail 5 €/Mt pro mailbox · im nächsten
-        schritt kannst du zusatzseiten, sprachen, cms-bereiche und extras
-        hinzufügen — preis passt sich live an.
+        Alle Preise verstehen sich als Startpreis („ab") · exkl. MwSt · Hosting
+        immer bei lacønis · jährlich fakturiert · Domain ab 2 €/Mt (kann je
+        nach Domain variieren) · E-Mail 5 €/Mt pro Mailbox · im nächsten
+        Schritt kannst du Zusatzseiten, Sprachen, CMS-Bereiche und Extras
+        hinzufügen — Preis passt sich live an.
       </p>
     </div>
   );
@@ -624,7 +624,7 @@ export function PaketTabs() {
 
 function CompareTable({ tabDef }: { tabDef: TabDef }) {
   return (
-    <div className="rounded-2xl border border-ink/10 bg-ink/[0.015] overflow-hidden">
+    <div className="glass rounded-2xl overflow-hidden">
       {/* header */}
       <div className="grid grid-cols-[minmax(180px,1.4fr)_repeat(3,1fr)] border-b border-ink/10 bg-ink/[0.03]">
         <div className="px-5 py-4 font-mono text-[10px] uppercase tracking-label text-offwhite/55">
@@ -762,13 +762,13 @@ function PaketCard({
       className={[
         "relative rounded-2xl p-7 md:p-8 flex flex-col transition-all",
         paket.featured
-          ? "border border-lime/50 bg-gradient-to-b from-lime/[0.04] to-transparent shadow-[0_24px_60px_-28px_rgba(225,253,82,0.25)]"
-          : "border border-ink/10 bg-ink/[0.015] hover:border-ink/25",
+          ? "glass border border-lime/50 shadow-[0_24px_60px_-28px_rgb(var(--accent) / 0.25)]"
+          : "glass glass-hover",
       ].join(" ")}
     >
       {/* TOP: num + optional featured chip */}
       <div className="flex items-center justify-between">
-        <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
+        <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/45">
           {paket.num}
         </span>
         {paket.featured && (
@@ -794,7 +794,12 @@ function PaketCard({
           <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/55">
             ab
           </span>
-          <span className="heading-display text-[32px] text-accent-ink leading-none tabular-nums">
+          <span
+            className={[
+              "heading-display text-[32px] leading-none tabular-nums",
+              paket.featured ? "text-accent-ink" : "text-offwhite",
+            ].join(" ")}
+          >
             <CounterUp value={paket.price} resetOnViewEnter /> €
           </span>
           <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
@@ -858,7 +863,7 @@ function PaketCard({
 
       {/* CONFIG — nur web + bundle */}
       {paket.config && state && monthly !== null && (
-        <div className="mt-6 rounded-xl border border-ink/10 bg-ink/[0.02] p-4 flex flex-col gap-3">
+        <div className="mt-6 glass rounded-xl p-4 flex flex-col gap-3">
           <div className="flex items-center justify-between gap-3">
             <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
               domain vorhanden?
@@ -927,7 +932,10 @@ function PaketCard({
                 laufend
               </span>
               <span
-                className="heading-sans text-[18px] text-accent-ink tabular-nums transition-all"
+                className={[
+                  "heading-sans text-[18px] tabular-nums transition-all",
+                  paket.featured ? "text-accent-ink" : "text-offwhite",
+                ].join(" ")}
                 key={monthly}
               >
                 {monthly} €/Mt

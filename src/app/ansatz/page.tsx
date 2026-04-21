@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/Button";
 import { AnsatzToggle } from "@/components/ansatz/AnsatzToggle";
 import { UnifiedProcess } from "@/components/ansatz/UnifiedProcess";
 import { WebManifest } from "@/components/leistungen/web/WebManifest";
-import { Manifest } from "@/components/leistungen/grafik/Manifest";
+import { Manifest } from "@/components/leistungen/branding/Manifest";
 import { getMeta } from "@/lib/seo/getMeta";
 import type { Metadata } from "next";
 
@@ -25,22 +25,22 @@ export default function Page() {
               <span className="text-offwhite/35">arbeite.</span>
             </h1>
             <p className="mt-7 max-w-[580px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-              kein agentur-gantt-chart, keine blackbox. vier schritte vom
-              ersten gespräch bis zur übergabe · und eine ehrliche liste
+              Kein Agentur-Gantt-Chart, keine Blackbox. Vier Schritte vom
+              ersten Gespräch bis zur Übergabe · und eine ehrliche Liste
               von dem, was ich bewusst nicht mache.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Unified process · gilt für web + grafik */}
+      {/* Unified process · gilt für web + branding */}
       <UnifiedProcess num="02" />
 
       {/* Toggle · manifeste unterscheiden sich zwischen disziplinen */}
       <AnsatzToggle
         num="03"
         web={<WebManifest hideHeader />}
-        grafik={<Manifest hideHeader />}
+        branding={<Manifest hideHeader />}
       />
 
       {/* CTA */}
@@ -51,8 +51,8 @@ export default function Page() {
               klingt nach deiner art zu arbeiten?
             </h2>
             <p className="mt-5 max-w-[520px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
-              30 minuten video-call oder kaffee in eupen. keine präsentation,
-              kein vertrag · nur klarheit.
+              30 Minuten Video-Call oder Kaffee in Eupen. Keine Präsentation,
+              kein Vertrag · nur Klarheit.
             </p>
             <div className="mt-8 flex justify-center gap-3 flex-wrap">
               <Button

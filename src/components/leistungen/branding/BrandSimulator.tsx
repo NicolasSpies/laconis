@@ -19,7 +19,7 @@ import {
  */
 
 const PRIMARY_PRESETS = [
-  { hex: "#E1FD52", label: "lime" },
+  { hex: "rgb(var(--accent))", label: "lime" },
   { hex: "#FF4A1C", label: "karotte" },
   { hex: "#1E3A5F", label: "tinte" },
   { hex: "#E6A26A", label: "sauerteig" },
@@ -435,7 +435,10 @@ function ColorPickerCompact({
                     onChange(presets[0].hex);
                     setOpen(false);
                   }}
-                  className="absolute -top-1.5 -right-1.5 w-[16px] h-[16px] rounded-full bg-dark border border-offwhite/35 flex items-center justify-center text-offwhite/75 hover:bg-offwhite hover:text-dark hover:border-offwhite transition-colors"
+                  /* hardcoded · bg-dark würde in light zu page-bg-grey flippen
+                     und der close-×-button wäre unsichtbar · bleibt in beiden
+                     themes ein dunkler punkt mit hellem hover */
+                  className="absolute -top-1.5 -right-1.5 w-[16px] h-[16px] rounded-full bg-[#222] border border-white/35 flex items-center justify-center text-white/75 hover:bg-[#fafafa] hover:text-[#111] hover:border-[#fafafa] transition-colors"
                   aria-label="eigene farbe entfernen"
                   title="eigene farbe entfernen"
                 >
@@ -499,7 +502,7 @@ function SimTile({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-ink/10 bg-gradient-to-b from-ink/[0.02] to-transparent overflow-hidden">
+    <div className="glass rounded-2xl overflow-hidden">
       <div className="flex items-baseline justify-between gap-4 px-5 md:px-6 py-4 border-b border-ink/5">
         <div className="flex items-baseline gap-4">
           <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
@@ -1219,7 +1222,7 @@ function StationeryRow({
                 opacity: 0.85,
               }}
             >
-              Liebe Frau Schmidt,
+              Liebe Frau Martin,
             </div>
             <div className="mt-1 flex flex-col gap-1.5">
               {[98, 94, 90, 78, 86, 62].map((w, i) => (

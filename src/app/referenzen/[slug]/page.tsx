@@ -120,8 +120,8 @@ export default function Page({ params }: Props) {
 
           {!r.istEcht && (
             <p className="mt-5 max-w-[680px] text-[13px] leading-relaxed text-offwhite/55 italic">
-              ehrlich-hinweis · dies ist eine konzept-studie, kein
-              veröffentlichtes kunden-projekt. die arbeitsweise ist aber die
+              ehrlich-hinweis · Dies ist eine Konzept-Studie, kein
+              veröffentlichtes Kunden-Projekt. Die Arbeitsweise ist aber die
               gleiche.
             </p>
           )}
@@ -216,13 +216,13 @@ export default function Page({ params }: Props) {
               <p>
                 {r.name} ist{" "}
                 {r.kategorie === "web" || r.kategorie === "web-branding"
-                  ? "eine website"
+                  ? "eine Website"
                   : r.kategorie === "branding"
-                    ? "ein branding-projekt"
-                    : "eine grafische arbeit"}{" "}
-                aus {r.ort.split(",")[0]}. {r.kurz} • ausgangspunkt war der
-                wunsch, sich aus dem grundrauschen ähnlicher angebote
-                abzuheben und eine identität zu bauen, die zur person
+                    ? "ein Branding-Projekt"
+                    : "eine grafische Arbeit"}{" "}
+                aus {r.ort.split(",")[0]}. {r.kurz} • Ausgangspunkt war der
+                Wunsch, sich aus dem Grundrauschen ähnlicher Angebote
+                abzuheben und eine Identität zu bauen, die zur Person
                 dahinter passt.
               </p>
             </div>
@@ -232,17 +232,17 @@ export default function Page({ params }: Props) {
                 der prozess
               </h2>
               <p>
-                ich starte jeden auftrag mit einem intensiven moodboarding-termin.
-                vor der ersten pixel-entscheidung stand die frage: wer seid
-                ihr wirklich, und wer sind die anderen? aus den antworten
-                ist das visuelle system gewachsen • farbe, typografie,
-                tonalität.
+                Ich starte jeden Auftrag mit einem intensiven Moodboarding-Termin.
+                Vor der ersten Pixel-Entscheidung stand die Frage: wer seid
+                ihr wirklich, und wer sind die anderen? Aus den Antworten
+                ist das visuelle System gewachsen • Farbe, Typografie,
+                Tonalität.
               </p>
               <p className="mt-4">
-                die umsetzung lief in kurzen iterationen, mit
-                zwischenabgaben statt black-box. so können wir gemeinsam
-                lenken, wo es hingehen sollte • ohne überraschung am
-                launch-tag.
+                Die Umsetzung lief in kurzen Iterationen, mit
+                Zwischenabgaben statt Black-Box. So können wir gemeinsam
+                lenken, wo es hingehen sollte • ohne Überraschung am
+                Launch-Tag.
               </p>
             </div>
 
@@ -252,8 +252,8 @@ export default function Page({ params }: Props) {
               </h2>
               <p>
                 {r.inArbeit
-                  ? "das projekt befindet sich aktuell noch in der bauphase • erste screens und der branding-rahmen stehen. launch ist für die kommenden wochen geplant."
-                  : "das projekt ist live und wird aktiv genutzt. feedback bisher: die seite fühlt sich endlich nach den leuten an, die dahinter stehen • und nicht nach template."}
+                  ? "Das Projekt befindet sich aktuell noch in der Bauphase • erste Screens und der Branding-Rahmen stehen. Launch ist für die kommenden Wochen geplant."
+                  : "Das Projekt ist live und wird aktiv genutzt. Feedback bisher: die Seite fühlt sich endlich nach den Leuten an, die dahinter stehen • und nicht nach Template."}
               </p>
             </div>
           </div>
@@ -335,7 +335,7 @@ export default function Page({ params }: Props) {
               sowas auch für dich?
             </h2>
             <p className="mt-5 max-w-[480px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
-              jedes projekt ist eigen. schreib mir, was dir vorschwebt • wir
+              Jedes Projekt ist eigen. Schreib mir, was dir vorschwebt • wir
               besprechen, was passt.
             </p>
             <div className="mt-8">

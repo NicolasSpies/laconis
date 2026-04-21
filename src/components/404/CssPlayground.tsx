@@ -143,7 +143,7 @@ const CHALLENGES: Challenge[] = [
     starterCss: "text-align: ;",
     sandboxHtml: () => (
       <p style={{ fontSize: 16, color: "#111", margin: 0 }}>
-        hallo · ich möchte in die mitte.
+        Hallo · ich möchte in die Mitte.
       </p>
     ),
     check: (css) => {
@@ -158,7 +158,7 @@ const CHALLENGES: Challenge[] = [
     starterCss: "padding: ;\nbackground: #fff;",
     sandboxHtml: () => (
       <div style={{ fontSize: 14, color: "#111", background: "#fff" }}>
-        ich bin eng. lass mir luft zum atmen.
+        Ich bin eng. Lass mir Luft zum Atmen.
       </div>
     ),
     check: (css) => {
@@ -215,7 +215,7 @@ export function CssPlayground() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-ink/10 bg-ink/[0.03] p-6 md:p-8">
+        <div className="glass rounded-2xl p-6 md:p-8">
           <h2 className="heading-sans text-[20px] md:text-[24px] text-offwhite">
             {challenge.frage}
           </h2>
@@ -335,8 +335,8 @@ function RewardScreen() {
         </p>
 
         <p className="mt-4 text-[14px] text-offwhite/55 leading-relaxed max-w-[480px] mx-auto">
-          wenn dir das spaß gemacht hat · genau so sieht mein tag aus.
-          lust auf mehr? schreib mir.
+          Wenn dir das Spaß gemacht hat · genau so sieht mein Tag aus.
+          Lust auf mehr? Schreib mir.
         </p>
 
         <div className="mt-10">

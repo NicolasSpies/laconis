@@ -3,7 +3,6 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { HeroBrowser } from "@/components/leistungen/web/HeroBrowser";
 import { WebApproaches } from "@/components/leistungen/web/WebApproaches";
-import { BeweisStrip } from "@/components/leistungen/web/BeweisStrip";
 import { WebDeliverables } from "@/components/leistungen/web/WebDeliverables";
 import { WebVsAlternatives } from "@/components/leistungen/web/WebVsAlternatives";
 import { StaerkenStrip } from "@/components/shared/StaerkenStrip";
@@ -73,10 +72,10 @@ export default function Page() {
               </p>
 
               {/* mini-stats unter dem text · ersetzt zweite fette headline */}
-              <dl className="mt-10 grid grid-cols-3 gap-4 max-w-[480px]">
+              <dl className="mt-10 grid grid-cols-3 gap-4 max-w-[520px]">
                 <div>
                   <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
-                    pagespeed
+                    google-score
                   </dt>
                   <dd className="heading-display text-lime text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">
                     95+
@@ -84,15 +83,15 @@ export default function Page() {
                 </div>
                 <div>
                   <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
-                    cms inkl.
+                    du pflegst
                   </dt>
                   <dd className="heading-display text-offwhite text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">
-                    ja
+                    selbst
                   </dd>
                 </div>
                 <div>
                   <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
-                    bau-zeit
+                    launch
                   </dt>
                   <dd className="heading-display text-offwhite text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">
                     2-6w
@@ -109,28 +108,25 @@ export default function Page() {
         </div>
       </section>
 
-      {/* 02 · STÄRKEN-STRIP · 3 punkte teaser */}
+      {/* STÄRKEN-STRIP · 3 punkte teaser (geteilte komponente, unnummeriert) */}
       <StaerkenStrip />
 
-      {/* 03 · ZWEI WEGE · das angebot */}
-      <WebApproaches num="03" />
+      {/* 02 · ZWEI WEGE · das angebot */}
+      <WebApproaches num="02" />
 
-      {/* 04 · WAS DU BEKOMMST · deliverables direkt nach angebot */}
-      <WebDeliverables num="04" />
+      {/* 03 · WAS DU BEKOMMST · deliverables direkt nach angebot */}
+      <WebDeliverables num="03" />
 
-      {/* 05 · BEWEIS · lighthouse-scores */}
-      <BeweisStrip num="05" />
+      {/* 04 · EINORDNUNG · passt das zu mir */}
+      <WebVsAlternatives num="04" />
 
-      {/* 06 · EINORDNUNG · passt das zu mir */}
-      <WebVsAlternatives num="06" />
-
-      {/* 07 · VERTIEFUNGS-LINKS · technik + ansatz */}
+      {/* VERTIEFUNGS-LINKS · technik + ansatz */}
       <section className="pb-20">
         <div className="container-site">
           <div className="grid md:grid-cols-2 gap-4">
             <Link
               href="/leistungen/web/technik"
-              className="group rounded-xl border border-ink/10 bg-ink/[0.02] px-6 py-5 hover:border-lime/25 transition-colors flex items-start justify-between gap-4"
+              className="group glass rounded-xl px-6 py-5 hover:border-lime/25 transition-colors flex items-start justify-between gap-4"
             >
               <div>
                 <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
@@ -146,7 +142,7 @@ export default function Page() {
             </Link>
             <Link
               href="/ansatz"
-              className="group rounded-xl border border-ink/10 bg-ink/[0.02] px-6 py-5 hover:border-lime/25 transition-colors flex items-start justify-between gap-4"
+              className="group glass rounded-xl px-6 py-5 hover:border-lime/25 transition-colors flex items-start justify-between gap-4"
             >
               <div>
                 <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">

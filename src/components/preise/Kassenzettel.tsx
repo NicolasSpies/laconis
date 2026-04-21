@@ -16,6 +16,8 @@ import {
 
 type Props = {
   items: LineItem[];
+  /** anfrage-items (drucksachen, montage) · ohne preis, rein als hinweis im bon */
+  inquiryItems?: string[];
   totals: Totals;
   bonNumber: string;
   closestPaket: string | null;
@@ -26,6 +28,7 @@ const dashLine = "·".repeat(40); // wird per CSS auf container-breite gekürzt
 
 export function Kassenzettel({
   items,
+  inquiryItems = [],
   totals,
   bonNumber,
   closestPaket,
@@ -52,6 +55,10 @@ export function Kassenzettel({
       }),
     );
   }, []);
+
+  const hasBilled = items.length > 0;
+  const hasInquiry = inquiryItems.length > 0;
+  const trulyEmpty = empty && !hasBilled && !hasInquiry;
 
   return (
     <div
@@ -89,7 +96,7 @@ export function Kassenzettel({
       <Divider />
 
       {/* items */}
-      {empty ? (
+      {trulyEmpty ? (
         <div className="py-8 text-center text-[#1a1a1a]/40">
           <div className="text-[11px] uppercase tracking-[0.2em]">
             noch nichts im korb
@@ -100,34 +107,40 @@ export function Kassenzettel({
           </div>
         </div>
       ) : (
-        <div className="py-3">
-          <AnimatePresence initial={false}>
-            {items
-              .filter((i) => !i.monthly)
-              .map((item, i) => (
-                <Row key={`fix-${item.label}-${i}`} item={item} />
-              ))}
-          </AnimatePresence>
-        </div>
+        hasBilled && (
+          <div className="py-3">
+            <AnimatePresence initial={false}>
+              {items
+                .filter((i) => !i.monthly)
+                .map((item, i) => (
+                  <Row key={`fix-${item.label}-${i}`} item={item} />
+                ))}
+            </AnimatePresence>
+          </div>
+        )
       )}
 
-      {!empty && (
+      {!trulyEmpty && (
         <>
-          <Divider />
-          {/* einmalsumme */}
-          <div className="flex items-baseline justify-between pt-2 pb-1 text-[12px]">
-            <span className="uppercase tracking-[0.15em] text-[#1a1a1a]/75">
-              gesamt einmalig
-            </span>
-            <motion.span
-              key={totals.oneTime}
-              initial={{ opacity: 0, y: -4 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-[15px] font-bold"
-            >
-              {formatEUR(totals.oneTime)} €
-            </motion.span>
-          </div>
+          {hasBilled && (
+            <>
+              <Divider />
+              {/* einmalsumme */}
+              <div className="flex items-baseline justify-between pt-2 pb-1 text-[12px]">
+                <span className="uppercase tracking-[0.15em] text-[#1a1a1a]/75">
+                  gesamt einmalig
+                </span>
+                <motion.span
+                  key={totals.oneTime}
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-[15px] font-bold"
+                >
+                  {formatEUR(totals.oneTime)} €
+                </motion.span>
+              </div>
+            </>
+          )}
 
           {/* monthly */}
           {totals.monthly > 0 && (
@@ -154,6 +167,40 @@ export function Kassenzettel({
                 >
                   {formatEUR(totals.monthly)} €
                 </motion.span>
+              </div>
+            </>
+          )}
+
+          {/* anfrage-items · drucksachen & montage, ohne preis */}
+          {hasInquiry && (
+            <>
+              <Divider />
+              <div className="mt-1">
+                <div className="text-[9px] uppercase tracking-[0.2em] text-[#1a1a1a]/55">
+                  zum besprechen
+                </div>
+                <div className="mt-1 text-[9.5px] leading-relaxed text-[#1a1a1a]/50">
+                  preis nach gespräch · druck & produktion über partner
+                </div>
+                <div className="mt-2 space-y-1">
+                  {inquiryItems.map((label, i) => (
+                    <div
+                      key={`inq-${i}`}
+                      className="flex items-baseline gap-2 text-[#1a1a1a]/75"
+                    >
+                      <span className="flex-1 truncate">{label}</span>
+                      <span
+                        aria-hidden
+                        className="flex-shrink min-w-0 overflow-hidden text-[#1a1a1a]/20 tracking-[0.1em]"
+                      >
+                        {dashLine}
+                      </span>
+                      <span className="text-[10px] uppercase tracking-[0.15em] text-[#1a1a1a]/55">
+                        anfrage
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </>
           )}

@@ -23,7 +23,8 @@ export function Placeholder({ label, className, aspect }: Props) {
       {/* soft lime wash */}
       <div
         aria-hidden
-        className="absolute -top-1/3 -right-1/4 w-[70%] h-[70%] rounded-full bg-lime/[0.08] blur-[80px]"
+        className="absolute -top-1/3 -right-1/4 w-[70%] h-[70%] rounded-full blur-[80px]"
+        style={{ background: "rgb(var(--accent) / 0.08)" }}
       />
 
       {/* crosshair + diagonal */}
@@ -53,7 +54,7 @@ export function Placeholder({ label, className, aspect }: Props) {
       {/* center dot */}
       <div
         aria-hidden
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-lime/50 shadow-[0_0_16px_rgba(225,253,82,0.6)]"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-lime/50 shadow-[0_0_16px_rgb(var(--accent) / 0.6)]"
       />
 
       {/* label — bottom-left corner */}

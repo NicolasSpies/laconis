@@ -239,7 +239,7 @@ export function HeroBrowser() {
                 : "opacity-0 translate-y-3 scale-95",
             ].join(" ")}
           >
-            <div className="flex items-center gap-2.5 rounded-lg bg-lime/80 text-[#0a0a0a] pl-2 pr-3 py-1.5 backdrop-blur shadow-[0_10px_30px_-10px_rgba(225,253,82,0.4)]">
+            <div className="flex items-center gap-2.5 rounded-lg bg-lime/80 text-[#0a0a0a] pl-2 pr-3 py-1.5 backdrop-blur shadow-[0_10px_30px_-10px_rgb(var(--accent) / 0.4)]">
               <div className="relative w-9 h-9">
                 <svg viewBox="0 0 32 32" className="w-full h-full -rotate-90">
                   <circle
@@ -278,7 +278,7 @@ export function HeroBrowser() {
       </div>
 
       {/* floating indicator unten */}
-      <div className="absolute -bottom-3 left-6 flex items-center gap-3 rounded-full border border-ink/10 bg-dark/90 backdrop-blur px-3 py-1.5 font-mono text-[9px] uppercase tracking-label text-offwhite/55 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]">
+      <div className="glass absolute -bottom-3 left-6 flex items-center gap-3 rounded-full px-3 py-1.5 font-mono text-[9px] uppercase tracking-label text-offwhite/55 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]">
         <span className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-lime animate-pulse" />
           mobile {score}

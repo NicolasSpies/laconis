@@ -9,58 +9,58 @@ type Row = {
 const ROWS: Row[] = [
   {
     thema: "sicherheit",
-    wordpress: "meistgehacktes CMS der welt",
-    contentcore: "4-schichten-schutz, 2FA, EU-server",
+    wordpress: "Meistgehacktes CMS der Welt",
+    contentcore: "4-Schichten-Schutz, 2FA, EU-Server",
   },
   {
     thema: "angriffsfläche",
-    wordpress: "20+ plugins, hunderte endpunkte",
-    contentcore: "eine gehärtete API",
+    wordpress: "20+ Plugins, hunderte Endpunkte",
+    contentcore: "Eine gehärtete API",
   },
   {
     thema: "updates",
-    wordpress: "manuell, wöchentlich, riskant",
-    contentcore: "automatisch, ohne dein zutun",
+    wordpress: "Manuell, wöchentlich, riskant",
+    contentcore: "Automatisch, ohne dein Zutun",
   },
   {
     thema: "performance",
-    wordpress: "PHP-runtime + plugin-bloat",
-    contentcore: "statisch ausgeliefert, 95+ PageSpeed",
+    wordpress: "PHP-Runtime + Plugin-Bloat",
+    contentcore: "Statisch ausgeliefert, 95+ PageSpeed",
   },
   {
     thema: "mehrsprachigkeit",
-    wordpress: "plugin (WPML) kostet extra",
-    contentcore: "eingebaut: DE · FR · EN",
+    wordpress: "Plugin (WPML) kostet extra",
+    contentcore: "Eingebaut: DE · FR · EN",
   },
   {
     thema: "besucher-stats",
-    wordpress: "google analytics + cookie-banner",
-    contentcore: "eingebaut, 100% DSGVO, ohne cookies",
+    wordpress: "Google Analytics + Cookie-Banner",
+    contentcore: "Eingebaut, 100% DSGVO, ohne Cookies",
   },
   {
     thema: "newsletter",
-    wordpress: "mailchimp abonnieren",
-    contentcore: "direkt im system, inkl. statistiken",
+    wordpress: "Mailchimp abonnieren",
+    contentcore: "Direkt im System, inkl. Statistiken",
   },
   {
     thema: "online-shop",
-    wordpress: "woocommerce oder shopify extra",
-    contentcore: "direkt integriert, stripe-checkout",
+    wordpress: "WooCommerce oder Shopify extra",
+    contentcore: "Direkt integriert, Stripe-Checkout",
   },
   {
     thema: "KI-unterstützung",
-    wordpress: "nachrüst-plugin, oft kostenpflichtig",
-    contentcore: "bild-alt-texte, übersetzung, korrektur",
+    wordpress: "Nachrüst-Plugin, oft kostenpflichtig",
+    contentcore: "Bild-Alt-Texte, Übersetzung, Korrektur",
   },
   {
     thema: "datenhoheit",
-    wordpress: "geteilter server, unklare lage",
-    contentcore: "eigene instanz in litauen (EU)",
+    wordpress: "Geteilter Server, unklare Lage",
+    contentcore: "Eigene Instanz in Litauen (EU)",
   },
   {
     thema: "support",
-    wordpress: "forum, stack overflow, google",
-    contentcore: "ich. persönlich. per mail oder call.",
+    wordpress: "Forum, Stack Overflow, Google",
+    contentcore: "Ich. Persönlich. Per Mail oder Call.",
   },
 ];
 
@@ -69,25 +69,25 @@ const SCHICHTEN = [
     num: "01",
     name: "IP-blocking",
     beschreibung:
-      "zehn fehlversuche und die IP ist 24 stunden gesperrt. bei wiederholung permanent.",
+      "Zehn Fehlversuche und die IP ist 24 Stunden gesperrt. Bei Wiederholung permanent.",
   },
   {
     num: "02",
     name: "geräteerkennung",
     beschreibung:
-      "auch über VPN erkennt das system das gerät und bleibt dicht.",
+      "Auch über VPN erkennt das System das Gerät und bleibt dicht.",
   },
   {
     num: "03",
     name: "konto-schutz",
     beschreibung:
-      "login aus neuem land? ich bekomme sofort eine warnung aufs handy.",
+      "Login aus neuem Land? Ich bekomme sofort eine Warnung aufs Handy.",
   },
   {
     num: "04",
     name: "zwei-faktor",
     beschreibung:
-      "passwort allein reicht nicht. jeder login braucht einen code aus meiner app.",
+      "Passwort allein reicht nicht. Jeder Login braucht einen Code aus meiner App.",
   },
 ];
 
@@ -104,15 +104,15 @@ export function ContentCoreVsWordpress({
             <span className="text-offwhite/35">ohne schönmalen.</span>
           </h2>
           <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/55">
-            wordpress läuft auf 43 prozent aller websites. das macht es nicht
-            besser, es macht es zum lieblingsziel für angriffe. hier steht,
-            warum ich stattdessen contentcore gebaut habe und was dir das im
-            alltag bringt.
+            WordPress läuft auf 43 Prozent aller Websites. Das macht es nicht
+            besser, es macht es zum Lieblingsziel für Angriffe. Hier steht,
+            warum ich stattdessen ContentCore gebaut habe und was dir das im
+            Alltag bringt.
           </p>
         </div>
 
         {/* Tabelle */}
-        <div className="mt-14 rounded-2xl border border-ink/10 bg-gradient-to-b from-ink/[0.02] to-transparent overflow-hidden">
+        <div className="mt-14 glass rounded-2xl overflow-hidden">
           {/* Header */}
           <div className="grid grid-cols-[1fr_1fr_1fr] border-b border-ink/10 bg-ink/[0.02]">
             <div className="px-5 py-4">
@@ -194,9 +194,12 @@ export function ContentCoreVsWordpress({
             {SCHICHTEN.map((s) => (
               <div
                 key={s.num}
-                className="rounded-xl border border-ink/10 bg-ink/[0.015] p-5 flex flex-col gap-3 relative overflow-hidden"
+                className="glass rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden"
               >
-                <div className="absolute -top-4 -right-4 h-16 w-16 rounded-full bg-lime/[0.05] blur-2xl pointer-events-none" />
+                <div
+                  className="absolute -top-4 -right-4 h-16 w-16 rounded-full blur-2xl pointer-events-none"
+                  style={{ background: "rgb(var(--accent) / 0.05)" }}
+                />
                 <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
                   {s.num}
                 </span>
@@ -213,12 +216,12 @@ export function ContentCoreVsWordpress({
           {/* Bonus badges */}
           <div className="mt-6 flex flex-wrap gap-2">
             {[
-              "passwörter verschlüsselt",
+              "Passwörter verschlüsselt",
               "HTTPS überall",
-              "server in der EU · litauen",
+              "Server in der EU · Litauen",
               "DSGVO-konform",
-              "kein cookie-banner",
-              "auto-backup täglich",
+              "Kein Cookie-Banner",
+              "Auto-Backup täglich",
             ].map((b) => (
               <span
                 key={b}

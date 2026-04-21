@@ -104,10 +104,10 @@ export function WebDemo() {
         hover="group-hover:-translate-x-10 group-hover:translate-y-5 group-hover:rotate-[-22deg]"
         base="rotate-[-6deg]"
       >
-        <div className="flex items-center gap-1.5 md:gap-2 px-1.5 md:px-2 py-1 md:py-1.5 rounded-full bg-ink/25 border border-lime/25 shadow-[0_10px_24px_-10px_rgba(225,253,82,0.4)]">
+        <div className="flex items-center gap-1.5 md:gap-2 px-1.5 md:px-2 py-1 md:py-1.5 rounded-full bg-ink/25 border border-lime/25 shadow-[0_10px_24px_-10px_rgb(var(--accent) / 0.4)]">
           <div
             className="w-4 h-4 md:w-5 md:h-5 rounded-full flex items-center justify-center"
-            style={{ background: "#E1FD52" }}
+            style={{ background: "rgb(var(--accent))" }}
           >
             <span
               className="font-mono text-[6px] md:text-[7px] font-bold"

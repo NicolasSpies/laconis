@@ -21,7 +21,7 @@ export default function Page() {
               sag hallo.
             </h1>
             <p className="mt-8 max-w-[580px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-              eine kurze nachricht reicht. antwort innerhalb 24h.
+              Eine kurze Nachricht reicht. Antwort innerhalb 24h.
             </p>
           </div>
         </div>
@@ -45,20 +45,20 @@ export default function Page() {
               label="e-mail"
               value={CONTACT.email}
               href={`mailto:${CONTACT.email}`}
-              note="klassisch. antwort innerhalb 24h • meistens deutlich schneller."
+              note="Klassisch. Antwort innerhalb 24h • meistens deutlich schneller."
             />
             <ContactCard
               label="call buchen"
               value="30 min kennenlernen"
               href={`mailto:${CONTACT.email}?subject=call-termin`}
-              note="noch nicht buchbar über tool • kurz per mail melden."
+              note="Noch nicht buchbar über Tool • kurz per Mail melden."
             />
             <ContactCard
               label="in person"
               value="eupen • belgien"
               href="https://maps.google.com/?q=Eupen,Belgien"
               external
-              note="kaffee? gern • kurz vorher schreiben, damit ich da bin."
+              note="Kaffee? Gern • kurz vorher schreiben, damit ich da bin."
             />
           </div>
         </div>
@@ -88,9 +88,9 @@ export default function Page() {
               <span className="text-offwhite/35">was du vorhast.</span>
             </h2>
             <p className="mt-6 max-w-[620px] text-[14px] leading-relaxed text-offwhite/55">
-              vier kurze schritte. kommst du von der preise-seite mit einem
-              paket im kopf, landest du direkt beim anpassen • seiten,
-              sprachen, extras, preis live.
+              Vier kurze Schritte. Kommst du von der Preise-Seite mit einem
+              Paket im Kopf, landest du direkt beim Anpassen • Seiten,
+              Sprachen, Extras, Preis live.
             </p>
           </div>
 
@@ -127,7 +127,7 @@ function ContactCard({
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
-      className="group block rounded-xl border border-ink/10 bg-ink/[0.015] p-6 hover:border-lime/25 hover:bg-ink/[0.03] transition-all"
+      className="group block glass rounded-xl p-6 hover:border-lime/25 hover:bg-ink/[0.03] transition-all"
     >
       <div className="flex items-baseline justify-between gap-3">
         <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">

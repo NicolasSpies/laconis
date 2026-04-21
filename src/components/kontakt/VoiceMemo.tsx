@@ -159,7 +159,7 @@ export function VoiceMemo({
     `${String(Math.floor(s / 60)).padStart(1, "0")}:${String(s % 60).padStart(2, "0")}`;
 
   return (
-    <div className="rounded-xl border border-ink/10 bg-ink/[0.015] p-6 md:p-7">
+    <div className="glass rounded-xl p-6 md:p-7">
       <div className="flex items-start gap-3 mb-5">
         <span className="inline-block w-2 h-2 rounded-full bg-lime mt-2" />
         <div>
@@ -174,13 +174,13 @@ export function VoiceMemo({
       </div>
 
       {/* visualizer */}
-      <div className="relative rounded-lg bg-black/30 border border-ink/5 p-5 min-h-[120px] flex items-center justify-center">
+      <div className="relative rounded-lg bg-dark/30 border border-ink/5 p-5 min-h-[120px] flex items-center justify-center">
         {state === "idle" && !blob && (
           <div className="flex flex-col items-center gap-3 py-2">
             <button
               type="button"
               onClick={start}
-              className="group relative h-16 w-16 rounded-full bg-lime text-black flex items-center justify-center shadow-[0_10px_30px_rgba(225,253,82,0.25)] hover:shadow-[0_12px_40px_rgba(225,253,82,0.4)] transition-shadow"
+              className="group relative h-16 w-16 rounded-full bg-lime text-black flex items-center justify-center shadow-[0_10px_30px_rgb(var(--accent) / 0.25)] hover:shadow-[0_12px_40px_rgb(var(--accent) / 0.4)] transition-shadow"
             >
               <span className="absolute inset-0 rounded-full bg-lime/25 animate-ping" />
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none" className="relative">
@@ -253,7 +253,7 @@ export function VoiceMemo({
             <audio
               controls
               src={audioUrl}
-              className="w-full h-10 [&::-webkit-media-controls-panel]:bg-black/60"
+              className="w-full h-10 [&::-webkit-media-controls-panel]:bg-dark/60"
             />
           </div>
         )}

@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
-import { SpecimenKartei } from "@/components/leistungen/grafik/SpecimenKartei";
-import { Deliverables } from "@/components/leistungen/grafik/Deliverables";
-import { BrandVsAlternatives } from "@/components/leistungen/grafik/BrandVsAlternatives";
+import { SpecimenKartei } from "@/components/leistungen/branding/SpecimenKartei";
+import { Deliverables } from "@/components/leistungen/branding/Deliverables";
+import { BrandVsAlternatives } from "@/components/leistungen/branding/BrandVsAlternatives";
+import { OnDemandExtras } from "@/components/leistungen/branding/OnDemandExtras";
 import { StaerkenStrip } from "@/components/shared/StaerkenStrip";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
@@ -11,27 +12,27 @@ import { getMeta } from "@/lib/seo/getMeta";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return getMeta("/leistungen/grafik");
+  return getMeta("/leistungen/branding");
 }
 
 const BASE = "https://laconis.be";
 const KREATIV_SERVICES = [
   {
-    name: "Brand · Basis",
+    name: "Branding · Basis",
     description:
       "Logo inkl. Varianten + Favicon, Farbpalette, Typografie · ideal für Neugründer und Selbstständige.",
     price: 600,
     serviceType: "Branding",
   },
   {
-    name: "Brand · Essential",
+    name: "Branding · Essential",
     description:
       "Kompletter Brand-Guide + Visitenkarte, Briefpapier, 3 Social-Templates · ein konsistenter Look, mit dem du arbeiten kannst.",
     price: 1400,
     serviceType: "Branding",
   },
   {
-    name: "Brand · Pro",
+    name: "Branding · Pro",
     description:
       "Vollständiges Brand-System mit Bild- und Textrichtlinien, Mood-Direction, Print-Package · für wachsende Marken.",
     price: 3200,
@@ -46,7 +47,7 @@ export default function Page() {
         items={[
           { name: "home", url: `${BASE}/` },
           { name: "leistungen", url: `${BASE}/leistungen` },
-          { name: "grafik", url: `${BASE}/leistungen/grafik` },
+          { name: "branding", url: `${BASE}/leistungen/branding` },
         ]}
       />
       <ServiceSchema services={KREATIV_SERVICES} />
@@ -54,21 +55,22 @@ export default function Page() {
       {/* HERO */}
       <section className="pt-36 pb-24">
         <div className="container-site">
-          <SectionLabel num="01">leistungen · grafik</SectionLabel>
+          <SectionLabel num="01">leistungen · branding</SectionLabel>
 
-          <div className="mt-8 max-w-[920px]">
-            <h1 className="heading-display text-[clamp(2.5rem,8vw,6rem)] text-offwhite">
-              marken, die{" "}
-              <span className="text-offwhite/35">wiedererkennbar</span>
-              <br />
-              bleiben.
-            </h1>
-            <p className="mt-8 max-w-[580px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-              branding ist kein logo. branding ist das gefühl, das jemand
-              bekommt, wenn er deinen namen hört · und die visuellen werkzeuge,
-              die dieses gefühl transportieren. ich baue beides.
-            </p>
-          </div>
+          <h1 className="mt-8 heading-display text-[clamp(2.5rem,8vw,6rem)] text-offwhite leading-[1.02]">
+            logo, brand &{" "}
+            <span className="text-offwhite/35">alles drum herum</span>.
+          </h1>
+          <p className="mt-8 max-w-[620px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
+            ein logo allein ist noch keine marke. ein logo + typografie +
+            farben + ton + einheitlicher auftritt auf visitenkarte, social
+            und schaufenster — das ist eine marke. beides geht von mir ·
+            handgemacht in eupen.
+          </p>
+          <p className="mt-5 max-w-[620px] text-[14px] leading-relaxed text-offwhite/35">
+            branding für startups, handwerker, kleine unternehmen · auch
+            einfach nur ein logo, wenn du damit starten willst.
+          </p>
         </div>
       </section>
 
@@ -78,18 +80,19 @@ export default function Page() {
       {/* 03 · DEIN START-PAKET · das angebot */}
       <SpecimenKartei num="03" />
 
-      {/* 04 · WAS DU BEKOMMST · deliverables direkt nach angebot */}
+      {/* 04 · WAS DU BEKOMMST · deliverables + on-demand extras (ein kapitel) */}
       <Deliverables num="04" />
+      <OnDemandExtras />
 
       {/* 05 · EINORDNUNG · passt das zu mir */}
       <BrandVsAlternatives num="05" />
 
-      {/* 06 · VERTIEFUNGS-LINK · ansatz */}
+      {/* 07 · VERTIEFUNGS-LINK · ansatz */}
       <section className="pb-20">
         <div className="container-site">
           <Link
             href="/ansatz"
-            className="group block rounded-xl border border-ink/10 bg-ink/[0.02] px-6 py-5 hover:border-lime/25 transition-colors md:flex md:items-center md:justify-between gap-4"
+            className="group block glass rounded-xl px-6 py-5 hover:border-lime/25 transition-colors md:flex md:items-center md:justify-between gap-4"
           >
             <div>
               <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
@@ -112,7 +115,7 @@ export default function Page() {
         <div className="container-site">
           <div className="liquid-glass rounded-2xl p-10 md:p-16 text-center">
             <h2 className="heading-display text-[clamp(1.75rem,4.5vw,3rem)] text-offwhite max-w-[640px] mx-auto">
-              lust deine marke aufzubauen?
+              lust auf ein logo · oder gleich eine ganze marke?
             </h2>
             <p className="mt-5 max-w-[480px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
               erzähl mir, was du machst. ich sag dir, wie man es sichtbar
@@ -123,7 +126,7 @@ export default function Page() {
                 href="/kontakt"
                 variant="primary"
                 size="lg"
-                analyticsLabel="leistungen_grafik_kontakt"
+                analyticsLabel="leistungen_branding_kontakt"
               >
                 lass uns reden →
               </Button>
@@ -131,7 +134,7 @@ export default function Page() {
                 href="/referenzen"
                 variant="glass"
                 size="lg"
-                analyticsLabel="leistungen_grafik_referenzen"
+                analyticsLabel="leistungen_branding_referenzen"
               >
                 referenzen ansehen
               </Button>

@@ -61,9 +61,9 @@ export default function NotFound() {
             diese seite existiert nicht.
           </h1>
           <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55 max-w-[440px] mx-auto">
-            vielleicht ein tippfehler, vielleicht ein alter link, vielleicht
-            ist die seite umgezogen. egal • zurück zur startseite ist immer
-            ein guter plan.
+            Vielleicht ein Tippfehler, vielleicht ein alter Link, vielleicht
+            ist die Seite umgezogen. Egal • zurück zur Startseite ist immer
+            ein guter Plan.
           </p>
 
           <div className="mt-10 flex justify-center gap-3 flex-wrap">

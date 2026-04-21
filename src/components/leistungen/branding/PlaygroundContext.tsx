@@ -102,7 +102,7 @@ export const THEMES: Theme[] = [
     untertitel: "für kultur, gastro mit persönlichkeit, mode, events.",
     farben: [
       { hex: "#FF3B5C", label: "kirsche" },
-      { hex: "#E1FD52", label: "lime" },
+      { hex: "rgb(var(--accent))", label: "lime" },
       { hex: "#111111", label: "tinte" },
       { hex: "#6A5AFF", label: "nachtblau" },
       { hex: "#FFE9B0", label: "vanille" },
@@ -118,8 +118,8 @@ export const THEMES: Theme[] = [
     keywords: ["laut", "verspielt", "gegen-den-strich", "kontrast", "mutig", "frech"],
     textures: [
       { style: "linear-gradient(135deg, #FF3B5C 0%, #6A5AFF 100%)", label: "disco-verlauf" },
-      { style: "radial-gradient(circle at 20% 50%, #E1FD52, transparent 40%), radial-gradient(circle at 80% 30%, #FF3B5C, transparent 40%), #111", label: "spots" },
-      { style: "repeating-linear-gradient(-45deg, #111 0px, #111 12px, #E1FD52 12px, #E1FD52 24px)", label: "absperr-band" },
+      { style: "radial-gradient(circle at 20% 50%, rgb(var(--accent)), transparent 40%), radial-gradient(circle at 80% 30%, #FF3B5C, transparent 40%), #111", label: "spots" },
+      { style: "repeating-linear-gradient(-45deg, #111 0px, #111 12px, rgb(var(--accent)) 12px, rgb(var(--accent)) 24px)", label: "absperr-band" },
     ],
     previewBg: "#111111",
     previewFg: "#FFE9B0",
@@ -233,8 +233,8 @@ type PlaygroundState = {
 const PlaygroundCtx = createContext<PlaygroundState | null>(null);
 
 export function PlaygroundProvider({ children }: { children: ReactNode }) {
-  const [name, setName] = useState("müller");
-  const [accent, setAccent] = useState("#E1FD52");
+  const [name, setName] = useState("atelier");
+  const [accent, setAccent] = useState("rgb(var(--accent))");
   const [secondaryAccent, setSecondaryAccent] = useState("#111111");
   const [colorMode, setColorMode] = useState<ColorMode>("one");
   const [moodId, setMoodId] = useState("warm");

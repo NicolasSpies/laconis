@@ -74,8 +74,8 @@ export function RefThumb({ ref_, aspect = "4 / 3", className }: Props) {
       {/* konzept-badge · zeigt dass es keine live-kundenarbeit ist */}
       {!ref_.istEcht && (
         <span
-          className="absolute top-2 right-2 z-[2] font-mono text-[9px] uppercase tracking-[0.12em] px-1.5 py-0.5 rounded-sm bg-black/55 text-offwhite/75 ring-1 ring-white/15 backdrop-blur-[2px]"
-          aria-label="konzept-studie · kein live-projekt"
+          className="absolute top-2 right-2 z-[2] font-mono text-[9px] uppercase tracking-[0.12em] px-1.5 py-0.5 rounded-sm bg-dark/55 text-offwhite/75 ring-1 ring-ink/15 backdrop-blur-[2px]"
+          aria-label="Konzept-Studie · kein Live-Projekt"
         >
           konzept
         </span>

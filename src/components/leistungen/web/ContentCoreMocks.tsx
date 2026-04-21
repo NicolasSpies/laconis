@@ -39,8 +39,8 @@ export function DashboardMock({ className = "" }: { className?: string }) {
         <text x="100" y="46" fontFamily="ui-monospace, monospace" fontSize="10" fill="rgba(242,242,242,0.5)">
           cms.laconis.be / dashboard
         </text>
-        <rect x="640" y="34" width="32" height="16" rx="3" fill="rgba(225,253,82,0.12)" stroke="rgba(225,253,82,0.35)" />
-        <text x="656" y="45" fontFamily="ui-monospace, monospace" fontSize="8" fill="#E1FD52" textAnchor="middle">
+        <rect x="640" y="34" width="32" height="16" rx="3" fill="rgb(var(--accent) / 0.12)" stroke="rgb(var(--accent) / 0.35)" />
+        <text x="656" y="45" fontFamily="ui-monospace, monospace" fontSize="8" fill="rgb(var(--accent))" textAnchor="middle">
           live
         </text>
       </g>
@@ -64,10 +64,10 @@ export function DashboardMock({ className = "" }: { className?: string }) {
         ].map((n) => (
           <g key={n.label}>
             {n.active && (
-              <rect x="42" y={n.y - 12} width="136" height="22" rx="4" fill="rgba(225,253,82,0.08)" />
+              <rect x="42" y={n.y - 12} width="136" height="22" rx="4" fill="rgb(var(--accent) / 0.08)" />
             )}
             {n.active && (
-              <rect x="42" y={n.y - 12} width="2" height="22" fill="#E1FD52" />
+              <rect x="42" y={n.y - 12} width="2" height="22" fill="rgb(var(--accent))" />
             )}
             <text
               x="58"
@@ -109,7 +109,7 @@ export function DashboardMock({ className = "" }: { className?: string }) {
               fontFamily="system-ui, sans-serif"
               fontSize="24"
               fontWeight="700"
-              fill={k.accent ? "#E1FD52" : "#F2F2F2"}
+              fill={k.accent ? "rgb(var(--accent))" : "#F2F2F2"}
             >
               {k.wert}
             </text>
@@ -128,7 +128,7 @@ export function DashboardMock({ className = "" }: { className?: string }) {
         ].map((e) => (
           <g key={e.titel}>
             <rect x="210" y={e.y - 14} width="460" height="24" rx="4" fill="#0d0d0d" stroke="rgba(255,255,255,0.05)" />
-            <circle cx="224" cy={e.y - 2} r="3" fill="#E1FD52" />
+            <circle cx="224" cy={e.y - 2} r="3" fill="rgb(var(--accent))" />
             <text x="236" y={e.y + 1} fontFamily="system-ui, sans-serif" fontSize="11" fill="rgba(242,242,242,0.75)">
               {e.titel}
             </text>
@@ -162,8 +162,8 @@ export function EditorMock({ className = "" }: { className?: string }) {
       <text x="62" y="20" fontFamily="ui-monospace, monospace" fontSize="8" fill="rgba(242,242,242,0.4)">
         cms / seiten / startseite / edit
       </text>
-      <rect x="370" y="10" width="36" height="14" rx="3" fill="rgba(225,253,82,0.12)" stroke="rgba(225,253,82,0.3)" />
-      <text x="388" y="20" fontFamily="ui-monospace, monospace" fontSize="7" fill="#E1FD52" textAnchor="middle">
+      <rect x="370" y="10" width="36" height="14" rx="3" fill="rgb(var(--accent) / 0.12)" stroke="rgb(var(--accent) / 0.3)" />
+      <text x="388" y="20" fontFamily="ui-monospace, monospace" fontSize="7" fill="rgb(var(--accent))" textAnchor="middle">
         speichern
       </text>
 
@@ -171,8 +171,8 @@ export function EditorMock({ className = "" }: { className?: string }) {
       <text x="28" y="66" fontFamily="system-ui, sans-serif" fontSize="16" fontWeight="700" fill="#F2F2F2" letterSpacing="-0.02em">
         Hero · Startseite
       </text>
-      <rect x="28" y="78" width="70" height="14" rx="3" fill="rgba(225,253,82,0.1)" stroke="rgba(225,253,82,0.25)" />
-      <text x="63" y="88" fontFamily="ui-monospace, monospace" fontSize="7" fill="#E1FD52" textAnchor="middle">
+      <rect x="28" y="78" width="70" height="14" rx="3" fill="rgb(var(--accent) / 0.1)" stroke="rgb(var(--accent) / 0.25)" />
+      <text x="63" y="88" fontFamily="ui-monospace, monospace" fontSize="7" fill="rgb(var(--accent))" textAnchor="middle">
         text-block
       </text>
 
@@ -184,10 +184,10 @@ export function EditorMock({ className = "" }: { className?: string }) {
       <text x="40" y="140" fontFamily="system-ui, sans-serif" fontSize="12" fill="#F2F2F2">
         say less
       </text>
-      <text x="85" y="140" fontFamily="serif" fontSize="12" fontStyle="italic" fill="rgba(225,253,82,0.9)">
+      <text x="85" y="140" fontFamily="serif" fontSize="12" fontStyle="italic" fill="rgb(var(--accent) / 0.9)">
         mean more
       </text>
-      <line x1="148" y1="126" x2="148" y2="144" stroke="#E1FD52" strokeWidth="1" />
+      <line x1="148" y1="126" x2="148" y2="144" stroke="rgb(var(--accent))" strokeWidth="1" />
 
       {/* Label + paragraph */}
       <text x="28" y="168" fontFamily="ui-monospace, monospace" fontSize="8" fill="rgba(242,242,242,0.4)">
@@ -267,14 +267,14 @@ export function StatsMock({ className = "" }: { className?: string }) {
       <path
         d="M 40 170 L 75 158 L 110 164 L 145 148 L 180 152 L 215 130 L 250 136 L 285 114 L 320 122 L 355 102 L 380 96"
         fill="none"
-        stroke="#E1FD52"
+        stroke="rgb(var(--accent))"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M 40 170 L 75 158 L 110 164 L 145 148 L 180 152 L 215 130 L 250 136 L 285 114 L 320 122 L 355 102 L 380 96 L 380 186 L 40 186 Z"
-        fill="rgba(225,253,82,0.08)"
+        fill="rgb(var(--accent) / 0.08)"
       />
       {/* Achsenbeschriftungen */}
       {["mo", "di", "mi", "do", "fr", "sa", "so"].map((d, i) => (
@@ -304,7 +304,7 @@ export function StatsMock({ className = "" }: { className?: string }) {
             {t.name}
           </text>
           <rect x="160" y={t.y - 6} width="180" height="8" rx="2" fill="#0a0a0a" />
-          <rect x="160" y={t.y - 6} width={(t.proz / 100) * 180} height="8" rx="2" fill="rgba(225,253,82,0.7)" />
+          <rect x="160" y={t.y - 6} width={(t.proz / 100) * 180} height="8" rx="2" fill="rgb(var(--accent) / 0.7)" />
           <text x="348" y={t.y + 3} fontFamily="ui-monospace, monospace" fontSize="9" fill="rgba(242,242,242,0.5)">
             {t.proz}%
           </text>

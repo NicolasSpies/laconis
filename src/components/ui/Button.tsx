@@ -10,12 +10,12 @@ type Size = "sm" | "md" | "lg";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-lime text-[#111] border border-lime hover:bg-transparent hover:text-accent-ink shadow-[0_0_0_0_rgba(225,253,82,0.0)] hover:shadow-[0_0_40px_0_rgba(225,253,82,0.35)]",
+    "btn-primary tactile bg-lime text-[#111] border border-lime",
   glass:
-    "bg-ink/[0.06] backdrop-blur-xl text-offwhite border border-ink/10 hover:bg-ink/[0.12] hover:border-ink/25",
+    "tactile-sm bg-ink/[0.06] backdrop-blur-xl text-offwhite border border-ink/10 hover:border-ink/25",
   ghost:
-    "bg-transparent text-offwhite border border-ink/25 hover:bg-ink/[0.06] hover:border-ink/25",
-  dark: "bg-dark text-offwhite border border-ink/10 hover:bg-lime hover:text-[#111] hover:border-lime",
+    "tactile-sm bg-transparent text-offwhite border border-ink/25 hover:border-ink/40",
+  dark: "tactile bg-dark text-offwhite border border-ink/10 hover:border-lime",
 };
 
 const sizes: Record<Size, string> = {
@@ -24,8 +24,11 @@ const sizes: Record<Size, string> = {
   lg: "px-7 py-3.5 text-[13px]",
 };
 
+/* transition-all bewusst NICHT mehr drin · würde mit .tactile's
+   eigener transform/box-shadow-transition kollidieren (duration-mismatch).
+   colors kriegen eigene transition damit hover-color-changes smooth bleiben. */
 const base =
-  "inline-flex items-center justify-center gap-2 font-mono lowercase tracking-mono rounded-full transition-all duration-300 whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed";
+  "inline-flex items-center justify-center gap-2 font-mono lowercase tracking-mono rounded-full whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed [transition:background-color_0.3s,color_0.3s,border-color_0.3s]";
 
 type Common = {
   variant?: Variant;

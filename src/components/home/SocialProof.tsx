@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { cn } from "@/lib/cn";
 
 type Metric = { num: string; label: string };
 
@@ -65,7 +66,14 @@ export function SocialProof() {
                 transition={{ duration: 0.6, delay: i * 0.08 }}
                 className="flex flex-col items-center text-center gap-3 py-10 px-6 md:px-8 first:border-l-0 [&:nth-child(3)]:border-l-0 md:[&:nth-child(3)]:border-l"
               >
-                <span className="inline-block heading-display text-[44px] md:text-[60px] text-accent-ink [text-shadow:0_0_40px_rgba(225,253,82,0.35)]">
+                <span
+                  className={cn(
+                    "inline-block heading-display text-[44px] md:text-[60px]",
+                    i === 2
+                      ? "text-accent-ink [text-shadow:0_0_40px_rgba(225,253,82,0.35)]"
+                      : "text-offwhite",
+                  )}
+                >
                   <CountUp value={m.num} inView={inView} />
                 </span>
                 <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/55">
@@ -75,6 +83,36 @@ export function SocialProof() {
             ))}
           </div>
         </div>
+
+        {/* kundenstimme · eine stimme, nicht drei · nähe statt theater */}
+        <motion.figure
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="mt-10 max-w-[720px] mx-auto flex items-start gap-5 md:gap-6 px-2"
+          style={{ transform: "rotate(-0.3deg)" }}
+        >
+          <div
+            aria-hidden
+            className="shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full bg-lime/15 border border-lime/30 flex items-center justify-center font-mono text-[13px] md:text-[14px] text-accent-ink"
+          >
+            RF
+          </div>
+          <div className="min-w-0">
+            <blockquote className="font-hand text-[21px] md:text-[26px] leading-[1.25] text-offwhite/85">
+              „ich hab einfach angerufen, geschrieben wenn was war.
+              keine tickets, keine agentur-höflichkeit."
+            </blockquote>
+            <figcaption className="mt-3 font-mono text-[10px] uppercase tracking-label text-offwhite/55">
+              reimund fabry
+              <span className="text-offwhite/25"> · </span>
+              fabry baumpflege
+              <span className="text-offwhite/25"> · </span>
+              eupen
+            </figcaption>
+          </div>
+        </motion.figure>
       </div>
     </section>
   );

@@ -99,7 +99,7 @@ function PolaroidCard({
       className="absolute w-[240px] cursor-grab active:cursor-grabbing will-change-transform"
     >
       <div
-        className="group relative text-offwhite rounded-md p-2.5 pb-3 border border-ink/10 hover:border-lime/50 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.9),0_2px_6px_rgba(0,0,0,0.5)] transition-colors"
+        className="polaroid-card-bg group relative text-offwhite rounded-md p-2.5 pb-3 border border-ink/10 hover:border-lime/50 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.9),0_2px_6px_rgba(0,0,0,0.5)] transition-colors"
         style={{ background: CARD_BG }}
       >
         {/* thin lime accent at top — the "tape" moment */}
@@ -111,7 +111,7 @@ function PolaroidCard({
         <div className="relative overflow-hidden rounded-[2px]">
           <RefThumb ref_={ref_} aspect="4 / 5" />
           {/* kategorie badge */}
-          <span className="absolute top-2.5 left-2.5 font-mono text-[9px] uppercase tracking-label text-black bg-lime px-1.5 py-0.5 rounded-sm">
+          <span className="absolute top-2.5 left-2.5 font-mono text-[9px] uppercase tracking-label text-offwhite bg-black/60 backdrop-blur-sm border border-white/15 px-1.5 py-0.5 rounded-sm">
             {ref_.kategorieLabel}
           </span>
         </div>
@@ -233,7 +233,10 @@ export function PolaroidBoard({ items: itemsProp }: { items?: Referenz[] } = {})
                   "radial-gradient(ellipse at center, black 40%, transparent 90%)",
               }}
             />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[55%] h-[55%] rounded-full bg-lime/[0.05] blur-[120px]" />
+            <div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[55%] h-[55%] rounded-full blur-[120px]"
+              style={{ background: "rgb(var(--accent) / 0.05)" }}
+            />
           </div>
 
           {items.map((r, i) => (
@@ -272,7 +275,7 @@ export function PolaroidBoard({ items: itemsProp }: { items?: Referenz[] } = {})
                 />
                 <div className="relative overflow-hidden rounded-[2px]">
                   <RefThumb ref_={r} aspect="4 / 5" />
-                  <span className="absolute top-2 left-2 font-mono text-[8px] uppercase tracking-label text-black bg-lime px-1 py-0.5 rounded-sm">
+                  <span className="absolute top-2 left-2 font-mono text-[8px] uppercase tracking-label text-offwhite bg-black/60 backdrop-blur-sm border border-white/15 px-1 py-0.5 rounded-sm">
                     {r.kategorieLabel}
                   </span>
                 </div>

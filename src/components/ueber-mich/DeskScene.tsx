@@ -287,13 +287,13 @@ function InkBlot() {
     <svg
       aria-hidden
       viewBox="0 0 400 400"
-      className="absolute inset-0 w-full h-full pointer-events-none opacity-40 mix-blend-multiply"
+      className="desk-inkblot absolute inset-0 w-full h-full pointer-events-none opacity-40 mix-blend-multiply"
     >
       <defs>
         <radialGradient id="blot-grad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#1a1a1a" stopOpacity="0.55" />
-          <stop offset="70%" stopColor="#1a1a1a" stopOpacity="0.08" />
-          <stop offset="100%" stopColor="#1a1a1a" stopOpacity="0" />
+          <stop className="desk-inkblot-stop" offset="0%" stopColor="#1a1a1a" stopOpacity="0.55" />
+          <stop className="desk-inkblot-stop" offset="70%" stopColor="#1a1a1a" stopOpacity="0.08" />
+          <stop className="desk-inkblot-stop" offset="100%" stopColor="#1a1a1a" stopOpacity="0" />
         </radialGradient>
       </defs>
       {/* unregelmäßiger fleck */}
@@ -318,24 +318,24 @@ function CoffeeCup() {
     >
       <svg viewBox="0 0 90 110" className="w-full h-full">
         {/* dampf · drei wellige pfade mit offset-loop */}
-        <g className="coffee-steam" stroke="#cfcfcf" strokeWidth="2" strokeLinecap="round" fill="none">
+        <g className="coffee-steam desk-coffee-steam" strokeWidth="2" strokeLinecap="round" fill="none">
           <path d="M 30 45 Q 25 35 30 25 Q 35 15 30 5" className="steam-path-1" />
           <path d="M 45 45 Q 50 35 45 25 Q 40 15 45 5" className="steam-path-2" />
           <path d="M 60 45 Q 55 35 60 25 Q 65 15 60 5" className="steam-path-3" />
         </g>
         {/* tasse */}
         <path
+          className="desk-coffee-cup"
           d="M 18 55 L 72 55 L 66 100 Q 64 104 60 104 L 30 104 Q 26 104 24 100 Z"
           fill="#f5f1e8"
-          stroke="#2a2a2a"
           strokeWidth="1.8"
         />
         {/* kaffee-oberfläche */}
         <ellipse cx="45" cy="55" rx="27" ry="4" fill="#3a2418" />
         {/* henkel */}
         <path
+          className="desk-coffee-cup"
           d="M 72 62 Q 86 64 84 76 Q 82 86 68 84"
-          stroke="#2a2a2a"
           strokeWidth="1.8"
           fill="none"
         />
@@ -417,8 +417,8 @@ function PencilDraw() {
 
       {/* scribble-strich, der aussieht wie vom bleistift gezeichnet */}
       <path
+        className="desk-pencil-scribble"
         d="M 20 38 Q 60 34 100 38 T 180 36 Q 210 34 230 36"
-        stroke="#3a3a3a"
         strokeWidth="1.2"
         fill="none"
         strokeLinecap="round"
@@ -541,7 +541,7 @@ function PhoneMock({ onAddContact }: { onAddContact: () => void }) {
           <div className="mt-6 space-y-2.5">
             <Field label="mail" value={CONTACT.email} />
             <Field label="web" value="laconis.be" />
-            <Field label="ort" value="eupen · belgien" />
+            <Field label="ort" value="Eupen · Belgien" />
             <Field label="sprachen" value="DE · FR · EN" />
           </div>
 

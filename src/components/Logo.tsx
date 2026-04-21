@@ -73,6 +73,7 @@ export function Logo({
           }}
         />
       </Link>
+
       <AnimatePresence>
         {egg && (
           <motion.span

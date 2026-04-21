@@ -11,33 +11,33 @@ import { CONTACT } from "@/config/contact";
 
 export function SpecimenKartei({ num = "02" }: { num?: string } = {}) {
   return (
-    <section className="pb-32">
+    <section className="pb-32 overflow-hidden">
       <div className="container-site">
-        <div className="max-w-[760px]">
-          <SectionLabel num={num}>dein start-paket</SectionLabel>
-          <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.75rem)] text-offwhite leading-[1.05]">
-            alles, womit deine marke{" "}
-            <span className="text-offwhite/35">wirklich losgehen kann.</span>
-          </h2>
-          <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/55">
-            Kein Cherry-Picking, keine Baustein-Liste · das ist der
-            Grundstock, mit dem jede Marke bei mir startet. Vier Musterblätter,
-            alles greift ineinander, nichts fehlt.
-          </p>
-          <p className="mt-4 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-            Vom Logo über Farbwelt und Typo bis zur Visitenkarte · alles
-            stimmt aufeinander ab. Später kommt mehr dazu, wenn du&apos;s
-            brauchst · aber so startest du sauber.
-          </p>
-        </div>
+        <SectionLabel num={num}>dein start-paket</SectionLabel>
+        <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.75rem)] text-offwhite leading-[1.05]">
+          alles, womit deine marke{" "}
+          <span className="text-offwhite/35">wirklich losgehen kann.</span>
+        </h2>
+        <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/55">
+          Kein Cherry-Picking, keine Baustein-Liste · das ist der
+          Grundstock, mit dem jede Marke bei mir startet. Vier Musterblätter,
+          alles greift ineinander, nichts fehlt.
+        </p>
+        <p className="mt-4 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
+          Vom Logo über Farbwelt und Typo bis zur Visitenkarte · alles
+          stimmt aufeinander ab. Später kommt mehr dazu, wenn du&apos;s
+          brauchst · aber so startest du sauber.
+        </p>
 
-        <div className="mt-16 space-y-5">
+        <div className="mt-16 space-y-6 md:space-y-7">
           {/* 01 · LOGO + WORDMARK */}
           <SpecimenFrame
             num="01"
             titel="logo + wordmark"
             untertitel="Nicht das 500ste Kreis-mit-Schwung-Logo. Eine Marke, die man auf einem T-Shirt erkennt und im Telefonbuch schreiben kann."
             meta="wordmark · favicon · monogramm"
+            layout="classic"
+            rotate="-0.6deg"
           >
             <WordmarkSpecimen />
           </SpecimenFrame>
@@ -48,16 +48,31 @@ export function SpecimenKartei({ num = "02" }: { num?: string } = {}) {
             titel="moodboard + recherche"
             untertitel="Bevor geschraubt wird: wer bist du, wer sind die anderen, was fehlt. Ehrliche Recherche, kein Pinterest-Dump."
             meta="3-5 welten zur auswahl · wettbewerbs-scan"
+            layout="mirror"
+            rotate="0.7deg"
           >
             <MoodboardSpecimen />
           </SpecimenFrame>
+
+          {/* handmade-bridge · zusammenhalt der vier blätter */}
+          <div className="flex justify-center py-4 md:py-6">
+            <span
+              className="font-hand text-[22px] md:text-[24px] text-offwhite/75 leading-none"
+              style={{ transform: "rotate(-1.2deg)" }}
+            >
+              vier blätter{" "}
+              <span className="text-accent-ink">·</span> eine sprache.
+            </span>
+          </div>
 
           {/* 03 · BRAND GUIDE (farbe + typo inside) */}
           <SpecimenFrame
             num="03"
             titel="brand guide"
             untertitel="Farbwelt, Typografie, Bildsprache, Tonalität. Damit du nicht jedes Mal von vorne anfängst, wenn jemand ein Plakat druckt."
-            meta="pdf · ~25 seiten · alles an einem ort"
+            meta="pdf · deine marke auf einen blick"
+            layout="classic"
+            rotate="-0.5deg"
           >
             <BrandGuideSpecimen />
           </SpecimenFrame>
@@ -68,6 +83,8 @@ export function SpecimenKartei({ num = "02" }: { num?: string } = {}) {
             titel="print + packaging"
             untertitel="Etiketten, Flyer, Speisekarten, Verpackung. Druckfertig mit den richtigen Farbprofilen · nicht nur fürs Screen-Hübsch."
             meta="pdf/x-4 · 3mm anschnitt · iso 12647"
+            layout="mirror"
+            rotate="0.6deg"
           >
             <PrintSpecimen />
           </SpecimenFrame>
@@ -76,7 +93,7 @@ export function SpecimenKartei({ num = "02" }: { num?: string } = {}) {
         {/* CTA zum simulator */}
         <div className="mt-14 flex flex-col items-center gap-3">
           <Link
-            href="/leistungen/grafik/simulator"
+            href="/leistungen/branding/simulator"
             className="inline-flex items-center gap-3 rounded-full border border-lime/50 bg-lime/[0.06] hover:bg-lime/[0.12] px-6 py-3 font-mono text-[11px] uppercase tracking-mono text-accent-ink transition-colors"
           >
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-lime" />
@@ -93,44 +110,94 @@ export function SpecimenKartei({ num = "02" }: { num?: string } = {}) {
 
 /* ————————————————————————————————————————————————————————————
    Frame — gemeinsames layout für alle specimens
+   layout="classic" → index-card links, specimen rechts
+   layout="mirror"  → specimen links, index-card rechts (alterniert)
+   rotate           → subtile rotation für papierstapel-feel
 ———————————————————————————————————————————————————————————— */
+const NUM_OUTLINE_STYLE = {
+  WebkitTextStroke: "1.2px currentColor",
+  WebkitTextFillColor: "transparent",
+} as const;
+
 function SpecimenFrame({
   num,
   titel,
   untertitel,
   meta,
   children,
+  layout = "classic",
+  rotate = "0deg",
 }: {
   num: string;
   titel: string;
   untertitel: string;
   meta: string;
   children: React.ReactNode;
+  layout?: "classic" | "mirror";
+  rotate?: string;
 }) {
+  const isMirror = layout === "mirror";
+
   return (
-    <div className="liquid-glass rounded-2xl overflow-hidden">
-      <div className="grid lg:grid-cols-[320px_1fr] gap-0">
-        {/* LINKE SPALTE · index-card */}
-        <div className="p-7 md:p-9 border-b lg:border-b-0 lg:border-r border-ink/10 flex flex-col justify-between min-h-[280px]">
-          <div>
-            <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
-              musterblatt · {num}
-            </span>
-            <h3 className="heading-sans mt-4 text-[clamp(1.5rem,2.5vw,1.875rem)] text-offwhite leading-tight">
-              {titel}
-            </h3>
-            <p className="mt-4 text-[13px] leading-relaxed text-offwhite/55 max-w-[280px]">
-              {untertitel}
+    <div className="relative group">
+      {/* dezente outline-nummer · editorial-akzent in der äußeren ecke */}
+      <span
+        aria-hidden
+        className={[
+          "heading-display absolute z-0 select-none pointer-events-none",
+          "text-[clamp(4rem,7vw,5.5rem)] leading-[0.82] text-offwhite/25",
+          isMirror ? "top-0 right-0" : "top-0 left-0",
+        ].join(" ")}
+        style={{
+          ...NUM_OUTLINE_STYLE,
+          transform: isMirror
+            ? "translate(35%, -55%) rotate(6deg)"
+            : "translate(-35%, -55%) rotate(-6deg)",
+        }}
+      >
+        {num}
+      </span>
+
+      <div
+        className="relative z-10 liquid-glass-dark rounded-2xl overflow-hidden transition-transform duration-300 ease-out group-hover:!rotate-0"
+        style={{ transform: `rotate(${rotate})` }}
+      >
+        <div className="grid lg:grid-cols-[320px_1fr] gap-0">
+          {/* INDEX-CARD · links in classic, rechts in mirror */}
+          <div
+            className={[
+              "p-7 md:p-9 flex flex-col justify-between min-h-[280px]",
+              "border-b lg:border-b-0 border-ink/10",
+              isMirror
+                ? "lg:order-2 lg:border-l"
+                : "lg:order-1 lg:border-r",
+            ].join(" ")}
+          >
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
+                musterblatt · {num}
+              </span>
+              <h3 className="heading-sans mt-4 text-[clamp(1.5rem,2.5vw,1.875rem)] text-offwhite leading-tight">
+                {titel}
+              </h3>
+              <p className="mt-4 text-[13px] leading-relaxed text-offwhite/55 max-w-[280px]">
+                {untertitel}
+              </p>
+            </div>
+            <p className="mt-6 font-mono text-[10px] uppercase tracking-label text-offwhite/35">
+              {meta}
             </p>
           </div>
-          <p className="mt-6 font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-            {meta}
-          </p>
-        </div>
 
-        {/* RECHTE SPALTE · visual specimen */}
-        <div className="relative p-6 md:p-10 min-h-[280px] flex items-center justify-center overflow-hidden">
-          {children}
+          {/* VISUAL SPECIMEN · rechts in classic, links in mirror */}
+          <div
+            className={[
+              "relative p-6 md:p-10 min-h-[280px] flex items-center justify-center overflow-hidden",
+              isMirror ? "lg:order-1" : "lg:order-2",
+            ].join(" ")}
+          >
+            {children}
+          </div>
         </div>
       </div>
     </div>
@@ -211,7 +278,7 @@ function WordmarkSpecimen() {
 ———————————————————————————————————————————————————————————— */
 function BrandGuideSpecimen() {
   const COLORS = [
-    { hex: "#E1FD52", name: "lime" },
+    { hex: "rgb(var(--accent))", name: "lime" },
     { hex: "#1A1A1A", name: "ink" },
     { hex: "#F3F1EA", name: "paper" },
     { hex: "#A89F8C", name: "sand" },
@@ -394,7 +461,7 @@ function CropMarks() {
 ———————————————————————————————————————————————————————————— */
 function MoodboardSpecimen() {
   const TILES = [
-    { kind: "hex", value: "#E1FD52" },
+    { kind: "hex", value: "rgb(var(--accent))" },
     { kind: "word", value: "ruhig" },
     { kind: "texture", value: "papier" },
     { kind: "word", value: "ehrlich" },

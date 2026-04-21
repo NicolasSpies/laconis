@@ -38,7 +38,7 @@ const PROJEKT_OPTIONS: { id: ProjektTyp; label: string }[] = [
   { id: "mittel", label: "website · mittel" },
   { id: "gross", label: "website · gross" },
   { id: "branding", label: "branding" },
-  { id: "bundle", label: "bundle web + grafik" },
+  { id: "bundle", label: "bundle web + branding" },
 ];
 
 const PROJEKT_LABEL: Record<ProjektTyp, string> = {
@@ -47,7 +47,7 @@ const PROJEKT_LABEL: Record<ProjektTyp, string> = {
   mittel: "website · mittel",
   gross: "website · gross",
   branding: "branding",
-  bundle: "bundle web + grafik",
+  bundle: "bundle web + branding",
 };
 
 export function VerfuegbarkeitWidget({

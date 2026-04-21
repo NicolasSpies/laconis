@@ -10,6 +10,7 @@ import { StructuredData } from "@/components/seo/StructuredData";
 import { Tracker } from "@/components/analytics/Tracker";
 import { ConsoleGreeting } from "@/components/ConsoleGreeting";
 import { KonamiListener } from "@/components/easteregg/KonamiListener";
+import { AutoReveal } from "@/components/AutoReveal";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -56,6 +57,9 @@ export const metadata: Metadata = {
     "freelance design eupen",
     "webentwicklung belgien",
     "branding eupen",
+    "logo design eupen",
+    "logo erstellen lassen",
+    "brand identity belgien",
     "webdesign eifel",
     "grafik design ostbelgien",
     "freelance designer belgien",
@@ -83,8 +87,10 @@ export const metadata: Metadata = {
   },
 };
 
-/* Inline — runs before React hydrates. Prevents flash of wrong theme. */
-const themeInitScript = `(function(){try{var s=localStorage.getItem('laconis-theme');var t=s||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`;
+/* Inline — runs before React hydrates. Prevents flash of wrong theme.
+   default = light · dark nur wenn user explicit via localStorage ODER os-level
+   prefers-color-scheme: dark gesetzt hat · sonst immer light. */
+const themeInitScript = `(function(){try{var s=localStorage.getItem('laconis-theme');var pd=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);var t=s||(pd?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();`;
 
 export default function RootLayout({
   children,
@@ -92,7 +98,7 @@ export default function RootLayout({
   return (
     <html
       lang="de"
-      data-theme="dark"
+      data-theme="light"
       suppressHydrationWarning
       className={`${dmSans.variable} ${dmMono.variable} ${caveat.variable} ${instrumentSerif.variable}`}
     >
@@ -103,7 +109,15 @@ export default function RootLayout({
         <div
           aria-hidden
           className="absolute inset-x-0 bottom-0 grid-bg-faint pointer-events-none"
-          style={{ top: "100svh", zIndex: -1 }}
+          style={{
+            top: "100svh",
+            zIndex: -1,
+            // sanfter fade-in am oberen rand · kein harter cut zum hero-grid
+            maskImage:
+              "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 15%, black 40%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 15%, black 40%)",
+          }}
         />
         <CursorSpotlight />
         <CursorDot />
@@ -112,6 +126,7 @@ export default function RootLayout({
         <Tracker />
         <ConsoleGreeting />
         <KonamiListener />
+        <AutoReveal />
         <main className="relative z-[1]">
           <PageTransition>{children}</PageTransition>
         </main>

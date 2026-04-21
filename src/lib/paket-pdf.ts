@@ -14,6 +14,8 @@ import {
 
 type PdfInput = {
   items: LineItem[];
+  /** anfrage-items · drucksachen & montage, ohne preis im bon */
+  inquiryItems?: string[];
   totals: Totals;
   bonNumber: string;
   closestPaket: string | null;
@@ -25,16 +27,21 @@ const CONTENT_W = WIDTH_MM - MARGIN_MM * 2;
 
 export function downloadBonPdf({
   items,
+  inquiryItems = [],
   totals,
   bonNumber,
   closestPaket,
 }: PdfInput) {
-  /* höhe grob schätzen: fix-zeilen + monthly-zeilen + headers */
+  /* höhe grob schätzen: fix-zeilen + monthly-zeilen + headers + anfrage-zeilen */
   const fixItems = items.filter((i) => !i.monthly);
   const monthlyItems = items.filter((i) => i.monthly);
-  const approxRows = fixItems.length + monthlyItems.length;
-  // grundhöhe (~70mm) + 6.5mm pro zeile
-  const heightMm = 80 + approxRows * 6.5 + (monthlyItems.length > 0 ? 25 : 0);
+  const approxRows = fixItems.length + monthlyItems.length + inquiryItems.length;
+  // grundhöhe (~70mm) + 6.5mm pro zeile + anfrage-header bei bedarf
+  const heightMm =
+    80 +
+    approxRows * 6.5 +
+    (monthlyItems.length > 0 ? 25 : 0) +
+    (inquiryItems.length > 0 ? 18 : 0);
 
   const doc = new jsPDF({
     unit: "mm",
@@ -126,6 +133,34 @@ export function downloadBonPdf({
     doc.text("SUMME / MONAT", MARGIN_MM, y);
     rightText(doc, `${formatEUR(totals.monthly)} EUR`, y);
     y += 6;
+  }
+
+  /* ─── anfrage-block (drucksachen, montage · ohne preis) ─── */
+  if (inquiryItems.length > 0) {
+    dashedLine(doc, y);
+    y += 4;
+    doc.setFontSize(7);
+    doc.setFont("courier", "bold");
+    doc.setTextColor(80);
+    doc.text("ZUM BESPRECHEN", MARGIN_MM, y);
+    y += 3.5;
+    doc.setFont("courier", "normal");
+    doc.setFontSize(6.5);
+    doc.setTextColor(130);
+    doc.text("preis nach gespräch · über partner", MARGIN_MM, y);
+    y += 4.5;
+    doc.setFontSize(8);
+    doc.setTextColor(30);
+    inquiryItems.forEach((label) => {
+      const right = "ANFRAGE";
+      const priceW = doc.getTextWidth(right);
+      const availableLabelW = CONTENT_W - priceW - 3;
+      const trimmed = truncateToWidth(doc, label, availableLabelW);
+      doc.text(trimmed, MARGIN_MM, y);
+      rightText(doc, right, y);
+      y += 4.2;
+    });
+    y += 1;
   }
 
   /* ─── hinweis „entspricht paket" ─── */

@@ -1,0 +1,117 @@
+<h2>akt 2 · wie zeigt man den beweis ohne polaroids?</h2>
+<p class="subtitle">drei wege · bewusst unterschiedliche philosophien</p>
+
+<div class="cards">
+
+  <!-- ═══════ OPTION A · INDEX ═══════ -->
+  <div class="card" data-choice="index" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1a1a; padding:32px 24px; min-height:340px; color:#f2f2f2;">
+      <div style="font-family:monospace; font-size:10px; color:#888; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:24px;">· arbeiten</div>
+
+      <div style="display:flex; flex-direction:column; gap:0; font-family:serif;">
+        <div style="display:grid; grid-template-columns: 40px 1fr 60px 80px; gap:16px; padding: 14px 0; border-top:1px solid #333; align-items:baseline;">
+          <span style="font-family:monospace; font-size:11px; color:#666;">01</span>
+          <span style="font-size:18px;">fabry baumpflege</span>
+          <span style="font-family:monospace; font-size:10px; color:#888;">2026</span>
+          <span style="font-family:monospace; font-size:10px; color:#E1FD52;">web →</span>
+        </div>
+        <div style="display:grid; grid-template-columns: 40px 1fr 60px 80px; gap:16px; padding: 14px 0; border-top:1px solid #333; align-items:baseline;">
+          <span style="font-family:monospace; font-size:11px; color:#666;">02</span>
+          <span style="font-size:18px;">bäckerei meier</span>
+          <span style="font-family:monospace; font-size:10px; color:#888;">2025</span>
+          <span style="font-family:monospace; font-size:10px; color:#E1FD52;">web + brand →</span>
+        </div>
+        <div style="display:grid; grid-template-columns: 40px 1fr 60px 80px; gap:16px; padding: 14px 0; border-top:1px solid #333; align-items:baseline;">
+          <span style="font-family:monospace; font-size:11px; color:#666;">03</span>
+          <span style="font-size:18px;">atelier k</span>
+          <span style="font-family:monospace; font-size:10px; color:#888;">2025</span>
+          <span style="font-family:monospace; font-size:10px; color:#E1FD52;">brand →</span>
+        </div>
+        <div style="border-top:1px solid #333; padding-top:14px; margin-top:4px;">
+          <span style="font-family:monospace; font-size:10px; color:#666;">+ 5 weitere →</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A · index</h3>
+      <p>typografische liste · nummer, name, jahr, art · <strong>hover zeigt screenshot-preview</strong> rechts daneben · redaktionell, ernst, ultra komm-zum-punkt · keine bilder im grundzustand</p>
+    </div>
+  </div>
+
+  <!-- ═══════ OPTION B · ONE FEATURE ═══════ -->
+  <div class="card" data-choice="feature" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1a1a; padding:32px 24px; min-height:340px; color:#f2f2f2;">
+      <div style="font-family:monospace; font-size:10px; color:#888; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:20px;">· zuletzt live</div>
+
+      <!-- one big screenshot frame -->
+      <div style="background:#2a2a2a; border-radius:6px; overflow:hidden; margin-bottom:12px;">
+        <div style="background:#222; padding:8px 12px; font-family:monospace; font-size:10px; color:#888; display:flex; gap:6px; align-items:center;">
+          <span style="width:8px; height:8px; border-radius:50%; background:#666;"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:#666;"></span>
+          <span style="width:8px; height:8px; border-radius:50%; background:#666;"></span>
+          <span style="margin-left:8px;">fabrybaumpflege.be</span>
+        </div>
+        <div style="background:linear-gradient(135deg,#3a3a3a 0%, #2a2a2a 100%); height:170px; position:relative;">
+          <div style="position:absolute; top:20px; left:20px; font-family:serif; font-size:22px; color:#f2f2f2;">bäume.<br>klar im bild.</div>
+          <div style="position:absolute; bottom:16px; right:16px; background:#E1FD52; color:#111; padding:4px 10px; font-size:10px; font-family:monospace; border-radius:999px;">angebot →</div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:baseline;">
+        <div>
+          <div style="font-family:serif; font-size:16px;">fabry baumpflege</div>
+          <div style="font-family:monospace; font-size:10px; color:#888; margin-top:2px;">web · branding · 2026</div>
+        </div>
+        <div style="font-family:monospace; font-size:10px; color:#E1FD52; border-bottom:1px dashed #E1FD52;">alle projekte →</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B · eine featured · ein grosser screenshot</h3>
+      <p>ein projekt groß im browser-frame · darunter zwei zeilen info + "alle projekte →" · erzählt "das ist meine neueste arbeit, hier ist der beweis" · tief statt breit</p>
+    </div>
+  </div>
+
+  <!-- ═══════ OPTION C · DREI SCREENSHOTS VERSETZT ═══════ -->
+  <div class="card" data-choice="screens" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1a1a; padding:32px 24px; min-height:340px; color:#f2f2f2; position:relative; overflow:hidden;">
+      <div style="font-family:monospace; font-size:10px; color:#888; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:20px;">· arbeiten</div>
+
+      <div style="position:relative; height:230px;">
+        <!-- screenshot 1 · hinten links -->
+        <div style="position:absolute; top:0; left:0; width:55%; height:180px; background:#2a2a2a; border-radius:4px; box-shadow:0 12px 30px rgba(0,0,0,0.5); overflow:hidden; transform:rotate(-1.5deg);">
+          <div style="background:#1f1f1f; padding:5px 8px; font-family:monospace; font-size:8px; color:#666;">fabrybaumpflege.be</div>
+          <div style="background:linear-gradient(135deg,#3a3a3a,#252525); height:150px; padding:12px;">
+            <div style="font-family:serif; font-size:13px;">bäume. klar.</div>
+          </div>
+        </div>
+        <!-- screenshot 2 · mitte vorn (überlappt 1) -->
+        <div style="position:absolute; top:32px; left:32%; width:55%; height:180px; background:#2a2a2a; border-radius:4px; box-shadow:0 14px 34px rgba(0,0,0,0.6); overflow:hidden; transform:rotate(1deg);">
+          <div style="background:#1f1f1f; padding:5px 8px; font-family:monospace; font-size:8px; color:#666;">baeckerei-meier.be</div>
+          <div style="background:linear-gradient(135deg,#4a3a2a,#2a2015); height:150px; padding:12px;">
+            <div style="font-family:serif; font-size:13px; color:#eaddb8;">frisch. täglich.</div>
+          </div>
+        </div>
+        <!-- caption-zeile unten -->
+        <div style="position:absolute; bottom:0; left:0; right:0; font-family:monospace; font-size:10px; color:#aaa; display:flex; justify-content:space-between;">
+          <span>fabry baumpflege · bäckerei meier · atelier k →</span>
+          <span style="color:#E1FD52;">alle →</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C · drei screenshots, leicht versetzt</h3>
+      <p>echte website-screenshots · 2–3 überlappend, minimal rotiert (nicht als polaroid sondern als "prints auf einem tisch") · zeigt arbeit als arbeit, nicht als deko · lebendig aber nicht craftig</p>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:32px; padding:16px 20px; background:#fdf6d8; border:1px solid #e8d868; border-radius:4px; font-size:12px; color:#5a4e20; line-height:1.6;">
+  <strong>mein read:</strong> <strong>A (index)</strong> ist am stärksten "komm zum punkt" und am editorial-seriösesten — fühlt sich an wie ein serious-designer-portfolio, nicht wie ein template. mit hover-preview (screenshot pops up rechts) bleibt's trotzdem visuell.<br><br>
+  <strong>B (featured)</strong> ist am schnellsten verstanden — ein blick, alles klar, hier ist beweis. funktioniert wenn du eine "neueste arbeit" hast auf die du stolz bist.<br><br>
+  <strong>C (drei screenshots)</strong> ist näher an dem was du jetzt hast — asymmetrisch, lebendig, aber ohne polaroid-kram. sicherste wahl wenn du nicht zu weit vom aktuellen gefühl weg willst.
+</div>
+
+<div style="margin-top:24px;">
+  <p class="subtitle">klick ein option (oder schreib in terminal)</p>
+</div>

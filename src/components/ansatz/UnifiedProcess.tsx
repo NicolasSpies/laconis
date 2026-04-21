@@ -1,7 +1,7 @@
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
 /**
- * UnifiedProcess — vier-schritte-prozess, gilt für web + grafik.
+ * UnifiedProcess — vier-schritte-prozess, gilt für web + branding.
  * Sketchbook-stil: handschriftliche notizen, kringelnummern, pfeile.
  * Unterschiede zwischen den disziplinen im lauftext (bauen-step).
  */
@@ -19,28 +19,28 @@ const STEPS: Step[] = [
     num: "01",
     titel: "kennenlernen",
     handNote: "wer bist du?",
-    kurz: "30 min call oder kaffee in eupen. wir reden über dich, nicht übers logo oder pixel. kostet nichts, bringt klarheit.",
+    kurz: "30 Min Call oder Kaffee in Eupen. Wir reden über dich, nicht übers Logo oder Pixel. Kostet nichts, bringt Klarheit.",
     dauer: "~1 tag",
   },
   {
     num: "02",
     titel: "richtung finden",
     handNote: "tiefer, nicht breiter",
-    kurz: "moodboard, struktur, tonalität. wir picken gemeinsam wohin's geht · bevor irgendeine farbe oder zeile umgesetzt wird.",
+    kurz: "Moodboard, Struktur, Tonalität. Wir picken gemeinsam, wohin's geht · bevor irgendeine Farbe oder Zeile umgesetzt wird.",
     dauer: "~1 woche",
   },
   {
     num: "03",
     titel: "bauen",
     handNote: "fortschritt statt blackbox",
-    kurz: "bei web: design + code parallel. bei grafik: entwurf + schleifen. du siehst was alle paar tage, nicht erst nach wochen stille.",
+    kurz: "Bei Web: Design + Code parallel. Bei Branding: Entwurf + Schleifen. Du siehst was alle paar Tage, nicht erst nach Wochen Stille.",
     dauer: "~2 bis 5 wochen",
   },
   {
     num: "04",
     titel: "übergabe",
     handNote: "du bekommst alles",
-    kurz: "web: live-gang + cms-einweisung. grafik: alle dateien, print-ready-exports, kurz-manual. keine nachlieferungen.",
+    kurz: "Web: Live-Gang + CMS-Einweisung. Branding: alle Dateien, Print-ready-Exports, Kurz-Manual. Keine Nachlieferungen.",
     dauer: "~2-3 tage",
   },
 ];
@@ -60,18 +60,19 @@ export function UnifiedProcess({
             </span>
           </h2>
           <p className="mt-6 max-w-[600px] text-[15px] leading-relaxed text-offwhite/55">
-            gleicher rhythmus für web und grafik. kein agentur-gantt-chart,
-            kein 42-seiten-prozess-dokument. jeder schritt mit klarem ergebnis,
+            Gleicher Rhythmus für Web und Branding. Kein Agentur-Gantt-Chart,
+            kein 42-Seiten-Prozess-Dokument. Jeder Schritt mit klarem Ergebnis,
             bevor der nächste anfängt.
           </p>
         </div>
 
         {/* Sketchbook-block · ohne grid-rauschen, fokus auf inhalt */}
-        <div className="mt-14 md:mt-16 relative rounded-2xl border border-ink/10 bg-gradient-to-b from-ink/[0.025] to-transparent p-6 md:p-10 lg:p-12 overflow-hidden">
+        <div className="mt-14 md:mt-16 relative glass rounded-2xl p-6 md:p-10 lg:p-12 overflow-hidden">
           {/* dezenter lime-glow oben rechts, atmosphäre statt struktur */}
           <div
             aria-hidden
-            className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-lime/[0.04] blur-3xl"
+            className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full blur-3xl"
+            style={{ background: "rgb(var(--accent) / 0.04)" }}
           />
 
           <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-4">

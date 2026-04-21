@@ -25,9 +25,9 @@ export function GrafikDemo() {
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <h3
           className="heading-display text-offwhite leading-[0.9] text-center transition-transform duration-[700ms] ease-out group-hover:scale-[1.04]"
-          style={{ fontSize: "clamp(2.5rem, 9vw, 6rem)", letterSpacing: "-0.035em" }}
+          style={{ fontSize: "clamp(2.25rem, 7.5vw, 5.25rem)", letterSpacing: "-0.035em" }}
         >
-          grafik
+          branding
         </h3>
       </div>
 
@@ -39,7 +39,7 @@ export function GrafikDemo() {
         hover="group-hover:-translate-x-10 group-hover:-translate-y-6 group-hover:rotate-[-22deg]"
         base="rotate-[-6deg]"
       >
-        <div className="w-9 h-9 md:w-12 md:h-12 bg-lime rounded-sm shadow-[0_8px_20px_-8px_rgba(225,253,82,0.4)]" />
+        <div className="w-9 h-9 md:w-12 md:h-12 bg-lime rounded-sm shadow-[0_8px_20px_-8px_rgb(var(--accent) / 0.4)]" />
       </Floater>
 
       {/* 2 · offwhite circle · oben rechts · eng */}

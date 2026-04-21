@@ -62,7 +62,7 @@ const PAKETE: Record<string, PaketEntry> = {
 
 /* ══════════════════════════ state-modell ══════════════════════════ */
 
-type Bedarf = "website" | "branding" | "grafik-print" | "alles" | "was-anderes";
+type Bedarf = "website" | "branding" | "alles" | "was-anderes";
 type Seiten = "onepager" | "2-5" | "6-10" | "10+" | "weiss-nicht";
 type Sprachen = "1" | "2" | "3+";
 type Zeitplan = "flexibel" | "dringend";
@@ -105,7 +105,7 @@ const INITIAL: State = {
 
 /* bedarf ableiten aus paket-tab (für URL-einstieg) */
 function bedarfFromTab(tab: PaketEntry["tab"]): Bedarf {
-  if (tab === "grafik") return "grafik-print";
+  if (tab === "grafik") return "branding";
   if (tab === "bundle") return "alles";
   return "website";
 }
@@ -150,7 +150,7 @@ function deriveProjektTyp(state: State): ProjektTyp {
     if (hasVisuals) return "branding";
   }
   // bedarf + seiten fallback
-  if (state.bedarf === "branding" || state.bedarf === "grafik-print")
+  if (state.bedarf === "branding")
     return "branding";
   if (state.bedarf === "alles") return "bundle";
   if (state.seiten === "onepager") return "onepager";
@@ -193,7 +193,9 @@ function Inner() {
           ? "website"
           : builder.branding
           ? "branding"
-          : "grafik-print";
+          : hasVisuals
+          ? "branding"
+          : "was-anderes";
 
       // scope-mapping builder.unterseiten → multistep-seiten
       const totalSeiten = 1 + builder.unterseiten;
@@ -399,8 +401,8 @@ function Inner() {
       if (!res.ok || !data.ok) {
         setSendError(
           data?.error === "rate-limit"
-            ? "zu viele anfragen · bitte in einer stunde nochmal probieren."
-            : `konnte nicht gesendet werden. schreib mir direkt an ${CONTACT.email}.`,
+            ? "Zu viele Anfragen · bitte in einer Stunde nochmal probieren."
+            : `Konnte nicht gesendet werden. Schreib mir direkt an ${CONTACT.email}.`,
         );
         setSending(false);
         return;
@@ -414,7 +416,7 @@ function Inner() {
       setSent(true);
     } catch {
       setSendError(
-        `netzwerk-fehler. schreib mir direkt an ${CONTACT.email}.`,
+        `Netzwerk-Fehler. Schreib mir direkt an ${CONTACT.email}.`,
       );
       setSending(false);
     }
@@ -483,9 +485,9 @@ function Inner() {
         </p>
 
         <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55 max-w-[440px] mx-auto">
-          deine anfrage ist da · antwort kommt innerhalb von 24 std (werktags)
-          per {state.email.includes("@") ? "mail" : "nachricht"}
-          {state.telefon ? ` oder telefon (${state.telefon})` : ""}. bis
+          Deine Anfrage ist da · Antwort kommt innerhalb von 24 Std (werktags)
+          per {state.email.includes("@") ? "Mail" : "Nachricht"}
+          {state.telefon ? ` oder Telefon (${state.telefon})` : ""}. Bis
           dahin · mach's gut.
         </p>
         <div className="mt-8 flex justify-center gap-3 flex-wrap">
@@ -718,27 +720,22 @@ const BEDARF_OPTIONS: { id: Bedarf; titel: string; kurz: string }[] = [
   {
     id: "website",
     titel: "website",
-    kurz: "neue seite, redesign, onepager oder mehrsprachig.",
+    kurz: "Neue Seite, Redesign, Onepager oder mehrsprachig.",
   },
   {
     id: "branding",
     titel: "branding",
-    kurz: "logo, brand guide, identität • visuelles system.",
-  },
-  {
-    id: "grafik-print",
-    titel: "grafik · print",
-    kurz: "flyer, plakate, speisekarten, verpackung.",
+    kurz: "Logo, Brand Guide, Identität • visuelles System.",
   },
   {
     id: "alles",
     titel: "alles zusammen",
-    kurz: "web + branding + print • aus einer hand.",
+    kurz: "Web + Branding • aus einer Hand.",
   },
   {
     id: "was-anderes",
     titel: "was anderes",
-    kurz: "sonderprojekt, beratung, keine schublade.",
+    kurz: "Sonderprojekt, Beratung, keine Schublade.",
   },
 ];
 
@@ -755,8 +752,8 @@ function Step1({
         was brauchst du?
       </h3>
       <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-        grob reicht. du kannst im nächsten schritt präzisieren • oder später
-        ändern, wenn sich herausstellt dass es doch was anderes ist.
+        Grob reicht. Du kannst im nächsten Schritt präzisieren • oder später
+        ändern, wenn sich herausstellt, dass es doch was anderes ist.
       </p>
 
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -771,7 +768,7 @@ function Step1({
               className={[
                 "text-left rounded-xl p-5 border transition-all",
                 active
-                  ? "border-lime/50 bg-lime/[0.05] shadow-[0_12px_32px_-16px_rgba(225,253,82,0.3)]"
+                  ? "border-lime/50 bg-lime/[0.05] shadow-[0_12px_32px_-16px_rgb(var(--accent) / 0.3)]"
                   : "border-ink/10 bg-ink/[0.015] hover:border-ink/25",
               ].join(" ")}
             >
@@ -841,7 +838,7 @@ function Step2({
     return <BuilderStep2 state={state} update={update} />;
   }
 
-  const isBranding = state.bedarf === "branding" || state.bedarf === "grafik-print";
+  const isBranding = state.bedarf === "branding";
   // budget-chip verstecken, wenn ein paket aktiv ist (preis ist schon live sichtbar).
   const showBudget = !state.paketId;
 
@@ -851,8 +848,8 @@ function Step2({
         präzisieren.
       </h3>
       <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-        wenige klicks • so krieg ich ein bild, ob wir ins selbe paket passen
-        oder was sonderanfertigung brauchen.
+        Wenige Klicks • so krieg ich ein Bild, ob wir ins selbe Paket passen
+        oder was Sonderanfertigung brauchen.
       </p>
 
       <div className="mt-8 flex flex-col gap-6">
@@ -883,7 +880,7 @@ function Step2({
             value={state.budget}
             options={BUDGET_OPTS}
             onChange={(v) => update("budget", v)}
-            hint="grob reicht. keine trickfragen, ich pass das angebot an was realistisch ist."
+            hint="Grob reicht. Keine Trickfragen, ich pass das Angebot an, was realistisch ist."
           />
         )}
       </div>
@@ -935,18 +932,18 @@ function BuilderStep2({
             paket anpassen.
           </h3>
           <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-            startpunkt:{" "}
+            Startpunkt:{" "}
             <span className="text-offwhite">
               {paket?.name ?? "paket"}
             </span>
-            {presetLabel ? ` · preset „${presetLabel}"` : ""}. schraub dran
-            bis's passt — preis unten passt sich live an.
+            {presetLabel ? ` · Preset „${presetLabel}"` : ""}. Schraub dran
+            bis's passt — Preis unten passt sich live an.
           </p>
         </div>
       </div>
 
       {/* web-block · unterseiten / cms / sprachen / shop */}
-      <div className="mt-8 rounded-2xl border border-ink/10 bg-ink/[0.015] p-5 md:p-6 flex flex-col gap-5">
+      <div className="mt-8 glass rounded-2xl p-5 md:p-6 flex flex-col gap-5">
         <div className="flex items-center justify-between">
           <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
             website-umfang
@@ -957,8 +954,8 @@ function BuilderStep2({
         </div>
 
         <CounterRow
-          label="unterseiten"
-          hint="je 300 € · über die startseite hinaus"
+          label="Unterseiten"
+          hint="Je 300 € · über die Startseite hinaus"
           value={builder.unterseiten}
           min={0}
           max={20}
@@ -966,8 +963,8 @@ function BuilderStep2({
         />
 
         <CounterRow
-          label="cms-bereiche"
-          hint="je 500 € · selbst pflegbar (blog, team, news…)"
+          label="CMS-Bereiche"
+          hint="Je 500 € · selbst pflegbar (Blog, Team, News…)"
           value={builder.cms}
           min={0}
           max={8}
@@ -1007,15 +1004,15 @@ function BuilderStep2({
         </div>
 
         <ToggleRow
-          label="shop / buchungs-system"
-          hint="onlineshop oder termin-system · +1.800 €"
+          label="Shop / Buchungs-System"
+          hint="Onlineshop oder Termin-System · +1.800 €"
           value={builder.shop}
           onChange={(v) => setBuilder({ shop: v })}
         />
       </div>
 
       {/* hosting · domain / mails */}
-      <div className="mt-5 rounded-2xl border border-ink/10 bg-ink/[0.015] p-5 md:p-6 flex flex-col gap-5">
+      <div className="mt-5 glass rounded-2xl p-5 md:p-6 flex flex-col gap-5">
         <div className="flex items-center justify-between">
           <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
             hosting · domain · mail
@@ -1028,10 +1025,10 @@ function BuilderStep2({
         <div className="flex items-center justify-between gap-3 flex-wrap">
           <div>
             <span className="text-[14px] text-offwhite/75">
-              hast du schon eine domain?
+              Hast du schon eine Domain?
             </span>
             <p className="mt-0.5 text-[11.5px] text-offwhite/35">
-              nein → ich registriere mit (+2 €/Mt, je nach domain variabel).
+              Nein → ich registriere mit (+2 €/Mt, je nach Domain variabel).
             </p>
           </div>
           <div className="inline-flex rounded-full border border-ink/10 bg-dark p-0.5 shrink-0">
@@ -1065,8 +1062,8 @@ function BuilderStep2({
         </div>
 
         <CounterRow
-          label="e-mail-postfächer"
-          hint="je 5 €/Mt · info@, hallo@, …"
+          label="E-Mail-Postfächer"
+          hint="Je 5 €/Mt · info@, hallo@, …"
           value={builder.mails}
           min={0}
           max={20}
@@ -1075,7 +1072,7 @@ function BuilderStep2({
       </div>
 
       {/* extras · collapsible */}
-      <div className="mt-5 rounded-2xl border border-ink/10 bg-ink/[0.015] overflow-hidden">
+      <div className="mt-5 glass rounded-2xl overflow-hidden">
         <button
           type="button"
           onClick={() => setExtrasOpen((v) => !v)}
@@ -1087,7 +1084,7 @@ function BuilderStep2({
               extras
             </span>
             <p className="mt-0.5 text-[12.5px] text-offwhite/35">
-              branding dazu, content-hilfe · optional
+              Branding dazu, Content-Hilfe · optional
             </p>
           </div>
           <svg
@@ -1130,8 +1127,8 @@ function BuilderStep2({
             >
               <div className="px-5 md:px-6 pb-6 flex flex-col gap-5 border-t border-ink/10 pt-5">
                 <ToggleRow
-                  label="branding dazu"
-                  hint="logo, brand guide, vk, briefpapier, 3 social-templates · +1.200 € · −10% bundle-rabatt greift automatisch"
+                  label="Branding dazu"
+                  hint="Logo, Brand Guide, VK, Briefpapier, 3 Social-Templates · +1.200 € · −10% Bundle-Rabatt greift automatisch"
                   value={builder.branding}
                   onChange={(v) => setBuilder({ branding: v })}
                 />
@@ -1143,7 +1140,7 @@ function BuilderStep2({
                     </label>
                   </div>
                   <p className="mt-1 text-[12px] text-offwhite/35">
-                    wer schreibt die texte und liefert die bilder?
+                    Wer schreibt die Texte und liefert die Bilder?
                   </p>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {(
@@ -1197,8 +1194,8 @@ function BuilderStep2({
 
       {/* hinweis unten */}
       <p className="mt-6 text-[12.5px] leading-relaxed text-offwhite/55 max-w-[580px]">
-        zeitplan & dringend-aufschlag kommen im nächsten schritt — dann siehst
-        du den finalen bon.
+        Zeitplan & Dringend-Aufschlag kommen im nächsten Schritt — dann siehst
+        du den finalen Bon.
       </p>
     </div>
   );
@@ -1400,10 +1397,10 @@ function Step3({
   const isBuilderMode = state.customBuilder !== null;
 
   if (paket?.baseMonthly !== undefined && !isBuilderMode) {
-    const parts: string[] = ["hosting"];
-    if (!state.hasDomain) parts.push("+ domain");
+    const parts: string[] = ["Hosting"];
+    if (!state.hasDomain) parts.push("+ Domain");
     if (state.mails > 0)
-      parts.push(`+ ${state.mails} mail${state.mails > 1 ? "s" : ""}`);
+      parts.push(`+ ${state.mails} Mail${state.mails > 1 ? "s" : ""}`);
     rows.push({
       label: "laufender posten",
       value: parts.join(" "),
@@ -1413,7 +1410,6 @@ function Step3({
 
   if (
     state.bedarf !== "branding" &&
-    state.bedarf !== "grafik-print" &&
     !isBuilderMode
   ) {
     rows.push({
@@ -1434,7 +1430,7 @@ function Step3({
   if (!paket && !state.customBuilder) {
     rows.push({
       label: "budget",
-      value: state.budget ? budgetLabel(state.budget) : "• noch offen",
+      value: state.budget ? budgetLabel(state.budget) : "• Noch offen",
       editStep: 2,
     });
   }
@@ -1452,10 +1448,10 @@ function Step3({
       </h3>
       <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
         {isCustom
-          ? "alles was du im konfigurator ausgewählt hast • als richtpreis. das finale angebot kommt von mir innerhalb 24 std."
+          ? "Alles, was du im Konfigurator ausgewählt hast • als Richtpreis. Das finale Angebot kommt von mir innerhalb 24 Std."
           : paket
-          ? 'alles wie von der preisseite übernommen. korrigierbar • klick auf „ändern" neben jeder zeile.'
-          : "kurze kontrolle bevor wir zum kontakt gehen. jede zeile ist änderbar."}
+          ? 'Alles wie von der Preisseite übernommen. Korrigierbar • Klick auf „ändern" neben jeder Zeile.'
+          : "Kurze Kontrolle, bevor wir zum Kontakt gehen. Jede Zeile ist änderbar."}
       </p>
 
       {/* custom-builder: eingebetteter kassenzettel */}
@@ -1521,7 +1517,7 @@ function Step3({
                 </div>
               )}
               <div className="mt-1 text-[11px] text-offwhite/35">
-                bei projekt-abschluss
+                Bei Projekt-Abschluss
               </div>
             </div>
 
@@ -1535,10 +1531,10 @@ function Step3({
                   <span className="text-offwhite/35 text-[0.6em]">€/Mt</span>
                 </div>
                 <div className="mt-1 text-[11px] text-offwhite/35">
-                  hosting
-                  {!state.hasDomain ? " · + domain" : ""}
+                  Hosting
+                  {!state.hasDomain ? " · + Domain" : ""}
                   {state.mails > 0
-                    ? ` · ${state.mails} mail${state.mails > 1 ? "s" : ""}`
+                    ? ` · ${state.mails} Mail${state.mails > 1 ? "s" : ""}`
                     : ""}
                 </div>
               </div>
@@ -1548,7 +1544,7 @@ function Step3({
         );
       })()}
 
-      <div className="mt-6 rounded-2xl border border-ink/10 bg-ink/[0.015] overflow-hidden">
+      <div className="mt-6 glass rounded-2xl overflow-hidden">
         {rows.map((r, i) => (
           <div
             key={r.label + i}
@@ -1573,8 +1569,8 @@ function Step3({
       </div>
 
       <p className="mt-5 text-[12.5px] leading-relaxed text-offwhite/55">
-        wenn alles stimmt, nächster schritt: deine kontaktdaten + optional eine
-        notiz. angebot kommt innerhalb 24 std.
+        Wenn alles stimmt, nächster Schritt: deine Kontaktdaten + optional eine
+        Notiz. Angebot kommt innerhalb 24 Std.
       </p>
 
       {/* queue-position · interaktiv · zeitplan-toggle direkt am slot */}
@@ -1626,8 +1622,8 @@ function Step4({
           wer bist du?
         </h3>
         <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-          nur das nötigste. telefon und notiz sind freiwillig. ich antworte
-          innerhalb von 24 std per mail.
+          Nur das Nötigste. Telefon und Notiz sind freiwillig. Ich antworte
+          innerhalb von 24 Std per Mail.
         </p>
       </div>
 
@@ -1637,7 +1633,7 @@ function Step4({
           value={state.name}
           onChange={(v) => update("name", v)}
           required
-          placeholder="pierre müller"
+          placeholder="Alex Martin"
           autoComplete="name"
         />
         <TextField
@@ -1668,7 +1664,7 @@ function Step4({
           value={state.notiz}
           onChange={(e) => update("notiz", e.target.value)}
           rows={5}
-          placeholder="was sollte ich vor unserem gespräch wissen? (zeitliche zwänge, besonderheiten, links zu inspiration …)"
+          placeholder="Was sollte ich vor unserem Gespräch wissen? (zeitliche Zwänge, Besonderheiten, Links zu Inspiration …)"
           className="w-full bg-ink/[0.03] border border-ink/10 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/55 outline-none resize-none transition-colors"
         />
       </div>
@@ -1680,10 +1676,10 @@ function Step4({
           className="mt-1 accent-lime w-4 h-4 rounded cursor-pointer"
         />
         <span>
-          ich bin einverstanden, dass diese daten verarbeitet werden, um meine
-          anfrage zu beantworten. kein newsletter, kein verkauf. details in der{" "}
+          Ich bin einverstanden, dass diese Daten verarbeitet werden, um meine
+          Anfrage zu beantworten. Kein Newsletter, kein Verkauf. Details in der{" "}
           <a href="/datenschutz" className="text-accent-ink hover:underline">
-            datenschutzerklärung
+            Datenschutzerklärung
           </a>
           .
         </span>
@@ -1701,7 +1697,7 @@ function Step4({
         }}
       >
         <label>
-          nicht ausfüllen (spam-schutz)
+          Nicht ausfüllen (Spam-Schutz)
           <input
             type="text"
             tabIndex={-1}
@@ -1844,7 +1840,7 @@ function derivePriceInfo(state: State): PriceInfo | null {
 
 function PriceBar({ info }: { info: PriceInfo }) {
   return (
-    <div className="rounded-2xl border border-lime/25 bg-dark/95 backdrop-blur-md shadow-[0_16px_40px_-20px_rgba(0,0,0,0.6)] px-5 py-4 md:px-6 md:py-4 flex items-center justify-between gap-4 flex-wrap">
+    <div className="glass rounded-2xl px-5 py-4 md:px-6 md:py-4 flex items-center justify-between gap-4 flex-wrap" style={{ borderColor: "rgb(var(--accent) / 0.28)" }}>
       <div className="min-w-0 flex items-baseline gap-3 flex-wrap">
         <span className="font-mono text-[9px] uppercase tracking-label text-accent-ink">
           dein preis · live

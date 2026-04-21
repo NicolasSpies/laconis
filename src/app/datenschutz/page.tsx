@@ -43,24 +43,24 @@ export default function Page() {
         aside="nur was nötig ist, um projekte abzuwickeln. keine werbenetzwerke, keine scoring-tools."
       >
         <p>
-          <strong className="text-offwhite">kontaktaufnahme.</strong> wenn du
-          mir über das formular oder per e-mail schreibst, verarbeite ich die
-          von dir angegebenen daten (name, e-mail, nachricht und optional
-          budget / projektinfo) zur bearbeitung deiner anfrage. rechtsgrundlage:
-          art. 6 abs. 1 lit. b und f DSGVO (vertragsanbahnung / berechtigtes
-          interesse).
+          <strong className="text-offwhite">Kontaktaufnahme.</strong> Wenn du
+          mir über das Formular oder per E-Mail schreibst, verarbeite ich die
+          von dir angegebenen Daten (Name, E-Mail, Nachricht und optional
+          Budget / Projektinfo) zur Bearbeitung deiner Anfrage. Rechtsgrundlage:
+          Art. 6 Abs. 1 lit. b und f DSGVO (Vertragsanbahnung / berechtigtes
+          Interesse).
         </p>
         <p>
-          <strong className="text-offwhite">sprachnachricht.</strong> wenn du
-          das voice-memo-feature nutzt, wird die aufnahme lokal in deinem
-          browser erstellt und erst beim absenden an mich übertragen. ich
-          speichere sie so lange, wie es für die bearbeitung nötig ist.
+          <strong className="text-offwhite">Sprachnachricht.</strong> Wenn du
+          das Voice-Memo-Feature nutzt, wird die Aufnahme lokal in deinem
+          Browser erstellt und erst beim Absenden an mich übertragen. Ich
+          speichere sie so lange, wie es für die Bearbeitung nötig ist.
         </p>
         <p>
-          <strong className="text-offwhite">server-logs.</strong> der hoster
-          erhebt automatisch technische daten (ip-adresse, zeitstempel,
-          browser-kennung), die für den betrieb und die sicherheit der seite
-          notwendig sind. diese werden nach spätestens 30 tagen gelöscht.
+          <strong className="text-offwhite">Server-Logs.</strong> Der Hoster
+          erhebt automatisch technische Daten (IP-Adresse, Zeitstempel,
+          Browser-Kennung), die für den Betrieb und die Sicherheit der Seite
+          notwendig sind. Diese werden nach spätestens 30 Tagen gelöscht.
         </p>
       </LegalSection>
 
@@ -69,10 +69,10 @@ export default function Page() {
         aside="diese seite trackt dich nicht. kein google analytics, keine pixel, keine retargeting-tools."
       >
         <p>
-          lacønis setzt nur funktionale cookies ein, die für den reibungslosen
-          betrieb der website notwendig sind (z. b. zur speicherung deiner
-          akzentfarben-einstellung im localstorage). es findet kein tracking
-          oder profiling statt.
+          lacønis setzt nur funktionale Cookies ein, die für den reibungslosen
+          Betrieb der Website notwendig sind (z. B. zur Speicherung deiner
+          Akzentfarben-Einstellung im LocalStorage). Es findet kein Tracking
+          oder Profiling statt.
         </p>
       </LegalSection>
 
@@ -81,22 +81,22 @@ export default function Page() {
         aside="dienste, die im hintergrund laufen. alle EU-konform ausgewählt, wo möglich."
       >
         <p>
-          zur bereitstellung der website nutze ich:
+          Zur Bereitstellung der Website nutze ich:
         </p>
         <ul className="list-disc pl-5 space-y-1.5 text-offwhite/75">
           <li>
-            <strong className="text-offwhite">hosting:</strong> Vercel Inc. /
-            OVH (je nach projekt). datenverarbeitung unter EU-standardvertrags-
+            <strong className="text-offwhite">Hosting:</strong> Vercel Inc. /
+            OVH (je nach Projekt). Datenverarbeitung unter EU-Standardvertrags-
             klauseln.
           </li>
           <li>
-            <strong className="text-offwhite">e-mail-versand:</strong> regulärer
-            mailprovider, keine marketing-dienste.
+            <strong className="text-offwhite">E-Mail-Versand:</strong> regulärer
+            Mailprovider, keine Marketing-Dienste.
           </li>
           <li>
-            <strong className="text-offwhite">schrift:</strong> Google Fonts
-            werden lokal ausgeliefert — keine verbindung zu google beim laden
-            der seite.
+            <strong className="text-offwhite">Schrift:</strong> Google Fonts
+            werden lokal ausgeliefert — keine Verbindung zu Google beim Laden
+            der Seite.
           </li>
         </ul>
       </LegalSection>
@@ -105,18 +105,18 @@ export default function Page() {
         titel="deine rechte"
         aside="gdpr gibt dir fünf hebel. alle kostenlos, alle per e-mail einforderbar."
       >
-        <p>als betroffene person hast du das recht:</p>
+        <p>Als betroffene Person hast du das Recht:</p>
         <ul className="list-disc pl-5 space-y-1.5 text-offwhite/75">
-          <li>auskunft zu erhalten, ob und welche daten ich über dich speichere (art. 15);</li>
-          <li>berichtigung unrichtiger daten zu verlangen (art. 16);</li>
-          <li>löschung deiner daten zu verlangen, sofern keine aufbewahrungspflicht besteht (art. 17);</li>
-          <li>verarbeitung einzuschränken (art. 18);</li>
-          <li>widerspruch gegen die verarbeitung einzulegen (art. 21);</li>
-          <li>datenübertragbarkeit zu verlangen (art. 20);</li>
-          <li>beschwerde bei der belgischen datenschutzbehörde (APD/GBA) einzulegen.</li>
+          <li>Auskunft zu erhalten, ob und welche Daten ich über dich speichere (Art. 15);</li>
+          <li>Berichtigung unrichtiger Daten zu verlangen (Art. 16);</li>
+          <li>Löschung deiner Daten zu verlangen, sofern keine Aufbewahrungspflicht besteht (Art. 17);</li>
+          <li>Verarbeitung einzuschränken (Art. 18);</li>
+          <li>Widerspruch gegen die Verarbeitung einzulegen (Art. 21);</li>
+          <li>Datenübertragbarkeit zu verlangen (Art. 20);</li>
+          <li>Beschwerde bei der belgischen Datenschutzbehörde (APD/GBA) einzulegen.</li>
         </ul>
         <p>
-          eine kurze e-mail reicht:{" "}
+          Eine kurze E-Mail reicht:{" "}
           <a
             href={`mailto:${CONTACT.email}`}
             className="text-accent-ink hover:underline"
@@ -132,9 +132,9 @@ export default function Page() {
         aside="ich halte daten so lange wie nötig. dann: löschen."
       >
         <p>
-          anfragen, die nicht zu einem auftrag führen, werden nach 6 monaten
-          gelöscht. projektdaten werden bis zum ablauf der gesetzlichen
-          aufbewahrungsfristen (in der regel 7 jahre, buchhaltungspflicht in
+          Anfragen, die nicht zu einem Auftrag führen, werden nach 6 Monaten
+          gelöscht. Projektdaten werden bis zum Ablauf der gesetzlichen
+          Aufbewahrungsfristen (in der Regel 7 Jahre, Buchhaltungspflicht in
           Belgien) gespeichert und danach gelöscht.
         </p>
       </LegalSection>
@@ -144,9 +144,9 @@ export default function Page() {
         aside="rechtliche updates kommen immer wieder. hier aktualisiere ich's dann."
       >
         <p>
-          ich behalte mir vor, diese datenschutzerklärung gelegentlich
-          anzupassen, damit sie den aktuellen rechtlichen anforderungen
-          entspricht. die jeweils aktuelle version ist immer hier abrufbar.
+          Ich behalte mir vor, diese Datenschutzerklärung gelegentlich
+          anzupassen, damit sie den aktuellen rechtlichen Anforderungen
+          entspricht. Die jeweils aktuelle Version ist immer hier abrufbar.
         </p>
       </LegalSection>
 

@@ -90,7 +90,7 @@ export function ContactSheet() {
                 className="group block"
               >
                 {/* Image frame · leichte hover-rotation */}
-                <div className="relative overflow-hidden rounded-md border border-ink/10 transition-all duration-300 group-hover:border-lime/50 group-hover:shadow-[0_18px_48px_-20px_rgba(225,253,82,0.25)] group-hover:rotate-[-0.5deg]">
+                <div className="relative overflow-hidden rounded-md border border-ink/10 transition-all duration-300 group-hover:border-lime/50 group-hover:shadow-[0_18px_48px_-20px_rgb(var(--accent) / 0.25)] group-hover:rotate-[-0.5deg]">
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -100,7 +100,7 @@ export function ContactSheet() {
                   </motion.div>
 
                   {/* Kategorie-Badge */}
-                  <span className="absolute top-3 left-3 font-mono text-[9px] uppercase tracking-label text-black bg-lime px-1.5 py-0.5 rounded-sm">
+                  <span className="absolute top-3 left-3 font-mono text-[9px] uppercase tracking-label text-offwhite bg-black/60 backdrop-blur-sm border border-white/15 px-1.5 py-0.5 rounded-sm">
                     {r.kategorieLabel}
                   </span>
 

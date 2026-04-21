@@ -52,7 +52,7 @@ export function LegalSection({
       </div>
       {aside && (
         <aside
-          className="font-hand text-[17px] leading-snug text-offwhite/55 lg:pt-10 lg:border-l lg:border-ink/10 lg:pl-5"
+          className="font-hand text-[17px] leading-snug text-offwhite/80 lg:pt-10 lg:border-l lg:border-ink/10 lg:pl-5"
           style={{ transform: "rotate(-0.4deg)" }}
         >
           {aside}

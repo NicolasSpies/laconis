@@ -4,25 +4,25 @@ const SCHRITTE = [
   {
     num: "01",
     titel: "gespräch",
-    kurz: "30 minuten video-call oder kaffee in eupen. kostet nichts, bringt klarheit.",
+    kurz: "30 Minuten Video-Call oder Kaffee in Eupen. Kostet nichts, bringt Klarheit.",
     dauer: "~1 tag",
   },
   {
     num: "02",
     titel: "konzept",
-    kurz: "struktur, tonalität, moodboard. bevor eine einzige pixel-entscheidung fällt.",
+    kurz: "Struktur, Tonalität, Moodboard. Bevor eine einzige Pixel-Entscheidung fällt.",
     dauer: "~1 woche",
   },
   {
     num: "03",
     titel: "umsetzung",
-    kurz: "design und bau parallel. du siehst fortschritt alle paar tage, nicht erst nach sechs wochen.",
+    kurz: "Design und Bau parallel. Du siehst Fortschritt alle paar Tage, nicht erst nach sechs Wochen.",
     dauer: "2 bis 5 wochen",
   },
   {
     num: "04",
     titel: "launch",
-    kurz: "live gehen, einweisung ins CMS, übergabe. danach bin ich eine mail entfernt.",
+    kurz: "Live gehen, Einweisung ins CMS, Übergabe. Danach bin ich eine Mail entfernt.",
     dauer: "~2 tage",
   },
 ];
@@ -38,8 +38,8 @@ export function ProcessFlow({ num = "06" }: { num?: string } = {}) {
             <span className="text-offwhite/35">keine blackbox.</span>
           </h2>
           <p className="mt-6 max-w-[580px] text-[15px] leading-relaxed text-offwhite/55">
-            ich weiss nach gespräch eins, ob wir zusammenpassen. du weisst es
-            nach gespräch zwei. ab dann wird gebaut, nicht verhandelt.
+            Ich weiß nach Gespräch eins, ob wir zusammenpassen. Du weißt es
+            nach Gespräch zwei. Ab dann wird gebaut, nicht verhandelt.
           </p>
         </div>
 
@@ -57,7 +57,7 @@ export function ProcessFlow({ num = "06" }: { num?: string } = {}) {
                 className="relative pl-10 md:pl-0 md:pr-6"
               >
                 {/* Meilenstein-Punkt */}
-                <div className="absolute md:static left-0 top-0 md:mb-6 w-7 h-7 rounded-full bg-black border border-lime/50 flex items-center justify-center">
+                <div className="absolute md:static left-0 top-0 md:mb-6 w-7 h-7 rounded-full bg-dark border border-lime/50 flex items-center justify-center">
                   <span className="font-mono text-[9px] uppercase tracking-label text-accent-ink">
                     {s.num}
                   </span>

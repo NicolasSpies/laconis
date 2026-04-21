@@ -2,7 +2,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 
 /**
  * WebManifest — "was ich nicht mache" für /leistungen/web
- * Personality-statement, mirror zu /grafik.
+ * Personality-statement, mirror zu /branding.
  */
 
 type Zeile = {

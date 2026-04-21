@@ -5,6 +5,8 @@ import { ContentCoreSection } from "@/components/leistungen/web/ContentCoreSecti
 import { HostingBlock } from "@/components/leistungen/web/HostingBlock";
 import { ContentCoreVsWordpress } from "@/components/leistungen/web/ContentCoreVsWordpress";
 import { ContentCoreDeepDive } from "@/components/leistungen/web/ContentCoreDeepDive";
+import { BeweisStrip } from "@/components/leistungen/web/BeweisStrip";
+import { ContentControl } from "@/components/leistungen/web/ContentControl";
 import { getMeta } from "@/lib/seo/getMeta";
 import type { Metadata } from "next";
 
@@ -50,6 +52,8 @@ export default function Page() {
           {/* anchor-nav */}
           <nav className="mt-10 flex flex-wrap gap-2">
             {[
+              { href: "#beweis", label: "beweis · scores" },
+              { href: "#content-control", label: "content-control" },
               { href: "#contentcore", label: "contentcore · überblick" },
               { href: "#hosting", label: "hosting" },
               { href: "#cms-vergleich", label: "contentcore vs wordpress" },
@@ -67,17 +71,23 @@ export default function Page() {
         </div>
       </section>
 
+      <div id="beweis">
+        <BeweisStrip num="02" />
+      </div>
+      <div id="content-control">
+        <ContentControl num="03" />
+      </div>
       <div id="contentcore">
-        <ContentCoreSection num="02" />
+        <ContentCoreSection num="04" />
       </div>
       <div id="hosting">
-        <HostingBlock num="03" />
+        <HostingBlock num="05" />
       </div>
       <div id="cms-vergleich">
-        <ContentCoreVsWordpress num="04" />
+        <ContentCoreVsWordpress num="06" />
       </div>
       <div id="deep-dive">
-        <ContentCoreDeepDive num="05" />
+        <ContentCoreDeepDive num="07" />
       </div>
 
       {/* CTA */}

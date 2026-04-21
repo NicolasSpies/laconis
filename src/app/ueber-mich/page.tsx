@@ -25,28 +25,28 @@ const WERDEGANG = [
   {
     jahr: "2019",
     titel: "erste website",
-    kurz: "für einen freund eine wordpress-seite gebastelt. haken tief drinnen.",
+    kurz: "Für einen Freund eine WordPress-Seite gebastelt. Haken tief drinnen.",
   },
   {
     jahr: "2021",
     titel: "nebenberuflich selbständig",
-    kurz: "erste echte kunden. die ersten 'ich mach das für lau'-fehler.",
+    kurz: "Erste echte Kunden. Die ersten „ich mach das für lau“-Fehler.",
   },
   {
     jahr: "2023",
     titel: "umzug auf next.js",
-    kurz: "wordpress weg. alles selbst gebaut. nie mehr plugin-hölle.",
+    kurz: "WordPress weg. Alles selbst gebaut. Nie mehr Plugin-Hölle.",
   },
   {
     jahr: "2025",
     titel: "laconis als marke",
     kurz:
-      "aus 'nicolas macht websites' wird 'laconis'. name, handschrift, haltung.",
+      "Aus „Nicolas macht Websites“ wird „lacønis“. Name, Handschrift, Haltung.",
   },
   {
     jahr: "2026",
     titel: "vollzeit",
-    kurz: "endlich. nur noch laconis. volle konzentration.",
+    kurz: "Endlich. Nur noch lacønis. Volle Konzentration.",
   },
 ];
 
@@ -70,10 +70,26 @@ export default function Page() {
               </h1>
 
               <p className="mt-8 max-w-[520px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-                nicolas spies. 29, aus eupen, belgien. designer und
-                web-developer seit 2019 • seit 2026 vollzeit als laconis. ich
-                bau marken und websites, die sich nach den leuten anfühlen, die
+                Nicolas Spies. 29, aus Eupen, Belgien. Designer und
+                Web-Developer seit 2019 • seit 2026 vollzeit als lacønis. Ich
+                bau Marken und Websites, die sich nach den Leuten anfühlen, die
                 dahinterstehen.
+              </p>
+
+              {/* PS · hand-notiz · erklärt subtil den namen
+                  · rand-annotation-feel, wie mit bleistift dazu gekritzelt */}
+              <p
+                className="mt-5 max-w-[520px] text-accent-ink"
+                style={{
+                  fontFamily: "var(--font-caveat), cursive",
+                  fontSize: "clamp(1.15rem, 1.6vw, 1.35rem)",
+                  lineHeight: 1.25,
+                  transform: "rotate(-1deg)",
+                  transformOrigin: "left center",
+                }}
+              >
+                <span className="text-offwhite/45">p.s. </span>
+                lakonisch — knapp gesagt, viel gemeint. daher der name.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
@@ -98,12 +114,8 @@ export default function Page() {
             {/* right — portrait */}
             <div className="relative">
               <div
-                className="relative mx-auto w-[280px] md:w-[320px] aspect-[3/4] rounded-md border border-ink/10 overflow-hidden shadow-[0_40px_100px_-30px_rgba(0,0,0,0.9)]"
-                style={{
-                  transform: "rotate(-2deg)",
-                  background:
-                    "radial-gradient(ellipse at 30% 20%, rgba(225,253,82,0.12) 0%, transparent 55%), linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%)",
-                }}
+                className="portrait-stand relative mx-auto w-[280px] md:w-[320px] aspect-[3/4] rounded-md border border-ink/10 overflow-hidden shadow-[0_40px_100px_-30px_rgba(0,0,0,0.9)]"
+                style={{ transform: "rotate(-2deg)" }}
               >
                 {/* monogram stand-in */}
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -180,8 +192,8 @@ export default function Page() {
             tools sind mittel, nicht sinn.
           </h2>
           <p className="mt-4 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-            aber weil mich's jeder fragt • hier die aktuelle palette. wird
-            sich in 2 jahren wieder geändert haben.
+            Aber weil mich's jeder fragt • hier die aktuelle Palette. Wird
+            sich in 2 Jahren wieder geändert haben.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-2">
@@ -210,8 +222,8 @@ export default function Page() {
               soweit in kurz. wollen wir reden?
             </h2>
             <p className="mt-5 max-w-[480px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
-              mehr über mich als über laconis? auch okay. ich mag kaffee und
-              ehrliche gespräche.
+              Mehr über mich als über lacønis? Auch okay. Ich mag Kaffee und
+              ehrliche Gespräche.
             </p>
             <div className="mt-8 flex justify-center gap-3 flex-wrap">
               <Button

@@ -34,7 +34,8 @@ export type AnalyticsEvent =
   | { type: "paket_tab_switched"; from: string; to: string }
   | { type: "konami_triggered" }
   | { type: "four_oh_four_challenge_completed"; level: number }
-  | { type: "evolution_slider_used"; slug: string };
+  | { type: "evolution_slider_used"; slug: string }
+  | { type: "theme_toggled"; to: "dark" | "light" };
 
 const SESSION_KEY = "laconis-session";
 

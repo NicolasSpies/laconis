@@ -17,27 +17,27 @@ const FAQ = [
   {
     frage: 'was kommt nach dem klick auf „anfragen"?',
     antwort:
-      "du landest im projekt-formular mit deinem paket schon vorausgefüllt. du ergänzt nur noch, was zu deinem fall gehört (timing, besonderheiten, fragen) und ich melde mich innerhalb von 24 std mit einem konkreten angebot.",
+      "Du landest im Projekt-Formular mit deinem Paket schon vorausgefüllt. Du ergänzt nur noch, was zu deinem Fall gehört (Timing, Besonderheiten, Fragen) und ich melde mich innerhalb von 24 Std mit einem konkreten Angebot.",
   },
   {
     frage: "was heißt das mit den raten-zinsen genau?",
     antwort:
-      "ratenzahlung ist optional. modell 1 (vorkasse oder nach-abschluss) ist komplett zinsfrei. modell 2 · 50% anzahlung, rest in bis zu 5 monatsraten — darauf werden 2% pro monat auf den noch offenen betrag berechnet, gedeckelt bei 10% gesamtaufschlag. beispiel: 2.000 € rest in 5 raten → du zahlst ca. 2.100 € statt 2.000 €. modell 3 (ganz ohne anzahlung, projekt vorfinanziert) kostet 4% / monat, weil mein risiko höher ist. alle drei modelle sind transparent · keine versteckten gebühren, keine verzugszinsen bei pünktlicher zahlung.",
+      "Ratenzahlung ist optional. Modell 1 (Vorkasse oder Nach-Abschluss) ist komplett zinsfrei. Modell 2 · 50% Anzahlung, Rest in bis zu 5 Monatsraten — darauf werden 2% pro Monat auf den noch offenen Betrag berechnet, gedeckelt bei 10% Gesamtaufschlag. Beispiel: 2.000 € Rest in 5 Raten → du zahlst ca. 2.100 € statt 2.000 €. Modell 3 (ganz ohne Anzahlung, Projekt vorfinanziert) kostet 4% / Monat, weil mein Risiko höher ist. Alle drei Modelle sind transparent · keine versteckten Gebühren, keine Verzugszinsen bei pünktlicher Zahlung.",
   },
   {
     frage: "wie lange dauert so ein projekt?",
     antwort:
-      "ein onepager ca. 2 wochen, ein multipager 3–5 wochen, ein cms-projekt 4–6 wochen. kommt auf content-lieferung und feedback-tempo an. wenn du eine harte deadline hast, sag bescheid · planen wir rückwärts.",
+      "Ein Onepager ca. 2 Wochen, ein Multipager 3–5 Wochen, ein CMS-Projekt 4–6 Wochen. Kommt auf Content-Lieferung und Feedback-Tempo an. Wenn du eine harte Deadline hast, sag Bescheid · planen wir rückwärts.",
   },
   {
     frage: "was passiert wenn ich eine rate verpasse?",
     antwort:
-      "erst mal nichts dramatisches · ich schreibe dich an. wenn eine rate trotz erinnerung länger als 14 tage überfällig ist, kommt der gesetzliche verzugszinssatz (belgische regelung, aktuell um 8% p.a.) dazu, ggf. plus 40 € mahn-pauschale. das ist EU/BE-standard, nicht meine erfindung. im regelfall finden wir aber einfach eine neue zahl-lösung.",
+      "Erst mal nichts Dramatisches · ich schreibe dich an. Wenn eine Rate trotz Erinnerung länger als 14 Tage überfällig ist, kommt der gesetzliche Verzugszinssatz (belgische Regelung, aktuell um 8% p.a.) dazu, ggf. plus 40 € Mahn-Pauschale. Das ist EU/BE-Standard, nicht meine Erfindung. Im Regelfall finden wir aber einfach eine neue Zahl-Lösung.",
   },
   {
     frage: "was ist im preis nicht enthalten?",
     antwort:
-      "stock-fotos / premium-fonts / externe tools mit eigenen kosten (z.b. mailchimp, adobe fonts lizenz) liegen beim kunden, es sei denn wir reden vorher was anderes aus. domain-registrierung ist optional: entweder du hast schon eine · oder ich registriere sie für dich (läuft über hosting, ca. 2 € / monat je nach TLD). alles, was kosten verursacht, sag ich dir vorab.",
+      "Stock-Fotos / Premium-Fonts / externe Tools mit eigenen Kosten (z.B. Mailchimp, Adobe Fonts Lizenz) liegen beim Kunden, es sei denn wir reden vorher was anderes aus. Domain-Registrierung ist optional: entweder du hast schon eine · oder ich registriere sie für dich (läuft über Hosting, ca. 2 € / Monat je nach TLD). Alles, was Kosten verursacht, sag ich dir vorab.",
   },
 ];
 
@@ -63,10 +63,10 @@ export default function Page() {
               <span className="text-offwhite/35">keine sternchen.</span>
             </h1>
             <p className="mt-8 max-w-[620px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-              transparent. kein kleingedrucktes. kein „auf anfrage" bei allem.
-              drei tabs unten · web, grafik, bundle · jedes paket mit
-              eingebautem mini-konfigurator, damit du den monatspreis schwarz
-              auf weiß siehst bevor du fragst.
+              Transparent. Kein Kleingedrucktes. Kein „auf Anfrage" bei allem.
+              Drei Tabs unten · Web, Branding, Bundle · jedes Paket mit
+              eingebautem Mini-Konfigurator, damit du den Monatspreis schwarz
+              auf weiß siehst, bevor du fragst.
             </p>
           </div>
         </div>
@@ -84,9 +84,9 @@ export default function Page() {
               </span>
             </h2>
             <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/55">
-              bei web und bundle stellst du domain & e-mail-postfächer direkt
-              ein • der monatspreis rechnet live mit. grafik-pakete haben nur
-              einmalpreise, kein laufender posten.
+              Bei Web und Bundle stellst du Domain & E-Mail-Postfächer direkt
+              ein • der Monatspreis rechnet live mit. Branding-Pakete haben nur
+              Einmalpreise, kein laufender Posten.
             </p>
           </div>
 
@@ -138,9 +138,9 @@ export default function Page() {
                   </span>
                 </h3>
                 <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55">
-                  schalter umlegen, rechts wächst der kassenzettel live mit.
-                  als pdf mitnehmen oder direkt anfragen. so einfach wie
-                  beim bäcker • nur transparenter.
+                  Schalter umlegen, rechts wächst der Kassenzettel live mit.
+                  Als PDF mitnehmen oder direkt anfragen. So einfach wie
+                  beim Bäcker • nur transparenter.
                 </p>
 
                 <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -203,8 +203,8 @@ export default function Page() {
               <span className="text-offwhite/35">normal.</span>
             </h2>
             <p className="mt-5 max-w-[540px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
-              schreib mir kurz, was du vorhast. ich sag dir innerhalb von 24
-              std, wohin es preislich geht • kostenlos, unverbindlich.
+              Schreib mir kurz, was du vorhast. Ich sag dir innerhalb von 24
+              Std, wohin es preislich geht • kostenlos, unverbindlich.
             </p>
             <div className="mt-8 flex justify-center gap-3 flex-wrap">
               <Button href="/kontakt#projekt" variant="primary" size="lg">

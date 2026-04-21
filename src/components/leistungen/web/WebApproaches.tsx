@@ -15,22 +15,22 @@ const NEU: Card[] = [
   {
     num: "01",
     titel: "briefing von null",
-    text: "ich kläre mit dir wer du bist, was du brauchst, wer dein zielpublikum ist. ohne altbestand, ohne ‚das war schon immer so'.",
+    text: "Ich kläre mit dir, wer du bist, was du brauchst, wer dein Zielpublikum ist. Ohne Altbestand, ohne ‚das war schon immer so'.",
   },
   {
     num: "02",
     titel: "inhalte gemeinsam",
-    text: "texte und bilder entstehen im prozess. ich helfe beim schreiben, wenn gewünscht. fotografen-empfehlung inklusive.",
+    text: "Texte und Bilder wachsen im Prozess · wenn du nicht gern schreibst, setze ich mich mit hin. Fotografen-Empfehlung gibt's dazu, wenn's nötig ist.",
   },
   {
     num: "03",
     titel: "design ohne ballast",
-    text: "keine alte seite, keine alte struktur, keine kompromisse wegen legacy. system passt zu dir, nicht zur vorlage.",
+    text: "Keine alte Seite, keine alte Struktur, keine Kompromisse wegen Legacy. System passt zu dir, nicht zur Vorlage.",
   },
   {
     num: "04",
     titel: "6 bis 12 wochen",
-    text: "länger als redesign, weil mehr neu entsteht. dafür steht am ende etwas, das wirklich nach dir aussieht.",
+    text: "Länger als Redesign, weil mehr neu entsteht. Dafür steht am Ende etwas, das wirklich nach dir aussieht.",
   },
 ];
 
@@ -38,104 +38,113 @@ const REDESIGN: Card[] = [
   {
     num: "01",
     titel: "inhalte behalten",
-    text: "deine texte, deine bilder, deine historie. ich übernehme was du behalten willst, räume auf was raus soll, du fängst nicht bei null an.",
+    text: "Deine Texte, deine Bilder, deine Historie. Ich übernehme, was du behalten willst, räume auf, was raus soll, du fängst nicht bei null an.",
   },
   {
     num: "02",
     titel: "google verliert dich nicht",
-    text: "jede alte URL bekommt einen sauberen 301-redirect. rankings bleiben stabil, verlinkende seiten landen weiter bei dir.",
+    text: "Jede alte URL bekommt einen sauberen 301-Redirect. Rankings bleiben stabil, verlinkende Seiten landen weiter bei dir.",
   },
   {
     num: "03",
     titel: "kein ausfall",
-    text: "deine alte seite bleibt online bis die neue live ist. ich schalte erst um, wenn du den knopf drückst.",
+    text: "Deine alte Seite bleibt online, bis die neue live ist. Ich schalte erst um, wenn du den Knopf drückst.",
   },
   {
     num: "04",
     titel: "probephase auf test-domain",
-    text: "du siehst das ergebnis vorher auf einer privaten URL. kommentieren, korrigieren, umbauen, alles bevor ein besucher etwas merkt.",
+    text: "Du siehst das Ergebnis vorher auf einer privaten URL. Kommentieren, korrigieren, umbauen · alles, bevor ein Besucher etwas merkt.",
   },
 ];
 
 type Tab = "neu" | "redesign";
 
+// subtile alternierende rotationen · papierstapel-feel
+const CARD_ROTATIONS = ["-0.8deg", "0.5deg", "-0.5deg", "0.8deg"];
+
 export function WebApproaches({ num = "02" }: { num?: string } = {}) {
-  const [tab, setTab] = useState<Tab>("redesign");
+  const [tab, setTab] = useState<Tab>("neu");
   const cards = tab === "neu" ? NEU : REDESIGN;
 
   return (
-    <section className="pb-32">
+    <section className="pb-32 overflow-hidden">
       <div className="container-site">
-        {/* KEIN fetter h2 mehr · klein-label + tabs + mini-lead, direkt aus hero flow */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 border-t border-ink/10 pt-10">
-          <div>
-            <SectionLabel num={num}>zwei wege</SectionLabel>
-            <h2 className="sr-only">zwei wege. gleiches handwerk.</h2>
-            <p className="mt-4 max-w-[560px] text-[14px] md:text-[15px] leading-relaxed text-offwhite/55">
-              {tab === "neu"
-                ? "du startest bei null · keine alten URLs, kein legacy-content. freiere gestaltung, aber mehr entscheidungen am anfang. dafür mache ich den kompass."
-                : "das meiste meiner arbeit ist redesign, nicht neubau · eine wordpress-seite von 2016, ein baukasten der jedes jahr 240 € frisst, eine wix-seite die keiner mehr aufmacht."}
-            </p>
-          </div>
+        {/* label + mini-lead · klein, editorial, aus hero-flow */}
+        <div className="border-t border-ink/10 pt-10">
+          <SectionLabel num={num}>zwei wege</SectionLabel>
+          <h2 className="sr-only">zwei wege. gleiches handwerk.</h2>
+          <p className="mt-4 max-w-[620px] text-[14px] md:text-[15px] leading-relaxed text-offwhite/55">
+            {tab === "neu"
+              ? "Weißes Blatt · keine alten URLs, kein Content aus 2014, keine heilige Kuh, die man umschiffen muss. Freier Kopf, dafür mehr Entscheidungen am Anfang · den Kompass halt ich."
+              : "Das meiste meiner Arbeit ist Redesign, nicht Neubau · eine WordPress-Seite von 2016, ein Baukasten, der jedes Jahr 240 € frisst, eine Wix-Seite, die keiner mehr aufmacht."}
+          </p>
+        </div>
 
-          {/* TABS rechts oben */}
+        {/* underline-tabs · editorial style, konsistent mit OnDemandExtras */}
+        <div className="mt-10 flex items-center gap-6">
+          <span className="font-hand text-[18px] md:text-[20px] text-offwhite/55 -rotate-1 leading-none shrink-0 hidden md:inline-block">
+            und bei dir?
+          </span>
           <div
             role="tablist"
             aria-label="projekttyp"
-            className="inline-flex rounded-full border border-ink/10 bg-ink/[0.03] p-1 shrink-0"
+            className="flex gap-1 border-b border-ink/10"
           >
-          <button
-            role="tab"
-            aria-selected={tab === "redesign"}
-            onClick={() => setTab("redesign")}
-            className={[
-              "px-5 py-2.5 rounded-full font-mono text-[11px] uppercase tracking-mono transition-all",
-              tab === "redesign"
-                ? "bg-lime text-[#111]"
-                : "text-offwhite/55 hover:text-offwhite",
-            ].join(" ")}
-          >
-            redesign
-          </button>
-          <button
-            role="tab"
-            aria-selected={tab === "neu"}
-            onClick={() => setTab("neu")}
-            className={[
-              "px-5 py-2.5 rounded-full font-mono text-[11px] uppercase tracking-mono transition-all",
-              tab === "neu"
-                ? "bg-lime text-[#111]"
-                : "text-offwhite/55 hover:text-offwhite",
-            ].join(" ")}
-          >
-            neue seite
-          </button>
+            {(["neu", "redesign"] as const).map((t) => {
+              const isActive = tab === t;
+              const label = t === "redesign" ? "redesign" : "neue seite";
+              return (
+                <button
+                  key={t}
+                  role="tab"
+                  aria-selected={isActive}
+                  type="button"
+                  onClick={() => setTab(t)}
+                  className={[
+                    "relative inline-flex items-center px-4 py-3 font-mono text-[12px] uppercase tracking-mono transition-colors",
+                    isActive
+                      ? "text-accent-ink"
+                      : "text-offwhite/45 hover:text-offwhite/85",
+                  ].join(" ")}
+                >
+                  {label}
+                  <span
+                    aria-hidden
+                    className={[
+                      "absolute left-0 right-0 -bottom-px h-[2px] transition-transform origin-center",
+                      isActive ? "bg-lime scale-x-100" : "bg-lime scale-x-0",
+                    ].join(" ")}
+                  />
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* CARDS */}
+        {/* CARDS · mit subtiler rotation und hover-reset */}
         <div
           key={tab}
-          className="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in duration-300"
+          className="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-5 animate-in fade-in duration-300"
         >
-          {cards.map((c) => (
-            <div
-              key={c.num}
-              className="rounded-xl border border-ink/10 bg-gradient-to-b from-ink/[0.02] to-transparent p-6 flex flex-col gap-3 hover:border-lime/25 transition-colors"
-            >
-              <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
-                {c.num} · {tab === "neu" ? "neu" : "redesign"}
-              </span>
-              <h3 className="heading-sans text-[16px] text-offwhite">
-                {c.titel}
-              </h3>
-              <p className="text-[13px] leading-relaxed text-offwhite/55">
-                {c.text}
-              </p>
+          {cards.map((c, i) => (
+            <div key={c.num} className="relative group">
+              <article
+                className="liquid-glass-dark rounded-xl p-6 flex flex-col gap-3 transition-transform duration-300 ease-out group-hover:!rotate-0 h-full"
+                style={{ transform: `rotate(${CARD_ROTATIONS[i] ?? "0deg"})` }}
+              >
+                <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
+                  schritt · {c.num}
+                </span>
+                <h3 className="heading-sans text-[16px] text-offwhite leading-tight">
+                  {c.titel}
+                </h3>
+                <p className="text-[13px] leading-relaxed text-offwhite/75">
+                  {c.text}
+                </p>
+              </article>
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

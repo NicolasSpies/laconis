@@ -14,7 +14,7 @@ export function AccentSwitcher({ label = "akzentfarbe", className = "" }: Props)
   return (
     <div
       className={
-        "inline-flex items-center gap-3 rounded-full border border-ink/10 bg-black/40 backdrop-blur-md px-3 py-2 " +
+        "glass inline-flex items-center gap-3 rounded-full px-3 py-2 " +
         className
       }
     >

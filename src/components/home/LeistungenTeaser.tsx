@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Tag } from "@/components/ui/Tag";
@@ -9,238 +8,205 @@ import { Scribble } from "@/components/ui/Scribble";
 
 const webTags = ["design", "development", "seo", "mehrsprachig"];
 
-function BrowserMock() {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const [maxW, setMaxW] = useState(0);
-  const [width, setWidth] = useState<number | null>(null);
-  const [dragging, setDragging] = useState(false);
-
-  useEffect(() => {
-    const el = wrapRef.current;
-    if (!el) return;
-    const update = () => setMaxW(el.offsetWidth);
-    update();
-    const ro = new ResizeObserver(update);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
-  const currentW = width !== null ? width : maxW;
-  const isMobile = currentW > 0 && currentW < 360;
-
-  const onPointerDown = (e: React.PointerEvent) => {
-    e.preventDefault();
-    setDragging(true);
-    const startX = e.clientX;
-    const startW = currentW || maxW;
-    const move = (ev: PointerEvent) => {
-      const dx = ev.clientX - startX;
-      const next = Math.max(280, Math.min(maxW, startW + dx));
-      setWidth(next);
-    };
-    const up = () => {
-      setDragging(false);
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", up);
-    };
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", up);
-  };
-
+/* -------- stumme wireframes · keine accent-farben, kein text, nix klickbar */
+function DesktopWireframe() {
   return (
-    <div
-      ref={wrapRef}
-      className="relative w-full h-[460px] md:h-[520px] flex items-center justify-center select-none"
+    <svg
+      viewBox="0 0 320 210"
+      className="w-full h-auto text-offwhite/35"
+      fill="none"
+      aria-hidden
     >
-      <div
-        className={
-          "relative flex flex-col h-full " + (width === null ? "w-full" : "")
-        }
-        style={width !== null ? { width: `${width}px` } : undefined}
-      >
-        <div className="rounded-xl overflow-hidden glass flex flex-col h-full">
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-ink/5 flex-shrink-0">
-            <div className="flex gap-1.5 flex-shrink-0">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-              <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
-              <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-            </div>
-            <div className="ml-2 flex-1 flex items-center gap-2 px-3 py-1 rounded-md bg-ink/[0.03] border border-ink/5 min-w-0">
-              <span className="w-1 h-1 rounded-full bg-lime flex-shrink-0" />
-              <span className="font-mono text-[10px] tracking-mono text-offwhite/55 lowercase truncate">
-                deinefirma.be
-              </span>
-              {maxW > 0 && (
-                <span className="ml-auto font-mono text-[9px] tracking-mono text-offwhite/35 flex-shrink-0">
-                  {Math.round(currentW)}px
-                </span>
-              )}
-            </div>
-          </div>
-          <div className="relative flex-1 overflow-y-auto overflow-x-hidden bg-gradient-to-br from-ink/[0.02] to-transparent">
-            <MockPage isMobile={isMobile} />
-          </div>
-        </div>
+      {/* browser chrome */}
+      <rect
+        x="1"
+        y="1"
+        width="318"
+        height="208"
+        rx="6"
+        stroke="currentColor"
+        strokeWidth="0.8"
+      />
+      <line
+        x1="1"
+        y1="18"
+        x2="319"
+        y2="18"
+        stroke="currentColor"
+        strokeWidth="0.6"
+        opacity="0.6"
+      />
+      <circle cx="10" cy="9.5" r="2" fill="currentColor" opacity="0.45" />
+      <circle cx="18" cy="9.5" r="2" fill="currentColor" opacity="0.45" />
+      <circle cx="26" cy="9.5" r="2" fill="currentColor" opacity="0.45" />
 
-        <button
-          type="button"
-          onPointerDown={onPointerDown}
-          aria-label="responsive vorschau ziehen"
-          className={
-            "absolute top-1/2 -translate-y-1/2 -right-3 h-16 w-6 flex items-center justify-center cursor-ew-resize group touch-none " +
-            (dragging ? "z-10" : "")
-          }
-        >
-          <span
-            aria-hidden
-            className={
-              "absolute inset-0 m-auto w-8 h-8 rounded-full bg-lime/25 blur-md " +
-              (dragging ? "opacity-0" : "animate-pulse group-hover:opacity-0")
-            }
-          />
-          <span
-            className={
-              "relative block w-[4px] h-10 rounded-full bg-lime transition-transform " +
-              (dragging ? "scale-110" : "group-hover:scale-110")
-            }
-          />
-        </button>
-      </div>
-    </div>
+      {/* nav row */}
+      <rect x="12" y="28" width="40" height="4" rx="1" fill="currentColor" opacity="0.35" />
+      <rect x="240" y="28" width="14" height="4" rx="1" fill="currentColor" opacity="0.2" />
+      <rect x="258" y="28" width="14" height="4" rx="1" fill="currentColor" opacity="0.2" />
+      <rect x="276" y="28" width="14" height="4" rx="1" fill="currentColor" opacity="0.2" />
+      <rect x="294" y="28" width="14" height="4" rx="1" fill="currentColor" opacity="0.2" />
+
+      {/* hero block */}
+      <rect x="12" y="50" width="200" height="10" rx="1" fill="currentColor" opacity="0.55" />
+      <rect x="12" y="66" width="160" height="10" rx="1" fill="currentColor" opacity="0.55" />
+      <rect x="12" y="86" width="120" height="4" rx="1" fill="currentColor" opacity="0.2" />
+      <rect x="12" y="94" width="140" height="4" rx="1" fill="currentColor" opacity="0.2" />
+      <rect x="12" y="108" width="50" height="10" rx="2" stroke="currentColor" strokeWidth="0.7" fill="none" />
+
+      {/* right image */}
+      <rect x="220" y="50" width="88" height="68" rx="3" fill="currentColor" opacity="0.12" />
+
+      {/* cards row */}
+      <rect x="12" y="134" width="90" height="60" rx="3" fill="currentColor" opacity="0.08" />
+      <rect x="115" y="134" width="90" height="60" rx="3" fill="currentColor" opacity="0.08" />
+      <rect x="218" y="134" width="90" height="60" rx="3" fill="currentColor" opacity="0.08" />
+
+      <rect x="20" y="144" width="30" height="4" rx="1" fill="currentColor" opacity="0.4" />
+      <rect x="20" y="154" width="60" height="3" rx="1" fill="currentColor" opacity="0.2" />
+      <rect x="20" y="160" width="50" height="3" rx="1" fill="currentColor" opacity="0.2" />
+
+      <rect x="123" y="144" width="30" height="4" rx="1" fill="currentColor" opacity="0.4" />
+      <rect x="123" y="154" width="60" height="3" rx="1" fill="currentColor" opacity="0.2" />
+      <rect x="123" y="160" width="50" height="3" rx="1" fill="currentColor" opacity="0.2" />
+
+      <rect x="226" y="144" width="30" height="4" rx="1" fill="currentColor" opacity="0.4" />
+      <rect x="226" y="154" width="60" height="3" rx="1" fill="currentColor" opacity="0.2" />
+      <rect x="226" y="160" width="50" height="3" rx="1" fill="currentColor" opacity="0.2" />
+    </svg>
   );
 }
 
-function MockPage({ isMobile }: { isMobile: boolean }) {
+function MobileWireframe() {
   return (
-    <div className="flex flex-col">
-      <div className="flex items-center justify-between px-5 py-3 border-b border-ink/5">
-        <div className="flex items-center gap-1.5 min-w-0">
-          <span className="w-2 h-2 rounded-full bg-lime flex-shrink-0" />
-          <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55 truncate">
-            deine firma
-          </span>
-        </div>
-        {isMobile ? (
-          <div className="flex flex-col gap-[3px] flex-shrink-0">
-            <span className="block w-4 h-[1.5px] bg-offwhite/55" />
-            <span className="block w-4 h-[1.5px] bg-offwhite/55" />
-            <span className="block w-4 h-[1.5px] bg-offwhite/55" />
-          </div>
-        ) : (
-          <div className="flex gap-3 font-mono text-[9px] uppercase tracking-label text-offwhite/55 flex-shrink-0">
-            <span>leistungen</span>
-            <span>über</span>
-            <span>kontakt</span>
-          </div>
-        )}
-      </div>
+    <svg
+      viewBox="0 0 100 200"
+      className="w-full h-auto text-offwhite/35"
+      fill="none"
+      aria-hidden
+    >
+      <rect
+        x="1"
+        y="1"
+        width="98"
+        height="198"
+        rx="10"
+        stroke="currentColor"
+        strokeWidth="0.8"
+      />
+      <rect x="38" y="6" width="24" height="3" rx="1.5" fill="currentColor" opacity="0.35" />
 
-      <div className="relative px-5 py-8 overflow-hidden">
-        <div
-          aria-hidden
-          className="absolute -top-1/4 -right-1/4 w-[60%] h-[60%] rounded-full bg-lime/[0.14] blur-[60px]"
-        />
-        <div className="relative">
-          <div
-            className={
-              "font-sans font-black leading-[0.95] tracking-[-0.04em] lowercase text-offwhite " +
-              (isMobile ? "text-[22px]" : "text-[clamp(20px,3.5vw,32px)]")
-            }
-          >
-            handwerk.
-            <br />
-            <span className="text-accent-ink">mit charakter.</span>
-          </div>
-          <div className="mt-3 h-1.5 w-24 max-w-full rounded bg-offwhite/10" />
-          <div className="mt-1.5 h-1.5 w-40 max-w-full rounded bg-offwhite/10" />
-          <div
-            className={
-              "mt-5 flex gap-2 " +
-              (isMobile ? "flex-col items-stretch" : "items-center")
-            }
-          >
-            <div
-              className={
-                "px-3 py-1.5 rounded-full bg-lime text-dark font-mono text-[9px] uppercase tracking-label " +
-                (isMobile ? "text-center" : "")
-              }
-            >
-              anfragen →
-            </div>
-            {!isMobile && (
-              <div className="px-3 py-1.5 rounded-full border border-ink/10 font-mono text-[9px] uppercase tracking-label text-offwhite/55">
-                mehr erfahren
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      {/* nav */}
+      <rect x="8" y="20" width="20" height="3" rx="0.8" fill="currentColor" opacity="0.35" />
+      <rect x="84" y="20" width="10" height="3" rx="0.8" fill="currentColor" opacity="0.25" />
 
-      <div className="px-5 py-6 border-t border-ink/5">
-        <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/35 mb-3">
-          leistungen
+      {/* hero */}
+      <rect x="8" y="34" width="60" height="7" rx="1" fill="currentColor" opacity="0.55" />
+      <rect x="8" y="44" width="52" height="7" rx="1" fill="currentColor" opacity="0.55" />
+      <rect x="8" y="58" width="60" height="3" rx="0.8" fill="currentColor" opacity="0.2" />
+      <rect x="8" y="64" width="50" height="3" rx="0.8" fill="currentColor" opacity="0.2" />
+      <rect x="8" y="74" width="30" height="8" rx="2" stroke="currentColor" strokeWidth="0.7" fill="none" />
+
+      {/* image */}
+      <rect x="8" y="92" width="84" height="44" rx="2" fill="currentColor" opacity="0.12" />
+
+      {/* stacked cards */}
+      <rect x="8" y="144" width="84" height="18" rx="2" fill="currentColor" opacity="0.08" />
+      <rect x="8" y="166" width="84" height="18" rx="2" fill="currentColor" opacity="0.08" />
+
+      <rect x="44" y="193" width="12" height="3" rx="1.5" fill="currentColor" opacity="0.25" />
+    </svg>
+  );
+}
+
+/* -------- grafik · arbeitstisch mit rotierten papierschnipseln */
+function Arbeitstisch() {
+  const swatches = [
+    { c: "#2f5d3a", rot: -4 },
+    { c: "#7a4bd1", rot: 2 },
+    { c: "#d94f4f", rot: -2 },
+    { c: "#e8c14b", rot: 5 },
+  ];
+  return (
+    <div className="relative w-full aspect-[4/3] max-w-[420px]">
+      {/* logo paper */}
+      <div
+        className="absolute left-[8%] top-[10%] w-[46%] rounded-[2px] p-4 bg-[rgba(255,255,255,0.04)] border border-ink/10 shadow-[0_12px_32px_-12px_rgba(0,0,0,0.6)]"
+        style={{ transform: "rotate(-5deg)" }}
+      >
+        <div className="font-mono text-[8px] uppercase tracking-label text-offwhite/35 mb-2">
+          logo · wortmarke
         </div>
-        <div className={isMobile ? "space-y-2" : "grid grid-cols-3 gap-2"}>
-          {["dach", "fassade", "innen"].map((s) => (
-            <div
-              key={s}
-              className="rounded border border-ink/5 bg-ink/[0.02] p-3"
-            >
-              <div className="w-1.5 h-1.5 rounded-full bg-lime mb-2" />
-              <div className="font-sans text-[11px] lowercase text-offwhite">
-                {s}
-              </div>
-              <div className="mt-1.5 h-1 w-12 rounded bg-offwhite/10" />
-              <div className="mt-1 h-1 w-16 rounded bg-offwhite/10" />
-            </div>
-          ))}
+        <div className="heading-display text-[22px] md:text-[26px] leading-none lowercase text-offwhite">
+          studio·vela
+        </div>
+        <div className="mt-2 h-px w-2/3 bg-offwhite/20" />
+        <div className="mt-1 font-mono text-[7px] uppercase tracking-label text-offwhite/35">
+          v·02 · 2026
         </div>
       </div>
 
-      <div className="px-5 py-6 border-t border-ink/5">
-        <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/35 mb-3">
-          referenzen
+      {/* typografie specimen */}
+      <div
+        className="absolute right-[4%] top-[4%] w-[40%] rounded-[2px] p-3 bg-[rgba(255,255,255,0.04)] border border-ink/10 shadow-[0_12px_32px_-12px_rgba(0,0,0,0.6)]"
+        style={{ transform: "rotate(3.5deg)" }}
+      >
+        <div className="font-mono text-[7px] uppercase tracking-label text-offwhite/35 mb-1">
+          type
         </div>
-        <div className={isMobile ? "space-y-2" : "grid grid-cols-2 gap-2"}>
-          {[0, 1].map((i) => (
+        <div className="heading-display text-[34px] leading-none text-offwhite">Aa</div>
+        <div className="mt-1.5 font-mono text-[7px] lowercase text-offwhite/55">
+          dm sans · bold
+        </div>
+        <div className="mt-2 font-serif italic text-[14px] text-offwhite/55">
+          Aa
+        </div>
+        <div className="mt-1 font-mono text-[7px] lowercase text-offwhite/55">
+          instrument · italic
+        </div>
+      </div>
+
+      {/* swatches */}
+      <div
+        className="absolute left-[12%] bottom-[8%] rounded-[2px] p-2.5 bg-[rgba(255,255,255,0.04)] border border-ink/10 shadow-[0_12px_32px_-12px_rgba(0,0,0,0.6)]"
+        style={{ transform: "rotate(-2deg)" }}
+      >
+        <div className="font-mono text-[7px] uppercase tracking-label text-offwhite/35 mb-1.5 px-0.5">
+          palette
+        </div>
+        <div className="flex gap-1.5">
+          {swatches.map((s, i) => (
             <div
               key={i}
-              className="aspect-[16/10] rounded bg-ink/[0.03] border border-ink/5"
+              className="w-7 h-9 rounded-[1.5px] border border-ink/10"
+              style={{ background: s.c, transform: `rotate(${s.rot}deg)` }}
             />
           ))}
         </div>
       </div>
 
-      <div className="px-5 py-6 border-t border-ink/5">
-        <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/35 mb-3">
-          über mich
+      {/* visitenkarte */}
+      <div
+        className="absolute right-[10%] bottom-[12%] w-[32%] aspect-[16/10] rounded-[2px] bg-[rgba(255,255,255,0.04)] border border-ink/10 shadow-[0_12px_32px_-12px_rgba(0,0,0,0.6)] flex flex-col justify-between p-2"
+        style={{ transform: "rotate(4deg)" }}
+      >
+        <div className="font-mono text-[7px] uppercase tracking-label text-offwhite/55">
+          anna béguin
         </div>
-        <div className="space-y-1.5">
-          <div className="h-1 w-full max-w-[200px] rounded bg-offwhite/10" />
-          <div className="h-1 w-full max-w-[240px] rounded bg-offwhite/10" />
-          <div className="h-1 w-full max-w-[180px] rounded bg-offwhite/10" />
+        <div className="flex items-end justify-between">
+          <div>
+            <div className="h-0.5 w-10 bg-offwhite/25 rounded" />
+            <div className="mt-1 h-0.5 w-8 bg-offwhite/15 rounded" />
+          </div>
+          <div className="w-3 h-3 rounded-full border border-offwhite/35" />
         </div>
       </div>
 
-      <div className="px-5 py-6 border-t border-ink/5">
-        <div className="rounded-lg bg-lime/[0.08] border border-lime/25 p-4 flex items-center justify-between gap-3">
-          <div className="font-sans text-[12px] lowercase text-offwhite">
-            projekt starten?
-          </div>
-          <div className="px-2 py-1 rounded bg-lime text-dark font-mono text-[8px] uppercase tracking-label flex-shrink-0">
-            kontakt →
-          </div>
-        </div>
-      </div>
-
-      <div className="px-5 py-3 border-t border-ink/5 flex items-center justify-between gap-2">
-        <div className="font-mono text-[8px] uppercase tracking-label text-offwhite/25 truncate">
-          © 2026 deine firma
-        </div>
-        <div className="font-mono text-[8px] uppercase tracking-label text-offwhite/25 flex-shrink-0">
-          impressum
-        </div>
-      </div>
+      {/* tape top */}
+      <span
+        aria-hidden
+        className="absolute top-0 left-[40%] w-16 h-3.5 bg-offwhite/10 rotate-[-3deg] rounded-sm"
+      />
     </div>
   );
 }
@@ -249,7 +215,7 @@ export function LeistungenTeaser() {
   return (
     <section className="relative py-28 md:py-36">
       <div className="container-site">
-        <SectionLabel num="01">leistungen</SectionLabel>
+        <SectionLabel num="02">leistungen</SectionLabel>
 
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
@@ -273,7 +239,7 @@ export function LeistungenTeaser() {
           sprechen.
         </motion.h2>
 
-        {/* Unified Web card — website + toolkit inside */}
+        {/* Web · unified card */}
         <motion.article
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -309,18 +275,7 @@ export function LeistungenTeaser() {
                 ))}
               </div>
 
-              <div className="mt-auto pt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
-                <div className="flex items-baseline gap-2">
-                  <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
-                    ab
-                  </span>
-                  <span className="heading-sans text-[20px] text-offwhite tabular-nums">
-                    1.400 €
-                  </span>
-                  <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
-                    einmalig
-                  </span>
-                </div>
+              <div className="mt-auto pt-8">
                 <Link
                   href="/leistungen/web"
                   className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-accent-ink hover:gap-3 transition-all w-fit"
@@ -330,127 +285,82 @@ export function LeistungenTeaser() {
               </div>
             </div>
 
-            <div className="relative p-6 md:p-10 border-t md:border-t-0 md:border-l border-ink/5">
-              <BrowserMock />
+            {/* stumme wireframes · kein lime, kein text, nichts klickbares */}
+            <div className="relative p-8 md:p-12 border-t md:border-t-0 md:border-l border-ink/5 flex items-center justify-center">
+              <div className="relative w-full max-w-[440px] grid grid-cols-[1fr_100px] gap-5 items-end">
+                <DesktopWireframe />
+                <MobileWireframe />
+
+                {/* handschriftliche annotation · nicht klickbar, nur kommentar */}
+                <span
+                  className="absolute -bottom-4 left-1/2 -translate-x-1/2 font-hand text-[16px] md:text-[18px] leading-none text-offwhite/55 whitespace-nowrap"
+                  style={{ transform: "translateX(-50%) rotate(-2deg)" }}
+                >
+                  passt sich an · ohne dass du dran denkst
+                </span>
+              </div>
             </div>
           </div>
         </motion.article>
 
-        {/* Grafik + Werbetechnik */}
-        <div className="mt-8 grid md:grid-cols-2 gap-6">
-          <motion.article
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7 }}
-            className="glass rounded-2xl p-8 md:p-10 flex flex-col"
-          >
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-lime" />
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-                grafik
-              </span>
+        {/* Grafik · arbeitstisch · umgedrehtes layout (visual links, text rechts)
+            bricht das zwillings-muster zur web-karte drüber */}
+        <motion.article
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="mt-8 glass rounded-2xl overflow-hidden"
+        >
+          <div className="grid md:grid-cols-[1.05fr_1fr] gap-0">
+            <div className="relative p-8 md:p-12 order-2 md:order-1 border-t md:border-t-0 md:border-r border-ink/5 flex items-center justify-center">
+              <Arbeitstisch />
             </div>
-            <h3 className="mt-5 heading-sans text-[clamp(1.5rem,2.4vw,1.85rem)] text-offwhite">
-              Branding + <span className="text-accent-ink">Print.</span>
-            </h3>
-            <p className="mt-3 text-[14px] text-offwhite/55 leading-relaxed max-w-[380px]">
-              Deine Identität • vom Logo bis zur Visitenkarte. Alles im
-              gleichen Look.
-            </p>
 
-            <ul className="mt-5 space-y-2">
-              {[
-                "logo · varianten · favicon",
-                "brand guide + visitenkarte",
-                "3 social-media-templates",
-              ].map((b) => (
-                <li
-                  key={b}
-                  className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-label text-offwhite/55"
-                >
-                  <span className="w-1 h-1 rounded-full bg-lime flex-shrink-0" />
-                  {b}
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-auto pt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
-              <div className="flex items-baseline gap-2">
-                <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
-                  ab
-                </span>
-                <span className="heading-sans text-[18px] text-offwhite tabular-nums">
-                  600 €
-                </span>
-                <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
-                  einmalig
+            <div className="p-8 md:p-12 order-1 md:order-2 flex flex-col">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-lime" />
+                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
+                  grafik
                 </span>
               </div>
-              <Link
-                href="/leistungen/grafik"
-                className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-offwhite/75 hover:text-accent-ink hover:gap-3 transition-all w-fit"
-              >
-                mehr erfahren <span>→</span>
-              </Link>
-            </div>
-          </motion.article>
 
-          <motion.article
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="glass rounded-2xl p-8 md:p-10 flex flex-col"
-          >
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-lime" />
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-                werbetechnik
-              </span>
-            </div>
-            <h3 className="mt-5 heading-sans text-[clamp(1.5rem,2.4vw,1.85rem)] text-offwhite">
-              Sichtbar • <span className="text-accent-ink">draußen auch.</span>
-            </h3>
-            <p className="mt-3 text-[14px] text-offwhite/55 leading-relaxed max-w-[380px]">
-              Wenn du da bist, soll man es sehen. Beschriftung, Folie, Schild.
-              Montage inklusive.
-            </p>
+              <h3 className="mt-6 heading-sans text-[clamp(1.75rem,3vw,2.4rem)] text-offwhite">
+                Branding + <span className="text-accent-ink">Print.</span>
+              </h3>
 
-            <ul className="mt-5 space-y-2">
-              {[
-                "folie · schild · banner",
-                "fahrzeug-beschriftung",
-                "montage vor ort inkl.",
-              ].map((b) => (
-                <li
-                  key={b}
-                  className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-label text-offwhite/55"
+              <p className="mt-5 text-[14px] leading-relaxed text-offwhite/55 max-w-[420px]">
+                Vom Logo bis zur Visitenkarte. Alles im gleichen Look — Farbe,
+                Schrift, Haltung.
+              </p>
+
+              <ul className="mt-5 space-y-2">
+                {[
+                  "logo · varianten · favicon",
+                  "brand guide + visitenkarte",
+                  "3 social-media-templates",
+                ].map((b) => (
+                  <li
+                    key={b}
+                    className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-label text-offwhite/55"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-lime flex-shrink-0" />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-auto pt-8">
+                <Link
+                  href="/leistungen/branding"
+                  className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-accent-ink hover:gap-3 transition-all w-fit"
                 >
-                  <span className="w-1 h-1 rounded-full bg-lime flex-shrink-0" />
-                  {b}
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-auto pt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
-              <div className="flex items-baseline gap-2">
-                <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/55">
-                  preis
-                </span>
-                <span className="heading-sans text-[14px] text-offwhite/75">
-                  nach maß
-                </span>
+                  mehr erfahren <span>→</span>
+                </Link>
               </div>
-              <Link
-                href="/leistungen/grafik"
-                className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-offwhite/75 hover:text-accent-ink hover:gap-3 transition-all w-fit"
-              >
-                mehr erfahren <span>→</span>
-              </Link>
             </div>
-          </motion.article>
-        </div>
+          </div>
+        </motion.article>
       </div>
     </section>
   );

@@ -4,13 +4,17 @@
  * ALLE preise in EUR, netto. Änderungen hier wirken global.
  * Einheitliche kommentierung: "+X €" = einmalig, "+X €/Mt" = laufend.
  *
- * MODELL (v3 — voll granular):
+ * MODELL (v4 · drucksachen als anfrage-position):
  *   WEB:              1.400 € fix, +300 €/unterseite, +500 €/cms-bereich,
  *                     +50 € × seiten × zusatzsprache, +1.800 € shop.
  *   BRANDING:         1.200 € pauschal · logo, brand guide, vk, social templates.
- *   GRAFIK:           flyer/plakat/rollup/broschüre/präsentation/social/vk/signatur
- *                     jeweils einzel-konfigurierbar.
- *   AUTOBESCHRIFTUNG: auto L+R, V+H-addon, montage.
+ *   GRAFIK (bepreist):präsentation, social-visuals, e-mail-signatur
+ *                     · reine digitale gestaltung.
+ *   DRUCKSACHEN:      flyer, plakat, rollup, broschüre, visitenkarte
+ *                     · gestaltung + druck läuft über partner → keine preise
+ *                     im konfigurator, landen als anfrage-position im bon.
+ *   AUTOBESCHRIFTUNG: auto L+R, V+H-addon (gestaltung von mir);
+ *                     plot + montage über partner → anfrage-position.
  *   HOSTING:          tier-basiert (onepager < multipager < cms).
  *   DOMAIN:           2 €/Mt wenn laconis registriert (user "nein"),
  *                     0 €/Mt wenn user selbst ("ja · hab ich schon").
@@ -38,21 +42,25 @@ export type BuilderState = {
   /* ─── grafik-block — granulare counters ─── */
   /** section-toggle: wenn aus, werden alle counter-zeilen ignoriert. */
   grafik: boolean;
-  flyer1: number;     // flyer einseitig · 200 €
-  flyer2: number;     // flyer beidseitig · 300 €
-  plakat: number;     // plakat (alle formate) · 200 €
-  rollup: number;     // rollup · 200 €
-  broschuere: number; // broschüren-seiten · 75 €/seite
+  /* drucksachen · ohne preis, als "interesse"-toggle (0=aus, 1=an).
+     werden im kassenzettel als anfrage-position ohne € geführt —
+     druck & produktion läuft über partner, preis nach gespräch. */
+  flyer1: number;     // flyer einseitig · anfrage
+  flyer2: number;     // flyer beidseitig · anfrage
+  plakat: number;     // plakat · anfrage
+  rollup: number;     // rollup · anfrage
+  broschuere: number; // broschüre · anfrage
+  vk: number;         // visitenkarte · anfrage
+  /* digitale gestaltung · bepreist */
   praes: number;      // präsentations-slides · 75 €/slide
   social: number;     // social visuals · 75 €/stück
   signatur: number;   // e-mail-signatur · 75 € erste · +25 € weitere
-  vk: number;         // visitenkarte · 75 € erste · +25 € weitere
 
-  /* ─── autobeschriftung ─── */
+  /* ─── autobeschriftung (gestaltung bepreist · plot/montage anfrage) ─── */
   autoWrap: boolean;  // section-toggle
   autoLR: number;     // gestaltung L+R · 150 €/auto
   autoVH: number;     // +V+H · 75 €/auto
-  montage: number;    // montage · 150 €/auto
+  montage: number;    // montage · anfrage (über partner)
 
   /* ─── extras ─── */
   content: ContentHelp;
@@ -109,21 +117,15 @@ const PRICE_SHOP = 1800;
 
 const PRICE_BRANDING = 1200;
 
-const PRICE_FLYER_1 = 200;
-const PRICE_FLYER_2 = 300;
-const PRICE_PLAKAT = 200;
-const PRICE_ROLLUP = 200;
-const PRICE_BROSCHUERE_SEITE = 75;
+// digitale gestaltung · bepreist
 const PRICE_PRAES_SLIDE = 75;
 const PRICE_SOCIAL_VISUAL = 75;
 const PRICE_SIGNATUR_FIRST = 75;
 const PRICE_SIGNATUR_NEXT = 25;
-const PRICE_VK_FIRST = 75;
-const PRICE_VK_NEXT = 25;
 
+// auto · gestaltung bepreist. plot/montage läuft über partner (anfrage).
 const PRICE_AUTO_LR = 150;
 const PRICE_AUTO_VH = 75;
-const PRICE_MONTAGE = 150;
 
 const PRICE_CONTENT_HELP = 450;
 const PRICE_CONTENT_KOMPLETT = 1200;
@@ -179,6 +181,31 @@ export function applyPreset(state: BuilderState, id: PresetId): BuilderState {
 
 /* ══════════════════════════ helpers: gruppen-checker ══════════════════════════ */
 
+/** drucksachen-keys · interesse-toggles (0|1), keine preise */
+const PRINT_INQUIRY_KEYS = [
+  "flyer1",
+  "flyer2",
+  "plakat",
+  "rollup",
+  "broschuere",
+  "vk",
+] as const satisfies readonly (keyof BuilderState)[];
+
+const PRINT_INQUIRY_LABELS: Record<(typeof PRINT_INQUIRY_KEYS)[number], string> = {
+  flyer1: "flyer · einseitig",
+  flyer2: "flyer · beidseitig",
+  plakat: "plakat",
+  rollup: "rollup",
+  broschuere: "broschüre",
+  vk: "visitenkarte",
+};
+
+/** digitale grafik-items · bepreist */
+export function hasAnyBilledGrafikItem(state: BuilderState): boolean {
+  return state.praes + state.social + state.signatur > 0;
+}
+
+/** alle grafik-items (bepreist + anfrage) — für "hat er was gewählt"-checks */
 export function hasAnyGrafikItem(state: BuilderState): boolean {
   return (
     state.flyer1 +
@@ -194,17 +221,52 @@ export function hasAnyGrafikItem(state: BuilderState): boolean {
   );
 }
 
+/** auto · bepreiste gestaltung (LR, VH) — montage ist anfrage */
+export function hasAnyBilledAutoItem(state: BuilderState): boolean {
+  return state.autoLR + state.autoVH > 0;
+}
+
+/** auto · alle items inkl. montage-anfrage */
 export function hasAnyAutoItem(state: BuilderState): boolean {
   return state.autoLR + state.autoVH + state.montage > 0;
 }
 
-/** zählt alles, was visuell/identitäts-arbeit ist. */
+/** bepreistes visuelles · für bundle-rabatt + closest-paket-logik */
+export function hasAnyBilledVisuals(state: BuilderState): boolean {
+  return (
+    state.branding ||
+    (state.grafik && hasAnyBilledGrafikItem(state)) ||
+    (state.autoWrap && hasAnyBilledAutoItem(state))
+  );
+}
+
+/** alles visuelle (bepreist + anfrage) — für "hat der was ausgewählt" */
 export function hasAnyGrafikOrBranding(state: BuilderState): boolean {
   return (
     state.branding ||
     (state.grafik && hasAnyGrafikItem(state)) ||
     (state.autoWrap && hasAnyAutoItem(state))
   );
+}
+
+/** anfrage-items (drucksachen + montage) · ohne preis im bon */
+export function generateInquiryItems(state: BuilderState): string[] {
+  const items: string[] = [];
+  if (state.grafik) {
+    for (const key of PRINT_INQUIRY_KEYS) {
+      if ((state[key] as number) > 0) {
+        items.push(PRINT_INQUIRY_LABELS[key]);
+      }
+    }
+  }
+  if (state.autoWrap && state.montage > 0) {
+    items.push(
+      state.montage > 1
+        ? `montage · ${state.montage}× fahrzeug`
+        : "montage · fahrzeug"
+    );
+  }
+  return items;
 }
 
 /* ══════════════════════════ preis-positionen ══════════════════════════ */
@@ -276,43 +338,10 @@ export function generateLineItems(state: BuilderState): LineItem[] {
     });
   }
 
-  /* ───── grafik-block (nur wenn section aktiv) ───── */
+  /* ───── grafik-block · nur digitale items bepreist ─────
+     drucksachen (flyer/plakat/rollup/broschüre/vk) laufen über
+     generateInquiryItems → anfrage-position ohne €. */
   if (state.grafik) {
-    if (state.flyer1 > 0) {
-      items.push({
-        label: `flyer einseitig · ${state.flyer1}×`,
-        hint: `je ${PRICE_FLYER_1} €`,
-        amount: PRICE_FLYER_1 * state.flyer1,
-      });
-    }
-    if (state.flyer2 > 0) {
-      items.push({
-        label: `flyer beidseitig · ${state.flyer2}×`,
-        hint: `je ${PRICE_FLYER_2} €`,
-        amount: PRICE_FLYER_2 * state.flyer2,
-      });
-    }
-    if (state.plakat > 0) {
-      items.push({
-        label: `plakat · ${state.plakat}×`,
-        hint: `je ${PRICE_PLAKAT} € · alle formate`,
-        amount: PRICE_PLAKAT * state.plakat,
-      });
-    }
-    if (state.rollup > 0) {
-      items.push({
-        label: `rollup · ${state.rollup}×`,
-        hint: `je ${PRICE_ROLLUP} €`,
-        amount: PRICE_ROLLUP * state.rollup,
-      });
-    }
-    if (state.broschuere > 0) {
-      items.push({
-        label: `broschüre · ${state.broschuere} seite${state.broschuere > 1 ? "n" : ""}`,
-        hint: `je ${PRICE_BROSCHUERE_SEITE} €/seite`,
-        amount: PRICE_BROSCHUERE_SEITE * state.broschuere,
-      });
-    }
     if (state.praes > 0) {
       items.push({
         label: `präsentation · ${state.praes} slide${state.praes > 1 ? "s" : ""}`,
@@ -340,26 +369,14 @@ export function generateLineItems(state: BuilderState): LineItem[] {
         amount,
       });
     }
-    if (state.vk > 0) {
-      const amount =
-        PRICE_VK_FIRST + Math.max(0, state.vk - 1) * PRICE_VK_NEXT;
-      items.push({
-        label: `visitenkarte · ${state.vk}×`,
-        hint:
-          state.vk > 1
-            ? `${PRICE_VK_FIRST} € + ${state.vk - 1} × ${PRICE_VK_NEXT} €`
-            : `${PRICE_VK_FIRST} €`,
-        amount,
-      });
-    }
   }
 
-  /* ───── autobeschriftung (nur wenn section aktiv) ───── */
+  /* ───── autobeschriftung · gestaltung bepreist, montage = anfrage ───── */
   if (state.autoWrap) {
     if (state.autoLR > 0) {
       items.push({
         label: `auto · L+R · ${state.autoLR}×`,
-        hint: `je ${PRICE_AUTO_LR} €/auto`,
+        hint: `je ${PRICE_AUTO_LR} €/auto · gestaltung`,
         amount: PRICE_AUTO_LR * state.autoLR,
       });
     }
@@ -370,13 +387,7 @@ export function generateLineItems(state: BuilderState): LineItem[] {
         amount: PRICE_AUTO_VH * state.autoVH,
       });
     }
-    if (state.montage > 0) {
-      items.push({
-        label: `montage · ${state.montage}×`,
-        hint: `je ${PRICE_MONTAGE} €/auto`,
-        amount: PRICE_MONTAGE * state.montage,
-      });
-    }
+    // state.montage landet in generateInquiryItems — kein €-posten.
   }
 
   /* ───── extras · content ───── */
@@ -394,8 +405,8 @@ export function generateLineItems(state: BuilderState): LineItem[] {
     });
   }
 
-  /* ───── rabatte · bundle (web + visuelles zusammen) ───── */
-  const hasVisuals = hasAnyGrafikOrBranding(state);
+  /* ───── rabatte · bundle (web + bepreiste visuals zusammen) ───── */
+  const hasVisuals = hasAnyBilledVisuals(state);
   if (state.web && hasVisuals) {
     const fixSum = items
       .filter((i) => !i.monthly)
@@ -500,13 +511,15 @@ export function hasAnySelection(state: BuilderState): boolean {
   );
 }
 
-/** Für's "das entspricht etwa paket X"-hint. Vergleicht fix-summe grob. */
+/** Für's "das entspricht etwa paket X"-hint. Vergleicht fix-summe grob.
+ *  basis sind nur bepreiste positionen — drucksachen-anfragen werden
+ *  nicht in den pakete-vergleich gezogen. */
 export function closestPaket(
   state: BuilderState,
   totals: Totals
 ): string | null {
   if (!hasAnySelection(state)) return null;
-  const hasVisuals = hasAnyGrafikOrBranding(state);
+  const hasVisuals = hasAnyBilledVisuals(state);
   const both = state.web && hasVisuals;
 
   if (both) {
@@ -524,6 +537,7 @@ export function closestPaket(
   if (state.branding) return "grafik · brand identity (1.200 €)";
   if (hasVisuals) return "grafik · einzelposten";
 
+  // nur drucksachen-interesse · kein paket-vergleich
   return null;
 }
 

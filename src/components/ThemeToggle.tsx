@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/cn";
+import { track } from "@/lib/analytics";
 
 type Theme = "dark" | "light";
 const STORAGE_KEY = "laconis-theme";
 
 export function ThemeToggle({ className }: { className?: string }) {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -27,6 +28,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     } catch {
       /* ignore */
     }
+    track({ type: "theme_toggled", to: next });
   };
 
   // Track indicator sits over the active label.
@@ -44,35 +46,21 @@ export function ThemeToggle({ className }: { className?: string }) {
       className={cn(
         "relative inline-flex items-center rounded-full border border-ink/10 bg-ink/[0.03] hover:bg-ink/[0.06] transition-colors",
         "h-6 w-[58px] px-[2px]",
+        /* depth-press simuliert eingelassenen track · pill darauf "schwebt" mit eigenem shadow */
+        "shadow-[var(--depth-press)]",
         className,
       )}
     >
-      {/* Sliding pill */}
+      {/* Sliding pill · sitzt links für light (default), rechts für dark */}
       <span
         aria-hidden
         className={cn(
           "absolute top-[2px] bottom-[2px] w-[26px] rounded-full bg-lime shadow-[0_2px_6px_rgba(0,0,0,0.3)] transition-transform duration-300 ease-out",
-          mounted && isLight ? "translate-x-[28px]" : "translate-x-0",
+          mounted && !isLight ? "translate-x-[28px]" : "translate-x-0",
         )}
       />
 
-      {/* Moon (dark-mode side) */}
-      <span
-        aria-hidden
-        className={cn(
-          "relative z-10 inline-flex h-[22px] w-[26px] items-center justify-center transition-colors",
-          !isLight ? "text-black" : "text-offwhite/55",
-        )}
-      >
-        <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-          <path
-            d="M10.5 7.2a4.5 4.5 0 11-5.7-5.7 4 4 0 105.7 5.7z"
-            fill="currentColor"
-          />
-        </svg>
-      </span>
-
-      {/* Sun (light-mode side) */}
+      {/* Sun (light-mode side · links) */}
       <span
         aria-hidden
         className={cn(
@@ -92,6 +80,22 @@ export function ThemeToggle({ className }: { className?: string }) {
             <path d="M2.9 11.1l.85-.85" />
             <path d="M10.25 3.75l.85-.85" />
           </g>
+        </svg>
+      </span>
+
+      {/* Moon (dark-mode side · rechts) */}
+      <span
+        aria-hidden
+        className={cn(
+          "relative z-10 inline-flex h-[22px] w-[26px] items-center justify-center transition-colors",
+          !isLight ? "text-black" : "text-offwhite/55",
+        )}
+      >
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+          <path
+            d="M10.5 7.2a4.5 4.5 0 11-5.7-5.7 4 4 0 105.7 5.7z"
+            fill="currentColor"
+          />
         </svg>
       </span>
     </button>

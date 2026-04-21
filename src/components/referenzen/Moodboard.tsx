@@ -154,13 +154,13 @@ export function Moodboard() {
                       <RefThumb ref_={r} aspect={s.aspect} />
 
                       {/* kategorie badge */}
-                      <span className="absolute top-2.5 left-2.5 font-mono text-[9px] uppercase tracking-label text-black bg-lime px-1.5 py-0.5 rounded-sm">
+                      <span className="absolute top-2.5 left-2.5 font-mono text-[9px] uppercase tracking-label text-offwhite bg-black/60 backdrop-blur-sm border border-white/15 px-1.5 py-0.5 rounded-sm">
                         {r.kategorieLabel}
                       </span>
 
                       {/* in-arbeit tag */}
                       {r.inArbeit && (
-                        <span className="absolute top-2.5 right-2.5 font-mono text-[9px] uppercase tracking-label text-accent-ink bg-black/70 px-1.5 py-0.5 rounded-sm">
+                        <span className="absolute top-2.5 right-2.5 font-mono text-[9px] uppercase tracking-label text-accent-ink bg-dark/70 px-1.5 py-0.5 rounded-sm">
                           in arbeit
                         </span>
                       )}

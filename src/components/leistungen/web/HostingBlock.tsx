@@ -5,19 +5,19 @@ const STUFEN = [
     name: "onepager",
     preis: "20 €",
     pro: "monat",
-    was: "eine seite, edge-cloud, tägliches backup.",
+    was: "Eine Seite, Edge-Cloud, tägliches Backup.",
   },
   {
     name: "multipager",
     preis: "30 €",
     pro: "monat",
-    was: "bis zehn seiten, mehr last-reserve, gleiche stabilität.",
+    was: "Bis zehn Seiten, mehr Last-Reserve, gleiche Stabilität.",
   },
   {
     name: "mit CMS",
     preis: "40 €",
     pro: "monat",
-    was: "contentcore auf eigener VPS-instanz, admin-zugang für dich.",
+    was: "ContentCore auf eigener VPS-Instanz, Admin-Zugang für dich.",
   },
 ];
 
@@ -25,58 +25,58 @@ const SHARED_VS = [
   {
     thema: "nachbarn",
     shared:
-      "100 – 1.000 fremde kunden auf demselben blech, jeder klaut leistung.",
+      "100 – 1.000 fremde Kunden auf demselben Blech, jeder klaut Leistung.",
     laconis:
-      "eigener VPS nur für deine contentcore-instanz. kein nachbar, keine ablenkung.",
+      "Eigener VPS nur für deine ContentCore-Instanz. Kein Nachbar, keine Ablenkung.",
   },
   {
     thema: "CPU & RAM",
     shared:
-      "überbucht. wenn der nachbar traffic hat, wird deine seite langsam.",
+      "Überbucht. Wenn der Nachbar Traffic hat, wird deine Seite langsam.",
     laconis:
-      "dedizierte ressourcen, garantiert, immer da.",
+      "Dedizierte Ressourcen, garantiert, immer da.",
   },
   {
     thema: "IP-adresse",
     shared:
-      "geteilte IP. wenn ein nachbar spam oder malware verteilt, landest du mit auf blacklists.",
+      "Geteilte IP. Wenn ein Nachbar Spam oder Malware verteilt, landest du mit auf Blacklists.",
     laconis:
-      "eigene IP. reputation gehört dir.",
+      "Eigene IP. Reputation gehört dir.",
   },
   {
     thema: "frontend-speed",
     shared:
-      "ein server in irgendeinem rechenzentrum bedient jeden besucher weltweit.",
+      "Ein Server in irgendeinem Rechenzentrum bedient jeden Besucher weltweit.",
     laconis:
-      "frontend läuft auf globaler edge. besucher in brüssel bekommt die seite aus brüssel.",
+      "Frontend läuft auf globaler Edge. Besucher in Brüssel bekommt die Seite aus Brüssel.",
   },
   {
     thema: "PHP vs. statisch",
     shared:
-      "jeder pageload rechnet PHP, fragt datenbank ab, macht neun plugin-hooks.",
+      "Jeder Pageload rechnet PHP, fragt Datenbank ab, macht neun Plugin-Hooks.",
     laconis:
-      "seite ist vor-gerendert. auslieferung ist reine datei, kein rechenvorgang.",
+      "Seite ist vor-gerendert. Auslieferung ist reine Datei, kein Rechenvorgang.",
   },
   {
     thema: "skalierung",
     shared:
-      "virales posting legt die seite lahm. hoster meldet sich am nächsten werktag.",
+      "Virales Posting legt die Seite lahm. Hoster meldet sich am nächsten Werktag.",
     laconis:
-      "edge skaliert automatisch. 10 oder 10.000 besucher gleichzeitig, derselbe load.",
+      "Edge skaliert automatisch. 10 oder 10.000 Besucher gleichzeitig, derselbe Load.",
   },
   {
     thema: "wartung",
     shared:
-      "sicherheits-updates sind deine sache, oft vergessen, oft zu spät.",
+      "Sicherheits-Updates sind deine Sache, oft vergessen, oft zu spät.",
     laconis:
-      "ich update automatisch im hintergrund. du merkst davon nichts.",
+      "Ich update automatisch im Hintergrund. Du merkst davon nichts.",
   },
   {
     thema: "datenhoheit",
     shared:
-      "oft US-unternehmen mit multi-hop-routing. datenschutz: glücksspiel.",
+      "Oft US-Unternehmen mit Multi-Hop-Routing. Datenschutz: Glücksspiel.",
     laconis:
-      "VPS in litauen (EU), edge mit EU-routing. DSGVO von anfang an.",
+      "VPS in Litauen (EU), Edge mit EU-Routing. DSGVO von Anfang an.",
   },
 ];
 
@@ -90,22 +90,22 @@ function ServerDiagram() {
       aria-label="ablauf CMS zu API zu frontend"
     >
       {/* ---------- Connecting lines + pulses ---------- */}
-      <g stroke="rgba(225,253,82,0.3)" strokeWidth="1" strokeDasharray="3 3">
+      <g stroke="rgb(var(--accent) / 0.3)" strokeWidth="1" strokeDasharray="3 3">
         <line x1="220" y1="140" x2="300" y2="140" />
         <line x1="460" y1="140" x2="540" y2="140" />
       </g>
       {/* Lime pulses moving left to right */}
       <g>
-        <circle r="3" fill="#E1FD52">
+        <circle r="3" fill="rgb(var(--accent))">
           <animateMotion dur="2.4s" repeatCount="indefinite" path="M 220 140 L 300 140" />
         </circle>
-        <circle r="2" fill="#E1FD52" opacity="0.6">
+        <circle r="2" fill="rgb(var(--accent))" opacity="0.6">
           <animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite" path="M 220 140 L 300 140" />
         </circle>
-        <circle r="3" fill="#E1FD52">
+        <circle r="3" fill="rgb(var(--accent))">
           <animateMotion dur="2.4s" repeatCount="indefinite" path="M 460 140 L 540 140" />
         </circle>
-        <circle r="2" fill="#E1FD52" opacity="0.6">
+        <circle r="2" fill="rgb(var(--accent))" opacity="0.6">
           <animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite" path="M 460 140 L 540 140" />
         </circle>
       </g>
@@ -127,7 +127,7 @@ function ServerDiagram() {
           brot das riecht
         </text>
         {/* Cursor */}
-        <rect x="122" y="110" width="1.5" height="15" fill="#E1FD52">
+        <rect x="122" y="110" width="1.5" height="15" fill="rgb(var(--accent))">
           <animate attributeName="opacity" values="1;0;1" dur="1.1s" repeatCount="indefinite" />
         </rect>
 
@@ -144,7 +144,7 @@ function ServerDiagram() {
         </text>
 
         {/* Save button */}
-        <rect x="48" y="204" width="70" height="18" rx="3" fill="#E1FD52" />
+        <rect x="48" y="204" width="70" height="18" rx="3" fill="rgb(var(--accent))" />
         <text x="83" y="216" fontFamily="ui-monospace, monospace" fontSize="8" fill="#000" textAnchor="middle" fontWeight="600">
           speichern
         </text>
@@ -156,22 +156,22 @@ function ServerDiagram() {
 
       {/* ================ 02 API ================ */}
       <g>
-        <rect x="300" y="50" width="160" height="180" rx="12" fill="#0d0d0d" stroke="rgba(225,253,82,0.28)" />
-        <text x="316" y="72" fontFamily="ui-monospace, monospace" fontSize="9" fill="rgba(225,253,82,0.7)">
+        <rect x="300" y="50" width="160" height="180" rx="12" fill="#0d0d0d" stroke="rgb(var(--accent) / 0.28)" />
+        <text x="316" y="72" fontFamily="ui-monospace, monospace" fontSize="9" fill="rgb(var(--accent) / 0.7)">
           02 · daten reisen
         </text>
 
         {/* Packet visual - rotating braces */}
         <g transform="translate(380, 130)">
-          <circle r="42" fill="none" stroke="rgba(225,253,82,0.12)" strokeDasharray="2 4" />
-          <circle r="30" fill="none" stroke="rgba(225,253,82,0.08)" />
+          <circle r="42" fill="none" stroke="rgb(var(--accent) / 0.12)" strokeDasharray="2 4" />
+          <circle r="30" fill="none" stroke="rgb(var(--accent) / 0.08)" />
           <text
             x="0"
             y="6"
             fontFamily="ui-monospace, monospace"
             fontSize="26"
             fontWeight="700"
-            fill="#E1FD52"
+            fill="rgb(var(--accent))"
             textAnchor="middle"
             letterSpacing="-0.05em"
           >
@@ -179,7 +179,7 @@ function ServerDiagram() {
           </text>
           {/* Orbiting packets */}
           <g>
-            <rect x="-4" y="-46" width="8" height="5" rx="1" fill="#E1FD52" opacity="0.8">
+            <rect x="-4" y="-46" width="8" height="5" rx="1" fill="rgb(var(--accent))" opacity="0.8">
               <animateTransform
                 attributeName="transform"
                 type="rotate"
@@ -189,7 +189,7 @@ function ServerDiagram() {
                 repeatCount="indefinite"
               />
             </rect>
-            <rect x="-4" y="-46" width="6" height="4" rx="1" fill="#E1FD52" opacity="0.5">
+            <rect x="-4" y="-46" width="6" height="4" rx="1" fill="rgb(var(--accent))" opacity="0.5">
               <animateTransform
                 attributeName="transform"
                 type="rotate"
@@ -229,9 +229,9 @@ function ServerDiagram() {
 
           {/* Nav */}
           <text x="566" y="116" fontFamily="system-ui, sans-serif" fontSize="7" fontWeight="700" fill="#F2F2F2">
-            müller
+            atelier
           </text>
-          <text x="590" y="116" fontFamily="system-ui, sans-serif" fontSize="7" fontWeight="700" fill="#E1FD52">
+          <text x="590" y="116" fontFamily="system-ui, sans-serif" fontSize="7" fontWeight="700" fill="rgb(var(--accent))">
             .
           </text>
 
@@ -253,16 +253,16 @@ function ServerDiagram() {
           <rect x="566" y="158" width="100" height="2.5" rx="1" fill="rgba(242,242,242,0.25)" />
 
           {/* CTA */}
-          <rect x="566" y="170" width="60" height="14" rx="2" fill="#E1FD52" />
+          <rect x="566" y="170" width="60" height="14" rx="2" fill="rgb(var(--accent))" />
           <text x="596" y="180" fontFamily="ui-monospace, monospace" fontSize="6" fill="#000" textAnchor="middle" fontWeight="600">
             sortiment →
           </text>
 
           {/* Live tag */}
-          <circle cx="704" cy="110" r="2" fill="#E1FD52">
+          <circle cx="704" cy="110" r="2" fill="rgb(var(--accent))">
             <animate attributeName="opacity" values="0.3;1;0.3" dur="1.4s" repeatCount="indefinite" />
           </circle>
-          <text x="700" y="113" fontFamily="ui-monospace, monospace" fontSize="6" fill="rgba(225,253,82,0.9)" textAnchor="end">
+          <text x="700" y="113" fontFamily="ui-monospace, monospace" fontSize="6" fill="rgb(var(--accent) / 0.9)" textAnchor="end">
             live
           </text>
 
@@ -298,14 +298,14 @@ export function HostingBlock({ num = "06" }: { num?: string } = {}) {
             </span>
           </h2>
           <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/55">
-            dein CMS, eine saubere API, die öffentliche seite. drei ebenen auf
-            zwei infrastrukturen: VPS in litauen für contentcore, globale
-            edge-cloud für die öffentliche seite. kein geteilter server, keine
-            nachbarn, kein shared-hosting-lotto.
+            Dein CMS, eine saubere API, die öffentliche Seite. Drei Ebenen auf
+            zwei Infrastrukturen: VPS in Litauen für ContentCore, globale
+            Edge-Cloud für die öffentliche Seite. Kein geteilter Server, keine
+            Nachbarn, kein Shared-Hosting-Lotto.
           </p>
         </div>
 
-        <div className="mt-14 rounded-2xl border border-ink/10 bg-gradient-to-b from-ink/[0.02] to-transparent p-6 md:p-10">
+        <div className="mt-14 glass rounded-2xl p-6 md:p-10">
           <ServerDiagram />
         </div>
 
@@ -321,13 +321,13 @@ export function HostingBlock({ num = "06" }: { num?: string } = {}) {
             </span>
           </h3>
           <p className="mt-5 max-w-[620px] text-[14px] leading-relaxed text-offwhite/55">
-            das backend hat andere bedürfnisse als das frontend. ich trenne
-            beides bewusst, damit jede ebene genau das bekommt, was sie braucht.
+            Das Backend hat andere Bedürfnisse als das Frontend. Ich trenne
+            beides bewusst, damit jede Ebene genau das bekommt, was sie braucht.
           </p>
         </div>
 
         <div className="mt-10 grid md:grid-cols-2 gap-4">
-          <div className="rounded-xl border border-ink/10 bg-ink/[0.015] p-6">
+          <div className="glass rounded-xl p-6">
             <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
               backend · VPS
             </span>
@@ -335,18 +335,18 @@ export function HostingBlock({ num = "06" }: { num?: string } = {}) {
               contentcore auf hostinger cloud KVM · litauen (EU)
             </h4>
             <ul className="mt-4 space-y-2 text-[13px] text-offwhite/55 leading-relaxed">
-              <li>· eigene maschine, dedizierte CPU und RAM</li>
+              <li>· Eigene Maschine, dedizierte CPU und RAM</li>
               <li>
-                · PostgreSQL auf demselben server, kein netzwerk-hop bei
-                datenbankzugriffen
+                · PostgreSQL auf demselben Server, kein Netzwerk-Hop bei
+                Datenbankzugriffen
               </li>
-              <li>· EU-standort, DSGVO-konform, kein US-cloud-routing</li>
-              <li>· firewall, SSH-key-only, fail2ban, UFW</li>
-              <li>· tägliche automatische backups (datenbank + uploads)</li>
-              <li>· zero-downtime-deployments mit PM2-cluster</li>
+              <li>· EU-Standort, DSGVO-konform, kein US-Cloud-Routing</li>
+              <li>· Firewall, SSH-Key-only, fail2ban, UFW</li>
+              <li>· Tägliche automatische Backups (Datenbank + Uploads)</li>
+              <li>· Zero-Downtime-Deployments mit PM2-Cluster</li>
             </ul>
           </div>
-          <div className="rounded-xl border border-ink/10 bg-ink/[0.015] p-6">
+          <div className="glass rounded-xl p-6">
             <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
               frontend · cloud edge
             </span>
@@ -354,25 +354,25 @@ export function HostingBlock({ num = "06" }: { num?: string } = {}) {
               next.js statisch auf globaler edge
             </h4>
             <ul className="mt-4 space-y-2 text-[13px] text-offwhite/55 leading-relaxed">
-              <li>· deine seite liegt an hunderten standorten weltweit</li>
+              <li>· Deine Seite liegt an hunderten Standorten weltweit</li>
               <li>
-                · besucher in eupen holt sie aus frankfurt, in brüssel aus
-                brüssel, in paris aus paris
+                · Besucher in Eupen holt sie aus Frankfurt, in Brüssel aus
+                Brüssel, in Paris aus Paris
               </li>
               <li>
-                · statisch vor-gerendert, keine PHP-runtime, keine
-                datenbank-abfrage beim pageload
+                · Statisch vor-gerendert, keine PHP-Runtime, keine
+                Datenbank-Abfrage beim Pageload
               </li>
               <li>
-                · auto-skalierung: 10 oder 10.000 besucher gleichzeitig, derselbe
-                load
+                · Auto-Skalierung: 10 oder 10.000 Besucher gleichzeitig, derselbe
+                Load
               </li>
               <li>
-                · HTTPS überall, immutable asset-URLs, cache 1 jahr
+                · HTTPS überall, immutable Asset-URLs, Cache 1 Jahr
               </li>
               <li>
-                · änderung im CMS? automatischer revalidate-webhook, seite ist
-                in sekunden aktuell
+                · Änderung im CMS? Automatischer Revalidate-Webhook, Seite ist
+                in Sekunden aktuell
               </li>
             </ul>
           </div>
@@ -390,12 +390,12 @@ export function HostingBlock({ num = "06" }: { num?: string } = {}) {
             </span>
           </h3>
           <p className="mt-5 max-w-[620px] text-[14px] leading-relaxed text-offwhite/55">
-            10 € pro monat klingt günstig, bis du siehst, was in den 10 € fehlt.
-            hier der direkte vergleich.
+            10 € pro Monat klingt günstig, bis du siehst, was in den 10 € fehlt.
+            Hier der direkte Vergleich.
           </p>
         </div>
 
-        <div className="mt-10 rounded-2xl border border-ink/10 bg-gradient-to-b from-ink/[0.02] to-transparent overflow-hidden">
+        <div className="mt-10 glass rounded-2xl overflow-hidden">
           <div className="grid grid-cols-[1fr_1fr_1fr] border-b border-ink/10 bg-ink/[0.02]">
             <div className="px-5 py-4">
               <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
@@ -473,7 +473,7 @@ export function HostingBlock({ num = "06" }: { num?: string } = {}) {
           {STUFEN.map((s) => (
             <div
               key={s.name}
-              className="rounded-xl border border-ink/10 bg-ink/[0.015] p-6 flex flex-col gap-3"
+              className="glass rounded-xl p-6 flex flex-col gap-3"
             >
               <div className="flex items-baseline justify-between">
                 <h3 className="heading-sans text-[18px] text-offwhite">

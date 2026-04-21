@@ -132,7 +132,7 @@ export function EvolutionSlider({
           <button
             type="button"
             role="slider"
-            aria-label="vorher-nachher regler"
+            aria-label="Vorher-Nachher Regler"
             aria-valuemin={0}
             aria-valuemax={100}
             aria-valuenow={Math.round(percent)}
@@ -173,13 +173,13 @@ export function EvolutionSlider({
 
         {/* labels */}
         <span
-          className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-label text-offwhite bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-full pointer-events-none transition-opacity"
+          className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-label text-offwhite bg-dark/50 backdrop-blur-sm px-2.5 py-1 rounded-full pointer-events-none transition-opacity"
           style={{ opacity: percent > 8 ? 1 : 0.3 }}
         >
           {labelBefore}
         </span>
         <span
-          className="absolute top-4 right-4 font-mono text-[10px] uppercase tracking-label text-offwhite bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-full pointer-events-none transition-opacity"
+          className="absolute top-4 right-4 font-mono text-[10px] uppercase tracking-label text-offwhite bg-dark/50 backdrop-blur-sm px-2.5 py-1 rounded-full pointer-events-none transition-opacity"
           style={{ opacity: percent < 92 ? 1 : 0.3 }}
         >
           {labelAfter}

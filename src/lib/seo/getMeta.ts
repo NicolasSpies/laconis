@@ -40,10 +40,10 @@ const STATIC_MAP: Record<string, MetaEntry> = {
   "/leistungen": {
     title: "leistungen",
     description:
-      "zwei werkstätten, ein kopf · websites und brand-design aus einer hand. handgemacht in eupen.",
+      "zwei werkstätten, ein kopf · websites und branding aus einer hand. handgemacht in eupen.",
     ogTitle: "leistungen · lacønis",
     ogDescription:
-      "web + grafik · design und code aus einem kopf · handgemacht in eupen.",
+      "web + branding · design und code aus einem kopf · handgemacht in eupen.",
   },
   "/leistungen/web": {
     title: "leistungen · web",
@@ -61,18 +61,18 @@ const STATIC_MAP: Record<string, MetaEntry> = {
     ogDescription:
       "contentcore, hosting, cms-vergleich · für techniker und entscheider.",
   },
-  "/leistungen/grafik": {
-    title: "leistungen · grafik",
+  "/leistungen/branding": {
+    title: "branding & logo-design · lacønis",
     description:
-      "branding, print, werbetechnik · logo, brand identity, visitenkarten, flyer, fahrzeugbeschriftung. alles im gleichen look.",
-    ogTitle: "grafik · lacønis",
+      "logo erstellen lassen · brand identity, visitenkarten, brand guide, typografie, farbwelt · für startups, handwerker, kleine unternehmen. handgemacht in eupen.",
+    ogTitle: "branding & logo · lacønis",
     ogDescription:
-      "branding, print, werbetechnik · vom logo bis zur fahrzeugbeschriftung.",
+      "logo, brand identity, visitenkarten, brand guide · vom ersten strich bis zur fahrzeugbeschriftung.",
   },
-  "/leistungen/grafik/simulator": {
+  "/leistungen/branding/simulator": {
     title: "brand-simulator · probier's selber aus",
     description:
-      "spielplatz · name, farben, stimmung wählen und in sekunden eine marke bauen. ein vorgeschmack, kein fertiges design.",
+      "spielplatz · name, farben, stimmung wählen und in sekunden eine marke bauen. ein vorgeschmack, kein fertiges logo.",
     ogTitle: "brand-simulator · lacønis",
     ogDescription:
       "spielplatz · in sekunden eine marke zusammenklicken. kein fertiges design, nur ein gefühl.",
@@ -80,18 +80,18 @@ const STATIC_MAP: Record<string, MetaEntry> = {
   "/ansatz": {
     title: "ansatz",
     description:
-      "wie ich arbeite · von gespräch bis übergabe. der prozess für web + grafik, und was ich bewusst nicht mache.",
+      "wie ich arbeite · von gespräch bis übergabe. der prozess für web + branding, und was ich bewusst nicht mache.",
     ogTitle: "ansatz · lacønis",
     ogDescription:
-      "der prozess hinter web + grafik · vier schritte, keine blackbox. und was ich nicht mache.",
+      "der prozess hinter web + branding · vier schritte, keine blackbox. und was ich nicht mache.",
   },
   "/preise": {
     title: "preise",
     description:
-      "ehrliche preise für web + grafik · transparent, ohne sternchen. drei kategorien · web, grafik, bundle · je paket mit mini-konfigurator.",
+      "ehrliche preise für web + branding · transparent, ohne sternchen. drei kategorien · web, branding, bundle · je paket mit mini-konfigurator.",
     ogTitle: "preise · lacønis",
     ogDescription:
-      "transparente preise für web + grafik · klein · mittel · groß · je paket mit live-preis.",
+      "transparente preise für web + branding · klein · mittel · groß · je paket mit live-preis.",
   },
   "/preise/baukasten": {
     title: "baukasten · preise",
