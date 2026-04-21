@@ -9,6 +9,7 @@
 import { useEffect } from "react";
 import { Button } from "@/components/ui/Button";
 import { CONTACT } from "@/config/contact";
+import { track } from "@/lib/analytics";
 
 export default function Error({
   error,
@@ -18,8 +19,12 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // TODO: später über ContentCore analytics.ts loggen
     console.error("[route-error]", error);
+    track({
+      type: "route_error",
+      message: error.message,
+      digest: error.digest,
+    });
   }, [error]);
 
   return (
