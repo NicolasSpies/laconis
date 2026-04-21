@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { Button } from "@/components/ui/Button";
 import { CONTACT } from "@/config/contact";
 
 /**
@@ -92,13 +93,9 @@ export function SpecimenKartei({ num = "02" }: { num?: string } = {}) {
 
         {/* CTA zum simulator */}
         <div className="mt-14 flex flex-col items-center gap-3">
-          <Link
-            href="/leistungen/branding/simulator"
-            className="inline-flex items-center gap-3 rounded-full border border-lime/50 bg-lime/[0.06] hover:bg-lime/[0.12] px-6 py-3 font-mono text-[11px] uppercase tracking-mono text-accent-ink transition-colors"
-          >
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-lime" />
+          <Button href="/leistungen/branding/simulator" variant="primary" size="md">
             versuch&apos;s selber aus · brand-simulator →
-          </Link>
+          </Button>
           <p className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
             name + farben wählen · in sekunden eine marke bauen
           </p>
@@ -159,7 +156,7 @@ function SpecimenFrame({
       </span>
 
       <div
-        className="relative z-10 liquid-glass-dark rounded-2xl overflow-hidden transition-transform duration-300 ease-out group-hover:!rotate-0"
+        className="relative z-10 liquid-glass-dark rounded-2xl overflow-hidden transition-all duration-500 ease-out group-hover:!rotate-0 group-hover:-translate-y-1 group-hover:border-lime/50"
         style={{ transform: `rotate(${rotate})` }}
       >
         <div className="grid lg:grid-cols-[320px_1fr] gap-0">
@@ -298,11 +295,11 @@ function BrandGuideSpecimen() {
             </p>
           </div>
           <div className="heading-display text-offwhite text-[28px] md:text-[34px] leading-[0.9] tracking-tight">
-            wie wir
+            wie es
             <br />
             aussehen
             <br />
-            <span className="text-lime">wollen.</span>
+            <span className="text-lime">soll.</span>
           </div>
           <div className="flex justify-between items-end">
             <span className="font-mono text-[7px] text-offwhite/35">01</span>

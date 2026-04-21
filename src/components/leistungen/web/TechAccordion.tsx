@@ -10,7 +10,7 @@ export function TechAccordion({ children }: { children: React.ReactNode }) {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="group w-full flex items-center justify-between gap-4 px-6 py-4 rounded-xl border border-ink/10 hover:border-lime/25 transition-colors"
+          className="tactile-press group w-full flex items-center justify-between gap-4 px-6 py-4 rounded-xl border border-ink/10 hover:border-lime/25"
         >
           <div className="flex items-center gap-3">
             <span className="font-mono text-[12px] lowercase tracking-mono text-offwhite/55 group-hover:text-offwhite transition-colors">

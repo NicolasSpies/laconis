@@ -18,7 +18,7 @@ const STAERKEN: Staerke[] = [
     num: "01",
     titel: "alles aus einem kopf",
     kicker: "Kein Ping-Pong zwischen Designer und Dev.",
-    text: "Ich entwerfe, was ich code, und code, was ich entwerfe. Kein Handoff, keine verlorene Übersetzung, keine „das geht technisch nicht“-Mails. Wenn ich im Figma ein Detail baue, weiß ich schon während des Zeichnens, wie es später im Browser aussieht.",
+    text: "Ich entwerfe, was ich code, und code, was ich entwerfe. Kein Handoff, keine verlorene Übersetzung, keine „das geht technisch nicht“-Mails. Wenn ich ein Detail entwerfe, weiß ich schon während des Zeichnens, wie es später im Browser aussieht.",
     beweis: "ein ansprechpartner · keine agentur-hierarchie.",
   },
   {

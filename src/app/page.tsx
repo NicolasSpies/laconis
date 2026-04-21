@@ -22,32 +22,14 @@ const LeistungenTeaser = dynamic(
     import("@/components/home/LeistungenTeaser").then((m) => m.LeistungenTeaser),
   { loading: () => <SkeletonSection h={1000} /> },
 );
-const Manifest = dynamic(
-  () => import("@/components/home/Manifest").then((m) => m.Manifest),
-  { loading: () => <SkeletonSection h={600} /> },
-);
 const PreiseTeaser = dynamic(
   () => import("@/components/home/PreiseTeaser").then((m) => m.PreiseTeaser),
   { loading: () => <SkeletonSection h={640} /> },
-);
-const ProzessStrip = dynamic(
-  () => import("@/components/home/ProzessStrip").then((m) => m.ProzessStrip),
-  { loading: () => <SkeletonSection h={640} /> },
-);
-const ScribbleDivider = dynamic(
-  () =>
-    import("@/components/home/ScribbleDivider").then((m) => m.ScribbleDivider),
-  { loading: () => <SkeletonSection h={140} /> },
 );
 const ReferenzenTeaser = dynamic(
   () =>
     import("@/components/home/ReferenzenTeaser").then((m) => m.ReferenzenTeaser),
   { loading: () => <SkeletonSection h={800} /> },
-);
-const TestimonialStrip = dynamic(
-  () =>
-    import("@/components/home/TestimonialStrip").then((m) => m.TestimonialStrip),
-  { loading: () => <SkeletonSection h={260} /> },
 );
 const KontaktStrip = dynamic(
   () => import("@/components/home/KontaktStrip").then((m) => m.KontaktStrip),
@@ -62,40 +44,13 @@ export default function HomePage() {
       {/* der mensch zuerst · wer steckt dahinter */}
       <UeberMichTeaser />
 
-      {/* keyword-marquee · stitch in die leistungen */}
-      <Marquee
-        words={[
-          "design",
-          "code",
-          "launch",
-          "handgemacht",
-          "eupen",
-          "wallonien",
-          "messbar",
-          "kein baukasten",
-          "responsive",
-          "mehrsprachig",
-        ]}
-        direction="left"
-      />
-
       <LeistungenTeaser />
-
-      <ScribbleDivider variant="wave" note="warum ich das so mache ·" />
-
-      <Manifest />
 
       <PreiseTeaser />
 
-      <ProzessStrip />
-
       <ReferenzenTeaser />
 
-      <TestimonialStrip />
-
-      <ScribbleDivider variant="loop" />
-
-      {/* zweiter marquee · umgekehrt, setup vor kontakt */}
+      {/* marquee · setup vor kontakt */}
       <Marquee
         words={[
           "sag hallo",
@@ -107,7 +62,7 @@ export default function HomePage() {
           "30-min call",
         ]}
         direction="right"
-        duration={75}
+        baseVelocity={2.5}
       />
 
       <KontaktStrip />

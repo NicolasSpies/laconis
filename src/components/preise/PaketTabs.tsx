@@ -513,7 +513,7 @@ export function PaketTabs() {
             aria-selected={tab === t.id}
             onClick={() => switchTab(t.id)}
             className={[
-              "min-h-[44px] px-5 py-3 rounded-full font-mono text-[11px] uppercase tracking-mono transition-all",
+              "tactile-press min-h-[44px] px-5 py-3 rounded-full font-mono text-[11px] uppercase tracking-mono",
               tab === t.id
                 ? "bg-lime text-[#111]"
                 : "text-offwhite/55 hover:text-offwhite",
@@ -554,7 +554,7 @@ export function PaketTabs() {
           type="button"
           onClick={() => setCompareOpen((v) => !v)}
           aria-expanded={compareOpen}
-          className="group inline-flex items-center gap-2.5 rounded-full border border-ink/10 bg-ink/[0.03] hover:border-lime/50 hover:bg-lime/[0.04] px-5 py-2.5 font-mono text-[11px] uppercase tracking-mono text-offwhite/75 hover:text-accent-ink transition-all"
+          className="tactile-press group inline-flex items-center gap-2.5 rounded-full border border-ink/10 bg-ink/[0.03] hover:border-lime/50 hover:bg-lime/[0.04] px-5 py-2.5 font-mono text-[11px] uppercase tracking-mono text-offwhite/75 hover:text-accent-ink"
         >
           <span>
             {compareOpen
@@ -614,7 +614,7 @@ export function PaketTabs() {
         immer bei lacønis · jährlich fakturiert · Domain ab 2 €/Mt (kann je
         nach Domain variieren) · E-Mail 5 €/Mt pro Mailbox · im nächsten
         Schritt kannst du Zusatzseiten, Sprachen, CMS-Bereiche und Extras
-        hinzufügen — Preis passt sich live an.
+        hinzufügen · Preis passt sich live an.
       </p>
     </div>
   );

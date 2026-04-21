@@ -34,7 +34,7 @@ type PostIt = {
 const POSTITS: PostIt[] = [
   {
     titel: "drei sprachen",
-    kurz: "DE · FR · EN • verhandlungssicher.",
+    kurz: "DE · FR · EN · verhandlungssicher.",
     aside: "meetings · mails · kleingedrucktes.",
     farbe: "#E1FD52",
     ink: "#0a0a0a",

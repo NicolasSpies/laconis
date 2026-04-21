@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { Magnetic } from "@/components/ui/Magnetic";
 
 const container = {
   hidden: {},
@@ -95,8 +96,8 @@ export function Hero() {
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: 1 }}
                     transition={{
-                      pathLength: { duration: 1.1, delay: 0.9, ease: [0.65, 0, 0.35, 1] },
-                      opacity: { duration: 0.2, delay: 0.9 },
+                      pathLength: { duration: 0.7, delay: 0.4, ease: [0.65, 0, 0.35, 1] },
+                      opacity: { duration: 0.2, delay: 0.4 },
                     }}
                   />
                 </svg>
@@ -105,7 +106,7 @@ export function Hero() {
                   aria-hidden
                   initial={{ clipPath: "inset(0 100% 0 0)" }}
                   animate={{ clipPath: "inset(0 0% 0 0)" }}
-                  transition={{ duration: 1.1, delay: 0.9, ease: [0.65, 0, 0.35, 1] }}
+                  transition={{ duration: 0.7, delay: 0.4, ease: [0.65, 0, 0.35, 1] }}
                   className="absolute inset-0 pointer-events-none select-none text-[#0a0a0a]"
                   style={{
                     maskImage: MARKER_MASK,
@@ -158,8 +159,8 @@ export function Hero() {
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: 1 }}
                     transition={{
-                      pathLength: { duration: 0.55, delay: 2.3, ease: [0.65, 0, 0.35, 1] },
-                      opacity: { duration: 0.2, delay: 2.3 },
+                      pathLength: { duration: 0.45, delay: 0.95, ease: [0.65, 0, 0.35, 1] },
+                      opacity: { duration: 0.2, delay: 0.95 },
                     }}
                   />
                   {/* zweiter strich · etwas kürzer, versetzt · gibt den "nochmal"-gestus */}
@@ -172,8 +173,8 @@ export function Hero() {
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: 1 }}
                     transition={{
-                      pathLength: { duration: 0.5, delay: 2.65, ease: [0.65, 0, 0.35, 1] },
-                      opacity: { duration: 0.2, delay: 2.65 },
+                      pathLength: { duration: 0.4, delay: 1.2, ease: [0.65, 0, 0.35, 1] },
+                      opacity: { duration: 0.2, delay: 1.2 },
                     }}
                   />
                 </motion.svg>
@@ -181,46 +182,29 @@ export function Hero() {
             </span>
           </motion.h1>
 
-          {/* manifesto · caveat-handschrift · kommt NACH den strichen rein
-              (delay 3.3s) · leicht rotated wie hingeworfen · bricht die grotesk-
-              strenge, matcht marker + striche (hand-drawn-familie)
-              · eigenes initial/animate bypasst den variants-stagger */}
+          {/* subheadline · sagt konkret WAS und FÜR WEN · kommt direkt nach den
+              strichen rein, kein zweiter layer · eigenes initial/animate bypasst
+              den variants-stagger */}
           <motion.p
-            initial={{ opacity: 0, y: 10, rotate: -3 }}
-            animate={{ opacity: 1, y: 0, rotate: -1.5 }}
-            transition={{ duration: 0.7, delay: 3.3, ease: [0.22, 1, 0.36, 1] }}
-            style={{
-              fontFamily: "var(--font-caveat), cursive",
-              fontSize: "clamp(1.6rem, 2.6vw, 2rem)",
-              lineHeight: 1.15,
-              color: "rgb(var(--fg) / 0.78)",
-              transformOrigin: "left center",
-              maxWidth: "640px",
-            }}
-            className="mt-10"
-          >
-            kaffee. skizze. code. so läuft das bei mir.
-          </motion.p>
-
-          {/* subheadline · sagt konkret WAS und FÜR WEN · kommt leise, nach der handschrift */}
-          <motion.p
-            initial={{ opacity: 0, y: 6 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 3.6, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-5 max-w-[560px] font-sans text-[14px] md:text-[15px] leading-relaxed text-offwhite/55 lowercase"
+            transition={{ duration: 0.6, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-10 max-w-[560px] font-sans text-[14px] md:text-[15px] leading-relaxed text-offwhite/55 lowercase"
           >
             websites, branding, print · für handwerk, kleine firmen und gastro
             in ostbelgien und drumherum.
           </motion.p>
 
           <motion.div variants={item} className="mt-9 flex flex-wrap gap-3">
-            <Button
-              href="/kontakt#projekt"
-              size="md"
-              analyticsLabel="home_hero_kontakt"
-            >
-              projekt starten →
-            </Button>
+            <Magnetic>
+              <Button
+                href="/kontakt#projekt"
+                size="md"
+                analyticsLabel="home_hero_kontakt"
+              >
+                projekt starten →
+              </Button>
+            </Magnetic>
           </motion.div>
         </motion.div>
 
@@ -231,14 +215,14 @@ export function Hero() {
           aria-hidden
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 2.6 }}
+          transition={{ duration: 0.9, delay: 1.3 }}
           className="hidden xl:block pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-[300px] 2xl:w-[340px]"
         >
           {/* logo-skizze · oben */}
           <motion.div
             initial={{ opacity: 0, y: 20, rotate: 0 }}
             animate={{ opacity: 1, y: 0, rotate: -6 }}
-            transition={{ duration: 0.8, delay: 2.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.7, delay: 1.4, ease: [0.22, 1, 0.36, 1] }}
             className="absolute right-8 top-0 w-[220px] rounded-[3px] bg-[rgba(255,255,255,0.045)] border border-ink/10 p-4 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.7)]"
           >
             <span
@@ -261,7 +245,7 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20, rotate: 0 }}
             animate={{ opacity: 1, y: 0, rotate: 4 }}
-            transition={{ duration: 0.8, delay: 3.0, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.7, delay: 1.55, ease: [0.22, 1, 0.36, 1] }}
             className="absolute right-0 top-[140px] w-[240px] rounded-[3px] bg-[rgba(255,255,255,0.03)] border border-ink/10 p-3 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.7)]"
           >
             <svg
@@ -293,7 +277,7 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20, rotate: 0 }}
             animate={{ opacity: 1, y: 0, rotate: -2.5 }}
-            transition={{ duration: 0.8, delay: 3.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.7, delay: 1.7, ease: [0.22, 1, 0.36, 1] }}
             className="absolute right-14 top-[300px] rounded-[3px] bg-[rgba(255,255,255,0.045)] border border-ink/10 p-2.5 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.7)]"
           >
             <div className="font-mono text-[7px] uppercase tracking-label text-offwhite/35 mb-1.5 px-0.5">

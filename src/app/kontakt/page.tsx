@@ -45,20 +45,20 @@ export default function Page() {
               label="e-mail"
               value={CONTACT.email}
               href={`mailto:${CONTACT.email}`}
-              note="Klassisch. Antwort innerhalb 24h • meistens deutlich schneller."
+              note="Klassisch. Antwort innerhalb 24h · meistens deutlich schneller."
             />
             <ContactCard
               label="call buchen"
               value="30 min kennenlernen"
               href={`mailto:${CONTACT.email}?subject=call-termin`}
-              note="Noch nicht buchbar über Tool • kurz per Mail melden."
+              note="Noch nicht buchbar über Tool · kurz per Mail melden."
             />
             <ContactCard
               label="in person"
-              value="eupen • belgien"
+              value="eupen · belgien"
               href="https://maps.google.com/?q=Eupen,Belgien"
               external
-              note="Kaffee? Gern • kurz vorher schreiben, damit ich da bin."
+              note="Kaffee? Gern · kurz vorher schreiben, damit ich da bin."
             />
           </div>
         </div>
@@ -71,7 +71,7 @@ export default function Page() {
             <div className="h-px bg-gradient-to-r from-transparent via-ink/10 to-transparent" />
             <div className="mt-6 text-center">
               <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-                oder • das ausführliche formular
+                oder · das ausführliche formular
               </span>
             </div>
           </div>
@@ -89,7 +89,7 @@ export default function Page() {
             </h2>
             <p className="mt-6 max-w-[620px] text-[14px] leading-relaxed text-offwhite/55">
               Vier kurze Schritte. Kommst du von der Preise-Seite mit einem
-              Paket im Kopf, landest du direkt beim Anpassen • Seiten,
+              Paket im Kopf, landest du direkt beim Anpassen · Seiten,
               Sprachen, Extras, Preis live.
             </p>
           </div>

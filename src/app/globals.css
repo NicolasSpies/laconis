@@ -32,14 +32,17 @@
        lime-cursor-glow wird soft auf die card geschmiert, aber die durchgelassene
        farbe bleibt dominant body-ton (#1A1A1A in dark).
        → "dunkel weil body dunkel ist", nicht "grau weil film drüber". */
-    --glass-tint: var(--bg);        /* body-ton · flippt mit theme via --bg */
-    --glass-alpha: 0.15;
-    --glass-alpha-strong: 0.15;
-    --glass-alpha-hover: 0.3;
+    /* frosted-glass tokens · tint = weiß (nicht body-ton) damit die card sich
+       klar vom body abhebt · alpha so gewählt dass body durchscheint aber blur
+       sichtbar ist. */
+    --glass-tint: 26 26 26;         /* = body-bg · gleicher ton, nur blur sichtbar */
+    --glass-alpha: 0.70;
+    --glass-alpha-strong: 0.80;
+    --glass-alpha-hover: 0.85;
     --glass-border: var(--ink);
-    --glass-border-alpha: 0.1;
-    --glass-border-alpha-strong: 0.16;
-    --glass-blur: 80px;
+    --glass-border-alpha: 0.12;
+    --glass-border-alpha-strong: 0.2;
+    --glass-blur: 32px;
 
     /* cursor-spotlight · dark = groß aber dezent */
     --cursor-glow-a1: 0.08;
@@ -90,14 +93,16 @@
     /* ═══ GLASS TOKENS (v10 · ice-glass · tint = body-ton, low alpha, strong blur)
        gleiche logik wie dark: body schimmert durch, starker blur schmiert
        hintergrund weich · keine creme-paper-opazität mehr. */
-    --glass-tint: var(--bg);
-    --glass-alpha: 0.30;
-    --glass-alpha-strong: 0.35;
-    --glass-alpha-hover: 0.45;
+    /* frosted-glass tokens · weiß-tint, höhere alpha in light damit der
+       panel klar vom grau-body absetzt. blur schmiert body + lime-glows weich. */
+    --glass-tint: 200 200 200;      /* = body-bg · gleicher ton wie nav */
+    --glass-alpha: 0.65;
+    --glass-alpha-strong: 0.75;
+    --glass-alpha-hover: 0.80;
     --glass-border: var(--ink);
-    --glass-border-alpha: 0.12;
-    --glass-border-alpha-strong: 0.22;
-    --glass-blur: 80px;
+    --glass-border-alpha: 0.14;
+    --glass-border-alpha-strong: 0.24;
+    --glass-blur: 32px;
 
     /* cursor-spotlight · light = präsenter + kompakter */
     --cursor-glow-a1: 0.28;
@@ -125,7 +130,9 @@
   html {
     background: rgb(var(--bg-root));
     transition: background 0.35s ease;
-    overflow-x: hidden;
+    /* clip statt hidden · lässt position:sticky funktionieren, clippt aber
+       weiterhin horizontal-overflow. wichtig für den pinned referenzen-track. */
+    overflow-x: clip;
     scrollbar-color: rgb(var(--accent)) transparent;
     scrollbar-width: thin;
   }
@@ -134,7 +141,7 @@
     background: transparent;
     position: relative;
     isolation: isolate;
-    overflow-x: hidden;
+    overflow-x: clip;
     transition:
       color 0.35s ease,
       background 0.35s ease;
@@ -189,15 +196,54 @@
     background: transparent;
   }
 
-  /* ═══════════ custom cursor (desktop only, disabled on touch) ═══════════ */
+  /* ═══════════ custom cursor (desktop only, disabled on touch) ═══════════
+     core · immer sichtbar, kleiner gelber dot (dark) bzw. bleibt gelb (light idle).
+     halo · nur über klickbarem, weicher größerer kreis mit transparenz.
+     light-mode-hover: core + halo wechseln auf schwarz statt gelb. */
   @media (hover: hover) and (pointer: fine) {
     * {
       cursor: none !important;
     }
-    .cursor-dot.is-hovering .cursor-dot-inner {
-      width: 24px;
-      height: 24px;
-      background-color: rgb(var(--accent) / 0.25);
+    .cursor-dot-core {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      background-color: rgb(var(--accent));
+      transform: translate(-50%, -50%);
+      transition: background-color 0.2s ease-out;
+    }
+    .cursor-dot-halo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 28px;
+      height: 28px;
+      border-radius: 9999px;
+      background-color: rgb(var(--accent) / 0.22);
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease-out, background-color 0.2s ease-out;
+    }
+    .cursor-dot.is-hovering .cursor-dot-halo {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+    /* hide-zone · ganzer cursor-dot verschwindet (referenz-cards etc.) */
+    .cursor-dot.is-hidden .cursor-dot-core,
+    .cursor-dot.is-hidden .cursor-dot-halo {
+      opacity: 0;
+    }
+    /* light mode · hover → core + halo werden schwarz */
+    [data-theme="light"] .cursor-dot.is-hovering .cursor-dot-core {
+      background-color: rgb(var(--ink));
+    }
+    [data-theme="light"] .cursor-dot.is-hovering .cursor-dot-halo {
+      background-color: rgb(var(--ink) / 0.22);
     }
   }
 }
@@ -241,79 +287,35 @@
     line-height: 1.08;
   }
 
-  /* nav-glass · immer aktiv · alpha so niedrig dass blur wirklich arbeitet
-     dark: dunkler tint · content scheint blurred durch
-     light: cream tint · desk blurred dahinter
-     subtile aber sichtbare scrolled-variante (etwas dichter + sharper border). */
+  /* nav-glass · tint = body-bg (statt weiß) damit die navi fast den gleichen
+     ton wie der hintergrund hat. nur blur verrät die überlagerung. */
   .nav-glass {
-    background: rgb(215 210 200 / 0.55);
-    backdrop-filter: blur(32px);
-    -webkit-backdrop-filter: blur(32px);
-  }
-  [data-theme="dark"] .nav-glass {
-    background: rgb(12 14 12 / 0.5);
+    background: rgb(var(--bg) / 0.55);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
   .nav-glass-scrolled {
-    background: rgb(215 210 200 / 0.65);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
+    background: rgb(var(--bg) / 0.72);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
   }
-  [data-theme="dark"] .nav-glass-scrolled {
-    background: rgb(12 14 12 / 0.6);
-  }
-
   .nav-glass-drawer {
-    background: rgb(var(--glass-tint) / 0.96);
-    backdrop-filter: blur(32px) saturate(150%);
-    -webkit-backdrop-filter: blur(32px) saturate(150%);
+    background: rgb(var(--glass-tint) / 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
   [data-theme="dark"] .nav-glass-drawer {
-    background: rgb(26 26 26 / 0.97);
+    background: rgb(var(--bg) / 0.92);
   }
 
-  /* Glass — token-basiert · tint flippt mit theme · body-bg scheint durch ·
-     blur stark genug damit cursor-lime-glow hinter cards echt verschwimmt ·
-     depth-2 damit cards spürbar auf der seite aufliegen statt flach kleben */
+  /* Glass — nur backdrop-blur + hair-line border · kein saturate, kein noise,
+     kein gradient-ring. content unter der card scheint blurred durch. */
   .glass {
-    position: relative;
     background: rgb(var(--glass-tint) / var(--glass-alpha));
-    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
-    border: 0.5px solid rgb(var(--glass-border) / var(--glass-border-alpha));
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid rgb(var(--glass-border) / var(--glass-border-alpha));
     box-shadow: var(--depth-2);
-    isolation: isolate;
-  }
-  .glass::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    background-size: 180px 180px;
-    opacity: 0.05;
-    mix-blend-mode: overlay;
-    pointer-events: none;
-    border-radius: inherit;
-    z-index: -1;
-  }
-  .glass::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.12) 0%,
-      rgba(255, 255, 255, 0.02) 40%,
-      transparent 100%
-    );
-    -webkit-mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    z-index: -1;
   }
 
   .glass-hover {
@@ -343,47 +345,13 @@
     isolation: isolate;
   }
 
-  /* Liquid glass — alias auf .glass · tokens flippen mit theme */
+  /* Liquid glass — alias auf .glass · selbes clean blur-treatment */
   .liquid-glass {
-    position: relative;
     background: rgb(var(--glass-tint) / var(--glass-alpha));
-    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
-    border: 0.5px solid rgb(var(--glass-border) / var(--glass-border-alpha));
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid rgb(var(--glass-border) / var(--glass-border-alpha));
     box-shadow: var(--depth-2);
-    isolation: isolate;
-  }
-  .liquid-glass::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    background-size: 180px 180px;
-    opacity: 0.05;
-    mix-blend-mode: overlay;
-    pointer-events: none;
-    border-radius: inherit;
-    z-index: -1;
-  }
-  .liquid-glass::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.12) 0%,
-      rgba(255, 255, 255, 0.02) 40%,
-      transparent 100%
-    );
-    -webkit-mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    z-index: -1;
   }
 
   /* lime-tint modifier · liquid-glass mit grünem akzent
@@ -398,63 +366,27 @@
     border-color: rgb(var(--accent) / 0.38);
   }
 
-  /* liquid-glass-dark · unified · alias auf .glass (body-ton, token-basiert)
-     früher "always dark" kontrast-overlay · jetzt einheitlich mit allen anderen
-     glass-cards damit die site ein konsistentes glass-feeling hat. */
+  /* liquid-glass-dark · identisch zu .liquid-glass · name aus legacy behalten */
   .liquid-glass-dark {
-    position: relative;
     background: rgb(var(--glass-tint) / var(--glass-alpha));
-    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
-    border: 0.5px solid rgb(var(--glass-border) / var(--glass-border-alpha));
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid rgb(var(--glass-border) / var(--glass-border-alpha));
     box-shadow: var(--depth-2);
-    isolation: isolate;
-  }
-  .liquid-glass-dark::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    background-size: 180px 180px;
-    opacity: 0.05;
-    mix-blend-mode: overlay;
-    pointer-events: none;
-    border-radius: inherit;
-    z-index: -1;
-  }
-  .liquid-glass-dark::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.12) 0%,
-      rgba(255, 255, 255, 0.02) 40%,
-      transparent 100%
-    );
-    -webkit-mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    z-index: -1;
   }
 
-  /* polaroid-card bg · home.PolaroidBoard · token-basiert · flippt mit theme */
+  /* polaroid-card bg · home.PolaroidBoard · clean blur, kein saturate */
   .polaroid-card-bg {
     background: linear-gradient(
       180deg,
       rgb(var(--glass-tint) / calc(var(--glass-alpha-strong) + 0.08)) 0%,
       rgb(var(--glass-tint) / var(--glass-alpha-strong)) 100%
     );
-    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
   }
 
-  /* portrait-stand · ueber-mich hero portrait-placeholder · token + lime-glow */
+  /* portrait-stand · ueber-mich hero portrait-placeholder · clean blur + lime-glow */
   .portrait-stand {
     background:
       radial-gradient(ellipse at 30% 20%, rgb(var(--accent) / 0.14) 0%, transparent 55%),
@@ -463,8 +395,8 @@
         rgb(var(--glass-tint) / var(--glass-alpha-strong)) 0%,
         rgb(var(--glass-tint) / var(--glass-alpha)) 100%
       );
-    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
   }
 
   /* ambient-glow · einheitliche blur-blobs · dark + light = lime */
@@ -477,41 +409,54 @@
   [data-theme="light"] .ambient-glow-md { background: rgb(var(--accent) / 0.14); }
   [data-theme="light"] .ambient-glow-lg { background: rgb(var(--accent) / 0.18); }
 
-  /* ═══════════ TACTILE BUTTONS · depth-token shadow-shift, keine bewegung ═══════════
-     default = depth-2 (gehoben) · hover = depth-sink (top-rim inset stärker,
-     outer shrinkt) · active = depth-press (voll inset, kaum outer) · no
-     transform: "fokus-shift in der beleuchtung", keine kraft-lüge. */
+  /* ═══════════ TACTILE BUTTONS · sanfte hover-lift + sanfter press ═══════════
+     default = depth-2 (gehoben) · hover = depth-sink + leichter lift (-2px)
+     active  = depth-press + sanftes shrinken · alles mit langer ease-transition
+     damit nix „schnappt" · spürbar aber nicht laut. */
   .tactile {
     box-shadow: var(--depth-2);
-    transition: box-shadow 0.2s ease, background-color 0.3s, color 0.3s, border-color 0.3s;
+    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.42s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s, color 0.3s, border-color 0.3s;
   }
   .tactile:hover {
-    box-shadow: var(--depth-sink);
+    box-shadow: var(--depth-1);
+    transform: translateY(1px);
   }
   .tactile:active {
     box-shadow: var(--depth-press);
+    transform: translateY(2px) scale(0.99);
+    transition-duration: 0.16s;
   }
 
   .tactile-sm {
     box-shadow: var(--depth-1);
-    transition: box-shadow 0.2s ease, background-color 0.3s, color 0.3s, border-color 0.3s;
+    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.42s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s, color 0.3s, border-color 0.3s;
   }
   .tactile-sm:hover {
-    box-shadow: var(--depth-sink);
+    box-shadow: none;
+    transform: translateY(1px);
   }
   .tactile-sm:active {
     box-shadow: var(--depth-press);
+    transform: translateY(2px) scale(0.99);
+    transition-duration: 0.16s;
   }
 
-  /* primary-button · lime fill · glow-ring on hover zusätzlich zum tactile */
+  /* press-only · für tabs, toggles, controls · kein hover-lift (bleiben im raster),
+     aber gleicher soft-press damit sich alles gleich anfasst. */
+  .tactile-press {
+    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+  }
+  .tactile-press:hover {
+    transform: translateY(1px);
+  }
+  .tactile-press:active {
+    transform: translateY(2px) scale(0.99);
+    transition-duration: 0.16s;
+  }
+
+  /* primary-button · lime fill · reiner tactile-feel, kein ring */
   .btn-primary {
     position: relative;
-  }
-  .btn-primary:hover {
-    box-shadow: var(--depth-sink), 0 0 0 6px rgb(var(--accent) / 0.18);
-  }
-  .btn-primary:active {
-    box-shadow: var(--depth-press), 0 0 0 3px rgb(var(--accent) / 0.22);
   }
 
   .card-lift {
@@ -735,6 +680,16 @@ body.scribble-mode h2::after {
   to {
     opacity: 0.8;
     transform: translateX(0) scaleX(1);
+  }
+}
+
+/* vertikale kategorie-marquee · referenzen-cards */
+@keyframes refMarquee {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
   }
 }
 

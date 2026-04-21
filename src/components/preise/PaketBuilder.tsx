@@ -283,7 +283,7 @@ function Inner() {
             {/* drucksachen · anfrage-toggle (ohne preis) */}
             <InquiryGroup
               title="drucksachen · interesse"
-              hint="Gestaltung mach ich · Druck & Produktion über Partner. Preis kommt im Angebot — hier nur anhaken."
+              hint="Gestaltung mach ich · Druck & Produktion über Partner. Preis kommt im Angebot · hier nur anhaken."
               items={[
                 { key: "flyer1", label: "Flyer · einseitig" },
                 { key: "flyer2", label: "Flyer · beidseitig" },

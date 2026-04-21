@@ -200,7 +200,7 @@ export function PolaroidBoard({ items: itemsProp }: { items?: Referenz[] } = {})
       <div className="hidden md:block relative">
         <div className="flex items-center justify-between mb-6">
           <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-            tipp • karten lassen sich verschieben
+            tipp · karten lassen sich verschieben
           </span>
           <button
             type="button"
@@ -284,7 +284,7 @@ export function PolaroidBoard({ items: itemsProp }: { items?: Referenz[] } = {})
                     {r.name}
                   </h3>
                   <p className="mt-1 font-mono text-[8px] uppercase tracking-label text-offwhite/35 truncate">
-                    {r.ort} • {r.jahr}
+                    {r.ort} · {r.jahr}
                   </p>
                 </div>
               </div>

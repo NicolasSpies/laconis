@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { Button } from "@/components/ui/Button";
 
 type Paket = {
   name: string;
@@ -174,12 +174,9 @@ export function PreiseTeaser() {
             Domain separat. Baukasten-Variante für eigene Kombis · auf der
             Preis-Seite.
           </p>
-          <Link
-            href="/preise"
-            className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-accent-ink hover:gap-3 transition-all"
-          >
-            alle preise ansehen <span>→</span>
-          </Link>
+          <Button href="/preise" variant="primary" size="sm">
+            alle preise ansehen →
+          </Button>
         </div>
       </div>
     </section>

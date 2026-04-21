@@ -221,7 +221,7 @@ export function VerfuegbarkeitWidget({
 
       {/* policy note */}
       <p className="mt-6 text-[12px] leading-relaxed text-offwhite/55">
-        ich arbeite alleine • ein projekt nach dem anderen • wer zuerst anfragt,
+        ich arbeite alleine · ein projekt nach dem anderen · wer zuerst anfragt,
         startet zuerst. der slot ist reserviert, sobald der vertrag unterschrieben
         ist.
       </p>

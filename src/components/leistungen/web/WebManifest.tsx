@@ -16,7 +16,7 @@ const ZEILEN: Zeile[] = [
     nicht: "Websites auf brüchigem Brand-Fundament.",
     stattdessen: "Wenn die grafische Linie wackelt, sag ich dir's ehrlich.",
     detail:
-      "Eine Website komplett ab null neu bauen · oft sogar mein Lieblings-Szenario. Aber wenn der Brand dahinter schon unklar ist, empfehl ich: Erst die Marke, dann die Seite. Sonst tapezieren wir nur ein Fundament, das nicht hält. Ab und zu geht's in die andere Richtung: Du kommst für die Website, und wir fangen mit der Marke an.",
+      "Eine Website komplett ab null neu bauen · oft sogar mein Lieblings-Szenario. Aber wenn der Brand dahinter schon unklar ist, empfehl ich: Erst die Marke, dann die Seite. Sonst wird nur ein Fundament tapeziert, das nicht hält. Ab und zu geht's in die andere Richtung: Du kommst für die Website, und ich fange mit der Marke an.",
   },
   {
     nicht: "Keine Baukasten-Templates. (Wix, Jimdo, Squarespace.)",

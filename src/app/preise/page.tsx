@@ -22,22 +22,22 @@ const FAQ = [
   {
     frage: "was heißt das mit den raten-zinsen genau?",
     antwort:
-      "Ratenzahlung ist optional. Modell 1 (Vorkasse oder Nach-Abschluss) ist komplett zinsfrei. Modell 2 · 50% Anzahlung, Rest in bis zu 5 Monatsraten — darauf werden 2% pro Monat auf den noch offenen Betrag berechnet, gedeckelt bei 10% Gesamtaufschlag. Beispiel: 2.000 € Rest in 5 Raten → du zahlst ca. 2.100 € statt 2.000 €. Modell 3 (ganz ohne Anzahlung, Projekt vorfinanziert) kostet 4% / Monat, weil mein Risiko höher ist. Alle drei Modelle sind transparent · keine versteckten Gebühren, keine Verzugszinsen bei pünktlicher Zahlung.",
+      "Ratenzahlung ist optional. Modell 1 (Vorkasse oder Nach-Abschluss) ist komplett zinsfrei. Modell 2 · 50% Anzahlung, Rest in bis zu 5 Monatsraten · darauf werden 2% pro Monat auf den noch offenen Betrag berechnet, gedeckelt bei 10% Gesamtaufschlag. Beispiel: 2.000 € Rest in 5 Raten → du zahlst ca. 2.100 € statt 2.000 €. Modell 3 (ganz ohne Anzahlung, Projekt vorfinanziert) kostet 4% / Monat, weil mein Risiko höher ist. Alle drei Modelle sind transparent · keine versteckten Gebühren, keine Verzugszinsen bei pünktlicher Zahlung.",
   },
   {
     frage: "wie lange dauert so ein projekt?",
     antwort:
-      "Ein Onepager ca. 2 Wochen, ein Multipager 3–5 Wochen, ein CMS-Projekt 4–6 Wochen. Kommt auf Content-Lieferung und Feedback-Tempo an. Wenn du eine harte Deadline hast, sag Bescheid · planen wir rückwärts.",
+      "Ein Onepager ca. 2 Wochen, ein Multipager 3–5 Wochen, ein CMS-Projekt 4–6 Wochen. Kommt auf Content-Lieferung und Feedback-Tempo an. Wenn du eine harte Deadline hast, sag Bescheid · ich plane rückwärts.",
   },
   {
     frage: "was passiert wenn ich eine rate verpasse?",
     antwort:
-      "Erst mal nichts Dramatisches · ich schreibe dich an. Wenn eine Rate trotz Erinnerung länger als 14 Tage überfällig ist, kommt der gesetzliche Verzugszinssatz (belgische Regelung, aktuell um 8% p.a.) dazu, ggf. plus 40 € Mahn-Pauschale. Das ist EU/BE-Standard, nicht meine Erfindung. Im Regelfall finden wir aber einfach eine neue Zahl-Lösung.",
+      "Erst mal nichts Dramatisches · ich schreibe dich an. Wenn eine Rate trotz Erinnerung länger als 14 Tage überfällig ist, kommt der gesetzliche Verzugszinssatz (belgische Regelung, aktuell um 8% p.a.) dazu, ggf. plus 40 € Mahn-Pauschale. Das ist EU/BE-Standard, nicht meine Erfindung. Im Regelfall findet sich aber einfach eine neue Lösung.",
   },
   {
     frage: "was ist im preis nicht enthalten?",
     antwort:
-      "Stock-Fotos / Premium-Fonts / externe Tools mit eigenen Kosten (z.B. Mailchimp, Adobe Fonts Lizenz) liegen beim Kunden, es sei denn wir reden vorher was anderes aus. Domain-Registrierung ist optional: entweder du hast schon eine · oder ich registriere sie für dich (läuft über Hosting, ca. 2 € / Monat je nach TLD). Alles, was Kosten verursacht, sag ich dir vorab.",
+      "Stock-Fotos / Premium-Fonts / externe Tools mit eigenen Kosten (z.B. Mailchimp, Adobe Fonts Lizenz) liegen beim Kunden, es sei denn ich hab dir vorher was anderes angeboten. Domain-Registrierung ist optional: entweder du hast schon eine · oder ich registriere sie für dich (läuft über Hosting, ca. 2 € / Monat je nach TLD). Alles, was Kosten verursacht, sag ich dir vorab.",
   },
 ];
 
@@ -85,7 +85,7 @@ export default function Page() {
             </h2>
             <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/55">
               Bei Web und Bundle stellst du Domain & E-Mail-Postfächer direkt
-              ein • der Monatspreis rechnet live mit. Branding-Pakete haben nur
+              ein · der Monatspreis rechnet live mit. Branding-Pakete haben nur
               Einmalpreise, kein laufender Posten.
             </p>
           </div>
@@ -140,7 +140,7 @@ export default function Page() {
                 <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55">
                   Schalter umlegen, rechts wächst der Kassenzettel live mit.
                   Als PDF mitnehmen oder direkt anfragen. So einfach wie
-                  beim Bäcker • nur transparenter.
+                  beim Bäcker · nur transparenter.
                 </p>
 
                 <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -161,11 +161,33 @@ export default function Page() {
         </div>
       </section>
 
+      {/* atmospheric break */}
+      <div className="container-site py-2">
+        <div className="flex items-center gap-6">
+          <span className="h-px flex-1 bg-ink/10" />
+          <p className="font-hand text-[19px] text-offwhite/30 shrink-0" style={{ transform: "rotate(-1deg)" }}>
+            und wie du zahlst ↓
+          </p>
+          <span className="h-px flex-1 bg-ink/10" />
+        </div>
+      </div>
+
       {/* ZAHLUNGSOPTIONEN */}
       <Zahlungsoptionen />
 
+      {/* atmospheric break */}
+      <div className="container-site py-2">
+        <div className="flex items-center gap-6">
+          <span className="h-px flex-1 bg-ink/10" />
+          <p className="font-hand text-[19px] text-offwhite/30 shrink-0" style={{ transform: "rotate(0.8deg)" }}>
+            bevor du fragst ↓
+          </p>
+          <span className="h-px flex-1 bg-ink/10" />
+        </div>
+      </div>
+
       {/* FAQ */}
-      <section className="pb-28">
+      <section className="pb-28 pt-4">
         <div className="container-site">
           <div className="max-w-[820px]">
             <SectionLabel num="06">oft gefragt</SectionLabel>
@@ -204,7 +226,7 @@ export default function Page() {
             </h2>
             <p className="mt-5 max-w-[540px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
               Schreib mir kurz, was du vorhast. Ich sag dir innerhalb von 24
-              Std, wohin es preislich geht • kostenlos, unverbindlich.
+              Std, wohin es preislich geht · kostenlos, unverbindlich.
             </p>
             <div className="mt-8 flex justify-center gap-3 flex-wrap">
               <Button href="/kontakt#projekt" variant="primary" size="lg">

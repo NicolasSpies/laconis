@@ -725,12 +725,12 @@ const BEDARF_OPTIONS: { id: Bedarf; titel: string; kurz: string }[] = [
   {
     id: "branding",
     titel: "branding",
-    kurz: "Logo, Brand Guide, Identität • visuelles System.",
+    kurz: "Logo, Brand Guide, Identität · visuelles System.",
   },
   {
     id: "alles",
     titel: "alles zusammen",
-    kurz: "Web + Branding • aus einer Hand.",
+    kurz: "Web + Branding · aus einer Hand.",
   },
   {
     id: "was-anderes",
@@ -752,7 +752,7 @@ function Step1({
         was brauchst du?
       </h3>
       <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-        Grob reicht. Du kannst im nächsten Schritt präzisieren • oder später
+        Grob reicht. Du kannst im nächsten Schritt präzisieren · oder später
         ändern, wenn sich herausstellt, dass es doch was anderes ist.
       </p>
 
@@ -848,8 +848,8 @@ function Step2({
         präzisieren.
       </h3>
       <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-        Wenige Klicks • so krieg ich ein Bild, ob wir ins selbe Paket passen
-        oder was Sonderanfertigung brauchen.
+        Wenige Klicks · so krieg ich ein Bild, ob das zusammenpasst
+        oder was Sonderanfertigung braucht.
       </p>
 
       <div className="mt-8 flex flex-col gap-6">
@@ -937,7 +937,7 @@ function BuilderStep2({
               {paket?.name ?? "paket"}
             </span>
             {presetLabel ? ` · Preset „${presetLabel}"` : ""}. Schraub dran
-            bis's passt — Preis unten passt sich live an.
+            bis's passt · Preis unten passt sich live an.
           </p>
         </div>
       </div>
@@ -1194,7 +1194,7 @@ function BuilderStep2({
 
       {/* hinweis unten */}
       <p className="mt-6 text-[12.5px] leading-relaxed text-offwhite/55 max-w-[580px]">
-        Zeitplan & Dringend-Aufschlag kommen im nächsten Schritt — dann siehst
+        Zeitplan & Dringend-Aufschlag kommen im nächsten Schritt · dann siehst
         du den finalen Bon.
       </p>
     </div>
@@ -1448,10 +1448,10 @@ function Step3({
       </h3>
       <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
         {isCustom
-          ? "Alles, was du im Konfigurator ausgewählt hast • als Richtpreis. Das finale Angebot kommt von mir innerhalb 24 Std."
+          ? "Alles, was du im Konfigurator ausgewählt hast · als Richtpreis. Das finale Angebot kommt von mir innerhalb 24 Std."
           : paket
-          ? 'Alles wie von der Preisseite übernommen. Korrigierbar • Klick auf „ändern" neben jeder Zeile.'
-          : "Kurze Kontrolle, bevor wir zum Kontakt gehen. Jede Zeile ist änderbar."}
+          ? 'Alles wie von der Preisseite übernommen. Korrigierbar · Klick auf „ändern" neben jeder Zeile.'
+          : "Kurze Kontrolle, bevor's zum Kontakt geht. Jede Zeile ist änderbar."}
       </p>
 
       {/* custom-builder: eingebetteter kassenzettel */}
@@ -1664,7 +1664,7 @@ function Step4({
           value={state.notiz}
           onChange={(e) => update("notiz", e.target.value)}
           rows={5}
-          placeholder="Was sollte ich vor unserem Gespräch wissen? (zeitliche Zwänge, Besonderheiten, Links zu Inspiration …)"
+          placeholder="Was sollte ich vor dem Gespräch wissen? (zeitliche Zwänge, Besonderheiten, Links zu Inspiration …)"
           className="w-full bg-ink/[0.03] border border-ink/10 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/55 outline-none resize-none transition-colors"
         />
       </div>

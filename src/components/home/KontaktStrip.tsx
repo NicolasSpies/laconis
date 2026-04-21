@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { Magnetic } from "@/components/ui/Magnetic";
 import { CONTACT } from "@/config/contact";
 import { findStartSlot } from "@/data/verfuegbarkeit";
 
@@ -98,15 +99,17 @@ export function KontaktStrip() {
           </div>
 
           <div className="relative flex flex-col items-start md:items-end gap-2">
-            <Button
-              href="/kontakt#projekt"
-              size="lg"
-              analyticsLabel="home_kontakt_strip"
-            >
-              projekt starten →
-            </Button>
+            <Magnetic strength={0.4} max={18}>
+              <Button
+                href="/kontakt#projekt"
+                size="lg"
+                analyticsLabel="home_kontakt_strip"
+              >
+                projekt starten →
+              </Button>
+            </Magnetic>
             <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-              multistep • dauert 60 sekunden
+              multistep · dauert 60 sekunden
             </span>
           </div>
         </motion.div>

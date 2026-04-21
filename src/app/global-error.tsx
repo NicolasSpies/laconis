@@ -65,7 +65,7 @@ export default function GlobalError({
               color: "rgba(245,242,236,0.55)",
             }}
           >
-            die seite konnte nicht geladen werden. bitte neu laden — wenn es
+            die seite konnte nicht geladen werden. bitte neu laden · wenn es
             öfter passiert, schreib mir kurz.
           </p>
           {error.digest && (

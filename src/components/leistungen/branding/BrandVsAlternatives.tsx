@@ -129,7 +129,7 @@ export function BrandVsAlternatives({
                   <article
                     className={[
                       "relative liquid-glass-dark rounded-2xl p-8 md:p-10 flex flex-col",
-                      "transition-transform duration-300 ease-out group-hover:!rotate-0",
+                      "transition-all duration-500 ease-out group-hover:!rotate-0 group-hover:-translate-y-1 group-hover:border-lime/50",
                       isAccent ? "liquid-glass-lime-tint" : "",
                     ].join(" ")}
                     style={{ transform: `rotate(${rotation})` }}
@@ -240,7 +240,7 @@ export function BrandVsAlternatives({
           </p>
           <p className="mt-4 text-[14px] md:text-[15px] leading-relaxed text-offwhite/55">
             Manchmal reicht Template plus KI-Logo völlig, und das ist okay.
-            Mir geht&apos;s um Projekte, die für uns beide passen · das spürt
+            Mir geht&apos;s um Projekte, die passen · das spürt
             man hinterher an jedem Detail.
           </p>
         </div>

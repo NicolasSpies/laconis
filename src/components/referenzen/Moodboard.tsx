@@ -95,7 +95,7 @@ export function Moodboard() {
         })}
 
         <span className="ml-auto font-mono text-[10px] uppercase tracking-label text-offwhite/35 hidden sm:inline">
-          pinnwand • keine perfekte ordnung
+          pinnwand · keine perfekte ordnung
         </span>
       </div>
 
@@ -213,7 +213,7 @@ export function Moodboard() {
       {items.length === 0 && (
         <div className="mt-16 text-center">
           <p className="font-mono text-[12px] uppercase tracking-label text-offwhite/35">
-            nichts in dieser kategorie • schau gerne in einer anderen
+            nichts in dieser kategorie · schau gerne in einer anderen
           </p>
         </div>
       )}

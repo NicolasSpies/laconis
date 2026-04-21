@@ -58,7 +58,7 @@ export function AnsatzToggle({
                 aria-selected={mode === "web"}
                 onClick={() => setMode("web")}
                 className={cn(
-                  "font-mono text-[11px] uppercase tracking-mono px-5 py-2 rounded-full transition-all",
+                  "tactile-press font-mono text-[11px] uppercase tracking-mono px-5 py-2 rounded-full",
                   mode === "web"
                     ? "bg-lime text-[#111]"
                     : "text-offwhite/55 hover:text-offwhite",
@@ -72,7 +72,7 @@ export function AnsatzToggle({
                 aria-selected={mode === "branding"}
                 onClick={() => setMode("branding")}
                 className={cn(
-                  "font-mono text-[11px] uppercase tracking-mono px-5 py-2 rounded-full transition-all",
+                  "tactile-press font-mono text-[11px] uppercase tracking-mono px-5 py-2 rounded-full",
                   mode === "branding"
                     ? "bg-lime text-[#111]"
                     : "text-offwhite/55 hover:text-offwhite",

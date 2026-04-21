@@ -128,7 +128,7 @@ export function ContactSheet() {
                       {r.name.toLowerCase()}
                     </h3>
                     <p className="mt-1 font-mono text-[10px] uppercase tracking-label text-offwhite/55 truncate">
-                      {r.ort} • {r.jahr}
+                      {r.ort} · {r.jahr}
                     </p>
                   </div>
                   <span className="font-mono text-[12px] text-offwhite/35 group-hover:text-accent-ink group-hover:translate-x-0.5 transition-all shrink-0">
@@ -148,7 +148,7 @@ export function ContactSheet() {
       {items.length === 0 && (
         <div className="mt-16 text-center">
           <p className="font-mono text-[12px] uppercase tracking-label text-offwhite/35">
-            nichts in dieser kategorie • schau gerne in einer anderen
+            nichts in dieser kategorie · schau gerne in einer anderen
           </p>
         </div>
       )}

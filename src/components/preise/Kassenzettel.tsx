@@ -102,7 +102,7 @@ export function Kassenzettel({
             noch nichts im korb
           </div>
           <div className="mt-2 text-[10px] leading-relaxed max-w-[240px] mx-auto">
-            wähl links etwas aus • jede änderung landet sofort hier als
+            wähl links etwas aus · jede änderung landet sofort hier als
             zeile auf dem zettel.
           </div>
         </div>
@@ -225,7 +225,7 @@ export function Kassenzettel({
           </div>
 
           <div className="mt-3 text-center text-[11px] text-[#1a1a1a]/70">
-            danke • und schönen tag.
+            danke · und schönen tag.
           </div>
         </>
       )}

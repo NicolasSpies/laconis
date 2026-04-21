@@ -120,7 +120,7 @@ export default function Page() {
       </LegalSection>
 
       <p className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 pt-6 border-t border-ink/10">
-        stand: april 2026 • diese seite wird aktualisiert, sobald die business-
+        stand: april 2026 · diese seite wird aktualisiert, sobald die business-
         registrierung abgeschlossen ist.
       </p>
     </LegalLayout>

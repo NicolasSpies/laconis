@@ -77,7 +77,7 @@ export default function Error({
             da ist was schiefgegangen.
           </h1>
           <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55 max-w-[440px] mx-auto">
-            passiert den besten. entweder nochmal versuchen — oder zurück zur
+            passiert den besten. entweder nochmal versuchen · oder zurück zur
             startseite, dort ist meistens noch alles an seinem platz.
           </p>
 

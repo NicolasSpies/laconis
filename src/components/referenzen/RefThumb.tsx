@@ -7,15 +7,6 @@ type Props = {
   className?: string;
 };
 
-function isLight(hex: string): boolean {
-  const h = hex.replace("#", "");
-  const r = parseInt(h.slice(0, 2), 16);
-  const g = parseInt(h.slice(2, 4), 16);
-  const b = parseInt(h.slice(4, 6), 16);
-  const luma = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-  return luma > 0.65;
-}
-
 function monogramFor(ref_: Referenz): string {
   if (ref_.monogram) return ref_.monogram;
   // first letter of each word, max 2 chars
@@ -29,8 +20,8 @@ function monogramFor(ref_: Referenz): string {
 }
 
 export function RefThumb({ ref_, aspect = "4 / 3", className }: Props) {
-  const fg = isLight(ref_.farbe) ? "rgba(10,10,10,0.85)" : "rgba(255,255,255,0.92)";
-  const accent = isLight(ref_.farbe) ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)";
+  const fg = "rgba(255,255,255,0.88)";
+  const accent = "rgba(255,255,255,0.06)";
 
   return (
     <div
@@ -38,7 +29,7 @@ export function RefThumb({ ref_, aspect = "4 / 3", className }: Props) {
         aspectRatio: aspect,
         background: `
           radial-gradient(ellipse at 30% 20%, ${accent} 0%, transparent 55%),
-          linear-gradient(145deg, ${ref_.farbe} 0%, ${ref_.farbe} 60%, ${shade(ref_.farbe, -12)} 100%)
+          linear-gradient(145deg, #1a1a1a 0%, #111111 60%, #0a0a0a 100%)
         `,
       }}
       className={cn(
@@ -93,15 +84,3 @@ export function RefThumb({ ref_, aspect = "4 / 3", className }: Props) {
   );
 }
 
-// tiny colour helper — lighten/darken hex by percent
-function shade(hex: string, pct: number): string {
-  const h = hex.replace("#", "");
-  const num = parseInt(h, 16);
-  let r = (num >> 16) + Math.round((pct / 100) * 255);
-  let g = ((num >> 8) & 0xff) + Math.round((pct / 100) * 255);
-  let b = (num & 0xff) + Math.round((pct / 100) * 255);
-  r = Math.max(0, Math.min(255, r));
-  g = Math.max(0, Math.min(255, g));
-  b = Math.max(0, Math.min(255, b));
-  return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, "0")}`;
-}

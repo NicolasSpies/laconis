@@ -71,10 +71,7 @@ export default function Page({ params }: Props) {
       <section className="pb-16">
         <div className="container-site">
           <div className="flex items-center gap-3 mb-6">
-            <span
-              className="inline-block w-2 h-2 rounded-full"
-              style={{ background: r.farbe }}
-            />
+            <span className="inline-block w-2 h-2 rounded-full bg-lime" />
             <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
               {r.kategorieLabel}
             </span>
@@ -103,14 +100,15 @@ export default function Page({ params }: Props) {
               </span>
             )}
             {r.urlExtern && (
-              <a
+              <Button
                 href={r.urlExtern}
+                variant="primary"
+                size="sm"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[12px] uppercase tracking-label text-accent-ink hover:underline"
               >
                 live ansehen ↗
-              </a>
+              </Button>
             )}
           </div>
 
@@ -144,6 +142,17 @@ export default function Page({ params }: Props) {
           )}
         </div>
       </section>
+
+      {/* atmospheric break */}
+      <div className="container-site py-2 pb-8">
+        <div className="flex items-center gap-6">
+          <span className="h-px flex-1 bg-ink/10" />
+          <p className="font-hand text-[19px] text-offwhite/30 shrink-0" style={{ transform: "rotate(-1deg)" }}>
+            was drinsteckt ↓
+          </p>
+          <span className="h-px flex-1 bg-ink/10" />
+        </div>
+      </div>
 
       {/* KONTEXT */}
       <section className="pb-24">
@@ -220,7 +229,7 @@ export default function Page({ params }: Props) {
                   : r.kategorie === "branding"
                     ? "ein Branding-Projekt"
                     : "eine grafische Arbeit"}{" "}
-                aus {r.ort.split(",")[0]}. {r.kurz} • Ausgangspunkt war der
+                aus {r.ort.split(",")[0]}. {r.kurz} · Ausgangspunkt war der
                 Wunsch, sich aus dem Grundrauschen ähnlicher Angebote
                 abzuheben und eine Identität zu bauen, die zur Person
                 dahinter passt.
@@ -235,13 +244,13 @@ export default function Page({ params }: Props) {
                 Ich starte jeden Auftrag mit einem intensiven Moodboarding-Termin.
                 Vor der ersten Pixel-Entscheidung stand die Frage: wer seid
                 ihr wirklich, und wer sind die anderen? Aus den Antworten
-                ist das visuelle System gewachsen • Farbe, Typografie,
+                ist das visuelle System gewachsen · Farbe, Typografie,
                 Tonalität.
               </p>
               <p className="mt-4">
                 Die Umsetzung lief in kurzen Iterationen, mit
-                Zwischenabgaben statt Black-Box. So können wir gemeinsam
-                lenken, wo es hingehen sollte • ohne Überraschung am
+                Zwischenabgaben statt Black-Box. So kannst du immer
+                lenken, wo es hingehen sollte · ohne Überraschung am
                 Launch-Tag.
               </p>
             </div>
@@ -252,8 +261,8 @@ export default function Page({ params }: Props) {
               </h2>
               <p>
                 {r.inArbeit
-                  ? "Das Projekt befindet sich aktuell noch in der Bauphase • erste Screens und der Branding-Rahmen stehen. Launch ist für die kommenden Wochen geplant."
-                  : "Das Projekt ist live und wird aktiv genutzt. Feedback bisher: die Seite fühlt sich endlich nach den Leuten an, die dahinter stehen • und nicht nach Template."}
+                  ? "Das Projekt befindet sich aktuell noch in der Bauphase · erste Screens und der Branding-Rahmen stehen. Launch ist für die kommenden Wochen geplant."
+                  : "Das Projekt ist live und wird aktiv genutzt. Feedback bisher: die Seite fühlt sich endlich nach den Leuten an, die dahinter stehen · und nicht nach Template."}
               </p>
             </div>
           </div>
@@ -281,6 +290,17 @@ export default function Page({ params }: Props) {
           </div>
         </section>
       )}
+
+      {/* atmospheric break */}
+      <div className="container-site py-2 pb-6">
+        <div className="flex items-center gap-6">
+          <span className="h-px flex-1 bg-ink/10" />
+          <p className="font-hand text-[19px] text-offwhite/30 shrink-0" style={{ transform: "rotate(0.8deg)" }}>
+            bildstrecke ↓
+          </p>
+          <span className="h-px flex-1 bg-ink/10" />
+        </div>
+      </div>
 
       {/* VISUALS GALLERY */}
       <section className="pb-28">
@@ -335,8 +355,8 @@ export default function Page({ params }: Props) {
               sowas auch für dich?
             </h2>
             <p className="mt-5 max-w-[480px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
-              Jedes Projekt ist eigen. Schreib mir, was dir vorschwebt • wir
-              besprechen, was passt.
+              Jedes Projekt ist eigen. Schreib mir, was dir vorschwebt · ich
+              schau, was passt.
             </p>
             <div className="mt-8">
               <Button

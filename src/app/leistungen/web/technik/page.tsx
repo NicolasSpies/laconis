@@ -44,7 +44,7 @@ export default function Page() {
               wordpress baue, und wie contentcore technisch aufgebaut ist.
             </p>
             <p className="mt-4 max-w-[640px] text-[13px] leading-relaxed text-offwhite/55">
-              kein marketing-sprech. ehrliche technik. nimm dir zeit — oder
+              kein marketing-sprech. ehrliche technik. nimm dir zeit · oder
               spring direkt zu einem abschnitt.
             </p>
           </div>
@@ -99,7 +99,7 @@ export default function Page() {
             </h2>
             <p className="mt-5 max-w-[520px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
               technik-details sind ein sprungbrett, keine checkliste. wenn was
-              unklar ist · sag bescheid, wir klären's im gespräch.
+              unklar ist · sag bescheid, ich klär's im gespräch.
             </p>
             <div className="mt-8 flex justify-center gap-3 flex-wrap">
               <Button href="/kontakt" variant="primary" size="lg">

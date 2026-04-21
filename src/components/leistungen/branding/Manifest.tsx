@@ -14,7 +14,7 @@ type Zeile = {
 const ZEILEN: Zeile[] = [
   {
     nicht: "Auf fremden Branding-Systemen aufsetzen.",
-    stattdessen: "Wir starten einmal bei null. Danach bist du drin für alles.",
+    stattdessen: "Ich starte einmal bei null. Danach bist du drin für alles.",
     detail:
       "Kein Snobismus. Wenn ich die Marke nicht selbst gebaut hab, kenn ich die Regeln dahinter nicht. Und ohne die Regeln wird's nie richtig gut. Bin ich aber von Anfang an dabei, läuft später alles easy. Broschüre, Card, Roll-up, Social-Kit · ich hab die Linie im Kopf. Websites sind die Ausnahme. Die bau ich auch von null neu.",
   },

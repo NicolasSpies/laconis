@@ -140,7 +140,7 @@ export function Deliverables({ num = "05" }: { num?: string } = {}) {
 
               {/* karte · opak, keine durchsicht */}
               <article
-                className="relative z-10 liquid-glass-dark rounded-2xl p-7 md:p-8 transition-transform duration-300 ease-out group-hover:!rotate-0"
+                className="relative z-10 liquid-glass-dark rounded-2xl p-7 md:p-8 transition-all duration-500 ease-out group-hover:!rotate-0 group-hover:-translate-y-1 group-hover:border-lime/50"
                 style={{ transform: `rotate(${p.rotate})` }}
               >
                 <h3 className="heading-display text-[clamp(1.5rem,2.4vw,1.9rem)] text-offwhite leading-[1.1]">

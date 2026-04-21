@@ -12,11 +12,23 @@ export function ThemeToggle({ className }: { className?: string }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = (typeof window !== "undefined" &&
-      (localStorage.getItem(STORAGE_KEY) as Theme | null)) ||
-      (document.documentElement.getAttribute("data-theme") as Theme | null);
-    if (stored === "light" || stored === "dark") setTheme(stored);
+    const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
+    const sys = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    const initial = stored ?? sys;
+    setTheme(initial);
+    document.documentElement.setAttribute("data-theme", initial);
     setMounted(true);
+
+    // follow OS changes live — only when user hasn't pinned a choice
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const onSysChange = (e: MediaQueryListEvent) => {
+      if (localStorage.getItem(STORAGE_KEY)) return; // user pinned → ignore
+      const next: Theme = e.matches ? "dark" : "light";
+      setTheme(next);
+      document.documentElement.setAttribute("data-theme", next);
+    };
+    mq.addEventListener("change", onSysChange);
+    return () => mq.removeEventListener("change", onSysChange);
   }, []);
 
   const toggle = () => {
@@ -44,7 +56,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       }
       onClick={toggle}
       className={cn(
-        "relative inline-flex items-center rounded-full border border-ink/10 bg-ink/[0.03] hover:bg-ink/[0.06] transition-colors",
+        "tactile-press relative inline-flex items-center rounded-full border border-ink/10 bg-ink/[0.03] hover:bg-ink/[0.06]",
         "h-6 w-[58px] px-[2px]",
         /* depth-press simuliert eingelassenen track · pill darauf "schwebt" mit eigenem shadow */
         "shadow-[var(--depth-press)]",

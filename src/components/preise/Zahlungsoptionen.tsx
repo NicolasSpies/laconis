@@ -24,7 +24,7 @@ const MODELLE: Modell[] = [
     details: [
       "Voller Betrag mit Projekt-Abschluss",
       "Keine Zinsen, keine Teilbeträge",
-      "Einfachste Variante • am schnellsten durch",
+      "Einfachste Variante · am schnellsten durch",
     ],
     highlight: true,
   },
@@ -35,7 +35,7 @@ const MODELLE: Modell[] = [
     details: [
       "50% bei Auftrag",
       "Rest aufgeteilt auf bis zu 5 Monate",
-      "Läuft automatisiert • SEPA-Lastschrift oder Überweisung",
+      "Läuft automatisiert · SEPA-Lastschrift oder Überweisung",
     ],
     zinsNote: "2% / monat · gedeckelt bei max 10%",
   },

@@ -36,6 +36,17 @@ export default function Page() {
       {/* Unified process · gilt für web + branding */}
       <UnifiedProcess num="02" />
 
+      {/* atmospheric break */}
+      <div className="container-site py-2">
+        <div className="flex items-center gap-6">
+          <span className="h-px flex-1 bg-ink/10" />
+          <p className="font-hand text-[19px] text-offwhite/30 shrink-0" style={{ transform: "rotate(-1deg)" }}>
+            und was ich nicht mache ↓
+          </p>
+          <span className="h-px flex-1 bg-ink/10" />
+        </div>
+      </div>
+
       {/* Toggle · manifeste unterscheiden sich zwischen disziplinen */}
       <AnsatzToggle
         num="03"

@@ -34,7 +34,7 @@ export function generateImageMetadata({
 
 export default function OgImage({ params }: { params: { slug: string } }) {
   const r = referenzen.find((x) => x.slug === params.slug);
-  const accent = r?.farbe ?? "#d9ff00";
+  const accent = "#e1fd52";
   const name = r?.name ?? "lacønis";
   const label = r?.kategorieLabel ?? "referenz";
   const ort = r?.ort ?? "Eupen · Belgien";

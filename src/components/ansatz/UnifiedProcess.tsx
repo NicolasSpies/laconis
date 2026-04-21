@@ -19,14 +19,14 @@ const STEPS: Step[] = [
     num: "01",
     titel: "kennenlernen",
     handNote: "wer bist du?",
-    kurz: "30 Min Call oder Kaffee in Eupen. Wir reden über dich, nicht übers Logo oder Pixel. Kostet nichts, bringt Klarheit.",
+    kurz: "30 Min Call oder Kaffee in Eupen. Ich rede mit dir über dich, nicht übers Logo oder Pixel. Kostet nichts, bringt Klarheit.",
     dauer: "~1 tag",
   },
   {
     num: "02",
     titel: "richtung finden",
     handNote: "tiefer, nicht breiter",
-    kurz: "Moodboard, Struktur, Tonalität. Wir picken gemeinsam, wohin's geht · bevor irgendeine Farbe oder Zeile umgesetzt wird.",
+    kurz: "Moodboard, Struktur, Tonalität. Ich leg Richtungen vor · du bestimmst, wohin's geht · bevor irgendeine Farbe oder Zeile umgesetzt wird.",
     dauer: "~1 woche",
   },
   {

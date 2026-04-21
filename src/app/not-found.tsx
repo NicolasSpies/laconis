@@ -62,7 +62,7 @@ export default function NotFound() {
           </h1>
           <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55 max-w-[440px] mx-auto">
             Vielleicht ein Tippfehler, vielleicht ein alter Link, vielleicht
-            ist die Seite umgezogen. Egal • zurück zur Startseite ist immer
+            ist die Seite umgezogen. Egal · zurück zur Startseite ist immer
             ein guter Plan.
           </p>
 
@@ -87,7 +87,7 @@ export default function NotFound() {
 
           {/* tiny footer note */}
           <p className="mt-12 font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-            wenn du denkst, das ist ein bug • {" "}
+            wenn du denkst, das ist ein bug · {" "}
             <a
               href={`mailto:${CONTACT.email}`}
               className="text-accent-ink hover:underline"

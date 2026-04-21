@@ -29,8 +29,8 @@ const NEU: Card[] = [
   },
   {
     num: "04",
-    titel: "6 bis 12 wochen",
-    text: "Länger als Redesign, weil mehr neu entsteht. Dafür steht am Ende etwas, das wirklich nach dir aussieht.",
+    titel: "2 bis 8 wochen",
+    text: "Dauer ist kundenabhängig · Onepager schneller, Multipager mit CMS länger. Ich sag dir beim Kickoff eine Kalenderwoche, kein Quartal.",
   },
 ];
 
@@ -101,7 +101,7 @@ export function WebApproaches({ num = "02" }: { num?: string } = {}) {
                   type="button"
                   onClick={() => setTab(t)}
                   className={[
-                    "relative inline-flex items-center px-4 py-3 font-mono text-[12px] uppercase tracking-mono transition-colors",
+                    "tactile-press relative inline-flex items-center px-4 py-3 font-mono text-[12px] uppercase tracking-mono",
                     isActive
                       ? "text-accent-ink"
                       : "text-offwhite/45 hover:text-offwhite/85",
@@ -129,7 +129,7 @@ export function WebApproaches({ num = "02" }: { num?: string } = {}) {
           {cards.map((c, i) => (
             <div key={c.num} className="relative group">
               <article
-                className="liquid-glass-dark rounded-xl p-6 flex flex-col gap-3 transition-transform duration-300 ease-out group-hover:!rotate-0 h-full"
+                className="liquid-glass-dark rounded-xl p-6 flex flex-col gap-3 transition-all duration-500 ease-out group-hover:!rotate-0 group-hover:-translate-y-1 group-hover:border-lime/50 h-full"
                 style={{ transform: `rotate(${CARD_ROTATIONS[i] ?? "0deg"})` }}
               >
                 <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">

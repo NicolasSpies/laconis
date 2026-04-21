@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { Button } from "@/components/ui/Button";
 
 /**
  * WebDeliverables · drei versprechen als papierstapel.
@@ -93,7 +93,7 @@ const PROMISES: Promise[] = [
     num: "03",
     titel: "für immer deins",
     kurz:
-      "Der Code gehört dir · keine Abo-Falle, kein Vendor-Lock, kein monatlicher Mietzins ans Silicon Valley. Wenn wir uns eines Tages aus den Augen verlieren, nimmst du einfach alles mit.",
+      "Der Code gehört dir · keine Abo-Falle, kein Vendor-Lock, kein monatlicher Mietzins ans Silicon Valley. Wenn du mich eines Tages nicht mehr brauchst, nimmst du einfach alles mit.",
     rotate: "-0.8deg",
     corner: "tr",
     numRotate: "8deg",
@@ -183,7 +183,7 @@ export function WebDeliverables({ num = "05" }: { num?: string } = {}) {
 
               {/* karte · opak, keine durchsicht */}
               <article
-                className="relative z-10 liquid-glass-dark rounded-2xl p-7 md:p-8 transition-transform duration-300 ease-out group-hover:!rotate-0"
+                className="relative z-10 liquid-glass-dark rounded-2xl p-7 md:p-8 transition-all duration-500 ease-out group-hover:!rotate-0 group-hover:-translate-y-1 group-hover:border-lime/50"
                 style={{ transform: `rotate(${p.rotate})` }}
               >
                 <div className="flex items-center justify-between">
@@ -243,12 +243,9 @@ function TechnikBridge() {
           fill="none"
         />
       </svg>
-      <Link
-        href="/leistungen/web/technik"
-        className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label text-accent-ink hover:text-lime transition-colors"
-      >
+      <Button href="/leistungen/web/technik" variant="primary" size="sm">
         alle technik-details →
-      </Link>
+      </Button>
     </div>
   );
 }

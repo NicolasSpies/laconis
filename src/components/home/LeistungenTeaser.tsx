@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Tag } from "@/components/ui/Tag";
 import { Scribble } from "@/components/ui/Scribble";
+import { Button } from "@/components/ui/Button";
 
 const webTags = ["design", "development", "seo", "mehrsprachig"];
 
@@ -276,12 +276,9 @@ export function LeistungenTeaser() {
               </div>
 
               <div className="mt-auto pt-8">
-                <Link
-                  href="/leistungen/web"
-                  className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-accent-ink hover:gap-3 transition-all w-fit"
-                >
-                  mehr erfahren <span>→</span>
-                </Link>
+                <Button href="/leistungen/web" variant="primary" size="sm">
+                  mehr erfahren →
+                </Button>
               </div>
             </div>
 
@@ -330,7 +327,7 @@ export function LeistungenTeaser() {
               </h3>
 
               <p className="mt-5 text-[14px] leading-relaxed text-offwhite/55 max-w-[420px]">
-                Vom Logo bis zur Visitenkarte. Alles im gleichen Look — Farbe,
+                Vom Logo bis zur Visitenkarte. Alles im gleichen Look · Farbe,
                 Schrift, Haltung.
               </p>
 
@@ -351,12 +348,9 @@ export function LeistungenTeaser() {
               </ul>
 
               <div className="mt-auto pt-8">
-                <Link
-                  href="/leistungen/branding"
-                  className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label text-accent-ink hover:gap-3 transition-all w-fit"
-                >
-                  mehr erfahren <span>→</span>
-                </Link>
+                <Button href="/leistungen/branding" variant="primary" size="sm">
+                  mehr erfahren →
+                </Button>
               </div>
             </div>
           </div>

@@ -60,7 +60,7 @@ function LangDropdown() {
         aria-haspopup="menu"
         aria-expanded={open}
         className={cn(
-          "inline-flex items-center gap-1.5 font-mono text-[11px] uppercase px-2 py-1 rounded transition-colors",
+          "tactile-press inline-flex items-center gap-1.5 font-mono text-[11px] uppercase px-2 py-1 rounded",
           "text-offwhite hover:text-accent-ink",
         )}
       >
@@ -208,7 +208,7 @@ export function Nav() {
         <button
           type="button"
           aria-label="menu"
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="tactile-press md:hidden flex flex-col gap-1.5 p-2 rounded"
           onClick={() => setOpen((v) => !v)}
         >
           <span

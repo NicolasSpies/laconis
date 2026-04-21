@@ -129,7 +129,7 @@ export default function Page() {
           <div className="max-w-[820px] mx-auto text-center">
             <p className="text-[13px] leading-relaxed text-offwhite/55">
               Unsicher bei einer Entscheidung? Lass sie einfach offen · im
-              Gespräch klären wir das in 10 Minuten und ich rechne dir die
+              Gespräch klär ich das in 10 Minuten und rechne dir die
               finalen Zahlen.
             </p>
             <div className="mt-6">

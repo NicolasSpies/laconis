@@ -18,17 +18,28 @@ export function CursorDot() {
 
     const enter = (e: MouseEvent) => {
       const t = e.target as HTMLElement | null;
-      if (!t) return;
+      if (!t || !dot.current) return;
+      /* inside explicit hide-zone (z.b. referenz-cards mit eigenem bubble) →
+         cursor-dot komplett ausblenden, kein halo, kein core. */
+      if (t.closest("[data-cursor-hide]")) {
+        dot.current.classList.add("is-hidden");
+        dot.current.classList.remove("is-hovering");
+        return;
+      }
       if (t.closest("a, button, [role='button'], summary, label, input, select, textarea")) {
-        dot.current?.classList.add("is-hovering");
+        dot.current.classList.add("is-hovering");
       }
     };
 
     const leave = (e: MouseEvent) => {
       const t = e.target as HTMLElement | null;
-      if (!t) return;
+      if (!t || !dot.current) return;
+      if (t.closest("[data-cursor-hide]")) {
+        dot.current.classList.remove("is-hidden");
+        return;
+      }
       if (t.closest("a, button, [role='button'], summary, label, input, select, textarea")) {
-        dot.current?.classList.remove("is-hovering");
+        dot.current.classList.remove("is-hovering");
       }
     };
 
@@ -61,10 +72,11 @@ export function CursorDot() {
     <div
       ref={dot}
       aria-hidden
-      className="cursor-dot fixed top-0 left-0 z-[9999] pointer-events-none will-change-transform"
+      className="cursor-dot fixed top-0 left-0 z-[10001] pointer-events-none will-change-transform"
     >
-      {/* inner span: transition nur auf hover-properties (bg, size) — transform bleibt instant */}
-      <span className="cursor-dot-inner block w-2 h-2 rounded-full bg-lime -translate-x-1/2 -translate-y-1/2 transition-[background-color,width,height] duration-200 ease-out" />
+      {/* halo · nur sichtbar über klickbarem · core · immer sichtbar */}
+      <span className="cursor-dot-halo" />
+      <span className="cursor-dot-core" />
     </div>
   );
 }

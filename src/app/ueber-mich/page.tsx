@@ -1,6 +1,7 @@
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { DeskScene } from "@/components/ueber-mich/DeskScene";
+import { Werkstatt } from "@/components/home/Werkstatt";
 import { StaerkenSection } from "@/components/ueber-mich/StaerkenSection";
 import { getMeta } from "@/lib/seo/getMeta";
 import type { Metadata } from "next";
@@ -14,7 +15,6 @@ const TOOLS = [
   { name: "react", kat: "stack" },
   { name: "tailwind", kat: "stack" },
   { name: "typescript", kat: "stack" },
-  { name: "figma", kat: "design" },
   { name: "affinity designer", kat: "design" },
   { name: "procreate", kat: "design" },
   { name: "notion", kat: "ops" },
@@ -71,7 +71,7 @@ export default function Page() {
 
               <p className="mt-8 max-w-[520px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
                 Nicolas Spies. 29, aus Eupen, Belgien. Designer und
-                Web-Developer seit 2019 • seit 2026 vollzeit als lacønis. Ich
+                Web-Developer seit 2019 · seit 2026 vollzeit als lacønis. Ich
                 bau Marken und Websites, die sich nach den Leuten anfühlen, die
                 dahinterstehen.
               </p>
@@ -89,7 +89,7 @@ export default function Page() {
                 }}
               >
                 <span className="text-offwhite/45">p.s. </span>
-                lakonisch — knapp gesagt, viel gemeint. daher der name.
+                lakonisch · knapp gesagt, viel gemeint. daher der name.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
@@ -130,7 +130,7 @@ export default function Page() {
                 <span className="absolute -top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-lime/50 rounded-[1px] rotate-[-3deg]" />
                 {/* caption */}
                 <div className="absolute bottom-3 left-3 right-3 font-mono text-[9px] uppercase tracking-label text-offwhite/55">
-                  nicolas • 2025 • eupen
+                  nicolas · 2025 · eupen
                 </div>
               </div>
             </div>
@@ -141,15 +141,29 @@ export default function Page() {
       {/* SECTION B · DESK-SCENE */}
       <DeskScene />
 
+      {/* DIE WERKSTATT · polaroid-break */}
+      <Werkstatt />
+
       {/* WAS MICH AUSMACHT */}
       <StaerkenSection />
 
+      {/* atmospheric break */}
+      <div className="container-site py-2">
+        <div className="flex items-center gap-6">
+          <span className="h-px flex-1 bg-ink/10" />
+          <p className="font-hand text-[19px] text-offwhite/30 shrink-0" style={{ transform: "rotate(-1deg)" }}>
+            und wo ich herkomme ↓
+          </p>
+          <span className="h-px flex-1 bg-ink/10" />
+        </div>
+      </div>
+
       {/* WERDEGANG */}
-      <section className="pb-28">
+      <section className="pb-28 pt-8">
         <div className="container-site">
           <SectionLabel num="08">werdegang</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(2rem,5vw,3.5rem)] text-offwhite max-w-[720px]">
-            in kürze • keine drei-seiten-bio.
+            in kürze · keine drei-seiten-bio.
           </h2>
 
           <div className="mt-14 relative">
@@ -184,15 +198,26 @@ export default function Page() {
         </div>
       </section>
 
+      {/* atmospheric break */}
+      <div className="container-site py-2">
+        <div className="flex items-center gap-6">
+          <span className="h-px flex-1 bg-ink/10" />
+          <p className="font-hand text-[19px] text-offwhite/30 shrink-0" style={{ transform: "rotate(0.7deg)" }}>
+            was ich dabei nutze ↓
+          </p>
+          <span className="h-px flex-1 bg-ink/10" />
+        </div>
+      </div>
+
       {/* TOOLS */}
-      <section className="pb-28">
+      <section className="pb-28 pt-8">
         <div className="container-site">
           <SectionLabel num="09">werkzeug</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(1.75rem,4vw,3rem)] text-offwhite max-w-[720px]">
             tools sind mittel, nicht sinn.
           </h2>
           <p className="mt-4 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-            Aber weil mich's jeder fragt • hier die aktuelle Palette. Wird
+            Aber weil mich's jeder fragt · hier die aktuelle Palette. Wird
             sich in 2 Jahren wieder geändert haben.
           </p>
 
@@ -219,7 +244,7 @@ export default function Page() {
         <div className="container-site">
           <div className="liquid-glass rounded-2xl p-10 md:p-16 text-center">
             <h2 className="heading-display text-[clamp(1.75rem,4.5vw,3rem)] text-offwhite max-w-[640px] mx-auto">
-              soweit in kurz. wollen wir reden?
+              soweit in kurz. lust auf ein gespräch?
             </h2>
             <p className="mt-5 max-w-[480px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
               Mehr über mich als über lacønis? Auch okay. Ich mag Kaffee und

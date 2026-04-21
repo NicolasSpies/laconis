@@ -24,11 +24,10 @@ const sizes: Record<Size, string> = {
   lg: "px-7 py-3.5 text-[13px]",
 };
 
-/* transition-all bewusst NICHT mehr drin · würde mit .tactile's
-   eigener transform/box-shadow-transition kollidieren (duration-mismatch).
-   colors kriegen eigene transition damit hover-color-changes smooth bleiben. */
+/* keine eigene transition hier · .tactile / .tactile-sm steuern transform,
+   box-shadow, background-color, color und border-color vollständig. */
 const base =
-  "inline-flex items-center justify-center gap-2 font-mono lowercase tracking-mono rounded-full whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed [transition:background-color_0.3s,color_0.3s,border-color_0.3s]";
+  "inline-flex items-center justify-center gap-2 font-mono lowercase tracking-mono rounded-full whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed";
 
 type Common = {
   variant?: Variant;

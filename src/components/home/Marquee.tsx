@@ -1,25 +1,73 @@
 "use client";
 
-import { motion } from "framer-motion";
+import {
+  motion,
+  useAnimationFrame,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useVelocity,
+  wrap,
+} from "framer-motion";
+import { useRef } from "react";
 
 type Props = {
   words: string[];
   direction?: "left" | "right";
-  /** Seconds for one full loop — higher = slower */
-  duration?: number;
+  /** Basis-Speed · % des tracks pro sekunde (default 3 = gemächlich) */
+  baseVelocity?: number;
   /** Optional lime-bullet separator between words (default true) */
   separator?: boolean;
 };
 
+/**
+ * marquee mit scroll-velocity-boost · je schneller du scrollst, desto
+ * schneller rennt der marquee. idle-speed bleibt gemütlich, aber ein
+ * schwung gibt dem ganzen einen spürbaren ruck. richtung bleibt konstant ·
+ * kein flip, das würde sonst orientierungslos wirken.
+ */
 export function Marquee({
   words,
   direction = "left",
-  duration = 60,
+  baseVelocity = 3,
   separator = true,
 }: Props) {
   const row = separator
     ? words.flatMap((w, i) => (i === 0 ? [w] : ["•", w]))
     : words;
+
+  const prefersReducedMotion = useReducedMotion();
+
+  const baseX = useMotionValue(0);
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(scrollVelocity, {
+    damping: 50,
+    stiffness: 400,
+  });
+  /* velocityFactor · 0 = idle, >0 = scroll-schwung. clamp=false damit
+     auch große schwünge durchkommen aber capped bei ~5x basis-speed */
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
+    clamp: false,
+  });
+
+  /* track translated %-based · wrap(-50, 0) sorgt für seamless loop
+     weil der row 2× dupliziert ist → bei -50% springt er zurück auf 0% */
+  const x = useTransform(baseX, (v) => `${wrap(-50, 0, v)}%`);
+
+  const dir = direction === "left" ? -1 : 1;
+  const dirRef = useRef(dir);
+
+  useAnimationFrame((_, delta) => {
+    if (prefersReducedMotion) return;
+    /* basis-bewegung pro frame · delta in ms */
+    let moveBy = dirRef.current * baseVelocity * (delta / 1000);
+    /* velocity-boost · abs damit scroll in beide richtungen beschleunigt */
+    moveBy += moveBy * Math.abs(velocityFactor.get());
+    baseX.set(baseX.get() + moveBy);
+  });
 
   return (
     <div
@@ -33,9 +81,8 @@ export function Marquee({
       }}
     >
       <motion.div
+        style={{ x }}
         className="flex gap-10 whitespace-nowrap w-max will-change-transform"
-        animate={{ x: direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"] }}
-        transition={{ duration, ease: "linear", repeat: Infinity }}
       >
         {[0, 1].map((copy) => (
           <div key={copy} className="flex items-center gap-10 shrink-0">

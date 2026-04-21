@@ -30,7 +30,7 @@ export function AccentSwitcher({ label = "akzentfarbe", className = "" }: Props)
               type="button"
               onClick={() => setAccent(a.key)}
               aria-label={`akzentfarbe ${a.label}`}
-              className="relative h-6 w-6 rounded-full transition-transform hover:scale-110"
+              className="tactile-press relative h-6 w-6 rounded-full hover:scale-110"
               style={{ background: a.hex }}
             >
               {active && (

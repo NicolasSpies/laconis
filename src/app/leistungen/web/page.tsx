@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
-import { HeroBrowser } from "@/components/leistungen/web/HeroBrowser";
+import { GrundrauschHero } from "@/components/leistungen/web/GrundrauschHero";
 import { WebApproaches } from "@/components/leistungen/web/WebApproaches";
 import { WebDeliverables } from "@/components/leistungen/web/WebDeliverables";
 import { WebVsAlternatives } from "@/components/leistungen/web/WebVsAlternatives";
-import { StaerkenStrip } from "@/components/shared/StaerkenStrip";
+import { FabryCase } from "@/components/leistungen/web/FabryCase";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
 import { getMeta } from "@/lib/seo/getMeta";
@@ -66,9 +66,9 @@ export default function Page() {
                 verschwinden.
               </h1>
               <p className="mt-7 max-w-[520px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-                kein template, kein baukasten. handgemacht von der ersten zeile
-                code bis zur letzten einstellung · schnell, zugänglich, mit
-                meinem eigenen cms zum selberpflegen.
+                ich fang bei null an. kein baukasten, kein theme das tausende
+                nutzen. eine seite, die wirklich nach dir aussieht · und ein
+                cms, das du nach der übergabe selbst bedienst.
               </p>
 
               {/* mini-stats unter dem text · ersetzt zweite fette headline */}
@@ -94,22 +94,30 @@ export default function Page() {
                     launch
                   </dt>
                   <dd className="heading-display text-offwhite text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">
-                    2-6w
+                    2–8w
                   </dd>
                 </div>
               </dl>
             </div>
 
-            {/* RECHTS · live browser-demo */}
+            {/* RECHTS · grundrauschen-animation */}
             <div className="relative">
-              <HeroBrowser />
+              <GrundrauschHero />
             </div>
           </div>
         </div>
       </section>
 
-      {/* STÄRKEN-STRIP · 3 punkte teaser (geteilte komponente, unnummeriert) */}
-      <StaerkenStrip />
+      {/* atmospheric break */}
+      <div className="container-site py-2">
+        <div className="flex items-center gap-6">
+          <span className="h-px flex-1 bg-ink/10" />
+          <p className="font-hand text-[19px] text-offwhite/30 shrink-0" style={{ transform: "rotate(-1deg)" }}>
+            so läuft's ab ↓
+          </p>
+          <span className="h-px flex-1 bg-ink/10" />
+        </div>
+      </div>
 
       {/* 02 · ZWEI WEGE · das angebot */}
       <WebApproaches num="02" />
@@ -117,8 +125,22 @@ export default function Page() {
       {/* 03 · WAS DU BEKOMMST · deliverables direkt nach angebot */}
       <WebDeliverables num="03" />
 
-      {/* 04 · EINORDNUNG · passt das zu mir */}
-      <WebVsAlternatives num="04" />
+      {/* atmospheric break */}
+      <div className="container-site py-2">
+        <div className="flex items-center gap-6">
+          <span className="h-px flex-1 bg-ink/10" />
+          <p className="font-hand text-[19px] text-offwhite/30 shrink-0" style={{ transform: "rotate(0.8deg)" }}>
+            ein echter kunde dazu ↓
+          </p>
+          <span className="h-px flex-1 bg-ink/10" />
+        </div>
+      </div>
+
+      {/* 04 · BEWEIS · fabry-case mit testimonial */}
+      <FabryCase num="04" />
+
+      {/* 05 · EINORDNUNG · brauchst du mich überhaupt */}
+      <WebVsAlternatives num="05" />
 
       {/* VERTIEFUNGS-LINKS · technik + ansatz */}
       <section className="pb-20">
@@ -126,7 +148,7 @@ export default function Page() {
           <div className="grid md:grid-cols-2 gap-4">
             <Link
               href="/leistungen/web/technik"
-              className="group glass rounded-xl px-6 py-5 hover:border-lime/25 transition-colors flex items-start justify-between gap-4"
+              className="group glass tactile-sm rounded-xl px-6 py-5 hover:border-lime/25 flex items-start justify-between gap-4"
             >
               <div>
                 <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
@@ -142,7 +164,7 @@ export default function Page() {
             </Link>
             <Link
               href="/ansatz"
-              className="group glass rounded-xl px-6 py-5 hover:border-lime/25 transition-colors flex items-start justify-between gap-4"
+              className="group glass tactile-sm rounded-xl px-6 py-5 hover:border-lime/25 flex items-start justify-between gap-4"
             >
               <div>
                 <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">

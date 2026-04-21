@@ -19,7 +19,7 @@ export default function Page() {
             <span className="text-offwhite/35">arbeiten.</span>
           </h1>
           <p className="mt-8 max-w-[560px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-            Projekte, die bleiben • keine 0815-Websites, keine austauschbaren
+            Projekte, die bleiben · keine 0815-Websites, keine austauschbaren
             Logos. Einfach Sachen, die zu den Leuten passen, die dahinter
             stehen.
           </p>
