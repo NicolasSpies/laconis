@@ -62,8 +62,8 @@ export default function Page() {
               klingt nach deiner art zu arbeiten?
             </h2>
             <p className="mt-5 max-w-[520px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
-              30 Minuten Video-Call oder Kaffee in Eupen. Keine Präsentation,
-              kein Vertrag · nur Klarheit.
+              30 Minuten Video-Call. Keine Präsentation, kein Vertrag · nur
+              Klarheit.
             </p>
             <div className="mt-8 flex justify-center gap-3 flex-wrap">
               <Button

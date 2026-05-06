@@ -403,7 +403,7 @@ function PrintSpecimen() {
                style={{ background: "#F3F1EA" }}>
             <div>
               <span className="font-mono text-[7px] uppercase tracking-label" style={{ color: "#8A8376" }}>
-                designer · eupen
+                designer · web &amp; brand
               </span>
               <div className="heading-display mt-2 text-[16px] md:text-[20px] leading-tight" style={{ color: "#1A1A1A" }}>
                 nicolas spies

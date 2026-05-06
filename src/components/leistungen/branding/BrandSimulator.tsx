@@ -1203,7 +1203,7 @@ function StationeryRow({
                 color: inkAlpha(0.55),
               }}
             >
-              eupen · est. 2026
+              studio · est. 2026
             </span>
           </div>
 

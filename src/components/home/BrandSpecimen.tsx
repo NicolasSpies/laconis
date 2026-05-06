@@ -37,7 +37,7 @@ const BRANDS: Brand[] = [
       "'Cormorant Garamond', 'Times New Roman', Georgia, serif",
     fontWeight: 500,
     letterSpacing: "-0.015em",
-    tagline: "naturkosmetik · eupen",
+    tagline: "naturkosmetik · slow",
     palette: [
       { hex: "#E4C9B3", label: "sand" },
       { hex: "#2D3A2E", label: "pine", dark: true },

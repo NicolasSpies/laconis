@@ -53,9 +53,9 @@ const POSTITS: PostIt[] = [
     y: 120,
   },
   {
-    titel: "eupen",
-    kurz: "ostbelgien. kunden in DE · BE · LUX.",
-    aside: "kaffee? gern.",
+    titel: "DE · FR · EN",
+    kurz: "dreisprachig arbeiten · kunden in DE · BE · LUX.",
+    aside: "remote · überall.",
     farbe: "#E1FD52",
     ink: "#0a0a0a",
     rotate: -2,
@@ -533,7 +533,7 @@ function PhoneMock({ onAddContact }: { onAddContact: () => void }) {
               nicolas spies
             </h4>
             <p className="mt-1 font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-              lacønis · eupen
+              lacønis · designer + developer
             </p>
           </div>
 
@@ -541,8 +541,8 @@ function PhoneMock({ onAddContact }: { onAddContact: () => void }) {
           <div className="mt-6 space-y-2.5">
             <Field label="mail" value={CONTACT.email} />
             <Field label="web" value="laconis.be" />
-            <Field label="ort" value="Eupen · Belgien" />
             <Field label="sprachen" value="DE · FR · EN" />
+            <Field label="arbeitsweise" value="remote · video-call" />
           </div>
 
           {/* CTA */}

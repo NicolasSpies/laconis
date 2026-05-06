@@ -140,7 +140,7 @@ function ServerDiagram() {
           seit 1962, jeden morgen
         </text>
         <text x="56" y="184" fontFamily="system-ui, sans-serif" fontSize="9" fill="rgba(242,242,242,0.6)">
-          ab vier uhr. in eupen.
+          ab vier uhr. frisch.
         </text>
 
         {/* Save button */}
@@ -356,7 +356,7 @@ export function HostingBlock({ num = "06" }: { num?: string } = {}) {
             <ul className="mt-4 space-y-2 text-[13px] text-offwhite/55 leading-relaxed">
               <li>· Deine Seite liegt an hunderten Standorten weltweit</li>
               <li>
-                · Besucher in Eupen holt sie aus Frankfurt, in Brüssel aus
+                · Besucher in Berlin holt sie aus Frankfurt, in Brüssel aus
                 Brüssel, in Paris aus Paris
               </li>
               <li>

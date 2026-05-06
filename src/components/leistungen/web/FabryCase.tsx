@@ -107,7 +107,7 @@ function FabryScreenshotPlaceholder() {
 
         <div className="absolute left-6 right-6 bottom-5 flex items-end justify-between gap-4">
           <div>
-            <span className="font-mono text-[8px] uppercase tracking-[0.16em] text-accent-ink/80">seit 1998 · eupen</span>
+            <span className="font-mono text-[8px] uppercase tracking-[0.16em] text-accent-ink/80">seit 1998</span>
             <h4 className="mt-2 text-offwhite leading-[0.95] tracking-[-0.02em]"
               style={{ fontFamily: "var(--font-fraunces, Georgia), serif", fontWeight: 900, fontSize: "34px" }}>
               bäume in guten<br />
@@ -157,7 +157,7 @@ export function FabryCase({ num = "05" }: { num?: string } = {}) {
                   Reimund Fabry
                 </span>
                 <span className="font-mono text-[11px] text-offwhite/25 ml-2">
-                  · Fabry Baumpflege · Eupen
+                  · Fabry Baumpflege
                 </span>
               </div>
             </footer>
@@ -174,7 +174,7 @@ export function FabryCase({ num = "05" }: { num?: string } = {}) {
               <div>
                 <h3 className="heading-sans text-[17px] text-offwhite">fabry baumpflege</h3>
                 <p className="mt-1 font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-                  onepager · eigenes cms · eupen · 2025
+                  onepager · eigenes cms · 2025
                 </p>
               </div>
               <Link

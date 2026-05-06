@@ -108,8 +108,6 @@ export function SocialProof() {
               reimund fabry
               <span className="text-offwhite/25"> · </span>
               fabry baumpflege
-              <span className="text-offwhite/25"> · </span>
-              eupen
             </figcaption>
           </div>
         </motion.figure>

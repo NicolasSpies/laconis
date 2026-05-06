@@ -177,7 +177,7 @@ export function HeroBrowser() {
                 : "opacity-0 translate-y-2",
             ].join(" ")}
           >
-            bäckerei · eupen · est. 1967
+            bäckerei · seit 1967
           </div>
 
           {/* headline */}

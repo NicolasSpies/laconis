@@ -85,12 +85,12 @@ function HeroCard() {
         className="relative h-full"
         style={{ flexBasis: "55%", flexShrink: 0 }}
       >
-        {/* warmer layered gradient */}
+        {/* layered gradient · dark→lime, ohne braunt\u00f6ne */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(135deg, #1a0f08 0%, #4a2d18 22%, #96623a 48%, #d9a56b 74%, rgb(225 253 82 / 0.55) 100%)",
+              "linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 28%, #2a2a2a 54%, rgb(225 253 82 / 0.28) 82%, rgb(225 253 82 / 0.6) 100%)",
           }}
         />
         {/* soft reflections */}

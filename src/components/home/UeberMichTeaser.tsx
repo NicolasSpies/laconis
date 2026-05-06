@@ -109,9 +109,9 @@ export function UeberMichTeaser() {
             </blockquote>
 
             <p className="mt-6 text-[14px] md:text-[15px] leading-relaxed text-offwhite/55 max-w-[520px]">
-              Mediengestalter aus Eupen · seit 2019 eine Hand für Design und
-              Code. Keine Zwischenschicht, kein Ticket-Tool · du schreibst
-              mir, ich antworte.
+              Mediengestalter seit 2019 · eine Hand für Design und Code. Keine
+              Zwischenschicht, kein Ticket-Tool · du schreibst mir, ich
+              antworte.
             </p>
 
             <div className="mt-7 flex flex-wrap items-center gap-5">

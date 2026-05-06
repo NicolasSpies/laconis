@@ -32,7 +32,7 @@ const ZEILEN: Zeile[] = [
   },
   {
     nicht: "Keine Preisverhandlung per WhatsApp um 23 Uhr.",
-    stattdessen: "Ein Telefonat. Kaffee in Eupen. Klare Zahl.",
+    stattdessen: "Ein Telefonat. Klare Zahl.",
   },
   {
     nicht: "Kein ‚ist doch nur ein Logo'.",

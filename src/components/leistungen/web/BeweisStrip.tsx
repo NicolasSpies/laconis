@@ -29,7 +29,7 @@ const CASES: Case[] = [
     url: "fabry-baumpflege.be",
     mobile: 96,
     desktop: 98,
-    note: "eupen · onepager",
+    note: "onepager · eigenes cms",
     caseHref: "/referenzen/fabry-baumpflege",
   },
   {

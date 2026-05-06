@@ -70,10 +70,9 @@ export default function Page() {
               </h1>
 
               <p className="mt-8 max-w-[520px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-                Nicolas Spies. 29, aus Eupen, Belgien. Designer und
-                Web-Developer seit 2019 · seit 2026 vollzeit als lacønis. Ich
-                bau Marken und Websites, die sich nach den Leuten anfühlen, die
-                dahinterstehen.
+                Nicolas Spies, 29. Designer und Web-Developer seit 2019 · seit
+                2026 vollzeit als lacønis. Ich bau Marken und Websites, die
+                sich nach den Leuten anfühlen, die dahinterstehen.
               </p>
 
               {/* PS · hand-notiz · erklärt subtil den namen
@@ -95,8 +94,8 @@ export default function Page() {
               <div className="mt-6 flex flex-wrap gap-2">
                 <Tag>designer</Tag>
                 <Tag>web-developer</Tag>
-                <Tag>eupen · belgien</Tag>
                 <Tag>DE · FR · EN</Tag>
+                <Tag>remote · überall</Tag>
               </div>
 
               <div className="mt-10">
@@ -130,7 +129,7 @@ export default function Page() {
                 <span className="absolute -top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-lime/50 rounded-[1px] rotate-[-3deg]" />
                 {/* caption */}
                 <div className="absolute bottom-3 left-3 right-3 font-mono text-[9px] uppercase tracking-label text-offwhite/55">
-                  nicolas · 2025 · eupen
+                  nicolas · 2025
                 </div>
               </div>
             </div>

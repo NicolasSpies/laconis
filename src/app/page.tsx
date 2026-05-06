@@ -58,8 +58,8 @@ export default function HomePage() {
           "ruf an",
           "mail",
           "multistep",
-          "kaffee in eupen",
           "30-min call",
+          "kein pitch-deck",
         ]}
         direction="right"
         baseVelocity={2.5}

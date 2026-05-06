@@ -19,7 +19,7 @@ const STEPS: Step[] = [
     num: "01",
     titel: "kennenlernen",
     handNote: "wer bist du?",
-    kurz: "30 Min Call oder Kaffee in Eupen. Ich rede mit dir über dich, nicht übers Logo oder Pixel. Kostet nichts, bringt Klarheit.",
+    kurz: "30 Min Video-Call. Ich rede mit dir über dich, nicht übers Logo oder Pixel. Kostet nichts, bringt Klarheit.",
     dauer: "~1 tag",
   },
   {

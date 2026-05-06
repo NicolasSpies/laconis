@@ -3,6 +3,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { GrundrauschHero } from "@/components/leistungen/web/GrundrauschHero";
 import { WebApproaches } from "@/components/leistungen/web/WebApproaches";
+import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
 import { WebDeliverables } from "@/components/leistungen/web/WebDeliverables";
 import { WebVsAlternatives } from "@/components/leistungen/web/WebVsAlternatives";
 import { FabryCase } from "@/components/leistungen/web/FabryCase";
@@ -108,16 +109,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* atmospheric break */}
-      <div className="container-site py-2">
-        <div className="flex items-center gap-6">
-          <span className="h-px flex-1 bg-ink/10" />
-          <p className="font-hand text-[19px] text-offwhite/30 shrink-0" style={{ transform: "rotate(-1deg)" }}>
-            so läuft's ab ↓
-          </p>
-          <span className="h-px flex-1 bg-ink/10" />
-        </div>
-      </div>
+      <ScribbleBreak text="so läuft's ab ↓" rotate={-1} />
 
       {/* 02 · ZWEI WEGE · das angebot */}
       <WebApproaches num="02" />
@@ -125,16 +117,7 @@ export default function Page() {
       {/* 03 · WAS DU BEKOMMST · deliverables direkt nach angebot */}
       <WebDeliverables num="03" />
 
-      {/* atmospheric break */}
-      <div className="container-site py-2">
-        <div className="flex items-center gap-6">
-          <span className="h-px flex-1 bg-ink/10" />
-          <p className="font-hand text-[19px] text-offwhite/30 shrink-0" style={{ transform: "rotate(0.8deg)" }}>
-            ein echter kunde dazu ↓
-          </p>
-          <span className="h-px flex-1 bg-ink/10" />
-        </div>
-      </div>
+      <ScribbleBreak text="ein echter kunde dazu ↓" rotate={0.8} flip />
 
       {/* 04 · BEWEIS · fabry-case mit testimonial */}
       <FabryCase num="04" />
@@ -190,8 +173,8 @@ export default function Page() {
               klingt nach deinem projekt?
             </h2>
             <p className="mt-5 max-w-[520px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
-              30 minuten video-call oder kaffee in eupen. ich sag dir ehrlich,
-              ob ich die richtige adresse bin.
+              30 minuten video-call. ich sag dir ehrlich, ob ich die richtige
+              adresse bin · und wenn nicht, wer besser passt.
             </p>
             <div className="mt-8 flex justify-center gap-3 flex-wrap">
               <Button

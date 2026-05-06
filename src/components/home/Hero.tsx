@@ -44,30 +44,6 @@ export function Hero() {
         }}
       />
       <div className="container-site relative pt-28 pb-20 md:pt-32 md:pb-28 w-full">
-        {/* geo-meta · top-right · einsatzort-stempel · sitzt auf höhe der headline-
-            oberkante · authentisches "laconis ist hier und nirgends anders"-
-            statement · ersetzt die alte pill · SEO-stichwort "eupen" inkl. */}
-        <motion.aside
-          aria-label="standort"
-          initial={{ opacity: 0, y: -6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="hidden sm:block absolute top-28 md:top-32 right-6 md:right-10 text-right pointer-events-none select-none"
-        >
-          <div className="flex items-center gap-2 justify-end">
-            <span
-              aria-hidden
-              className="inline-block w-1.5 h-1.5 rounded-full bg-lime"
-            />
-            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 tabular-nums">
-              50.6288° N · 6.0384° E
-            </span>
-          </div>
-          <div className="mt-1 font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-            eupen · ostbelgien
-          </div>
-        </motion.aside>
-
         <motion.div
           variants={container}
           initial="hidden"

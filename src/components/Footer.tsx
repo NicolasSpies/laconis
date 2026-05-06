@@ -28,7 +28,7 @@ export function Footer() {
                 transform: "rotate(-3deg)",
               }}
               aria-label="signiert von Nicolas Spies"
-              title="Handmade in Eupen"
+              title="Von Hand · Nicolas Spies"
             >
               <span aria-hidden className="text-offwhite/35 text-[16px]">~</span>
               by Nicolas Spies

@@ -195,7 +195,7 @@ export function EditorMock({ className = "" }: { className?: string }) {
       </text>
       <rect x="28" y="174" width="364" height="56" rx="4" fill="#0a0a0a" stroke="rgba(255,255,255,0.08)" />
       <text x="40" y="192" fontFamily="system-ui, sans-serif" fontSize="10" fill="rgba(242,242,242,0.8)">
-        Webdesign und Branding aus Eupen.
+        Webdesign und Branding, die bleiben.
       </text>
       <text x="40" y="208" fontFamily="system-ui, sans-serif" fontSize="10" fill="rgba(242,242,242,0.8)">
         Für Unternehmen die nicht wie alle
