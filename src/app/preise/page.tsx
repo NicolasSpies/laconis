@@ -1,7 +1,6 @@
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
-import { PaketTabs } from "@/components/preise/PaketTabs";
-import { Zahlungsoptionen } from "@/components/preise/Zahlungsoptionen";
+import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import { getMeta } from "@/lib/seo/getMeta";
@@ -15,29 +14,52 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const FAQ = [
   {
-    frage: 'was kommt nach dem klick auf „anfragen"?',
+    frage: "wie geht's nach dem anfragen los?",
     antwort:
-      "Du landest im Projekt-Formular mit deinem Paket schon vorausgefüllt. Du ergänzt nur noch, was zu deinem Fall gehört (Timing, Besonderheiten, Fragen) und ich melde mich innerhalb von 24 Std mit einem konkreten Angebot.",
-  },
-  {
-    frage: "was heißt das mit den raten-zinsen genau?",
-    antwort:
-      "Ratenzahlung ist optional. Modell 1 (Vorkasse oder Nach-Abschluss) ist komplett zinsfrei. Modell 2 · 50% Anzahlung, Rest in bis zu 5 Monatsraten · darauf werden 2% pro Monat auf den noch offenen Betrag berechnet, gedeckelt bei 10% Gesamtaufschlag. Beispiel: 2.000 € Rest in 5 Raten → du zahlst ca. 2.100 € statt 2.000 €. Modell 3 (ganz ohne Anzahlung, Projekt vorfinanziert) kostet 4% / Monat, weil mein Risiko höher ist. Alle drei Modelle sind transparent · keine versteckten Gebühren, keine Verzugszinsen bei pünktlicher Zahlung.",
+      "Ich melde mich innerhalb von 24 Std (werktags). Dann: 20–30 min Gespräch · was du brauchst, was realistisch ist, wo wir starten. Danach bekommst du ein konkretes Angebot, schriftlich und ohne Kleingedrucktes.",
   },
   {
     frage: "wie lange dauert so ein projekt?",
     antwort:
-      "Ein Onepager ca. 2 Wochen, ein Multipager 3–5 Wochen, ein CMS-Projekt 4–6 Wochen. Kommt auf Content-Lieferung und Feedback-Tempo an. Wenn du eine harte Deadline hast, sag Bescheid · ich plane rückwärts.",
+      "Ein Onepager ca. 2 Wochen, ein Multipager 3–5 Wochen, Website + Branding zusammen 4–8 Wochen. Hängt stark vom Content-Tempo ab — je klarer dein Briefing und je schneller dein Feedback, desto schneller sind wir fertig. Wenn du eine harte Deadline hast, sag Bescheid · ich plane rückwärts.",
   },
   {
-    frage: "was passiert wenn ich eine rate verpasse?",
+    frage: "was ist nicht enthalten?",
     antwort:
-      "Erst mal nichts Dramatisches · ich schreibe dich an. Wenn eine Rate trotz Erinnerung länger als 14 Tage überfällig ist, kommt der gesetzliche Verzugszinssatz (belgische Regelung, aktuell um 8% p.a.) dazu, ggf. plus 40 € Mahn-Pauschale. Das ist EU/BE-Standard, nicht meine Erfindung. Im Regelfall findet sich aber einfach eine neue Lösung.",
+      "Stock-Fotos, Premium-Fonts und externe Tools mit eigenen Lizenzkosten liegen beim Kunden, es sei denn wir haben das vorher besprochen. Domain-Registrierung ist optional. Alles, was über den besprochenen Scope hinausgeht, klären wir vor dem Start · keine Überraschungen auf der Rechnung.",
   },
   {
-    frage: "was ist im preis nicht enthalten?",
+    frage: "läuft nach dem launch noch was?",
     antwort:
-      "Stock-Fotos / Premium-Fonts / externe Tools mit eigenen Kosten (z.B. Mailchimp, Adobe Fonts Lizenz) liegen beim Kunden, es sei denn ich hab dir vorher was anderes angeboten. Domain-Registrierung ist optional: entweder du hast schon eine · oder ich registriere sie für dich (läuft über Hosting, ca. 2 € / Monat je nach TLD). Alles, was Kosten verursacht, sag ich dir vorab.",
+      "Hosting, Backups und kleine Pflege · je nach Setup 20–50 €/Monat. Domain separat, ca. 2 €/Monat je nach TLD. Das erklär ich dir im Gespräch ganz konkret, damit du weißt, womit du langfristig rechnest.",
+  },
+];
+
+const FAKTOREN = [
+  {
+    num: "01",
+    titel: "scope",
+    text: "Wie viele Seiten? Gibt es einen CMS-Bereich, den du selbst pflegen willst? Braucht's einen Shop oder Buchungs-System? Je mehr bewegliche Teile, desto mehr Aufwand · und desto mehr Abstimmung davor.",
+  },
+  {
+    num: "02",
+    titel: "content",
+    text: "Bringst du Texte und Bilder mit · oder machen wir das zusammen? Content ist oft das, was Projekte in die Länge zieht. Und in den Preis. Klarer Content vom ersten Tag spart uns beide Zeit.",
+  },
+  {
+    num: "03",
+    titel: "branding",
+    text: "Website allein, oder soll parallel auch eine visuelle Identität entstehen? Wenn beides aus einer Hand kommt, geht das schneller, sieht stimmiger aus und spart dir Koordination zwischen zwei Dienstleistern.",
+  },
+  {
+    num: "04",
+    titel: "timing",
+    text: "Flexibel oder gestern? Für knappe Deadlines ist mehr Koordination nötig · das spiegelt sich im Aufwand. Ein entspannter Zeitplan gibt Raum für bessere Entscheidungen auf beiden Seiten.",
+  },
+  {
+    num: "05",
+    titel: "ausgangslage",
+    text: "Weißes Blatt oder bestehendes System, das neu gebaut werden soll? Beides ist machbar · beides bedeutet andere Fragen am Anfang. Je klarer dein Briefing, desto genauer mein Angebot.",
   },
 ];
 
@@ -55,142 +77,144 @@ export default function Page() {
       {/* HERO */}
       <section className="pt-36 pb-24">
         <div className="container-site">
-          <SectionLabel num="01">preise</SectionLabel>
+          <SectionLabel num="01">investment</SectionLabel>
 
           <div className="mt-8 max-w-[920px]">
-            <h1 className="heading-display text-[clamp(2.5rem,8vw,6rem)] text-offwhite">
-              ehrliche preise,{" "}
-              <span className="text-offwhite/35">keine sternchen.</span>
+            <h1 className="heading-display text-[clamp(2.5rem,8vw,6rem)] text-offwhite leading-[1.0]">
+              was kostet das{" "}
+              <span className="italic font-serif text-accent-ink">
+                eigentlich
+              </span>
+              ?
             </h1>
             <p className="mt-8 max-w-[620px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-              Transparent. Kein Kleingedrucktes. Kein „auf Anfrage" bei allem.
-              Drei Tabs unten · Web, Branding, Bundle · jedes Paket mit
-              eingebautem Mini-Konfigurator, damit du den Monatspreis schwarz
-              auf weiß siehst, bevor du fragst.
+              Ehrliche Antwort. Kein Paket-Raster, keine Sternchen. Jedes
+              Projekt ist anders · deshalb gibt's hier keine Tabelle, sondern
+              eine Erklärung, was den Preis wirklich macht.
             </p>
           </div>
         </div>
       </section>
 
-      {/* PAKETE TABS */}
-      <section className="pb-28">
+      <ScribbleBreak text="was den preis macht ↓" rotate={-1} />
+
+      {/* FAKTOREN */}
+      <section className="py-20">
+        <div className="container-site">
+          <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-12 lg:gap-20">
+            {/* LEFT */}
+            <div className="lg:sticky lg:top-32 lg:self-start">
+              <SectionLabel num="02">die faktoren</SectionLabel>
+              <h2 className="heading-display mt-4 text-[clamp(2rem,4.5vw,3rem)] text-offwhite leading-[1.05]">
+                kein projekt{" "}
+                <span className="text-offwhite/35">ist wie das andere.</span>
+              </h2>
+              <p className="mt-6 text-[14px] leading-relaxed text-offwhite/55 max-w-[320px]">
+                Diese fünf Punkte bestimmen, wie aufwendig ein Projekt ist ·
+                und damit, wo es preislich landet.
+              </p>
+            </div>
+
+            {/* RIGHT · manifest-style list */}
+            <ol className="divide-y divide-ink/10 border-y border-ink/10">
+              {FAKTOREN.map((f) => (
+                <li
+                  key={f.num}
+                  className="group grid grid-cols-[auto_1fr] gap-5 py-7 md:py-8"
+                >
+                  <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 pt-1 tabular-nums">
+                    {f.num}
+                  </span>
+                  <div>
+                    <h3 className="heading-sans text-[clamp(1.1rem,2vw,1.4rem)] text-offwhite">
+                      {f.titel}
+                    </h3>
+                    <p className="mt-3 text-[14px] md:text-[15px] leading-relaxed text-offwhite/55">
+                      {f.text}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <ScribbleBreak text="und in zahlen ↓" rotate={0.8} flip />
+
+      {/* RICHTWERTE */}
+      <section className="py-20">
         <div className="container-site">
           <div className="max-w-[820px]">
-            <SectionLabel num="02">die pakete</SectionLabel>
-            <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.75rem)] text-offwhite leading-[1.05]">
-              drei kategorien.{" "}
-              <span className="text-offwhite/35">
-                innerhalb jeder: klein · mittel · groß.
-              </span>
+            <SectionLabel num="03">richtwerte</SectionLabel>
+            <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.5rem)] text-offwhite leading-[1.05]">
+              und konkret?
             </h2>
-            <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-offwhite/55">
-              Bei Web und Bundle stellst du Domain & E-Mail-Postfächer direkt
-              ein · der Monatspreis rechnet live mit. Branding-Pakete haben nur
-              Einmalpreise, kein laufender Posten.
+            <p className="mt-5 max-w-[600px] text-[15px] leading-relaxed text-offwhite/55">
+              Keine Fixpreise, aber ehrliche Faustregeln · damit du weißt,
+              wovon wir reden, bevor wir reden.
             </p>
           </div>
 
-          <div className="mt-10">
-            <PaketTabs />
-          </div>
-
-          {/* BAUKASTEN-CTA · direkt unter den bundles */}
-          <div className="mt-10">
-            <div className="relative rounded-2xl border border-ink/10 bg-gradient-to-br from-lime/[0.04] via-ink/[0.02] to-transparent p-8 md:p-10 overflow-hidden">
-              {/* deko: winziger receipt-tease rechts */}
-              <div
-                aria-hidden
-                className="hidden md:block absolute right-8 top-1/2 -translate-y-1/2 w-[120px] rotate-[6deg] opacity-60"
+          <div className="mt-12 grid md:grid-cols-2 gap-6 max-w-[820px]">
+            <div className="glass rounded-2xl p-7 md:p-8">
+              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
+                website
+              </span>
+              <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55">
+                Ein Onepager mit klarem Briefing und deinem eigenen Content
+                startet ab rund 1.500 €. Eine mehrseitige Website mit CMS
+                und Branding dazu landet typischerweise zwischen 3.500 und
+                6.000 €. Was dazwischen liegt: liegt dazwischen.
+              </p>
+              <p
+                className="mt-5 font-hand text-[17px] text-accent-ink/80 leading-snug"
+                style={{ transform: "rotate(-1deg)" }}
               >
-                <div className="rounded-md bg-[#faf8f3]/90 text-[#1a1a1a] p-3 font-mono text-[9px] leading-[1.6] shadow-[0_6px_20px_-8px_rgba(0,0,0,0.5)]">
-                  <div className="text-center tracking-[0.2em] text-[8px]">
-                    LACØNIS
-                  </div>
-                  <div className="border-t border-dashed border-[#1a1a1a]/30 my-1.5" />
-                  <div className="flex justify-between">
-                    <span>web · klein</span>
-                    <span>1990</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>+ brand</span>
-                    <span>1200</span>
-                  </div>
-                  <div className="flex justify-between text-[8px] italic">
-                    <span>rabatt</span>
-                    <span>−319</span>
-                  </div>
-                  <div className="border-t border-dashed border-[#1a1a1a]/30 my-1.5" />
-                  <div className="flex justify-between font-bold">
-                    <span>total</span>
-                    <span>2871</span>
-                  </div>
-                </div>
-              </div>
+                keine versteckten posten.
+              </p>
+            </div>
 
-              <div className="relative max-w-[540px]">
-                <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
-                  alternative
-                </span>
-                <h3 className="mt-2 heading-display text-[clamp(1.5rem,3.5vw,2.5rem)] text-offwhite leading-[1.1]">
-                  nichts passt 100%?{" "}
-                  <span className="text-offwhite/55">
-                    bau dir dein eigenes paket.
-                  </span>
-                </h3>
-                <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55">
-                  Schalter umlegen, rechts wächst der Kassenzettel live mit.
-                  Als PDF mitnehmen oder direkt anfragen. So einfach wie
-                  beim Bäcker · nur transparenter.
-                </p>
+            <div className="glass rounded-2xl p-7 md:p-8">
+              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
+                branding
+              </span>
+              <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55">
+                Logo, Farbwelt, Typo, Brand Guide, Visitenkarte · das
+                Start-Paket. Ein vollständiges Branding-Projekt beginnt ab
+                1.200 €. Wenn Website + Branding zusammen kommen, spart das
+                Zeit und Koordination auf beiden Seiten.
+              </p>
+              <p
+                className="mt-5 font-hand text-[17px] text-accent-ink/80 leading-snug"
+                style={{ transform: "rotate(1deg)" }}
+              >
+                alles aus einer hand.
+              </p>
+            </div>
 
-                <div className="mt-6 flex flex-wrap items-center gap-3">
-                  <Button
-                    href="/preise/baukasten"
-                    variant="primary"
-                    size="lg"
-                  >
-                    zum baukasten →
-                  </Button>
-                  <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-                    · live-preis · pdf-bon · link-teilbar
-                  </span>
-                </div>
-              </div>
+            <div className="md:col-span-2 glass rounded-2xl p-7 md:p-8">
+              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
+                hosting · laufend
+              </span>
+              <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55 max-w-[600px]">
+                Nach dem Launch: Hosting, Backup und kleine Pflege für
+                20–50 €/Monat je nach Setup. Domain separat, ca. 2 €/Monat.
+                Ich erkläre das im Gespräch konkret · damit du weißt, was
+                du langfristig einplanst.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* atmospheric break */}
-      <div className="container-site py-2">
-        <div className="flex items-center gap-6">
-          <span className="h-px flex-1 bg-ink/10" />
-          <p className="font-hand text-[19px] text-offwhite/30 shrink-0" style={{ transform: "rotate(-1deg)" }}>
-            und wie du zahlst ↓
-          </p>
-          <span className="h-px flex-1 bg-ink/10" />
-        </div>
-      </div>
-
-      {/* ZAHLUNGSOPTIONEN */}
-      <Zahlungsoptionen />
-
-      {/* atmospheric break */}
-      <div className="container-site py-2">
-        <div className="flex items-center gap-6">
-          <span className="h-px flex-1 bg-ink/10" />
-          <p className="font-hand text-[19px] text-offwhite/30 shrink-0" style={{ transform: "rotate(0.8deg)" }}>
-            bevor du fragst ↓
-          </p>
-          <span className="h-px flex-1 bg-ink/10" />
-        </div>
-      </div>
+      <ScribbleBreak text="bevor du fragst ↓" rotate={-0.8} />
 
       {/* FAQ */}
       <section className="pb-28 pt-4">
         <div className="container-site">
           <div className="max-w-[820px]">
-            <SectionLabel num="06">oft gefragt</SectionLabel>
+            <SectionLabel num="04">oft gefragt</SectionLabel>
             <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.5rem)] text-offwhite leading-[1.05]">
               bevor du fragst.
             </h2>
@@ -203,7 +227,7 @@ export default function Page() {
                   <h3 className="heading-sans text-[17px] md:text-[18px] text-offwhite group-hover:text-accent-ink transition-colors">
                     {q.frage}
                   </h3>
-                  <span className="font-mono text-[16px] text-offwhite/35 group-open:rotate-45 transition-transform">
+                  <span className="font-mono text-[16px] text-offwhite/35 group-open:rotate-45 transition-transform shrink-0">
                     +
                   </span>
                 </summary>
@@ -220,19 +244,25 @@ export default function Page() {
       <section className="pb-36">
         <div className="container-site">
           <div className="liquid-glass rounded-2xl p-10 md:p-16 text-center">
+            <p
+              className="font-hand text-[20px] md:text-[22px] text-offwhite/55 mb-4"
+              style={{ transform: "rotate(-1deg)" }}
+            >
+              kurze frage, klare antwort.
+            </p>
             <h2 className="heading-display text-[clamp(1.75rem,4.5vw,3rem)] text-offwhite max-w-[680px] mx-auto">
-              nichts passt 100%?{" "}
-              <span className="text-offwhite/35">normal.</span>
+              ich sag dir innerhalb von 24 std,{" "}
+              <span className="text-offwhite/35">wo wir stehen.</span>
             </h2>
             <p className="mt-5 max-w-[540px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
-              Schreib mir kurz, was du vorhast. Ich sag dir innerhalb von 24
-              Std, wohin es preislich geht · kostenlos, unverbindlich.
+              Schreib mir kurz, was du vorhast · kostenlos, unverbindlich.
+              Kein Formular-Chaos. Einfach ein Gespräch.
             </p>
             <div className="mt-8 flex justify-center gap-3 flex-wrap">
               <Button href="/kontakt#projekt" variant="primary" size="lg">
                 projekt besprechen →
               </Button>
-              <Button href="/leistungen/web" variant="glass" size="lg">
+              <Button href="/leistungen" variant="glass" size="lg">
                 leistungen ansehen
               </Button>
             </div>

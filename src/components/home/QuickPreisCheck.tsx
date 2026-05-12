@@ -53,7 +53,7 @@ export function QuickPreisCheck() {
         <div className="max-w-[720px] mx-auto rounded-2xl border border-ink/10 bg-gradient-to-br from-lime/[0.04] via-ink/[0.02] to-transparent p-8 md:p-12">
           <div className="flex items-baseline justify-between gap-4 mb-8">
             <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
-              quick-check · 10 sekunden
+              quick-start · 10 sekunden
             </span>
             <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
               {Math.min(step + 1, STEPS.length)} / {STEPS.length}
@@ -98,9 +98,9 @@ export function QuickPreisCheck() {
                 transition={{ duration: 0.35 }}
               >
                 <h3 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite leading-[1.1]">
-                  passt.{" "}
+                  gut.{" "}
                   <span className="text-offwhite/35">
-                    dein richtwert wartet.
+                    lass uns reden.
                   </span>
                 </h3>
 
@@ -108,7 +108,7 @@ export function QuickPreisCheck() {
                   <span className="px-2.5 py-1 rounded-full border border-ink/10 bg-ink/[0.02] text-offwhite/75">
                     {paket}
                   </span>
-                  <span className="text-offwhite/35">+</span>
+                  <span className="text-offwhite/35">·</span>
                   <span className="px-2.5 py-1 rounded-full border border-ink/10 bg-ink/[0.02] text-offwhite/75">
                     {seiten}
                   </span>
@@ -116,10 +116,10 @@ export function QuickPreisCheck() {
 
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <Link
-                    href={`/kontakt?paket=${paket}&seiten=${seiten}#projekt`}
+                    href="/kontakt#projekt"
                     className="inline-flex items-center gap-2 rounded-full bg-lime text-black px-5 py-3 font-mono text-[12px] uppercase tracking-label hover:bg-lime/80 transition-colors"
                   >
-                    projekt starten →
+                    projekt besprechen →
                   </Link>
                   <button
                     type="button"

@@ -91,7 +91,7 @@ export default function Page() {
               href="/preise"
               className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 hover:text-accent-ink transition-colors"
             >
-              beides zusammen? als bundle günstiger →
+              web + branding · alles aus einer hand →
             </Link>
           </div>
         </div>
