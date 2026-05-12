@@ -74,7 +74,8 @@ const VCARD = [
   `EMAIL;TYPE=INTERNET,PREF:${CONTACT.email}`,
   ...(CONTACT.phone ? [`TEL;TYPE=CELL:${CONTACT.phoneE164}`] : []),
   "URL:https://laconis.be",
-  `ADR;TYPE=WORK:;;;${CONTACT.city};;;Belgien`,
+  // adresse bewusst minimal · nur land, keine stadt im downloadbaren vcard
+  `ADR;TYPE=WORK:;;;;;;Belgien`,
   "NOTE:kaffee? gern. kurz vorher schreiben.",
   "END:VCARD",
 ].join("\r\n");

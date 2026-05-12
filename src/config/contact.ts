@@ -35,14 +35,12 @@ export const CONTACT = {
   openingHours: ["Mo-Fr 09:00-18:00"] as const,
   /** radius in km um Eupen für LocalBusiness.serviceArea (GeoCircle) */
   serviceRadiusKm: 150,
-  /** sameAs profile · TODO Nicolas: ergänze deine echten profile-URLs */
+  /** sameAs profile · weitere können später dazu (LinkedIn, GitHub, …) */
   sameAs: [
-    // "https://www.linkedin.com/in/nicolasspies",
-    // "https://github.com/NicolasSpies",
-    // "https://www.instagram.com/laconis.be",
+    "https://www.instagram.com/laconis.be",
   ] as readonly string[],
   /** gründungsjahr für Organization.foundingDate */
-  foundingDate: "2024",
+  foundingDate: "2026",
 } as const;
 
 export type Contact = typeof CONTACT;
