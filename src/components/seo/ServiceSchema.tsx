@@ -3,10 +3,13 @@
  * Google mapped service-einträge auf service-cards in der SERP und füttert
  * das Knowledge-Panel für die lokale präsenz.
  *
+ * Option-C konform: kein fixer Preis, sondern `priceSpecification.minPrice`
+ * (= "ab X €"). Honoriert die "keine Paket-Raster"-Positionierung und liefert
+ * trotzdem strukturierte Preisinfo für Search-Engines + LLM-Citations.
+ *
  * Usage:
  *   <ServiceSchema services={[
- *     { name: "Website Basis", description: "…", price: 1400 },
- *     { name: "Website Essential", description: "…", price: 2800 },
+ *     { name: "Website · Onepager", description: "…", minPrice: 1500 },
  *   ]} />
  */
 
@@ -17,14 +20,24 @@ const BASE = "https://laconis.be";
 type ServiceInput = {
   name: string;
   description: string;
-  price: number;
+  /** Faustpreis ab — wird zu priceSpecification.minPrice */
+  minPrice: number;
   /** default "EUR" */
   priceCurrency?: string;
-  /** z.B. "web" oder "branding" — zur gruppierung in der SERP */
+  /** z.B. "Web Development" oder "Branding" — gruppierung in der SERP */
   serviceType?: string;
 };
 
 export function ServiceSchema({ services }: { services: ServiceInput[] }) {
+  const cityAreas = CONTACT.areaServedCities.map((name) => ({
+    "@type": "City",
+    name,
+  }));
+  const countryAreas = CONTACT.areaServed.map((name) => ({
+    "@type": "Country",
+    name,
+  }));
+
   const graph = services.map((s, idx) => ({
     "@type": "Service",
     "@id": `${BASE}/#service-${idx + 1}`,
@@ -32,15 +45,16 @@ export function ServiceSchema({ services }: { services: ServiceInput[] }) {
     description: s.description,
     serviceType: s.serviceType ?? "Design & Web Development",
     provider: { "@id": `${BASE}/#org` },
-    areaServed: Array.from(CONTACT.areaServed).map((name) => ({
-      "@type": "Country",
-      name,
-    })),
+    areaServed: [...countryAreas, ...cityAreas],
     offers: {
       "@type": "Offer",
-      price: s.price,
-      priceCurrency: s.priceCurrency ?? "EUR",
       availability: "https://schema.org/InStock",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        minPrice: s.minPrice,
+        priceCurrency: s.priceCurrency ?? "EUR",
+        valueAddedTaxIncluded: false,
+      },
     },
   }));
 

@@ -5,6 +5,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { RefThumb } from "@/components/referenzen/RefThumb";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { CaseStudySchema } from "@/components/seo/CaseStudySchema";
 import { EvolutionSlider } from "@/components/referenzen/EvolutionSlider";
 import { referenzen } from "@/data/referenzen";
 
@@ -54,6 +55,7 @@ export default function Page({ params }: Props) {
           { name: r.name.toLowerCase(), url: `${BASE}/referenzen/${r.slug}` },
         ]}
       />
+      <CaseStudySchema referenz={r} />
 
       {/* breadcrumb */}
       <section className="pt-36 pb-8">

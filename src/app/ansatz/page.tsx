@@ -4,8 +4,35 @@ import { AnsatzToggle } from "@/components/ansatz/AnsatzToggle";
 import { UnifiedProcess } from "@/components/ansatz/UnifiedProcess";
 import { WebManifest } from "@/components/leistungen/web/WebManifest";
 import { Manifest } from "@/components/leistungen/branding/Manifest";
+import { HowToSchema } from "@/components/seo/HowToSchema";
+import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { getMeta } from "@/lib/seo/getMeta";
 import type { Metadata } from "next";
+
+const BASE = "https://laconis.be";
+
+const PROZESS_STEPS = [
+  {
+    name: "Kennenlernen",
+    text: "30 Minuten Video-Call. Ich rede mit dir über dich, nicht über Logos oder Pixel. Was machst du, wer ist die Zielgruppe, warum jetzt. Kostet nichts und bringt Klarheit darüber, ob wir zusammen passen.",
+    duration: "P1D",
+  },
+  {
+    name: "Richtung finden",
+    text: "Moodboard, Struktur, Tonalität. Ich lege 2–3 Richtungen vor. Du bestimmst, wohin's geht · bevor irgendeine Farbe oder Zeile umgesetzt wird. So vermeiden wir Sackgassen und Re-do.",
+    duration: "P1W",
+  },
+  {
+    name: "Bauen",
+    text: "Bei Web: Design und Code parallel · du siehst klickbare Vorschau-Versionen alle paar Tage. Bei Branding: erster Entwurf, dann gemeinsame Schleifen bis es sitzt. Keine wochenlange Funkstille.",
+    duration: "P3W",
+  },
+  {
+    name: "Übergabe",
+    text: "Bei Web: Live-Schaltung + CMS-Einweisung, du kannst von Tag 1 selbst pflegen. Bei Branding: alle Quelldateien, druckfertige Exports, Kurz-Manual. Keine Nachlieferungen, keine versteckten Kosten.",
+    duration: "P3D",
+  },
+];
 
 export async function generateMetadata(): Promise<Metadata> {
   return getMeta("/ansatz");
@@ -14,6 +41,18 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function Page() {
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: "home", url: `${BASE}/` },
+          { name: "ansatz", url: `${BASE}/ansatz` },
+        ]}
+      />
+      <HowToSchema
+        name="So läuft ein Projekt bei lacønis ab"
+        description="Vier Schritte vom ersten Gespräch bis zur Übergabe · für Web und Branding identisch. Klarer Prozess, keine Blackbox."
+        totalTime="P6W"
+        steps={PROZESS_STEPS}
+      />
       {/* HERO */}
       <section className="pt-32 md:pt-36 pb-16 md:pb-20">
         <div className="container-site">

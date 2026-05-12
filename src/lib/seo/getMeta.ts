@@ -76,6 +76,7 @@ const STATIC_MAP: Record<string, MetaEntry> = {
     ogTitle: "brand-simulator · lacønis",
     ogDescription:
       "spielplatz · in sekunden eine marke zusammenklicken. kein fertiges design, nur ein gefühl.",
+    noindex: true,
   },
   "/ansatz": {
     title: "ansatz",
@@ -86,19 +87,21 @@ const STATIC_MAP: Record<string, MetaEntry> = {
       "der prozess hinter web + branding · vier schritte, keine blackbox. und was ich nicht mache.",
   },
   "/preise": {
-    title: "preise",
+    title: "preise · was kostet eine website oder ein logo?",
     description:
-      "ehrliche preise für web + branding · transparent, ohne sternchen. drei kategorien · web, branding, bundle · je paket mit mini-konfigurator.",
+      "ehrliche faustregeln statt paket-tabelle. websites ab 1.500 €, logos ab 800 €, brand identity ab 1.200 €. keine versteckten kosten, kein 'auf anfrage' bei allem. transparent für eupen, ostbelgien, aachen, lüttich.",
     ogTitle: "preise · lacønis",
     ogDescription:
-      "transparente preise für web + branding · klein · mittel · groß · je paket mit live-preis.",
+      "ehrliche faustregeln · websites ab 1.500 €, logos ab 800 €. kein paket-raster, transparente investments.",
   },
   "/preise/baukasten": {
     title: "baukasten · preise",
     description:
-      "bau dir dein eigenes paket · schalter umlegen, rechts wächst der kassenzettel live mit. pdf-bon oder direkt anfragen.",
-    ogTitle: "baukasten · lacønis",
-    ogDescription: "preis-baukasten · schalter umlegen, live preis sehen.",
+      "weitergeleitet zu /preise · keine paket-konfigurator-seite mehr.",
+    ogTitle: "preise · lacønis",
+    ogDescription: "weitergeleitet zu /preise.",
+    noindex: true,
+    nofollow: true,
   },
   "/referenzen": {
     title: "referenzen",

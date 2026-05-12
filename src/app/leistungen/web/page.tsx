@@ -9,31 +9,67 @@ import { WebVsAlternatives } from "@/components/leistungen/web/WebVsAlternatives
 import { FabryCase } from "@/components/leistungen/web/FabryCase";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
+import { FAQSchema } from "@/components/seo/FAQSchema";
 import { getMeta } from "@/lib/seo/getMeta";
 import type { Metadata } from "next";
 
 const BASE = "https://laconis.be";
+
+/** Option-C-konform: Faustpreise (ab), keine fixen Pakete in der UI. */
 const WEB_SERVICES = [
   {
-    name: "Website · Basis",
+    name: "Onepager Website",
     description:
-      "Onepager · responsiv · SEO · eigenes analytics · ssl + backups · für Selbständige und Neugründer. Domain und Mail separat zubuchbar.",
-    price: 1400,
+      "Eine Seite, gebaut von null · responsiv, SEO-ready, Lighthouse 95+, eigenes Analytics, SSL + Backups. Für Selbständige, Handwerker, Neugründer. Domain und Mail separat.",
+    minPrice: 1500,
     serviceType: "Web Development",
   },
   {
-    name: "Website · Standard",
+    name: "Mehrseitige Website",
     description:
-      "Alles aus Basis, plus bis zu 5 Unterseiten und 1 CMS-Bereich zum selber pflegen · ideal für KMUs und Lokalbetriebe. Weitere Seiten jederzeit zubuchbar.",
-    price: 2800,
+      "Mehrere Unterseiten + optional CMS-Bereich zum selbst pflegen. Für KMU und Lokalbetriebe, die mehr zu sagen haben als auf eine Seite passt. Mehrsprachig möglich (DE/FR/EN).",
+    minPrice: 2800,
     serviceType: "Web Development",
   },
   {
-    name: "Website · Pro",
+    name: "Website + Branding · Komplettpaket",
     description:
-      "Alles aus Standard, plus bis zu 10 Unterseiten, 2 CMS-Bereiche und Mehrsprachigkeit (2 Sprachen inkl.) · für wachsende Unternehmen. Seiten, Sprachen und Bereiche erweiterbar.",
-    price: 4200,
-    serviceType: "Web Development",
+      "Vollständige Website plus Logo, Brand-Identity und Print-Materialien aus einer Hand. Spart Koordination zwischen zwei Dienstleistern, sieht stimmiger aus.",
+    minPrice: 3500,
+    serviceType: "Web Development & Branding",
+  },
+];
+
+const WEB_FAQ = [
+  {
+    frage: "wie lange dauert eine website?",
+    antwort:
+      "Ein Onepager 2 Wochen, eine mehrseitige Website 3–5 Wochen, ein vollständiges Web + Branding-Projekt 4–8 Wochen. Hängt stark vom Content-Tempo ab — je klarer dein Briefing und je schneller dein Feedback, desto schneller sind wir live. Bei harter Deadline plane ich rückwärts.",
+  },
+  {
+    frage: "was kostet eine website bei dir?",
+    antwort:
+      "Onepager mit eigenem Content ab 1.500 €, mehrseitige Website mit CMS zwischen 2.800 und 4.500 €, Website + Branding zusammen 3.500–6.000 €. Keine Paket-Tabelle — jedes Projekt ist anders, deshalb kommt nach dem Gespräch ein konkretes Angebot.",
+  },
+  {
+    frage: "mit welcher technologie baust du?",
+    antwort:
+      "Next.js, TypeScript, Tailwind CSS und ein eigenes leichtgewichtiges CMS (ContentCore). Kein WordPress, kein Wix, kein Webflow. Resultat: Lighthouse-Scores 95–100, Ladezeiten unter einer Sekunde, keine Plugin-Hölle, kein Performance-Verfall über die Jahre.",
+  },
+  {
+    frage: "kann ich die seite später selbst pflegen?",
+    antwort:
+      "Ja. Für Blog, Team-Bereich, News oder Referenzen baue ich CMS-Bereiche, die du selbst editieren kannst — über ein eigenes Admin-Interface, kein Wordpress-Login. Du bekommst eine Einweisung bei der Übergabe.",
+  },
+  {
+    frage: "übernimmst du auch redesigns?",
+    antwort:
+      "Die Mehrheit meiner Projekte sind Redesigns: alte WordPress-Seiten, abgelaufene Baukasten-Sites, Wix-Reste. Bestehende URLs bekommen saubere 301-Redirects, deine Rankings bleiben stabil. Die alte Seite bleibt online, bis die neue live ist.",
+  },
+  {
+    frage: "in welchen sprachen kann die seite sein?",
+    antwort:
+      "Deutsch, Französisch, Englisch — alle drei werden professionell abgedeckt, inklusive korrekter hreflang-Tags für Suchmaschinen. Niederländisch optional, aber nicht meine Kernsprache.",
   },
 ];
 
@@ -52,6 +88,7 @@ export default function Page() {
         ]}
       />
       <ServiceSchema services={WEB_SERVICES} />
+      <FAQSchema items={WEB_FAQ.map((f) => ({ q: f.frage, a: f.antwort }))} />
 
       {/* HERO · split-layout · text links, live-browser-demo rechts */}
       <section className="pt-32 md:pt-36 pb-16 md:pb-20">
@@ -161,6 +198,37 @@ export default function Page() {
                 →
               </span>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <ScribbleBreak text="bevor du fragst ↓" rotate={-0.8} />
+
+      {/* FAQ */}
+      <section className="pb-24 pt-4">
+        <div className="container-site">
+          <div className="max-w-[820px]">
+            <SectionLabel num="08">oft gefragt</SectionLabel>
+            <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.5rem)] text-offwhite leading-[1.05]">
+              bevor du fragst.
+            </h2>
+          </div>
+          <div className="mt-12 divide-y divide-ink/10 border-y border-ink/10 max-w-[820px]">
+            {WEB_FAQ.map((q) => (
+              <details key={q.frage} className="group py-6 cursor-pointer">
+                <summary className="flex items-center justify-between gap-4 list-none">
+                  <h3 className="heading-sans text-[17px] md:text-[18px] text-offwhite group-hover:text-accent-ink transition-colors">
+                    {q.frage}
+                  </h3>
+                  <span className="font-mono text-[16px] text-offwhite/35 group-open:rotate-45 transition-transform shrink-0">
+                    +
+                  </span>
+                </summary>
+                <p className="mt-4 max-w-[680px] text-[14px] leading-relaxed text-offwhite/55">
+                  {q.antwort}
+                </p>
+              </details>
+            ))}
           </div>
         </div>
       </section>

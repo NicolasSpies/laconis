@@ -16,9 +16,33 @@ export const CONTACT = {
   city: "Eupen",
   country: "BE",
   region: "BE-WLG",
+  postalCode: "4700",
   coords: { lat: 50.6288, lng: 6.0384 },
   languages: ["de", "fr", "en"] as const,
-  areaServed: ["BE", "DE", "FR"] as const,
+  areaServed: ["BE", "DE", "FR", "LU", "NL"] as const,
+  /** granular regions + cities · boosted lokale SERPs (Local Pack) */
+  areaServedCities: [
+    "Eupen",
+    "Ostbelgien",
+    "Aachen",
+    "Lüttich",
+    "Maastricht",
+    "Luxembourg",
+    "Brüssel",
+    "Köln",
+  ] as const,
+  /** ISO 8601 weekday + time spans · standard arbeitstage */
+  openingHours: ["Mo-Fr 09:00-18:00"] as const,
+  /** radius in km um Eupen für LocalBusiness.serviceArea (GeoCircle) */
+  serviceRadiusKm: 150,
+  /** sameAs profile · TODO Nicolas: ergänze deine echten profile-URLs */
+  sameAs: [
+    // "https://www.linkedin.com/in/nicolasspies",
+    // "https://github.com/NicolasSpies",
+    // "https://www.instagram.com/laconis.be",
+  ] as readonly string[],
+  /** gründungsjahr für Organization.foundingDate */
+  foundingDate: "2024",
 } as const;
 
 export type Contact = typeof CONTACT;

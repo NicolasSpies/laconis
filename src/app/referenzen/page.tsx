@@ -1,15 +1,41 @@
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ContactSheet } from "@/components/referenzen/ContactSheet";
+import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { referenzen } from "@/data/referenzen";
 import { getMeta } from "@/lib/seo/getMeta";
 import type { Metadata } from "next";
+
+const BASE = "https://laconis.be";
 
 export async function generateMetadata(): Promise<Metadata> {
   return getMeta("/referenzen");
 }
 
+/** ItemList schema · macht die referenzen-liste für SERPs strukturiert */
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: referenzen.map((r, idx) => ({
+    "@type": "ListItem",
+    position: idx + 1,
+    url: `${BASE}/referenzen/${r.slug}`,
+    name: r.name,
+  })),
+};
+
 export default function Page() {
   return (
     <section className="pt-36 pb-32">
+      <BreadcrumbSchema
+        items={[
+          { name: "home", url: `${BASE}/` },
+          { name: "referenzen", url: `${BASE}/referenzen` },
+        ]}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
       <div className="container-site">
         <SectionLabel num="04">referenzen</SectionLabel>
 
