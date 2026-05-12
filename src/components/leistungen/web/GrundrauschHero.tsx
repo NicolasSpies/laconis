@@ -7,6 +7,44 @@ import {
   useReducedMotion,
   type Variants,
 } from "framer-motion";
+import { useLocale, pick } from "@/i18n/useLocale";
+import type { Locale } from "@/i18n/config";
+
+type HeroDict = {
+  atelier: string;
+  studio: string;
+  h1: string;
+  h2: string;
+  body: string;
+  cta: string;
+};
+
+const HERO_DICT: Record<Locale, HeroDict> = {
+  de: {
+    atelier: "atelier",
+    studio: "studio · №02",
+    h1: "handgemacht.",
+    h2: "nicht gerendert.",
+    body: "kein theme · keine schablone · jede linie sitzt wo sie soll.",
+    cta: "weiterlesen →",
+  },
+  fr: {
+    atelier: "atelier",
+    studio: "studio · №02",
+    h1: "fait main.",
+    h2: "pas généré.",
+    body: "pas de theme · pas de gabarit · chaque ligne pile où il faut.",
+    cta: "lire la suite →",
+  },
+  en: {
+    atelier: "atelier",
+    studio: "studio · №02",
+    h1: "handmade.",
+    h2: "not rendered.",
+    body: "no theme · no template · every line sits where it should.",
+    cta: "read on →",
+  },
+};
 
 const COLS = 4;
 const ROWS = 3;
@@ -77,7 +115,7 @@ function GhostCard() {
  * Alle sizes in cqw (container query width) · scaled automatisch mit der hero-breite,
  * egal ob noise-phase (klein) oder breakout (groß). Neutraler brand-mark, keine fake-location.
  */
-function HeroCard() {
+function HeroCard({ t }: { t: HeroDict }) {
   return (
     <div className="absolute inset-0 flex bg-[#0e0e0e] overflow-hidden">
       {/* LEFT · editorial composition */}
@@ -140,7 +178,7 @@ function HeroCard() {
               className="font-serif italic text-offwhite/95 leading-none"
               style={{ fontSize: "2.2cqw" }}
             >
-              atelier
+              {t.atelier}
             </span>
           </div>
           <div className="flex" style={{ gap: "0.6cqw" }}>
@@ -165,21 +203,21 @@ function HeroCard() {
             className="font-mono uppercase tracking-label text-lime leading-none"
             style={{ fontSize: "1.2cqw", marginBottom: "1cqw" }}
           >
-            studio · №02
+            {t.studio}
           </p>
           <p
             className="font-serif italic text-offwhite leading-[0.98]"
             style={{ fontSize: "4.2cqw", marginBottom: "1.8cqw" }}
           >
-            handgemacht.
+            {t.h1}
             <br />
-            <span className="text-offwhite/70">nicht gerendert.</span>
+            <span className="text-offwhite/70">{t.h2}</span>
           </p>
           <p
             className="text-offwhite/55 leading-snug"
             style={{ fontSize: "1.4cqw", marginBottom: "2cqw" }}
           >
-            kein theme · keine schablone · jede linie sitzt wo sie soll.
+            {t.body}
           </p>
           <div className="flex items-center" style={{ gap: "1.2cqw" }}>
             <div
@@ -190,7 +228,7 @@ function HeroCard() {
               className="font-mono uppercase tracking-label text-lime leading-none"
               style={{ fontSize: "1.2cqw" }}
             >
-              weiterlesen →
+              {t.cta}
             </span>
           </div>
         </div>
@@ -204,6 +242,8 @@ export function GrundrauschHero() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const reduced = useReducedMotion();
   const [phase, setPhase] = useState<Phase>("hidden");
+  const locale = useLocale();
+  const t = pick(HERO_DICT, locale);
 
   useEffect(() => {
     if (!inView) return;
@@ -283,7 +323,7 @@ export function GrundrauschHero() {
             } as React.CSSProperties
           }
         >
-          <HeroCard />
+          <HeroCard t={t} />
         </div>
       </div>
     </div>

@@ -2,6 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useLocale, pick } from "@/i18n/useLocale";
+import type { Locale } from "@/i18n/config";
+
+const DICT: Record<Locale, { loose: string; skizze: string; hand: string }> = {
+  de: { loose: "loose · nicht perfekt.", skizze: "skizze → system", hand: "↗ alles von hand" },
+  fr: { loose: "loose · pas parfait.", skizze: "esquisse → système", hand: "↗ tout fait main" },
+  en: { loose: "loose · not perfect.", skizze: "sketch → system", hand: "↗ all by hand" },
+};
 
 /**
  * „tisch von oben" · designer-workspace, nicht präsentiert, nicht steril.
@@ -15,6 +23,8 @@ export function BrandSystemHero() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const reduced = useReducedMotion();
   const [on, setOn] = useState(false);
+  const locale = useLocale();
+  const t = pick(DICT, locale);
 
   useEffect(() => {
     if (!inView) return;
@@ -130,7 +140,7 @@ export function BrandSystemHero() {
             animate={on ? { opacity: 1 } : {}}
             transition={{ duration: 0.6, delay: 1.8 }}
           >
-            loose · nicht perfekt.
+            {t.loose}
           </motion.div>
         </motion.div>
 
@@ -167,7 +177,7 @@ export function BrandSystemHero() {
           </svg>
           <div className="absolute inset-0 flex flex-col justify-center" style={{ padding: "12% 14%" }}>
             <div className="font-hand leading-tight" style={{ fontSize: "min(4cqw, 16px)", color: "#0f0f0f" }}>
-              skizze → system
+              {t.skizze}
             </div>
             <div className="flex gap-[6%] mt-2">
               <span className="rounded-full" style={{ width: "18%", aspectRatio: "1", background: "#0f0f0f" }} />
@@ -245,7 +255,7 @@ export function BrandSystemHero() {
             transform: "rotate(-3deg)",
           }}
         >
-          ↗ alles von hand
+          {t.hand}
         </motion.div>
       </div>
     </div>

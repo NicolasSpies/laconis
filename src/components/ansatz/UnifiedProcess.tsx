@@ -1,4 +1,8 @@
+"use client";
+
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { useLocale, pick } from "@/i18n/useLocale";
+import type { Locale } from "@/i18n/config";
 
 /**
  * UnifiedProcess — vier-schritte-prozess, gilt für web + branding.
@@ -14,55 +18,147 @@ type Step = {
   dauer: string;
 };
 
-const STEPS: Step[] = [
-  {
-    num: "01",
-    titel: "kennenlernen",
-    handNote: "wer bist du?",
-    kurz: "30 Min Video-Call. Ich rede mit dir über dich, nicht übers Logo oder Pixel. Kostet nichts, bringt Klarheit.",
-    dauer: "~1 tag",
+type Dict = {
+  sectionLabel: string;
+  h2pre: string;
+  h2post: string;
+  intro: string;
+  footnote: string;
+  steps: Step[];
+};
+
+const DICT: Record<Locale, Dict> = {
+  de: {
+    sectionLabel: "so läuft's ab",
+    h2pre: "vier schritte.",
+    h2post: "vom gespräch bis zur übergabe.",
+    intro: "Gleicher Rhythmus für Web und Branding. Kein Agentur-Gantt-Chart, kein 42-Seiten-Prozess-Dokument. Jeder Schritt mit klarem Ergebnis, bevor der nächste anfängt.",
+    footnote: "und ja · du darfst jederzeit zurückgehen",
+    steps: [
+      {
+        num: "01",
+        titel: "kennenlernen",
+        handNote: "wer bist du?",
+        kurz: "30 Min Video-Call. Ich rede mit dir über dich, nicht übers Logo oder Pixel. Kostet nichts, bringt Klarheit.",
+        dauer: "~1 tag",
+      },
+      {
+        num: "02",
+        titel: "richtung finden",
+        handNote: "tiefer, nicht breiter",
+        kurz: "Moodboard, Struktur, Tonalität. Ich leg Richtungen vor · du bestimmst, wohin's geht · bevor irgendeine Farbe oder Zeile umgesetzt wird.",
+        dauer: "~1 woche",
+      },
+      {
+        num: "03",
+        titel: "bauen",
+        handNote: "fortschritt statt blackbox",
+        kurz: "Bei Web: Design + Code parallel. Bei Branding: Entwurf + Schleifen. Du siehst was alle paar Tage, nicht erst nach Wochen Stille.",
+        dauer: "~2 bis 5 wochen",
+      },
+      {
+        num: "04",
+        titel: "übergabe",
+        handNote: "du bekommst alles",
+        kurz: "Web: Live-Gang + CMS-Einweisung. Branding: alle Dateien, Print-ready-Exports, Kurz-Manual. Keine Nachlieferungen.",
+        dauer: "~2-3 tage",
+      },
+    ],
   },
-  {
-    num: "02",
-    titel: "richtung finden",
-    handNote: "tiefer, nicht breiter",
-    kurz: "Moodboard, Struktur, Tonalität. Ich leg Richtungen vor · du bestimmst, wohin's geht · bevor irgendeine Farbe oder Zeile umgesetzt wird.",
-    dauer: "~1 woche",
+  fr: {
+    sectionLabel: "comment ça se passe",
+    h2pre: "quatre étapes.",
+    h2post: "du premier échange à la livraison.",
+    intro: "Même rythme pour web et branding. Pas de gantt d'agence, pas de doc-processus de 42 pages. Chaque étape avec un résultat clair, avant que la suivante démarre.",
+    footnote: "et oui · tu peux revenir en arrière à tout moment",
+    steps: [
+      {
+        num: "01",
+        titel: "on fait connaissance",
+        handNote: "tu es qui ?",
+        kurz: "30 min en visio. Je te parle de toi, pas de logo ni de pixels. Ça coûte rien, ça apporte de la clarté.",
+        dauer: "~1 jour",
+      },
+      {
+        num: "02",
+        titel: "trouver la direction",
+        handNote: "plus profond, pas plus large",
+        kurz: "Moodboard, structure, ton. Je propose des directions · tu décides où on va · avant qu'une couleur ou une ligne soit posée.",
+        dauer: "~1 semaine",
+      },
+      {
+        num: "03",
+        titel: "on construit",
+        handNote: "progrès sans boîte noire",
+        kurz: "En web : design + code en parallèle. En branding : esquisse + boucles. Tu vois quelque chose tous les quelques jours, pas après des semaines de silence.",
+        dauer: "~2 à 5 semaines",
+      },
+      {
+        num: "04",
+        titel: "livraison",
+        handNote: "tu reçois tout",
+        kurz: "Web : mise en ligne + formation CMS. Branding : tous les fichiers, exports prêts à imprimer, mini-manuel. Pas de livraisons en retard.",
+        dauer: "~2-3 jours",
+      },
+    ],
   },
-  {
-    num: "03",
-    titel: "bauen",
-    handNote: "fortschritt statt blackbox",
-    kurz: "Bei Web: Design + Code parallel. Bei Branding: Entwurf + Schleifen. Du siehst was alle paar Tage, nicht erst nach Wochen Stille.",
-    dauer: "~2 bis 5 wochen",
+  en: {
+    sectionLabel: "how it goes",
+    h2pre: "four steps.",
+    h2post: "from first chat to handover.",
+    intro: "Same rhythm for web and branding. No agency gantt chart, no 42-page process doc. Every step with a clear outcome, before the next one starts.",
+    footnote: "and yes · you can step back any time",
+    steps: [
+      {
+        num: "01",
+        titel: "getting to know you",
+        handNote: "who are you?",
+        kurz: "30 min video call. I talk to you about you, not about the logo or pixels. Costs nothing, brings clarity.",
+        dauer: "~1 day",
+      },
+      {
+        num: "02",
+        titel: "finding the direction",
+        handNote: "deeper, not wider",
+        kurz: "Moodboard, structure, tone. I put directions on the table · you decide where it goes · before a single colour or line gets built.",
+        dauer: "~1 week",
+      },
+      {
+        num: "03",
+        titel: "building",
+        handNote: "progress, not a blackbox",
+        kurz: "For web: design + code in parallel. For branding: sketch + iterations. You see something every few days, not after weeks of silence.",
+        dauer: "~2 to 5 weeks",
+      },
+      {
+        num: "04",
+        titel: "handover",
+        handNote: "you get it all",
+        kurz: "Web: go-live + CMS training. Branding: all files, print-ready exports, short manual. No follow-up deliveries.",
+        dauer: "~2-3 days",
+      },
+    ],
   },
-  {
-    num: "04",
-    titel: "übergabe",
-    handNote: "du bekommst alles",
-    kurz: "Web: Live-Gang + CMS-Einweisung. Branding: alle Dateien, Print-ready-Exports, Kurz-Manual. Keine Nachlieferungen.",
-    dauer: "~2-3 tage",
-  },
-];
+};
 
 export function UnifiedProcess({
   num = "02",
 }: { num?: string } = {}) {
+  const locale = useLocale();
+  const t = pick(DICT, locale);
   return (
     <section className="pb-24 md:pb-32">
       <div className="container-site">
         <div className="max-w-[780px]">
-          <SectionLabel num={num}>so läuft&apos;s ab</SectionLabel>
+          <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.75rem)] text-offwhite leading-[1.05]">
-            vier schritte.{" "}
+            {t.h2pre}{" "}
             <span className="text-offwhite/35">
-              vom gespräch bis zur übergabe.
+              {t.h2post}
             </span>
           </h2>
           <p className="mt-6 max-w-[600px] text-[15px] leading-relaxed text-offwhite/55">
-            Gleicher Rhythmus für Web und Branding. Kein Agentur-Gantt-Chart,
-            kein 42-Seiten-Prozess-Dokument. Jeder Schritt mit klarem Ergebnis,
-            bevor der nächste anfängt.
+            {t.intro}
           </p>
         </div>
 
@@ -76,7 +172,7 @@ export function UnifiedProcess({
           />
 
           <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-4">
-            {STEPS.map((s, i) => (
+            {t.steps.map((s, i) => (
               <div key={s.num} className="relative">
                 {/* handgezeichnete nummer mit kringel */}
                 <div className="relative inline-flex items-center justify-center">
@@ -125,11 +221,11 @@ export function UnifiedProcess({
                 </p>
 
                 <p className="mt-4 font-mono text-[9px] uppercase tracking-label text-offwhite/55">
-                  dauer · {s.dauer}
+                  {locale === "fr" ? "durée" : locale === "en" ? "duration" : "dauer"} · {s.dauer}
                 </p>
 
                 {/* handgezeichneter pfeil zum nächsten step (nur desktop) */}
-                {i < STEPS.length - 1 && (
+                {i < t.steps.length - 1 && (
                   <svg
                     className="hidden lg:block absolute top-[26px] -right-5 text-offwhite/35"
                     width="24"
@@ -174,7 +270,7 @@ export function UnifiedProcess({
               />
             </svg>
             <span className="font-hand text-[16px] text-offwhite/55">
-              und ja · du darfst jederzeit zurückgehen
+              {t.footnote}
             </span>
           </div>
         </div>
