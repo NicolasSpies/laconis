@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ROUTES, getAlternates } from "@/i18n/config";
 
 /**
  * Zentraler SEO-metadata-provider.
@@ -160,11 +161,31 @@ async function loadEntry(path: string): Promise<MetaEntry | undefined> {
 }
 
 /**
+ * mappt einen canonical DE-path (z.b. "/leistungen/web") auf den
+ * route-key in src/i18n/config.ts ("leistungen/web") · für hreflang.
+ * gibt null zurück wenn nicht in ROUTES.
+ */
+function pathToRouteKey(path: string): string | null {
+  if (path === "/") return "home";
+  const key = path.replace(/^\/+|\/+$/g, "");
+  return key in ROUTES ? key : null;
+}
+
+/**
  * baut ein next/Metadata-objekt für den gegebenen canonical-path.
  * fällt auf root zurück wenn path unbekannt.
+ *
+ * Inkl. hreflang-alternates für FR + EN + x-default · sofern der path
+ * in src/i18n/config.ts ROUTES eingetragen ist.
  */
 export async function getMeta(path: string): Promise<Metadata> {
   const entry = (await loadEntry(path)) ?? STATIC_MAP["/"]!;
+
+  // hreflang-alternates aus i18n config (wenn page bekannt)
+  const routeKey = pathToRouteKey(path);
+  const languages = routeKey
+    ? (getAlternates(routeKey as keyof typeof ROUTES) as Record<string, string>)
+    : undefined;
 
   return {
     title: entry.title,
@@ -181,7 +202,10 @@ export async function getMeta(path: string): Promise<Metadata> {
       title: entry.ogTitle ?? entry.title,
       description: entry.ogDescription ?? entry.description,
     },
-    alternates: { canonical: path },
+    alternates: {
+      canonical: path,
+      ...(languages ? { languages } : {}),
+    },
     ...(entry.noindex || entry.nofollow
       ? {
           robots: {

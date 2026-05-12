@@ -7,7 +7,13 @@ import { Logo } from "./Logo";
 import { Button } from "./ui/Button";
 import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/cn";
-import { LOCALES, LOCALE_LABELS, type Locale } from "@/i18n/config";
+import {
+  LOCALES,
+  LOCALE_LABELS,
+  DEFAULT_LOCALE,
+  switchLocale,
+  type Locale,
+} from "@/i18n/config";
 
 type NavLink = {
   href: string;
@@ -22,19 +28,17 @@ const links: readonly NavLink[] = [
   { href: "/ueber-mich", label: "über mich" },
 ] as const;
 
-type Lang = { code: Locale; label: string; available: boolean };
+/** locale aus pathname-prefix erkennen */
+function getCurrentLocale(pathname: string): Locale {
+  if (pathname === "/fr" || pathname.startsWith("/fr/")) return "fr";
+  if (pathname === "/en" || pathname.startsWith("/en/")) return "en";
+  return DEFAULT_LOCALE;
+}
 
-/** TODO Phase 1B: FR/EN auf available=true setzen, sobald die routes existieren */
-const LANGS: readonly Lang[] = LOCALES.map((code) => ({
-  code,
-  label: LOCALE_LABELS[code].long.toLowerCase(),
-  available: code === "de",
-}));
-
-function LangDropdown() {
+function LangDropdown({ currentLocale }: { currentLocale: Locale }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const activeLang = LANGS.find((l) => l.available) ?? LANGS[0];
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!open) return;
@@ -61,22 +65,20 @@ function LangDropdown() {
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
         aria-expanded={open}
+        aria-label={`sprache wechseln · aktuell ${LOCALE_LABELS[currentLocale].long}`}
         className={cn(
           "tactile-press inline-flex items-center gap-1.5 font-mono text-[11px] uppercase px-2 py-1 rounded",
           "text-offwhite hover:text-accent-ink",
         )}
       >
-        <span>{activeLang.code}</span>
+        <span>{LOCALE_LABELS[currentLocale].short}</span>
         <svg
           width="8"
           height="8"
           viewBox="0 0 8 8"
           fill="none"
           aria-hidden
-          className={cn(
-            "transition-transform",
-            open && "rotate-180",
-          )}
+          className={cn("transition-transform", open && "rotate-180")}
         >
           <path
             d="M 1 2.5 L 4 5.5 L 7 2.5"
@@ -105,18 +107,21 @@ function LangDropdown() {
         />
         <div className="liquid-glass rounded-lg overflow-hidden">
           <ul className="py-1.5">
-            {LANGS.map((l) => {
-              const isActive = l.available;
+            {LOCALES.map((code) => {
+              const isActive = code === currentLocale;
+              const targetPath = switchLocale(pathname, code);
               return (
-                <li key={l.code}>
-                  <button
-                    type="button"
-                    disabled={!l.available}
+                <li key={code}>
+                  <Link
+                    href={targetPath}
+                    hrefLang={code}
+                    aria-current={isActive ? "page" : undefined}
+                    onClick={() => setOpen(false)}
                     className={cn(
                       "w-full flex items-baseline justify-between gap-3 px-3.5 py-2 font-mono text-[11px] lowercase tracking-mono transition-colors",
                       isActive
-                        ? "text-offwhite hover:text-accent-ink"
-                        : "text-offwhite/35 cursor-not-allowed",
+                        ? "text-accent-ink"
+                        : "text-offwhite/75 hover:text-accent-ink",
                     )}
                   >
                     <span className="flex items-baseline gap-2">
@@ -126,16 +131,14 @@ function LangDropdown() {
                           isActive && "text-accent-ink",
                         )}
                       >
-                        {l.code}
+                        {LOCALE_LABELS[code].short}
                       </span>
-                      <span>{l.label}</span>
+                      <span>{LOCALE_LABELS[code].long.toLowerCase()}</span>
                     </span>
-                    {!isActive && (
-                      <span className="text-[8px] uppercase tracking-label text-offwhite/35">
-                        bald
-                      </span>
+                    {isActive && (
+                      <span className="text-[10px] text-accent-ink">·</span>
                     )}
-                  </button>
+                  </Link>
                 </li>
               );
             })}
@@ -150,6 +153,7 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const currentLocale = getCurrentLocale(pathname);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -200,7 +204,7 @@ export function Nav() {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <LangDropdown />
+          <LangDropdown currentLocale={currentLocale} />
           <ThemeToggle />
           <Button href="/kontakt#projekt" size="sm">
             projekt starten →
@@ -252,18 +256,26 @@ export function Nav() {
             </Link>
           ))}
           <div className="flex items-center justify-between gap-3 pt-2 border-t border-ink/10">
-            <div className="flex items-center gap-3">
-              {LANGS.map((l) => (
-                <span
-                  key={l.code}
-                  className={cn(
-                    "font-mono text-[11px] uppercase",
-                    l.available ? "text-offwhite" : "text-offwhite/25",
-                  )}
-                >
-                  {l.code}
-                </span>
-              ))}
+            <div className="flex items-center gap-4">
+              {LOCALES.map((code) => {
+                const isActive = code === currentLocale;
+                return (
+                  <Link
+                    key={code}
+                    href={switchLocale(pathname, code)}
+                    hrefLang={code}
+                    aria-current={isActive ? "page" : undefined}
+                    className={cn(
+                      "font-mono text-[11px] uppercase transition-colors",
+                      isActive
+                        ? "text-accent-ink"
+                        : "text-offwhite/55 hover:text-offwhite",
+                    )}
+                  >
+                    {LOCALE_LABELS[code].short}
+                  </Link>
+                );
+              })}
             </div>
             <ThemeToggle />
           </div>

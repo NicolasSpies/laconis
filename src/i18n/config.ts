@@ -166,3 +166,57 @@ export function getAlternates(
   result["x-default"] = buildPath(routeKey, DEFAULT_LOCALE);
   return result;
 }
+
+/**
+ * Mappt einen pathname in eine andere locale · für den Sprach-Switcher.
+ * Behandelt auch dynamic-segments wie /referenzen/<slug> → /fr/references/<slug>.
+ *
+ * Beispiele:
+ *   switchLocale('/leistungen/web', 'fr')              → '/fr/services/web'
+ *   switchLocale('/fr/services/web', 'en')             → '/en/services/web'
+ *   switchLocale('/referenzen/fabry', 'en')            → '/en/work/fabry'
+ *   switchLocale('/en/work/fabry', 'de')               → '/referenzen/fabry'
+ *   switchLocale('/', 'fr')                            → '/fr'
+ *   switchLocale('/fr', 'de')                          → '/'
+ *
+ * Fallback (unbekannter pfad): root in target-locale.
+ */
+export function switchLocale(pathname: string, targetLocale: Locale): string {
+  const clean = pathname.replace(/^\/+|\/+$/g, "");
+
+  // root
+  if (clean === "") return buildPath("home", targetLocale);
+
+  // erkennen ob aktuelle locale prefix hat
+  const segments = clean.split("/");
+  let currentLocale: Locale = DEFAULT_LOCALE;
+  let pathWithoutLocale = clean;
+
+  if (segments[0] === "fr" || segments[0] === "en") {
+    currentLocale = segments[0];
+    pathWithoutLocale = segments.slice(1).join("/");
+  }
+
+  if (pathWithoutLocale === "") return buildPath("home", targetLocale);
+
+  // versuche route-key in current-locale zu finden
+  for (const [routeKey, slugMap] of Object.entries(ROUTES)) {
+    const currentSlug = slugMap[currentLocale];
+    if (!currentSlug) continue;
+
+    // exact match (z.b. /leistungen/web matches "leistungen/web")
+    if (pathWithoutLocale === currentSlug) {
+      return buildPath(routeKey as keyof typeof ROUTES, targetLocale);
+    }
+
+    // dynamic-prefix match (z.b. /referenzen/fabry startet mit "referenzen")
+    if (currentSlug !== "" && pathWithoutLocale.startsWith(currentSlug + "/")) {
+      const rest = pathWithoutLocale.slice(currentSlug.length); // "/fabry"
+      const targetBase = buildPath(routeKey as keyof typeof ROUTES, targetLocale);
+      return `${targetBase}${rest}`;
+    }
+  }
+
+  // fallback: root in target locale
+  return buildPath("home", targetLocale);
+}
