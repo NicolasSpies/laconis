@@ -3,6 +3,68 @@
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { CONTACT } from "@/config/contact";
+import { useLocale, pick } from "@/i18n/useLocale";
+import type { Locale } from "@/i18n/config";
+
+type DeskDict = {
+  posts: { titel: string; kurz: string; aside: string }[];
+  vcardNote: string;
+  tip: string;
+  phoneRole: string;
+  field: { mail: string; web: string; sprachen: string; arbeitsweise: string };
+  sprachenValue: string;
+  arbeitsweiseValue: string;
+  addContact: string;
+  vcardSize: string;
+};
+
+const DESK_DICT: Record<Locale, DeskDict> = {
+  de: {
+    posts: [
+      { titel: "drei sprachen", kurz: "DE · FR · EN · verhandlungssicher.", aside: "meetings · mails · kleingedrucktes." },
+      { titel: "seit 2019", kurz: "angefangen mit wordpress. heute: next.js + eigenes cms.", aside: "genau das." },
+      { titel: "remote", kurz: "kunden in DE · BE · LUX · projekte überall.", aside: "homeoffice mit echter tür." },
+    ],
+    vcardNote: "kaffee? gern. kurz vorher schreiben.",
+    tip: "tipp · vcard laden → kontakt ins adressbuch",
+    phoneRole: "lacønis · designer + developer",
+    field: { mail: "mail", web: "web", sprachen: "sprachen", arbeitsweise: "arbeitsweise" },
+    sprachenValue: "DE · FR · EN",
+    arbeitsweiseValue: "remote · video-call",
+    addContact: "kontakt hinzufügen ↓",
+    vcardSize: "vcard · 1.2 kb",
+  },
+  fr: {
+    posts: [
+      { titel: "trois langues", kurz: "DE · FR · EN · niveau pro.", aside: "meetings · mails · petits caractères." },
+      { titel: "depuis 2019", kurz: "commencé avec wordpress. aujourd'hui : next.js + cms maison.", aside: "exactement ça." },
+      { titel: "remote", kurz: "clients en DE · BE · LUX · projets partout.", aside: "homeoffice avec vraie porte." },
+    ],
+    vcardNote: "un café ? avec plaisir. écris-moi avant.",
+    tip: "astuce · télécharger vcard → contact dans ton carnet",
+    phoneRole: "lacønis · designer + developer",
+    field: { mail: "mail", web: "web", sprachen: "langues", arbeitsweise: "méthode" },
+    sprachenValue: "DE · FR · EN",
+    arbeitsweiseValue: "remote · visio",
+    addContact: "ajouter le contact ↓",
+    vcardSize: "vcard · 1.2 ko",
+  },
+  en: {
+    posts: [
+      { titel: "three languages", kurz: "DE · FR · EN · fluent.", aside: "meetings · mails · fine print." },
+      { titel: "since 2019", kurz: "started with wordpress. today: next.js + own cms.", aside: "exactly that." },
+      { titel: "remote", kurz: "clients in DE · BE · LUX · projects everywhere.", aside: "homeoffice with a real door." },
+    ],
+    vcardNote: "coffee? sure. drop a line first.",
+    tip: "tip · download vcard → contact into your address book",
+    phoneRole: "lacønis · designer + developer",
+    field: { mail: "mail", web: "web", sprachen: "languages", arbeitsweise: "how i work" },
+    sprachenValue: "DE · FR · EN",
+    arbeitsweiseValue: "remote · video call",
+    addContact: "add contact ↓",
+    vcardSize: "vcard · 1.2 kb",
+  },
+};
 
 /**
  * DeskScene — schreibtisch-aufsicht mit post-its + handy-mockup.
@@ -31,58 +93,32 @@ type PostIt = {
   y: number;
 };
 
-const POSTITS: PostIt[] = [
-  {
-    titel: "drei sprachen",
-    kurz: "DE · FR · EN · verhandlungssicher.",
-    aside: "meetings · mails · kleingedrucktes.",
-    farbe: "#E1FD52",
-    ink: "#0a0a0a",
-    rotate: -4,
-    x: 6,
-    y: 10,
-  },
-  {
-    titel: "seit 2019",
-    kurz: "angefangen mit wordpress. heute: next.js + eigenes cms.",
-    aside: "genau das.",
-    farbe: "#F7EED0",
-    ink: "#1a1a1a",
-    rotate: 3,
-    x: 40,
-    y: 120,
-  },
-  {
-    titel: "remote",
-    kurz: "kunden in DE · BE · LUX · projekte überall.",
-    aside: "homeoffice mit echter tür.",
-    farbe: "#E1FD52",
-    ink: "#0a0a0a",
-    rotate: -2,
-    x: 14,
-    y: 270,
-  },
+const POSTIT_META: Pick<PostIt, "farbe" | "ink" | "rotate" | "x" | "y">[] = [
+  { farbe: "#E1FD52", ink: "#0a0a0a", rotate: -4, x: 6, y: 10 },
+  { farbe: "#F7EED0", ink: "#1a1a1a", rotate: 3, x: 40, y: 120 },
+  { farbe: "#E1FD52", ink: "#0a0a0a", rotate: -2, x: 14, y: 270 },
 ];
 
-const VCARD = [
-  "BEGIN:VCARD",
-  "VERSION:3.0",
-  "N:Spies;Nicolas;;;",
-  "FN:Nicolas Spies",
-  "ORG:lacønis",
-  "TITLE:designer & web-developer",
-  `EMAIL;TYPE=INTERNET,PREF:${CONTACT.email}`,
-  ...(CONTACT.phone ? [`TEL;TYPE=CELL:${CONTACT.phoneE164}`] : []),
-  "URL:https://laconis.be",
-  // adresse bewusst minimal · nur land, keine stadt im downloadbaren vcard
-  `ADR;TYPE=WORK:;;;;;;Belgien`,
-  "NOTE:kaffee? gern. kurz vorher schreiben.",
-  "END:VCARD",
-].join("\r\n");
+function buildVCard(note: string): string {
+  return [
+    "BEGIN:VCARD",
+    "VERSION:3.0",
+    "N:Spies;Nicolas;;;",
+    "FN:Nicolas Spies",
+    "ORG:lacønis",
+    "TITLE:designer & web-developer",
+    `EMAIL;TYPE=INTERNET,PREF:${CONTACT.email}`,
+    ...(CONTACT.phone ? [`TEL;TYPE=CELL:${CONTACT.phoneE164}`] : []),
+    "URL:https://laconis.be",
+    `ADR;TYPE=WORK:;;;;;;Belgien`,
+    `NOTE:${note}`,
+    "END:VCARD",
+  ].join("\r\n");
+}
 
-function downloadVCard() {
+function downloadVCard(note: string) {
   if (typeof window === "undefined") return;
-  const blob = new Blob([VCARD], { type: "text/vcard;charset=utf-8" });
+  const blob = new Blob([buildVCard(note)], { type: "text/vcard;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -99,6 +135,9 @@ function prefersReducedMotion(): boolean {
 }
 
 export function DeskScene() {
+  const locale = useLocale();
+  const t = pick(DESK_DICT, locale);
+  const POSTITS: PostIt[] = t.posts.map((p, i) => ({ ...p, ...POSTIT_META[i] }));
   return (
     <section className="pb-32">
       <div className="container-site">
@@ -111,27 +150,20 @@ export function DeskScene() {
               viewport={{ once: true, margin: "-60px" }}
               className="relative min-h-[460px] md:min-h-[500px]"
             >
-              {/* klemmbrett-rand oben links · bricht das grid auf */}
               <ClipboardEdge />
-
-              {/* tintenfleck-vignette hinter post-its */}
               <InkBlot />
 
               {POSTITS.map((p, i) => (
                 <PostItCard key={p.titel} post={p} index={i} />
               ))}
 
-              {/* kaffee-tasse mit dampf · unten links, kleine prise leben */}
               <CoffeeCup />
-
-              {/* bleistift mit stroke-draw on enter · unten rechts */}
               <PencilDraw />
             </motion.div>
           </div>
 
-          {/* iPHONE MOCKUP */}
           <div className="order-1 lg:order-2">
-            <PhoneColumn />
+            <PhoneColumn t={t} />
           </div>
         </div>
       </div>
@@ -437,7 +469,7 @@ function PencilDraw() {
 /* PHONE                                                               */
 /* ------------------------------------------------------------------ */
 
-function PhoneColumn() {
+function PhoneColumn({ t }: { t: DeskDict }) {
   const controls = useAnimation();
   const [hovered, setHovered] = useState(false);
 
@@ -481,19 +513,19 @@ function PhoneColumn() {
           transition: "filter 0.4s ease-out",
         }}
       >
-        <PhoneMock onAddContact={downloadVCard} />
+        <PhoneMock onAddContact={() => downloadVCard(t.vcardNote)} t={t} />
       </motion.div>
 
       <div className="mt-6 text-center">
         <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-          tipp · vcard laden → kontakt ins adressbuch
+          {t.tip}
         </span>
       </div>
     </motion.div>
   );
 }
 
-function PhoneMock({ onAddContact }: { onAddContact: () => void }) {
+function PhoneMock({ onAddContact, t }: { onAddContact: () => void; t: DeskDict }) {
   return (
     <div
       className="relative aspect-[9/19] w-full rounded-[48px] border border-ink/10 overflow-hidden shadow-[0_50px_120px_-40px_rgba(0,0,0,0.9)]"
@@ -534,16 +566,16 @@ function PhoneMock({ onAddContact }: { onAddContact: () => void }) {
               nicolas spies
             </h4>
             <p className="mt-1 font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-              lacønis · designer + developer
+              {t.phoneRole}
             </p>
           </div>
 
           {/* fields */}
           <div className="mt-6 space-y-2.5">
-            <Field label="mail" value={CONTACT.email} />
-            <Field label="web" value="laconis.be" />
-            <Field label="sprachen" value="DE · FR · EN" />
-            <Field label="arbeitsweise" value="remote · video-call" />
+            <Field label={t.field.mail} value={CONTACT.email} />
+            <Field label={t.field.web} value="laconis.be" />
+            <Field label={t.field.sprachen} value={t.sprachenValue} />
+            <Field label={t.field.arbeitsweise} value={t.arbeitsweiseValue} />
           </div>
 
           {/* CTA */}
@@ -553,10 +585,10 @@ function PhoneMock({ onAddContact }: { onAddContact: () => void }) {
               onClick={onAddContact}
               className="w-full rounded-2xl bg-lime text-black px-4 py-3 font-mono text-[11px] uppercase tracking-label font-semibold hover:bg-lime/80 transition-colors"
             >
-              kontakt hinzufügen ↓
+              {t.addContact}
             </button>
             <p className="mt-2 text-center font-mono text-[8.5px] uppercase tracking-label text-offwhite/35">
-              vcard · 1.2 kb
+              {t.vcardSize}
             </p>
           </div>
         </div>

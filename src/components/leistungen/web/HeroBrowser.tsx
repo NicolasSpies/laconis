@@ -1,23 +1,61 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLocale, pick } from "@/i18n/useLocale";
+import type { Locale } from "@/i18n/config";
 
-/**
- * HeroBrowser — animiertes browser-mockup für den web-hero.
- * Sequenz:
- *  1. url tippt sich (laconis-demo)
- *  2. loading-bar
- *  3. content rendert progressiv (headline → grid → divider → body)
- *  4. pagespeed-badge erscheint, score tickt 0 → 98
- * läuft einmal on-mount, loopt danach sanft alle ~12s.
- */
+type Dict = {
+  urlText: string;
+  liveDemo: string;
+  eyebrow: string;
+  h3L1: string;
+  h3L2: string;
+  h3L3: string;
+  body: string;
+  cta: string;
+};
 
-const URL_TEXT = "deine-marke.be";
+const DICT: Record<Locale, Dict> = {
+  de: {
+    urlText: "deine-marke.be",
+    liveDemo: "live-demo",
+    eyebrow: "bäckerei · seit 1967",
+    h3L1: "brot, das",
+    h3L2: "nach morgen",
+    h3L3: "schmeckt.",
+    body: "täglich aus dem holzofen · sauerteig aus eigener zucht · vorbestellen bis donnerstag.",
+    cta: "bestellen →",
+  },
+  fr: {
+    urlText: "ta-marque.be",
+    liveDemo: "démo live",
+    eyebrow: "boulangerie · depuis 1967",
+    h3L1: "du pain qui",
+    h3L2: "a le goût de",
+    h3L3: "demain.",
+    body: "tous les jours au four à bois · levain maison · précommande jusqu'à jeudi.",
+    cta: "commander →",
+  },
+  en: {
+    urlText: "your-brand.be",
+    liveDemo: "live demo",
+    eyebrow: "bakery · since 1967",
+    h3L1: "bread that",
+    h3L2: "tastes of",
+    h3L3: "tomorrow.",
+    body: "daily from the wood oven · sourdough from our own starter · pre-order until thursday.",
+    cta: "order →",
+  },
+};
+
 const TARGET_SCORE = 98;
 
 type Stage = "idle" | "typing" | "loading" | "rendering" | "scored";
 
 export function HeroBrowser() {
+  const locale = useLocale();
+  const t = pick(DICT, locale);
+  const URL_TEXT = t.urlText;
   const [stage, setStage] = useState<Stage>("idle");
   const [typed, setTyped] = useState("");
   const [score, setScore] = useState(0);
@@ -130,7 +168,7 @@ export function HeroBrowser() {
             </span>
           </div>
           <span className="hidden sm:inline font-mono text-[9px] uppercase tracking-label text-offwhite/35 shrink-0">
-            live-demo
+            {t.liveDemo}
           </span>
         </div>
 
@@ -177,7 +215,7 @@ export function HeroBrowser() {
                 : "opacity-0 translate-y-2",
             ].join(" ")}
           >
-            bäckerei · seit 1967
+            {t.eyebrow}
           </div>
 
           {/* headline */}
@@ -189,9 +227,9 @@ export function HeroBrowser() {
                 : "opacity-0 translate-y-3",
             ].join(" ")}
           >
-            brot, das<br />
-            <span className="text-offwhite/35">nach morgen</span><br />
-            schmeckt.
+            {t.h3L1}<br />
+            <span className="text-offwhite/35">{t.h3L2}</span><br />
+            {t.h3L3}
           </h3>
 
           {/* photo grid */}
@@ -222,11 +260,10 @@ export function HeroBrowser() {
             ].join(" ")}
           >
             <p className="text-[10px] md:text-[11px] leading-relaxed text-offwhite/55 max-w-[240px]">
-              täglich aus dem holzofen · sauerteig aus eigener zucht ·
-              vorbestellen bis donnerstag.
+              {t.body}
             </p>
             <span className="shrink-0 font-mono text-[9px] md:text-[10px] uppercase tracking-label text-accent-ink border border-lime/25 rounded-full px-3 py-1.5 bg-lime/[0.04]">
-              bestellen →
+              {t.cta}
             </span>
           </div>
 
