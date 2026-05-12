@@ -7,6 +7,7 @@ import { Logo } from "./Logo";
 import { Button } from "./ui/Button";
 import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/cn";
+import { LOCALES, LOCALE_LABELS, type Locale } from "@/i18n/config";
 
 type NavLink = {
   href: string;
@@ -21,13 +22,14 @@ const links: readonly NavLink[] = [
   { href: "/ueber-mich", label: "über mich" },
 ] as const;
 
-type Lang = { code: "de" | "fr" | "en"; label: string; available: boolean };
+type Lang = { code: Locale; label: string; available: boolean };
 
-const LANGS: readonly Lang[] = [
-  { code: "de", label: "deutsch", available: true },
-  { code: "fr", label: "français", available: false },
-  { code: "en", label: "english", available: false },
-] as const;
+/** TODO Phase 1B: FR/EN auf available=true setzen, sobald die routes existieren */
+const LANGS: readonly Lang[] = LOCALES.map((code) => ({
+  code,
+  label: LOCALE_LABELS[code].long.toLowerCase(),
+  available: code === "de",
+}));
 
 function LangDropdown() {
   const [open, setOpen] = useState(false);
