@@ -1,40 +1,48 @@
+"use client";
+
 import Link from "next/link";
+import { useLocale, pick } from "@/i18n/useLocale";
+import { buildPath, type Locale } from "@/i18n/config";
 
-/**
- * StaerkenStrip — 3-punkt teaser für die leistungs-subpages.
- * kurze erinnerung was mich ausmacht, mit link auf /ueber-mich für die lange version.
- */
+type Staerke = { num: string; titel: string; unter: string };
 
-type Staerke = {
-  num: string;
-  titel: string;
-  unter: string;
+type Dict = { cta: string; staerken: Staerke[] };
+
+const DICT: Record<Locale, Dict> = {
+  de: {
+    cta: "mehr über mich →",
+    staerken: [
+      { num: "01", titel: "alles aus einem kopf", unter: "Design & Code · kein Handoff, keine verlorene Übersetzung." },
+      { num: "02", titel: "eigenes system", unter: "Keine Templates, kein Baukasten · auf deine Marke zugeschnitten." },
+      { num: "03", titel: "bleibt danach", unter: "Ein Gesprächspartner, jahrelang erreichbar · nicht abtauchen nach Launch." },
+    ],
+  },
+  fr: {
+    cta: "en savoir plus sur moi →",
+    staerken: [
+      { num: "01", titel: "tout dans une seule tête", unter: "Design & code · pas de handoff, pas de traduction perdue." },
+      { num: "02", titel: "système propre", unter: "Pas de templates, pas de constructeur · taillé pour ta marque." },
+      { num: "03", titel: "je reste après", unter: "Un interlocuteur, joignable des années · pas de disparition après le lancement." },
+    ],
+  },
+  en: {
+    cta: "more about me →",
+    staerken: [
+      { num: "01", titel: "everything from one head", unter: "Design & code · no handoff, no lost translation." },
+      { num: "02", titel: "own system", unter: "No templates, no builder · tailored to your brand." },
+      { num: "03", titel: "still here after", unter: "One conversation partner, reachable for years · no disappearing act after launch." },
+    ],
+  },
 };
 
-const STAERKEN: Staerke[] = [
-  {
-    num: "01",
-    titel: "alles aus einem kopf",
-    unter: "Design & Code · kein Handoff, keine verlorene Übersetzung.",
-  },
-  {
-    num: "02",
-    titel: "eigenes system",
-    unter: "Keine Templates, kein Baukasten · auf deine Marke zugeschnitten.",
-  },
-  {
-    num: "03",
-    titel: "bleibt danach",
-    unter: "Ein Gesprächspartner, jahrelang erreichbar · nicht abtauchen nach Launch.",
-  },
-];
-
 export function StaerkenStrip() {
+  const locale = useLocale();
+  const t = pick(DICT, locale);
   return (
     <section className="pb-24 md:pb-32">
       <div className="container-site">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
-          {STAERKEN.map((s) => (
+          {t.staerken.map((s) => (
             <div
               key={s.num}
               className="flex flex-col gap-3 pt-5 border-t border-ink/10"
@@ -54,10 +62,10 @@ export function StaerkenStrip() {
 
         <div className="mt-10 flex justify-center">
           <Link
-            href="/ueber-mich"
+            href={buildPath("ueber-mich", locale)}
             className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 hover:text-accent-ink transition-colors"
           >
-            mehr über mich →
+            {t.cta}
           </Link>
         </div>
       </div>

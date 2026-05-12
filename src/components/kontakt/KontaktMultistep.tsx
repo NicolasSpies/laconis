@@ -6,17 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { track } from "@/lib/analytics";
 import { CONTACT } from "@/config/contact";
-
-/**
- * KontaktMultistep — 4-schritte-projektformular.
- * Schritt 1: bedarf (was brauchst du)
- * Schritt 2: scope (seiten, sprachen, budget-rahmen)
- * Schritt 3: zusammenfassung + zeitplan
- * Schritt 4: kontakt (name, mail, telefon, notiz, submit)
- *
- * Keine Paket-Vorauswahl, keine Preisberechnung.
- * Optional: ?bedarf=website|branding|alles springt zu schritt 2.
- */
+import { useLocale, pick } from "@/i18n/useLocale";
+import { buildPath, type Locale } from "@/i18n/config";
 
 /* ══════════════════════════ state-modell ══════════════════════════ */
 
@@ -50,6 +41,239 @@ const INITIAL: State = {
   notiz: "",
 };
 
+/* ══════════════════════════ i18n ══════════════════════════ */
+
+type Dict = {
+  rateLimit: string;
+  errorEmail: string;
+  networkError: string;
+  dankePre: string;
+  hand: string;
+  thanksBody1: string;
+  thanksBody2pre: string;
+  thanksBody2tel: string;
+  thanksBody3: string;
+  ctaHome: string;
+  ctaRefs: string;
+  progressLabels: string[];
+  step1H3: string;
+  step1Body: string;
+  step2H3: string;
+  step2Body: string;
+  step3H3: string;
+  step3Body: string;
+  step3Footer: string;
+  step3Edit: string;
+  step3BudgetOpen: string;
+  step4H3: string;
+  step4Body: string;
+  fieldName: string;
+  fieldEmail: string;
+  fieldTel: string;
+  fieldNotiz: string;
+  notizPlaceholder: string;
+  emailPlaceholder: string;
+  telPlaceholder: string;
+  namePlaceholder: string;
+  consent1: string;
+  consentLink: string;
+  consent2: string;
+  honeypotLabel: string;
+  back: string;
+  schrittLabel: string;
+  schrittPre: string;
+  weiter: string;
+  sende: string;
+  anfrageSenden: string;
+  gewaehlt: string;
+  bedarfQ: string;
+  scopeLabelSeiten: string;
+  scopeLabelSprachen: string;
+  scopeLabelBudget: string;
+  scopeHintBudget: string;
+  bedarf: Record<Bedarf, { titel: string; kurz: string }>;
+  seiten: Record<Seiten, string>;
+  sprachen: Record<Sprachen, string>;
+  budget: Record<Budget, string>;
+};
+
+const DICT: Record<Locale, Dict> = {
+  de: {
+    rateLimit: "Zu viele Anfragen · bitte in einer Stunde nochmal probieren.",
+    errorEmail: `Konnte nicht gesendet werden. Schreib mir direkt an ${CONTACT.email}.`,
+    networkError: `Netzwerk-Fehler. Schreib mir direkt an ${CONTACT.email}.`,
+    dankePre: "danke,",
+    hand: "ich meld mich diese woche.",
+    thanksBody1: "Deine Anfrage ist da · Antwort kommt innerhalb von 24 Std (werktags) per ",
+    thanksBody2pre: " oder Telefon (",
+    thanksBody2tel: ")",
+    thanksBody3: ". Bis dahin · mach's gut.",
+    ctaHome: "zurück zur startseite",
+    ctaRefs: "referenzen ansehen",
+    progressLabels: ["bedarf", "scope", "zusammenfassung", "kontakt"],
+    step1H3: "was brauchst du?",
+    step1Body: "Grob reicht. Du kannst im nächsten Schritt präzisieren · oder später ändern, wenn sich herausstellt, dass es doch was anderes ist.",
+    step2H3: "präzisieren.",
+    step2Body: "Wenige Klicks · so krieg ich ein Bild, ob das zusammenpasst oder was Sonderanfertigung braucht.",
+    step3H3: "zusammenfassung.",
+    step3Body: "Kurze Kontrolle, bevor's zum Kontakt geht. Jede Zeile ist änderbar.",
+    step3Footer: "Wenn alles stimmt, nächster Schritt: deine Kontaktdaten + optional eine Notiz. Angebot kommt innerhalb 24 Std.",
+    step3Edit: "ändern",
+    step3BudgetOpen: "· noch offen",
+    step4H3: "wer bist du?",
+    step4Body: "Nur das Nötigste. Telefon und Notiz sind freiwillig. Ich antworte innerhalb von 24 Std per Mail.",
+    fieldName: "name",
+    fieldEmail: "e-mail",
+    fieldTel: "telefon · optional",
+    fieldNotiz: "notiz · optional",
+    notizPlaceholder: "Was sollte ich vor dem Gespräch wissen? (Deadline, Besonderheiten, Links zu Inspiration …)",
+    emailPlaceholder: "deine@email.be",
+    telPlaceholder: "+32 491 …",
+    namePlaceholder: "Alex Martin",
+    consent1: "Ich bin einverstanden, dass diese Daten verarbeitet werden, um meine Anfrage zu beantworten. Kein Newsletter, kein Verkauf. Details in der ",
+    consentLink: "Datenschutzerklärung",
+    consent2: ".",
+    honeypotLabel: "Nicht ausfüllen (Spam-Schutz)",
+    back: "← zurück",
+    schrittLabel: "schritt",
+    schrittPre: "schritt",
+    weiter: "weiter →",
+    sende: "sende …",
+    anfrageSenden: "anfrage senden →",
+    gewaehlt: "✓ gewählt",
+    bedarfQ: "bedarf",
+    scopeLabelSeiten: "wie viele seiten ungefähr?",
+    scopeLabelSprachen: "sprachen",
+    scopeLabelBudget: "budget-rahmen",
+    scopeHintBudget: "Grob reicht. Keine Trickfragen · ich pass das Angebot an, was realistisch ist.",
+    bedarf: {
+      website: { titel: "website", kurz: "Neue Seite, Redesign, Onepager oder mehrsprachig." },
+      branding: { titel: "branding", kurz: "Logo, Brand Guide, Identität · visuelles System." },
+      alles: { titel: "alles zusammen", kurz: "Web + Branding · aus einer Hand." },
+      "was-anderes": { titel: "was anderes", kurz: "Sonderprojekt, Beratung, keine Schublade." },
+    },
+    seiten: { onepager: "onepager", "2-5": "2–5 seiten", "6-10": "6–10 seiten", "10+": "über 10", "weiss-nicht": "weiss nicht" },
+    sprachen: { "1": "eine", "2": "zwei", "3+": "drei oder mehr" },
+    budget: { "<2k": "< 2.000 €", "2-5k": "2.000–5.000 €", "5-10k": "5.000–10.000 €", "10k+": "10.000 € +", "weiss-nicht": "weiss nicht" },
+  },
+  fr: {
+    rateLimit: "Trop de demandes · réessaie dans une heure.",
+    errorEmail: `Pas pu envoyer. Écris-moi directement à ${CONTACT.email}.`,
+    networkError: `Erreur réseau. Écris-moi directement à ${CONTACT.email}.`,
+    dankePre: "merci,",
+    hand: "je reviens vers toi cette semaine.",
+    thanksBody1: "Ta demande est là · réponse sous 24h (jours ouvrés) par ",
+    thanksBody2pre: " ou téléphone (",
+    thanksBody2tel: ")",
+    thanksBody3: ". D'ici là · porte-toi bien.",
+    ctaHome: "retour à l'accueil",
+    ctaRefs: "voir les références",
+    progressLabels: ["besoin", "scope", "résumé", "contact"],
+    step1H3: "tu as besoin de quoi ?",
+    step1Body: "Grossier suffit. Tu peux préciser à l'étape suivante · ou changer plus tard si ça s'avère être autre chose.",
+    step2H3: "préciser.",
+    step2Body: "Quelques clics · ça me donne une idée si on s'accorde ou s'il faut du sur-mesure.",
+    step3H3: "résumé.",
+    step3Body: "Petit contrôle avant le contact. Chaque ligne est modifiable.",
+    step3Footer: "Si tout colle, prochaine étape : tes coordonnées + une note optionnelle. Offre sous 24h.",
+    step3Edit: "modifier",
+    step3BudgetOpen: "· encore ouvert",
+    step4H3: "tu es qui ?",
+    step4Body: "Que l'essentiel. Téléphone et note sont facultatifs. Je réponds sous 24h par mail.",
+    fieldName: "nom",
+    fieldEmail: "e-mail",
+    fieldTel: "téléphone · optionnel",
+    fieldNotiz: "note · optionnelle",
+    notizPlaceholder: "Que devrais-je savoir avant l'échange ? (deadline, particularités, liens d'inspi …)",
+    emailPlaceholder: "ton@email.be",
+    telPlaceholder: "+32 491 …",
+    namePlaceholder: "Alex Martin",
+    consent1: "J'accepte que ces données soient traitées pour répondre à ma demande. Pas de newsletter, pas de revente. Détails dans la ",
+    consentLink: "politique de confidentialité",
+    consent2: ".",
+    honeypotLabel: "Ne pas remplir (anti-spam)",
+    back: "← retour",
+    schrittLabel: "étape",
+    schrittPre: "étape",
+    weiter: "suivant →",
+    sende: "envoi …",
+    anfrageSenden: "envoyer la demande →",
+    gewaehlt: "✓ choisi",
+    bedarfQ: "besoin",
+    scopeLabelSeiten: "combien de pages environ ?",
+    scopeLabelSprachen: "langues",
+    scopeLabelBudget: "budget approximatif",
+    scopeHintBudget: "Grossier suffit. Pas de pièges · j'adapte l'offre à ce qui est réaliste.",
+    bedarf: {
+      website: { titel: "site web", kurz: "Nouveau site, redesign, onepage ou multilingue." },
+      branding: { titel: "branding", kurz: "Logo, brand guide, identité · système visuel." },
+      alles: { titel: "tout ensemble", kurz: "Web + branding · d'une seule main." },
+      "was-anderes": { titel: "autre chose", kurz: "Projet spécial, conseil, hors case." },
+    },
+    seiten: { onepager: "onepage", "2-5": "2–5 pages", "6-10": "6–10 pages", "10+": "plus de 10", "weiss-nicht": "je sais pas" },
+    sprachen: { "1": "une", "2": "deux", "3+": "trois ou plus" },
+    budget: { "<2k": "< 2 000 €", "2-5k": "2 000–5 000 €", "5-10k": "5 000–10 000 €", "10k+": "10 000 € +", "weiss-nicht": "je sais pas" },
+  },
+  en: {
+    rateLimit: "Too many requests · try again in an hour.",
+    errorEmail: `Couldn't send it. Write to me directly at ${CONTACT.email}.`,
+    networkError: `Network error. Write to me directly at ${CONTACT.email}.`,
+    dankePre: "thanks,",
+    hand: "i'll get back to you this week.",
+    thanksBody1: "Your request is in · answer within 24h (working days) by ",
+    thanksBody2pre: " or phone (",
+    thanksBody2tel: ")",
+    thanksBody3: ". Until then · take care.",
+    ctaHome: "back to homepage",
+    ctaRefs: "see references",
+    progressLabels: ["need", "scope", "summary", "contact"],
+    step1H3: "what do you need?",
+    step1Body: "Rough is fine. You can specify in the next step · or change later if it turns out to be something else.",
+    step2H3: "specify.",
+    step2Body: "A few clicks · so i get a picture of whether this fits or needs a custom take.",
+    step3H3: "summary.",
+    step3Body: "Quick check before contact. Every line is editable.",
+    step3Footer: "If it all checks out, next step: your contact details + optional note. Offer within 24h.",
+    step3Edit: "edit",
+    step3BudgetOpen: "· still open",
+    step4H3: "who are you?",
+    step4Body: "Just the essentials. Phone and note are optional. I reply within 24h by mail.",
+    fieldName: "name",
+    fieldEmail: "e-mail",
+    fieldTel: "phone · optional",
+    fieldNotiz: "note · optional",
+    notizPlaceholder: "What should i know before the call? (deadline, specifics, links to inspiration …)",
+    emailPlaceholder: "your@email.be",
+    telPlaceholder: "+32 491 …",
+    namePlaceholder: "Alex Martin",
+    consent1: "I agree that this data is processed to answer my request. No newsletter, no resale. Details in the ",
+    consentLink: "privacy policy",
+    consent2: ".",
+    honeypotLabel: "Don't fill in (spam protection)",
+    back: "← back",
+    schrittLabel: "step",
+    schrittPre: "step",
+    weiter: "next →",
+    sende: "sending …",
+    anfrageSenden: "send request →",
+    gewaehlt: "✓ chosen",
+    bedarfQ: "need",
+    scopeLabelSeiten: "roughly how many pages?",
+    scopeLabelSprachen: "languages",
+    scopeLabelBudget: "rough budget",
+    scopeHintBudget: "Rough is fine. No trick questions · i adapt the offer to what's realistic.",
+    bedarf: {
+      website: { titel: "website", kurz: "New site, redesign, onepager or multilingual." },
+      branding: { titel: "branding", kurz: "Logo, brand guide, identity · visual system." },
+      alles: { titel: "all together", kurz: "Web + branding · from one place." },
+      "was-anderes": { titel: "something else", kurz: "Special project, consulting, no box." },
+    },
+    seiten: { onepager: "onepager", "2-5": "2–5 pages", "6-10": "6–10 pages", "10+": "over 10", "weiss-nicht": "don't know" },
+    sprachen: { "1": "one", "2": "two", "3+": "three or more" },
+    budget: { "<2k": "< 2,000 €", "2-5k": "2,000–5,000 €", "5-10k": "5,000–10,000 €", "10k+": "10,000 € +", "weiss-nicht": "don't know" },
+  },
+};
+
 /* ══════════════════════════ wrapper mit suspense ══════════════════════════ */
 
 export function KontaktMultistep() {
@@ -66,8 +290,9 @@ type StepId = 1 | 2 | 3 | 4;
 
 function Inner() {
   const params = useSearchParams();
+  const locale = useLocale();
+  const t = pick(DICT, locale);
 
-  /* URL-params einlesen — optional: ?bedarf=website|branding|alles */
   const initialFromParams = useMemo<{ state: State; startStep: StepId }>(() => {
     const bedarfParam = params.get("bedarf") as Bedarf | null;
     const validBedarf: Bedarf[] = ["website", "branding", "alles", "was-anderes"];
@@ -115,11 +340,11 @@ function Inner() {
       email: state.email,
       telefon: state.telefon,
       notiz: state.notiz,
-      bedarf: bedarfLabel(state.bedarf),
-      seiten: seitenLabel(state.seiten),
-      sprachen: sprachenLabel(state.sprachen),
+      bedarf: t.bedarf[state.bedarf as Bedarf]?.titel ?? "·",
+      seiten: t.seiten[state.seiten],
+      sprachen: t.sprachen[state.sprachen],
       zeitplan: state.zeitplan,
-      budget: state.budget ? budgetLabel(state.budget) : "·",
+      budget: state.budget ? t.budget[state.budget] : "·",
     };
 
     try {
@@ -130,20 +355,14 @@ function Inner() {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.ok) {
-        setSendError(
-          data?.error === "rate-limit"
-            ? "Zu viele Anfragen · bitte in einer Stunde nochmal probieren."
-            : `Konnte nicht gesendet werden. Schreib mir direkt an ${CONTACT.email}.`,
-        );
+        setSendError(data?.error === "rate-limit" ? t.rateLimit : t.errorEmail);
         setSending(false);
         return;
       }
       track({ type: "form_submit", form: "kontakt" });
       setSent(true);
     } catch {
-      setSendError(
-        `Netzwerk-Fehler. Schreib mir direkt an ${CONTACT.email}.`,
-      );
+      setSendError(t.networkError);
       setSending(false);
     }
   };
@@ -155,7 +374,6 @@ function Inner() {
         animate={{ opacity: 1, y: 0 }}
         className="max-w-[640px] mx-auto rounded-2xl border border-lime/25 bg-gradient-to-br from-lime/[0.06] to-transparent p-10 md:p-14 text-center"
       >
-        {/* handgezeichneter haken */}
         <motion.svg
           viewBox="0 0 120 80"
           className="mx-auto w-24 h-16 text-accent-ink mb-2"
@@ -172,10 +390,7 @@ function Inner() {
             fill="none"
             variants={{
               hidden: { pathLength: 0 },
-              visible: {
-                pathLength: 1,
-                transition: { duration: 0.8, ease: "easeOut" },
-              },
+              visible: { pathLength: 1, transition: { duration: 0.8, ease: "easeOut" } },
             }}
           />
           <motion.path
@@ -187,38 +402,33 @@ function Inner() {
             fill="none"
             variants={{
               hidden: { pathLength: 0, opacity: 0 },
-              visible: {
-                pathLength: 1,
-                opacity: 1,
-                transition: { delay: 0.7, duration: 0.25 },
-              },
+              visible: { pathLength: 1, opacity: 1, transition: { delay: 0.7, duration: 0.25 } },
             }}
           />
         </motion.svg>
 
         <h2 className="heading-display text-[clamp(1.75rem,4vw,2.5rem)] text-offwhite">
-          danke, {state.name.trim().split(" ")[0] || "moin"}.
+          {t.dankePre} {state.name.trim().split(" ")[0] || (locale === "fr" ? "salut" : locale === "en" ? "hey" : "moin")}.
         </h2>
 
         <p
           className="mt-4 font-hand text-[22px] md:text-[24px] text-accent-ink"
           style={{ transform: "rotate(-1deg)" }}
         >
-          ich meld mich diese woche.
+          {t.hand}
         </p>
 
         <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55 max-w-[440px] mx-auto">
-          Deine Anfrage ist da · Antwort kommt innerhalb von 24 Std (werktags)
-          per {state.email.includes("@") ? "Mail" : "Nachricht"}
-          {state.telefon ? ` oder Telefon (${state.telefon})` : ""}. Bis
-          dahin · mach's gut.
+          {t.thanksBody1}{state.email.includes("@") ? (locale === "fr" ? "mail" : "mail") : (locale === "fr" ? "message" : "message")}
+          {state.telefon ? `${t.thanksBody2pre}${state.telefon}${t.thanksBody2tel}` : ""}
+          {t.thanksBody3}
         </p>
         <div className="mt-8 flex justify-center gap-3 flex-wrap">
-          <Button href="/" variant="glass" size="md">
-            zurück zur startseite
+          <Button href={buildPath("home", locale)} variant="glass" size="md">
+            {t.ctaHome}
           </Button>
-          <Button href="/referenzen" variant="ghost" size="md">
-            referenzen ansehen
+          <Button href={buildPath("referenzen", locale)} variant="ghost" size="md">
+            {t.ctaRefs}
           </Button>
         </div>
       </motion.div>
@@ -227,10 +437,8 @@ function Inner() {
 
   return (
     <div className="max-w-[820px] mx-auto">
-      {/* progress */}
-      <Progress step={step} />
+      <Progress step={step} labels={t.progressLabels} />
 
-      {/* step content */}
       <div className="mt-10 relative min-h-[380px]">
         <AnimatePresence mode="wait">
           <motion.div
@@ -244,16 +452,17 @@ function Inner() {
               <Step1
                 value={state.bedarf}
                 onChange={(v) => update("bedarf", v)}
+                t={t}
               />
             )}
             {step === 2 && (
-              <Step2 state={state} update={update} />
+              <Step2 state={state} update={update} t={t} />
             )}
             {step === 3 && (
               <Step3
                 state={state}
-                update={update}
                 onEdit={(s) => goTo(s)}
+                t={t}
               />
             )}
             {step === 4 && (
@@ -266,13 +475,14 @@ function Inner() {
                 sendError={sendError}
                 hp={hp}
                 setHp={setHp}
+                t={t}
+                locale={locale}
               />
             )}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* nav (step 4 hat eigene submit-logik) */}
       {step !== 4 && (
         <div className="mt-10 flex items-center justify-between gap-4 flex-wrap">
           <button
@@ -281,23 +491,20 @@ function Inner() {
             disabled={step === 1}
             className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 hover:text-accent-ink disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:text-offwhite/55 transition-colors"
           >
-            ← zurück
+            {t.back}
           </button>
 
           <div className="flex items-center gap-3">
             <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-              schritt {step} / 4
+              {t.schrittPre} {step} / 4
             </span>
             <Button
               variant="primary"
               size="md"
-              onClick={() =>
-                canAdvance(step) &&
-                goTo(Math.min(4, step + 1) as StepId)
-              }
+              onClick={() => canAdvance(step) && goTo(Math.min(4, step + 1) as StepId)}
               disabled={!canAdvance(step)}
             >
-              weiter →
+              {t.weiter}
             </Button>
           </div>
         </div>
@@ -308,8 +515,7 @@ function Inner() {
 
 /* ══════════════════════════ progress ══════════════════════════ */
 
-function Progress({ step }: { step: StepId }) {
-  const labels = ["bedarf", "scope", "zusammenfassung", "kontakt"];
+function Progress({ step, labels }: { step: StepId; labels: string[] }) {
   return (
     <div className="flex items-start justify-between gap-2 max-w-[560px]">
       {labels.map((label, i) => {
@@ -322,11 +528,7 @@ function Progress({ step }: { step: StepId }) {
             <span
               className={[
                 "font-mono text-[9px] md:text-[10px] uppercase tracking-label text-center leading-tight transition-colors",
-                active
-                  ? "text-accent-ink"
-                  : done
-                  ? "text-offwhite/55"
-                  : "text-offwhite/35",
+                active ? "text-accent-ink" : done ? "text-offwhite/55" : "text-offwhite/35",
               ].join(" ")}
             >
               {label}
@@ -363,26 +565,11 @@ function ScribbleCircle({
   index: number;
 }) {
   const rot = [-3, 2, -1.5, 3][index] ?? 0;
-  const stroke =
-    state === "active"
-      ? "#d9ff00"
-      : state === "done"
-      ? "rgba(217,255,0,0.7)"
-      : "rgba(242,240,231,0.25)";
-  const fill =
-    state === "active"
-      ? "rgba(217,255,0,0.18)"
-      : state === "done"
-      ? "rgba(217,255,0,0.08)"
-      : "transparent";
+  const stroke = state === "active" ? "#d9ff00" : state === "done" ? "rgba(217,255,0,0.7)" : "rgba(242,240,231,0.25)";
+  const fill = state === "active" ? "rgba(217,255,0,0.18)" : state === "done" ? "rgba(217,255,0,0.08)" : "transparent";
 
   return (
-    <svg
-      aria-hidden
-      viewBox="0 0 40 40"
-      style={{ transform: `rotate(${rot}deg)` }}
-      className="w-10 h-10 shrink-0"
-    >
+    <svg aria-hidden viewBox="0 0 40 40" style={{ transform: `rotate(${rot}deg)` }} className="w-10 h-10 shrink-0">
       <path
         d="M20 5 Q 34 8, 35 20 Q 34 32, 20 35 Q 6 32, 5 20 Q 6 8, 20 5 Z"
         stroke={stroke}
@@ -391,24 +578,10 @@ function ScribbleCircle({
         fill={fill}
       />
       {state === "idle" && (
-        <path
-          d="M22 6 Q 33 10, 34 21 Q 33 30, 20 34"
-          stroke={stroke}
-          strokeWidth="0.7"
-          strokeLinecap="round"
-          fill="none"
-          opacity="0.5"
-        />
+        <path d="M22 6 Q 33 10, 34 21 Q 33 30, 20 34" stroke={stroke} strokeWidth="0.7" strokeLinecap="round" fill="none" opacity="0.5" />
       )}
       {state === "done" && (
-        <path
-          d="M11 20 L18 27 L30 13"
-          stroke="#d9ff00"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-        />
+        <path d="M11 20 L18 27 L30 13" stroke="#d9ff00" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
       )}
       {state === "active" && (
         <circle cx="20" cy="20" r="3.5" fill="#d9ff00" />
@@ -419,54 +592,35 @@ function ScribbleCircle({
 
 /* ══════════════════════════ step 1 · bedarf ══════════════════════════ */
 
-const BEDARF_OPTIONS: { id: Bedarf; titel: string; kurz: string }[] = [
-  {
-    id: "website",
-    titel: "website",
-    kurz: "Neue Seite, Redesign, Onepager oder mehrsprachig.",
-  },
-  {
-    id: "branding",
-    titel: "branding",
-    kurz: "Logo, Brand Guide, Identität · visuelles System.",
-  },
-  {
-    id: "alles",
-    titel: "alles zusammen",
-    kurz: "Web + Branding · aus einer Hand.",
-  },
-  {
-    id: "was-anderes",
-    titel: "was anderes",
-    kurz: "Sonderprojekt, Beratung, keine Schublade.",
-  },
-];
+const BEDARF_IDS: Bedarf[] = ["website", "branding", "alles", "was-anderes"];
 
 function Step1({
   value,
   onChange,
+  t,
 }: {
   value: Bedarf | null;
   onChange: (v: Bedarf) => void;
+  t: Dict;
 }) {
   return (
     <div>
       <h3 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
-        was brauchst du?
+        {t.step1H3}
       </h3>
       <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-        Grob reicht. Du kannst im nächsten Schritt präzisieren · oder später
-        ändern, wenn sich herausstellt, dass es doch was anderes ist.
+        {t.step1Body}
       </p>
 
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {BEDARF_OPTIONS.map((opt) => {
-          const active = value === opt.id;
+        {BEDARF_IDS.map((id) => {
+          const opt = t.bedarf[id];
+          const active = value === id;
           return (
             <button
-              key={opt.id}
+              key={id}
               type="button"
-              onClick={() => onChange(opt.id)}
+              onClick={() => onChange(id)}
               aria-pressed={active}
               className={[
                 "text-left rounded-xl p-5 border transition-all",
@@ -486,7 +640,7 @@ function Step1({
                 </h4>
                 {active && (
                   <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
-                    ✓ gewählt
+                    {t.gewaehlt}
                   </span>
                 )}
               </div>
@@ -503,72 +657,55 @@ function Step1({
 
 /* ══════════════════════════ step 2 · scope ══════════════════════════ */
 
-const SEITEN_OPTS: { id: Seiten; label: string }[] = [
-  { id: "onepager", label: "onepager" },
-  { id: "2-5", label: "2–5 seiten" },
-  { id: "6-10", label: "6–10 seiten" },
-  { id: "10+", label: "über 10" },
-  { id: "weiss-nicht", label: "weiss nicht" },
-];
-
-const SPRACHEN_OPTS: { id: Sprachen; label: string }[] = [
-  { id: "1", label: "eine" },
-  { id: "2", label: "zwei" },
-  { id: "3+", label: "drei oder mehr" },
-];
-
-const BUDGET_OPTS: { id: Budget; label: string }[] = [
-  { id: "<2k", label: "< 2.000 €" },
-  { id: "2-5k", label: "2.000–5.000 €" },
-  { id: "5-10k", label: "5.000–10.000 €" },
-  { id: "10k+", label: "10.000 € +" },
-  { id: "weiss-nicht", label: "weiss nicht" },
-];
+const SEITEN_IDS: Seiten[] = ["onepager", "2-5", "6-10", "10+", "weiss-nicht"];
+const SPRACHEN_IDS: Sprachen[] = ["1", "2", "3+"];
+const BUDGET_IDS: Budget[] = ["<2k", "2-5k", "5-10k", "10k+", "weiss-nicht"];
 
 function Step2({
   state,
   update,
+  t,
 }: {
   state: State;
   update: <K extends keyof State>(key: K, value: State[K]) => void;
+  t: Dict;
 }) {
   const isBranding = state.bedarf === "branding";
 
   return (
     <div>
       <h3 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
-        präzisieren.
+        {t.step2H3}
       </h3>
       <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-        Wenige Klicks · so krieg ich ein Bild, ob das zusammenpasst
-        oder was Sonderanfertigung braucht.
+        {t.step2Body}
       </p>
 
       <div className="mt-8 flex flex-col gap-6">
         {!isBranding && (
           <ChipField
-            label="wie viele seiten ungefähr?"
+            label={t.scopeLabelSeiten}
             value={state.seiten}
-            options={SEITEN_OPTS}
+            options={SEITEN_IDS.map((id) => ({ id, label: t.seiten[id] }))}
             onChange={(v) => update("seiten", v)}
           />
         )}
 
         {!isBranding && (
           <ChipField
-            label="sprachen"
+            label={t.scopeLabelSprachen}
             value={state.sprachen}
-            options={SPRACHEN_OPTS}
+            options={SPRACHEN_IDS.map((id) => ({ id, label: t.sprachen[id] }))}
             onChange={(v) => update("sprachen", v)}
           />
         )}
 
         <ChipField
-          label="budget-rahmen"
+          label={t.scopeLabelBudget}
           value={state.budget}
-          options={BUDGET_OPTS}
+          options={BUDGET_IDS.map((id) => ({ id, label: t.budget[id] }))}
           onChange={(v) => update("budget", v)}
-          hint="Grob reicht. Keine Trickfragen · ich pass das Angebot an, was realistisch ist."
+          hint={t.scopeHintBudget}
         />
       </div>
     </div>
@@ -580,47 +717,32 @@ function Step2({
 function Step3({
   state,
   onEdit,
+  t,
 }: {
   state: State;
-  update?: <K extends keyof State>(key: K, value: State[K]) => void;
   onEdit: (step: StepId) => void;
+  t: Dict;
 }) {
   const isBranding = state.bedarf === "branding";
 
   const rows: { label: string; value: string; editStep: StepId }[] = [
-    {
-      label: "bedarf",
-      value: bedarfLabel(state.bedarf),
-      editStep: 1,
-    },
+    { label: t.bedarfQ, value: state.bedarf ? t.bedarf[state.bedarf].titel : "·", editStep: 1 },
   ];
 
   if (!isBranding) {
-    rows.push({
-      label: "seiten",
-      value: seitenLabel(state.seiten),
-      editStep: 2,
-    });
-    rows.push({
-      label: "sprachen",
-      value: sprachenLabel(state.sprachen),
-      editStep: 2,
-    });
+    rows.push({ label: t.scopeLabelSeiten.includes("?") ? (state.bedarf ? "seiten" : "seiten") : "seiten", value: t.seiten[state.seiten], editStep: 2 });
+    rows.push({ label: t.scopeLabelSprachen, value: t.sprachen[state.sprachen], editStep: 2 });
   }
 
-  rows.push({
-    label: "budget",
-    value: state.budget ? budgetLabel(state.budget) : "· noch offen",
-    editStep: 2,
-  });
+  rows.push({ label: "budget", value: state.budget ? t.budget[state.budget] : t.step3BudgetOpen, editStep: 2 });
 
   return (
     <div>
       <h3 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
-        zusammenfassung.
+        {t.step3H3}
       </h3>
       <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-        Kurze Kontrolle, bevor's zum Kontakt geht. Jede Zeile ist änderbar.
+        {t.step3Body}
       </p>
 
       <div className="mt-8 glass rounded-2xl overflow-hidden">
@@ -641,17 +763,15 @@ function Step3({
               onClick={() => onEdit(r.editStep)}
               className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 hover:text-accent-ink transition-colors"
             >
-              ändern
+              {t.step3Edit}
             </button>
           </div>
         ))}
       </div>
 
       <p className="mt-5 text-[12.5px] leading-relaxed text-offwhite/55">
-        Wenn alles stimmt, nächster Schritt: deine Kontaktdaten + optional eine
-        Notiz. Angebot kommt innerhalb 24 Std.
+        {t.step3Footer}
       </p>
-
     </div>
   );
 }
@@ -667,6 +787,8 @@ function Step4({
   sendError,
   hp,
   setHp,
+  t,
+  locale,
 }: {
   state: State;
   update: <K extends keyof State>(key: K, value: State[K]) => void;
@@ -676,60 +798,60 @@ function Step4({
   sendError: string | null;
   hp: string;
   setHp: (v: string) => void;
+  t: Dict;
+  locale: Locale;
 }) {
-  const canSend =
-    !sending && state.name.trim() !== "" && state.email.trim() !== "";
+  const canSend = !sending && state.name.trim() !== "" && state.email.trim() !== "";
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-6">
       <div>
         <h3 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
-          wer bist du?
+          {t.step4H3}
         </h3>
         <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-          Nur das Nötigste. Telefon und Notiz sind freiwillig. Ich antworte
-          innerhalb von 24 Std per Mail.
+          {t.step4Body}
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <TextField
-          label="name"
+          label={t.fieldName}
           value={state.name}
           onChange={(v) => update("name", v)}
           required
-          placeholder="Alex Martin"
+          placeholder={t.namePlaceholder}
           autoComplete="name"
         />
         <TextField
-          label="e-mail"
+          label={t.fieldEmail}
           type="email"
           value={state.email}
           onChange={(v) => update("email", v)}
           required
-          placeholder="deine@email.be"
+          placeholder={t.emailPlaceholder}
           autoComplete="email"
         />
       </div>
 
       <TextField
-        label="telefon · optional"
+        label={t.fieldTel}
         type="tel"
         value={state.telefon}
         onChange={(v) => update("telefon", v)}
-        placeholder="+32 491 …"
+        placeholder={t.telPlaceholder}
         autoComplete="tel"
       />
 
       <div>
         <label className="block font-mono text-[10px] uppercase tracking-label text-offwhite/55 mb-2">
-          notiz · optional
+          {t.fieldNotiz}
         </label>
         <textarea
           value={state.notiz}
           onChange={(e) => update("notiz", e.target.value)}
           rows={5}
-          placeholder="Was sollte ich vor dem Gespräch wissen? (Deadline, Besonderheiten, Links zu Inspiration …)"
+          placeholder={t.notizPlaceholder}
           className="w-full bg-ink/[0.03] border border-ink/10 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/55 outline-none resize-none transition-colors"
         />
       </div>
@@ -741,16 +863,14 @@ function Step4({
           className="mt-1 accent-lime w-4 h-4 rounded cursor-pointer"
         />
         <span>
-          Ich bin einverstanden, dass diese Daten verarbeitet werden, um meine
-          Anfrage zu beantworten. Kein Newsletter, kein Verkauf. Details in der{" "}
-          <a href="/datenschutz" className="text-accent-ink hover:underline">
-            Datenschutzerklärung
+          {t.consent1}
+          <a href={buildPath("datenschutz", locale)} className="text-accent-ink hover:underline">
+            {t.consentLink}
           </a>
-          .
+          {t.consent2}
         </span>
       </label>
 
-      {/* honeypot */}
       <div
         aria-hidden="true"
         style={{
@@ -762,7 +882,7 @@ function Step4({
         }}
       >
         <label>
-          Nicht ausfüllen (Spam-Schutz)
+          {t.honeypotLabel}
           <input
             type="text"
             tabIndex={-1}
@@ -789,15 +909,15 @@ function Step4({
           disabled={sending}
           className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 hover:text-accent-ink disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
-          ← zurück
+          {t.back}
         </button>
 
         <div className="flex items-center gap-3">
           <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-            schritt 4 / 4
+            {t.schrittPre} 4 / 4
           </span>
           <Button variant="primary" size="md" disabled={!canSend}>
-            {sending ? "sende …" : "anfrage senden →"}
+            {sending ? t.sende : t.anfrageSenden}
           </Button>
         </div>
       </div>
@@ -889,20 +1009,4 @@ function TextField({
       />
     </div>
   );
-}
-
-/* ══════════════════════════ label-helpers ══════════════════════════ */
-
-function bedarfLabel(b: Bedarf | null) {
-  if (!b) return "·";
-  return BEDARF_OPTIONS.find((o) => o.id === b)?.titel ?? b;
-}
-function seitenLabel(s: Seiten) {
-  return SEITEN_OPTS.find((o) => o.id === s)?.label ?? s;
-}
-function sprachenLabel(s: Sprachen) {
-  return SPRACHEN_OPTS.find((o) => o.id === s)?.label ?? s;
-}
-function budgetLabel(b: Budget) {
-  return BUDGET_OPTS.find((o) => o.id === b)?.label ?? b;
 }
