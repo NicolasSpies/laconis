@@ -5,7 +5,7 @@
  *
  * Usage:
  *   <HowToSchema
- *     name="So läuft ein Projekt bei laconis ab"
+ *     name="So läuft ein Projekt bei lacønis ab"
  *     description="Vom Erstgespräch zur Übergabe."
  *     totalTime="P6W"   // ISO 8601 duration · 6 wochen typisch
  *     steps={[

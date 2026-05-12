@@ -127,7 +127,7 @@ function BrandSimulatorInner() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value.slice(0, 24))}
-                placeholder="PointVirgule, laconis…"
+                placeholder="PointVirgule, lacønis…"
                 className="w-full h-10 bg-ink/[0.04] border border-ink/10 rounded-lg px-3 text-offwhite placeholder:text-offwhite/55 font-sans text-[14px] focus:outline-none focus:border-lime/50 focus:bg-ink/[0.08] transition-colors"
                 maxLength={24}
                 autoComplete="off"

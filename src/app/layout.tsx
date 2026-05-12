@@ -46,15 +46,15 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   metadataBase: new URL("https://laconis.be"),
   title: {
-    default: "laconis · design mit meinung · web mit seele",
-    template: "%s · laconis",
+    default: "lacønis · design mit meinung · web mit seele",
+    template: "%s · lacønis",
   },
   description:
     "Freelance Graphic & Web Design aus Eupen, Belgien. Websites die für sich selbst sprechen. Eigenes CMS inklusive. Dreisprachig: Deutsch, Französisch, Englisch.",
-  applicationName: "laconis",
+  applicationName: "lacønis",
   authors: [{ name: "Nicolas Spies", url: "https://laconis.be/ueber-mich" }],
   creator: "Nicolas Spies",
-  publisher: "laconis",
+  publisher: "lacønis",
   keywords: [
     "freelance design eupen",
     "webentwicklung belgien",
@@ -67,16 +67,16 @@ export const metadata: Metadata = {
     "freelance designer belgien",
   ],
   openGraph: {
-    title: "laconis",
+    title: "lacønis",
     description: "design mit meinung · web mit seele",
     locale: "de_BE",
     alternateLocale: ["fr_BE", "en_BE"],
     type: "website",
-    siteName: "laconis",
+    siteName: "lacønis",
   },
   twitter: {
     card: "summary_large_image",
-    title: "laconis",
+    title: "lacønis",
     description: "design mit meinung · web mit seele",
   },
   alternates: { canonical: "/" },

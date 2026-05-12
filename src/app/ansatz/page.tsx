@@ -39,7 +39,7 @@ const DICT: Record<Locale, Dict> = {
     ctaPrimary: "gespräch anfragen →",
     ctaSecondary: "leistungen ansehen",
     howTo: {
-      name: "So läuft ein Projekt bei laconis ab",
+      name: "So läuft ein Projekt bei lacønis ab",
       description: "Vier Schritte vom ersten Gespräch bis zur Übergabe · für Web und Branding identisch. Klarer Prozess, keine Blackbox.",
     },
     steps: [
@@ -60,7 +60,7 @@ const DICT: Record<Locale, Dict> = {
     ctaPrimary: "demander un échange →",
     ctaSecondary: "voir les services",
     howTo: {
-      name: "Comment se déroule un projet chez laconis",
+      name: "Comment se déroule un projet chez lacønis",
       description: "Quatre étapes de la première conversation à la livraison · identique pour web et branding. Processus clair, pas de boîte noire.",
     },
     steps: [
@@ -81,7 +81,7 @@ const DICT: Record<Locale, Dict> = {
     ctaPrimary: "request a chat →",
     ctaSecondary: "see services",
     howTo: {
-      name: "How a project runs at laconis",
+      name: "How a project runs at lacønis",
       description: "Four steps from first conversation to handover · same for web and branding. Clear process, no black box.",
     },
     steps: [

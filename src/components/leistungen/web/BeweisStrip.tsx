@@ -138,7 +138,7 @@ export function BeweisStrip({ num = "04" }: { num?: string } = {}) {
       note: t.noteFabry,
     },
     {
-      case: { slug: "laconis", name: "laconis", url: "laconis.be", mobile: 98, desktop: 99, caseRef: null },
+      case: { slug: "laconis", name: "lacønis", url: "laconis.be", mobile: 98, desktop: 99, caseRef: null },
       note: t.noteSelf,
     },
   ];

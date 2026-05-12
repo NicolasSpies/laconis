@@ -179,7 +179,7 @@ export function generateMetadata({ params }: Props): Metadata {
     title: `${r.name.toLowerCase()} · referenzen`,
     description: `${r.kurz} · ${typLabel} · ${r.ort} · ${r.jahr}`,
     openGraph: {
-      title: `${r.name} · laconis`,
+      title: `${r.name} · lacønis`,
       description: r.kurz,
       url: `/referenzen/${r.slug}`,
       locale: "de_BE",

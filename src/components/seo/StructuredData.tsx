@@ -4,7 +4,7 @@
  * Vier verknüpfte entitäten via @graph:
  * - WebSite (mit searchAction stub, bereit wenn später suche kommt)
  * - Person (nicolas — privat-email, jobTitle, sprachen, knowsAbout)
- * - Organization (laconis — marke, areaServed, logo, sameAs, foundingDate)
+ * - Organization (lacønis — marke, areaServed, logo, sameAs, foundingDate)
  * - LocalBusiness (physische präsenz in Eupen · openingHours, granular areaServed,
  *   GeoCircle serviceArea, ContactPoint, knowsAbout)
  *
@@ -63,7 +63,7 @@ const schema = {
       "@type": "WebSite",
       "@id": `${BASE}/#website`,
       url: BASE,
-      name: "laconis",
+      name: "lacønis",
       description:
         "design mit meinung · web mit seele. freelance designer + web-developer in Eupen.",
       inLanguage: ["de-BE", "fr-BE", "en"],
@@ -115,7 +115,7 @@ const schema = {
     {
       "@type": "Organization",
       "@id": `${BASE}/#org`,
-      name: "laconis",
+      name: "lacønis",
       alternateName: "laconis",
       url: BASE,
       logo: `${BASE}/icon.png`,
@@ -150,8 +150,8 @@ const schema = {
     {
       "@type": "LocalBusiness",
       "@id": `${BASE}/#local`,
-      name: "laconis",
-      legalName: "laconis · Nicolas Spies",
+      name: "lacønis",
+      legalName: "lacønis · Nicolas Spies",
       description:
         "Freelance Design + Web Development in Eupen, Belgien · Websites, Branding, Print · dreisprachig DE/FR/EN.",
       url: BASE,

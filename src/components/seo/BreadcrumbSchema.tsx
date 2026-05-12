@@ -1,7 +1,7 @@
 /**
  * BreadcrumbSchema — schema.org BreadcrumbList als JSON-LD.
  * Google nutzt das für breadcrumb-rich-results in der SERP
- * (statt lange URLs zeigt es eine pfadzeile "laconis › leistungen › web").
+ * (statt lange URLs zeigt es eine pfadzeile "lacønis › leistungen › web").
  *
  * Usage:
  *   <BreadcrumbSchema items={[

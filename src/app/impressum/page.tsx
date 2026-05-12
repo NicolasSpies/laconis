@@ -161,7 +161,7 @@ export default function Page() {
     >
       <LegalSection titel={t.s1Title} aside={t.s1Aside}>
         <LegalRow k={t.kName} v="Nicolas Spies" />
-        <LegalRow k={t.kMarke} v="laconis" />
+        <LegalRow k={t.kMarke} v="lacønis" />
         <LegalRow k={t.kSitz} v={locale === "fr" ? "Eupen, Belgique" : locale === "en" ? "Eupen, Belgium" : "Eupen, Belgien"} />
         <LegalRow
           k={t.kAnschrift}
