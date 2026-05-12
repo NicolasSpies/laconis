@@ -1,6 +1,12 @@
 import dynamic from "next/dynamic";
+import type { Metadata } from "next";
 import { Hero } from "@/components/home/Hero";
 import { MarqueeI18n } from "@/components/home/MarqueeI18n";
+import { getMeta } from "@/lib/seo/getMeta";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return getMeta("/");
+}
 
 /**
  * Hero ist above-fold → eager geladen.

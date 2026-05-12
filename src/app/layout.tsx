@@ -12,6 +12,7 @@ import { ConsoleGreeting } from "@/components/ConsoleGreeting";
 import { KonamiListener } from "@/components/easteregg/KonamiListener";
 import { AutoReveal } from "@/components/AutoReveal";
 import { HTML_LANG, DEFAULT_LOCALE } from "@/i18n/config";
+import { getLocale } from "@/i18n/getLocale";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -97,14 +98,16 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   /**
-   * Phase 1: lang="de" hardcoded · static rendering bleibt erhalten.
-   * Phase 2 (echte FR/EN translations): umstellen auf headers().get('x-locale')
-   * und in HTML_LANG[locale] mappen — wird dann dynamic, aber gerechtfertigt
-   * weil content per locale unterscheidet.
+   * Locale aus middleware-header lesen · gesetzt in src/middleware.ts.
+   * Macht das layout dynamic — gerechtfertigt weil content + lang
+   * pro locale unterscheidet.
    */
+  const locale = getLocale();
+  const htmlLang = HTML_LANG[locale] ?? HTML_LANG[DEFAULT_LOCALE];
+
   return (
     <html
-      lang={HTML_LANG[DEFAULT_LOCALE]}
+      lang={htmlLang}
       data-theme="light"
       suppressHydrationWarning
       className={`${dmSans.variable} ${dmMono.variable} ${caveat.variable} ${instrumentSerif.variable}`}
