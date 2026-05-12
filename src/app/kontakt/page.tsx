@@ -51,7 +51,7 @@ export default function Page() {
               label="video-call"
               value="30 min kennenlernen"
               href={`mailto:${CONTACT.email}?subject=call-termin`}
-              note="Kein Buchungs-Tool · kurz per Mail, wir finden einen Termin."
+              note="Kein Buchungs-Tool · kurz per Mail, dann steht der Termin."
             />
           </div>
         </div>

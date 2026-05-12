@@ -20,49 +20,49 @@ const FONTS: FontDef[] = [
     label: "dm sans",
     css: "var(--font-dm-sans), system-ui, sans-serif",
     kind: "both",
-    hint: "klar • modern",
+    hint: "klar · modern",
   },
   {
     key: "fraunces",
     label: "fraunces",
     css: "var(--font-fraunces), Georgia, serif",
     kind: "both",
-    hint: "warm • editorial",
+    hint: "warm · editorial",
   },
   {
     key: "instrument",
     label: "instrument",
     css: "var(--font-instrument), Georgia, serif",
     kind: "display",
-    hint: "elegant • italic",
+    hint: "elegant · italic",
   },
   {
     key: "syne",
     label: "syne",
     css: "var(--font-syne), system-ui, sans-serif",
     kind: "display",
-    hint: "kantig • laut",
+    hint: "kantig · laut",
   },
   {
     key: "space-grotesk",
     label: "space grotesk",
     css: "var(--font-space-grotesk), system-ui, sans-serif",
     kind: "both",
-    hint: "tech • ruhig",
+    hint: "tech · ruhig",
   },
   {
     key: "dm-mono",
     label: "dm mono",
     css: "var(--font-dm-mono), ui-monospace, monospace",
     kind: "body",
-    hint: "nerdig • lakonisch",
+    hint: "nerdig · lakonisch",
   },
   {
     key: "caveat",
     label: "caveat",
     css: "var(--font-caveat), cursive",
     kind: "display",
-    hint: "hand • warm",
+    hint: "hand · warm",
   },
 ];
 
@@ -104,7 +104,7 @@ export function FontPlayground() {
           <div
             className="font-mono text-[10px] uppercase tracking-label text-accent-ink mb-4"
           >
-            mini-brand • preview
+            mini-brand · preview
           </div>
 
           {/* brand name / logo moment */}
@@ -139,16 +139,16 @@ export function FontPlayground() {
               className="text-[11px] uppercase tracking-label"
               style={{ fontFamily: body.css }}
             >
-              malmedy • belgien
+              malmedy · belgien
             </span>
-            <span className="text-accent-ink">•</span>
+            <span className="text-accent-ink">·</span>
             <span
               className="text-[11px] uppercase tracking-label"
               style={{ fontFamily: body.css }}
             >
               seit 2024
             </span>
-            <span className="text-accent-ink">•</span>
+            <span className="text-accent-ink">·</span>
             <span
               className="text-[11px] uppercase tracking-label"
               style={{ fontFamily: body.css }}

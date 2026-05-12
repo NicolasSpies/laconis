@@ -39,7 +39,7 @@ const STAERKEN: Staerke[] = [
     num: "04",
     titel: "in 3 jahren redest du mit demselben",
     kicker: "\u201eOhh, der Kollege, der das damals gemacht hat, arbeitet leider nicht mehr hier.\u201c · Gibt's bei mir nicht.",
-    text: "Klassische Szene in meiner Branche: Du rufst zwei Jahre nach Launch an, willst eine Kleinigkeit ändern · und kriegst \u201eDer Kollege arbeitet hier nicht mehr, aber jemand Neues schaut sich das mal an\u201c. Oder der Laden heißt inzwischen anders. Oder den Laden gibt's nicht mehr. Bei mir: eine Person, ein Name, kein Personalroulette. Ich bin laconis. Und ich habe nicht vor, das nächstes Jahr umzubennen, an jemanden zu übergeben oder den Laden dichtzumachen, weil der Geschäftsführer sich umorientiert. Solo · mit Absicht.",
+    text: "Klassische Szene in meiner Branche: Du rufst zwei Jahre nach Launch an, willst eine Kleinigkeit ändern · und kriegst \u201eDer Kollege arbeitet hier nicht mehr, aber jemand Neues schaut sich das mal an\u201c. Oder der Laden heißt inzwischen anders. Oder den Laden gibt's nicht mehr. Bei mir: eine Person, ein Name, kein Personalroulette. Ich bin laconis. Und ich habe nicht vor, das nächstes Jahr umzubenennen, an jemanden zu übergeben oder den Laden dichtzumachen, weil der Geschäftsführer sich umorientiert. Solo · mit Absicht.",
     beweis: "keine fluktuation · kein rebrand · kein weg.",
   },
 ];

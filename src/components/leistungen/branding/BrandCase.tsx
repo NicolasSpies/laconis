@@ -199,8 +199,8 @@ export function BrandCase({ num = "05" }: { num?: string } = {}) {
               <p className="text-[14px] leading-relaxed text-offwhite/65">
                 holoroom ist ein junges studio für immersive räume. beim
                 ersten gespräch stand das violett · nicht als mode, sondern
-                weil es der sache entsprach. alles drumherum — wordmark,
-                monogramm, farbwelt, mini-guide — ist darauf aufgebaut.
+                weil es der sache entsprach. alles drumherum · wordmark,
+                monogramm, farbwelt, mini-guide · ist darauf aufgebaut.
               </p>
               <p
                 className="mt-4 font-hand text-[18px] text-accent-ink"

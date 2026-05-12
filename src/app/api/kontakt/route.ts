@@ -60,11 +60,11 @@ const payloadSchema = z.object({
   notiz: z.string().trim().max(4000).optional().default(""),
 
   // projekt-scope
-  bedarf: z.string().max(40).optional().default("•"),
-  seiten: z.string().max(40).optional().default("•"),
-  sprachen: z.string().max(40).optional().default("•"),
-  zeitplan: z.string().max(40).optional().default("•"),
-  budget: z.string().max(40).optional().default("•"),
+  bedarf: z.string().max(40).optional().default("·"),
+  seiten: z.string().max(40).optional().default("·"),
+  sprachen: z.string().max(40).optional().default("·"),
+  zeitplan: z.string().max(40).optional().default("·"),
+  budget: z.string().max(40).optional().default("·"),
 
   // paket / custom
   paketName: z.string().max(120).optional().default(""),

@@ -53,9 +53,9 @@ const POSTITS: PostIt[] = [
     y: 120,
   },
   {
-    titel: "DE · FR · EN",
-    kurz: "dreisprachig arbeiten · kunden in DE · BE · LUX.",
-    aside: "remote · überall.",
+    titel: "remote",
+    kurz: "kunden in DE · BE · LUX · projekte überall.",
+    aside: "homeoffice mit echter tür.",
     farbe: "#E1FD52",
     ink: "#0a0a0a",
     rotate: -2,

@@ -51,7 +51,7 @@ export function Logo({
     <div className={cn("relative inline-flex items-center", className)}>
       <Link
         href={href}
-        aria-label="lacønis • zur Startseite"
+        aria-label="lacønis · zur Startseite"
         onClick={handleClick}
         className="inline-flex items-center"
       >

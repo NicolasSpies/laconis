@@ -19,7 +19,7 @@ const PROZESS_STEPS = [
   },
   {
     name: "Richtung finden",
-    text: "Moodboard, Struktur, Tonalität. Ich lege 2–3 Richtungen vor. Du bestimmst, wohin's geht · bevor irgendeine Farbe oder Zeile umgesetzt wird. So vermeiden wir Sackgassen und Re-do.",
+    text: "Moodboard, Struktur, Tonalität. Ich lege 2–3 Richtungen vor. Du bestimmst, wohin's geht · bevor irgendeine Farbe oder Zeile umgesetzt wird. So vermeide ich Sackgassen und Doppelarbeit.",
     duration: "P1W",
   },
   {

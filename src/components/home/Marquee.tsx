@@ -35,7 +35,7 @@ export function Marquee({
   separator = true,
 }: Props) {
   const row = separator
-    ? words.flatMap((w, i) => (i === 0 ? [w] : ["•", w]))
+    ? words.flatMap((w, i) => (i === 0 ? [w] : ["·", w]))
     : words;
 
   const prefersReducedMotion = useReducedMotion();
@@ -90,12 +90,12 @@ export function Marquee({
               <span
                 key={`${copy}-${i}`}
                 className={
-                  w === "•"
+                  w === "·"
                     ? "w-1 h-1 rounded-full bg-lime shrink-0"
                     : "font-sans font-black lowercase text-[clamp(1.75rem,4.5vw,3.25rem)] leading-none text-offwhite/75 tracking-[-0.02em]"
                 }
               >
-                {w !== "•" && w}
+                {w !== "·" && w}
               </span>
             ))}
           </div>

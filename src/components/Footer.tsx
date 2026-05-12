@@ -11,7 +11,7 @@ export function Footer() {
           <div className="flex items-center gap-4">
             <Logo size="md" variant="lime" />
             <span className="font-sans text-[12px] text-offwhite/55 tracking-[-0.01em]">
-              say less • mean møre
+              say less · mean møre
             </span>
           </div>
 

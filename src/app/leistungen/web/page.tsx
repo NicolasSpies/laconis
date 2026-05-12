@@ -44,12 +44,12 @@ const WEB_FAQ = [
   {
     frage: "wie lange dauert eine website?",
     antwort:
-      "Ein Onepager 2 Wochen, eine mehrseitige Website 3–5 Wochen, ein vollständiges Web + Branding-Projekt 4–8 Wochen. Hängt stark vom Content-Tempo ab — je klarer dein Briefing und je schneller dein Feedback, desto schneller sind wir live. Bei harter Deadline plane ich rückwärts.",
+      "Ein Onepager 2 Wochen, eine mehrseitige Website 3–5 Wochen, ein vollständiges Web + Branding-Projekt 4–8 Wochen. Hängt stark vom Content-Tempo ab · je klarer dein Briefing und je schneller dein Feedback, desto schneller ist die seite live. Bei harter Deadline plane ich rückwärts.",
   },
   {
     frage: "was kostet eine website bei dir?",
     antwort:
-      "Onepager mit eigenem Content ab 1.500 €, mehrseitige Website mit CMS zwischen 2.800 und 4.500 €, Website + Branding zusammen 3.500–6.000 €. Keine Paket-Tabelle — jedes Projekt ist anders, deshalb kommt nach dem Gespräch ein konkretes Angebot.",
+      "Onepager mit eigenem Content ab 1.500 €, mehrseitige Website mit CMS zwischen 2.800 und 4.500 €, Website + Branding zusammen 3.500–6.000 €. Keine Paket-Tabelle · jedes Projekt ist anders, deshalb kommt nach dem Gespräch ein konkretes Angebot.",
   },
   {
     frage: "mit welcher technologie baust du?",
@@ -59,17 +59,17 @@ const WEB_FAQ = [
   {
     frage: "kann ich die seite später selbst pflegen?",
     antwort:
-      "Ja. Für Blog, Team-Bereich, News oder Referenzen baue ich CMS-Bereiche, die du selbst editieren kannst — über ein eigenes Admin-Interface, kein Wordpress-Login. Du bekommst eine Einweisung bei der Übergabe.",
+      "Ja. Für Blog, Team-Bereich, News oder Referenzen baue ich CMS-Bereiche, die du selbst editieren kannst · über ein eigenes Admin-Interface, kein WordPress-Login. Du bekommst eine Einweisung bei der Übergabe.",
   },
   {
     frage: "übernimmst du auch redesigns?",
     antwort:
-      "Die Mehrheit meiner Projekte sind Redesigns: alte WordPress-Seiten, abgelaufene Baukasten-Sites, Wix-Reste. Bestehende URLs bekommen saubere 301-Redirects, deine Rankings bleiben stabil. Die alte Seite bleibt online, bis die neue live ist.",
+      "Die meisten meiner Projekte sind Redesigns: alte WordPress-Seiten, abgelaufene Baukasten-Sites, Wix-Reste. Bestehende URLs bekommen saubere 301-Redirects, deine Rankings bleiben stabil. Die alte Seite bleibt online, bis die neue live ist.",
   },
   {
     frage: "in welchen sprachen kann die seite sein?",
     antwort:
-      "Deutsch, Französisch, Englisch — alle drei werden professionell abgedeckt, inklusive korrekter hreflang-Tags für Suchmaschinen. Niederländisch optional, aber nicht meine Kernsprache.",
+      "Deutsch, Französisch, Englisch · alle drei werden professionell abgedeckt, inklusive korrekter hreflang-Tags für Suchmaschinen. Niederländisch optional, aber nicht meine Kernsprache.",
   },
 ];
 

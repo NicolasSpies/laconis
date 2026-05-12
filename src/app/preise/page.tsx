@@ -16,17 +16,17 @@ const FAQ = [
   {
     frage: "wie geht's nach dem anfragen los?",
     antwort:
-      "Ich melde mich innerhalb von 24 Std (werktags). Dann: 20–30 min Gespräch · was du brauchst, was realistisch ist, wo wir starten. Danach bekommst du ein konkretes Angebot, schriftlich und ohne Kleingedrucktes.",
+      "Ich melde mich innerhalb von 24 Std (werktags). Dann: 20–30 min Gespräch · was du brauchst, was realistisch ist, wo der einstieg liegt. Danach bekommst du ein konkretes Angebot, schriftlich und ohne Kleingedrucktes.",
   },
   {
     frage: "wie lange dauert so ein projekt?",
     antwort:
-      "Ein Onepager ca. 2 Wochen, ein Multipager 3–5 Wochen, Website + Branding zusammen 4–8 Wochen. Hängt stark vom Content-Tempo ab — je klarer dein Briefing und je schneller dein Feedback, desto schneller sind wir fertig. Wenn du eine harte Deadline hast, sag Bescheid · ich plane rückwärts.",
+      "Ein Onepager ca. 2 Wochen, ein Multipager 3–5 Wochen, Website + Branding zusammen 4–8 Wochen. Hängt stark vom Content-Tempo ab · je klarer dein Briefing und je schneller dein Feedback, desto schneller ist alles fertig. Wenn du eine harte Deadline hast, sag Bescheid · ich plane rückwärts.",
   },
   {
     frage: "was ist nicht enthalten?",
     antwort:
-      "Stock-Fotos, Premium-Fonts und externe Tools mit eigenen Lizenzkosten liegen beim Kunden, es sei denn wir haben das vorher besprochen. Domain-Registrierung ist optional. Alles, was über den besprochenen Scope hinausgeht, klären wir vor dem Start · keine Überraschungen auf der Rechnung.",
+      "Stock-Fotos, Premium-Fonts und externe Tools mit eigenen Lizenzkosten liegen beim Kunden, es sei denn das war vorher besprochen. Domain-Registrierung ist optional. Alles, was über den besprochenen Scope hinausgeht, klär ich vor dem Start · keine Überraschungen auf der Rechnung.",
   },
   {
     frage: "läuft nach dem launch noch was?",
@@ -44,7 +44,7 @@ const FAKTOREN = [
   {
     num: "02",
     titel: "content",
-    text: "Bringst du Texte und Bilder mit · oder machen wir das zusammen? Content ist oft das, was Projekte in die Länge zieht. Und in den Preis. Klarer Content vom ersten Tag spart uns beide Zeit.",
+    text: "Bringst du Texte und Bilder mit · oder soll ich beim Schreiben mit ran? Content ist oft das, was Projekte in die Länge zieht. Und in den Preis. Klarer Content vom ersten Tag spart Zeit auf beiden Seiten.",
   },
   {
     num: "03",
@@ -151,8 +151,8 @@ export default function Page() {
               und konkret?
             </h2>
             <p className="mt-5 max-w-[600px] text-[15px] leading-relaxed text-offwhite/55">
-              Keine Fixpreise, aber ehrliche Faustregeln · damit du weißt,
-              wovon wir reden, bevor wir reden.
+              Keine Fixpreise, aber ehrliche Faustregeln · damit klar ist,
+              worum's geht, bevor das gespräch losgeht.
             </p>
           </div>
 

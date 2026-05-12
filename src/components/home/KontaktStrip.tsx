@@ -34,8 +34,8 @@ export function KontaktStrip() {
               <span className="italic font-serif text-accent-ink">ruf an.</span>
             </h2>
             <p className="mt-5 max-w-[420px] text-[14px] leading-relaxed text-offwhite/55">
-              Kein Formular-Pflicht. E-Mail, Telefon, oder direkt der Multistep
-              wenn du's strukturiert magst. Ich melde mich gleichen Tag zurück.
+              Kein Formularzwang. E-Mail, Telefon, oder direkt der Multistep
+              wenn du's strukturiert magst. Antwort kommt am selben Tag.
             </p>
             <div className="mt-8 flex flex-wrap gap-10">
               <div>

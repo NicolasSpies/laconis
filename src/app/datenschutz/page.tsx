@@ -39,7 +39,7 @@ export default function Page() {
       </LegalSection>
 
       <LegalSection
-        titel="welche daten sammle ich — und warum"
+        titel="welche daten sammle ich · und warum"
         aside="nur was nötig ist, um projekte abzuwickeln. keine werbenetzwerke, keine scoring-tools."
       >
         <p>
@@ -95,7 +95,7 @@ export default function Page() {
           </li>
           <li>
             <strong className="text-offwhite">Schrift:</strong> Google Fonts
-            werden lokal ausgeliefert — keine Verbindung zu Google beim Laden
+            werden lokal ausgeliefert · keine Verbindung zu Google beim Laden
             der Seite.
           </li>
         </ul>

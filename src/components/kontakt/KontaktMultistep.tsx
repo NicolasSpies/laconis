@@ -119,7 +119,7 @@ function Inner() {
       seiten: seitenLabel(state.seiten),
       sprachen: sprachenLabel(state.sprachen),
       zeitplan: state.zeitplan,
-      budget: state.budget ? budgetLabel(state.budget) : "•",
+      budget: state.budget ? budgetLabel(state.budget) : "·",
     };
 
     try {
@@ -610,7 +610,7 @@ function Step3({
 
   rows.push({
     label: "budget",
-    value: state.budget ? budgetLabel(state.budget) : "• noch offen",
+    value: state.budget ? budgetLabel(state.budget) : "· noch offen",
     editStep: 2,
   });
 
@@ -894,7 +894,7 @@ function TextField({
 /* ══════════════════════════ label-helpers ══════════════════════════ */
 
 function bedarfLabel(b: Bedarf | null) {
-  if (!b) return "•";
+  if (!b) return "·";
   return BEDARF_OPTIONS.find((o) => o.id === b)?.titel ?? b;
 }
 function seitenLabel(s: Seiten) {

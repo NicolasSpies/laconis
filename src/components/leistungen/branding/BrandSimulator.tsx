@@ -1530,7 +1530,7 @@ function SocialRow({
                   color: lightInkAlpha(0.55),
                 }}
               >
-                • {name}
+                · {name}
               </span>
             </div>
           </div>

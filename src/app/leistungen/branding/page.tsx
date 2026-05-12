@@ -60,7 +60,7 @@ const BRANDING_FAQ = [
   {
     frage: "wie viele logo-vorschläge bekomme ich?",
     antwort:
-      "Zwei Richtungen, nicht 27. Lieber tiefer als breiter — jede Richtung ist durchdacht und visuell stimmig, statt einer wahllosen Auswahl. Eine wird gewählt, dann iterieren wir bis sie sitzt.",
+      "Zwei Richtungen, nicht 27. Lieber tiefer als breiter · jede Richtung ist durchdacht und visuell stimmig, statt einer wahllosen Auswahl. Eine wird gewählt, dann iterier ich, bis sie sitzt.",
   },
   {
     frage: "was ist im brand guide enthalten?",
@@ -75,7 +75,7 @@ const BRANDING_FAQ = [
   {
     frage: "kann ich später noch ergänzen?",
     antwort:
-      "Ja. Wenn ich die Marke von Anfang an mitgebaut habe, kenne ich die Regeln dahinter. Broschüre, Roll-up, Speisekarte, Fahrzeugbeschriftung kommen später dazu — alles passt zusammen, weil ich die Linie im Kopf habe.",
+      "Ja. Wenn ich die Marke von Anfang an mitgebaut habe, kenne ich die Regeln dahinter. Broschüre, Roll-up, Speisekarte, Fahrzeugbeschriftung kommen später dazu · alles passt zusammen, weil ich die Linie im Kopf habe.",
   },
 ];
 

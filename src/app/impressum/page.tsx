@@ -21,7 +21,7 @@ export default function Page() {
     >
       <LegalSection
         titel="anbieter / verantwortlich im sinne von §5 DDG / art. III.74 WER (BE)"
-        aside="pflicht — sagt EU & belgisches wirtschaftsrecht. nichts persönliches."
+        aside="pflicht · sagt EU & belgisches wirtschaftsrecht. nichts persönliches."
       >
         <LegalRow k="name" v="Nicolas Spies" />
         <LegalRow k="marke" v="lacønis" />
@@ -67,7 +67,7 @@ export default function Page() {
 
       <LegalSection
         titel="haftungsausschluss"
-        aside="jurist&apos;sche floskel. muss stehen — im kern: ich gebe mir mühe, garantiere aber nichts."
+        aside="jurist&apos;sche floskel. muss stehen · im kern: ich gebe mir mühe, garantiere aber nichts."
       >
         <p>
           <strong className="text-offwhite">Inhalte der Website.</strong> Alle
@@ -88,7 +88,7 @@ export default function Page() {
       >
         <p>
           Alle auf dieser Website veröffentlichten Texte, Bilder, Grafiken und
-          Gestaltungen sind — sofern nicht anders angegeben — urheberrechtlich
+          Gestaltungen sind · sofern nicht anders angegeben · urheberrechtlich
           geschützt. Eine Verwendung außerhalb dieser Website bedarf der
           vorherigen schriftlichen Zustimmung.
         </p>
