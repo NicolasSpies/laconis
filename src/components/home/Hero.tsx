@@ -167,8 +167,8 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
             className="mt-10 max-w-[560px] font-sans text-[14px] md:text-[15px] leading-relaxed text-offwhite/55 lowercase"
           >
-            websites, branding, print · für handwerk, kleine firmen und gastro
-            in ostbelgien und drumherum.
+            websites, branding, print · dreisprachig DE · FR · EN · für
+            leute, die ihre marke ernst nehmen.
           </motion.p>
 
           <motion.div variants={item} className="mt-9 flex flex-wrap gap-3">
