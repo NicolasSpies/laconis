@@ -1,7 +1,56 @@
+"use client";
+
 import Link from "next/link";
 import { Logo } from "./Logo";
+import { useLocale, pick } from "@/i18n/useLocale";
+import { buildPath, type Locale } from "@/i18n/config";
+
+const DICT: Record<Locale, {
+  slogan: string;
+  signed: string;
+  laconisGloss: string;
+  impressum: string;
+  datenschutz: string;
+  title: string;
+  ariaSigned: string;
+  ariaLaconic: string;
+}> = {
+  de: {
+    slogan: "say less · mean møre",
+    signed: "by Nicolas Spies",
+    laconisGloss: "lakonisch · knapp gesagt, viel gemeint",
+    impressum: "impressum",
+    datenschutz: "datenschutz",
+    title: "Von Hand · Nicolas Spies",
+    ariaSigned: "signiert von Nicolas Spies",
+    ariaLaconic: "wortbedeutung lakonisch",
+  },
+  fr: {
+    slogan: "say less · mean møre",
+    signed: "par Nicolas Spies",
+    laconisGloss: "laconique · peu de mots, beaucoup de sens",
+    impressum: "mentions légales",
+    datenschutz: "confidentialité",
+    title: "Fait main · Nicolas Spies",
+    ariaSigned: "signé par Nicolas Spies",
+    ariaLaconic: "définition de laconique",
+  },
+  en: {
+    slogan: "say less · mean møre",
+    signed: "by Nicolas Spies",
+    laconisGloss: "laconic · few words, much meaning",
+    impressum: "legal notice",
+    datenschutz: "privacy",
+    title: "Made by hand · Nicolas Spies",
+    ariaSigned: "signed by Nicolas Spies",
+    ariaLaconic: "definition of laconic",
+  },
+};
 
 export function Footer() {
+  const locale = useLocale();
+  const t = pick(DICT, locale);
+
   return (
     <footer
       className="relative z-10 bg-dark border-t border-ink/5 text-offwhite"
@@ -11,7 +60,7 @@ export function Footer() {
           <div className="flex items-center gap-4">
             <Logo size="md" variant="lime" />
             <span className="font-sans text-[12px] text-offwhite/55 tracking-[-0.01em]">
-              say less · mean møre
+              {t.slogan}
             </span>
           </div>
 
@@ -27,17 +76,17 @@ export function Footer() {
                 letterSpacing: "-0.01em",
                 transform: "rotate(-3deg)",
               }}
-              aria-label="signiert von Nicolas Spies"
-              title="Von Hand · Nicolas Spies"
+              aria-label={t.ariaSigned}
+              title={t.title}
             >
               <span aria-hidden className="text-offwhite/35 text-[16px]">~</span>
-              by Nicolas Spies
+              {t.signed}
             </span>
             <span
               className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 select-none"
-              aria-label="wortbedeutung lakonisch"
+              aria-label={t.ariaLaconic}
             >
-              lakonisch · knapp gesagt, viel gemeint
+              {t.laconisGloss}
             </span>
           </div>
         </div>
@@ -45,8 +94,8 @@ export function Footer() {
         <div className="mt-6 pt-4 border-t border-ink/5 flex flex-col md:flex-row justify-between gap-3 font-mono text-[10px] text-offwhite/55 uppercase tracking-mono">
           <span>© 2026 lacønis</span>
           <div className="flex gap-5">
-            <Link href="/impressum">impressum</Link>
-            <Link href="/datenschutz">datenschutz</Link>
+            <Link href={buildPath("impressum", locale)}>{t.impressum}</Link>
+            <Link href={buildPath("datenschutz", locale)}>{t.datenschutz}</Link>
           </div>
         </div>
       </div>

@@ -3,6 +3,38 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { useLocale, pick } from "@/i18n/useLocale";
+import { buildPath, type Locale } from "@/i18n/config";
+
+const DICT: Record<Locale, {
+  line2: string;
+  line3prefix: string;
+  line3italic: string;
+  sub: string;
+  cta: string;
+}> = {
+  de: {
+    line2: "mit Meinung.",
+    line3prefix: "Web mit ",
+    line3italic: "Seele.",
+    sub: "websites, branding, print · dreisprachig DE · FR · EN · für leute, die ihre marke ernst nehmen.",
+    cta: "projekt starten →",
+  },
+  fr: {
+    line2: "avec opinion.",
+    line3prefix: "Web avec ",
+    line3italic: "âme.",
+    sub: "sites web, branding, print · trilingue DE · FR · EN · pour ceux qui prennent leur marque au sérieux.",
+    cta: "démarrer un projet →",
+  },
+  en: {
+    line2: "with opinion.",
+    line3prefix: "Web with ",
+    line3italic: "soul.",
+    sub: "websites, branding, print · trilingual DE · FR · EN · for people who take their brand seriously.",
+    cta: "start a project →",
+  },
+};
 
 const container = {
   hidden: {},
@@ -30,6 +62,8 @@ const MARKER_MASK = `url("data:image/svg+xml;utf8,${encodeURIComponent(
 )}")`;
 
 export function Hero() {
+  const locale = useLocale();
+  const t = pick(DICT, locale);
   return (
     <section className="relative min-h-[100svh] flex items-center">
       <div
@@ -101,13 +135,11 @@ export function Hero() {
             </span>
 
             {/* Zeile 2 */}
-            <span className="block whitespace-nowrap">mit Meinung.</span>
+            <span className="block whitespace-nowrap">{t.line2}</span>
 
-            {/* Zeile 3 · serif-italic auf "Seele" + zwei handmade-striche drunter
-                · typografisches "!!!" · gelb nur in den strichen, wort bleibt offwhite
-                · striche zeichnen sich NACH dem marker rein (stagger) */}
+            {/* Zeile 3 · serif-italic auf signature-wort + zwei handmade-striche drunter */}
             <span className="block whitespace-nowrap">
-              Web mit{" "}
+              {t.line3prefix}
               <span className="relative inline-block">
                 <span
                   style={{
@@ -117,7 +149,7 @@ export function Hero() {
                     letterSpacing: "-0.01em",
                   }}
                 >
-                  Seele.
+                  {t.line3italic}
                 </span>
                 <motion.svg
                   aria-hidden
@@ -167,18 +199,17 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
             className="mt-10 max-w-[560px] font-sans text-[14px] md:text-[15px] leading-relaxed text-offwhite/55 lowercase"
           >
-            websites, branding, print · dreisprachig DE · FR · EN · für
-            leute, die ihre marke ernst nehmen.
+            {t.sub}
           </motion.p>
 
           <motion.div variants={item} className="mt-9 flex flex-wrap gap-3">
             <Magnetic>
               <Button
-                href="/kontakt#projekt"
+                href={`${buildPath("kontakt", locale)}#projekt`}
                 size="md"
                 analyticsLabel="home_hero_kontakt"
               >
-                projekt starten →
+                {t.cta}
               </Button>
             </Magnetic>
           </motion.div>

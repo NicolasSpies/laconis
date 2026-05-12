@@ -12,21 +12,43 @@ import {
   LOCALE_LABELS,
   DEFAULT_LOCALE,
   switchLocale,
+  buildPath,
   type Locale,
 } from "@/i18n/config";
 
 type NavLink = {
-  href: string;
-  label: string;
+  routeKey: "leistungen" | "referenzen" | "preise" | "ansatz" | "ueber-mich";
+  labels: Record<Locale, string>;
 };
 
 const links: readonly NavLink[] = [
-  { href: "/leistungen", label: "leistungen" },
-  { href: "/referenzen", label: "referenzen" },
-  { href: "/preise", label: "preise" },
-  { href: "/ansatz", label: "ansatz" },
-  { href: "/ueber-mich", label: "über mich" },
+  {
+    routeKey: "leistungen",
+    labels: { de: "leistungen", fr: "services", en: "services" },
+  },
+  {
+    routeKey: "referenzen",
+    labels: { de: "referenzen", fr: "références", en: "work" },
+  },
+  {
+    routeKey: "preise",
+    labels: { de: "preise", fr: "prix", en: "pricing" },
+  },
+  {
+    routeKey: "ansatz",
+    labels: { de: "ansatz", fr: "approche", en: "approach" },
+  },
+  {
+    routeKey: "ueber-mich",
+    labels: { de: "über mich", fr: "à propos", en: "about" },
+  },
 ] as const;
+
+const CTA_LABELS: Record<Locale, string> = {
+  de: "projekt starten →",
+  fr: "démarrer un projet →",
+  en: "start a project →",
+};
 
 /** locale aus pathname-prefix erkennen */
 function getCurrentLocale(pathname: string): Locale {
@@ -176,14 +198,15 @@ export function Nav() {
 
         <nav className="hidden md:flex items-center gap-7">
           {links.map((l) => {
+            const href = buildPath(l.routeKey, currentLocale);
             const active =
-              pathname === l.href ||
-              (l.href !== "/" && pathname.startsWith(l.href + "/"));
+              pathname === href ||
+              (href !== "/" && pathname.startsWith(href + "/"));
 
             return (
               <Link
-                key={l.href}
-                href={l.href}
+                key={l.routeKey}
+                href={href}
                 className={cn(
                   "relative font-mono text-[12px] lowercase tracking-mono transition-colors",
                   active
@@ -191,7 +214,7 @@ export function Nav() {
                     : "text-offwhite/55 hover:text-offwhite",
                 )}
               >
-                {l.label}
+                {l.labels[currentLocale]}
                 {active && (
                   <span
                     aria-hidden
@@ -206,8 +229,11 @@ export function Nav() {
         <div className="hidden md:flex items-center gap-4">
           <LangDropdown currentLocale={currentLocale} />
           <ThemeToggle />
-          <Button href="/kontakt#projekt" size="sm">
-            projekt starten →
+          <Button
+            href={`${buildPath("kontakt", currentLocale)}#projekt`}
+            size="sm"
+          >
+            {CTA_LABELS[currentLocale]}
           </Button>
         </div>
 
@@ -248,11 +274,11 @@ export function Nav() {
         <div className="container-site py-6 flex flex-col gap-5">
           {links.map((l) => (
             <Link
-              key={l.href}
-              href={l.href}
+              key={l.routeKey}
+              href={buildPath(l.routeKey, currentLocale)}
               className="font-mono text-[14px] lowercase text-offwhite"
             >
-              {l.label}
+              {l.labels[currentLocale]}
             </Link>
           ))}
           <div className="flex items-center justify-between gap-3 pt-2 border-t border-ink/10">
@@ -279,8 +305,12 @@ export function Nav() {
             </div>
             <ThemeToggle />
           </div>
-          <Button href="/kontakt#projekt" size="md" className="mt-2 self-start">
-            projekt starten →
+          <Button
+            href={`${buildPath("kontakt", currentLocale)}#projekt`}
+            size="md"
+            className="mt-2 self-start"
+          >
+            {CTA_LABELS[currentLocale]}
           </Button>
         </div>
       </div>
