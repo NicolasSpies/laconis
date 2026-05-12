@@ -13,6 +13,7 @@ export const CONTACT = {
   emailPrivate: "nicolas@laconis.be",
   phone: "+32 488 43 91 47",
   phoneE164: "+32488439147",
+  street: "Rotenberg 18a",
   city: "Eupen",
   country: "BE",
   region: "BE-WLG",

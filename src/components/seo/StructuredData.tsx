@@ -106,6 +106,7 @@ const schema = {
       ...(CONTACT.phone ? { telephone: CONTACT.phoneE164 } : {}),
       address: {
         "@type": "PostalAddress",
+        streetAddress: CONTACT.street,
         addressLocality: CONTACT.city,
         addressCountry: CONTACT.country,
         postalCode: CONTACT.postalCode,
@@ -126,6 +127,7 @@ const schema = {
         "@type": "Place",
         address: {
           "@type": "PostalAddress",
+          streetAddress: CONTACT.street,
           addressLocality: CONTACT.city,
           addressCountry: CONTACT.country,
         },
@@ -164,6 +166,7 @@ const schema = {
       paymentAccepted: ["Bank Transfer", "SEPA"],
       address: {
         "@type": "PostalAddress",
+        streetAddress: CONTACT.street,
         addressLocality: CONTACT.city,
         addressRegion: CONTACT.region,
         addressCountry: CONTACT.country,
