@@ -13,6 +13,8 @@ import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import { getMeta } from "@/lib/seo/getMeta";
+import { getLocale } from "@/i18n/getLocale";
+import { buildPath, type Locale } from "@/i18n/config";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -21,130 +23,225 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const BASE = "https://laconis.be";
 
-/** Option-C-konform: Faustpreise (ab), keine fixen Pakete in der UI. */
-const KREATIV_SERVICES = [
-  {
-    name: "Logo Design",
-    description:
-      "Logo inklusive Varianten + Favicon, Farbpalette, Typografie · der Grundstein einer Marke. Ideal für Neugründer und Selbständige, die sauber starten wollen.",
-    minPrice: 800,
-    serviceType: "Logo Design",
-  },
-  {
-    name: "Brand Identity · Komplett",
-    description:
-      "Logo, Brand Guide, Visitenkarte, Briefpapier, Social-Templates · alles in einer Linie, druckreif und digital-ready. Für Marken, die mehr als ein Logo wollen.",
-    minPrice: 1200,
-    serviceType: "Brand Identity",
-  },
-  {
-    name: "Brand System · für wachsende Marken",
-    description:
-      "Vollständiges Brand-System mit Bild- und Textrichtlinien, Mood-Direction, Print-Package, Packaging-Templates · für KMU und etablierte Unternehmen.",
-    minPrice: 2800,
-    serviceType: "Brand System",
-  },
-];
+type Service = { name: string; description: string; minPrice: number; serviceType: string };
+type FaqItem = { frage: string; antwort: string };
 
-const BRANDING_FAQ = [
-  {
-    frage: "was kostet ein logo bei dir?",
-    antwort:
-      "Ein Logo allein startet ab 800 €. Eine vollständige Brand Identity (Logo + Brand Guide + Visitenkarte + Social-Templates) beginnt ab 1.200 €. Größere Brand-Systeme mit Bildwelt, Print-Package und Packaging zwischen 2.800 und 5.000 €. Keine Paket-Tabelle, jede Marke ist anders.",
+type Dict = {
+  sectionLabel: string;
+  heroH1pre: string;
+  heroH1accent: string;
+  heroH1post: string;
+  heroBody: string;
+  heroSubBody: string;
+  stat1Label: string; stat1Value: string;
+  stat2Label: string; stat2Value: string;
+  stat3Label: string; stat3Value: string;
+  breakLook: string;
+  breakCase: string;
+  breakHonest: string;
+  breakFAQ: string;
+  ansatzLinkLabel: string;
+  ansatzLinkBody: string;
+  ansatzLinkCta: string;
+  preiseLinkLabel: string;
+  preiseLinkBody: string;
+  preiseLinkCta: string;
+  faqLabel: string;
+  faqH2: string;
+  ctaMarginalia: string;
+  ctaH2pre: string;
+  ctaH2post: string;
+  ctaBody: string;
+  ctaPrimary: string;
+  ctaSecondary: string;
+  ctaSignature: string;
+  services: Service[];
+  faq: FaqItem[];
+};
+
+const DICT: Record<Locale, Dict> = {
+  de: {
+    sectionLabel: "leistungen · branding",
+    heroH1pre: "logo, brand & ",
+    heroH1accent: "alles drum herum",
+    heroH1post: ".",
+    heroBody: "ein logo allein ist noch keine marke. logo + typografie + farben + ton + einheitlicher auftritt auf visitenkarte, social und schaufenster · das ist eine marke. beides kommt von mir · handgemacht.",
+    heroSubBody: "branding für startups, handwerker, kleine unternehmen · auch einfach nur ein logo, wenn du damit starten willst.",
+    stat1Label: "varianten", stat1Value: "3 – 5",
+    stat2Label: "gehört dir", stat2Value: "immer",
+    stat3Label: "halbwertszeit", stat3Value: "5+ j.",
+    breakLook: "und so sieht's aus ↓",
+    breakCase: "ein echter kunde dazu ↓",
+    breakHonest: "und mal ehrlich ↓",
+    breakFAQ: "bevor du fragst ↓",
+    ansatzLinkLabel: "wie ich arbeite",
+    ansatzLinkBody: "vier skizzen vom ersten gespräch bis zur übergabe · und was ich bewusst nicht mache.",
+    ansatzLinkCta: "ansatz ansehen →",
+    preiseLinkLabel: "was es kostet",
+    preiseLinkBody: "ehrliche faustregeln statt paket-tabelle · damit du weißt woran du bist.",
+    preiseLinkCta: "preise ansehen →",
+    faqLabel: "oft gefragt",
+    faqH2: "bevor du fragst.",
+    ctaMarginalia: "kurz & ehrlich ↘",
+    ctaH2pre: "erzähl mir, was du machst · ",
+    ctaH2post: "ich sag dir wie man's sichtbar macht.",
+    ctaBody: "kein pitch-deck, kein agentur-talk. ein erstes gespräch · 20 minuten · schaust ob's passt. kostet nichts.",
+    ctaPrimary: "kontakt aufnehmen →",
+    ctaSecondary: "referenzen ansehen",
+    ctaSignature: "— nicolas",
+    services: [
+      { name: "Logo Design", description: "Logo inklusive Varianten + Favicon, Farbpalette, Typografie · der Grundstein einer Marke. Ideal für Neugründer und Selbständige, die sauber starten wollen.", minPrice: 800, serviceType: "Logo Design" },
+      { name: "Brand Identity · Komplett", description: "Logo, Brand Guide, Visitenkarte, Briefpapier, Social-Templates · alles in einer Linie, druckreif und digital-ready. Für Marken, die mehr als ein Logo wollen.", minPrice: 1200, serviceType: "Brand Identity" },
+      { name: "Brand System · für wachsende Marken", description: "Vollständiges Brand-System mit Bild- und Textrichtlinien, Mood-Direction, Print-Package, Packaging-Templates · für KMU und etablierte Unternehmen.", minPrice: 2800, serviceType: "Brand System" },
+    ],
+    faq: [
+      { frage: "was kostet ein logo bei dir?", antwort: "Ein Logo allein startet ab 800 €. Eine vollständige Brand Identity (Logo + Brand Guide + Visitenkarte + Social-Templates) beginnt ab 1.200 €. Größere Brand-Systeme mit Bildwelt, Print-Package und Packaging zwischen 2.800 und 5.000 €. Keine Paket-Tabelle, jede Marke ist anders." },
+      { frage: "wie lange dauert ein branding-projekt?", antwort: "Ein Logo allein 2–3 Wochen, eine vollständige Brand Identity 4–6 Wochen. Hängt vom Feedback-Tempo ab. Recherche, Moodboards und 2 Richtungen kommen in Woche 1–2, danach Verfeinerung und Umsetzung." },
+      { frage: "wie viele logo-vorschläge bekomme ich?", antwort: "Zwei Richtungen, nicht 27. Lieber tiefer als breiter · jede Richtung ist durchdacht und visuell stimmig, statt einer wahllosen Auswahl. Eine wird gewählt, dann iterier ich, bis sie sitzt." },
+      { frage: "was ist im brand guide enthalten?", antwort: "Logo-Varianten und Schutzraum, Farbpalette (Primär + Sekundär + Hex/CMYK/Pantone), Typografie-Hierarchie (Display, Sans, Mono), Bildsprache, Tonalität und Anwendungsbeispiele. PDF-Dokument, übergeben mit Quelldateien." },
+      { frage: "machst du auch nur ein logo · ohne den ganzen rest?", antwort: "Ja. Wenn du nur ein Logo brauchst um zu starten, kein Problem. Aber: ein Logo allein ist noch keine Marke. Wenn später Visitenkarte, Social-Posts oder Schaufenster dazukommen, brauchst du ein System, damit alles stimmig bleibt." },
+      { frage: "kann ich später noch ergänzen?", antwort: "Ja. Wenn ich die Marke von Anfang an mitgebaut habe, kenne ich die Regeln dahinter. Broschüre, Roll-up, Speisekarte, Fahrzeugbeschriftung kommen später dazu · alles passt zusammen, weil ich die Linie im Kopf habe." },
+    ],
   },
-  {
-    frage: "wie lange dauert ein branding-projekt?",
-    antwort:
-      "Ein Logo allein 2–3 Wochen, eine vollständige Brand Identity 4–6 Wochen. Hängt vom Feedback-Tempo ab. Recherche, Moodboards und 2 Richtungen kommen in Woche 1–2, danach Verfeinerung und Umsetzung.",
+  fr: {
+    sectionLabel: "services · branding",
+    heroH1pre: "logo, marque & ",
+    heroH1accent: "tout ce qui va autour",
+    heroH1post: ".",
+    heroBody: "un logo seul ne fait pas une marque. logo + typographie + couleurs + ton + cohérence sur carte de visite, social et vitrine · ça c'est une marque. tout vient de moi · fait main.",
+    heroSubBody: "branding pour startups, artisans, petites entreprises · ou simplement un logo si tu veux démarrer comme ça.",
+    stat1Label: "variantes", stat1Value: "3 – 5",
+    stat2Label: "t'appartient", stat2Value: "toujours",
+    stat3Label: "durée de vie", stat3Value: "5+ ans",
+    breakLook: "et voilà à quoi ça ressemble ↓",
+    breakCase: "un vrai client en plus ↓",
+    breakHonest: "et franchement ↓",
+    breakFAQ: "avant que tu demandes ↓",
+    ansatzLinkLabel: "comment je travaille",
+    ansatzLinkBody: "quatre croquis de la première discussion à la livraison · et ce que je ne fais volontairement pas.",
+    ansatzLinkCta: "voir l'approche →",
+    preiseLinkLabel: "ce que ça coûte",
+    preiseLinkBody: "des règles honnêtes plutôt qu'une grille forfaitaire · pour que tu saches à quoi t'en tenir.",
+    preiseLinkCta: "voir les prix →",
+    faqLabel: "souvent demandé",
+    faqH2: "avant que tu demandes.",
+    ctaMarginalia: "court & honnête ↘",
+    ctaH2pre: "raconte-moi ce que tu fais · ",
+    ctaH2post: "je te dis comment le rendre visible.",
+    ctaBody: "pas de pitch-deck, pas de discours d'agence. un premier échange · 20 minutes · tu regardes si ça colle. ça ne coûte rien.",
+    ctaPrimary: "prendre contact →",
+    ctaSecondary: "voir les références",
+    ctaSignature: "— nicolas",
+    services: [
+      { name: "Design Logo", description: "Logo avec variantes + favicon, palette de couleurs, typographie · la pierre angulaire d'une marque. Idéal pour créateurs et indépendants qui veulent partir proprement.", minPrice: 800, serviceType: "Logo Design" },
+      { name: "Identité de Marque · Complète", description: "Logo, brand guide, carte de visite, papier en-tête, templates social · tout sur la même ligne, prêt pour l'impression et le digital. Pour les marques qui veulent plus qu'un logo.", minPrice: 1200, serviceType: "Brand Identity" },
+      { name: "Système de Marque · pour marques en croissance", description: "Système complet avec règles image et texte, direction d'ambiance, pack print, templates packaging · pour PME et entreprises établies.", minPrice: 2800, serviceType: "Brand System" },
+    ],
+    faq: [
+      { frage: "ça coûte combien un logo chez toi ?", antwort: "Un logo seul démarre à 800 €. Une identité de marque complète (logo + brand guide + carte de visite + templates social) à partir de 1 200 €. Systèmes plus grands avec univers visuel, pack print et packaging entre 2 800 et 5 000 €. Pas de grille, chaque marque est différente." },
+      { frage: "combien de temps prend un projet branding ?", antwort: "Un logo seul 2–3 semaines, une identité complète 4–6 semaines. Dépend du rythme du feedback. Recherche, moodboards et 2 directions en semaine 1–2, puis raffinement et mise en œuvre." },
+      { frage: "je reçois combien de propositions de logo ?", antwort: "Deux directions, pas 27. Plutôt aller en profondeur qu'en largeur · chaque direction est pensée et visuellement cohérente, plutôt qu'un assortiment au hasard. Une est choisie, ensuite je l'itère jusqu'à ce qu'elle tienne." },
+      { frage: "qu'est-ce qu'il y a dans le brand guide ?", antwort: "Variantes de logo et zone de protection, palette (primaire + secondaire + Hex/CMYK/Pantone), hiérarchie typographique (display, sans, mono), univers visuel, tonalité et exemples d'usage. Document PDF, livré avec les fichiers sources." },
+      { frage: "tu fais aussi juste un logo · sans tout le reste ?", antwort: "Oui. Si tu n'as besoin que d'un logo pour démarrer, pas de souci. Mais : un logo seul n'est pas une marque. Quand carte de visite, posts social ou vitrine arriveront plus tard, il te faudra un système pour que tout reste cohérent." },
+      { frage: "je peux compléter plus tard ?", antwort: "Oui. Quand j'ai construit la marque depuis le début, je connais les règles derrière. Brochure, roll-up, carte de menu, marquage véhicule arrivent plus tard · tout colle, parce que j'ai la ligne en tête." },
+    ],
   },
-  {
-    frage: "wie viele logo-vorschläge bekomme ich?",
-    antwort:
-      "Zwei Richtungen, nicht 27. Lieber tiefer als breiter · jede Richtung ist durchdacht und visuell stimmig, statt einer wahllosen Auswahl. Eine wird gewählt, dann iterier ich, bis sie sitzt.",
+  en: {
+    sectionLabel: "services · branding",
+    heroH1pre: "logo, brand & ",
+    heroH1accent: "everything around it",
+    heroH1post: ".",
+    heroBody: "a logo alone isn't a brand. logo + typography + colours + tone + consistent presence on business card, social and shopfront · that's a brand. it all comes from me · made by hand.",
+    heroSubBody: "branding for startups, makers, small businesses · or just a logo if that's where you want to start.",
+    stat1Label: "variants", stat1Value: "3 – 5",
+    stat2Label: "yours", stat2Value: "always",
+    stat3Label: "half-life", stat3Value: "5+ y.",
+    breakLook: "and here's what it looks like ↓",
+    breakCase: "a real client too ↓",
+    breakHonest: "honestly ↓",
+    breakFAQ: "before you ask ↓",
+    ansatzLinkLabel: "how i work",
+    ansatzLinkBody: "four sketches from first conversation to handover · and what i deliberately don't do.",
+    ansatzLinkCta: "see approach →",
+    preiseLinkLabel: "what it costs",
+    preiseLinkBody: "honest rules of thumb instead of a package grid · so you know where you stand.",
+    preiseLinkCta: "see pricing →",
+    faqLabel: "often asked",
+    faqH2: "before you ask.",
+    ctaMarginalia: "short & honest ↘",
+    ctaH2pre: "tell me what you do · ",
+    ctaH2post: "i'll tell you how to make it visible.",
+    ctaBody: "no pitch deck, no agency talk. a first conversation · 20 minutes · see if it fits. costs nothing.",
+    ctaPrimary: "get in touch →",
+    ctaSecondary: "see work",
+    ctaSignature: "— nicolas",
+    services: [
+      { name: "Logo Design", description: "Logo with variants + favicon, colour palette, typography · the foundation of a brand. Ideal for founders and freelancers who want to start cleanly.", minPrice: 800, serviceType: "Logo Design" },
+      { name: "Brand Identity · Complete", description: "Logo, brand guide, business card, letterhead, social templates · all in one line, print-ready and digital-ready. For brands that want more than a logo.", minPrice: 1200, serviceType: "Brand Identity" },
+      { name: "Brand System · for growing brands", description: "Full brand system with image and text guidelines, mood direction, print pack, packaging templates · for SMBs and established companies.", minPrice: 2800, serviceType: "Brand System" },
+    ],
+    faq: [
+      { frage: "what does a logo cost?", antwort: "A logo alone starts at €800. A full brand identity (logo + brand guide + business card + social templates) from €1,200. Larger brand systems with image world, print pack and packaging between €2,800 and €5,000. No package grid, every brand is different." },
+      { frage: "how long does a branding project take?", antwort: "A logo alone 2–3 weeks, full brand identity 4–6 weeks. Depends on feedback pace. Research, moodboards and 2 directions in week 1–2, then refinement and execution." },
+      { frage: "how many logo proposals do i get?", antwort: "Two directions, not 27. Better to go deep than wide · each direction is thought through and visually coherent, instead of a random pile. One is picked, then i iterate until it sits." },
+      { frage: "what's in the brand guide?", antwort: "Logo variants and clear space, colour palette (primary + secondary + Hex/CMYK/Pantone), typography hierarchy (display, sans, mono), imagery, tone and usage examples. PDF document, handed over with source files." },
+      { frage: "do you do just a logo · without the rest?", antwort: "Yes. If you only need a logo to get started, no problem. But: a logo alone isn't a brand. When business card, social posts or shopfront come later, you'll need a system to keep everything coherent." },
+      { frage: "can i add to it later?", antwort: "Yes. When i built the brand from the start, i know the rules behind it. Brochure, roll-up, menu card, vehicle wrap come later · everything fits, because i have the line in my head." },
+    ],
   },
-  {
-    frage: "was ist im brand guide enthalten?",
-    antwort:
-      "Logo-Varianten und Schutzraum, Farbpalette (Primär + Sekundär + Hex/CMYK/Pantone), Typografie-Hierarchie (Display, Sans, Mono), Bildsprache, Tonalität und Anwendungsbeispiele. PDF-Dokument, übergeben mit Quelldateien.",
-  },
-  {
-    frage: "machst du auch nur ein logo · ohne den ganzen rest?",
-    antwort:
-      "Ja. Wenn du nur ein Logo brauchst um zu starten, kein Problem. Aber: ein Logo allein ist noch keine Marke. Wenn später Visitenkarte, Social-Posts oder Schaufenster dazukommen, brauchst du ein System, damit alles stimmig bleibt.",
-  },
-  {
-    frage: "kann ich später noch ergänzen?",
-    antwort:
-      "Ja. Wenn ich die Marke von Anfang an mitgebaut habe, kenne ich die Regeln dahinter. Broschüre, Roll-up, Speisekarte, Fahrzeugbeschriftung kommen später dazu · alles passt zusammen, weil ich die Linie im Kopf habe.",
-  },
-];
+};
 
 export default function Page() {
+  const locale = getLocale();
+  const t = DICT[locale];
+
   return (
     <>
       <BreadcrumbSchema
         items={[
           { name: "home", url: `${BASE}/` },
-          { name: "leistungen", url: `${BASE}/leistungen` },
-          { name: "branding", url: `${BASE}/leistungen/branding` },
+          { name: "leistungen", url: `${BASE}${buildPath("leistungen", locale)}` },
+          { name: "branding", url: `${BASE}${buildPath("leistungen/branding", locale)}` },
         ]}
       />
-      <ServiceSchema services={KREATIV_SERVICES} />
-      <FAQSchema items={BRANDING_FAQ.map((f) => ({ q: f.frage, a: f.antwort }))} />
+      <ServiceSchema services={t.services} />
+      <FAQSchema items={t.faq.map((f) => ({ q: f.frage, a: f.antwort }))} />
 
-      {/* HERO · split-layout · text links, brand-system-animation rechts */}
+      {/* HERO */}
       <section className="pt-32 md:pt-36 pb-16 md:pb-20">
         <div className="container-site">
-          <SectionLabel num="01">leistungen · branding</SectionLabel>
+          <SectionLabel num="01">{t.sectionLabel}</SectionLabel>
 
           <div className="mt-10 grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-14 items-center">
-            {/* LINKS · text */}
             <div className="max-w-[620px]">
               <h1 className="heading-display text-[clamp(2.25rem,6vw,4.5rem)] text-offwhite leading-[0.98]">
-                logo, brand &{" "}
-                <span className="text-offwhite/35">alles drum herum</span>.
+                {t.heroH1pre}
+                <span className="text-offwhite/35">{t.heroH1accent}</span>
+                {t.heroH1post}
               </h1>
               <p className="mt-7 max-w-[520px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-                ein logo allein ist noch keine marke. logo + typografie +
-                farben + ton + einheitlicher auftritt auf visitenkarte, social
-                und schaufenster · das ist eine marke. beides kommt von mir ·
-                handgemacht.
+                {t.heroBody}
               </p>
               <p className="mt-4 max-w-[520px] text-[14px] leading-relaxed text-offwhite/35">
-                branding für startups, handwerker, kleine unternehmen · auch
-                einfach nur ein logo, wenn du damit starten willst.
+                {t.heroSubBody}
               </p>
 
-              {/* mini-stats */}
               <dl className="mt-10 grid grid-cols-3 gap-4 max-w-[520px]">
                 <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
-                    varianten
-                  </dt>
-                  <dd className="heading-display text-lime text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">
-                    3 – 5
-                  </dd>
+                  <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">{t.stat1Label}</dt>
+                  <dd className="heading-display text-lime text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">{t.stat1Value}</dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
-                    gehört dir
-                  </dt>
-                  <dd className="heading-display text-offwhite text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">
-                    immer
-                  </dd>
+                  <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">{t.stat2Label}</dt>
+                  <dd className="heading-display text-offwhite text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">{t.stat2Value}</dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
-                    halbwertszeit
-                  </dt>
-                  <dd className="heading-display text-offwhite text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">
-                    5+ j.
-                  </dd>
+                  <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">{t.stat3Label}</dt>
+                  <dd className="heading-display text-offwhite text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">{t.stat3Value}</dd>
                 </div>
               </dl>
             </div>
 
-            {/* RECHTS · brand-system animation */}
             <div className="relative">
               <BrandSystemHero />
             </div>
@@ -152,88 +249,58 @@ export default function Page() {
         </div>
       </section>
 
-      {/* 02 · STÄRKEN-STRIP · 3 punkte teaser */}
       <StaerkenStrip />
-
-      <ScribbleBreak text="und so sieht's aus ↓" rotate={-1} />
-
-      {/* 03 · DEIN START-PAKET · das angebot */}
+      <ScribbleBreak text={t.breakLook} rotate={-1} />
       <SpecimenKartei num="03" />
-
-      {/* 04 · WAS DU BEKOMMST · deliverables + on-demand extras (ein kapitel) */}
       <Deliverables num="04" />
       <OnDemandExtras />
-
-      <ScribbleBreak text="ein echter kunde dazu ↓" rotate={-0.8} flip />
-
-      {/* 05 · ECHTES PROJEKT · holoroom case */}
+      <ScribbleBreak text={t.breakCase} rotate={-0.8} flip />
       <BrandCase num="05" />
-
-      <ScribbleBreak text="und mal ehrlich ↓" rotate={0.8} />
-
-      {/* 06 · EINORDNUNG · passt das zu mir */}
+      <ScribbleBreak text={t.breakHonest} rotate={0.8} />
       <BrandVsAlternatives num="06" />
 
-      {/* 07 · VERTIEFUNGS-LINKS · ansatz + preise */}
       <section className="pb-20">
         <div className="container-site">
           <div className="grid md:grid-cols-2 gap-4">
             <Link
-              href="/ansatz"
+              href={buildPath("ansatz", locale)}
               className="group block glass rounded-xl px-6 py-5 hover:border-lime/25 transition-colors"
             >
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-                wie ich arbeite
-              </span>
-              <p className="mt-1.5 text-[14px] text-offwhite/75 group-hover:text-offwhite transition-colors">
-                vier skizzen vom ersten gespräch bis zur übergabe · und was
-                ich bewusst nicht mache.
-              </p>
-              <span className="mt-3 inline-block font-mono text-[11px] uppercase tracking-label text-accent-ink">
-                ansatz ansehen →
-              </span>
+              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">{t.ansatzLinkLabel}</span>
+              <p className="mt-1.5 text-[14px] text-offwhite/75 group-hover:text-offwhite transition-colors">{t.ansatzLinkBody}</p>
+              <span className="mt-3 inline-block font-mono text-[11px] uppercase tracking-label text-accent-ink">{t.ansatzLinkCta}</span>
             </Link>
             <Link
-              href="/preise"
+              href={buildPath("preise", locale)}
               className="group block glass rounded-xl px-6 py-5 hover:border-lime/25 transition-colors"
             >
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-                was es kostet
-              </span>
-              <p className="mt-1.5 text-[14px] text-offwhite/75 group-hover:text-offwhite transition-colors">
-                alle pakete nebeneinander · fixpreise, keine stundensätze ·
-                damit du weißt woran du bist.
-              </p>
-              <span className="mt-3 inline-block font-mono text-[11px] uppercase tracking-label text-accent-ink">
-                preise ansehen →
-              </span>
+              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">{t.preiseLinkLabel}</span>
+              <p className="mt-1.5 text-[14px] text-offwhite/75 group-hover:text-offwhite transition-colors">{t.preiseLinkBody}</p>
+              <span className="mt-3 inline-block font-mono text-[11px] uppercase tracking-label text-accent-ink">{t.preiseLinkCta}</span>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* CTA · personal · first-person signature */}
-      <ScribbleBreak text="bevor du fragst ↓" rotate={0.8} flip />
+      <ScribbleBreak text={t.breakFAQ} rotate={0.8} flip />
 
       {/* FAQ */}
       <section className="pb-24 pt-4">
         <div className="container-site">
           <div className="max-w-[820px]">
-            <SectionLabel num="08">oft gefragt</SectionLabel>
+            <SectionLabel num="08">{t.faqLabel}</SectionLabel>
             <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.5rem)] text-offwhite leading-[1.05]">
-              bevor du fragst.
+              {t.faqH2}
             </h2>
           </div>
           <div className="mt-12 divide-y divide-ink/10 border-y border-ink/10 max-w-[820px]">
-            {BRANDING_FAQ.map((q) => (
+            {t.faq.map((q) => (
               <details key={q.frage} className="group py-6 cursor-pointer">
                 <summary className="flex items-center justify-between gap-4 list-none">
                   <h3 className="heading-sans text-[17px] md:text-[18px] text-offwhite group-hover:text-accent-ink transition-colors">
                     {q.frage}
                   </h3>
-                  <span className="font-mono text-[16px] text-offwhite/35 group-open:rotate-45 transition-transform shrink-0">
-                    +
-                  </span>
+                  <span className="font-mono text-[16px] text-offwhite/35 group-open:rotate-45 transition-transform shrink-0">+</span>
                 </summary>
                 <p className="mt-4 max-w-[680px] text-[14px] leading-relaxed text-offwhite/55">
                   {q.antwort}
@@ -247,51 +314,36 @@ export default function Page() {
       <section className="pb-36 pt-8">
         <div className="container-site">
           <div className="relative liquid-glass rounded-2xl p-10 md:p-16 text-center">
-            {/* marginalia · hand-notiz oben */}
             <p
               className="absolute -top-3 left-8 font-hand text-[17px] text-accent-ink/70 select-none"
               style={{ transform: "rotate(-2deg)" }}
             >
-              kurz &amp; ehrlich ↘
+              {t.ctaMarginalia}
             </p>
 
             <h2 className="heading-display text-[clamp(1.75rem,4.5vw,3rem)] text-offwhite max-w-[640px] mx-auto leading-[1.05]">
-              erzähl mir, was du machst ·{" "}
-              <span className="text-offwhite/45">
-                ich sag dir wie man's sichtbar macht.
-              </span>
+              {t.ctaH2pre}
+              <span className="text-offwhite/45">{t.ctaH2post}</span>
             </h2>
 
             <p className="mt-6 max-w-[520px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
-              kein pitch-deck, kein agentur-talk. ein erstes gespräch · 20
-              minuten · schaust ob's passt. kostet nichts.
+              {t.ctaBody}
             </p>
 
             <div className="mt-8 flex justify-center gap-3 flex-wrap">
-              <Button
-                href="/kontakt"
-                variant="primary"
-                size="lg"
-                analyticsLabel="leistungen_branding_kontakt"
-              >
-                kontakt aufnehmen →
+              <Button href={buildPath("kontakt", locale)} variant="primary" size="lg" analyticsLabel="leistungen_branding_kontakt">
+                {t.ctaPrimary}
               </Button>
-              <Button
-                href="/referenzen"
-                variant="glass"
-                size="lg"
-                analyticsLabel="leistungen_branding_referenzen"
-              >
-                referenzen ansehen
+              <Button href={buildPath("referenzen", locale)} variant="glass" size="lg" analyticsLabel="leistungen_branding_referenzen">
+                {t.ctaSecondary}
               </Button>
             </div>
 
-            {/* signatur · klein unten */}
             <p
               className="mt-8 font-hand text-[16px] text-offwhite/35"
               style={{ transform: "rotate(-1deg)" }}
             >
-              — nicolas
+              {t.ctaSignature}
             </p>
           </div>
         </div>
