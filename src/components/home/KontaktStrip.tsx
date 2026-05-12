@@ -4,29 +4,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { CONTACT } from "@/config/contact";
-import { findStartSlot } from "@/data/verfuegbarkeit";
-
-/** grobe kw → "mon. monat"-näherung, montag der kw (ISO 8601) */
-function kwLabel(kw: number, year: number): string {
-  const jan4 = new Date(Date.UTC(year, 0, 4));
-  const day = jan4.getUTCDay() || 7;
-  const monKW1 = new Date(jan4);
-  monKW1.setUTCDate(jan4.getUTCDate() - day + 1);
-  const target = new Date(monKW1);
-  target.setUTCDate(monKW1.getUTCDate() + (kw - 1) * 7);
-  return target.toLocaleDateString("de-DE", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-}
 
 export function KontaktStrip() {
-  const nextFree = findStartSlot("flex");
-  const nextFreeLabel = nextFree
-    ? `ab ${kwLabel(nextFree.kw, nextFree.jahr)} · kw ${nextFree.kw}`
-    : null;
-
   return (
     <section className="relative py-24">
       <div className="container-site">
@@ -44,22 +23,6 @@ export function KontaktStrip() {
           />
 
           <div className="relative">
-            {/* verfügbarkeits-zeile · ehrlich statt hypen */}
-            {nextFreeLabel && (
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-lime/30 bg-lime/[0.06] pl-2 pr-3 py-1">
-                <span aria-hidden className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-60" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-lime" />
-                </span>
-                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-                  nächster slot frei
-                </span>
-                <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink tabular-nums">
-                  {nextFreeLabel}
-                </span>
-              </div>
-            )}
-
             <p
               className="font-hand text-[20px] md:text-[24px] text-offwhite/55 leading-snug mb-2"
               style={{ transform: "rotate(-1deg)" }}

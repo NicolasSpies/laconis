@@ -4,8 +4,6 @@ import { Suspense, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import { VerfuegbarkeitWidget } from "@/components/VerfuegbarkeitWidget";
-import { type ProjektTyp } from "@/data/verfuegbarkeit";
 import { track } from "@/lib/analytics";
 import { CONTACT } from "@/config/contact";
 
@@ -51,17 +49,6 @@ const INITIAL: State = {
   telefon: "",
   notiz: "",
 };
-
-/* projekt-typ für VerfuegbarkeitWidget */
-function deriveProjektTyp(state: State): ProjektTyp {
-  if (state.bedarf === "branding") return "branding";
-  if (state.bedarf === "alles") return "bundle";
-  if (state.seiten === "onepager") return "onepager";
-  if (state.seiten === "2-5") return "klein";
-  if (state.seiten === "6-10") return "mittel";
-  if (state.seiten === "10+") return "gross";
-  return "klein";
-}
 
 /* ══════════════════════════ wrapper mit suspense ══════════════════════════ */
 
@@ -592,11 +579,10 @@ function Step2({
 
 function Step3({
   state,
-  update,
   onEdit,
 }: {
   state: State;
-  update: <K extends keyof State>(key: K, value: State[K]) => void;
+  update?: <K extends keyof State>(key: K, value: State[K]) => void;
   onEdit: (step: StepId) => void;
 }) {
   const isBranding = state.bedarf === "branding";
@@ -666,20 +652,6 @@ function Step3({
         Notiz. Angebot kommt innerhalb 24 Std.
       </p>
 
-      {/* queue-widget · zeitplan */}
-      <div className="mt-10">
-        <p className="mb-3 font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-          zeitplan · kannst du hier nochmal umstellen
-        </p>
-        <VerfuegbarkeitWidget
-          compact
-          modus={state.zeitplan === "dringend" ? "urgent" : "flex"}
-          onModusChange={(m) =>
-            update("zeitplan", m === "urgent" ? "dringend" : "flexibel")
-          }
-          lockedProjektTyp={deriveProjektTyp(state)}
-        />
-      </div>
     </div>
   );
 }

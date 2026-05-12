@@ -40,7 +40,7 @@ export default function Page() {
             </h2>
           </div>
 
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[560px]">
             <ContactCard
               label="e-mail"
               value={CONTACT.email}
@@ -48,17 +48,10 @@ export default function Page() {
               note="Klassisch. Antwort innerhalb 24h · meistens deutlich schneller."
             />
             <ContactCard
-              label="call buchen"
+              label="video-call"
               value="30 min kennenlernen"
               href={`mailto:${CONTACT.email}?subject=call-termin`}
-              note="Noch nicht buchbar über Tool · kurz per Mail melden."
-            />
-            <ContactCard
-              label="in person"
-              value="eupen · belgien"
-              href="https://maps.google.com/?q=Eupen,Belgien"
-              external
-              note="Kaffee? Gern · kurz vorher schreiben, damit ich da bin."
+              note="Kein Buchungs-Tool · kurz per Mail, wir finden einen Termin."
             />
           </div>
         </div>
@@ -88,9 +81,8 @@ export default function Page() {
               <span className="text-offwhite/35">was du vorhast.</span>
             </h2>
             <p className="mt-6 max-w-[620px] text-[14px] leading-relaxed text-offwhite/55">
-              Vier kurze Schritte. Kommst du von der Preise-Seite mit einem
-              Paket im Kopf, landest du direkt beim Anpassen · Seiten,
-              Sprachen, Extras, Preis live.
+              Vier kurze Schritte. Ich meld mich innerhalb von 24 Std mit
+              einem konkreten Angebot · kein Kleingedrucktes.
             </p>
           </div>
 
