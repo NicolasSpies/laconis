@@ -5,15 +5,45 @@ import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { RefThumb } from "@/components/referenzen/RefThumb";
 import { referenzen, type Referenz } from "@/data/referenzen";
+import { useLocale, pick } from "@/i18n/useLocale";
+import { buildPath, type Locale } from "@/i18n/config";
 
 type FilterKey = "alle" | "web" | "branding" | "grafik";
 
-const FILTERS: { key: FilterKey; label: string }[] = [
-  { key: "alle", label: "alle" },
-  { key: "web", label: "web" },
-  { key: "branding", label: "branding" },
-  { key: "grafik", label: "grafik" },
-];
+type Dict = {
+  filters: { key: FilterKey; label: string }[];
+  empty: string;
+};
+
+const DICT: Record<Locale, Dict> = {
+  de: {
+    filters: [
+      { key: "alle", label: "alle" },
+      { key: "web", label: "web" },
+      { key: "branding", label: "branding" },
+      { key: "grafik", label: "grafik" },
+    ],
+    empty: "nichts in dieser kategorie · schau gerne in einer anderen",
+  },
+  fr: {
+    filters: [
+      { key: "alle", label: "tout" },
+      { key: "web", label: "web" },
+      { key: "branding", label: "branding" },
+      { key: "grafik", label: "graphisme" },
+    ],
+    empty: "rien dans cette catégorie · regarde une autre",
+  },
+  en: {
+    filters: [
+      { key: "alle", label: "all" },
+      { key: "web", label: "web" },
+      { key: "branding", label: "branding" },
+      { key: "grafik", label: "graphic" },
+    ],
+    empty: "nothing in this category · try another",
+  },
+};
 
 function matchesFilter(r: Referenz, filter: FilterKey): boolean {
   if (filter === "alle") return true;
@@ -31,6 +61,8 @@ function countFor(filter: FilterKey): number {
 
 export function ContactSheet() {
   const [filter, setFilter] = useState<FilterKey>("alle");
+  const locale = useLocale();
+  const t = pick(DICT, locale);
 
   const items = useMemo(
     () => referenzen.filter((r) => matchesFilter(r, filter)),
@@ -39,9 +71,8 @@ export function ContactSheet() {
 
   return (
     <div>
-      {/* Filter bar */}
       <div className="flex flex-wrap items-center gap-2 border-b border-ink/10 pb-5">
-        {FILTERS.map((f) => {
+        {t.filters.map((f) => {
           const active = filter === f.key;
           const count = countFor(f.key);
           return (
@@ -70,7 +101,6 @@ export function ContactSheet() {
         })}
       </div>
 
-      {/* Grid */}
       <motion.div
         layout
         className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10"
@@ -86,10 +116,9 @@ export function ContactSheet() {
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             >
               <Link
-                href={`/referenzen/${r.slug}`}
+                href={`${buildPath("referenzen", locale)}/${r.slug}`}
                 className="group block"
               >
-                {/* Image frame · leichte hover-rotation */}
                 <div className="relative overflow-hidden rounded-md border border-ink/10 transition-all duration-300 group-hover:border-lime/50 group-hover:shadow-[0_18px_48px_-20px_rgb(var(--accent) / 0.25)] group-hover:rotate-[-0.5deg]">
                   <motion.div
                     whileHover={{ scale: 1.02 }}
@@ -99,12 +128,10 @@ export function ContactSheet() {
                     <RefThumb ref_={r} aspect="4 / 3" />
                   </motion.div>
 
-                  {/* Kategorie-Badge */}
                   <span className="absolute top-3 left-3 font-mono text-[9px] uppercase tracking-label text-offwhite bg-black/60 backdrop-blur-sm border border-white/15 px-1.5 py-0.5 rounded-sm">
                     {r.kategorieLabel}
                   </span>
 
-                  {/* handgezeichneter haken · fadet in on hover */}
                   <svg
                     aria-hidden
                     viewBox="0 0 40 40"
@@ -121,7 +148,6 @@ export function ContactSheet() {
                   </svg>
                 </div>
 
-                {/* Meta */}
                 <div className="mt-4 flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <h3 className="heading-sans text-[20px] leading-tight text-offwhite group-hover:text-accent-ink transition-colors">
@@ -148,7 +174,7 @@ export function ContactSheet() {
       {items.length === 0 && (
         <div className="mt-16 text-center">
           <p className="font-mono text-[12px] uppercase tracking-label text-offwhite/35">
-            nichts in dieser kategorie · schau gerne in einer anderen
+            {t.empty}
           </p>
         </div>
       )}

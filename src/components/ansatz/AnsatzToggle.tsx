@@ -3,6 +3,8 @@
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { useLocale, pick } from "@/i18n/useLocale";
+import type { Locale } from "@/i18n/config";
 
 type Mode = "web" | "branding";
 
@@ -13,12 +15,46 @@ type Props = {
   num?: string;
 };
 
-/**
- * AnsatzToggle — zeigt manifest-variante für web oder branding.
- * Inline (nicht sticky) · mit section-label + intro, toggle als zentriertes
- * pill-paar. Panels werden beide gerendert, nur eines sichtbar — kein remount
- * beim switch, state bleibt.
- */
+type Dict = {
+  sectionLabel: string;
+  h2pre: string;
+  h2post: string;
+  intro: string;
+  tabsLabel: string;
+  tabWeb: string;
+  tabBranding: string;
+};
+
+const DICT: Record<Locale, Dict> = {
+  de: {
+    sectionLabel: "was ich nicht mache",
+    h2pre: "kommt drauf an,",
+    h2post: "was du brauchst.",
+    intro: "Die No-Gos unterscheiden sich zwischen Web und Branding · manche überschneiden sich, manche nicht. Umschalten, was dich betrifft.",
+    tabsLabel: "disziplin wählen",
+    tabWeb: "web",
+    tabBranding: "branding",
+  },
+  fr: {
+    sectionLabel: "ce que je ne fais pas",
+    h2pre: "ça dépend de",
+    h2post: "ce dont tu as besoin.",
+    intro: "Les no-gos diffèrent entre web et branding · certains se recoupent, d'autres non. Bascule selon ce qui te concerne.",
+    tabsLabel: "choisir la discipline",
+    tabWeb: "web",
+    tabBranding: "branding",
+  },
+  en: {
+    sectionLabel: "what i don't do",
+    h2pre: "depends on",
+    h2post: "what you need.",
+    intro: "The no-gos differ between web and branding · some overlap, some don't. Switch to what concerns you.",
+    tabsLabel: "choose discipline",
+    tabWeb: "web",
+    tabBranding: "branding",
+  },
+};
+
 export function AnsatzToggle({
   web,
   branding,
@@ -26,30 +62,28 @@ export function AnsatzToggle({
   num = "03",
 }: Props) {
   const [mode, setMode] = useState<Mode>(initial);
+  const locale = useLocale();
+  const t = pick(DICT, locale);
 
   return (
     <>
-      {/* Intro-section · eigener raum für den toggle, keine klebe-sticky */}
       <section className="pt-4 pb-10 md:pb-14">
         <div className="container-site">
           <div className="max-w-[760px]">
-            <SectionLabel num={num}>was ich nicht mache</SectionLabel>
+            <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
             <h2 className="heading-display mt-4 text-[clamp(2rem,5vw,3.25rem)] text-offwhite leading-[1.05]">
-              kommt drauf an,{" "}
-              <span className="text-offwhite/35">was du brauchst.</span>
+              {t.h2pre}{" "}
+              <span className="text-offwhite/35">{t.h2post}</span>
             </h2>
             <p className="mt-6 max-w-[560px] text-[15px] leading-relaxed text-offwhite/55">
-              Die No-Gos unterscheiden sich zwischen Web und Branding ·
-              manche überschneiden sich, manche nicht. Umschalten, was dich
-              betrifft.
+              {t.intro}
             </p>
           </div>
 
-          {/* Toggle · zentriert unter intro */}
           <div className="mt-8 md:mt-10 flex items-center justify-center">
             <div
               role="tablist"
-              aria-label="disziplin wählen"
+              aria-label={t.tabsLabel}
               className="inline-flex items-center gap-1 p-1 rounded-full border border-ink/10 bg-ink/[0.04]"
             >
               <button
@@ -64,7 +98,7 @@ export function AnsatzToggle({
                     : "text-offwhite/55 hover:text-offwhite",
                 )}
               >
-                web
+                {t.tabWeb}
               </button>
               <button
                 type="button"
@@ -78,14 +112,13 @@ export function AnsatzToggle({
                     : "text-offwhite/55 hover:text-offwhite",
                 )}
               >
-                branding
+                {t.tabBranding}
               </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Panels · beide gerendert, nur eines sichtbar (kein remount beim switch) */}
       <div className={cn(mode === "web" ? "block" : "hidden")}>{web}</div>
       <div className={cn(mode === "branding" ? "block" : "hidden")}>
         {branding}
