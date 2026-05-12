@@ -4,8 +4,56 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { CONTACT } from "@/config/contact";
+import { useLocale, pick } from "@/i18n/useLocale";
+import { buildPath, type Locale } from "@/i18n/config";
+
+type Dict = {
+  greeting: string;
+  headlinePre: string;
+  headlineAccent: string;
+  body: string;
+  emailLabel: string;
+  phoneLabel: string;
+  cta: string;
+  ctaHint: string;
+};
+
+const DICT: Record<Locale, Dict> = {
+  de: {
+    greeting: "hallo.",
+    headlinePre: "schreib mir · oder ",
+    headlineAccent: "ruf an.",
+    body: "Kein Formularzwang. E-Mail, Telefon, oder direkt der Multistep wenn du's strukturiert magst. Antwort kommt am selben Tag.",
+    emailLabel: "e-mail",
+    phoneLabel: "telefon",
+    cta: "projekt starten →",
+    ctaHint: "multistep · dauert 60 sekunden",
+  },
+  fr: {
+    greeting: "salut.",
+    headlinePre: "écris-moi · ou ",
+    headlineAccent: "appelle.",
+    body: "Pas de formulaire obligatoire. E-mail, téléphone, ou le multistep si tu préfères structuré. Réponse le jour même.",
+    emailLabel: "e-mail",
+    phoneLabel: "téléphone",
+    cta: "démarrer un projet →",
+    ctaHint: "multistep · prend 60 secondes",
+  },
+  en: {
+    greeting: "hi.",
+    headlinePre: "write me · or ",
+    headlineAccent: "call.",
+    body: "No required form. Email, phone, or the multistep if you like it structured. Answer same day.",
+    emailLabel: "e-mail",
+    phoneLabel: "phone",
+    cta: "start a project →",
+    ctaHint: "multistep · takes 60 seconds",
+  },
+};
 
 export function KontaktStrip() {
+  const locale = useLocale();
+  const t = pick(DICT, locale);
   return (
     <section className="relative py-24">
       <div className="container-site">
@@ -16,7 +64,6 @@ export function KontaktStrip() {
           transition={{ duration: 0.7 }}
           className="relative glass rounded-2xl p-10 md:p-14 flex flex-col md:flex-row md:items-end justify-between gap-10 overflow-hidden"
         >
-          {/* Local lime glow inside the card */}
           <div
             aria-hidden
             className="absolute -right-20 -top-20 w-[420px] h-[420px] rounded-full bg-lime/25 blur-[120px]"
@@ -27,19 +74,18 @@ export function KontaktStrip() {
               className="font-hand text-[20px] md:text-[24px] text-offwhite/55 leading-snug mb-2"
               style={{ transform: "rotate(-1deg)" }}
             >
-              hallo.
+              {t.greeting}
             </p>
             <h2 className="heading-display text-[clamp(2rem,4.5vw,3.25rem)] text-offwhite leading-[1.05]">
-              schreib mir · oder{" "}
-              <span className="italic font-serif text-accent-ink">ruf an.</span>
+              {t.headlinePre}
+              <span className="italic font-serif text-accent-ink">{t.headlineAccent}</span>
             </h2>
             <p className="mt-5 max-w-[420px] text-[14px] leading-relaxed text-offwhite/55">
-              Kein Formularzwang. E-Mail, Telefon, oder direkt der Multistep
-              wenn du's strukturiert magst. Antwort kommt am selben Tag.
+              {t.body}
             </p>
             <div className="mt-8 flex flex-wrap gap-10">
               <div>
-                <div className="label-mono mb-1.5">e-mail</div>
+                <div className="label-mono mb-1.5">{t.emailLabel}</div>
                 <a
                   href={`mailto:${CONTACT.email}`}
                   className="font-sans text-[15px] text-offwhite hover:text-accent-ink transition-colors"
@@ -49,7 +95,7 @@ export function KontaktStrip() {
               </div>
               {CONTACT.phone && (
                 <div>
-                  <div className="label-mono mb-1.5">telefon</div>
+                  <div className="label-mono mb-1.5">{t.phoneLabel}</div>
                   <a
                     href={`tel:${CONTACT.phoneE164}`}
                     className="font-sans text-[15px] text-offwhite hover:text-accent-ink transition-colors"
@@ -64,15 +110,15 @@ export function KontaktStrip() {
           <div className="relative flex flex-col items-start md:items-end gap-2">
             <Magnetic strength={0.4} max={18}>
               <Button
-                href="/kontakt#projekt"
+                href={`${buildPath("kontakt", locale)}#projekt`}
                 size="lg"
                 analyticsLabel="home_kontakt_strip"
               >
-                projekt starten →
+                {t.cta}
               </Button>
             </Magnetic>
             <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-              multistep · dauert 60 sekunden
+              {t.ctaHint}
             </span>
           </div>
         </motion.div>

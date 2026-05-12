@@ -6,6 +6,85 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Scribble } from "@/components/ui/Scribble";
 import { useReveal } from "@/lib/useReveal";
 import { Button } from "@/components/ui/Button";
+import { useLocale, pick } from "@/i18n/useLocale";
+import { buildPath, type Locale } from "@/i18n/config";
+
+type Dict = {
+  sectionLabel: string;
+  greeting: string;
+  blockquote: { plain: string; italic: string };
+  bio: string;
+  cta: string;
+  langsHand: string;
+  transition: string;
+  /** statement headline · word-arrays für reveal-animation */
+  statement: {
+    line1: string[];
+    line2: string[];
+    line3pre: string[]; // before highlighted word
+    line3highlight: string; // gets scribble-circle
+    line3post: string[]; // after highlighted word
+    line4: string[];
+  };
+  outro: string;
+};
+
+const DICT: Record<Locale, Dict> = {
+  de: {
+    sectionLabel: "wer",
+    greeting: "moin, ich bin nicolas.",
+    blockquote: { plain: "ein mensch, kein team.", italic: "und ich nehm's persönlich." },
+    bio: "Mediengestalter seit 2019 · eine Hand für Design und Code. Keine Zwischenschicht, kein Ticket-Tool · du schreibst mir, ich antworte.",
+    cta: "mehr über mich →",
+    langsHand: "· de · fr · en",
+    transition: "warum ich so arbeite ↓",
+    statement: {
+      line1: ["Eine", "Website"],
+      line2: ["ist", "kein", "Produkt."],
+      line3pre: ["es", "ist", "das"],
+      line3highlight: "erste Wort",
+      line3post: ["das", "deine", "Kunden"],
+      line4: ["von", "dir", "hören."],
+    },
+    outro: "Ich fang mit fragen an, nicht am bildschirm. Was dabei rauskommt, klingt nach dir · nicht nach template.",
+  },
+  fr: {
+    sectionLabel: "qui",
+    greeting: "salut, c'est nicolas.",
+    blockquote: { plain: "un humain, pas une équipe.", italic: "et je le prends personnellement." },
+    bio: "Designer média depuis 2019 · une main pour le design et le code. Pas d'intermédiaire, pas d'outil de tickets · tu m'écris, je réponds.",
+    cta: "en savoir plus →",
+    langsHand: "· de · fr · en",
+    transition: "pourquoi je travaille ainsi ↓",
+    statement: {
+      line1: ["Un", "site", "web"],
+      line2: ["n'est", "pas", "un", "produit."],
+      line3pre: ["c'est", "le"],
+      line3highlight: "premier mot",
+      line3post: ["que", "tes", "clients"],
+      line4: ["entendent", "de", "toi."],
+    },
+    outro: "Je commence par des questions, pas par l'écran. Ce qui en sort te ressemble · pas un template.",
+  },
+  en: {
+    sectionLabel: "who",
+    greeting: "hi, i'm nicolas.",
+    blockquote: { plain: "one person, not a team.", italic: "and i take it personally." },
+    bio: "Media designer since 2019 · one hand for design and code. No middle layer, no ticket tool · you write, i respond.",
+    cta: "more about me →",
+    langsHand: "· de · fr · en",
+    transition: "why i work this way ↓",
+    statement: {
+      line1: ["A", "website"],
+      line2: ["is", "not", "a", "product."],
+      line3pre: ["it's", "the"],
+      line3highlight: "first word",
+      line3post: ["your", "customers"],
+      line4: ["hear", "from", "you."],
+    },
+    outro: "I start with questions, not the screen. What comes out of that sounds like you · not a template.",
+  },
+};
 
 /**
  * wer & überzeugung · gemerged aus dem alten UeberMichTeaser + Manifest.
@@ -53,11 +132,22 @@ function RevealLine({
 
 export function UeberMichTeaser() {
   const manifestRef = useReveal({ margin: "-80px 0px" }) as React.RefObject<HTMLDivElement>;
+  const locale = useLocale();
+  const t = pick(DICT, locale);
+
+  /* helper · word-arrays in reveal-spans rendern mit fortlaufendem delay */
+  let cursor = 660;
+  const STEP = 70;
+  const next = () => {
+    const d = cursor;
+    cursor += STEP;
+    return d;
+  };
 
   return (
     <section className="relative py-20 md:py-28 overflow-hidden">
       <div className="container-site">
-        <SectionLabel num="01">wer</SectionLabel>
+        <SectionLabel num="01">{t.sectionLabel}</SectionLabel>
 
         {/* ═══ akt 1 · die person ═══ */}
         <div className="mt-8 grid md:grid-cols-[220px_1fr] lg:grid-cols-[260px_1fr] gap-8 md:gap-12 items-center">
@@ -98,31 +188,29 @@ export function UeberMichTeaser() {
               className="font-hand text-[22px] md:text-[26px] text-offwhite/55 leading-snug mb-3"
               style={{ transform: "rotate(-1deg)" }}
             >
-              moin, ich bin nicolas.
+              {t.greeting}
             </p>
 
             <blockquote className="heading-display text-[clamp(1.75rem,3.6vw,2.75rem)] leading-[1.05] text-offwhite">
-              ein mensch, kein team.{" "}
+              {t.blockquote.plain}{" "}
               <span className="italic font-serif text-accent-ink">
-                und ich nehm's persönlich.
+                {t.blockquote.italic}
               </span>
             </blockquote>
 
             <p className="mt-6 text-[14px] md:text-[15px] leading-relaxed text-offwhite/55 max-w-[520px]">
-              Mediengestalter seit 2019 · eine Hand für Design und Code. Keine
-              Zwischenschicht, kein Ticket-Tool · du schreibst mir, ich
-              antworte.
+              {t.bio}
             </p>
 
             <div className="mt-7 flex flex-wrap items-center gap-5">
-              <Button href="/ueber-mich" variant="primary" size="sm">
-                mehr über mich →
+              <Button href={buildPath("ueber-mich", locale)} variant="primary" size="sm">
+                {t.cta}
               </Button>
               <span
                 className="font-hand text-[18px] text-offwhite/55 leading-none"
                 style={{ transform: "rotate(-2deg)" }}
               >
-                · de · fr · en
+                {t.langsHand}
               </span>
             </div>
           </motion.div>
@@ -135,7 +223,7 @@ export function UeberMichTeaser() {
             className="font-hand text-[19px] text-offwhite/35 shrink-0"
             style={{ transform: "rotate(-1.2deg)" }}
           >
-            warum ich so arbeite ↓
+            {t.transition}
           </span>
           <span className="h-px flex-1 bg-ink/10" />
         </div>
@@ -147,22 +235,24 @@ export function UeberMichTeaser() {
         >
           {/* statement · word-by-word reveal, cinematisch staggered */}
           <h2 className="heading-display text-[clamp(2rem,6vw,5rem)] leading-[0.98]">
-            <RevealLine words={["Eine", "Website"]} base={120} stagger={90} className="text-offwhite" />
+            <RevealLine words={t.statement.line1} base={120} stagger={90} className="text-offwhite" />
             <RevealLine
-              words={["ist", "kein", "Produkt."]}
-              base={340}
+              words={t.statement.line2}
+              base={120 + t.statement.line1.length * 90 + 80}
               stagger={90}
               className="text-offwhite"
             />
             <span className="block text-offwhite/45 mt-3">
-              <RevealWord text="es" delay={660} />{" "}
-              <RevealWord text="ist" delay={730} />{" "}
-              <RevealWord text="das" delay={800} />{" "}
+              {t.statement.line3pre.map((w, i) => (
+                <span key={i}>
+                  <RevealWord text={w} delay={next()} />{" "}
+                </span>
+              ))}
               <span
                 className="reveal-up relative inline-block"
-                style={{ "--rd": "870ms" } as React.CSSProperties}
+                style={{ "--rd": `${next()}ms` } as React.CSSProperties}
               >
-                <span className="relative">erste Wort</span>
+                <span className="relative">{t.statement.line3highlight}</span>
                 <Scribble
                   variant="circle"
                   delay={0.9}
@@ -172,13 +262,15 @@ export function UeberMichTeaser() {
                   className="absolute -inset-x-[6%] -inset-y-[30%] w-[112%] h-[160%] text-accent-ink/80 pointer-events-none"
                 />
               </span>{" "}
-              <RevealWord text="das" delay={1010} />{" "}
-              <RevealWord text="deine" delay={1080} />{" "}
-              <RevealWord text="Kunden" delay={1150} />
+              {t.statement.line3post.map((w, i) => (
+                <span key={i}>
+                  <RevealWord text={w} delay={next()} />{" "}
+                </span>
+              ))}
             </span>
             <RevealLine
-              words={["von", "dir", "hören."]}
-              base={1320}
+              words={t.statement.line4}
+              base={cursor + 100}
               stagger={100}
               className="text-accent-ink"
             />
@@ -189,8 +281,7 @@ export function UeberMichTeaser() {
             className="reveal-up mt-14 mx-auto max-w-[580px] text-[14px] leading-relaxed text-offwhite/55"
             style={{ "--rd": "1040ms" } as React.CSSProperties}
           >
-            Ich fang mit fragen an, nicht am bildschirm. Was dabei rauskommt,
-            klingt nach dir · nicht nach template.
+            {t.outro}
           </p>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/home/Hero";
-import { Marquee } from "@/components/home/Marquee";
+import { MarqueeI18n } from "@/components/home/MarqueeI18n";
 
 /**
  * Hero ist above-fold → eager geladen.
@@ -50,20 +50,8 @@ export default function HomePage() {
 
       <ReferenzenTeaser />
 
-      {/* marquee · setup vor kontakt */}
-      <Marquee
-        words={[
-          "sag hallo",
-          "schreib mir",
-          "ruf an",
-          "mail",
-          "multistep",
-          "30-min call",
-          "kein pitch-deck",
-        ]}
-        direction="right"
-        baseVelocity={2.5}
-      />
+      {/* marquee · setup vor kontakt · words werden i18n-aware vom wrapper geliefert */}
+      <MarqueeI18n direction="right" baseVelocity={2.5} />
 
       <KontaktStrip />
     </>

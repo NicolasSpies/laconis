@@ -7,6 +7,46 @@ import { motion, useMotionValue, useScroll, useSpring, useTransform, type Motion
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { referenzen, type Referenz } from "@/data/referenzen";
+import { useLocale, pick } from "@/i18n/useLocale";
+import { buildPath, type Locale } from "@/i18n/config";
+
+const DICT: Record<Locale, {
+  sectionLabel: string;
+  headline: string;
+  meta: string;
+  outroHand: string;
+  cta: string;
+  archivWord: string;
+  selectedWord: string;
+}> = {
+  de: {
+    sectionLabel: "referenzen",
+    headline: "meine werke.",
+    meta: "drei ausgewählte",
+    outroHand: "und das ist erst die auswahl.",
+    cta: "alle referenzen ansehen →",
+    archivWord: "im archiv",
+    selectedWord: "ausgewählte",
+  },
+  fr: {
+    sectionLabel: "références",
+    headline: "mes travaux.",
+    meta: "trois sélectionnés",
+    outroHand: "et ce n'est qu'une sélection.",
+    cta: "voir toutes les références →",
+    archivWord: "dans les archives",
+    selectedWord: "sélectionnés",
+  },
+  en: {
+    sectionLabel: "work",
+    headline: "my work.",
+    meta: "three selected",
+    outroHand: "and that's only a selection.",
+    cta: "see all work →",
+    archivWord: "in archive",
+    selectedWord: "selected",
+  },
+};
 
 /**
  * home-referenzen · scroll-linked stacking cards with depth scale.
@@ -29,6 +69,8 @@ import { referenzen, type Referenz } from "@/data/referenzen";
 const FEATURED_SLUGS = ["fabry-baumpflege", "holoroom", "lespoir-asbl"] as const;
 
 export function ReferenzenTeaser() {
+  const locale = useLocale();
+  const t = pick(DICT, locale);
   const featured = FEATURED_SLUGS
     .map((slug) => referenzen.find((r) => r.slug === slug))
     .filter((r): r is Referenz => !!r);
@@ -45,11 +87,11 @@ export function ReferenzenTeaser() {
     <section className="relative" id="referenzen">
       {/* ═══ intro · giant animated heading ═══ */}
       <div className="container-site pt-24 md:pt-32 pb-12 md:pb-16">
-        <SectionLabel num="05">referenzen</SectionLabel>
-        <AnimatedHeading />
+        <SectionLabel num="05">{t.sectionLabel}</SectionLabel>
+        <AnimatedHeading headline={t.headline} />
         <div className="mt-8 md:mt-10 flex justify-end">
           <p className="font-mono text-[11px] uppercase tracking-label text-offwhite/45 max-w-[240px] leading-relaxed text-right">
-            ↓ drei ausgewählte · <span className="text-offwhite/70">{referenzen.length} im archiv</span>
+            ↓ {t.meta} · <span className="text-offwhite/70">{referenzen.length} {t.archivWord}</span>
           </p>
         </div>
       </div>
@@ -73,10 +115,10 @@ export function ReferenzenTeaser() {
           className="font-hand text-[20px] md:text-[22px] text-offwhite/55"
           style={{ transform: "rotate(-1.5deg)" }}
         >
-          und das ist erst die auswahl.
+          {t.outroHand}
         </p>
-        <Button href="/referenzen" variant="primary" size="lg" analyticsLabel="home_ref_archiv">
-          alle referenzen ansehen →
+        <Button href={buildPath("referenzen", locale)} variant="primary" size="lg" analyticsLabel="home_ref_archiv">
+          {t.cta}
         </Button>
       </div>
     </section>
@@ -84,7 +126,7 @@ export function ReferenzenTeaser() {
 }
 
 /* ═══ section heading · gleiche typo-größe wie leistungen/preise ═══ */
-function AnimatedHeading() {
+function AnimatedHeading({ headline }: { headline: string }) {
   return (
     <motion.h2
       initial={{ opacity: 0, y: 16 }}
@@ -93,7 +135,7 @@ function AnimatedHeading() {
       transition={{ duration: 0.7 }}
       className="heading-display text-[clamp(2.25rem,5.5vw,4rem)] mt-6 max-w-[900px] text-offwhite leading-[1.02]"
     >
-      meine werke.
+      {headline}
     </motion.h2>
   );
 }

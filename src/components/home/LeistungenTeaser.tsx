@@ -5,8 +5,100 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Tag } from "@/components/ui/Tag";
 import { Scribble } from "@/components/ui/Scribble";
 import { Button } from "@/components/ui/Button";
+import { useLocale, pick } from "@/i18n/useLocale";
+import { buildPath, type Locale } from "@/i18n/config";
 
-const webTags = ["design", "development", "seo", "mehrsprachig"];
+type Dict = {
+  sectionLabel: string;
+  headline: { pre: string; highlight: string; post: string };
+  web: {
+    label: string;
+    headlineL1: string;
+    headlineL2: string;
+    headlineL3accent: string;
+    body: string;
+    tags: string[];
+    cta: string;
+    annotation: string;
+  };
+  grafik: {
+    label: string;
+    headlinePre: string;
+    headlineAccent: string;
+    body: string;
+    bullets: string[];
+    cta: string;
+  };
+};
+
+const DICT: Record<Locale, Dict> = {
+  de: {
+    sectionLabel: "leistungen",
+    headline: { pre: "Websites, die für sich ", highlight: "selbst", post: " sprechen." },
+    web: {
+      label: "web",
+      headlineL1: "Deine Website.",
+      headlineL2: "Responsive, schnell,",
+      headlineL3accent: "für Google gemacht.",
+      body: "Von der ersten Idee bis zum Launch. Design, Development, SEO. Alles aus einer Hand.",
+      tags: ["design", "development", "seo", "mehrsprachig"],
+      cta: "mehr erfahren →",
+      annotation: "passt sich an · ohne dass du dran denkst",
+    },
+    grafik: {
+      label: "grafik",
+      headlinePre: "Branding + ",
+      headlineAccent: "Print.",
+      body: "Vom Logo bis zur Visitenkarte. Alles im gleichen Look · Farbe, Schrift, Haltung.",
+      bullets: ["logo · varianten · favicon", "brand guide + visitenkarte", "3 social-media-templates"],
+      cta: "mehr erfahren →",
+    },
+  },
+  fr: {
+    sectionLabel: "services",
+    headline: { pre: "Des sites web qui parlent ", highlight: "d'eux-mêmes", post: "." },
+    web: {
+      label: "web",
+      headlineL1: "Ton site web.",
+      headlineL2: "Responsive, rapide,",
+      headlineL3accent: "fait pour Google.",
+      body: "De l'idée au lancement. Design, développement, SEO. Tout d'une seule main.",
+      tags: ["design", "développement", "seo", "multilingue"],
+      cta: "en savoir plus →",
+      annotation: "s'adapte · sans que tu y penses",
+    },
+    grafik: {
+      label: "graphisme",
+      headlinePre: "Branding + ",
+      headlineAccent: "Print.",
+      body: "Du logo à la carte de visite. Tout dans le même look · couleur, typo, attitude.",
+      bullets: ["logo · variantes · favicon", "brand guide + carte de visite", "3 templates réseaux sociaux"],
+      cta: "en savoir plus →",
+    },
+  },
+  en: {
+    sectionLabel: "services",
+    headline: { pre: "Websites that speak for ", highlight: "themselves", post: "." },
+    web: {
+      label: "web",
+      headlineL1: "Your website.",
+      headlineL2: "Responsive, fast,",
+      headlineL3accent: "built for Google.",
+      body: "From first idea to launch. Design, development, SEO. All from one place.",
+      tags: ["design", "development", "seo", "multilingual"],
+      cta: "learn more →",
+      annotation: "adapts · without you thinking about it",
+    },
+    grafik: {
+      label: "graphic",
+      headlinePre: "Branding + ",
+      headlineAccent: "Print.",
+      body: "From logo to business card. All in the same look · colour, type, attitude.",
+      bullets: ["logo · variants · favicon", "brand guide + business card", "3 social-media templates"],
+      cta: "learn more →",
+    },
+  },
+};
 
 /* -------- stumme wireframes · keine accent-farben, kein text, nix klickbar */
 function DesktopWireframe() {
@@ -212,10 +304,12 @@ function Arbeitstisch() {
 }
 
 export function LeistungenTeaser() {
+  const locale = useLocale();
+  const t = pick(DICT, locale);
   return (
     <section className="relative py-28 md:py-36">
       <div className="container-site">
-        <SectionLabel num="02">leistungen</SectionLabel>
+        <SectionLabel num="02">{t.sectionLabel}</SectionLabel>
 
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
@@ -224,9 +318,9 @@ export function LeistungenTeaser() {
           transition={{ duration: 0.7 }}
           className="heading-display text-[clamp(2.25rem,5.5vw,4rem)] mt-6 max-w-[900px] text-offwhite"
         >
-          Websites, die für sich{" "}
+          {t.headline.pre}
           <span className="relative inline-block text-accent-ink">
-            selbst
+            {t.headline.highlight}
             <Scribble
               variant="circle"
               delay={0.4}
@@ -235,8 +329,8 @@ export function LeistungenTeaser() {
               replayOnHover
               className="absolute -inset-x-4 -inset-y-3 w-[calc(100%+2rem)] h-[calc(100%+1.5rem)] text-accent-ink/80"
             />
-          </span>{" "}
-          sprechen.
+          </span>
+          {t.headline.post}
         </motion.h2>
 
         {/* Web · unified card */}
@@ -252,32 +346,31 @@ export function LeistungenTeaser() {
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-lime" />
                 <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-                  web
+                  {t.web.label}
                 </span>
               </div>
 
               <h3 className="mt-6 heading-sans text-[clamp(1.75rem,3vw,2.4rem)] text-offwhite">
-                Deine Website.
+                {t.web.headlineL1}
                 <br />
-                Responsive, schnell,
+                {t.web.headlineL2}
                 <br />
-                <span className="text-accent-ink">für Google gemacht.</span>
+                <span className="text-accent-ink">{t.web.headlineL3accent}</span>
               </h3>
 
               <p className="mt-5 text-[14px] leading-relaxed text-offwhite/55 max-w-[440px]">
-                Von der ersten Idee bis zum Launch. Design, Development, SEO.
-                Alles aus einer Hand.
+                {t.web.body}
               </p>
 
               <div className="flex flex-wrap gap-1.5 mt-7">
-                {webTags.map((t) => (
-                  <Tag key={t}>{t}</Tag>
+                {t.web.tags.map((tag) => (
+                  <Tag key={tag}>{tag}</Tag>
                 ))}
               </div>
 
               <div className="mt-auto pt-8">
-                <Button href="/leistungen/web" variant="primary" size="sm">
-                  mehr erfahren →
+                <Button href={buildPath("leistungen/web", locale)} variant="primary" size="sm">
+                  {t.web.cta}
                 </Button>
               </div>
             </div>
@@ -293,7 +386,7 @@ export function LeistungenTeaser() {
                   className="absolute -bottom-4 left-1/2 -translate-x-1/2 font-hand text-[16px] md:text-[18px] leading-none text-offwhite/55 whitespace-nowrap"
                   style={{ transform: "translateX(-50%) rotate(-2deg)" }}
                 >
-                  passt sich an · ohne dass du dran denkst
+                  {t.web.annotation}
                 </span>
               </div>
             </div>
@@ -318,25 +411,21 @@ export function LeistungenTeaser() {
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-lime" />
                 <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-                  grafik
+                  {t.grafik.label}
                 </span>
               </div>
 
               <h3 className="mt-6 heading-sans text-[clamp(1.75rem,3vw,2.4rem)] text-offwhite">
-                Branding + <span className="text-accent-ink">Print.</span>
+                {t.grafik.headlinePre}
+                <span className="text-accent-ink">{t.grafik.headlineAccent}</span>
               </h3>
 
               <p className="mt-5 text-[14px] leading-relaxed text-offwhite/55 max-w-[420px]">
-                Vom Logo bis zur Visitenkarte. Alles im gleichen Look · Farbe,
-                Schrift, Haltung.
+                {t.grafik.body}
               </p>
 
               <ul className="mt-5 space-y-2">
-                {[
-                  "logo · varianten · favicon",
-                  "brand guide + visitenkarte",
-                  "3 social-media-templates",
-                ].map((b) => (
+                {t.grafik.bullets.map((b) => (
                   <li
                     key={b}
                     className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-label text-offwhite/55"
@@ -348,8 +437,8 @@ export function LeistungenTeaser() {
               </ul>
 
               <div className="mt-auto pt-8">
-                <Button href="/leistungen/branding" variant="primary" size="sm">
-                  mehr erfahren →
+                <Button href={buildPath("leistungen/branding", locale)} variant="primary" size="sm">
+                  {t.grafik.cta}
                 </Button>
               </div>
             </div>
