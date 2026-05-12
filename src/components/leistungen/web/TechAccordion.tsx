@@ -1,9 +1,19 @@
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocale, pick } from "@/i18n/useLocale";
+import type { Locale } from "@/i18n/config";
+
+const DICT: Record<Locale, { label: string }> = {
+  de: { label: "für die techniker unter euch" },
+  fr: { label: "pour les tech parmi vous" },
+  en: { label: "for the tech folks among you" },
+};
 
 export function TechAccordion({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
+  const locale = useLocale();
+  const t = pick(DICT, locale);
   return (
     <section className="py-10">
       <div className="container-site">
@@ -14,7 +24,7 @@ export function TechAccordion({ children }: { children: React.ReactNode }) {
         >
           <div className="flex items-center gap-3">
             <span className="font-mono text-[12px] lowercase tracking-mono text-offwhite/55 group-hover:text-offwhite transition-colors">
-              für die techniker unter euch
+              {t.label}
             </span>
           </div>
           <motion.span

@@ -1,16 +1,191 @@
-// SVG-Mocks für ContentCore. Alles im Laconis-Dark-Look,
-// solange keine echten Screenshots geliefert sind.
+"use client";
+
+// SVG-Mocks für ContentCore. Alles im Laconis-Dark-Look.
+
+import { useLocale, pick } from "@/i18n/useLocale";
+import type { Locale } from "@/i18n/config";
+
+type DashboardCopy = {
+  url: string;
+  brand: string;
+  uebersicht: string;
+  woche: string;
+  navStartseite: string;
+  navSeiten: string;
+  navMedien: string;
+  navMenues: string;
+  navStats: string;
+  navNewsletter: string;
+  navNutzer: string;
+  navEinst: string;
+  kpiVisitors: string;
+  kpiAnfragen: string;
+  kpiPagespeed: string;
+  letzte: string;
+  ev1: string;
+  ev2: string;
+  ev3: string;
+  ev4: string;
+  tagDu: string;
+  tagForm: string;
+};
+
+type EditorCopy = {
+  url: string;
+  speichern: string;
+  heroTitle: string;
+  textBlock: string;
+  ueberschrift: string;
+  sayLess: string;
+  meanMore: string;
+  untertitel: string;
+  body1: string;
+  body2: string;
+  body3: string;
+};
+
+type StatsCopy = {
+  url: string;
+  besucher30: string;
+  vsVormonat: string;
+  topSeiten: string;
+  days: string[];
+};
+
+const DASH: Record<Locale, DashboardCopy> = {
+  de: {
+    url: "cms.laconis.be / dashboard",
+    brand: "laconis · cms",
+    uebersicht: "Übersicht",
+    woche: "diese woche · 14 änderungen · 4 neue anfragen",
+    navStartseite: "Startseite",
+    navSeiten: "Seiten",
+    navMedien: "Medien",
+    navMenues: "Menüs",
+    navStats: "Stats",
+    navNewsletter: "Newsletter",
+    navNutzer: "Nutzer",
+    navEinst: "Einstellungen",
+    kpiVisitors: "BESUCHER · 7 TAGE",
+    kpiAnfragen: "ANFRAGEN",
+    kpiPagespeed: "PAGESPEED",
+    letzte: "LETZTE ÄNDERUNGEN",
+    ev1: "Startseite · Hero-Text angepasst",
+    ev2: "Referenz · Fabry Baumpflege bearbeitet",
+    ev3: "Medien · 4 Bilder hochgeladen",
+    ev4: "Kontakt · neue Anfrage von M. Keller",
+    tagDu: "du",
+    tagForm: "form",
+  },
+  fr: {
+    url: "cms.laconis.be / dashboard",
+    brand: "laconis · cms",
+    uebersicht: "Vue d'ensemble",
+    woche: "cette semaine · 14 modifs · 4 nouvelles demandes",
+    navStartseite: "Accueil",
+    navSeiten: "Pages",
+    navMedien: "Médias",
+    navMenues: "Menus",
+    navStats: "Stats",
+    navNewsletter: "Newsletter",
+    navNutzer: "Utilisateurs",
+    navEinst: "Paramètres",
+    kpiVisitors: "VISITEURS · 7 JOURS",
+    kpiAnfragen: "DEMANDES",
+    kpiPagespeed: "PAGESPEED",
+    letzte: "DERNIÈRES MODIFS",
+    ev1: "Accueil · hero modifié",
+    ev2: "Référence · Fabry Baumpflege éditée",
+    ev3: "Médias · 4 images uploadées",
+    ev4: "Contact · nouvelle demande de M. Keller",
+    tagDu: "toi",
+    tagForm: "form",
+  },
+  en: {
+    url: "cms.laconis.be / dashboard",
+    brand: "laconis · cms",
+    uebersicht: "Overview",
+    woche: "this week · 14 edits · 4 new requests",
+    navStartseite: "Homepage",
+    navSeiten: "Pages",
+    navMedien: "Media",
+    navMenues: "Menus",
+    navStats: "Stats",
+    navNewsletter: "Newsletter",
+    navNutzer: "Users",
+    navEinst: "Settings",
+    kpiVisitors: "VISITORS · 7 DAYS",
+    kpiAnfragen: "REQUESTS",
+    kpiPagespeed: "PAGESPEED",
+    letzte: "RECENT EDITS",
+    ev1: "Homepage · hero text updated",
+    ev2: "Reference · Fabry Baumpflege edited",
+    ev3: "Media · 4 images uploaded",
+    ev4: "Contact · new request from M. Keller",
+    tagDu: "you",
+    tagForm: "form",
+  },
+};
+
+const ED: Record<Locale, EditorCopy> = {
+  de: {
+    url: "cms / seiten / startseite / edit",
+    speichern: "speichern",
+    heroTitle: "Hero · Startseite",
+    textBlock: "text-block",
+    ueberschrift: "ÜBERSCHRIFT",
+    sayLess: "say less",
+    meanMore: "mean more",
+    untertitel: "UNTERTITEL",
+    body1: "Webdesign und Branding, die bleiben.",
+    body2: "Für Unternehmen die nicht wie alle",
+    body3: "aussehen wollen.",
+  },
+  fr: {
+    url: "cms / pages / accueil / edit",
+    speichern: "enregistrer",
+    heroTitle: "Hero · Accueil",
+    textBlock: "bloc texte",
+    ueberschrift: "TITRE",
+    sayLess: "dis moins",
+    meanMore: "veut dire plus",
+    untertitel: "SOUS-TITRE",
+    body1: "Webdesign et branding qui durent.",
+    body2: "Pour les boîtes qui veulent pas",
+    body3: "ressembler à toutes les autres.",
+  },
+  en: {
+    url: "cms / pages / home / edit",
+    speichern: "save",
+    heroTitle: "Hero · Homepage",
+    textBlock: "text block",
+    ueberschrift: "HEADLINE",
+    sayLess: "say less",
+    meanMore: "mean more",
+    untertitel: "SUBHEAD",
+    body1: "Webdesign and branding that stay.",
+    body2: "For companies that don't want",
+    body3: "to look like everyone else.",
+  },
+};
+
+const ST: Record<Locale, StatsCopy> = {
+  de: { url: "cms / stats", besucher30: "Besucher · 30 Tage", vsVormonat: "VS. VORMONAT · +18%", topSeiten: "TOP SEITEN", days: ["mo", "di", "mi", "do", "fr", "sa", "so"] },
+  fr: { url: "cms / stats", besucher30: "Visiteurs · 30 jours", vsVormonat: "VS. MOIS PRÉC. · +18%", topSeiten: "TOP PAGES", days: ["lu", "ma", "me", "je", "ve", "sa", "di"] },
+  en: { url: "cms / stats", besucher30: "Visitors · 30 days", vsVormonat: "VS. PREV. MONTH · +18%", topSeiten: "TOP PAGES", days: ["mo", "tu", "we", "th", "fr", "sa", "su"] },
+};
 
 export function DashboardMock({ className = "" }: { className?: string }) {
+  const locale = useLocale();
+  const t = pick(DASH, locale);
   return (
     <svg
       viewBox="0 0 720 460"
       className={className}
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      aria-label="ContentCore Dashboard Mock"
+      aria-label="ContentCore Dashboard"
     >
-      {/* Laptop-Basis */}
       <defs>
         <linearGradient id="screen-bg" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#0f0f0f" />
@@ -22,22 +197,18 @@ export function DashboardMock({ className = "" }: { className?: string }) {
         </linearGradient>
       </defs>
 
-      {/* Rahmen */}
       <rect x="18" y="12" width="684" height="400" rx="14" fill="url(#laptop-frame)" stroke="rgba(255,255,255,0.08)" />
-      {/* Screen */}
       <rect x="30" y="24" width="660" height="376" rx="6" fill="url(#screen-bg)" />
-      {/* Boden */}
       <rect x="0" y="412" width="720" height="16" rx="4" fill="#141414" stroke="rgba(255,255,255,0.05)" />
       <rect x="300" y="412" width="120" height="6" rx="3" fill="#222" />
 
-      {/* Top bar inside screen */}
       <g>
         <rect x="30" y="24" width="660" height="36" fill="#0d0d0d" />
         <circle cx="48" cy="42" r="4" fill="#2a2a2a" />
         <circle cx="62" cy="42" r="4" fill="#2a2a2a" />
         <circle cx="76" cy="42" r="4" fill="#2a2a2a" />
         <text x="100" y="46" fontFamily="ui-monospace, monospace" fontSize="10" fill="rgba(242,242,242,0.5)">
-          cms.laconis.be / dashboard
+          {t.url}
         </text>
         <rect x="640" y="34" width="32" height="16" rx="3" fill="rgb(var(--accent) / 0.12)" stroke="rgb(var(--accent) / 0.35)" />
         <text x="656" y="45" fontFamily="ui-monospace, monospace" fontSize="8" fill="rgb(var(--accent))" textAnchor="middle">
@@ -45,22 +216,21 @@ export function DashboardMock({ className = "" }: { className?: string }) {
         </text>
       </g>
 
-      {/* Sidebar */}
       <g>
         <rect x="30" y="60" width="160" height="340" fill="#0a0a0a" />
         <text x="50" y="86" fontFamily="ui-monospace, monospace" fontSize="10" fill="rgba(242,242,242,0.85)" fontWeight="600">
-          laconis · cms
+          {t.brand}
         </text>
 
         {[
-          { y: 118, label: "Startseite", active: true },
-          { y: 146, label: "Seiten" },
-          { y: 174, label: "Medien" },
-          { y: 202, label: "Menüs" },
-          { y: 230, label: "Stats" },
-          { y: 258, label: "Newsletter" },
-          { y: 286, label: "Nutzer" },
-          { y: 314, label: "Einstellungen" },
+          { y: 118, label: t.navStartseite, active: true },
+          { y: 146, label: t.navSeiten },
+          { y: 174, label: t.navMedien },
+          { y: 202, label: t.navMenues },
+          { y: 230, label: t.navStats },
+          { y: 258, label: t.navNewsletter },
+          { y: 286, label: t.navNutzer },
+          { y: 314, label: t.navEinst },
         ].map((n) => (
           <g key={n.label}>
             {n.active && (
@@ -82,26 +252,23 @@ export function DashboardMock({ className = "" }: { className?: string }) {
         ))}
       </g>
 
-      {/* Main area */}
       <g>
-        {/* Header */}
         <text x="210" y="100" fontFamily="system-ui, sans-serif" fontSize="20" fontWeight="700" fill="#F2F2F2" letterSpacing="-0.02em">
-          Übersicht
+          {t.uebersicht}
         </text>
         <text x="210" y="120" fontFamily="ui-monospace, monospace" fontSize="9" fill="rgba(242,242,242,0.4)">
-          diese woche · 14 änderungen · 4 neue anfragen
+          {t.woche}
         </text>
 
-        {/* KPI cards */}
         {[
-          { x: 210, label: "Besucher · 7 Tage", wert: "2.184" },
-          { x: 370, label: "Anfragen", wert: "12" },
-          { x: 530, label: "PageSpeed", wert: "96", accent: true },
+          { x: 210, label: t.kpiVisitors, wert: "2.184" },
+          { x: 370, label: t.kpiAnfragen, wert: "12" },
+          { x: 530, label: t.kpiPagespeed, wert: "96", accent: true },
         ].map((k) => (
           <g key={k.label}>
             <rect x={k.x} y="140" width="140" height="72" rx="6" fill="#101010" stroke="rgba(255,255,255,0.06)" />
             <text x={k.x + 14} y="162" fontFamily="ui-monospace, monospace" fontSize="8" fill="rgba(242,242,242,0.4)">
-              {k.label.toUpperCase()}
+              {k.label}
             </text>
             <text
               x={k.x + 14}
@@ -116,15 +283,14 @@ export function DashboardMock({ className = "" }: { className?: string }) {
           </g>
         ))}
 
-        {/* Letzte Änderungen */}
         <text x="210" y="250" fontFamily="ui-monospace, monospace" fontSize="9" fill="rgba(242,242,242,0.4)">
-          LETZTE ÄNDERUNGEN
+          {t.letzte}
         </text>
         {[
-          { y: 276, titel: "Startseite · Hero-Text angepasst", tag: "du" },
-          { y: 306, titel: "Referenz · Fabry Baumpflege bearbeitet", tag: "du" },
-          { y: 336, titel: "Medien · 4 Bilder hochgeladen", tag: "du" },
-          { y: 366, titel: "Kontakt · neue Anfrage von M. Keller", tag: "form" },
+          { y: 276, titel: t.ev1, tag: t.tagDu },
+          { y: 306, titel: t.ev2, tag: t.tagDu },
+          { y: 336, titel: t.ev3, tag: t.tagDu },
+          { y: 366, titel: t.ev4, tag: t.tagForm },
         ].map((e) => (
           <g key={e.titel}>
             <rect x="210" y={e.y - 14} width="460" height="24" rx="4" fill="#0d0d0d" stroke="rgba(255,255,255,0.05)" />
@@ -143,68 +309,64 @@ export function DashboardMock({ className = "" }: { className?: string }) {
 }
 
 export function EditorMock({ className = "" }: { className?: string }) {
+  const locale = useLocale();
+  const t = pick(ED, locale);
   return (
     <svg
       viewBox="0 0 420 280"
       className={className}
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      aria-label="ContentCore Editor Mock"
+      aria-label="ContentCore Editor"
     >
-      {/* Browser frame */}
       <rect x="4" y="4" width="412" height="272" rx="8" fill="#0d0d0d" stroke="rgba(255,255,255,0.08)" />
-      {/* Tab bar */}
       <rect x="4" y="4" width="412" height="28" fill="#080808" />
       <circle cx="18" cy="18" r="3" fill="#2a2a2a" />
       <circle cx="28" cy="18" r="3" fill="#2a2a2a" />
       <circle cx="38" cy="18" r="3" fill="#2a2a2a" />
       <rect x="54" y="10" width="200" height="14" rx="3" fill="#141414" />
       <text x="62" y="20" fontFamily="ui-monospace, monospace" fontSize="8" fill="rgba(242,242,242,0.4)">
-        cms / seiten / startseite / edit
+        {t.url}
       </text>
       <rect x="370" y="10" width="36" height="14" rx="3" fill="rgb(var(--accent) / 0.12)" stroke="rgb(var(--accent) / 0.3)" />
       <text x="388" y="20" fontFamily="ui-monospace, monospace" fontSize="7" fill="rgb(var(--accent))" textAnchor="middle">
-        speichern
+        {t.speichern}
       </text>
 
-      {/* Doc title */}
       <text x="28" y="66" fontFamily="system-ui, sans-serif" fontSize="16" fontWeight="700" fill="#F2F2F2" letterSpacing="-0.02em">
-        Hero · Startseite
+        {t.heroTitle}
       </text>
       <rect x="28" y="78" width="70" height="14" rx="3" fill="rgb(var(--accent) / 0.1)" stroke="rgb(var(--accent) / 0.25)" />
       <text x="63" y="88" fontFamily="ui-monospace, monospace" fontSize="7" fill="rgb(var(--accent))" textAnchor="middle">
-        text-block
+        {t.textBlock}
       </text>
 
-      {/* Label + input field (headline) */}
       <text x="28" y="114" fontFamily="ui-monospace, monospace" fontSize="8" fill="rgba(242,242,242,0.4)">
-        ÜBERSCHRIFT
+        {t.ueberschrift}
       </text>
       <rect x="28" y="120" width="364" height="30" rx="4" fill="#0a0a0a" stroke="rgba(255,255,255,0.08)" />
       <text x="40" y="140" fontFamily="system-ui, sans-serif" fontSize="12" fill="#F2F2F2">
-        say less
+        {t.sayLess}
       </text>
       <text x="85" y="140" fontFamily="serif" fontSize="12" fontStyle="italic" fill="rgb(var(--accent) / 0.9)">
-        mean more
+        {t.meanMore}
       </text>
       <line x1="148" y1="126" x2="148" y2="144" stroke="rgb(var(--accent))" strokeWidth="1" />
 
-      {/* Label + paragraph */}
       <text x="28" y="168" fontFamily="ui-monospace, monospace" fontSize="8" fill="rgba(242,242,242,0.4)">
-        UNTERTITEL
+        {t.untertitel}
       </text>
       <rect x="28" y="174" width="364" height="56" rx="4" fill="#0a0a0a" stroke="rgba(255,255,255,0.08)" />
       <text x="40" y="192" fontFamily="system-ui, sans-serif" fontSize="10" fill="rgba(242,242,242,0.8)">
-        Webdesign und Branding, die bleiben.
+        {t.body1}
       </text>
       <text x="40" y="208" fontFamily="system-ui, sans-serif" fontSize="10" fill="rgba(242,242,242,0.8)">
-        Für Unternehmen die nicht wie alle
+        {t.body2}
       </text>
       <text x="40" y="222" fontFamily="system-ui, sans-serif" fontSize="10" fill="rgba(242,242,242,0.8)">
-        aussehen wollen.
+        {t.body3}
       </text>
 
-      {/* Small format bar */}
       <rect x="28" y="246" width="200" height="20" rx="4" fill="#0a0a0a" stroke="rgba(255,255,255,0.06)" />
       {["B", "I", "U", "·", "H1", "H2", "⌖", "🔗"].map((s, i) => (
         <text
@@ -223,15 +385,16 @@ export function EditorMock({ className = "" }: { className?: string }) {
 }
 
 export function StatsMock({ className = "" }: { className?: string }) {
+  const locale = useLocale();
+  const t = pick(ST, locale);
   return (
     <svg
       viewBox="0 0 420 280"
       className={className}
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      aria-label="ContentCore Stats Mock"
+      aria-label="ContentCore Stats"
     >
-      {/* Frame */}
       <rect x="4" y="4" width="412" height="272" rx="8" fill="#0d0d0d" stroke="rgba(255,255,255,0.08)" />
       <rect x="4" y="4" width="412" height="28" fill="#080808" />
       <circle cx="18" cy="18" r="3" fill="#2a2a2a" />
@@ -239,20 +402,17 @@ export function StatsMock({ className = "" }: { className?: string }) {
       <circle cx="38" cy="18" r="3" fill="#2a2a2a" />
       <rect x="54" y="10" width="180" height="14" rx="3" fill="#141414" />
       <text x="62" y="20" fontFamily="ui-monospace, monospace" fontSize="8" fill="rgba(242,242,242,0.4)">
-        cms / stats
+        {t.url}
       </text>
 
-      {/* Heading */}
       <text x="28" y="58" fontFamily="system-ui, sans-serif" fontSize="14" fontWeight="700" fill="#F2F2F2" letterSpacing="-0.02em">
-        Besucher · 30 Tage
+        {t.besucher30}
       </text>
       <text x="28" y="74" fontFamily="ui-monospace, monospace" fontSize="8" fill="rgba(242,242,242,0.4)">
-        VS. VORMONAT · +18%
+        {t.vsVormonat}
       </text>
 
-      {/* Line chart */}
       <rect x="28" y="86" width="364" height="110" rx="6" fill="#0a0a0a" stroke="rgba(255,255,255,0.05)" />
-      {/* grid lines */}
       {[0, 1, 2, 3].map((i) => (
         <line
           key={i}
@@ -263,7 +423,6 @@ export function StatsMock({ className = "" }: { className?: string }) {
           stroke="rgba(255,255,255,0.04)"
         />
       ))}
-      {/* chart path */}
       <path
         d="M 40 170 L 75 158 L 110 164 L 145 148 L 180 152 L 215 130 L 250 136 L 285 114 L 320 122 L 355 102 L 380 96"
         fill="none"
@@ -276,8 +435,7 @@ export function StatsMock({ className = "" }: { className?: string }) {
         d="M 40 170 L 75 158 L 110 164 L 145 148 L 180 152 L 215 130 L 250 136 L 285 114 L 320 122 L 355 102 L 380 96 L 380 186 L 40 186 Z"
         fill="rgb(var(--accent) / 0.08)"
       />
-      {/* Achsenbeschriftungen */}
-      {["mo", "di", "mi", "do", "fr", "sa", "so"].map((d, i) => (
+      {t.days.map((d, i) => (
         <text
           key={d}
           x={55 + i * 53}
@@ -291,22 +449,21 @@ export function StatsMock({ className = "" }: { className?: string }) {
         </text>
       ))}
 
-      {/* Top Seiten */}
       <text x="28" y="224" fontFamily="ui-monospace, monospace" fontSize="8" fill="rgba(242,242,242,0.4)">
-        TOP SEITEN
+        {t.topSeiten}
       </text>
       {[
         { y: 242, name: "/", proz: 64 },
         { y: 256, name: "/leistungen/web", proz: 38 },
-      ].map((t) => (
-        <g key={t.name}>
-          <text x="28" y={t.y + 3} fontFamily="ui-monospace, monospace" fontSize="9" fill="rgba(242,242,242,0.75)">
-            {t.name}
+      ].map((row) => (
+        <g key={row.name}>
+          <text x="28" y={row.y + 3} fontFamily="ui-monospace, monospace" fontSize="9" fill="rgba(242,242,242,0.75)">
+            {row.name}
           </text>
-          <rect x="160" y={t.y - 6} width="180" height="8" rx="2" fill="#0a0a0a" />
-          <rect x="160" y={t.y - 6} width={(t.proz / 100) * 180} height="8" rx="2" fill="rgb(var(--accent) / 0.7)" />
-          <text x="348" y={t.y + 3} fontFamily="ui-monospace, monospace" fontSize="9" fill="rgba(242,242,242,0.5)">
-            {t.proz}%
+          <rect x="160" y={row.y - 6} width="180" height="8" rx="2" fill="#0a0a0a" />
+          <rect x="160" y={row.y - 6} width={(row.proz / 100) * 180} height="8" rx="2" fill="rgb(var(--accent) / 0.7)" />
+          <text x="348" y={row.y + 3} fontFamily="ui-monospace, monospace" fontSize="9" fill="rgba(242,242,242,0.5)">
+            {row.proz}%
           </text>
         </g>
       ))}
