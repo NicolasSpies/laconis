@@ -4,6 +4,104 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { useLocale, pick } from "@/i18n/useLocale";
+import { buildPath, type Locale } from "@/i18n/config";
+
+type Dict = {
+  sectionLabel: string;
+  quotePre: string;
+  quoteMid: string;
+  quotePost: string;
+  brandLabel: string;
+  projectMeta: string;
+  caseCta: string;
+  story: string;
+  handNote: string;
+  scoreMeta: string;
+  scoreMobile: string;
+  scoreDesktop: string;
+  heroEyebrow: string;
+  heroH1L1: string;
+  heroH1Italic: string;
+  navLeistungen: string;
+  navTeam: string;
+  navKontakt: string;
+  ctaPrimary: string;
+  ctaPhone: string;
+  rufbereitschaft: string;
+};
+
+const DICT: Record<Locale, Dict> = {
+  de: {
+    sectionLabel: "ein echtes projekt",
+    quotePre: "ich hab einfach angerufen,",
+    quoteMid: "geschrieben wenn was war.",
+    quotePost: "keine tickets, keine agentur-höflichkeit.",
+    brandLabel: "fabry baumpflege",
+    projectMeta: "onepager · eigenes cms · 2025",
+    caseCta: "case ansehen →",
+    story: "Reimund hatte eine veraltete WordPress-Seite, die kaum lud und niemand pflegte. Ich hab das komplett neu gebaut · handgeschrieben, eigenes CMS, SEO von Anfang an eingebaut. Keine Plugin-Hölle mehr.",
+    handNote: "ging richtig schnell. ↗",
+    scoreMeta: "google pagespeed insights · live-wert",
+    scoreMobile: "mobile",
+    scoreDesktop: "desktop",
+    heroEyebrow: "seit 1998",
+    heroH1L1: "bäume in guten",
+    heroH1Italic: "händen.",
+    navLeistungen: "leistungen",
+    navTeam: "team",
+    navKontakt: "kontakt",
+    ctaPrimary: "anfrage stellen",
+    ctaPhone: "087 / 44 · · ·",
+    rufbereitschaft: "rufbereitschaft",
+  },
+  fr: {
+    sectionLabel: "un vrai projet",
+    quotePre: "j'ai juste appelé,",
+    quoteMid: "écrit quand il y avait quelque chose.",
+    quotePost: "pas de tickets, pas de politesse d'agence.",
+    brandLabel: "fabry baumpflege",
+    projectMeta: "onepage · cms maison · 2025",
+    caseCta: "voir le case →",
+    story: "Reimund avait un vieux WordPress qui chargeait à peine et que personne ne maintenait. J'ai tout refait · écrit à la main, cms maison, seo intégré dès le début. Plus d'enfer des plugins.",
+    handNote: "ça a été super vite. ↗",
+    scoreMeta: "google pagespeed insights · valeur live",
+    scoreMobile: "mobile",
+    scoreDesktop: "desktop",
+    heroEyebrow: "depuis 1998",
+    heroH1L1: "des arbres entre",
+    heroH1Italic: "de bonnes mains.",
+    navLeistungen: "services",
+    navTeam: "équipe",
+    navKontakt: "contact",
+    ctaPrimary: "demander un devis",
+    ctaPhone: "087 / 44 · · ·",
+    rufbereitschaft: "permanence",
+  },
+  en: {
+    sectionLabel: "a real project",
+    quotePre: "i just called,",
+    quoteMid: "messaged when something came up.",
+    quotePost: "no tickets, no agency politeness.",
+    brandLabel: "fabry baumpflege",
+    projectMeta: "onepager · own cms · 2025",
+    caseCta: "see the case →",
+    story: "Reimund had an outdated WordPress site that barely loaded and nobody maintained. I rebuilt the whole thing · hand-written, own cms, seo baked in from day one. No more plugin hell.",
+    handNote: "went really fast. ↗",
+    scoreMeta: "google pagespeed insights · live value",
+    scoreMobile: "mobile",
+    scoreDesktop: "desktop",
+    heroEyebrow: "since 1998",
+    heroH1L1: "trees in good",
+    heroH1Italic: "hands.",
+    navLeistungen: "services",
+    navTeam: "team",
+    navKontakt: "contact",
+    ctaPrimary: "request a quote",
+    ctaPhone: "087 / 44 · · ·",
+    rufbereitschaft: "on-call",
+  },
+};
 
 function AnimatedScore({ score, label }: { score: number; label: string }) {
   const [current, setCurrent] = useState(0);
@@ -43,7 +141,7 @@ function AnimatedScore({ score, label }: { score: number; label: string }) {
   );
 }
 
-function FabryScreenshotPlaceholder() {
+function FabryScreenshotPlaceholder({ t }: { t: Dict }) {
   return (
     <div data-theme="dark" className="relative aspect-[16/10] w-full rounded-lg border border-ink/10 overflow-hidden bg-[rgb(var(--bg-root))]">
       <div className="absolute inset-x-0 top-0 h-7 bg-[rgb(var(--surface))] border-b border-ink/5 flex items-center px-3 gap-2">
@@ -101,25 +199,25 @@ function FabryScreenshotPlaceholder() {
             <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-offwhite/55">baumpflege</span>
           </div>
           <div className="flex gap-4 font-mono text-[8px] uppercase tracking-[0.14em] text-offwhite/55">
-            <span>leistungen</span><span>team</span><span>kontakt</span>
+            <span>{t.navLeistungen}</span><span>{t.navTeam}</span><span>{t.navKontakt}</span>
           </div>
         </div>
 
         <div className="absolute left-6 right-6 bottom-5 flex items-end justify-between gap-4">
           <div>
-            <span className="font-mono text-[8px] uppercase tracking-[0.16em] text-accent-ink/80">seit 1998</span>
+            <span className="font-mono text-[8px] uppercase tracking-[0.16em] text-accent-ink/80">{t.heroEyebrow}</span>
             <h4 className="mt-2 text-offwhite leading-[0.95] tracking-[-0.02em]"
               style={{ fontFamily: "var(--font-fraunces, Georgia), serif", fontWeight: 900, fontSize: "34px" }}>
-              bäume in guten<br />
-              <span className="italic text-offwhite/100" style={{ fontWeight: 400 }}>händen.</span>
+              {t.heroH1L1}<br />
+              <span className="italic text-offwhite/100" style={{ fontWeight: 400 }}>{t.heroH1Italic}</span>
             </h4>
             <div className="mt-3 flex gap-2">
-              <div className="px-3 py-1.5 rounded-sm bg-lime text-[9px] font-mono uppercase tracking-wide text-black font-semibold">anfrage stellen</div>
-              <div className="px-3 py-1.5 rounded-sm border border-offwhite/25 text-[9px] font-mono uppercase tracking-wide text-offwhite/75">087 / 44 · · ·</div>
+              <div className="px-3 py-1.5 rounded-sm bg-lime text-[9px] font-mono uppercase tracking-wide text-black font-semibold">{t.ctaPrimary}</div>
+              <div className="px-3 py-1.5 rounded-sm border border-offwhite/25 text-[9px] font-mono uppercase tracking-wide text-offwhite/75">{t.ctaPhone}</div>
             </div>
           </div>
           <div className="hidden sm:flex flex-col gap-1 items-end">
-            <span className="font-mono text-[8px] uppercase tracking-wide text-offwhite/55">rufbereitschaft</span>
+            <span className="font-mono text-[8px] uppercase tracking-wide text-offwhite/55">{t.rufbereitschaft}</span>
             <span className="font-mono text-[10px] text-accent-ink">24 / 7</span>
           </div>
         </div>
@@ -129,12 +227,13 @@ function FabryScreenshotPlaceholder() {
 }
 
 export function FabryCase({ num = "05" }: { num?: string } = {}) {
+  const locale = useLocale();
+  const t = pick(DICT, locale);
   return (
     <section className="pb-32">
       <div className="container-site">
-        <SectionLabel num={num}>ein echtes projekt</SectionLabel>
+        <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
 
-        {/* Testimonial · das ist die Geschichte */}
         <div className="mt-10 max-w-[820px]">
           <blockquote className="relative">
             <span
@@ -144,11 +243,11 @@ export function FabryCase({ num = "05" }: { num?: string } = {}) {
               „
             </span>
             <p className="relative heading-display text-[clamp(1.6rem,3.8vw,2.8rem)] text-offwhite leading-[1.1] pl-6">
-              ich hab einfach angerufen,{" "}
+              {t.quotePre}{" "}
               <span className="text-offwhite/45">
-                geschrieben wenn was war.
+                {t.quoteMid}
               </span>{" "}
-              keine tickets, keine agentur-höflichkeit.
+              {t.quotePost}
             </p>
             <footer className="mt-6 pl-6 flex items-center gap-3">
               <span className="h-px w-8 bg-accent-ink/40" />
@@ -164,58 +263,47 @@ export function FabryCase({ num = "05" }: { num?: string } = {}) {
           </blockquote>
         </div>
 
-        {/* was dahinter steckt */}
         <div className="mt-16 grid lg:grid-cols-[1.4fr_1fr] gap-6 items-start">
-
-          {/* Screenshot */}
           <div className="glass rounded-2xl p-5 md:p-6">
-            <FabryScreenshotPlaceholder />
+            <FabryScreenshotPlaceholder t={t} />
             <div className="mt-4 flex items-baseline justify-between gap-3">
               <div>
-                <h3 className="heading-sans text-[17px] text-offwhite">fabry baumpflege</h3>
+                <h3 className="heading-sans text-[17px] text-offwhite">{t.brandLabel}</h3>
                 <p className="mt-1 font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-                  onepager · eigenes cms · 2025
+                  {t.projectMeta}
                 </p>
               </div>
               <Link
-                href="/referenzen/fabry-baumpflege"
+                href={`${buildPath("referenzen", locale)}/fabry-baumpflege`}
                 className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 hover:text-accent-ink transition-colors shrink-0"
               >
-                case ansehen →
+                {t.caseCta}
               </Link>
             </div>
           </div>
 
-          {/* rechts · kurze projekt-info + scores */}
           <div className="flex flex-col gap-5">
-
-            {/* kurze story */}
             <div className="glass rounded-2xl p-6">
               <p className="text-[14px] leading-relaxed text-offwhite/65">
-                Reimund hatte eine veraltete WordPress-Seite, die kaum lud
-                und niemand pflegte. Ich hab das komplett neu gebaut ·
-                handgeschrieben, eigenes CMS, SEO von Anfang an eingebaut.
-                Keine Plugin-Hölle mehr.
+                {t.story}
               </p>
               <p
                 className="mt-4 font-hand text-[18px] text-accent-ink"
                 style={{ transform: "rotate(-1deg)" }}
               >
-                ging richtig schnell. ↗
+                {t.handNote}
               </p>
             </div>
 
-            {/* scores · klein aber da */}
             <div className="glass rounded-2xl p-6">
               <p className="font-mono text-[9px] uppercase tracking-label text-offwhite/35 mb-5">
-                google pagespeed insights · live-wert
+                {t.scoreMeta}
               </p>
               <div className="space-y-4">
-                <AnimatedScore score={96} label="mobile" />
-                <AnimatedScore score={98} label="desktop" />
+                <AnimatedScore score={96} label={t.scoreMobile} />
+                <AnimatedScore score={98} label={t.scoreDesktop} />
               </div>
             </div>
-
           </div>
         </div>
       </div>
