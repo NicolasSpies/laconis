@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "nodejs";
-export const alt = "lacønis · design mit meinung · web mit seele";
+export const alt = "laconis · design mit meinung · web mit seele";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -73,7 +73,7 @@ export default function OpengraphImage() {
               display: "flex",
             }}
           >
-            lacønis
+            laconis
           </div>
           <div
             style={{

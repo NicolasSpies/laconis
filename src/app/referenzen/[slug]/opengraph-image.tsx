@@ -3,18 +3,18 @@ import { referenzen } from "@/data/referenzen";
 
 /**
  * dynamic OG-image pro referenz.
- * projekt-name links groß, lacønis-mark rechts klein,
+ * projekt-name links groß, laconis-mark rechts klein,
  * hintergrund = referenz-hauptfarbe (mit dunklem overlay für kontrast).
  *
  * Fallback: wenn der slug nicht existiert, zeigt das image trotzdem
- * einen neutralen lacønis-style-baseline (nicht 404 · OG-images sollen
+ * einen neutralen laconis-style-baseline (nicht 404 · OG-images sollen
  * immer ein bild liefern, sonst greifen clients den root og nicht).
  */
 
 export const runtime = "nodejs";
 export const contentType = "image/png";
 export const size = { width: 1200, height: 630 };
-export const alt = "referenz · lacønis";
+export const alt = "referenz · laconis";
 
 export function generateImageMetadata({
   params,
@@ -26,7 +26,7 @@ export function generateImageMetadata({
     {
       id: r?.slug ?? "default",
       size,
-      alt: r ? `${r.name} · lacønis` : alt,
+      alt: r ? `${r.name} · laconis` : alt,
       contentType,
     },
   ];
@@ -35,7 +35,7 @@ export function generateImageMetadata({
 export default function OgImage({ params }: { params: { slug: string } }) {
   const r = referenzen.find((x) => x.slug === params.slug);
   const accent = "#e1fd52";
-  const name = r?.name ?? "lacønis";
+  const name = r?.name ?? "laconis";
   const label = r?.kategorieLabel ?? "referenz";
   const ort = r?.ort ?? "Eupen · Belgien";
   const year = r?.jahr ?? new Date().getFullYear();
@@ -143,7 +143,7 @@ export default function OgImage({ params }: { params: { slug: string } }) {
           </div>
         </div>
 
-        {/* bottom · lacønis-mark */}
+        {/* bottom · laconis-mark */}
         <div
           style={{
             display: "flex",
@@ -157,7 +157,7 @@ export default function OgImage({ params }: { params: { slug: string } }) {
         >
           <div style={{ display: "flex" }}>laconis.be · referenzen</div>
           <div style={{ display: "flex", color: accent, fontWeight: 700 }}>
-            lacønis
+            laconis
           </div>
         </div>
       </div>

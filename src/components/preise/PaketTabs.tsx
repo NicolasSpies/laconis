@@ -611,7 +611,7 @@ export function PaketTabs() {
       {/* FOOTER NOTE */}
       <p className="mt-10 text-[12px] leading-relaxed text-offwhite/55 max-w-[760px]">
         Alle Preise verstehen sich als Startpreis („ab") · exkl. MwSt · Hosting
-        immer bei lacønis · jährlich fakturiert · Domain ab 2 €/Mt (kann je
+        immer bei laconis · jährlich fakturiert · Domain ab 2 €/Mt (kann je
         nach Domain variieren) · E-Mail 5 €/Mt pro Mailbox · im nächsten
         Schritt kannst du Zusatzseiten, Sprachen, CMS-Bereiche und Extras
         hinzufügen · Preis passt sich live an.

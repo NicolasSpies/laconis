@@ -2,7 +2,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 
 /**
  * Zahlungsoptionen — drei modelle, transparent gelistet. plus hosting-hinweis
- * am fuß (läuft immer über lacønis, jährlich, nicht verhandelbar).
+ * am fuß (läuft immer über laconis, jährlich, nicht verhandelbar).
  *
  * Referenz: files/preise_struktur.html · sektion 05
  */
@@ -142,7 +142,7 @@ export function Zahlungsoptionen() {
             ⓘ
           </span>
           <p className="text-[13px] leading-relaxed text-offwhite/55">
-            <span className="text-offwhite/75">Hosting läuft immer über lacønis.</span>{" "}
+            <span className="text-offwhite/75">Hosting läuft immer über laconis.</span>{" "}
             Jährlich fakturiert, der Preis wird pro Monat kommuniziert, damit du
             ihn gegen deine laufenden Kosten halten kannst. Das ist kein extra
             Produkt zum Mitverhandeln · es ist Teil vom Service, damit ich

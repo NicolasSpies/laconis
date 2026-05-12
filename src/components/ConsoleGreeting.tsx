@@ -60,7 +60,7 @@ export function ConsoleGreeting() {
     ].join(";");
 
     /* eslint-disable no-console */
-    console.log("%clacønis", wordmarkStyle);
+    console.log("%claconis", wordmarkStyle);
     console.log("%cdesign mit meinung · web mit seele.", taglineStyle);
     console.log(
       "%cweb   %chttps://laconis.be",

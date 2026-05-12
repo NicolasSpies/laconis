@@ -35,7 +35,7 @@ const DICT: Record<Locale, Dict> = {
     unterschiede: [
       { num: "01", punkt: "kein code-zugriff · kein export · kein entkommen.", detail: "Bei Wix, Squarespace & Co. gehört die Seite dem Anbieter. Preiserhöhung? Insolvenz? Umbau? Du hast keine Karte." },
       { num: "02", punkt: "templates sehen nach templates aus.", detail: "Deine Marke quetscht sich ins vorhandene Raster. Google erkennt das. Besucher auch · sie bleiben kürzer." },
-      { num: "03", punkt: "pagespeed unter 60 kostet dich google-plätze.", detail: "Baukästen laden langsam. Das ist kein Zufall, das ist Architektur. Ein lacønis-Projekt startet bei 95+." },
+      { num: "03", punkt: "pagespeed unter 60 kostet dich google-plätze.", detail: "Baukästen laden langsam. Das ist kein Zufall, das ist Architektur. Ein laconis-Projekt startet bei 95+." },
     ],
   },
   fr: {
@@ -52,7 +52,7 @@ const DICT: Record<Locale, Dict> = {
     unterschiede: [
       { num: "01", punkt: "pas d'accès au code · pas d'export · pas d'échappatoire.", detail: "Chez Wix, Squarespace & co, le site appartient au fournisseur. Hausse de prix ? Faillite ? Refonte ? Tu n'as pas la carte." },
       { num: "02", punkt: "les templates ont l'air de templates.", detail: "Ta marque s'écrase dans la grille existante. Google le voit. Les visiteurs aussi · ils restent moins longtemps." },
-      { num: "03", punkt: "un pagespeed sous 60 te coûte des places google.", detail: "Les constructeurs chargent lentement. C'est pas un hasard, c'est l'architecture. Un projet lacønis démarre à 95+." },
+      { num: "03", punkt: "un pagespeed sous 60 te coûte des places google.", detail: "Les constructeurs chargent lentement. C'est pas un hasard, c'est l'architecture. Un projet laconis démarre à 95+." },
     ],
   },
   en: {
@@ -69,7 +69,7 @@ const DICT: Record<Locale, Dict> = {
     unterschiede: [
       { num: "01", punkt: "no code access · no export · no exit.", detail: "With Wix, Squarespace & co, the site belongs to the provider. Price hike? Bankruptcy? Rebuild? You have no map." },
       { num: "02", punkt: "templates look like templates.", detail: "Your brand squeezes into a grid that already exists. Google notices. Visitors too · they stay shorter." },
-      { num: "03", punkt: "a pagespeed under 60 costs you google rankings.", detail: "Builders load slowly. That's not random, it's architecture. A lacønis project starts at 95+." },
+      { num: "03", punkt: "a pagespeed under 60 costs you google rankings.", detail: "Builders load slowly. That's not random, it's architecture. A laconis project starts at 95+." },
     ],
   },
 };
