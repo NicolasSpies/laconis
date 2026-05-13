@@ -304,7 +304,7 @@ export function HorizontalCases() {
                   style={{ background: CASE_ACCENT, opacity: 0.85 }}
                 />
 
-                <div className="container-site relative h-full flex flex-col justify-center">
+                <div className="container-site px-8 md:px-16 relative h-full flex flex-col justify-center">
                   <div className="flex items-center gap-3 mb-6 flex-wrap">
                     <span
                       aria-hidden

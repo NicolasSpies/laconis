@@ -75,7 +75,7 @@ export default function Page() {
   return (
     <>
       {/* HERO · full viewport · demos zentriert, claim unten */}
-      <section className="min-h-screen flex flex-col justify-center pt-24 md:pt-28 pb-10">
+      <section className="flex flex-col pt-24 md:pt-28 pb-10">
         <div className="container-site">
           <h1 className="sr-only">{t.srHeadline}</h1>
 

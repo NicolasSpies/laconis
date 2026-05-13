@@ -109,14 +109,14 @@ export function ContactBlock() {
         <h2 className="text-[clamp(3rem,9vw,8rem)] leading-[0.88] font-black tracking-[-0.04em] text-[#0a0a0a]">
           {t.h1}
         </h2>
-        <p className="mt-8 max-w-[520px] text-[15px] leading-relaxed text-[#0a0a0a]/80">
+        <p className="mt-8 max-w-[520px] text-[15px] leading-relaxed text-[#0a0a0a]/90">
           {t.intro}
         </p>
 
         <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-[720px]">
           {t.chips.map((s) => (
             <div key={s.label} className="border-t-2 border-[#0a0a0a]/15 pt-3">
-              <div className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/70">
+              <div className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/85">
                 {s.label}
               </div>
               <div className="mt-1 text-[14px] text-[#0a0a0a] break-words">

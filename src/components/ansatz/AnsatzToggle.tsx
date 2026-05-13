@@ -119,8 +119,8 @@ export function AnsatzToggle({
         </div>
       </section>
 
-      <div className={cn(mode === "web" ? "block" : "hidden")}>{web}</div>
-      <div className={cn(mode === "branding" ? "block" : "hidden")}>
+      <div style={{ display: mode === "web" ? "block" : "none" }}>{web}</div>
+      <div style={{ display: mode === "branding" ? "block" : "none" }}>
         {branding}
       </div>
     </>

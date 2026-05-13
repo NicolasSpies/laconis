@@ -39,7 +39,7 @@ const HorizontalCases = dynamic(
 const SplitStatement = dynamic(
   () =>
     import("@/components/home/SplitStatement").then((m) => m.SplitStatement),
-  { loading: () => <SkeletonSection h={720} /> },
+  { loading: () => <SkeletonSection h={0} /> },
 );
 const ContactBlock = dynamic(
   () => import("@/components/home/ContactBlock").then((m) => m.ContactBlock),

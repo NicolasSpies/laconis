@@ -278,7 +278,7 @@ const DICT: Record<Locale, Dict> = {
 
 export function KontaktMultistep() {
   return (
-    <Suspense fallback={<div className="h-[400px]" aria-hidden />}>
+    <Suspense fallback={<div className="h-2" aria-hidden />}>
       <Inner />
     </Suspense>
   );

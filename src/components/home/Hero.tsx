@@ -80,7 +80,8 @@ export function Hero() {
         }}
       />
       <div className="container-site w-full">
-        <div className="max-w-[1100px]">
+        <div className="relative grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-0 items-center">
+        <div className="max-w-[1100px] md:max-w-none">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -215,6 +216,61 @@ export function Hero() {
               </Button>
             </Magnetic>
           </motion.div>
+        </div>
+
+        {/* right side visual · desktop only */}
+        <motion.div
+          aria-hidden
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, delay: 0.6 }}
+          className="hidden md:flex items-center justify-center pointer-events-none select-none"
+        >
+          <svg
+            viewBox="0 0 400 400"
+            className="w-[380px] h-[380px] lg:w-[440px] lg:h-[440px] xl:w-[500px] xl:h-[500px]"
+            aria-hidden
+          >
+            {/* outer ring · lila */}
+            <circle
+              cx="200" cy="200" r="170"
+              stroke="#b084d3"
+              strokeWidth="1"
+              fill="none"
+              opacity="0.18"
+            />
+            {/* mid ring · lime */}
+            <circle
+              cx="200" cy="200" r="120"
+              stroke="#E1FD52"
+              strokeWidth="0.8"
+              fill="none"
+              opacity="0.25"
+              strokeDasharray="6 10"
+            />
+            {/* inner ring · lila */}
+            <circle
+              cx="200" cy="200" r="72"
+              stroke="#b084d3"
+              strokeWidth="0.6"
+              fill="none"
+              opacity="0.2"
+              strokeDasharray="3 7"
+            />
+            {/* center crosshair */}
+            <line x1="200" y1="148" x2="200" y2="168" stroke="#E1FD52" strokeWidth="0.8" opacity="0.5" />
+            <line x1="200" y1="232" x2="200" y2="252" stroke="#E1FD52" strokeWidth="0.8" opacity="0.5" />
+            <line x1="148" y1="200" x2="168" y2="200" stroke="#E1FD52" strokeWidth="0.8" opacity="0.5" />
+            <line x1="232" y1="200" x2="252" y2="200" stroke="#E1FD52" strokeWidth="0.8" opacity="0.5" />
+            {/* center dot */}
+            <circle cx="200" cy="200" r="3" fill="#E1FD52" opacity="0.7" />
+            {/* small accent dots on outer ring */}
+            <circle cx="200" cy="30" r="2.5" fill="#b084d3" opacity="0.45" />
+            <circle cx="370" cy="200" r="2.5" fill="#b084d3" opacity="0.45" />
+            <circle cx="200" cy="370" r="2.5" fill="#b084d3" opacity="0.45" />
+            <circle cx="30" cy="200" r="2.5" fill="#b084d3" opacity="0.45" />
+          </svg>
+        </motion.div>
         </div>
       </div>
     </section>
