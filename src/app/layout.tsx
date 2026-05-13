@@ -89,10 +89,9 @@ export const metadata: Metadata = {
   },
 };
 
-/* Inline — runs before React hydrates. Prevents flash of wrong theme.
-   default = light · dark nur wenn user explicit via localStorage ODER os-level
-   prefers-color-scheme: dark gesetzt hat · sonst immer light. */
-const themeInitScript = `(function(){try{var s=localStorage.getItem('laconis-theme');var pd=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);var t=s||(pd?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();`;
+/* sprint-5-rework: theme-toggle entfernt · site ist jetzt light-first.
+   einzelne sections können sich via `<div data-theme="dark">` als
+   dark-island überschreiben. kein localStorage, kein system-pref-listen. */
 
 export default function RootLayout({
   children,
@@ -112,9 +111,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${dmSans.variable} ${dmMono.variable} ${caveat.variable} ${instrumentSerif.variable}`}
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-      </head>
+      <head />
       <body>
         <div
           aria-hidden

@@ -1,200 +1,191 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Link from "next/link";
+import { useRef } from "react";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { Button } from "@/components/ui/Button";
 import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
 
 /**
- * PreiseTeaser — homepage section.
- * keine pakete mehr · zeigt was das investment beeinflusst.
- * drei kartei-karten mit faktoren statt preiszeilen.
+ * PreiseTeaser · 3 factor-cards mit 3D-mouse-tilt · klein-print preis-range.
  */
 
-type Karte = {
-  num: string;
-  titel: string;
-  text: string;
-  rotate: number;
-  tape?: "left" | "right";
-  note?: string;
+const LILA = "#b084d3";
+
+type Factor = {
+  title: string;
+  desc: string;
 };
 
 type Dict = {
   sectionLabel: string;
-  headlinePre: string;
-  headlineItalic: string;
-  handAside: string;
-  cards: Karte[];
-  footnote: string;
+  headlineL1: string;
+  headlineL2: string;
+  intro: string;
+  factors: Factor[];
   cta: string;
 };
-
-const KARTEN_LAYOUT = [
-  { rotate: -1.6, tape: "left" as const },
-  { rotate: 0.6, tape: "right" as const },
-  { rotate: 2.1, tape: "left" as const },
-];
 
 const DICT: Record<Locale, Dict> = {
   de: {
     sectionLabel: "investment",
-    headlinePre: "was kostet das ",
-    headlineItalic: "eigentlich",
-    handAside: "keine tabelle · ehrliche faustregeln auf der preise-seite.",
-    cards: [
+    headlineL1: "was kostet",
+    headlineL2: "das eigentlich?",
+    intro:
+      "keine tabelle, keine fixen pakete. drei dinge bestimmen das budget — der rest klärt sich im gespräch.",
+    factors: [
       {
-        num: "01", titel: "scope",
-        text: "onepager oder mehrseitige site mit cms · was du brauchst, bestimmt den rahmen.",
-        ...KARTEN_LAYOUT[0],
+        title: "umfang.",
+        desc: "onepager oder zehn-seiten-site mit eigenem CMS. die größe entscheidet zuerst.",
       },
       {
-        num: "02", titel: "content",
-        text: "bringst du texte + bilder mit, oder soll ich beim schreiben mit ran? macht den größten unterschied.",
-        ...KARTEN_LAYOUT[1], note: "oft unterschätzt.",
+        title: "inhalte.",
+        desc: "texte und bilder selbst mitbringen — oder ich helf beim schreiben + foto-direction. das macht den größten unterschied.",
       },
       {
-        num: "03", titel: "branding dazu",
-        text: "website allein · oder alles aus einer hand. letzteres spart dir koordination und sieht stimmiger aus.",
-        ...KARTEN_LAYOUT[2], note: "am liebsten beides.",
+        title: "extras.",
+        desc: "branding, print, foto-direction dazu? kommt obendrauf · spart koordination, sieht stimmiger aus.",
       },
     ],
-    footnote: "Die meisten Projekte: 1.500–6.000 €. Was den Rahmen bestimmt und wie's konkret läuft · auf der Preise-Seite.",
-    cta: "was es kostet →",
+    cta: "preise im detail →",
   },
   fr: {
     sectionLabel: "investissement",
-    headlinePre: "ça coûte combien, ",
-    headlineItalic: "en vrai",
-    handAside: "pas de tableau · des règles honnêtes sur la page prix.",
-    cards: [
+    headlineL1: "ça coûte combien,",
+    headlineL2: "en vrai ?",
+    intro:
+      "pas de tableau, pas de packages fixes. trois choses définissent le budget — le reste se règle dans l'échange.",
+    factors: [
       {
-        num: "01", titel: "scope",
-        text: "onepage ou site multi-pages avec cms · ce qu'il te faut définit le cadre.",
-        ...KARTEN_LAYOUT[0],
+        title: "étendue.",
+        desc: "onepage ou site à dix pages avec CMS sur mesure. la taille fait la différence en premier.",
       },
       {
-        num: "02", titel: "contenu",
-        text: "tu apportes textes + images, ou je m'y mets avec toi pour l'écriture ? ça fait la plus grande différence.",
-        ...KARTEN_LAYOUT[1], note: "souvent sous-estimé.",
+        title: "contenu.",
+        desc: "tu apportes textes + images toi-même — ou je m'y mets avec toi pour l'écriture + direction photo. c'est ça qui pèse le plus.",
       },
       {
-        num: "03", titel: "branding en plus",
-        text: "site web seul · ou tout d'une même main. la deuxième te fait gagner de la coordination et c'est plus cohérent.",
-        ...KARTEN_LAYOUT[2], note: "les deux, idéalement.",
+        title: "extras.",
+        desc: "branding, print, direction photo en plus ? ça s'ajoute · gain de coordination, plus cohérent.",
       },
     ],
-    footnote: "La plupart des projets : 1 500–6 000 €. Ce qui définit le cadre et comment ça se passe · sur la page prix.",
     cta: "voir les prix →",
   },
   en: {
     sectionLabel: "investment",
-    headlinePre: "what does it ",
-    headlineItalic: "actually",
-    handAside: "no table · honest rules of thumb on the pricing page.",
-    cards: [
+    headlineL1: "what does it",
+    headlineL2: "actually cost?",
+    intro:
+      "no table, no fixed packages. three things set the budget — the rest is for the call.",
+    factors: [
       {
-        num: "01", titel: "scope",
-        text: "onepager or multipage site with cms · what you need sets the frame.",
-        ...KARTEN_LAYOUT[0],
+        title: "scope.",
+        desc: "onepager or a ten-page site with custom CMS. size sets the frame first.",
       },
       {
-        num: "02", titel: "content",
-        text: "do you bring text + images, or should i help write? makes the biggest difference.",
-        ...KARTEN_LAYOUT[1], note: "often underestimated.",
+        title: "content.",
+        desc: "you bring text + images yourself — or i help write + handle photo direction. this moves the budget most.",
       },
       {
-        num: "03", titel: "branding too",
-        text: "website alone · or everything from one place. the second saves you coordination and looks more cohesive.",
-        ...KARTEN_LAYOUT[2], note: "both, ideally.",
+        title: "extras.",
+        desc: "branding, print, photo direction on top? adds up · saves coordination, looks more cohesive.",
       },
     ],
-    footnote: "Most projects: €1,500–6,000. What sets the frame and how it actually works · on the pricing page.",
-    cta: "what it costs →",
+    cta: "see pricing →",
   },
 };
+
+function FactorCard({ f }: { f: Factor }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+  const smoothX = useSpring(mouseX, { damping: 18, stiffness: 160 });
+  const smoothY = useSpring(mouseY, { damping: 18, stiffness: 160 });
+  const rotateY = useTransform(smoothX, [0, 1], [-5, 5]);
+  const rotateX = useTransform(smoothY, [0, 1], [4, -4]);
+
+  function onMove(e: React.MouseEvent<HTMLDivElement>) {
+    if (!ref.current) return;
+    const r = ref.current.getBoundingClientRect();
+    mouseX.set((e.clientX - r.left) / r.width);
+    mouseY.set((e.clientY - r.top) / r.height);
+  }
+  function onLeave() {
+    mouseX.set(0.5);
+    mouseY.set(0.5);
+  }
+
+  return (
+    <motion.article
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+        transformPerspective: 1400,
+      }}
+      className="relative bg-transparent border-2 border-[#0a0a0a]/15 rounded-2xl p-7 hover:border-[#b084d3]/60 transition-colors"
+    >
+      {/* lila dot top-right · einziges meta-element pro card */}
+      <span
+        aria-hidden
+        className="absolute top-7 right-7 w-1.5 h-1.5 rounded-full"
+        style={{ background: LILA }}
+      />
+      <h3 className="text-[clamp(1.4rem,2.2vw,1.85rem)] leading-[0.98] font-black tracking-[-0.02em] text-[#0a0a0a]">
+        {f.title}
+      </h3>
+      <p className="mt-4 text-[14px] leading-relaxed text-[#0a0a0a]/80">
+        {f.desc}
+      </p>
+    </motion.article>
+  );
+}
 
 export function PreiseTeaser() {
   const locale = useLocale();
   const t = pick(DICT, locale);
 
   return (
-    <section className="relative py-28 md:py-36">
+    <section
+      className="bg-[#c8c8c8] py-24 md:py-32"
+      aria-label={t.sectionLabel}
+    >
       <div className="container-site">
-        <SectionLabel num="03">{t.sectionLabel}</SectionLabel>
+        <SectionLabel>{t.sectionLabel}</SectionLabel>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7 }}
-          className="mt-6 flex flex-wrap items-end justify-between gap-4"
-        >
-          <h2 className="heading-display text-[clamp(2.25rem,5.5vw,4rem)] max-w-[820px] text-offwhite leading-[1.02]">
-            {t.headlinePre}
-            <span className="italic font-serif text-accent-ink">{t.headlineItalic}</span>?
+        <div className="mt-8 flex items-end justify-between flex-wrap gap-6 mb-12">
+          <h2 className="text-[clamp(2.5rem,6vw,5rem)] leading-[0.92] font-black tracking-[-0.03em] text-[#0a0a0a] max-w-[800px]">
+            {t.headlineL1}
+            <br />
+            <span className="text-[#0a0a0a]/35">{t.headlineL2}</span>
           </h2>
-          <p className="font-hand text-[20px] md:text-[22px] text-offwhite/55 max-w-[360px] leading-snug">
-            {t.handAside}
+          <p className="max-w-[420px] text-[14px] leading-relaxed text-[#0a0a0a]/80">
+            {t.intro}
           </p>
-        </motion.div>
+        </div>
 
-        {/* kartei-karten · faktoren statt preise */}
-        <div className="mt-16 grid md:grid-cols-3 gap-10 md:gap-6 lg:gap-8">
-          {t.cards.map((k, i) => (
-            <motion.article
-              key={k.num}
-              initial={{ opacity: 0, y: 32, rotate: 0 }}
-              whileInView={{ opacity: 1, y: 0, rotate: k.rotate }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{
-                duration: 0.7,
-                delay: i * 0.1,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              whileHover={{ y: -4, rotate: k.rotate * 0.4, transition: { duration: 0.4 } }}
-              className="relative glass rounded-xl p-7 md:p-8 flex flex-col min-h-[300px]"
-            >
-              <span
-                aria-hidden
-                className={
-                  "pointer-events-none absolute -top-2 h-4 w-20 bg-offwhite/10 border border-ink/10 rounded-[2px] " +
-                  (k.tape === "left" ? "left-6 -rotate-6" : "right-6 rotate-3")
-                }
-              />
-
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-                {locale === "fr" ? "facteur" : locale === "en" ? "factor" : "faktor"} · {k.num}
-              </span>
-
-              <h3 className="mt-4 heading-display text-[clamp(1.75rem,2.8vw,2.35rem)] lowercase text-offwhite leading-none">
-                {k.titel}
-              </h3>
-
-              <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55 flex-1">
-                {k.text}
-              </p>
-
-              {k.note && (
-                <p
-                  className="mt-6 font-hand text-[16px] text-offwhite/55 leading-snug"
-                  style={{ transform: "rotate(-1deg)" }}
-                >
-                  {k.note}
-                </p>
-              )}
-            </motion.article>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {t.factors.map((f) => (
+            <FactorCard key={f.title} f={f} />
           ))}
         </div>
 
-        <div className="mt-14 flex flex-wrap items-center justify-between gap-5">
-          <p className="max-w-[520px] text-[13px] leading-relaxed text-offwhite/55">
-            {t.footnote}
-          </p>
-          <Button href={buildPath("preise", locale)} variant="primary" size="sm">
+        <div className="mt-14 flex">
+          <Link
+            href={buildPath("preise", locale)}
+            className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-5 py-3 rounded-full bg-[#0a0a0a] text-[#e1fd52] hover:bg-[#1a1a1a] transition-colors"
+          >
             {t.cta}
-          </Button>
+          </Link>
         </div>
       </div>
     </section>

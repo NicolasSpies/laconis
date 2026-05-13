@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
 import { Button } from "./ui/Button";
-import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/cn";
 import {
   LOCALES,
@@ -228,7 +227,6 @@ export function Nav() {
 
         <div className="hidden md:flex items-center gap-4">
           <LangDropdown currentLocale={currentLocale} />
-          <ThemeToggle />
           <Button
             href={`${buildPath("kontakt", currentLocale)}#projekt`}
             size="sm"
@@ -303,7 +301,6 @@ export function Nav() {
                 );
               })}
             </div>
-            <ThemeToggle />
           </div>
           <Button
             href={`${buildPath("kontakt", currentLocale)}#projekt`}

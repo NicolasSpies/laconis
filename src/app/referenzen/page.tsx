@@ -1,5 +1,5 @@
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { ContactSheet } from "@/components/referenzen/ContactSheet";
+import { CaseWall } from "@/components/referenzen/CaseWall";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { referenzen } from "@/data/referenzen";
 import { getMeta } from "@/lib/seo/getMeta";
@@ -89,7 +89,7 @@ export default function Page() {
         </div>
 
         <div className="mt-16">
-          <ContactSheet />
+          <CaseWall />
         </div>
       </div>
     </section>

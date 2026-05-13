@@ -1,6 +1,7 @@
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { DeskScene } from "@/components/ueber-mich/DeskScene";
+import { CursorCanvas } from "@/components/ueber-mich/CursorCanvas";
 import { Werkstatt } from "@/components/home/Werkstatt";
 import { StaerkenSection } from "@/components/ueber-mich/StaerkenSection";
 import { getMeta } from "@/lib/seo/getMeta";
@@ -216,6 +217,7 @@ export default function Page() {
       <DeskScene />
       <Werkstatt />
       <StaerkenSection />
+      <CursorCanvas />
 
       <div className="container-site py-2">
         <div className="flex items-center gap-6">

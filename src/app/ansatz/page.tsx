@@ -2,6 +2,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { AnsatzToggle } from "@/components/ansatz/AnsatzToggle";
 import { UnifiedProcess } from "@/components/ansatz/UnifiedProcess";
+import { ChatThread } from "@/components/ansatz/ChatThread";
 import { WebManifest } from "@/components/leistungen/web/WebManifest";
 import { Manifest } from "@/components/leistungen/branding/Manifest";
 import { HowToSchema } from "@/components/seo/HowToSchema";
@@ -132,8 +133,11 @@ export default function Page() {
         </div>
       </section>
 
+      {/* Wie es startet · simulierter chat-thread als opener */}
+      <ChatThread num="02" />
+
       {/* Unified process · gilt für web + branding */}
-      <UnifiedProcess num="02" />
+      <UnifiedProcess num="03" />
 
       {/* atmospheric break */}
       <div className="container-site py-2">
@@ -148,7 +152,7 @@ export default function Page() {
 
       {/* Toggle · manifeste unterscheiden sich zwischen disziplinen */}
       <AnsatzToggle
-        num="03"
+        num="04"
         web={<WebManifest hideHeader />}
         branding={<Manifest hideHeader />}
       />

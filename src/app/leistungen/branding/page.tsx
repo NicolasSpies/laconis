@@ -2,6 +2,7 @@ import Link from "next/link";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { BrandSystemHero } from "@/components/leistungen/branding/BrandSystemHero";
+import { BrandDesk } from "@/components/leistungen/branding/BrandDesk";
 import { SpecimenKartei } from "@/components/leistungen/branding/SpecimenKartei";
 import { Deliverables } from "@/components/leistungen/branding/Deliverables";
 import { BrandCase } from "@/components/leistungen/branding/BrandCase";
@@ -250,6 +251,7 @@ export default function Page() {
       </section>
 
       <StaerkenStrip />
+      <BrandDesk num="02" />
       <ScribbleBreak text={t.breakLook} rotate={-1} />
       <SpecimenKartei num="03" />
       <Deliverables num="04" />

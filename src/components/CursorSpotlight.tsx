@@ -74,8 +74,9 @@ export function CursorSpotlight() {
         className="pointer-events-none absolute inset-x-0 bottom-0 grid-bg-bright"
       />
 
-      {/* Lime glow — fixed, follows viewport cursor · IMMER sichtbar (ab mount).
-          sitzt bei z:-1 direkt über body-bg · cards in main (z:1) blurren ihn. */}
+      {/* Lime glow — fixed, follows viewport cursor · IMMER sichtbar.
+          z:5 über sections, mix-blend multiply mit niedriger opacity →
+          subtile lime-tint wie ursprünglich im hero, jetzt überall. */}
       <motion.div
         aria-hidden
         style={{
@@ -86,7 +87,8 @@ export function CursorSpotlight() {
           opacity: mounted ? 1 : 0,
           width: "var(--cursor-glow-size, 720px)",
           height: "var(--cursor-glow-size, 720px)",
-          zIndex: -1,
+          zIndex: 5,
+          mixBlendMode: "multiply",
         }}
         className="pointer-events-none fixed left-0 top-0 rounded-full will-change-transform transition-opacity duration-500"
       >
@@ -94,7 +96,7 @@ export function CursorSpotlight() {
           className="h-full w-full rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgb(var(--accent) / var(--cursor-glow-a1, 0.14)) 0%, rgb(var(--accent) / var(--cursor-glow-a2, 0.05)) 35%, transparent 70%)",
+              "radial-gradient(circle, rgba(225,253,82,0.22) 0%, rgba(225,253,82,0.08) 35%, transparent 70%)",
             filter: "blur(26px)",
           }}
         />
