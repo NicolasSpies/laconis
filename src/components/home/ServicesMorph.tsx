@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
 import { TiltCard } from "@/components/shared/TiltCard";
@@ -87,10 +88,10 @@ export function ServicesMorph() {
           {items.map((s, i) => {
             const isBranding = s.key === "branding";
             return (
-              <TiltCard key={s.key} preset={PRESETS[i]}>
+              <TiltCard key={s.key} preset={PRESETS[i]} className="relative overflow-hidden">
                 <Link
                   href={buildPath(s.href, locale)}
-                  className="flex flex-col justify-between p-8 md:p-10"
+                  className="flex flex-col justify-between p-8 md:p-10 relative z-10"
                   style={{
                     color: "inherit",
                     textDecoration: "none",
@@ -124,7 +125,7 @@ export function ServicesMorph() {
                       )}
                     </span>
                   </p>
-                  <div>
+                  <div className="max-w-[60%]">
                     <p
                       className="text-[14px] leading-relaxed mb-4"
                       style={{ opacity: isBranding ? 0.8 : 0.75 }}
@@ -142,11 +143,98 @@ export function ServicesMorph() {
                     </p>
                   </div>
                 </Link>
+                {/* animierte mini-preview · pointer-events-none damit der
+                   ganze card-link klickbar bleibt */}
+                {isBranding ? <BrandingPreview /> : <WebPreview />}
               </TiltCard>
             );
           })}
         </div>
       </div>
     </section>
+  );
+}
+
+/* ─── mini-previews · subtle animated decorations ─────────────────── */
+
+/**
+ * WebPreview · mock browser-frame im top-right der web-card · content-lines
+ * pulsen sequentiell (skeleton-loader vibe) · zeigt visuell "ich bau websites"
+ */
+function WebPreview() {
+  return (
+    <div
+      aria-hidden
+      className="hidden sm:block absolute top-7 right-7 md:top-9 md:right-9 pointer-events-none select-none"
+      style={{ width: 132, height: 86 }}
+    >
+      <div
+        className="w-full h-full rounded-md overflow-hidden border"
+        style={{
+          background: "rgba(10,10,10,0.06)",
+          borderColor: "rgba(10,10,10,0.18)",
+        }}
+      >
+        {/* browser chrome · 3 dots + faux url */}
+        <div
+          className="flex items-center gap-1 px-2 py-1.5 border-b"
+          style={{ borderColor: "rgba(10,10,10,0.15)" }}
+        >
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "rgba(10,10,10,0.35)" }} />
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "rgba(10,10,10,0.35)" }} />
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "rgba(10,10,10,0.35)" }} />
+          <span className="ml-1 h-1.5 flex-1 rounded-sm" style={{ background: "rgba(10,10,10,0.12)" }} />
+        </div>
+        {/* content stripes · sequentielles pulsing */}
+        <div className="p-2 space-y-1.5">
+          {[0, 0.4, 0.8].map((delay, idx) => (
+            <motion.div
+              key={idx}
+              animate={{ opacity: [0.25, 0.7, 0.25] }}
+              transition={{ duration: 2.4, repeat: Infinity, delay, ease: "easeInOut" }}
+              className="h-1.5 rounded-sm"
+              style={{
+                background: "rgba(10,10,10,0.4)",
+                width: idx === 0 ? "85%" : idx === 1 ? "65%" : "75%",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * BrandingPreview · lila ø-character als brand-mark im top-right der branding-
+ * card · slow rotation + breathing-scale · subtle glow.
+ */
+function BrandingPreview() {
+  return (
+    <div
+      aria-hidden
+      className="hidden sm:block absolute top-6 right-6 md:top-8 md:right-8 pointer-events-none select-none"
+    >
+      <motion.span
+        animate={{
+          rotate: [0, 6, -6, 0],
+          scale: [1, 1.08, 0.95, 1],
+        }}
+        transition={{
+          duration: 9,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="inline-block font-black leading-none"
+        style={{
+          fontSize: "clamp(60px, 7vw, 96px)",
+          color: LILA,
+          letterSpacing: "-0.05em",
+          textShadow: `0 0 24px ${LILA}55`,
+        }}
+      >
+        ø
+      </motion.span>
+    </div>
   );
 }
