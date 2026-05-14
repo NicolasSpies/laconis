@@ -1,5 +1,9 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/Button";
+import { PageHero, HeroRings } from "@/components/shared/PageHero";
+import { TiltCard } from "@/components/shared/TiltCard";
+import { GreySection } from "@/components/shared/GreySection";
+import { ScrollFillBar } from "@/components/shared/ScrollFillBar";
+import { Marquee } from "@/components/shared/Marquee";
 import { WebDemo } from "@/components/leistungen/WebDemo";
 import { GrafikDemo } from "@/components/leistungen/GrafikDemo";
 import { getMeta } from "@/lib/seo/getMeta";
@@ -12,12 +16,20 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 type Dict = {
+  kicker: string;
   srHeadline: string;
-  intro: string;
-  hand: { l1: string; l2: string; l3: string };
-  claimPre: string;
-  claimAccent: string;
-  claimPost: string;
+  heroL1: string;
+  heroL2: string;
+  heroItalic: string;
+  sub: string;
+  webTitle: string;
+  webDesc: string;
+  webCta: string;
+  brandTitle: string;
+  brandDesc: string;
+  brandCta: string;
+  scrollLabel: string;
+  marqueeBits: string[];
   bundleHint: string;
   ctaHeadline: string;
   ctaPrimary: string;
@@ -26,36 +38,60 @@ type Dict = {
 
 const DICT: Record<Locale, Dict> = {
   de: {
+    kicker: "· leistungen",
     srHeadline: "web + branding. aus einem kopf.",
-    intro: "zwei disziplinen · ein tisch",
-    hand: { l1: "am", l2: "liebsten", l3: "beides." },
-    claimPre: "code ",
-    claimAccent: "+",
-    claimPost: " design · aus einem kopf.",
+    heroL1: "was ich",
+    heroL2: "mache.",
+    heroItalic: "am liebsten beides.",
+    sub: "zwei disziplinen · ein tisch. code und design aus einem kopf · keine zwei dienstleister, keine versteckten kosten in der koordination.",
+    webTitle: "web.",
+    webDesc: "von der ersten skizze bis zum launch. eigenes CMS, dreisprachig, schnell, kein bloat. lighthouse 95+, ladezeit < 1s.",
+    webCta: "alles über web →",
+    brandTitle: "branding.",
+    brandDesc: "wortmarke, brand guide, farbsystem, druck. allein oder zur website dazu · dann sparst du dir die koordination.",
+    brandCta: "alles über branding →",
+    scrollLabel: "scroll-progress",
+    marqueeBits: ["·", "web", "·", "branding", "·", "logo", "·", "cms", "·", "print", "·", "trilingue", "·"],
     bundleHint: "web + branding · alles aus einer hand →",
     ctaHeadline: "nicht sicher, was du brauchst?",
     ctaPrimary: "kurz reden →",
     ctaSecondary: "referenzen ansehen",
   },
   fr: {
+    kicker: "· services",
     srHeadline: "web + branding. d'une seule tête.",
-    intro: "deux disciplines · une table",
-    hand: { l1: "idéalement", l2: "les", l3: "deux." },
-    claimPre: "code ",
-    claimAccent: "+",
-    claimPost: " design · d'une seule tête.",
+    heroL1: "ce que",
+    heroL2: "je fais.",
+    heroItalic: "idéalement les deux.",
+    sub: "deux disciplines · une table. code et design d'une seule tête · pas deux prestataires, pas de coûts cachés dans la coordination.",
+    webTitle: "web.",
+    webDesc: "de la première esquisse au launch. CMS sur mesure, trilingue, rapide, pas de bloat. lighthouse 95+, chargement < 1s.",
+    webCta: "tout sur le web →",
+    brandTitle: "branding.",
+    brandDesc: "wordmark, brand guide, couleurs, impression. seul ou avec le site · alors tu épargnes la coordination.",
+    brandCta: "tout sur le branding →",
+    scrollLabel: "progression",
+    marqueeBits: ["·", "web", "·", "branding", "·", "logo", "·", "cms", "·", "print", "·", "trilingue", "·"],
     bundleHint: "web + branding · tout d'une même main →",
     ctaHeadline: "tu ne sais pas trop ce qu'il te faut ?",
     ctaPrimary: "parler vite fait →",
     ctaSecondary: "voir les références",
   },
   en: {
+    kicker: "· services",
     srHeadline: "web + branding. from one head.",
-    intro: "two disciplines · one table",
-    hand: { l1: "ideally", l2: "both", l3: "of them." },
-    claimPre: "code ",
-    claimAccent: "+",
-    claimPost: " design · from one head.",
+    heroL1: "what i",
+    heroL2: "do.",
+    heroItalic: "ideally both.",
+    sub: "two disciplines · one table. code and design from one head · no two providers, no hidden costs in the coordination.",
+    webTitle: "web.",
+    webDesc: "from first sketch to launch. custom CMS, trilingual, fast, no bloat. lighthouse 95+, load time < 1s.",
+    webCta: "more on web →",
+    brandTitle: "branding.",
+    brandDesc: "wordmark, brand guide, colours, print. on its own or with the website · saves you the coordination.",
+    brandCta: "more on branding →",
+    scrollLabel: "scroll progress",
+    marqueeBits: ["·", "web", "·", "branding", "·", "logo", "·", "cms", "·", "print", "·", "trilingual", "·"],
     bundleHint: "web + branding · all from one hand →",
     ctaHeadline: "not sure what you need?",
     ctaPrimary: "quick chat →",
@@ -63,112 +99,149 @@ const DICT: Record<Locale, Dict> = {
   },
 };
 
-const LEISTUNGEN = [
-  { key: "web", routeKey: "leistungen/web" as const },
-  { key: "branding", routeKey: "leistungen/branding" as const },
-] as const;
-
 export default function Page() {
   const locale = getLocale();
   const t = DICT[locale];
 
   return (
     <>
-      {/* HERO · full viewport · demos zentriert, claim unten */}
-      <section className="flex flex-col pt-24 md:pt-28 pb-10">
-        <div className="container-site">
-          <h1 className="sr-only">{t.srHeadline}</h1>
+      {/* HERO · grey wie homepage */}
+      <PageHero
+        kicker={t.kicker}
+        line1={t.heroL1}
+        line2={t.heroL2}
+        italicAccent={t.heroItalic}
+        sub={t.sub}
+        visual={<HeroRings />}
+      />
+      <h1 className="sr-only">{t.srHeadline}</h1>
 
-          <div className="flex justify-center mb-8 md:mb-12">
-            <span className="font-mono text-[10px] md:text-[11px] uppercase tracking-label text-offwhite/55">
-              {t.intro}
-            </span>
-          </div>
+      {/* Scroll-fill bar · lime füllt sich während user scrollt · cooler effekt */}
+      <div className="bg-[#c8c8c8]">
+        <div className="container-site py-6">
+          <ScrollFillBar color="#e1fd52" thick label={t.scrollLabel} />
+        </div>
+      </div>
 
-          <div className="relative grid lg:grid-cols-2 gap-10 lg:gap-14">
-            {LEISTUNGEN.map((w) => (
-              <Link
-                key={w.key}
-                href={buildPath(w.routeKey, locale)}
-                className="group relative flex flex-col"
-              >
-                <div className="relative">
-                  {w.key === "web" ? <WebDemo /> : <GrafikDemo />}
+      {/* BIG SERVICE CARDS · 3D tilt im stil von home.ServicesMorph aber bigger */}
+      <GreySection className="!py-16 md:!py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6">
+          <TiltCard preset="lime">
+            <Link
+              href={buildPath("leistungen/web", locale)}
+              className="flex flex-col justify-between p-10 md:p-12 lg:p-14"
+              style={{
+                color: "inherit",
+                textDecoration: "none",
+                minHeight: "clamp(420px, 50vw, 560px)",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
+              <div>
+                <p className="text-[clamp(3.5rem,7vw,6rem)] leading-[0.88] font-black tracking-[-0.04em]">
+                  {t.webTitle}
+                </p>
+                <div
+                  className="mt-6 opacity-70 scale-90 origin-left"
+                  style={{ filter: "drop-shadow(0 0 0 #0a0a0a)" }}
+                >
+                  <WebDemo />
                 </div>
-              </Link>
-            ))}
+              </div>
+              <div>
+                <p
+                  className="text-[15px] md:text-[16px] leading-relaxed mb-5"
+                  style={{ opacity: 0.78 }}
+                >
+                  {t.webDesc}
+                </p>
+                <p
+                  className="font-mono text-[12px] uppercase tracking-label"
+                  style={{ opacity: 0.7 }}
+                >
+                  {t.webCta}
+                </p>
+              </div>
+            </Link>
+          </TiltCard>
 
-            <span
-              aria-hidden
-              className="hidden lg:flex flex-col items-center pointer-events-none absolute left-1/2 top-1/2 font-hand text-[26px] md:text-[30px] leading-[0.95] text-accent-ink/85"
-              style={{ transform: "translate(-50%, -50%) rotate(-4deg)" }}
+          <TiltCard preset="lila">
+            <Link
+              href={buildPath("leistungen/branding", locale)}
+              className="flex flex-col justify-between p-10 md:p-12 lg:p-14"
+              style={{
+                color: "inherit",
+                textDecoration: "none",
+                minHeight: "clamp(420px, 50vw, 560px)",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
             >
-              <span>{t.hand.l1}</span>
-              <span>{t.hand.l2}</span>
-              <span>{t.hand.l3}</span>
-            </span>
+              <div>
+                <p className="text-[clamp(3.5rem,7vw,6rem)] leading-[0.88] font-black tracking-[-0.04em]">
+                  {t.brandTitle}
+                </p>
+                <div className="mt-6 opacity-80 scale-90 origin-left">
+                  <GrafikDemo />
+                </div>
+              </div>
+              <div>
+                <p
+                  className="text-[15px] md:text-[16px] leading-relaxed mb-5"
+                  style={{ opacity: 0.78 }}
+                >
+                  {t.brandDesc}
+                </p>
+                <p
+                  className="font-mono text-[12px] uppercase tracking-label"
+                  style={{ opacity: 0.7 }}
+                >
+                  {t.brandCta}
+                </p>
+              </div>
+            </Link>
+          </TiltCard>
+        </div>
+      </GreySection>
+
+      {/* Marquee strip · dark mit lime · gibt der seite atmospheric break */}
+      <Marquee items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={42} />
+
+      {/* CTA · lila tint */}
+      <GreySection tint="lila">
+        <div className="text-center max-w-[820px] mx-auto">
+          <h2 className="text-[clamp(1.75rem,5vw,3.25rem)] leading-[0.98] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase">
+            {t.ctaHeadline}
+          </h2>
+
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <Link
+              href={buildPath("kontakt", locale)}
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#0a0a0a] text-[#e1fd52] hover:bg-[#1a1a1a] transition-colors"
+            >
+              {t.ctaPrimary}
+            </Link>
+            <Link
+              href={buildPath("referenzen", locale)}
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#0a0a0a] text-[#0a0a0a] hover:bg-[#0a0a0a] hover:text-[#e1fd52] transition-colors"
+            >
+              {t.ctaSecondary}
+            </Link>
           </div>
 
-          <div className="mt-10 md:mt-14 flex justify-center">
-            <svg
-              aria-hidden
-              width="180"
-              height="18"
-              viewBox="0 0 180 18"
-              className="text-offwhite/25"
-            >
-              <path
-                d="M 2 9 Q 30 3 60 10 T 120 9 Q 150 6 178 10"
-                stroke="currentColor"
-                strokeWidth="1.2"
-                strokeLinecap="round"
-                fill="none"
-              />
-            </svg>
-          </div>
-
-          <div className="mt-10 md:mt-14 flex flex-col items-center gap-3">
-            <p className="font-mono text-[11px] md:text-[12px] uppercase tracking-label text-offwhite/55">
-              {t.claimPre}
-              <span className="text-accent-ink">{t.claimAccent}</span>
-              <span className="text-offwhite/35">{t.claimPost}</span>
-            </p>
+          <p className="mt-12">
             <Link
               href={buildPath("preise", locale)}
-              className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 hover:text-accent-ink transition-colors"
+              className="font-mono text-[11px] uppercase tracking-label text-[#0a0a0a]/55 hover:text-[#0a0a0a] transition-colors"
             >
               {t.bundleHint}
             </Link>
-          </div>
+          </p>
         </div>
-      </section>
-
-      {/* CTA */}
-      <section className="pb-32 pt-4">
-        <div className="container-site flex flex-col items-center gap-5 text-center">
-          <h2 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite max-w-[620px]">
-            {t.ctaHeadline}
-          </h2>
-          <div className="flex justify-center gap-3 flex-wrap">
-            <Button
-              href={buildPath("kontakt", locale)}
-              variant="primary"
-              size="lg"
-              analyticsLabel="leistungen_hub_kontakt"
-            >
-              {t.ctaPrimary}
-            </Button>
-            <Button
-              href={buildPath("referenzen", locale)}
-              variant="glass"
-              size="lg"
-              analyticsLabel="leistungen_hub_referenzen"
-            >
-              {t.ctaSecondary}
-            </Button>
-          </div>
-        </div>
-      </section>
+      </GreySection>
     </>
   );
 }

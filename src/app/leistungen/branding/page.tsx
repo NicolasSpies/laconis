@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { Button } from "@/components/ui/Button";
+import { PageHero } from "@/components/shared/PageHero";
+import { Marquee } from "@/components/shared/Marquee";
 import { BrandSystemHero } from "@/components/leistungen/branding/BrandSystemHero";
 import { BrandDesk } from "@/components/leistungen/branding/BrandDesk";
 import { SpecimenKartei } from "@/components/leistungen/branding/SpecimenKartei";
@@ -208,47 +209,68 @@ export default function Page() {
       <ServiceSchema services={t.services} />
       <FAQSchema items={t.faq.map((f) => ({ q: f.frage, a: f.antwort }))} />
 
-      {/* HERO */}
-      <section className="pt-32 md:pt-36 pb-16 md:pb-20">
-        <div className="container-site">
-          <SectionLabel num="01">{t.sectionLabel}</SectionLabel>
+      {/* HERO · grey im neuen stil · italic-lila auf accent-word */}
+      <PageHero
+        kicker={`· ${t.sectionLabel}`}
+        line1={t.heroH1pre.replace(/\s+$/, "")}
+        italicAccent={`${t.heroH1accent}${t.heroH1post}`}
+        sub={
+          <>
+            <span>{t.heroBody}</span>
+            <span className="mt-4 block text-[14px] leading-relaxed text-[#0a0a0a]/55">
+              {t.heroSubBody}
+            </span>
+            <dl className="mt-10 grid grid-cols-3 gap-4 max-w-[520px]">
+              <div>
+                <dt className="font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/55">
+                  {t.stat1Label}
+                </dt>
+                <dd className="text-[clamp(1.5rem,3vw,2.25rem)] font-black tracking-[-0.04em] leading-none mt-2 text-[#b084d3]">
+                  {t.stat1Value}
+                </dd>
+              </div>
+              <div>
+                <dt className="font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/55">
+                  {t.stat2Label}
+                </dt>
+                <dd className="text-[clamp(1.5rem,3vw,2.25rem)] font-black tracking-[-0.04em] leading-none mt-2 text-[#0a0a0a]">
+                  {t.stat2Value}
+                </dd>
+              </div>
+              <div>
+                <dt className="font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/55">
+                  {t.stat3Label}
+                </dt>
+                <dd className="text-[clamp(1.5rem,3vw,2.25rem)] font-black tracking-[-0.04em] leading-none mt-2 text-[#0a0a0a]">
+                  {t.stat3Value}
+                </dd>
+              </div>
+            </dl>
+          </>
+        }
+        visual={<BrandSystemHero />}
+      />
 
-          <div className="mt-10 grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-14 items-center">
-            <div className="max-w-[620px]">
-              <h1 className="heading-display text-[clamp(2.25rem,6vw,4.5rem)] text-offwhite leading-[0.98]">
-                {t.heroH1pre}
-                <span className="text-offwhite/35">{t.heroH1accent}</span>
-                {t.heroH1post}
-              </h1>
-              <p className="mt-7 max-w-[520px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-                {t.heroBody}
-              </p>
-              <p className="mt-4 max-w-[520px] text-[14px] leading-relaxed text-offwhite/35">
-                {t.heroSubBody}
-              </p>
-
-              <dl className="mt-10 grid grid-cols-3 gap-4 max-w-[520px]">
-                <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">{t.stat1Label}</dt>
-                  <dd className="heading-display text-lime text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">{t.stat1Value}</dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">{t.stat2Label}</dt>
-                  <dd className="heading-display text-offwhite text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">{t.stat2Value}</dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">{t.stat3Label}</dt>
-                  <dd className="heading-display text-offwhite text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">{t.stat3Value}</dd>
-                </div>
-              </dl>
-            </div>
-
-            <div className="relative">
-              <BrandSystemHero />
-            </div>
-          </div>
-        </div>
-      </section>
+      <Marquee
+        items={[
+          "·",
+          "logo",
+          "·",
+          "brand guide",
+          "·",
+          "typo",
+          "·",
+          "farbe",
+          "·",
+          "print",
+          "·",
+          "social",
+          "·",
+        ]}
+        bg="#0a0a0a"
+        fg="#b084d3"
+        speed={45}
+      />
 
       <StaerkenStrip />
       <BrandDesk num="02" />
@@ -313,41 +335,54 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="pb-36 pt-8">
-        <div className="container-site">
-          <div className="relative liquid-glass rounded-2xl p-10 md:p-16 text-center">
-            <p
-              className="absolute -top-3 left-8 font-hand text-[17px] text-accent-ink/70 select-none"
-              style={{ transform: "rotate(-2deg)" }}
+      {/* CTA · lila slab im home-stil */}
+      <section
+        className="relative py-24 md:py-32 overflow-hidden"
+        style={{ background: "#b084d3", color: "#0a0a0a" }}
+      >
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-[0.14] pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at center, rgba(20,20,20,0.55) 1px, transparent 1.4px)",
+            backgroundSize: "26px 26px",
+          }}
+        />
+        <div className="container-site relative">
+          <p
+            className="font-mono text-[11px] uppercase tracking-label text-[#0a0a0a]/65 mb-6"
+            style={{ transform: "rotate(-0.5deg)" }}
+          >
+            {t.ctaMarginalia}
+          </p>
+          <h2 className="text-[clamp(2rem,5.5vw,4rem)] leading-[1] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase max-w-[820px]">
+            {t.ctaH2pre}
+            <span className="opacity-50">{t.ctaH2post}</span>
+          </h2>
+          <p className="mt-8 max-w-[560px] text-[15px] leading-relaxed text-[#0a0a0a]/80">
+            {t.ctaBody}
+          </p>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Link
+              href={buildPath("kontakt", locale)}
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#0a0a0a] text-[#e1fd52] hover:bg-[#1a1a1a] transition-colors"
             >
-              {t.ctaMarginalia}
-            </p>
-
-            <h2 className="heading-display text-[clamp(1.75rem,4.5vw,3rem)] text-offwhite max-w-[640px] mx-auto leading-[1.05]">
-              {t.ctaH2pre}
-              <span className="text-offwhite/45">{t.ctaH2post}</span>
-            </h2>
-
-            <p className="mt-6 max-w-[520px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
-              {t.ctaBody}
-            </p>
-
-            <div className="mt-8 flex justify-center gap-3 flex-wrap">
-              <Button href={buildPath("kontakt", locale)} variant="primary" size="lg" analyticsLabel="leistungen_branding_kontakt">
-                {t.ctaPrimary}
-              </Button>
-              <Button href={buildPath("referenzen", locale)} variant="glass" size="lg" analyticsLabel="leistungen_branding_referenzen">
-                {t.ctaSecondary}
-              </Button>
-            </div>
-
-            <p
-              className="mt-8 font-hand text-[16px] text-offwhite/35"
-              style={{ transform: "rotate(-1deg)" }}
+              {t.ctaPrimary}
+            </Link>
+            <Link
+              href={buildPath("referenzen", locale)}
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#0a0a0a] text-[#0a0a0a] hover:bg-[#0a0a0a] hover:text-[#e1fd52] transition-colors"
             >
-              {t.ctaSignature}
-            </p>
+              {t.ctaSecondary}
+            </Link>
           </div>
+          <p
+            className="mt-10 text-[16px] text-[#0a0a0a]/75"
+            style={{ fontFamily: "var(--font-caveat), cursive", transform: "rotate(-1deg)" }}
+          >
+            {t.ctaSignature}
+          </p>
         </div>
       </section>
     </>

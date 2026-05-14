@@ -1,6 +1,11 @@
-import { SectionLabel } from "@/components/ui/SectionLabel";
-import { Button } from "@/components/ui/Button";
-import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
+import Link from "next/link";
+import { PageHero, HeroRings } from "@/components/shared/PageHero";
+import { GreySection } from "@/components/shared/GreySection";
+import { TiltCard } from "@/components/shared/TiltCard";
+import { ScrollFillBar } from "@/components/shared/ScrollFillBar";
+import { Marquee } from "@/components/shared/Marquee";
+import { PriceCard } from "@/components/preise/PriceCard";
+import { PreisExplorer } from "@/components/preise/PreisExplorer";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import { getMeta } from "@/lib/seo/getMeta";
@@ -18,18 +23,16 @@ type FaqItem = { frage: string; antwort: string };
 type Faktor = { num: string; titel: string; text: string };
 
 type Dict = {
-  sectionLabel: string;
-  headlinePre: string;
-  headlineItalic: string;
-  headlinePost: string;
+  kicker: string;
+  heroL1: string;
+  heroL2: string;
+  heroItalic: string;
   intro: string;
-  breakWhy: string;
   factorsLabel: string;
   factorsHeadlinePre: string;
   factorsHeadlinePost: string;
   factorsIntro: string;
   faktoren: Faktor[];
-  breakNumbers: string;
   numbersLabel: string;
   numbersHeadline: string;
   numbersIntro: string;
@@ -41,10 +44,11 @@ type Dict = {
   brandingHand: string;
   hostingLabel: string;
   hostingBody: string;
-  breakFAQ: string;
+  hostingHand: string;
   faqLabel: string;
   faqHeadline: string;
   faq: FaqItem[];
+  marqueeBits: string[];
   ctaHand: string;
   ctaHeadlinePre: string;
   ctaHeadlinePost: string;
@@ -55,12 +59,11 @@ type Dict = {
 
 const DICT: Record<Locale, Dict> = {
   de: {
-    sectionLabel: "investment",
-    headlinePre: "was kostet das ",
-    headlineItalic: "eigentlich",
-    headlinePost: "?",
-    intro: "Ehrliche Antwort. Kein Paket-Raster, keine Sternchen. Jedes Projekt ist anders · deshalb gibt's hier keine Tabelle, sondern eine Erklärung, was den Preis wirklich macht.",
-    breakWhy: "was den preis macht ↓",
+    kicker: "· investment",
+    heroL1: "was kostet",
+    heroL2: "das?",
+    heroItalic: "eigentlich.",
+    intro: "ehrliche antwort. kein paket-raster, keine sternchen. jedes projekt ist anders · deshalb gibt's hier keine tabelle, sondern eine erklärung, was den preis wirklich macht.",
     factorsLabel: "die faktoren",
     factorsHeadlinePre: "kein projekt ",
     factorsHeadlinePost: "ist wie das andere.",
@@ -72,19 +75,18 @@ const DICT: Record<Locale, Dict> = {
       { num: "04", titel: "timing", text: "Flexibel oder gestern? Für knappe Deadlines ist mehr Koordination nötig · das spiegelt sich im Aufwand. Ein entspannter Zeitplan gibt Raum für bessere Entscheidungen auf beiden Seiten." },
       { num: "05", titel: "ausgangslage", text: "Weißes Blatt oder bestehendes System, das neu gebaut werden soll? Beides ist machbar · beides bedeutet andere Fragen am Anfang. Je klarer dein Briefing, desto genauer mein Angebot." },
     ],
-    breakNumbers: "und in zahlen ↓",
     numbersLabel: "richtwerte",
     numbersHeadline: "und konkret?",
-    numbersIntro: "Keine Fixpreise, aber ehrliche Faustregeln · damit klar ist, worum's geht, bevor das gespräch losgeht.",
+    numbersIntro: "keine fixpreise, aber ehrliche faustregeln · damit klar ist, worum's geht, bevor das gespräch losgeht.",
     websiteLabel: "website",
-    websiteBody: "Ein Onepager mit klarem Briefing und deinem eigenen Content startet ab rund 1.500 €. Eine mehrseitige Website mit CMS und Branding dazu landet typischerweise zwischen 3.500 und 6.000 €. Was dazwischen liegt: liegt dazwischen.",
+    websiteBody: "onepager mit klarem briefing und deinem content. mehrseitig mit CMS und branding zwischen 3.500 und 6.000.",
     websiteHand: "keine versteckten posten.",
     brandingLabel: "branding",
-    brandingBody: "Logo, Farbwelt, Typo, Brand Guide, Visitenkarte · das Start-Paket. Ein vollständiges Branding-Projekt beginnt ab 1.200 €. Wenn Website + Branding zusammen kommen, spart das Zeit und Koordination auf beiden Seiten.",
+    brandingBody: "logo, farbwelt, typo, brand guide, visitenkarte. vollständiges branding-projekt · oder direkt mit website kombiniert.",
     brandingHand: "alles aus einer hand.",
     hostingLabel: "hosting · laufend",
-    hostingBody: "Nach dem Launch: Hosting, Backup und kleine Pflege für 20–50 €/Monat je nach Setup. Domain separat, ca. 2 €/Monat. Ich erkläre das im Gespräch konkret · damit du weißt, was du langfristig einplanst.",
-    breakFAQ: "bevor du fragst ↓",
+    hostingBody: "nach dem launch: hosting, backup, kleine pflege. domain separat ca. 2 €/monat.",
+    hostingHand: "klar und transparent.",
     faqLabel: "oft gefragt",
     faqHeadline: "bevor du fragst.",
     faq: [
@@ -93,20 +95,20 @@ const DICT: Record<Locale, Dict> = {
       { frage: "was ist nicht enthalten?", antwort: "Stock-Fotos, Premium-Fonts und externe Tools mit eigenen Lizenzkosten liegen beim Kunden, es sei denn das war vorher besprochen. Domain-Registrierung ist optional. Alles, was über den besprochenen Scope hinausgeht, klär ich vor dem Start · keine Überraschungen auf der Rechnung." },
       { frage: "läuft nach dem launch noch was?", antwort: "Hosting, Backups und kleine Pflege · je nach Setup 20–50 €/Monat. Domain separat, ca. 2 €/Monat je nach TLD. Das erklär ich dir im Gespräch ganz konkret, damit du weißt, womit du langfristig rechnest." },
     ],
+    marqueeBits: ["·", "ab 1.500 €", "·", "onepager", "·", "ab 1.200 €", "·", "branding", "·", "ab 3.500 €", "·", "komplett-paket", "·"],
     ctaHand: "kurze frage, klare antwort.",
     ctaHeadlinePre: "ich sag dir innerhalb von 24 std, ",
     ctaHeadlinePost: "wo wir stehen.",
-    ctaBody: "Schreib mir kurz, was du vorhast · kostenlos, unverbindlich. Kein Formular-Chaos. Einfach ein Gespräch.",
+    ctaBody: "schreib mir kurz, was du vorhast · kostenlos, unverbindlich. kein formular-chaos. einfach ein gespräch.",
     ctaPrimary: "projekt besprechen →",
     ctaSecondary: "leistungen ansehen",
   },
   fr: {
-    sectionLabel: "investissement",
-    headlinePre: "ça coûte combien, ",
-    headlineItalic: "en vrai",
-    headlinePost: " ?",
-    intro: "Réponse honnête. Pas de grille forfaitaire, pas d'astérisques. Chaque projet est différent · donc pas de tableau ici, mais une explication de ce qui fait vraiment le prix.",
-    breakWhy: "ce qui fait le prix ↓",
+    kicker: "· investissement",
+    heroL1: "ça coûte",
+    heroL2: "combien?",
+    heroItalic: "en vrai.",
+    intro: "réponse honnête. pas de grille forfaitaire, pas d'astérisques. chaque projet est différent · donc pas de tableau ici, mais une explication de ce qui fait vraiment le prix.",
     factorsLabel: "les facteurs",
     factorsHeadlinePre: "aucun projet ",
     factorsHeadlinePost: "ne ressemble à l'autre.",
@@ -118,19 +120,18 @@ const DICT: Record<Locale, Dict> = {
       { num: "04", titel: "timing", text: "Flexible ou hier ? Pour des délais serrés il faut plus de coordination · ça se reflète dans la charge. Un planning détendu laisse de la place pour de meilleures décisions des deux côtés." },
       { num: "05", titel: "point de départ", text: "Page blanche ou système existant à reconstruire ? Les deux sont faisables · les deux soulèvent d'autres questions au début. Plus ton brief est clair, plus mon offre l'est aussi." },
     ],
-    breakNumbers: "et en chiffres ↓",
     numbersLabel: "fourchettes",
     numbersHeadline: "et concrètement ?",
-    numbersIntro: "Pas de prix fixes, mais des règles honnêtes · pour que ce soit clair avant que le premier appel commence.",
+    numbersIntro: "pas de prix fixes, mais des règles honnêtes · pour que ce soit clair avant que le premier appel commence.",
     websiteLabel: "site web",
-    websiteBody: "Un onepage avec brief clair et ton propre contenu démarre à environ 1 500 €. Un site multi-pages avec CMS et branding inclus se situe typiquement entre 3 500 et 6 000 €. Ce qui est entre les deux : est entre les deux.",
+    websiteBody: "onepage avec brief clair et ton propre contenu. multi-pages avec CMS et branding entre 3 500 et 6 000.",
     websiteHand: "pas de coûts cachés.",
     brandingLabel: "branding",
-    brandingBody: "Logo, palette, typo, brand guide, carte de visite · le pack de démarrage. Un projet branding complet démarre à 1 200 €. Quand site + branding viennent ensemble, ça fait gagner du temps et de la coordination des deux côtés.",
+    brandingBody: "logo, palette, typo, brand guide, carte de visite. projet branding complet · ou directement combiné au site.",
     brandingHand: "tout d'une même main.",
     hostingLabel: "hébergement · récurrent",
-    hostingBody: "Après le lancement : hébergement, sauvegarde et petite maintenance pour 20–50 €/mois selon le setup. Domaine à part, environ 2 €/mois. Je t'explique ça concrètement en discussion · pour que tu saches sur quoi tu t'engages à long terme.",
-    breakFAQ: "avant que tu demandes ↓",
+    hostingBody: "après le lancement : hébergement, sauvegarde, petite maintenance. domaine à part env. 2 €/mois.",
+    hostingHand: "clair et transparent.",
     faqLabel: "souvent demandé",
     faqHeadline: "avant que tu demandes.",
     faq: [
@@ -139,20 +140,20 @@ const DICT: Record<Locale, Dict> = {
       { frage: "qu'est-ce qui n'est pas inclus ?", antwort: "Les photos stock, les fonts premium et les outils externes avec leurs propres licences sont à la charge du client, sauf accord préalable. L'enregistrement du domaine est optionnel. Tout ce qui dépasse le scope discuté, je le clarifie avant le démarrage · pas de surprises sur la facture." },
       { frage: "il y a quelque chose qui tourne après le launch ?", antwort: "Hébergement, sauvegardes et petite maintenance · selon le setup 20–50 €/mois. Domaine à part, environ 2 €/mois selon le TLD. Je t'explique ça concrètement en discussion, pour que tu saches sur quoi tu comptes à long terme." },
     ],
+    marqueeBits: ["·", "dès 1 500 €", "·", "onepage", "·", "dès 1 200 €", "·", "branding", "·", "dès 3 500 €", "·", "pack complet", "·"],
     ctaHand: "question courte, réponse claire.",
     ctaHeadlinePre: "je te dis en 24h, ",
     ctaHeadlinePost: "où on en est.",
-    ctaBody: "Écris-moi brièvement ce que tu prévois · gratuit, sans engagement. Pas de chaos de formulaire. Juste une discussion.",
+    ctaBody: "écris-moi brièvement ce que tu prévois · gratuit, sans engagement. pas de chaos de formulaire. juste une discussion.",
     ctaPrimary: "discuter du projet →",
     ctaSecondary: "voir les services",
   },
   en: {
-    sectionLabel: "investment",
-    headlinePre: "what does it ",
-    headlineItalic: "actually",
-    headlinePost: " cost?",
-    intro: "Honest answer. No package grid, no asterisks. Every project is different · so no table here, but an explanation of what really drives the price.",
-    breakWhy: "what drives the price ↓",
+    kicker: "· investment",
+    heroL1: "what does",
+    heroL2: "it cost?",
+    heroItalic: "actually.",
+    intro: "honest answer. no package grid, no asterisks. every project is different · so no table here, but an explanation of what really drives the price.",
     factorsLabel: "the factors",
     factorsHeadlinePre: "no project ",
     factorsHeadlinePost: "is like another.",
@@ -164,19 +165,18 @@ const DICT: Record<Locale, Dict> = {
       { num: "04", titel: "timing", text: "Flexible or yesterday? Tight deadlines need more coordination · that shows in the effort. A relaxed timeline leaves room for better decisions on both sides." },
       { num: "05", titel: "starting point", text: "Blank page or existing system to be rebuilt? Both are doable · both raise different questions early on. The clearer your brief, the more precise my offer." },
     ],
-    breakNumbers: "and in numbers ↓",
     numbersLabel: "ranges",
     numbersHeadline: "and concretely?",
-    numbersIntro: "No fixed prices, but honest rules of thumb · so it's clear what we're talking about before the conversation starts.",
+    numbersIntro: "no fixed prices, but honest rules of thumb · so it's clear what we're talking about before the conversation starts.",
     websiteLabel: "website",
-    websiteBody: "A onepager with clear brief and your own content starts at around €1,500. A multi-page website with CMS and branding included typically lands between €3,500 and €6,000. What's in between: is in between.",
+    websiteBody: "onepager with clear brief and your own content. multi-page with CMS and branding between 3,500 and 6,000.",
     websiteHand: "no hidden line items.",
     brandingLabel: "branding",
-    brandingBody: "Logo, colour palette, typography, brand guide, business card · the starter pack. A full branding project starts at €1,200. When website + branding come together, it saves time and coordination on both sides.",
+    brandingBody: "logo, colour palette, typography, brand guide, business card. full branding project · or combined directly with the website.",
     brandingHand: "all from one hand.",
     hostingLabel: "hosting · recurring",
-    hostingBody: "After launch: hosting, backup and small maintenance for €20–50/month depending on setup. Domain separate, around €2/month. I explain that concretely in the conversation · so you know what you're committing to long-term.",
-    breakFAQ: "before you ask ↓",
+    hostingBody: "after launch: hosting, backup, small maintenance. domain separate, around 2 €/month.",
+    hostingHand: "clear and transparent.",
     faqLabel: "often asked",
     faqHeadline: "before you ask.",
     faq: [
@@ -185,10 +185,11 @@ const DICT: Record<Locale, Dict> = {
       { frage: "what's not included?", antwort: "Stock photos, premium fonts and external tools with their own licence costs are on the client, unless agreed otherwise. Domain registration is optional. Anything beyond the agreed scope I clarify before starting · no surprises on the invoice." },
       { frage: "does anything keep running after launch?", antwort: "Hosting, backups and small maintenance · depending on setup €20–50/month. Domain separate, around €2/month depending on TLD. I explain that concretely in the conversation, so you know what to plan for long-term." },
     ],
+    marqueeBits: ["·", "from 1,500 €", "·", "onepager", "·", "from 1,200 €", "·", "branding", "·", "from 3,500 €", "·", "complete pack", "·"],
     ctaHand: "short question, clear answer.",
     ctaHeadlinePre: "i'll tell you within 24h, ",
     ctaHeadlinePost: "where we stand.",
-    ctaBody: "Write me briefly what you're planning · free, no obligation. No form chaos. Just a conversation.",
+    ctaBody: "write me briefly what you're planning · free, no obligation. no form chaos. just a conversation.",
     ctaPrimary: "discuss the project →",
     ctaSecondary: "see services",
   },
@@ -203,187 +204,197 @@ export default function Page() {
       <BreadcrumbSchema
         items={[
           { name: "home", url: `${BASE}/` },
-          { name: t.sectionLabel, url: `${BASE}${buildPath("preise", locale)}` },
+          { name: "preise", url: `${BASE}${buildPath("preise", locale)}` },
         ]}
       />
       <FAQSchema items={t.faq.map((f) => ({ q: f.frage, a: f.antwort }))} />
 
-      {/* HERO */}
-      <section className="pt-36 pb-24">
-        <div className="container-site">
-          <SectionLabel num="01">{t.sectionLabel}</SectionLabel>
+      <PageHero
+        kicker={t.kicker}
+        line1={t.heroL1}
+        line2={t.heroL2}
+        italicAccent={t.heroItalic}
+        sub={t.intro}
+        visual={<HeroRings />}
+      />
 
-          <div className="mt-8 max-w-[920px]">
-            <h1 className="heading-display text-[clamp(2.5rem,8vw,6rem)] text-offwhite leading-[1.0]">
-              {t.headlinePre}
-              <span className="italic font-serif text-accent-ink">
-                {t.headlineItalic}
-              </span>
-              {t.headlinePost}
-            </h1>
-            <p className="mt-8 max-w-[620px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-              {t.intro}
+      {/* Scroll-fill bar · lime füllt sich während user scrollt */}
+      <div className="bg-[#c8c8c8]">
+        <div className="container-site py-6">
+          <ScrollFillBar color="#b084d3" thick />
+        </div>
+      </div>
+
+      {/* RICHTWERTE · 3 tilt-cards mit animierten preis-countern */}
+      <GreySection tint="lime">
+        <div className="max-w-[820px]">
+          <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+            · {t.numbersLabel}
+          </p>
+          <h2 className="mt-4 text-[clamp(2rem,6vw,4rem)] leading-[0.95] font-black tracking-[-0.04em] text-[#0a0a0a] lowercase">
+            {t.numbersHeadline}
+          </h2>
+          <p className="mt-5 max-w-[620px] text-[15px] leading-relaxed text-[#0a0a0a]/75">
+            {t.numbersIntro}
+          </p>
+        </div>
+
+        <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <PriceCard
+            label={t.websiteLabel}
+            fromPrice={1500}
+            toPrice={6000}
+            desc={t.websiteBody}
+            hand={t.websiteHand}
+            preset="lime"
+          />
+          <PriceCard
+            label={t.brandingLabel}
+            fromPrice={1200}
+            toPrice={5000}
+            desc={t.brandingBody}
+            hand={t.brandingHand}
+            preset="lila"
+          />
+          <PriceCard
+            label={t.hostingLabel}
+            fromPrice={20}
+            toPrice={50}
+            desc={t.hostingBody}
+            hand={t.hostingHand}
+            preset="dark"
+          />
+        </div>
+      </GreySection>
+
+      {/* PreisExplorer · interaktiv */}
+      <GreySection tone="grey">
+        <PreisExplorer />
+      </GreySection>
+
+      {/* FAKTOREN · sticky linke seite + ol rechts · gleicher pattern wie alt aber neu styled */}
+      <GreySection tone="grey" tint="lila">
+        <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-12 lg:gap-20">
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+              · {t.factorsLabel}
             </p>
-          </div>
-        </div>
-      </section>
-
-      <ScribbleBreak text={t.breakWhy} rotate={-1} />
-
-      {/* FAKTOREN */}
-      <section className="py-20">
-        <div className="container-site">
-          <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-12 lg:gap-20">
-            <div className="lg:sticky lg:top-32 lg:self-start">
-              <SectionLabel num="02">{t.factorsLabel}</SectionLabel>
-              <h2 className="heading-display mt-4 text-[clamp(2rem,4.5vw,3rem)] text-offwhite leading-[1.05]">
-                {t.factorsHeadlinePre}
-                <span className="text-offwhite/35">{t.factorsHeadlinePost}</span>
-              </h2>
-              <p className="mt-6 text-[14px] leading-relaxed text-offwhite/55 max-w-[320px]">
-                {t.factorsIntro}
-              </p>
-            </div>
-
-            <ol className="divide-y divide-ink/10 border-y border-ink/10">
-              {t.faktoren.map((f) => (
-                <li
-                  key={f.num}
-                  className="group grid grid-cols-[auto_1fr] gap-5 py-7 md:py-8"
-                >
-                  <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 pt-1 tabular-nums">
-                    {f.num}
-                  </span>
-                  <div>
-                    <h3 className="heading-sans text-[clamp(1.1rem,2vw,1.4rem)] text-offwhite">
-                      {f.titel}
-                    </h3>
-                    <p className="mt-3 text-[14px] md:text-[15px] leading-relaxed text-offwhite/55">
-                      {f.text}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      <ScribbleBreak text={t.breakNumbers} rotate={0.8} flip />
-
-      {/* RICHTWERTE */}
-      <section className="py-20">
-        <div className="container-site">
-          <div className="max-w-[820px]">
-            <SectionLabel num="03">{t.numbersLabel}</SectionLabel>
-            <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.5rem)] text-offwhite leading-[1.05]">
-              {t.numbersHeadline}
+            <h2 className="mt-4 text-[clamp(1.75rem,4.5vw,3rem)] leading-[1.05] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase">
+              {t.factorsHeadlinePre}
+              <span className="opacity-50">{t.factorsHeadlinePost}</span>
             </h2>
-            <p className="mt-5 max-w-[600px] text-[15px] leading-relaxed text-offwhite/55">
-              {t.numbersIntro}
+            <p className="mt-6 text-[14px] leading-relaxed text-[#0a0a0a]/70 max-w-[320px]">
+              {t.factorsIntro}
             </p>
           </div>
 
-          <div className="mt-12 grid md:grid-cols-2 gap-6 max-w-[820px]">
-            <div className="glass rounded-2xl p-7 md:p-8">
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-                {t.websiteLabel}
-              </span>
-              <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55">
-                {t.websiteBody}
-              </p>
-              <p
-                className="mt-5 font-hand text-[17px] text-accent-ink/80 leading-snug"
-                style={{ transform: "rotate(-1deg)" }}
-              >
-                {t.websiteHand}
-              </p>
-            </div>
-
-            <div className="glass rounded-2xl p-7 md:p-8">
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-                {t.brandingLabel}
-              </span>
-              <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55">
-                {t.brandingBody}
-              </p>
-              <p
-                className="mt-5 font-hand text-[17px] text-accent-ink/80 leading-snug"
-                style={{ transform: "rotate(1deg)" }}
-              >
-                {t.brandingHand}
-              </p>
-            </div>
-
-            <div className="md:col-span-2 glass rounded-2xl p-7 md:p-8">
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-                {t.hostingLabel}
-              </span>
-              <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55 max-w-[600px]">
-                {t.hostingBody}
-              </p>
-            </div>
-          </div>
+          <ol className="space-y-3">
+            {t.faktoren.map((f, idx) => (
+              <li key={f.num}>
+                <TiltCard
+                  preset={idx % 2 === 0 ? "paper" : "ink"}
+                  intensity={6}
+                >
+                  <div className="p-7 md:p-8 grid grid-cols-[auto_1fr] gap-5">
+                    <span
+                      className="font-mono text-[11px] uppercase tracking-label pt-1 tabular-nums"
+                      style={{ opacity: 0.6 }}
+                    >
+                      {f.num}
+                    </span>
+                    <div>
+                      <h3 className="text-[clamp(1.2rem,2.2vw,1.6rem)] font-black tracking-[-0.025em] leading-tight lowercase">
+                        {f.titel}
+                      </h3>
+                      <p
+                        className="mt-3 text-[14px] md:text-[15px] leading-relaxed"
+                        style={{ opacity: 0.78 }}
+                      >
+                        {f.text}
+                      </p>
+                    </div>
+                  </div>
+                </TiltCard>
+              </li>
+            ))}
+          </ol>
         </div>
-      </section>
+      </GreySection>
 
-      <ScribbleBreak text={t.breakFAQ} rotate={-0.8} />
+      <Marquee items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={40} />
 
       {/* FAQ */}
-      <section className="pb-28 pt-4">
-        <div className="container-site">
-          <div className="max-w-[820px]">
-            <SectionLabel num="04">{t.faqLabel}</SectionLabel>
-            <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.5rem)] text-offwhite leading-[1.05]">
-              {t.faqHeadline}
-            </h2>
-          </div>
-
-          <div className="mt-12 divide-y divide-ink/10 border-y border-ink/10 max-w-[820px]">
-            {t.faq.map((q) => (
-              <details key={q.frage} className="group py-6 cursor-pointer">
-                <summary className="flex items-center justify-between gap-4 list-none">
-                  <h3 className="heading-sans text-[17px] md:text-[18px] text-offwhite group-hover:text-accent-ink transition-colors">
-                    {q.frage}
-                  </h3>
-                  <span className="font-mono text-[16px] text-offwhite/35 group-open:rotate-45 transition-transform shrink-0">
-                    +
-                  </span>
-                </summary>
-                <p className="mt-4 max-w-[680px] text-[14px] leading-relaxed text-offwhite/55">
-                  {q.antwort}
-                </p>
-              </details>
-            ))}
-          </div>
+      <GreySection tone="grey">
+        <div className="max-w-[820px]">
+          <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+            · {t.faqLabel}
+          </p>
+          <h2 className="mt-4 text-[clamp(2rem,5.5vw,3.5rem)] leading-[1.0] font-black tracking-[-0.04em] text-[#0a0a0a] lowercase">
+            {t.faqHeadline}
+          </h2>
         </div>
-      </section>
 
-      {/* CTA */}
-      <section className="pb-36">
-        <div className="container-site">
-          <div className="liquid-glass rounded-2xl p-10 md:p-16 text-center">
-            <p
-              className="font-hand text-[20px] md:text-[22px] text-offwhite/55 mb-4"
-              style={{ transform: "rotate(-1deg)" }}
+        <div className="mt-12 divide-y divide-[#0a0a0a]/12 border-y border-[#0a0a0a]/12 max-w-[820px]">
+          {t.faq.map((q) => (
+            <details key={q.frage} className="group py-6 cursor-pointer">
+              <summary className="flex items-center justify-between gap-4 list-none">
+                <h3 className="text-[17px] md:text-[19px] font-black tracking-[-0.02em] text-[#0a0a0a] group-hover:text-[#b084d3] transition-colors lowercase leading-tight">
+                  {q.frage}
+                </h3>
+                <span className="font-mono text-[16px] text-[#0a0a0a]/55 group-open:rotate-45 transition-transform shrink-0">
+                  +
+                </span>
+              </summary>
+              <p className="mt-4 max-w-[680px] text-[14px] leading-relaxed text-[#0a0a0a]/75">
+                {q.antwort}
+              </p>
+            </details>
+          ))}
+        </div>
+      </GreySection>
+
+      {/* CTA · lila slab im stil home SplitStatement */}
+      <section
+        className="relative py-24 md:py-32 overflow-hidden"
+        style={{ background: "#b084d3" }}
+        aria-label={t.ctaHeadlinePre}
+      >
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-[0.12] pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at center, rgba(20,20,20,0.55) 1px, transparent 1.4px)",
+            backgroundSize: "26px 26px",
+          }}
+        />
+        <div className="container-site relative">
+          <p
+            className="font-mono text-[11px] uppercase tracking-label text-[#0a0a0a]/65 mb-6"
+            style={{ transform: "rotate(-0.5deg)" }}
+          >
+            {t.ctaHand}
+          </p>
+          <h2 className="text-[clamp(2rem,6vw,4.5rem)] leading-[0.95] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase max-w-[820px]">
+            {t.ctaHeadlinePre}
+            <span className="opacity-55">{t.ctaHeadlinePost}</span>
+          </h2>
+          <p className="mt-8 max-w-[560px] text-[15px] leading-relaxed text-[#0a0a0a]/80">
+            {t.ctaBody}
+          </p>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Link
+              href={`${buildPath("kontakt", locale)}#projekt`}
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#0a0a0a] text-[#e1fd52] hover:bg-[#1a1a1a] transition-colors"
             >
-              {t.ctaHand}
-            </p>
-            <h2 className="heading-display text-[clamp(1.75rem,4.5vw,3rem)] text-offwhite max-w-[680px] mx-auto">
-              {t.ctaHeadlinePre}
-              <span className="text-offwhite/35">{t.ctaHeadlinePost}</span>
-            </h2>
-            <p className="mt-5 max-w-[540px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
-              {t.ctaBody}
-            </p>
-            <div className="mt-8 flex justify-center gap-3 flex-wrap">
-              <Button href={`${buildPath("kontakt", locale)}#projekt`} variant="primary" size="lg">
-                {t.ctaPrimary}
-              </Button>
-              <Button href={buildPath("leistungen", locale)} variant="glass" size="lg">
-                {t.ctaSecondary}
-              </Button>
-            </div>
+              {t.ctaPrimary}
+            </Link>
+            <Link
+              href={buildPath("leistungen", locale)}
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#0a0a0a] text-[#0a0a0a] hover:bg-[#0a0a0a] hover:text-[#e1fd52] transition-colors"
+            >
+              {t.ctaSecondary}
+            </Link>
           </div>
         </div>
       </section>

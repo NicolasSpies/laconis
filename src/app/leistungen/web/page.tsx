@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { Button } from "@/components/ui/Button";
+import { PageHero } from "@/components/shared/PageHero";
+import { Marquee } from "@/components/shared/Marquee";
 import { GrundrauschHero } from "@/components/leistungen/web/GrundrauschHero";
 import { WebApproaches } from "@/components/leistungen/web/WebApproaches";
 import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
@@ -182,44 +183,58 @@ export default function Page() {
       <ServiceSchema services={t.services} />
       <FAQSchema items={t.faq.map((f) => ({ q: f.frage, a: f.antwort }))} />
 
-      {/* HERO */}
-      <section className="pt-32 md:pt-36 pb-16 md:pb-20">
-        <div className="container-site">
-          <SectionLabel num="01">{t.sectionLabel}</SectionLabel>
+      {/* HERO · grey im stil home */}
+      <PageHero
+        kicker={`· ${t.sectionLabel}`}
+        line1={t.heroH1pre.replace(/\s+$/, "")}
+        line2={
+          <>
+            <span className="italic" style={{ fontFamily: "var(--font-instrument), serif", fontWeight: 400 }}>
+              {t.heroH1mid}
+            </span>
+            {t.heroH1post}
+          </>
+        }
+        sub={
+          <>
+            <span>{t.heroBody}</span>
+            <dl className="mt-10 grid grid-cols-3 gap-4 max-w-[520px]">
+              <div>
+                <dt className="font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/55">
+                  {t.stat1Label}
+                </dt>
+                <dd className="text-[clamp(1.5rem,3vw,2.25rem)] font-black tracking-[-0.04em] leading-none mt-2 text-[#0a0a0a]">
+                  95+
+                </dd>
+              </div>
+              <div>
+                <dt className="font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/55">
+                  {t.stat2Label}
+                </dt>
+                <dd className="text-[clamp(1.5rem,3vw,2.25rem)] font-black tracking-[-0.04em] leading-none mt-2 text-[#0a0a0a]">
+                  {t.stat2Value}
+                </dd>
+              </div>
+              <div>
+                <dt className="font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/55">
+                  {t.stat3Label}
+                </dt>
+                <dd className="text-[clamp(1.5rem,3vw,2.25rem)] font-black tracking-[-0.04em] leading-none mt-2 text-[#0a0a0a]">
+                  2–8w
+                </dd>
+              </div>
+            </dl>
+          </>
+        }
+        visual={<GrundrauschHero />}
+      />
 
-          <div className="mt-10 grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-14 items-center">
-            <div className="max-w-[620px]">
-              <h1 className="heading-display text-[clamp(2.25rem,6vw,4.5rem)] text-offwhite leading-[0.98]">
-                {t.heroH1pre}
-                <span className="text-offwhite/35">{t.heroH1mid}</span>
-                {t.heroH1post}
-              </h1>
-              <p className="mt-7 max-w-[520px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-                {t.heroBody}
-              </p>
-
-              <dl className="mt-10 grid grid-cols-3 gap-4 max-w-[520px]">
-                <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">{t.stat1Label}</dt>
-                  <dd className="heading-display text-lime text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">95+</dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">{t.stat2Label}</dt>
-                  <dd className="heading-display text-offwhite text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">{t.stat2Value}</dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">{t.stat3Label}</dt>
-                  <dd className="heading-display text-offwhite text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">2–8w</dd>
-                </div>
-              </dl>
-            </div>
-
-            <div className="relative">
-              <GrundrauschHero />
-            </div>
-          </div>
-        </div>
-      </section>
+      <Marquee
+        items={["·", "next.js", "·", "lighthouse 95+", "·", "eigenes cms", "·", "trilingue", "·", "ssl + backup", "·"]}
+        bg="#0a0a0a"
+        fg="#e1fd52"
+        speed={45}
+      />
 
       <ScribbleBreak text={t.breakHow} rotate={-1} />
 
@@ -298,24 +313,41 @@ export default function Page() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section id="kontakt" className="pb-36 pt-8">
-        <div className="container-site">
-          <div className="liquid-glass rounded-2xl p-10 md:p-16 text-center">
-            <h2 className="heading-display text-[clamp(1.75rem,4.5vw,3rem)] text-offwhite max-w-[680px] mx-auto">
-              {t.ctaH2}
-            </h2>
-            <p className="mt-5 max-w-[520px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
-              {t.ctaBody}
-            </p>
-            <div className="mt-8 flex justify-center gap-3 flex-wrap">
-              <Button href={buildPath("kontakt", locale)} variant="primary" size="lg" analyticsLabel="leistungen_web_kontakt">
-                {t.ctaPrimary}
-              </Button>
-              <Button href={buildPath("preise", locale)} variant="glass" size="lg" analyticsLabel="leistungen_web_preise">
-                {t.ctaSecondary}
-              </Button>
-            </div>
+      {/* CTA · lime slab */}
+      <section
+        id="kontakt"
+        className="relative py-24 md:py-32 overflow-hidden"
+        style={{ background: "#e1fd52", color: "#0a0a0a" }}
+      >
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-[0.14] pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at center, rgba(20,20,20,0.55) 1px, transparent 1.4px)",
+            backgroundSize: "26px 26px",
+          }}
+        />
+        <div className="container-site relative text-center">
+          <h2 className="text-[clamp(2rem,5vw,3.5rem)] leading-[1] font-black tracking-[-0.04em] text-[#0a0a0a] lowercase max-w-[680px] mx-auto">
+            {t.ctaH2}
+          </h2>
+          <p className="mt-6 max-w-[520px] mx-auto text-[14px] md:text-[15px] leading-relaxed text-[#0a0a0a]/85">
+            {t.ctaBody}
+          </p>
+          <div className="mt-10 flex justify-center gap-3 flex-wrap">
+            <Link
+              href={buildPath("kontakt", locale)}
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#0a0a0a] text-[#e1fd52] hover:bg-[#1a1a1a] transition-colors"
+            >
+              {t.ctaPrimary}
+            </Link>
+            <Link
+              href={buildPath("preise", locale)}
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#0a0a0a] text-[#0a0a0a] hover:bg-[#0a0a0a] hover:text-[#e1fd52] transition-colors"
+            >
+              {t.ctaSecondary}
+            </Link>
           </div>
         </div>
       </section>

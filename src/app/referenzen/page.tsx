@@ -1,4 +1,5 @@
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { PageHero, HeroRings } from "@/components/shared/PageHero";
+import { Marquee } from "@/components/shared/Marquee";
 import { CaseWall } from "@/components/referenzen/CaseWall";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { referenzen } from "@/data/referenzen";
@@ -25,34 +26,42 @@ const itemListSchema = {
 };
 
 type Dict = {
-  sectionLabel: string;
-  headlinePre: string;
-  headlineAccent: string;
+  kicker: string;
+  heroL1: string;
+  heroL2: string;
+  heroItalic: string;
   intro: string;
   honestNote: string;
+  marqueeBits: string[];
 };
 
 const DICT: Record<Locale, Dict> = {
   de: {
-    sectionLabel: "referenzen",
-    headlinePre: "ausgewählte ",
-    headlineAccent: "arbeiten.",
-    intro: "Projekte, die bleiben · keine 0815-Websites, keine austauschbaren Logos. Einfach Sachen, die zu den Leuten passen, die dahinter stehen.",
+    kicker: "· referenzen",
+    heroL1: "ausgewählte",
+    heroL2: "arbeiten.",
+    heroItalic: "die bleiben.",
+    intro: "projekte, die bleiben · keine 0815-websites, keine austauschbaren logos. einfach sachen, die zu den leuten passen, die dahinter stehen.",
     honestNote: "ehrlich-hinweis · ein teil der gezeigten arbeiten sind konzept-studien (mit „konzept\"-badge markiert). echte kunden-projekte kommen laufend dazu.",
+    marqueeBits: ["·", "real work", "·", "konzept-studien", "·", "echte kunden", "·", "case lesen →", "·"],
   },
   fr: {
-    sectionLabel: "références",
-    headlinePre: "travaux ",
-    headlineAccent: "sélectionnés.",
-    intro: "Des projets qui durent · pas de sites lambda, pas de logos interchangeables. Juste des choses qui collent aux gens derrière.",
+    kicker: "· références",
+    heroL1: "travaux",
+    heroL2: "sélectionnés.",
+    heroItalic: "qui durent.",
+    intro: "des projets qui durent · pas de sites lambda, pas de logos interchangeables. juste des choses qui collent aux gens derrière.",
     honestNote: "note honnête · une partie des travaux montrés sont des études concept (badge « concept »). les vrais projets clients arrivent en continu.",
+    marqueeBits: ["·", "vraie work", "·", "études concept", "·", "vrais clients", "·", "voir le case →", "·"],
   },
   en: {
-    sectionLabel: "work",
-    headlinePre: "selected ",
-    headlineAccent: "work.",
-    intro: "Projects that stick · no off-the-shelf websites, no interchangeable logos. Just things that fit the people behind them.",
+    kicker: "· work",
+    heroL1: "selected",
+    heroL2: "work.",
+    heroItalic: "that sticks.",
+    intro: "projects that stick · no off-the-shelf websites, no interchangeable logos. just things that fit the people behind them.",
     honestNote: "honest note · some of the work shown is concept studies (marked with \"concept\" badge). real client projects keep coming.",
+    marqueeBits: ["·", "real work", "·", "concept studies", "·", "real clients", "·", "see case →", "·"],
   },
 };
 
@@ -61,37 +70,42 @@ export default function Page() {
   const t = DICT[locale];
 
   return (
-    <section className="pt-36 pb-32">
+    <>
       <BreadcrumbSchema
         items={[
           { name: "home", url: `${BASE}/` },
-          { name: t.sectionLabel, url: `${BASE}${buildPath("referenzen", locale)}` },
+          { name: "referenzen", url: `${BASE}${buildPath("referenzen", locale)}` },
         ]}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
-      <div className="container-site">
-        <SectionLabel num="04">{t.sectionLabel}</SectionLabel>
 
-        <div className="mt-8 max-w-[900px]">
-          <h1 className="heading-display text-[clamp(2.5rem,8vw,6rem)] text-offwhite">
-            {t.headlinePre}
-            <span className="text-offwhite/35">{t.headlineAccent}</span>
-          </h1>
-          <p className="mt-8 max-w-[560px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-            {t.intro}
-          </p>
-          <p className="mt-4 max-w-[560px] font-mono text-[11px] uppercase tracking-label text-offwhite/55">
-            {t.honestNote}
-          </p>
-        </div>
+      <PageHero
+        kicker={t.kicker}
+        line1={t.heroL1}
+        line2={t.heroL2}
+        italicAccent={t.heroItalic}
+        sub={
+          <>
+            <span>{t.intro}</span>
+            <span className="mt-4 block font-mono text-[11px] uppercase tracking-label text-[#0a0a0a]/55">
+              {t.honestNote}
+            </span>
+          </>
+        }
+        visual={<HeroRings />}
+      />
 
-        <div className="mt-16">
+      <Marquee items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={45} />
+
+      {/* CaseWall (existing 3D-tilt wall component, keeps dark island) */}
+      <div data-theme="dark" className="bg-[#0a0a0a] text-offwhite py-16 md:py-20">
+        <div className="container-site">
           <CaseWall />
         </div>
       </div>
-    </section>
+    </>
   );
 }

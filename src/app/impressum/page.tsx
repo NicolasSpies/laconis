@@ -165,14 +165,14 @@ export default function Page() {
         <LegalRow k={t.kSitz} v={locale === "fr" ? "Eupen, Belgique" : locale === "en" ? "Eupen, Belgium" : "Eupen, Belgien"} />
         <LegalRow
           k={t.kAnschrift}
-          v={<span className="text-offwhite/55">{t.vAnschrift}</span>}
+          v={<span className="text-[#0a0a0a]/55">{t.vAnschrift}</span>}
         />
         <LegalRow
           k={t.kMail}
           v={
             <a
               href={`mailto:${CONTACT.email}`}
-              className="text-accent-ink hover:underline"
+              className="text-[#b084d3] hover:underline"
             >
               {CONTACT.email}
             </a>
@@ -187,11 +187,11 @@ export default function Page() {
 
       <LegalSection titel={t.s3Title} aside={t.s3Aside}>
         <p>
-          <strong className="text-offwhite">{t.s3p1Bold}</strong>
+          <strong className="text-[#0a0a0a]">{t.s3p1Bold}</strong>
           {t.s3p1}
         </p>
         <p>
-          <strong className="text-offwhite">{t.s3p2Bold}</strong>
+          <strong className="text-[#0a0a0a]">{t.s3p2Bold}</strong>
           {t.s3p2}
         </p>
       </LegalSection>
@@ -208,7 +208,7 @@ export default function Page() {
             href="https://ec.europa.eu/consumers/odr"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-accent-ink hover:underline"
+            className="text-[#b084d3] hover:underline"
           >
             ec.europa.eu/consumers/odr
           </a>
@@ -216,7 +216,7 @@ export default function Page() {
         </p>
       </LegalSection>
 
-      <p className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 pt-6 border-t border-ink/10">
+      <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55 pt-6 border-t border-[#0a0a0a]/12">
         {t.stand}
       </p>
     </LegalLayout>
