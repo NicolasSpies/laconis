@@ -6,7 +6,6 @@ import { Footer } from "@/components/Footer";
 import { CursorSpotlight } from "@/components/CursorSpotlight";
 import { CursorDot } from "@/components/CursorDot";
 import { PageTransition } from "@/components/PageTransition";
-import { SmoothScroll } from "@/components/SmoothScroll";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { Tracker } from "@/components/analytics/Tracker";
 import { ConsoleGreeting } from "@/components/ConsoleGreeting";
@@ -114,7 +113,6 @@ export default function RootLayout({
     >
       <head />
       <body>
-        <SmoothScroll />
         <div
           aria-hidden
           className="absolute inset-x-0 bottom-0 grid-bg-faint pointer-events-none"
