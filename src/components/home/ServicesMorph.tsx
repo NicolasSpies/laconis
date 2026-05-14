@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
+import { TiltCard } from "@/components/shared/TiltCard";
 
 /**
- * ServicesMorph · 2 farbige card-tiles mit 3D-hover.
+ * ServicesMorph · 2 farbige card-tiles mit cursor-spotlight + subtle 3D-tilt.
  * web = lime · branding = lila · bg immer #c8c8c8.
+ * Tilt + spotlight liefert der zentrale TiltCard.
  */
 
 type ServiceEntry = {
@@ -68,23 +70,7 @@ const DICT: Record<Locale, ServiceEntry[]> = {
   ],
 };
 
-const TILES = [
-  { bg: "#e1fd52", fg: "#0a0a0a" },
-  { bg: "#b084d3", fg: "#0a0a0a" },
-] as const;
-
-function tilt(e: React.MouseEvent<HTMLDivElement>) {
-  const el = e.currentTarget;
-  const r = el.getBoundingClientRect();
-  const x = (e.clientX - r.left) / r.width;
-  const y = (e.clientY - r.top) / r.height;
-  el.style.transform = `perspective(900px) rotateX(${(y - 0.5) * -14}deg) rotateY(${(x - 0.5) * 14}deg) translateZ(12px)`;
-}
-
-function reset(e: React.MouseEvent<HTMLDivElement>) {
-  e.currentTarget.style.transform =
-    "perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0)";
-}
+const PRESETS = ["lime", "lila"] as const;
 
 export function ServicesMorph() {
   const locale = useLocale();
@@ -95,18 +81,7 @@ export function ServicesMorph() {
       <div className="container-site">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
           {items.map((s, i) => (
-            <div
-              key={s.key}
-              onMouseMove={tilt}
-              onMouseLeave={reset}
-              className="rounded-2xl select-none"
-              style={{
-                background: TILES[i].bg,
-                color: TILES[i].fg,
-                transition: "transform 0.12s ease-out",
-                willChange: "transform",
-              }}
-            >
+            <TiltCard key={s.key} preset={PRESETS[i]}>
               <Link
                 href={buildPath(s.href, locale)}
                 className="flex flex-col justify-between p-8 md:p-10"
@@ -137,7 +112,7 @@ export function ServicesMorph() {
                   </p>
                 </div>
               </Link>
-            </div>
+            </TiltCard>
           ))}
         </div>
       </div>
