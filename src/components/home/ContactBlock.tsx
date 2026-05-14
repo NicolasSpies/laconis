@@ -83,7 +83,6 @@ export function ContactBlock() {
   return (
     <section
       className="relative py-24 md:py-32 overflow-hidden"
-      style={{ background: "#c8c8c8" }}
       aria-label={t.h1}
     >
       {/* subtle lime tint */}

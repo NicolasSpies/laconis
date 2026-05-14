@@ -3,8 +3,8 @@ import { DM_Sans, DM_Mono, Caveat, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { CursorSpotlight } from "@/components/CursorSpotlight";
 import { CursorDot } from "@/components/CursorDot";
+import { DriftingBlobs } from "@/components/DriftingBlobs";
 import { PageTransition } from "@/components/PageTransition";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { Tracker } from "@/components/analytics/Tracker";
@@ -126,7 +126,7 @@ export default function RootLayout({
               "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 15%, black 40%)",
           }}
         />
-        <CursorSpotlight />
+        <DriftingBlobs />
         <CursorDot />
         <Nav />
         <StructuredData />

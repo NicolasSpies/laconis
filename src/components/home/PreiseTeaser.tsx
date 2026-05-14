@@ -156,7 +156,7 @@ export function PreiseTeaser() {
 
   return (
     <section
-      className="bg-[#c8c8c8] py-24 md:py-32"
+      className="py-24 md:py-32"
       aria-label={t.sectionLabel}
     >
       <div className="container-site">

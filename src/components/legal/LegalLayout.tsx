@@ -15,7 +15,7 @@ type Props = {
 export function LegalLayout({ num, label, titel, intro, children }: Props) {
   return (
     <section
-      className="relative pt-32 md:pt-36 pb-36 bg-[#c8c8c8] text-[#0a0a0a] overflow-hidden"
+      className="relative pt-32 md:pt-36 pb-36 text-[#0a0a0a] overflow-hidden"
     >
       {/* subtler dot-grid */}
       <div

@@ -53,7 +53,7 @@ export function PageHero({
 }: Props) {
   return (
     <section
-      className={`relative ${paddedTop ? "pt-36 md:pt-44" : "pt-32 md:pt-36"} pb-20 md:pb-28 bg-[#c8c8c8] text-[#0a0a0a] overflow-hidden`}
+      className={`relative ${paddedTop ? "pt-36 md:pt-44" : "pt-32 md:pt-36"} pb-20 md:pb-28 text-[#0a0a0a] overflow-hidden`}
     >
       {/* atmospheric dot-grid – gleicher tone wie homepage SplitStatement */}
       <div

@@ -1,27 +1,20 @@
 "use client";
 
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-  useReducedMotion,
-} from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { MagneticButton } from "@/components/shared/MagneticButton";
 import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
 
 /**
- * Hero · clean left-aligned · drifting-blob bg system.
+ * Hero · clean left-aligned · sitzt über den globalen DriftingBlobs.
  *
  *   - text 3-zeilig · lime marker auf "design" · lila scribbles unter accent
- *   - hintergrund: 6 drifting blobs in 3 speed-layers (slow/mid/fast)
- *     · mouse-parallax pro layer für depth · breathing-scale
- *   - kein italic serif · pure DM Sans
- *   - 1 primary CTA · magnetic
+ *   - keine eigenen blobs · die kommen global aus layout.tsx (DriftingBlobs)
+ *   - pure DM Sans · kein italic serif
+ *   - 1 primary magnetic CTA
  *
- * lila #b084d3 + lime #e1fd52 leben in den blobs + accent-strokes.
+ * lila #b084d3 + lime #e1fd52 leben in den globalen blobs + scribbles/marker.
  */
 
 type Dict = {
@@ -75,41 +68,12 @@ export function Hero() {
   const pathInit = reduceMotion ? 1 : 0;
   const opInit = reduceMotion ? 1 : 0;
 
-  // mouse-parallax for blob layers
-  const mx = useMotionValue(0.5);
-  const my = useMotionValue(0.5);
-  const px = useSpring(mx, { stiffness: 50, damping: 22, mass: 0.6 });
-  const py = useSpring(my, { stiffness: 50, damping: 22, mass: 0.6 });
-  const layerSlow = useTransform<number, string>(
-    [px, py],
-    ([x, y]: number[]) =>
-      `translate(${(x - 0.5) * 20}px, ${(y - 0.5) * 20}px)`,
-  );
-  const layerMid = useTransform<number, string>(
-    [px, py],
-    ([x, y]: number[]) =>
-      `translate(${(x - 0.5) * 40}px, ${(y - 0.5) * 40}px)`,
-  );
-  const layerFast = useTransform<number, string>(
-    [px, py],
-    ([x, y]: number[]) =>
-      `translate(${(x - 0.5) * 70}px, ${(y - 0.5) * 70}px)`,
-  );
-
   return (
-    <section
-      className="relative min-h-[100svh] flex items-center overflow-hidden"
-      onMouseMove={(e) => {
-        if (reduceMotion) return;
-        const r = e.currentTarget.getBoundingClientRect();
-        mx.set((e.clientX - r.left) / r.width);
-        my.set((e.clientY - r.top) / r.height);
-      }}
-    >
-      {/* atmospheric grid fadet nach unten aus · sitzt unter den blobs */}
+    <section className="relative min-h-[100svh] flex items-center overflow-hidden">
+      {/* atmospheric grid · subtle texture · fadet aus */}
       <div
         aria-hidden
-        className="absolute inset-0 grid-bg pointer-events-none -z-10"
+        className="absolute inset-0 grid-bg pointer-events-none -z-[5]"
         style={{
           maskImage:
             "linear-gradient(to bottom, black 0%, black 35%, rgba(0,0,0,0.4) 75%, transparent 100%)",
@@ -117,135 +81,6 @@ export function Hero() {
             "linear-gradient(to bottom, black 0%, black 35%, rgba(0,0,0,0.4) 75%, transparent 100%)",
         }}
       />
-
-      {/* ─── drifting blobs · 3 speed-layers, 6 blobs total ─── */}
-      <div aria-hidden className="absolute inset-0 pointer-events-none -z-[5]">
-        {/* SLOW · lime · top-left */}
-        <motion.div
-          style={{ transform: layerSlow }}
-          animate={
-            reduceMotion
-              ? undefined
-              : { x: [0, 80, -40, 0], y: [0, -60, 50, 0], scale: [1, 1.08, 0.96, 1] }
-          }
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute left-[8%] top-[8%] w-[55vw] h-[55vw] rounded-full"
-        >
-          <div
-            className="w-full h-full rounded-full"
-            style={{
-              background: "radial-gradient(circle, #e1fd52 0%, transparent 60%)",
-              opacity: 0.5,
-              filter: "blur(55px)",
-            }}
-          />
-        </motion.div>
-
-        {/* SLOW · lila · bottom-right */}
-        <motion.div
-          style={{ transform: layerSlow }}
-          animate={
-            reduceMotion
-              ? undefined
-              : { x: [0, -90, 40, 0], y: [0, 70, -50, 0], scale: [1, 0.95, 1.1, 1] }
-          }
-          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute right-[5%] bottom-[5%] w-[48vw] h-[48vw] rounded-full"
-        >
-          <div
-            className="w-full h-full rounded-full"
-            style={{
-              background: "radial-gradient(circle, #b084d3 0%, transparent 60%)",
-              opacity: 0.58,
-              filter: "blur(55px)",
-            }}
-          />
-        </motion.div>
-
-        {/* MID · lila · center-left */}
-        <motion.div
-          style={{ transform: layerMid }}
-          animate={
-            reduceMotion
-              ? undefined
-              : { x: [0, 60, -50, 0], y: [0, -40, 30, 0], scale: [1, 1.15, 0.92, 1] }
-          }
-          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute left-[-5%] top-[40%] w-[32vw] h-[32vw] rounded-full"
-        >
-          <div
-            className="w-full h-full rounded-full"
-            style={{
-              background: "radial-gradient(circle, #b084d3 0%, transparent 60%)",
-              opacity: 0.42,
-              filter: "blur(40px)",
-            }}
-          />
-        </motion.div>
-
-        {/* MID · lime · bottom-left */}
-        <motion.div
-          style={{ transform: layerMid }}
-          animate={
-            reduceMotion
-              ? undefined
-              : { x: [0, -50, 40, 0], y: [0, -60, 20, 0], scale: [1, 1.12, 0.95, 1] }
-          }
-          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute left-[30%] bottom-[15%] w-[28vw] h-[28vw] rounded-full"
-        >
-          <div
-            className="w-full h-full rounded-full"
-            style={{
-              background: "radial-gradient(circle, #e1fd52 0%, transparent 60%)",
-              opacity: 0.4,
-              filter: "blur(36px)",
-            }}
-          />
-        </motion.div>
-
-        {/* FAST darter · lime · top-right */}
-        <motion.div
-          style={{ transform: layerFast }}
-          animate={
-            reduceMotion
-              ? undefined
-              : { x: [0, -40, 60, 0], y: [0, 50, -40, 0], scale: [1, 1.3, 0.85, 1] }
-          }
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute right-[20%] top-[18%] w-[18vw] h-[18vw] rounded-full"
-        >
-          <div
-            className="w-full h-full rounded-full"
-            style={{
-              background: "radial-gradient(circle, #e1fd52 0%, transparent 60%)",
-              opacity: 0.55,
-              filter: "blur(28px)",
-            }}
-          />
-        </motion.div>
-
-        {/* FAST darter · lila · center */}
-        <motion.div
-          style={{ transform: layerFast }}
-          animate={
-            reduceMotion
-              ? undefined
-              : { x: [0, 70, -30, 0], y: [0, -40, 60, 0], scale: [1, 0.8, 1.25, 1] }
-          }
-          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute right-[40%] bottom-[30%] w-[14vw] h-[14vw] rounded-full"
-        >
-          <div
-            className="w-full h-full rounded-full"
-            style={{
-              background: "radial-gradient(circle, #b084d3 0%, transparent 60%)",
-              opacity: 0.5,
-              filter: "blur(24px)",
-            }}
-          />
-        </motion.div>
-      </div>
 
       <div className="container-site w-full relative z-10">
         <div className="max-w-[1100px]">
@@ -302,10 +137,10 @@ export function Hero() {
               </span>
             </span>
 
-            {/* zeile 2 · clean */}
+            {/* zeile 2 */}
             <span className="block whitespace-nowrap">{t.line2}</span>
 
-            {/* zeile 3 · accent + 2 lila scribble-strokes drunter · pure DM Sans */}
+            {/* zeile 3 · accent + lila scribbles · pure DM Sans */}
             <span className="block whitespace-nowrap">
               {t.line3prefix}
               <span className="relative inline-block">
@@ -347,7 +182,7 @@ export function Hero() {
             </span>
           </motion.h1>
 
-          {/* subtitle · echtes verkaufsargument · keine listung */}
+          {/* subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -357,7 +192,7 @@ export function Hero() {
             {t.sub}
           </motion.p>
 
-          {/* ein primary CTA · magnetic */}
+          {/* primary CTA · magnetic */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}

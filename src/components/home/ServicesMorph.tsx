@@ -77,7 +77,7 @@ export function ServicesMorph() {
   const items = pick(DICT, locale);
 
   return (
-    <section className="py-12 md:py-16 bg-[#c8c8c8]">
+    <section className="py-12 md:py-16">
       <div className="container-site">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
           {items.map((s, i) => (
