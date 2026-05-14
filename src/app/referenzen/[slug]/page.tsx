@@ -7,6 +7,7 @@ import { RefThumb } from "@/components/referenzen/RefThumb";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { CaseStudySchema } from "@/components/seo/CaseStudySchema";
 import { EvolutionSlider } from "@/components/referenzen/EvolutionSlider";
+import { ReadingProgress } from "@/components/referenzen/ReadingProgress";
 import { referenzen } from "@/data/referenzen";
 import { getLocale } from "@/i18n/getLocale";
 import { buildPath, type Locale } from "@/i18n/config";
@@ -212,6 +213,7 @@ export default function Page({ params }: Props) {
 
   return (
     <>
+      <ReadingProgress />
       <BreadcrumbSchema
         items={[
           { name: "home", url: `${BASE}/` },

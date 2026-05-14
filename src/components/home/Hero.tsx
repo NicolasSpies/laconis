@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import { Magnetic } from "@/components/ui/Magnetic";
+import { MagneticButton } from "@/components/shared/MagneticButton";
+import { GooeyText } from "@/components/shared/GooeyText";
 import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
 
@@ -24,6 +25,8 @@ const DICT: Record<Locale, {
   line2: string;
   line3prefix: string;
   line3italic: string;
+  /** cycling words list für GooeyText · enthält line3italic als ersten eintrag */
+  cycling: string[];
   sub: string;
   cta: string;
 }> = {
@@ -32,6 +35,7 @@ const DICT: Record<Locale, {
     line2: "mit meinung.",
     line3prefix: "web mit ",
     line3italic: "seele.",
+    cycling: ["seele.", "haltung.", "substanz.", "meinung."],
     sub: "für leute, die ihre marke ernst nehmen.",
     cta: "projekt starten →",
   },
@@ -40,6 +44,7 @@ const DICT: Record<Locale, {
     line2: "avec opinion.",
     line3prefix: "web avec ",
     line3italic: "âme.",
+    cycling: ["âme.", "sens.", "essence.", "voix."],
     sub: "pour ceux qui prennent leur marque au sérieux.",
     cta: "démarrer un projet →",
   },
@@ -48,6 +53,7 @@ const DICT: Record<Locale, {
     line2: "with opinion.",
     line3prefix: "web with ",
     line3italic: "soul.",
+    cycling: ["soul.", "stance.", "substance.", "voice."],
     sub: "for people who take their brand seriously.",
     cta: "start a project →",
   },
@@ -64,6 +70,11 @@ const MARKER_MASK = `url("data:image/svg+xml;utf8,${encodeURIComponent(
 export function Hero() {
   const locale = useLocale();
   const t = pick(DICT, locale);
+  const reduceMotion = useReducedMotion();
+  // reduced-motion · zeichne pathLength bereits "1" damit nix animiert wird
+  const pathFinal = reduceMotion ? 1 : 1;
+  const pathInit = reduceMotion ? 1 : 0;
+  const opInit = reduceMotion ? 1 : 0;
 
   return (
     <section className="relative min-h-[100svh] flex items-center">
@@ -103,8 +114,8 @@ export function Hero() {
                     strokeWidth={MARKER_STROKE_WIDTH}
                     strokeLinecap="round"
                     fill="none"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 1 }}
+                    initial={{ pathLength: pathInit, opacity: opInit }}
+                    animate={{ pathLength: pathFinal, opacity: 1 }}
                     transition={{
                       pathLength: { duration: 0.7, delay: 0.4, ease: [0.65, 0, 0.35, 1] },
                       opacity: { duration: 0.2, delay: 0.4 },
@@ -138,20 +149,17 @@ export function Hero() {
             {/* zeile 2 · clean */}
             <span className="block whitespace-nowrap">{t.line2}</span>
 
-            {/* zeile 3 · italic-serif "seele" mit 2 lila scribble-strokes drunter */}
+            {/* zeile 3 · gooey-cycling italic-serif + 2 lila scribble-strokes drunter */}
             <span className="block whitespace-nowrap">
               {t.line3prefix}
-              <span className="relative inline-block">
-                <span
-                  style={{
-                    fontFamily: "var(--font-instrument), serif",
-                    fontStyle: "italic",
-                    fontWeight: 400,
-                    letterSpacing: "-0.01em",
-                  }}
-                >
-                  {t.line3italic}
-                </span>
+              <span
+                className="relative inline-flex items-baseline align-baseline"
+                style={{
+                  // min-width = längstes wort der locale-cycling-liste (grobe ch-schätzung)
+                  minWidth: `${Math.max(...t.cycling.map((w) => w.length)) * 0.55}em`,
+                }}
+              >
+                <GooeyText texts={t.cycling} morphTime={2} cooldownTime={1.5} />
                 <motion.svg
                   aria-hidden
                   viewBox="0 0 200 30"
@@ -164,8 +172,8 @@ export function Hero() {
                     strokeWidth="3"
                     strokeLinecap="round"
                     fill="none"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 1 }}
+                    initial={{ pathLength: pathInit, opacity: opInit }}
+                    animate={{ pathLength: pathFinal, opacity: 1 }}
                     transition={{
                       pathLength: { duration: 0.45, delay: 0.95, ease: [0.65, 0, 0.35, 1] },
                       opacity: { duration: 0.2, delay: 0.95 },
@@ -177,8 +185,8 @@ export function Hero() {
                     strokeWidth="2.4"
                     strokeLinecap="round"
                     fill="none"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 1 }}
+                    initial={{ pathLength: pathInit, opacity: opInit }}
+                    animate={{ pathLength: pathFinal, opacity: 1 }}
                     transition={{
                       pathLength: { duration: 0.4, delay: 1.2, ease: [0.65, 0, 0.35, 1] },
                       opacity: { duration: 0.2, delay: 1.2 },
@@ -206,7 +214,7 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 1.7 }}
             className="mt-10"
           >
-            <Magnetic>
+            <MagneticButton>
               <Button
                 href={`${buildPath("kontakt", locale)}#projekt`}
                 size="md"
@@ -214,7 +222,7 @@ export function Hero() {
               >
                 {t.cta}
               </Button>
-            </Magnetic>
+            </MagneticButton>
           </motion.div>
         </div>
 

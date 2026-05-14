@@ -80,8 +80,23 @@ function ensureGlobalPointer() {
   };
 }
 
+/* coarse-pointer (touch) skip · billiger guard, müsste ohnehin nicht laufen */
+function isCoarse() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: coarse)").matches
+  );
+}
+function isReduced() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
 function tilt(e: MouseEvent<HTMLDivElement>, intensity: number) {
   if (intensity === 0) return;
+  if (isCoarse() || isReduced()) return;
   const el = e.currentTarget;
   const r = el.getBoundingClientRect();
   const x = (e.clientX - r.left) / r.width;
@@ -91,6 +106,7 @@ function tilt(e: MouseEvent<HTMLDivElement>, intensity: number) {
 
 function reset(e: MouseEvent<HTMLDivElement>, intensity: number) {
   if (intensity === 0) return;
+  if (isCoarse() || isReduced()) return;
   e.currentTarget.style.transform =
     "perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0)";
 }

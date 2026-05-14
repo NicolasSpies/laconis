@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 type Variant = "underline" | "circle" | "strike" | "arrow";
 
@@ -51,6 +51,7 @@ export function Scribble({
   const svgRef = useRef<SVGSVGElement>(null);
   const [replayKey, setReplayKey] = useState(0);
   const cooldownRef = useRef(false);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (!replayOnHover) return;
@@ -86,12 +87,20 @@ export function Scribble({
         strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeLinejoin="round"
-        initial={{ pathLength: 0, opacity: 0 }}
+        initial={reduceMotion ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
         animate={
-          replayKey > 0 ? { pathLength: 1, opacity: 1 } : undefined
+          reduceMotion
+            ? { pathLength: 1, opacity: 1 }
+            : replayKey > 0
+              ? { pathLength: 1, opacity: 1 }
+              : undefined
         }
         whileInView={
-          replayKey === 0 ? { pathLength: 1, opacity: 1 } : undefined
+          reduceMotion
+            ? undefined
+            : replayKey === 0
+              ? { pathLength: 1, opacity: 1 }
+              : undefined
         }
         viewport={{ once: true, margin: "-50px" }}
         transition={{

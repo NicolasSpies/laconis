@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
 import { CONTACT } from "@/config/contact";
+import { MagneticButton } from "@/components/shared/MagneticButton";
 
 /**
  * ContactBlock · light grey + lime CTA · closing-section auf der home.
@@ -127,12 +128,14 @@ export function ContactBlock() {
         </div>
 
         <div className="mt-16 flex flex-wrap gap-3">
-          <Link
-            href={`${buildPath("kontakt", locale)}#projekt`}
-            className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#0a0a0a] text-[#e1fd52] hover:bg-[#1a1a1a] transition-colors"
-          >
-            {t.ctaPrimary}
-          </Link>
+          <MagneticButton>
+            <Link
+              href={`${buildPath("kontakt", locale)}#projekt`}
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#0a0a0a] text-[#e1fd52] hover:bg-[#1a1a1a] transition-colors"
+            >
+              {t.ctaPrimary}
+            </Link>
+          </MagneticButton>
           {/* secondary CTA · subtiler lila-akzent · border + hover-fill */}
           <Link
             href={buildPath("preise", locale)}

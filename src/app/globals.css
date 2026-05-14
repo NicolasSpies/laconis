@@ -793,9 +793,52 @@ body.scribble-mode h2::after {
   );
 }
 
+/* hover-boost · over-bright glow auf direktem hover · 300ms-smooth */
+@media (hover: hover) and (pointer: fine) {
+  [data-glow] {
+    transition:
+      --bg-spot-opacity 0.3s ease,
+      --border-spot-opacity 0.3s ease;
+  }
+  [data-glow]:hover {
+    --bg-spot-opacity: 0.32;
+    --border-spot-opacity: 1.2;
+  }
+}
+
 @media (pointer: coarse), (prefers-reduced-motion: reduce) {
   [data-glow]::before,
   [data-glow]::after {
     display: none;
+  }
+}
+
+/* ═══════════ reduced-motion · global safety net ═══════════
+   nuke gröbste transforms/transitions wenn nutzer reduced-motion will.
+   feinheiten (gooey-text, lenis, hero-scribbles) sind in den components
+   selbst gehandelt · das hier ist die CSS-untergrenze damit nix übersehen
+   wird (hover-tilt-transitions, marquee, tactile-buttons etc.) */
+@media (prefers-reduced-motion: reduce) {
+  [data-glow]:hover {
+    --bg-spot-opacity: 0.18;
+    --border-spot-opacity: 0.9;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+  .tactile,
+  .tactile-sm,
+  .tactile-press {
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s !important;
+  }
+  .tactile:hover,
+  .tactile-sm:hover,
+  .tactile-press:hover {
+    transform: none !important;
+  }
+  .tactile:active,
+  .tactile-sm:active,
+  .tactile-press:active {
+    transform: none !important;
   }
 }

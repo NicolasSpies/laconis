@@ -30,11 +30,11 @@ export function Marquee({
 }: Props) {
   return (
     <div
-      className={`w-full overflow-hidden ${className}`}
+      className={`marquee-root w-full overflow-hidden ${className}`}
       style={{ background: bg, color: fg }}
     >
       <div
-        className="flex whitespace-nowrap py-4 will-change-transform"
+        className="marquee-track flex whitespace-nowrap py-4 will-change-transform"
         style={{
           animation: `marquee ${speed}s linear infinite`,
         }}
@@ -66,8 +66,12 @@ export function Marquee({
             transform: translateX(-50%);
           }
         }
+        /* hover-pause · band hält still wenn cursor drauf liegt */
+        .marquee-root:hover .marquee-track {
+          animation-play-state: paused;
+        }
         @media (prefers-reduced-motion: reduce) {
-          .will-change-transform {
+          .marquee-track {
             animation: none !important;
           }
         }
