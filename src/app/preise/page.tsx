@@ -2,7 +2,6 @@ import Link from "next/link";
 import { PageHero, HeroRings } from "@/components/shared/PageHero";
 import { GreySection } from "@/components/shared/GreySection";
 import { TiltCard } from "@/components/shared/TiltCard";
-import { ScrollFillBar } from "@/components/shared/ScrollFillBar";
 import { Marquee } from "@/components/shared/Marquee";
 import { PriceCard } from "@/components/preise/PriceCard";
 import { PreisExplorer } from "@/components/preise/PreisExplorer";
@@ -217,13 +216,6 @@ export default function Page() {
         sub={t.intro}
         visual={<HeroRings />}
       />
-
-      {/* Scroll-fill bar · lime füllt sich während user scrollt */}
-      <div>
-        <div className="container-site py-6">
-          <ScrollFillBar color="#b084d3" thick />
-        </div>
-      </div>
 
       {/* RICHTWERTE · 3 tilt-cards mit animierten preis-countern */}
       <GreySection tint="lime">

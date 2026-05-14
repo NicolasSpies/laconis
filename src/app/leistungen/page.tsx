@@ -2,7 +2,6 @@ import Link from "next/link";
 import { PageHero, HeroRings } from "@/components/shared/PageHero";
 import { TiltCard } from "@/components/shared/TiltCard";
 import { GreySection } from "@/components/shared/GreySection";
-import { ScrollFillBar } from "@/components/shared/ScrollFillBar";
 import { Marquee } from "@/components/shared/Marquee";
 import { WebDemo } from "@/components/leistungen/WebDemo";
 import { GrafikDemo } from "@/components/leistungen/GrafikDemo";
@@ -28,7 +27,6 @@ type Dict = {
   brandTitle: string;
   brandDesc: string;
   brandCta: string;
-  scrollLabel: string;
   marqueeBits: string[];
   bundleHint: string;
   ctaHeadline: string;
@@ -50,7 +48,6 @@ const DICT: Record<Locale, Dict> = {
     brandTitle: "branding.",
     brandDesc: "wortmarke, brand guide, farbsystem, druck. allein oder zur website dazu · dann sparst du dir die koordination.",
     brandCta: "alles über branding →",
-    scrollLabel: "scroll-progress",
     marqueeBits: ["·", "web", "·", "branding", "·", "logo", "·", "cms", "·", "print", "·", "trilingue", "·"],
     bundleHint: "web + branding · alles aus einer hand →",
     ctaHeadline: "nicht sicher, was du brauchst?",
@@ -70,7 +67,6 @@ const DICT: Record<Locale, Dict> = {
     brandTitle: "branding.",
     brandDesc: "wordmark, brand guide, couleurs, impression. seul ou avec le site · alors tu épargnes la coordination.",
     brandCta: "tout sur le branding →",
-    scrollLabel: "progression",
     marqueeBits: ["·", "web", "·", "branding", "·", "logo", "·", "cms", "·", "print", "·", "trilingue", "·"],
     bundleHint: "web + branding · tout d'une même main →",
     ctaHeadline: "tu ne sais pas trop ce qu'il te faut ?",
@@ -90,7 +86,6 @@ const DICT: Record<Locale, Dict> = {
     brandTitle: "branding.",
     brandDesc: "wordmark, brand guide, colours, print. on its own or with the website · saves you the coordination.",
     brandCta: "more on branding →",
-    scrollLabel: "scroll progress",
     marqueeBits: ["·", "web", "·", "branding", "·", "logo", "·", "cms", "·", "print", "·", "trilingual", "·"],
     bundleHint: "web + branding · all from one hand →",
     ctaHeadline: "not sure what you need?",
@@ -115,13 +110,6 @@ export default function Page() {
         visual={<HeroRings />}
       />
       <h1 className="sr-only">{t.srHeadline}</h1>
-
-      {/* Scroll-fill bar · lime füllt sich während user scrollt · cooler effekt */}
-      <div>
-        <div className="container-site py-6">
-          <ScrollFillBar color="#e1fd52" thick label={t.scrollLabel} />
-        </div>
-      </div>
 
       {/* BIG SERVICE CARDS · 3D tilt im stil von home.ServicesMorph aber bigger */}
       <GreySection className="!py-16 md:!py-20">
