@@ -70,7 +70,11 @@ const DICT: Record<Locale, ServiceEntry[]> = {
   ],
 };
 
-const PRESETS = ["lime", "lila"] as const;
+/* web = lime (full surface, primary spezialität) ·
+   branding = dark (mit kleinem lila scribble als akzent · lila als
+   discreet element ON a dark surface, nicht als surface selbst) */
+const PRESETS = ["lime", "dark"] as const;
+const LILA = "#b084d3";
 
 export function ServicesMorph() {
   const locale = useLocale();
@@ -80,40 +84,67 @@ export function ServicesMorph() {
     <section className="py-12 md:py-16">
       <div className="container-site">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
-          {items.map((s, i) => (
-            <TiltCard key={s.key} preset={PRESETS[i]}>
-              <Link
-                href={buildPath(s.href, locale)}
-                className="flex flex-col justify-between p-8 md:p-10"
-                style={{
-                  color: "inherit",
-                  textDecoration: "none",
-                  minHeight: "clamp(280px, 34vw, 400px)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                }}
-              >
-                <p className="text-[clamp(2.8rem,5.5vw,4.5rem)] leading-[0.9] font-black tracking-[-0.03em]">
-                  {s.title}
-                </p>
-                <div>
-                  <p
-                    className="text-[14px] leading-relaxed mb-4"
-                    style={{ opacity: 0.75 }}
-                  >
-                    {s.desc}
+          {items.map((s, i) => {
+            const isBranding = s.key === "branding";
+            return (
+              <TiltCard key={s.key} preset={PRESETS[i]}>
+                <Link
+                  href={buildPath(s.href, locale)}
+                  className="flex flex-col justify-between p-8 md:p-10"
+                  style={{
+                    color: "inherit",
+                    textDecoration: "none",
+                    minHeight: "clamp(280px, 34vw, 400px)",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <p className="text-[clamp(2.8rem,5.5vw,4.5rem)] leading-[0.9] font-black tracking-[-0.03em] relative inline-block">
+                    <span className="relative inline-block">
+                      {s.title}
+                      {/* nur auf der branding-card: zarter lila scribble drunter
+                         → lila als diskreter accent on dark surface */}
+                      {isBranding && (
+                        <svg
+                          aria-hidden
+                          viewBox="0 0 200 16"
+                          preserveAspectRatio="none"
+                          className="absolute left-[-2%] right-[-2%] -bottom-[0.04em] w-[104%] h-[0.18em] pointer-events-none overflow-visible"
+                        >
+                          <path
+                            d="M4 8 C 48 3, 110 13, 196 6"
+                            stroke={LILA}
+                            strokeWidth="2.6"
+                            strokeLinecap="round"
+                            fill="none"
+                            opacity="0.85"
+                          />
+                        </svg>
+                      )}
+                    </span>
                   </p>
-                  <p
-                    className="font-mono text-[11px] uppercase tracking-label"
-                    style={{ opacity: 0.65 }}
-                  >
-                    {s.cta}
-                  </p>
-                </div>
-              </Link>
-            </TiltCard>
-          ))}
+                  <div>
+                    <p
+                      className="text-[14px] leading-relaxed mb-4"
+                      style={{ opacity: isBranding ? 0.8 : 0.75 }}
+                    >
+                      {s.desc}
+                    </p>
+                    <p
+                      className="font-mono text-[11px] uppercase tracking-label"
+                      style={{
+                        opacity: 0.7,
+                        color: isBranding ? LILA : "inherit",
+                      }}
+                    >
+                      {s.cta}
+                    </p>
+                  </div>
+                </Link>
+              </TiltCard>
+            );
+          })}
         </div>
       </div>
     </section>
