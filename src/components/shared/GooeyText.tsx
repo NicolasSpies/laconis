@@ -3,11 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * GooeyText · cycling words with feColorMatrix gooey-morph effect.
+ * GooeyText · cycling phrases mit feColorMatrix gooey-morph blend.
  *
- * - inline-flow safe (display: inline-flex auf container)
- * - color via currentColor · font via var(--font-instrument), serif, italic
- * - prefers-reduced-motion · zeigt nur erstes wort statisch
+ * - vererbt font + farbe + größe vom parent · keine hardcoded styles
+ * - das innere container-element ist position:relative
+ * - zwei text-spans sind absolut gestapelt mit der gleichen baseline
+ * - svg-filter (threshold) macht den gooey blob-blend
+ * - prefers-reduced-motion · zeigt erstes phrase statisch
  *
  * morphTime · sekunden für blend zwischen alt → neu
  * cooldownTime · sekunden stillstand zwischen morphs
@@ -16,13 +18,16 @@ type Props = {
   texts: string[];
   morphTime?: number;
   cooldownTime?: number;
+  /** sizing-strategy für den container width */
+  fitTo?: "current" | "longest";
   className?: string;
 };
 
 export function GooeyText({
   texts,
-  morphTime = 2,
-  cooldownTime = 1.5,
+  morphTime = 1.4,
+  cooldownTime = 1.6,
+  fitTo = "longest",
   className = "",
 }: Props) {
   const text1Ref = useRef<HTMLSpanElement>(null);
@@ -99,52 +104,39 @@ export function GooeyText({
     return () => cancelAnimationFrame(rafId);
   }, [texts, morphTime, cooldownTime]);
 
-  const sharedStyle: React.CSSProperties = {
-    fontFamily: "var(--font-instrument), serif",
-    fontStyle: "italic",
-    fontWeight: 400,
-    letterSpacing: "-0.01em",
-    color: "currentColor",
-  };
-
-  // reduced-motion · render erstes wort statisch, kein filter, kein layout-shift
+  // reduced-motion · render erstes phrase statisch
   if (reduced) {
-    return (
-      <span
-        className={`inline-flex ${className}`}
-        style={sharedStyle}
-      >
-        {texts[0]}
-      </span>
-    );
+    return <span className={className}>{texts[0]}</span>;
   }
+
+  // longest phrase als invisible spacer · gibt dem container stabile breite
+  // damit der morph nicht layout-springt
+  const longest = fitTo === "longest"
+    ? texts.reduce((a, b) => (a.length >= b.length ? a : b))
+    : null;
 
   return (
     <span
-      className={`relative inline-flex items-baseline ${className}`}
-      style={{
-        // SVG filter applies gooey blend
-        filter: "url(#gooey-text-filter)",
-      }}
+      className={`relative inline-block ${className}`}
+      style={{ filter: "url(#gooey-text-filter)" }}
     >
+      {/* spacer · auto-sizes container · invisible */}
+      {longest ? (
+        <span aria-hidden className="invisible whitespace-nowrap">
+          {longest}
+        </span>
+      ) : null}
+      {/* two animated spans · absolute, stack on top of each other */}
       <span
         ref={text1Ref}
-        className="inline-block"
-        style={{
-          ...sharedStyle,
-          opacity: 0,
-          whiteSpace: "nowrap",
-        }}
+        aria-hidden
+        className="absolute inset-0 whitespace-nowrap"
+        style={{ opacity: 0 }}
       />
       <span
         ref={text2Ref}
-        className="inline-block"
-        style={{
-          ...sharedStyle,
-          marginLeft: "-100%",
-          opacity: 1,
-          whiteSpace: "nowrap",
-        }}
+        className="absolute inset-0 whitespace-nowrap"
+        style={{ opacity: 1 }}
       />
       {/* svg-filter definition · single-mount, idempotent (gleicher id) */}
       <svg
