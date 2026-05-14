@@ -67,15 +67,13 @@ export function SplitStatement() {
         <h2 className="text-[clamp(2.8rem,8vw,7rem)] leading-[0.9] font-black tracking-[-0.035em] text-[#0a0a0a] max-w-[1100px]">
           {t.h1}
           <br />
-          {/* italic accent · lila color · diskreter typo-moment statt surface */}
+          {/* DM Sans italic light weight + lila color · weight-kontrast
+             zur black-headline drum herum · kein serif-mixing */}
           <span className="relative inline-block">
             <span
-              className="relative z-10"
+              className="relative z-10 italic font-normal"
               style={{
-                fontFamily: "var(--font-instrument), serif",
-                fontStyle: "italic",
-                fontWeight: 400,
-                letterSpacing: "-0.01em",
+                letterSpacing: "-0.02em",
                 color: LILA,
               }}
             >
