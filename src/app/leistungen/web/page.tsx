@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { PageHero } from "@/components/shared/PageHero";
-import { Marquee } from "@/components/shared/Marquee";
 import { GrundrauschHero } from "@/components/leistungen/web/GrundrauschHero";
 import { WebApproaches } from "@/components/leistungen/web/WebApproaches";
 import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
@@ -195,45 +194,8 @@ export default function Page() {
             {t.heroH1post}
           </>
         }
-        sub={
-          <>
-            <span>{t.heroBody}</span>
-            <dl className="mt-10 grid grid-cols-3 gap-4 max-w-[520px]">
-              <div>
-                <dt className="font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/55">
-                  {t.stat1Label}
-                </dt>
-                <dd className="text-[clamp(1.5rem,3vw,2.25rem)] font-black tracking-[-0.04em] leading-none mt-2 text-[#0a0a0a]">
-                  95+
-                </dd>
-              </div>
-              <div>
-                <dt className="font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/55">
-                  {t.stat2Label}
-                </dt>
-                <dd className="text-[clamp(1.5rem,3vw,2.25rem)] font-black tracking-[-0.04em] leading-none mt-2 text-[#0a0a0a]">
-                  {t.stat2Value}
-                </dd>
-              </div>
-              <div>
-                <dt className="font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/55">
-                  {t.stat3Label}
-                </dt>
-                <dd className="text-[clamp(1.5rem,3vw,2.25rem)] font-black tracking-[-0.04em] leading-none mt-2 text-[#0a0a0a]">
-                  2–8w
-                </dd>
-              </div>
-            </dl>
-          </>
-        }
+        sub={t.heroBody}
         visual={<GrundrauschHero />}
-      />
-
-      <Marquee
-        items={["·", "next.js", "·", "lighthouse 95+", "·", "eigenes cms", "·", "trilingue", "·", "ssl + backup", "·"]}
-        bg="#0a0a0a"
-        fg="#e1fd52"
-        speed={45}
       />
 
       <ScribbleBreak text={t.breakHow} rotate={-1} />
@@ -248,37 +210,33 @@ export default function Page() {
       <FabryCase num="04" />
       <WebVsAlternatives num="05" />
 
-      {/* VERTIEFUNGS-LINKS */}
+      {/* VERTIEFUNGS-LINKS · clean text-links statt glass cards */}
       <section className="pb-20">
         <div className="container-site">
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-[1100px] border-t-2 border-[#0a0a0a]/15">
             <Link
               href={buildPath("leistungen/web/technik", locale)}
-              className="group glass tactile-sm rounded-xl px-6 py-5 hover:border-lime/25 flex items-start justify-between gap-4"
+              className="group block py-8 border-b-2 border-[#0a0a0a]/15 md:border-b-0 md:border-r-2"
             >
-              <div>
-                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-                  {t.techLinkLabel}
-                </span>
-                <p className="mt-1.5 text-[14px] text-offwhite/75 group-hover:text-offwhite transition-colors">
-                  {t.techLinkBody}
-                </p>
-              </div>
-              <span className="font-mono text-[11px] uppercase tracking-label text-accent-ink shrink-0 self-center">→</span>
+              <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+                {t.techLinkLabel}
+              </span>
+              <p className="mt-2 text-[18px] md:text-[20px] text-[#0a0a0a] font-medium tracking-[-0.01em] group-hover:text-[#0a0a0a] transition-colors flex items-center gap-2">
+                {t.techLinkBody}
+                <span className="font-mono text-[14px] text-[#0a0a0a]/45 group-hover:text-[#0a0a0a] group-hover:translate-x-1 transition-all">→</span>
+              </p>
             </Link>
             <Link
               href={buildPath("ansatz", locale)}
-              className="group glass tactile-sm rounded-xl px-6 py-5 hover:border-lime/25 flex items-start justify-between gap-4"
+              className="group block py-8"
             >
-              <div>
-                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-                  {t.ansatzLinkLabel}
-                </span>
-                <p className="mt-1.5 text-[14px] text-offwhite/75 group-hover:text-offwhite transition-colors">
-                  {t.ansatzLinkBody}
-                </p>
-              </div>
-              <span className="font-mono text-[11px] uppercase tracking-label text-accent-ink shrink-0 self-center">→</span>
+              <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+                {t.ansatzLinkLabel}
+              </span>
+              <p className="mt-2 text-[18px] md:text-[20px] text-[#0a0a0a] font-medium tracking-[-0.01em] group-hover:text-[#0a0a0a] transition-colors flex items-center gap-2">
+                {t.ansatzLinkBody}
+                <span className="font-mono text-[14px] text-[#0a0a0a]/45 group-hover:text-[#0a0a0a] group-hover:translate-x-1 transition-all">→</span>
+              </p>
             </Link>
           </div>
         </div>
@@ -313,26 +271,16 @@ export default function Page() {
         </div>
       </section>
 
-      {/* CTA · lime slab */}
+      {/* CTA · transparent · blobs durch · lila accent statt lime fläche */}
       <section
         id="kontakt"
-        className="relative py-24 md:py-32 overflow-hidden"
-        style={{ background: "#e1fd52", color: "#0a0a0a" }}
+        className="relative py-24 md:py-32 overflow-hidden text-[#0a0a0a]"
       >
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-[0.14] pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at center, rgba(20,20,20,0.55) 1px, transparent 1.4px)",
-            backgroundSize: "26px 26px",
-          }}
-        />
         <div className="container-site relative text-center">
           <h2 className="text-[clamp(2rem,5vw,3.5rem)] leading-[1] font-black tracking-[-0.04em] text-[#0a0a0a] lowercase max-w-[680px] mx-auto">
             {t.ctaH2}
           </h2>
-          <p className="mt-6 max-w-[520px] mx-auto text-[14px] md:text-[15px] leading-relaxed text-[#0a0a0a]/85">
+          <p className="mt-6 max-w-[520px] mx-auto text-[14px] md:text-[15px] leading-relaxed text-[#0a0a0a]/80">
             {t.ctaBody}
           </p>
           <div className="mt-10 flex justify-center gap-3 flex-wrap">
@@ -344,7 +292,7 @@ export default function Page() {
             </Link>
             <Link
               href={buildPath("preise", locale)}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#0a0a0a] text-[#0a0a0a] hover:bg-[#0a0a0a] hover:text-[#e1fd52] transition-colors"
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#b084d3] text-[#0a0a0a] hover:bg-[#b084d3] hover:text-[#0a0a0a] transition-colors"
             >
               {t.ctaSecondary}
             </Link>
