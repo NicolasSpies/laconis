@@ -143,7 +143,7 @@ function AnimatedScore({ score, label }: { score: number; label: string }) {
 
 function FabryScreenshotPlaceholder({ t }: { t: Dict }) {
   return (
-    <div data-theme="dark" className="relative aspect-[16/10] w-full rounded-lg border border-ink/10 overflow-hidden bg-[rgb(var(--bg-root))]">
+    <div data-theme="dark" className="relative aspect-[16/10] w-full rounded-lg border border-ink/20 overflow-hidden bg-[rgb(var(--bg-root))]">
       <div className="absolute inset-x-0 top-0 h-7 bg-[rgb(var(--surface))] border-b border-ink/5 flex items-center px-3 gap-2">
         <div className="flex gap-1.5">
           <div className="h-2 w-2 rounded-full bg-ink/20" />

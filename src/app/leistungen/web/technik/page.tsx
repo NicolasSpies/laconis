@@ -130,7 +130,7 @@ export default function Page() {
               <a
                 key={a.href}
                 href={a.href}
-                className="font-mono text-[11px] uppercase tracking-label px-3 py-1.5 rounded-full border border-ink/10 text-offwhite/55 hover:border-lime/25 hover:text-accent-ink transition-colors"
+                className="font-mono text-[11px] uppercase tracking-label px-3 py-1.5 rounded-full border border-ink/20 text-offwhite/55 hover:border-lime/25 hover:text-accent-ink transition-colors"
               >
                 {a.label}
               </a>

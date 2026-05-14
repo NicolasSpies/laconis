@@ -139,15 +139,15 @@ export function HeroBrowser() {
       />
 
       {/* browser frame */}
-      <div className="relative rounded-xl border border-ink/10 bg-gradient-to-b from-ink/[0.04] to-transparent overflow-hidden shadow-[0_40px_80px_-40px_rgba(0,0,0,0.6)]">
+      <div className="relative rounded-xl border border-ink/20 bg-gradient-to-b from-ink/[0.04] to-transparent overflow-hidden shadow-[0_40px_80px_-40px_rgba(0,0,0,0.6)]">
         {/* chrome */}
-        <div className="flex items-center gap-3 px-4 py-3 border-b border-ink/10 bg-ink/[0.03]">
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-ink/20 bg-ink/[0.03]">
           <div className="flex gap-1.5">
             <span className="w-[10px] h-[10px] rounded-full bg-ink/25" />
             <span className="w-[10px] h-[10px] rounded-full bg-ink/25" />
             <span className="w-[10px] h-[10px] rounded-full bg-ink/25" />
           </div>
-          <div className="flex-1 flex items-center gap-2 px-3 py-1.5 rounded-md bg-ink/[0.05] border border-ink/10 min-w-0">
+          <div className="flex-1 flex items-center gap-2 px-3 py-1.5 rounded-md bg-ink/[0.05] border border-ink/20 min-w-0">
             <svg
               viewBox="0 0 12 12"
               className="w-3 h-3 text-offwhite/55 shrink-0"
@@ -239,9 +239,9 @@ export function HeroBrowser() {
               showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
             ].join(" ")}
           >
-            <div className="aspect-[4/5] rounded-sm bg-gradient-to-br from-ink/10 to-ink/5 border border-ink/10" />
+            <div className="aspect-[4/5] rounded-sm bg-gradient-to-br from-ink/10 to-ink/5 border border-ink/20" />
             <div className="aspect-[4/5] rounded-sm bg-gradient-to-br from-lime/25 to-lime/10 border border-lime/25" />
-            <div className="aspect-[4/5] rounded-sm bg-gradient-to-br from-ink/10 to-ink/5 border border-ink/10" />
+            <div className="aspect-[4/5] rounded-sm bg-gradient-to-br from-ink/10 to-ink/5 border border-ink/20" />
           </div>
 
           {/* divider */}

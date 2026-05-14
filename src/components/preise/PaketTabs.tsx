@@ -504,7 +504,7 @@ export function PaketTabs() {
       <div
         role="tablist"
         aria-label="pakete kategorie"
-        className="inline-flex rounded-full border border-ink/10 bg-ink/[0.03] p-1"
+        className="inline-flex rounded-full border border-ink/20 bg-ink/[0.03] p-1"
       >
         {TABS.map((t) => (
           <button
@@ -554,7 +554,7 @@ export function PaketTabs() {
           type="button"
           onClick={() => setCompareOpen((v) => !v)}
           aria-expanded={compareOpen}
-          className="tactile-press group inline-flex items-center gap-2.5 rounded-full border border-ink/10 bg-ink/[0.03] hover:border-lime/50 hover:bg-lime/[0.04] px-5 py-2.5 font-mono text-[11px] uppercase tracking-mono text-offwhite/75 hover:text-accent-ink"
+          className="tactile-press group inline-flex items-center gap-2.5 rounded-full border border-ink/20 bg-ink/[0.03] hover:border-lime/50 hover:bg-lime/[0.04] px-5 py-2.5 font-mono text-[11px] uppercase tracking-mono text-offwhite/75 hover:text-accent-ink"
         >
           <span>
             {compareOpen
@@ -626,14 +626,14 @@ function CompareTable({ tabDef }: { tabDef: TabDef }) {
   return (
     <div className="glass rounded-2xl overflow-hidden">
       {/* header */}
-      <div className="grid grid-cols-[minmax(180px,1.4fr)_repeat(3,1fr)] border-b border-ink/10 bg-ink/[0.03]">
+      <div className="grid grid-cols-[minmax(180px,1.4fr)_repeat(3,1fr)] border-b border-ink/20 bg-ink/[0.03]">
         <div className="px-5 py-4 font-mono text-[10px] uppercase tracking-label text-offwhite/55">
           leistung
         </div>
         {tabDef.pakete.map((p) => (
           <div
             key={p.id}
-            className="px-3 py-4 text-center border-l border-ink/10"
+            className="px-3 py-4 text-center border-l border-ink/20"
           >
             <div
               className={[
@@ -656,7 +656,7 @@ function CompareTable({ tabDef }: { tabDef: TabDef }) {
           key={row.label + i}
           className={[
             "grid grid-cols-[minmax(180px,1.4fr)_repeat(3,1fr)]",
-            i < tabDef.compare.length - 1 ? "border-b border-ink/10" : "",
+            i < tabDef.compare.length - 1 ? "border-b border-ink/20" : "",
           ].join(" ")}
         >
           <div className="px-5 py-3.5 text-[13px] leading-snug text-offwhite/75">
@@ -667,7 +667,7 @@ function CompareTable({ tabDef }: { tabDef: TabDef }) {
             return (
               <div
                 key={p.id}
-                className="px-3 py-3.5 text-center border-l border-ink/10 flex items-center justify-center"
+                className="px-3 py-3.5 text-center border-l border-ink/20 flex items-center justify-center"
               >
                 <CompareCell value={v} featured={p.featured} />
               </div>
@@ -789,7 +789,7 @@ function PaketCard({
       </div>
 
       {/* PRICE · „ab"-framing signalisiert: das ist der startpreis, extras möglich */}
-      <div className="mt-6 pt-6 border-t border-ink/10">
+      <div className="mt-6 pt-6 border-t border-ink/20">
         <div className="flex items-baseline gap-2">
           <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/55">
             ab
@@ -868,7 +868,7 @@ function PaketCard({
             <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
               domain vorhanden?
             </span>
-            <div className="inline-flex rounded-full border border-ink/10 bg-dark p-0.5">
+            <div className="inline-flex rounded-full border border-ink/20 bg-dark p-0.5">
               <button
                 type="button"
                 aria-pressed={state.hasDomain}
@@ -902,7 +902,7 @@ function PaketCard({
             <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
               e-mail-adressen
             </span>
-            <div className="inline-flex items-center gap-2 rounded-full border border-ink/10 bg-dark px-1 py-0.5">
+            <div className="inline-flex items-center gap-2 rounded-full border border-ink/20 bg-dark px-1 py-0.5">
               <button
                 type="button"
                 onClick={() => onChangeMails(-1)}
@@ -926,7 +926,7 @@ function PaketCard({
             </div>
           </div>
 
-          <div className="pt-3 mt-1 border-t border-ink/10">
+          <div className="pt-3 mt-1 border-t border-ink/20">
             <div className="flex items-baseline justify-between gap-3">
               <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
                 laufend

@@ -427,7 +427,7 @@ export function ChatThread({ num = "02" }: { num?: string } = {}) {
               {t.stats.map((s, i) => (
                 <div
                   key={i}
-                  className="flex items-baseline justify-between border-b border-ink/10 pb-1.5 font-mono text-[10px] uppercase tracking-label"
+                  className="flex items-baseline justify-between border-b border-ink/20 pb-1.5 font-mono text-[10px] uppercase tracking-label"
                 >
                   <span className="text-offwhite/45">{s.label}</span>
                   <span className="text-offwhite/85">{s.value}</span>
@@ -454,7 +454,7 @@ export function ChatThread({ num = "02" }: { num?: string } = {}) {
                 </span>
               </div>
               {/* contact bar */}
-              <div className="absolute top-12 left-0 right-0 px-5 py-3 border-b border-ink/10 bg-[#0e0e0e] z-10 flex items-center gap-3">
+              <div className="absolute top-12 left-0 right-0 px-5 py-3 border-b border-ink/20 bg-[#0e0e0e] z-10 flex items-center gap-3">
                 <span className="w-9 h-9 rounded-full bg-lime/15 border border-lime/40 flex items-center justify-center font-mono text-[12px] text-lime">
                   n
                 </span>
@@ -613,7 +613,7 @@ export function ChatThread({ num = "02" }: { num?: string } = {}) {
               </div>
 
               {/* compose bar */}
-              <div className="absolute bottom-0 left-0 right-0 h-12 bg-[#0a0a0a] border-t border-ink/10 flex items-center px-4 gap-3 z-10">
+              <div className="absolute bottom-0 left-0 right-0 h-12 bg-[#0a0a0a] border-t border-ink/20 flex items-center px-4 gap-3 z-10">
                 <span className="w-7 h-7 rounded-full border border-ink/20 flex items-center justify-center text-offwhite/45 font-mono text-[12px]">
                   +
                 </span>

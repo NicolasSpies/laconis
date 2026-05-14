@@ -268,7 +268,7 @@ function MockCmsEditor(props: {
       className="liquid-glass-dark rounded-xl overflow-hidden w-full"
       style={{ transform: "rotate(-0.5deg)" }}
     >
-      <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-ink/10">
+      <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-ink/20">
         <span className="h-2.5 w-2.5 rounded-full bg-offwhite/15" />
         <span className="h-2.5 w-2.5 rounded-full bg-offwhite/15" />
         <span className="h-2.5 w-2.5 rounded-full bg-offwhite/15" />
@@ -304,7 +304,7 @@ function MockCmsEditor(props: {
               {t.bildFarbe}
             </label>
             <div
-              className="relative rounded-md overflow-hidden aspect-square border border-ink/10 transition-colors duration-300"
+              className="relative rounded-md overflow-hidden aspect-square border border-ink/20 transition-colors duration-300"
               style={{ backgroundColor: bgColor }}
             >
               <TeamSilhouetteSvg />
@@ -333,7 +333,7 @@ function MockCmsEditor(props: {
           </div>
         </div>
 
-        <div className="flex items-center justify-between gap-3 border-t border-ink/10 pt-3 mt-0.5">
+        <div className="flex items-center justify-between gap-3 border-t border-ink/20 pt-3 mt-0.5">
           <StatusPill
             state={justSaved ? "saved" : totalChanges > 0 ? "dirty" : "clean"}
             count={totalChanges}
@@ -400,7 +400,7 @@ function EditorField({
           "focus:outline-none focus:bg-offwhite/[0.05] transition-colors",
           changed
             ? "border-lime/45 focus:border-lime"
-            : "border-ink/10 focus:border-accent-ink/50",
+            : "border-ink/20 focus:border-accent-ink/50",
         ].join(" ")}
       />
       {changed && (
@@ -464,7 +464,7 @@ function FrontendPreview({
       className="liquid-glass-dark rounded-xl overflow-hidden w-full"
       style={{ transform: "rotate(0.5deg)" }}
     >
-      <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-ink/10">
+      <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-ink/20">
         <span className="h-2.5 w-2.5 rounded-full bg-offwhite/15" />
         <span className="h-2.5 w-2.5 rounded-full bg-offwhite/15" />
         <span className="h-2.5 w-2.5 rounded-full bg-offwhite/15" />
@@ -497,7 +497,7 @@ function FrontendPreview({
           <TeamSilhouetteSvg />
         </div>
 
-        <div className="flex items-center justify-between border-t border-ink/10 pt-3 mt-auto">
+        <div className="flex items-center justify-between border-t border-ink/20 pt-3 mt-auto">
           <span className="font-mono text-[10px] text-offwhite/55">
             ☎ {telefon}
           </span>

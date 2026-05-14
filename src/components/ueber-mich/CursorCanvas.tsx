@@ -128,7 +128,7 @@ export function CursorCanvas() {
           ref={ref}
           onMouseMove={handleMove}
           onMouseLeave={() => setMouse({ x: -200, y: -200, inside: false })}
-          className="relative mx-auto rounded-2xl overflow-hidden cursor-none border border-ink/10"
+          className="relative mx-auto rounded-2xl overflow-hidden cursor-none border border-ink/20"
           style={{
             background:
               "radial-gradient(ellipse 80% 60% at 50% 50%, #181818 0%, #0a0a0a 70%, #050505 100%)",

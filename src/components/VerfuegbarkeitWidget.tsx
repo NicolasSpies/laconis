@@ -83,7 +83,7 @@ export function VerfuegbarkeitWidget({
   );
 
   return (
-    <div className="rounded-2xl border border-ink/10 bg-gradient-to-br from-lime/[0.03] via-ink/[0.02] to-transparent p-6 md:p-8">
+    <div className="rounded-2xl border border-ink/20 bg-gradient-to-br from-lime/[0.03] via-ink/[0.02] to-transparent p-6 md:p-8">
       {/* header */}
       <div className="flex items-baseline justify-between gap-4 flex-wrap">
         <div>
@@ -122,7 +122,7 @@ export function VerfuegbarkeitWidget({
                         "font-mono text-[10px] uppercase tracking-label px-3 py-1.5 rounded-full border transition-all",
                         active
                           ? "border-lime/50 bg-lime/10 text-accent-ink"
-                          : "border-ink/10 bg-ink/[0.02] text-offwhite/55 hover:border-ink/25 hover:text-offwhite",
+                          : "border-ink/20 bg-ink/[0.02] text-offwhite/55 hover:border-ink/25 hover:text-offwhite",
                       ].join(" ")}
                     >
                       {o.label}
@@ -189,7 +189,7 @@ export function VerfuegbarkeitWidget({
       <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 font-mono text-[9px] uppercase tracking-label text-offwhite/55">
         <Legend color="bg-rose-500/70" label="läuft gerade" />
         <Legend color="bg-offwhite/25" label="belegt · flex" />
-        <Legend color="bg-offwhite/[0.06] border border-ink/10" label="frei" />
+        <Legend color="bg-offwhite/[0.06] border border-ink/20" label="frei" />
         <Legend color="bg-lime/50 ring-1 ring-lime" label="dein slot" />
       </div>
 
@@ -262,7 +262,7 @@ function ModusBtn({
         "flex-1 rounded-xl border px-4 py-3 text-left transition-all",
         active
           ? "border-lime/50 bg-lime/[0.06]"
-          : "border-ink/10 bg-ink/[0.02] hover:border-ink/25",
+          : "border-ink/20 bg-ink/[0.02] hover:border-ink/25",
       ].join(" ")}
     >
       <div
@@ -320,7 +320,7 @@ function Timeline({
                     ? "bg-rose-500/70"
                     : displayStatus === "normal"
                     ? "bg-offwhite/25"
-                    : "bg-offwhite/[0.06] border border-ink/10",
+                    : "bg-offwhite/[0.06] border border-ink/20",
                 ].join(" ")}
               >
                 {isStart && (
@@ -358,7 +358,7 @@ function ResultCard({
         "rounded-xl border px-4 py-4",
         highlight
           ? "border-lime/25 bg-gradient-to-br from-lime/[0.08] to-transparent"
-          : "border-ink/10 bg-ink/[0.02]",
+          : "border-ink/20 bg-ink/[0.02]",
       ].join(" ")}
     >
       <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">

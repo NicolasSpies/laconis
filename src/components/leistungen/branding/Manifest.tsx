@@ -127,7 +127,7 @@ export function Manifest({
           )}
 
           {/* RIGHT: Anti-list */}
-          <ol className="divide-y divide-ink/10 border-y border-ink/10">
+          <ol className="divide-y divide-ink/10 border-y border-ink/20">
             {t.zeilen.map((z, i) => (
               <li
                 key={i}

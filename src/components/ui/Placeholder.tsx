@@ -13,7 +13,7 @@ export function Placeholder({ label, className, aspect }: Props) {
       className={cn(
         "tick-corner group relative w-full overflow-hidden rounded-lg",
         "bg-gradient-to-br from-ink/[0.04] via-ink/[0.02] to-transparent",
-        "border border-ink/10",
+        "border border-ink/20",
         className,
       )}
     >

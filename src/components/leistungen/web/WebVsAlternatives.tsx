@@ -117,7 +117,7 @@ export function WebVsAlternatives({ num = "04" }: { num?: string } = {}) {
                 {t.rightH3}
               </p>
 
-              <div className="mt-8 space-y-6 border-t border-ink/10 pt-6">
+              <div className="mt-8 space-y-6 border-t border-ink/20 pt-6">
                 {t.unterschiede.map((u) => (
                   <div key={u.num} className="grid grid-cols-[28px_1fr] gap-3">
                     <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/30 pt-1">

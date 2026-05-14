@@ -65,7 +65,7 @@ export function Moodboard() {
   return (
     <div>
       {/* Filter bar */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-ink/10 pb-5">
+      <div className="flex flex-wrap items-center gap-2 border-b border-ink/20 pb-5">
         {FILTERS.map((f) => {
           const active = filter === f.key;
           const count = countFor(f.key);
@@ -78,7 +78,7 @@ export function Moodboard() {
                 "group relative font-mono text-[11px] uppercase tracking-label px-3 py-1.5 rounded-full border transition-colors " +
                 (active
                   ? "border-lime/50 bg-lime/10 text-accent-ink"
-                  : "border-ink/10 text-offwhite/55 hover:text-offwhite hover:border-ink/25")
+                  : "border-ink/20 text-offwhite/55 hover:text-offwhite hover:border-ink/25")
               }
             >
               <span>{f.label}</span>
@@ -126,7 +126,7 @@ export function Moodboard() {
                 >
                   {/* dark card */}
                   <div
-                    className="relative text-offwhite rounded-md p-2.5 pb-3 border border-ink/10 group-hover:border-lime/50 shadow-[0_22px_50px_-20px_rgba(0,0,0,0.9),0_2px_6px_rgba(0,0,0,0.4)] transition-all duration-500 group-hover:-translate-y-1"
+                    className="relative text-offwhite rounded-md p-2.5 pb-3 border border-ink/20 group-hover:border-lime/50 shadow-[0_22px_50px_-20px_rgba(0,0,0,0.9),0_2px_6px_rgba(0,0,0,0.4)] transition-all duration-500 group-hover:-translate-y-1"
                     style={{ background: CARD_BG }}
                   >
                     {/* thin lime accent at top — the "tape" moment */}

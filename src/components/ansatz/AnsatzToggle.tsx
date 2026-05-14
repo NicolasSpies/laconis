@@ -84,7 +84,7 @@ export function AnsatzToggle({
             <div
               role="tablist"
               aria-label={t.tabsLabel}
-              className="inline-flex items-center gap-1 p-1 rounded-full border border-ink/10 bg-ink/[0.04]"
+              className="inline-flex items-center gap-1 p-1 rounded-full border border-ink/20 bg-ink/[0.04]"
             >
               <button
                 type="button"

@@ -98,7 +98,7 @@ export function WebShowcase() {
         </div>
 
         <div
-          className="relative mx-auto rounded-2xl overflow-hidden border border-ink/10"
+          className="relative mx-auto rounded-2xl overflow-hidden border border-ink/20"
           style={{
             background:
               "radial-gradient(ellipse 70% 60% at 50% 30%, #1a1a1a 0%, #0e0e0e 70%, #050505 100%)",

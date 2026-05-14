@@ -528,7 +528,7 @@ function PhoneColumn({ t }: { t: DeskDict }) {
 function PhoneMock({ onAddContact, t }: { onAddContact: () => void; t: DeskDict }) {
   return (
     <div
-      className="relative aspect-[9/19] w-full rounded-[48px] border border-ink/10 overflow-hidden shadow-[0_50px_120px_-40px_rgba(0,0,0,0.9)]"
+      className="relative aspect-[9/19] w-full rounded-[48px] border border-ink/20 overflow-hidden shadow-[0_50px_120px_-40px_rgba(0,0,0,0.9)]"
       style={{
         background:
           "linear-gradient(160deg, #1e1e1e 0%, #0a0a0a 60%, #000 100%)",
@@ -602,7 +602,7 @@ function PhoneMock({ onAddContact, t }: { onAddContact: () => void; t: DeskDict 
 
 function Field({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg border border-ink/10 bg-ink/[0.04] px-3.5 py-2.5">
+    <div className="rounded-lg border border-ink/20 bg-ink/[0.04] px-3.5 py-2.5">
       <div className="font-mono text-[8.5px] uppercase tracking-label text-offwhite/35">
         {label}
       </div>

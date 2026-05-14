@@ -12,10 +12,10 @@ const variants: Record<Variant, string> = {
   primary:
     "btn-primary tactile bg-lime text-[#111] border border-lime",
   glass:
-    "tactile-sm bg-ink/[0.06] backdrop-blur-xl text-offwhite border border-ink/10 hover:border-ink/25",
+    "tactile-sm bg-ink/[0.06] backdrop-blur-xl text-offwhite border border-ink/20 hover:border-ink/25",
   ghost:
     "tactile-sm bg-transparent text-offwhite border border-ink/25 hover:border-ink/40",
-  dark: "tactile bg-dark text-offwhite border border-ink/10 hover:border-lime",
+  dark: "tactile bg-dark text-offwhite border border-ink/20 hover:border-lime",
 };
 
 const sizes: Record<Size, string> = {

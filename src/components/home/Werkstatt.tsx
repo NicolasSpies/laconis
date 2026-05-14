@@ -108,7 +108,7 @@ function Polaroid({ item, index }: { item: Item; index: number }) {
       className="group relative"
       style={{ willChange: "transform" }}
     >
-      <div className="relative aspect-[4/5] overflow-hidden rounded-md border border-ink/10 shadow-[0_18px_48px_-24px_rgba(0,0,0,0.4)]">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-md border border-ink/20 shadow-[0_18px_48px_-24px_rgba(0,0,0,0.4)]">
         <Image
           src={item.src}
           alt={item.alt}

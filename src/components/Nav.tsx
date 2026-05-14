@@ -265,7 +265,7 @@ export function Nav() {
       {/* Mobile drawer */}
       <div
         className={cn(
-          "md:hidden overflow-hidden transition-[max-height,opacity] duration-300 nav-glass-drawer border-t border-ink/10",
+          "md:hidden overflow-hidden transition-[max-height,opacity] duration-300 nav-glass-drawer border-t border-ink/20",
           open ? "max-h-[520px] opacity-100" : "max-h-0 opacity-0",
         )}
       >
@@ -279,7 +279,7 @@ export function Nav() {
               {l.labels[currentLocale]}
             </Link>
           ))}
-          <div className="flex items-center justify-between gap-3 pt-2 border-t border-ink/10">
+          <div className="flex items-center justify-between gap-3 pt-2 border-t border-ink/20">
             <div className="flex items-center gap-4">
               {LOCALES.map((code) => {
                 const isActive = code === currentLocale;

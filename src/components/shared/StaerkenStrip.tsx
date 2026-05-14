@@ -45,7 +45,7 @@ export function StaerkenStrip() {
           {t.staerken.map((s) => (
             <div
               key={s.num}
-              className="flex flex-col gap-3 pt-5 border-t border-ink/10"
+              className="flex flex-col gap-3 pt-5 border-t border-ink/20"
             >
               <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
                 · {s.num}

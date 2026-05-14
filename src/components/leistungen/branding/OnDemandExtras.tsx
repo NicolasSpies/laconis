@@ -98,7 +98,7 @@ export function OnDemandExtras() {
         <div className="mt-10 flex justify-center">
           <div
             role="tablist"
-            className="flex gap-1 border-b border-ink/10"
+            className="flex gap-1 border-b border-ink/20"
           >
             {KATEGORIEN.map((k) => {
               const isActive = k.key === active;
@@ -145,7 +145,7 @@ export function OnDemandExtras() {
             {current.items.map((item) => (
               <span
                 key={item}
-                className="inline-flex items-center px-3 py-1.5 rounded-full border border-ink/10 bg-ink/[0.015] font-mono text-[12px] text-offwhite/75"
+                className="inline-flex items-center px-3 py-1.5 rounded-full border border-ink/25 bg-ink/[0.035] font-mono text-[12px] text-offwhite/75"
               >
                 {item}
               </span>

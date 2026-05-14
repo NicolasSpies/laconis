@@ -295,7 +295,7 @@ export default function Page() {
               {t.faqH2}
             </h2>
           </div>
-          <div className="mt-12 divide-y divide-ink/10 border-y border-ink/10 max-w-[820px]">
+          <div className="mt-12 divide-y divide-ink/10 border-y border-ink/20 max-w-[820px]">
             {t.faq.map((q) => (
               <details key={q.frage} className="group py-6 cursor-pointer">
                 <summary className="flex items-center justify-between gap-4 list-none">

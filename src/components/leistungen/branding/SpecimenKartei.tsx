@@ -320,7 +320,7 @@ function SpecimenFrame({
           <div
             className={[
               "p-7 md:p-9 flex flex-col justify-between min-h-[280px]",
-              "border-b lg:border-b-0 border-ink/10",
+              "border-b lg:border-b-0 border-ink/20",
               isMirror ? "lg:order-2 lg:border-l" : "lg:order-1 lg:border-r",
             ].join(" ")}
           >
@@ -459,7 +459,7 @@ function BrandGuideSpecimen({ t }: { t: Dict }) {
               {COLORS.map((c) => (
                 <div key={c.hex} className="flex flex-col gap-0.5">
                   <div
-                    className="aspect-square rounded-[1px] border border-ink/10"
+                    className="aspect-square rounded-[1px] border border-ink/20"
                     style={{ background: c.hex }}
                   />
                   <span className="font-mono text-[5.5px] uppercase tracking-mono text-offwhite/55">
@@ -519,7 +519,7 @@ function PrintSpecimen({ t }: { t: Dict }) {
         <div className="relative p-8">
           <CropMarks />
 
-          <div className="absolute -left-2 -top-2 w-[200px] md:w-[260px] aspect-[1.618/1] rounded-[2px] bg-dark border border-ink/10 rotate-[-3deg] shadow-[8px_8px_20px_rgba(0,0,0,0.3)] p-4 flex items-end">
+          <div className="absolute -left-2 -top-2 w-[200px] md:w-[260px] aspect-[1.618/1] rounded-[2px] bg-dark border border-ink/20 rotate-[-3deg] shadow-[8px_8px_20px_rgba(0,0,0,0.3)] p-4 flex items-end">
             <div className="w-full flex items-end justify-between">
               <div className="heading-display text-lime text-[18px] leading-none">
                 ø
@@ -602,7 +602,7 @@ function MoodboardSpecimen({ t }: { t: Dict }) {
         <div
           key={i}
           className={[
-            "aspect-square rounded-sm border border-ink/10 relative overflow-hidden",
+            "aspect-square rounded-sm border border-ink/20 relative overflow-hidden",
             i % 3 === 0 ? "rotate-[-1.5deg]" : i % 3 === 1 ? "rotate-[1deg]" : "rotate-[-0.5deg]",
           ].join(" ")}
         >

@@ -106,7 +106,7 @@ export function WebApproaches({ num = "02" }: { num?: string } = {}) {
   return (
     <section className="pb-32 overflow-hidden">
       <div className="container-site">
-        <div className="border-t border-ink/10 pt-10">
+        <div className="border-t border-ink/20 pt-10">
           <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
           <h2 className="sr-only">{t.srH2}</h2>
           <p className="mt-4 max-w-[620px] text-[14px] md:text-[15px] leading-relaxed text-offwhite/55">
@@ -121,7 +121,7 @@ export function WebApproaches({ num = "02" }: { num?: string } = {}) {
           <div
             role="tablist"
             aria-label={t.tabsLabel}
-            className="flex gap-1 border-b border-ink/10"
+            className="flex gap-1 border-b border-ink/20"
           >
             {(["neu", "redesign"] as const).map((tabKey) => {
               const isActive = tab === tabKey;

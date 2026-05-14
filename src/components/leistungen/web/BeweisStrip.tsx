@@ -82,7 +82,7 @@ function Score({ label, value }: { label: string; value: number }) {
 function BeweisZeile({ c, tilt, note, liveCta }: { c: Case; tilt: string; note?: string; liveCta: string }) {
   return (
     <div
-      className="group relative py-3 md:py-3.5 border-b border-ink/10 last:border-b-0 flex flex-wrap items-baseline gap-x-5 gap-y-1.5"
+      className="group relative py-3 md:py-3.5 border-b border-ink/20 last:border-b-0 flex flex-wrap items-baseline gap-x-5 gap-y-1.5"
       style={{ transform: `rotate(${tilt})`, transformOrigin: "left center" }}
     >
       <div className="flex items-baseline gap-3 min-w-0 flex-1">

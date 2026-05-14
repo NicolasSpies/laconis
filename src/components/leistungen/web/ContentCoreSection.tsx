@@ -131,7 +131,7 @@ export function ContentCoreSection({
           {t.features.map((f) => (
             <span
               key={f}
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-ink/10 bg-ink/[0.02] text-[12px] text-offwhite/75"
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-ink/20 bg-ink/[0.02] text-[12px] text-offwhite/75"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-lime" />
               {f}

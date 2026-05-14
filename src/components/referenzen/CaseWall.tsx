@@ -76,7 +76,7 @@ export function CaseWall() {
         ref={ref}
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
-        className="relative rounded-2xl overflow-hidden border border-ink/10 mx-auto"
+        className="relative rounded-2xl overflow-hidden border border-ink/20 mx-auto"
         style={{
           background:
             "radial-gradient(ellipse 60% 50% at 50% 35%, #1a1a1a 0%, #0e0e0e 60%, #050505 100%)",

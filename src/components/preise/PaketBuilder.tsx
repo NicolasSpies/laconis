@@ -164,7 +164,7 @@ function Inner() {
                         "font-mono text-[11px] uppercase tracking-mono px-4 py-2 rounded-full border transition-all",
                         active
                           ? "border-lime/50 bg-lime/25 text-accent-ink"
-                          : "border-ink/10 text-offwhite/55 hover:border-ink/25 hover:text-offwhite",
+                          : "border-ink/20 text-offwhite/55 hover:border-ink/25 hover:text-offwhite",
                       ].join(" ")}
                     >
                       {id}
@@ -553,7 +553,7 @@ function PriceRow({
         "flex items-start justify-between gap-3 rounded-lg border px-4 py-3",
         fixed
           ? "border-lime/25 bg-lime/[0.04]"
-          : "border-ink/10 bg-ink/[0.02]",
+          : "border-ink/20 bg-ink/[0.02]",
       ].join(" ")}
     >
       <div className="min-w-0">
@@ -638,7 +638,7 @@ function ToggleCard({
         "group text-left rounded-xl p-5 border transition-all",
         active
           ? "border-lime/50 bg-gradient-to-br from-lime/[0.06] to-transparent"
-          : "border-ink/10 bg-ink/[0.015] hover:border-ink/25",
+          : "border-ink/25 bg-ink/[0.035] hover:border-ink/50",
       ].join(" ")}
     >
       <div className="flex items-start justify-between gap-3">
@@ -702,7 +702,7 @@ function ChipRow({
               "font-mono text-[11px] px-3 py-1.5 rounded-full border transition-all",
               active
                 ? "border-lime/50 bg-lime/10 text-accent-ink"
-                : "border-ink/10 text-offwhite/55 hover:border-ink/25 hover:text-offwhite/75",
+                : "border-ink/20 text-offwhite/55 hover:border-ink/25 hover:text-offwhite/75",
             ].join(" ")}
           >
             {o.label}
@@ -729,7 +729,7 @@ function InquiryGroup({
   onToggle: (key: InquiryKey, on: boolean) => void;
 }) {
   return (
-    <div className="rounded-lg border border-ink/10 bg-ink/[0.02] p-4">
+    <div className="rounded-lg border border-ink/20 bg-ink/[0.02] p-4">
       <div className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
         {title}
       </div>
@@ -750,7 +750,7 @@ function InquiryGroup({
                 "flex items-center gap-2.5 rounded-md border px-3 py-2 text-left transition-all",
                 active
                   ? "border-lime/50 bg-lime/[0.06]"
-                  : "border-ink/10 bg-ink/[0.015] hover:border-ink/25",
+                  : "border-ink/25 bg-ink/[0.035] hover:border-ink/50",
               ].join(" ")}
             >
               <span
@@ -809,7 +809,7 @@ function Counter({
         type="button"
         onClick={() => onChange(Math.max(min, value - 1))}
         disabled={value <= min}
-        className="w-9 h-9 rounded-full border border-ink/10 text-offwhite/75 hover:border-ink/25 hover:text-offwhite disabled:opacity-30 disabled:cursor-not-allowed font-mono text-[13px] transition-colors"
+        className="w-9 h-9 rounded-full border border-ink/20 text-offwhite/75 hover:border-ink/25 hover:text-offwhite disabled:opacity-30 disabled:cursor-not-allowed font-mono text-[13px] transition-colors"
         aria-label="weniger"
       >
         −
@@ -821,7 +821,7 @@ function Counter({
         type="button"
         onClick={() => onChange(Math.min(max, value + 1))}
         disabled={value >= max}
-        className="w-9 h-9 rounded-full border border-ink/10 text-offwhite/75 hover:border-ink/25 hover:text-offwhite disabled:opacity-30 disabled:cursor-not-allowed font-mono text-[13px] transition-colors"
+        className="w-9 h-9 rounded-full border border-ink/20 text-offwhite/75 hover:border-ink/25 hover:text-offwhite disabled:opacity-30 disabled:cursor-not-allowed font-mono text-[13px] transition-colors"
         aria-label="mehr"
       >
         +

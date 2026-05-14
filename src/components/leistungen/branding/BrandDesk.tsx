@@ -131,7 +131,7 @@ export function BrandDesk({ num = "02" }: { num?: string } = {}) {
           </div>
 
           <div
-            className="relative rounded-2xl overflow-hidden border border-ink/10"
+            className="relative rounded-2xl overflow-hidden border border-ink/20"
             style={{
               background:
                 "radial-gradient(ellipse 80% 60% at 50% 50%, #1f1f1f 0%, #141414 70%, #0a0a0a 100%)",
@@ -188,7 +188,7 @@ function LogoCard({ t }: { t: Dict }) {
     <div className="relative rounded-[3px] bg-[rgba(255,255,255,0.045)] backdrop-blur-sm border border-ink/15 p-5 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)] select-none">
       <span
         aria-hidden
-        className="absolute -top-3 left-12 h-4 w-16 bg-offwhite/15 border border-ink/10 rounded-[2px] -rotate-6"
+        className="absolute -top-3 left-12 h-4 w-16 bg-offwhite/15 border border-ink/20 rounded-[2px] -rotate-6"
       />
       <div className="font-mono text-[8px] uppercase tracking-label text-offwhite/45 mb-3">
         {t.logoLabel}
