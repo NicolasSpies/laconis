@@ -192,7 +192,7 @@ export default function Page() {
       {/* FORM · grey bg, neutralisiert das alte glass-styling */}
       <section
         id="projekt"
-        className="relative scroll-mt-24 pb-32 pt-12 bg-[#c8c8c8] text-[#0a0a0a] overflow-hidden"
+        className="relative scroll-mt-24 pb-32 pt-12 text-[#0a0a0a] overflow-hidden"
       >
         <div
           aria-hidden

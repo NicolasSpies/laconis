@@ -77,7 +77,7 @@
     --accent: 225 253 82;
 
     --bg: 200 200 200; /* #C8C8C8 neutral hellgrau · lime leuchtet drauf */
-    --bg-root: 185 185 185;
+    --bg-root: 200 200 200; /* aligned mit --bg · sections sind transparent, html-bg ist der durchscheinende grey */
     --surface: 215 215 215;
     --surface-elev: 208 208 208;
 

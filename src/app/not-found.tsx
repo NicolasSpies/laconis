@@ -41,7 +41,7 @@ export default function NotFound() {
     <>
       <section
         className="relative min-h-[100svh] flex items-center overflow-hidden"
-        style={{ background: "#c8c8c8", color: "#0a0a0a" }}
+        style={{ color: "#0a0a0a" }}
       >
         {/* atmospheric dot-grid · matched zu PageHero */}
         <div

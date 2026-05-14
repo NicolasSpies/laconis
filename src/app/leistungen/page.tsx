@@ -117,7 +117,7 @@ export default function Page() {
       <h1 className="sr-only">{t.srHeadline}</h1>
 
       {/* Scroll-fill bar · lime füllt sich während user scrollt · cooler effekt */}
-      <div className="bg-[#c8c8c8]">
+      <div>
         <div className="container-site py-6">
           <ScrollFillBar color="#e1fd52" thick label={t.scrollLabel} />
         </div>

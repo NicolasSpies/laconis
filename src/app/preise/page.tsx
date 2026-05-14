@@ -219,7 +219,7 @@ export default function Page() {
       />
 
       {/* Scroll-fill bar · lime füllt sich während user scrollt */}
-      <div className="bg-[#c8c8c8]">
+      <div>
         <div className="container-site py-6">
           <ScrollFillBar color="#b084d3" thick />
         </div>
