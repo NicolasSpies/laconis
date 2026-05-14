@@ -319,7 +319,10 @@ export function HorizontalCases() {
                   <h3
                     className="text-[clamp(3rem,10vw,9rem)] leading-[0.95] text-offwhite tracking-[-0.03em] max-w-[1100px]"
                     style={{
-                      fontFamily: "var(--font-dm-mono), monospace",
+                      fontFamily: "var(--font-fraunces), serif",
+                      fontStyle: "italic",
+                      fontWeight: 500,
+                      fontVariationSettings: '"opsz" 144, "SOFT" 100',
                     }}
                   >
                     {c.name}
