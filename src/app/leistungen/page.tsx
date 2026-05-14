@@ -3,8 +3,7 @@ import { PageHero } from "@/components/shared/PageHero";
 import { TiltCard } from "@/components/shared/TiltCard";
 import { GreySection } from "@/components/shared/GreySection";
 import { Marquee } from "@/components/shared/Marquee";
-import { WebDemo } from "@/components/leistungen/WebDemo";
-import { GrafikDemo } from "@/components/leistungen/GrafikDemo";
+import { WebMockBrowser, BrandingMonogram } from "@/components/leistungen/ServicePreviews";
 import { getMeta } from "@/lib/seo/getMeta";
 import { getLocale } from "@/i18n/getLocale";
 import { buildPath, type Locale } from "@/i18n/config";
@@ -110,13 +109,15 @@ export default function Page() {
       />
       <h1 className="sr-only">{t.srHeadline}</h1>
 
-      {/* BIG SERVICE CARDS · 3D tilt im stil von home.ServicesMorph aber bigger */}
+      {/* BIG SERVICE CARDS · 3D tilt im stil von home.ServicesMorph aber bigger
+         · web = lime · branding = dark mit lila accent (konsistent mit home) */}
       <GreySection className="!py-16 md:!py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6">
-          <TiltCard preset="lime">
+          {/* WEB · lime · mock-browser top-right */}
+          <TiltCard preset="lime" className="relative overflow-hidden">
             <Link
               href={buildPath("leistungen/web", locale)}
-              className="flex flex-col justify-between p-10 md:p-12 lg:p-14"
+              className="flex flex-col justify-between p-10 md:p-12 lg:p-14 relative z-10"
               style={{
                 color: "inherit",
                 textDecoration: "none",
@@ -126,18 +127,10 @@ export default function Page() {
                 justifyContent: "space-between",
               }}
             >
-              <div>
-                <p className="text-[clamp(3.5rem,7vw,6rem)] leading-[0.88] font-black tracking-[-0.04em]">
-                  {t.webTitle}
-                </p>
-                <div
-                  className="mt-6 opacity-70 scale-90 origin-left"
-                  style={{ filter: "drop-shadow(0 0 0 #0a0a0a)" }}
-                >
-                  <WebDemo />
-                </div>
-              </div>
-              <div>
+              <p className="text-[clamp(3.5rem,7vw,6rem)] leading-[0.88] font-black tracking-[-0.04em]">
+                {t.webTitle}
+              </p>
+              <div className="max-w-[60%]">
                 <p
                   className="text-[15px] md:text-[16px] leading-relaxed mb-5"
                   style={{ opacity: 0.78 }}
@@ -152,12 +145,14 @@ export default function Page() {
                 </p>
               </div>
             </Link>
+            <WebMockBrowser />
           </TiltCard>
 
-          <TiltCard preset="lila">
+          {/* BRANDING · dark mit lila scribble + lila CTA · konsistent mit home */}
+          <TiltCard preset="dark" className="relative overflow-hidden">
             <Link
               href={buildPath("leistungen/branding", locale)}
-              className="flex flex-col justify-between p-10 md:p-12 lg:p-14"
+              className="flex flex-col justify-between p-10 md:p-12 lg:p-14 relative z-10"
               style={{
                 color: "inherit",
                 textDecoration: "none",
@@ -167,31 +162,63 @@ export default function Page() {
                 justifyContent: "space-between",
               }}
             >
-              <div>
-                <p className="text-[clamp(3.5rem,7vw,6rem)] leading-[0.88] font-black tracking-[-0.04em]">
+              <p className="text-[clamp(3.5rem,7vw,6rem)] leading-[0.88] font-black tracking-[-0.04em] relative inline-block">
+                <span className="relative inline-block">
                   {t.brandTitle}
-                </p>
-                <div className="mt-6 opacity-80 scale-90 origin-left">
-                  <GrafikDemo />
-                </div>
-              </div>
-              <div>
+                  {/* zarter lila scribble drunter · lila als accent on dark */}
+                  <svg
+                    aria-hidden
+                    viewBox="0 0 200 16"
+                    preserveAspectRatio="none"
+                    className="absolute left-[-2%] right-[-2%] -bottom-[0.04em] w-[104%] h-[0.18em] pointer-events-none overflow-visible"
+                  >
+                    <path
+                      d="M4 8 C 48 3, 110 13, 196 6"
+                      stroke="#b084d3"
+                      strokeWidth="2.6"
+                      strokeLinecap="round"
+                      fill="none"
+                      opacity="0.85"
+                    />
+                  </svg>
+                </span>
+              </p>
+              <div className="max-w-[60%]">
                 <p
                   className="text-[15px] md:text-[16px] leading-relaxed mb-5"
-                  style={{ opacity: 0.78 }}
+                  style={{ opacity: 0.8 }}
                 >
                   {t.brandDesc}
                 </p>
                 <p
                   className="font-mono text-[12px] uppercase tracking-label"
-                  style={{ opacity: 0.7 }}
+                  style={{ opacity: 0.75, color: "#b084d3" }}
                 >
                   {t.brandCta}
                 </p>
               </div>
             </Link>
+            <BrandingMonogram />
           </TiltCard>
         </div>
+
+        {/* handwritten bundle-hint · kein card, kein mono-link mehr ·
+           caveat moment der die zwei services bridgt */}
+        <Link
+          href={buildPath("preise", locale)}
+          className="block mt-10 md:mt-12 text-center group"
+        >
+          <span
+            className="inline-block text-[#0a0a0a]/65 group-hover:text-[#0a0a0a] transition-colors"
+            style={{
+              fontFamily: "var(--font-caveat), cursive",
+              fontSize: "clamp(20px, 2.4vw, 28px)",
+              transform: "rotate(-1deg)",
+            }}
+          >
+            {t.bundleHint}
+          </span>
+        </Link>
       </GreySection>
 
       {/* Marquee strip · dark mit lime · gibt der seite atmospheric break */}
@@ -219,14 +246,6 @@ export default function Page() {
             </Link>
           </div>
 
-          <p className="mt-12">
-            <Link
-              href={buildPath("preise", locale)}
-              className="font-mono text-[11px] uppercase tracking-label text-[#0a0a0a]/55 hover:text-[#0a0a0a] transition-colors"
-            >
-              {t.bundleHint}
-            </Link>
-          </p>
         </div>
       </GreySection>
     </>
