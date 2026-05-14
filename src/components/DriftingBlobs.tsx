@@ -6,6 +6,7 @@ import {
   useSpring,
   useTransform,
   useReducedMotion,
+  useScroll,
 } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -13,9 +14,12 @@ import { useEffect, useState } from "react";
  * DriftingBlobs · global ambient blob-system · fixed bg, z:-10.
  *
  * - 6 blobs (3 speed-layers) auf desktop · 3 blobs auf mobile
- * - mouse-parallax pro layer: slow=20px, mid=40px, fast=70px shift
- * - breathing-scale + varied drift-paths
- * - sitzt FIXED auf der viewport · folgt nicht dem scroll · ambient
+ * - 3 motion-quellen pro layer:
+ *   1. continuous drift (animate-loop) · varied paths + scale breathing
+ *   2. mouse-parallax · slow=20px, mid=40px, fast=70px shift
+ *   3. scroll-parallax · slow=0.04, mid=0.12, fast=0.22 multiplier
+ *      → blobs driften mit dem scroll, slow fast stationär, fast spürbar
+ * - sitzt FIXED auf der viewport · scroll-parallax fügt translateY hinzu
  * - z-index -10 → dunkle/farbige sections decken die blobs natürlich ab
  *   → blobs sind nur auf grey #c8c8c8 sections sichtbar
  * - useReducedMotion · keine animation, keine parallax
@@ -30,20 +34,39 @@ export function DriftingBlobs() {
   const px = useSpring(mx, { stiffness: 50, damping: 22, mass: 0.6 });
   const py = useSpring(my, { stiffness: 50, damping: 22, mass: 0.6 });
 
+  // scroll-parallax · scrollY in px, multipliert pro layer
+  const { scrollY } = useScroll();
+  const scrollSlow = useSpring(useTransform(scrollY, (y) => y * 0.04), {
+    stiffness: 80,
+    damping: 25,
+    mass: 0.5,
+  });
+  const scrollMid = useSpring(useTransform(scrollY, (y) => y * 0.12), {
+    stiffness: 80,
+    damping: 25,
+    mass: 0.5,
+  });
+  const scrollFast = useSpring(useTransform(scrollY, (y) => y * 0.22), {
+    stiffness: 80,
+    damping: 25,
+    mass: 0.5,
+  });
+
+  // kombinierte transform · mouse-x/y + scroll-y · alles in einer translate
   const layerSlow = useTransform<number, string>(
-    [px, py],
-    ([x, y]: number[]) =>
-      `translate(${(x - 0.5) * 20}px, ${(y - 0.5) * 20}px)`,
+    [px, py, scrollSlow],
+    ([x, y, sy]: number[]) =>
+      `translate(${(x - 0.5) * 20}px, ${(y - 0.5) * 20 + sy}px)`,
   );
   const layerMid = useTransform<number, string>(
-    [px, py],
-    ([x, y]: number[]) =>
-      `translate(${(x - 0.5) * 40}px, ${(y - 0.5) * 40}px)`,
+    [px, py, scrollMid],
+    ([x, y, sy]: number[]) =>
+      `translate(${(x - 0.5) * 40}px, ${(y - 0.5) * 40 - sy}px)`,
   );
   const layerFast = useTransform<number, string>(
-    [px, py],
-    ([x, y]: number[]) =>
-      `translate(${(x - 0.5) * 70}px, ${(y - 0.5) * 70}px)`,
+    [px, py, scrollFast],
+    ([x, y, sy]: number[]) =>
+      `translate(${(x - 0.5) * 70}px, ${(y - 0.5) * 70 + sy}px)`,
   );
 
   useEffect(() => {
