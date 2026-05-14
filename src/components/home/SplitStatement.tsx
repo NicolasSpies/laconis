@@ -5,7 +5,10 @@ import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
 
 /**
- * SplitStatement · full-width lila slab · dark text + lime accent auf "persönlich."
+ * SplitStatement · transparent grey section · lila lebt nur als typo-accent.
+ * vorher: full-width lila slab. nach feedback: weniger lila als surface,
+ * mehr als diskrete element. italic "kein team." bekommt lila als text-color
+ * + zarter lila scribble drunter. lime swash unter "persönlich." bleibt.
  */
 
 const LILA = "#b084d3";
@@ -58,31 +61,42 @@ export function SplitStatement() {
   return (
     <section
       className="relative py-24 md:py-32 lg:py-40 text-[#0a0a0a] overflow-hidden"
-      style={{ background: LILA }}
       aria-label={t.kicker}
     >
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-[0.14] pointer-events-none"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at center, rgba(20,20,20,0.55) 1px, transparent 1.4px)",
-          backgroundSize: "26px 26px",
-        }}
-      />
       <div className="container-site relative">
         <h2 className="text-[clamp(2.8rem,8vw,7rem)] leading-[0.9] font-black tracking-[-0.035em] text-[#0a0a0a] max-w-[1100px]">
           {t.h1}
           <br />
-          <span
-            style={{
-              fontFamily: "var(--font-instrument), serif",
-              fontStyle: "italic",
-              fontWeight: 400,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            {t.h2muted}
+          {/* italic accent · lila color · diskreter typo-moment statt surface */}
+          <span className="relative inline-block">
+            <span
+              className="relative z-10"
+              style={{
+                fontFamily: "var(--font-instrument), serif",
+                fontStyle: "italic",
+                fontWeight: 400,
+                letterSpacing: "-0.01em",
+                color: LILA,
+              }}
+            >
+              {t.h2muted}
+            </span>
+            {/* sanfter lila scribble drunter · gibt der zeile etwas warmth */}
+            <svg
+              aria-hidden
+              viewBox="0 0 200 16"
+              preserveAspectRatio="none"
+              className="absolute left-[-1%] right-[-1%] -bottom-[0.05em] w-[102%] h-[0.22em] z-0 pointer-events-none overflow-visible"
+            >
+              <path
+                d="M4 8 C 48 3, 110 13, 196 6"
+                stroke={LILA}
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                fill="none"
+                opacity="0.55"
+              />
+            </svg>
           </span>
           <br />
           {t.h3}{" "}
