@@ -28,23 +28,19 @@ const DICT: Record<
 > = {
   de: {
     kicker: "· was ich glaube",
-    phrases: ["ein mensch.", "kein team.", "und ich nehm's persönlich."],
+    phrases: ["ein mensch", "kein team", "persönlich einfach."],
     body: "kein ticket-tool, keine zwischenschicht, kein agentur-höflichkeits-ping-pong. du schreibst mir, ich antworte · meistens in unter 2h.",
     ctaMore: "mehr über mich →",
   },
   fr: {
     kicker: "· ce que je crois",
-    phrases: [
-      "un humain.",
-      "pas une équipe.",
-      "et je le prends personnellement.",
-    ],
+    phrases: ["un humain", "pas une équipe", "simplement personnel."],
     body: "pas d'outil de tickets, pas d'intermédiaire, pas de politesse d'agence en ping-pong. tu m'écris, je réponds · le plus souvent en moins de 2h.",
     ctaMore: "en savoir plus →",
   },
   en: {
     kicker: "· what i believe",
-    phrases: ["one person.", "not a team.", "and i take it personally."],
+    phrases: ["one person", "not a team", "simply personal."],
     body: "no ticket tool, no middle layer, no agency-politeness ping-pong. you write, i answer · usually within 2h.",
     ctaMore: "more about me →",
   },
@@ -59,10 +55,10 @@ export function SplitStatement() {
       className="relative py-24 md:py-32 lg:py-40 text-[#0a0a0a] overflow-hidden"
       aria-label={t.kicker}
     >
-      <div className="container-site relative">
-        {/* GooeyText cycling · headline-sized, DM Sans black, dark text.
+      <div className="container-site relative flex flex-col items-center text-center">
+        {/* GooeyText cycling · zentriert, DM Sans black, dark text.
             container ist auf längste phrase fixed damit kein layout-jump. */}
-        <h2 className="text-[clamp(2.8rem,8vw,7rem)] leading-[0.9] font-black tracking-[-0.035em] text-[#0a0a0a] max-w-[1100px]">
+        <h2 className="text-[clamp(2.8rem,8vw,7rem)] leading-[0.9] font-black tracking-[-0.035em] text-[#0a0a0a]">
           <GooeyText
             texts={t.phrases}
             morphTime={1.4}

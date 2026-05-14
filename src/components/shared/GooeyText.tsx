@@ -126,16 +126,18 @@ export function GooeyText({
           {longest}
         </span>
       ) : null}
-      {/* two animated spans · absolute, stack on top of each other */}
+      {/* two animated spans · absolute, stack on top of each other.
+         flex-center stellt sicher dass der text horizontal zentriert
+         im container-bbox steht (für headline-use cases). */}
       <span
         ref={text1Ref}
         aria-hidden
-        className="absolute inset-0 whitespace-nowrap"
+        className="absolute inset-0 whitespace-nowrap flex items-center justify-center"
         style={{ opacity: 0 }}
       />
       <span
         ref={text2Ref}
-        className="absolute inset-0 whitespace-nowrap"
+        className="absolute inset-0 whitespace-nowrap flex items-center justify-center"
         style={{ opacity: 1 }}
       />
       {/* svg-filter definition · single-mount, idempotent (gleicher id) */}
