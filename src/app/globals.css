@@ -731,21 +731,9 @@ body.scribble-mode h2::after {
   --border-size: calc(var(--border, 1) * 1px);
   --spotlight-size: calc(var(--size, 280) * 1px);
   --hue: calc(var(--base, 73) + (var(--gxp, 0) * var(--spread, 0)));
-  background-image: radial-gradient(
-    var(--spotlight-size) var(--spotlight-size) at
-    calc(var(--gx, 0) * 1px) calc(var(--gy, 0) * 1px),
-    hsl(
-      var(--hue, 73)
-      calc(var(--saturation, 100) * 1%)
-      calc(var(--lightness, 60) * 1%)
-      / var(--bg-spot-opacity, 0.18)
-    ),
-    transparent
-  );
-  background-attachment: fixed;
-  background-size: 100% 100%;
-  background-position: 0 0;
-  background-repeat: no-repeat;
+  /* bg-spot-glow entfernt · die globalen DriftingBlobs liefern jetzt
+     die ambient-atmosphäre. cards bleiben mit solid bg, nur die
+     border-glow (::before / ::after) bleiben für die hover-akzent. */
 }
 
 [data-glow]::before,
