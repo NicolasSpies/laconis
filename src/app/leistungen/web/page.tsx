@@ -7,7 +7,6 @@ import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
 import { WebDeliverables } from "@/components/leistungen/web/WebDeliverables";
 import { WebVsAlternatives } from "@/components/leistungen/web/WebVsAlternatives";
 import { FabryCase } from "@/components/leistungen/web/FabryCase";
-import { WebShowcase } from "@/components/leistungen/web/WebShowcase";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
 import { FAQSchema } from "@/components/seo/FAQSchema";
@@ -202,8 +201,6 @@ export default function Page() {
 
       <WebApproaches num="02" />
       <WebDeliverables num="03" />
-
-      <WebShowcase />
 
       <ScribbleBreak text={t.breakCase} rotate={0.8} flip />
 
