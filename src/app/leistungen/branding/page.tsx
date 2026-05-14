@@ -220,32 +220,6 @@ export default function Page() {
             <span className="mt-4 block text-[14px] leading-relaxed text-[#0a0a0a]/55">
               {t.heroSubBody}
             </span>
-            <dl className="mt-10 grid grid-cols-3 gap-4 max-w-[520px]">
-              <div>
-                <dt className="font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/55">
-                  {t.stat1Label}
-                </dt>
-                <dd className="text-[clamp(1.5rem,3vw,2.25rem)] font-black tracking-[-0.04em] leading-none mt-2 text-[#b084d3]">
-                  {t.stat1Value}
-                </dd>
-              </div>
-              <div>
-                <dt className="font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/55">
-                  {t.stat2Label}
-                </dt>
-                <dd className="text-[clamp(1.5rem,3vw,2.25rem)] font-black tracking-[-0.04em] leading-none mt-2 text-[#0a0a0a]">
-                  {t.stat2Value}
-                </dd>
-              </div>
-              <div>
-                <dt className="font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/55">
-                  {t.stat3Label}
-                </dt>
-                <dd className="text-[clamp(1.5rem,3vw,2.25rem)] font-black tracking-[-0.04em] leading-none mt-2 text-[#0a0a0a]">
-                  {t.stat3Value}
-                </dd>
-              </div>
-            </dl>
           </>
         }
         visual={<BrandSystemHero />}
