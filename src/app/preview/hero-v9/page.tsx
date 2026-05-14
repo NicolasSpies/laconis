@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
 import Link from "next/link";
@@ -365,46 +365,167 @@ function VariantC({ t, locale }: { t: Dict; locale: Locale }) {
 }
 
 /* ═════════════════════════════════════════════════════════════════
-   VARIANT D · drifting gradient blobs · atmospheric · light bg
+   VARIANT D · drifting gradient blobs · atmospheric + mouse-reactive
    ═════════════════════════════════════════════════════════════════ */
 function VariantD({ t, locale }: { t: Dict; locale: Locale }) {
-  return (
-    <section className="relative min-h-[100svh] flex items-center overflow-hidden" style={{ background: "#c8c8c8" }}>
-      <VariantBadge code="D" label="drifting blobs · atmospheric" />
+  const reduced = useReducedMotion();
+  const mx = useMotionValue(0.5);
+  const my = useMotionValue(0.5);
+  const px = useSpring(mx, { stiffness: 50, damping: 22, mass: 0.6 });
+  const py = useSpring(my, { stiffness: 50, damping: 22, mass: 0.6 });
 
-      {/* lime blob · top-left */}
+  // parallax shifts derived from cursor (0..1 → -1..1 → px units)
+  const layerSlow = useTransform<number, string>(
+    [px, py],
+    ([x, y]: number[]) => `translate(${(x - 0.5) * 20}px, ${(y - 0.5) * 20}px)`,
+  );
+  const layerMid = useTransform<number, string>(
+    [px, py],
+    ([x, y]: number[]) => `translate(${(x - 0.5) * 40}px, ${(y - 0.5) * 40}px)`,
+  );
+  const layerFast = useTransform<number, string>(
+    [px, py],
+    ([x, y]: number[]) => `translate(${(x - 0.5) * 70}px, ${(y - 0.5) * 70}px)`,
+  );
+
+  return (
+    <section
+      className="relative min-h-[100svh] flex items-center overflow-hidden"
+      style={{ background: "#c8c8c8" }}
+      onMouseMove={(e) => {
+        if (reduced) return;
+        const r = e.currentTarget.getBoundingClientRect();
+        mx.set((e.clientX - r.left) / r.width);
+        my.set((e.clientY - r.top) / r.height);
+      }}
+    >
+      <VariantBadge code="D" label="drifting blobs · animated +" />
+
+      {/* SLOW LAYER · großer lime · top-left */}
       <motion.div
-        animate={{ x: [0, 80, -40, 0], y: [0, -60, 50, 0] }}
-        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute left-[10%] top-[10%] w-[55vw] h-[55vw] rounded-full pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, #e1fd52 0%, transparent 60%)",
-          opacity: 0.45,
-          filter: "blur(50px)",
-        }}
-      />
-      {/* lila blob · bottom-right */}
+        style={{ transform: layerSlow }}
+        animate={
+          reduced
+            ? undefined
+            : { x: [0, 80, -40, 0], y: [0, -60, 50, 0], scale: [1, 1.08, 0.96, 1] }
+        }
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute left-[8%] top-[8%] w-[55vw] h-[55vw] rounded-full pointer-events-none"
+      >
+        <div
+          className="w-full h-full rounded-full"
+          style={{
+            background: "radial-gradient(circle, #e1fd52 0%, transparent 60%)",
+            opacity: 0.5,
+            filter: "blur(55px)",
+          }}
+        />
+      </motion.div>
+
+      {/* SLOW LAYER · großer lila · bottom-right */}
       <motion.div
-        animate={{ x: [0, -90, 40, 0], y: [0, 70, -50, 0] }}
-        transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
+        style={{ transform: layerSlow }}
+        animate={
+          reduced
+            ? undefined
+            : { x: [0, -90, 40, 0], y: [0, 70, -50, 0], scale: [1, 0.95, 1.1, 1] }
+        }
+        transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
         className="absolute right-[5%] bottom-[5%] w-[48vw] h-[48vw] rounded-full pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, #b084d3 0%, transparent 60%)",
-          opacity: 0.55,
-          filter: "blur(50px)",
-        }}
-      />
-      {/* tiny lime accent · top-right */}
+      >
+        <div
+          className="w-full h-full rounded-full"
+          style={{
+            background: "radial-gradient(circle, #b084d3 0%, transparent 60%)",
+            opacity: 0.58,
+            filter: "blur(55px)",
+          }}
+        />
+      </motion.div>
+
+      {/* MID LAYER · mittel-lila · center-left */}
       <motion.div
-        animate={{ scale: [1, 1.3, 1] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute right-[20%] top-[20%] w-[18vw] h-[18vw] rounded-full pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, #e1fd52 0%, transparent 60%)",
-          opacity: 0.4,
-          filter: "blur(30px)",
-        }}
-      />
+        style={{ transform: layerMid }}
+        animate={
+          reduced
+            ? undefined
+            : { x: [0, 60, -50, 0], y: [0, -40, 30, 0], scale: [1, 1.15, 0.92, 1] }
+        }
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute left-[-5%] top-[40%] w-[32vw] h-[32vw] rounded-full pointer-events-none"
+      >
+        <div
+          className="w-full h-full rounded-full"
+          style={{
+            background: "radial-gradient(circle, #b084d3 0%, transparent 60%)",
+            opacity: 0.42,
+            filter: "blur(40px)",
+          }}
+        />
+      </motion.div>
+
+      {/* MID LAYER · mittel-lime · bottom-left */}
+      <motion.div
+        style={{ transform: layerMid }}
+        animate={
+          reduced
+            ? undefined
+            : { x: [0, -50, 40, 0], y: [0, -60, 20, 0], scale: [1, 1.12, 0.95, 1] }
+        }
+        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute left-[30%] bottom-[15%] w-[28vw] h-[28vw] rounded-full pointer-events-none"
+      >
+        <div
+          className="w-full h-full rounded-full"
+          style={{
+            background: "radial-gradient(circle, #e1fd52 0%, transparent 60%)",
+            opacity: 0.4,
+            filter: "blur(36px)",
+          }}
+        />
+      </motion.div>
+
+      {/* FAST LAYER · darter-lime · top-right */}
+      <motion.div
+        style={{ transform: layerFast }}
+        animate={
+          reduced
+            ? undefined
+            : { x: [0, -40, 60, 0], y: [0, 50, -40, 0], scale: [1, 1.3, 0.85, 1] }
+        }
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute right-[20%] top-[18%] w-[18vw] h-[18vw] rounded-full pointer-events-none"
+      >
+        <div
+          className="w-full h-full rounded-full"
+          style={{
+            background: "radial-gradient(circle, #e1fd52 0%, transparent 60%)",
+            opacity: 0.55,
+            filter: "blur(28px)",
+          }}
+        />
+      </motion.div>
+
+      {/* FAST LAYER · darter-lila · center */}
+      <motion.div
+        style={{ transform: layerFast }}
+        animate={
+          reduced
+            ? undefined
+            : { x: [0, 70, -30, 0], y: [0, -40, 60, 0], scale: [1, 0.8, 1.25, 1] }
+        }
+        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute right-[40%] bottom-[30%] w-[14vw] h-[14vw] rounded-full pointer-events-none"
+      >
+        <div
+          className="w-full h-full rounded-full"
+          style={{
+            background: "radial-gradient(circle, #b084d3 0%, transparent 60%)",
+            opacity: 0.5,
+            filter: "blur(24px)",
+          }}
+        />
+      </motion.div>
 
       <div className="container-site relative z-10">
         <HeroText t={t} scheme="light" locale={locale} />
