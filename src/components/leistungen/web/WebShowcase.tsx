@@ -181,7 +181,7 @@ export function WebShowcase() {
                           <span
                             className="text-[clamp(2.5rem,6vw,5rem)] text-[#0a0a0a]/45"
                             style={{
-                              fontFamily: "var(--font-dm-mono), monospace",
+                              fontFamily: "var(--font-caveat), cursive",
                             }}
                           >
                             {(c.monogram ?? c.name.charAt(0)).toLowerCase()}
@@ -222,7 +222,7 @@ export function WebShowcase() {
                           <h3
                             className="text-[clamp(1.2rem,1.8vw,1.6rem)] leading-tight text-offwhite lowercase"
                             style={{
-                              fontFamily: "var(--font-dm-mono), monospace",
+                              fontFamily: "var(--font-caveat), cursive",
                             }}
                           >
                             {c.name}

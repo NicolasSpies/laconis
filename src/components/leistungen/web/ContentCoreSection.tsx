@@ -83,7 +83,7 @@ export function ContentCoreSection({
 
           <p
             className="mt-5 text-[clamp(1.1rem,1.8vw,1.35rem)] leading-[1.35] text-offwhite"
-            style={{ fontFamily: "var(--font-dm-mono), monospace" }}
+            style={{ fontFamily: "var(--font-caveat), cursive" }}
           >
             {t.italic}
           </p>

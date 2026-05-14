@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, DM_Mono, Caveat, Fraunces } from "next/font/google";
+import { DM_Sans, DM_Mono, Caveat } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
@@ -33,16 +33,6 @@ const caveat = Caveat({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-caveat",
-  display: "swap",
-});
-
-/* Fraunces · variable serif mit SOFT + opsz axes.
-   wird aktuell nur testweise auf HorizontalCases case-titles benutzt. */
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["SOFT", "opsz"],
-  variable: "--font-fraunces",
   display: "swap",
 });
 
@@ -112,7 +102,7 @@ export default function RootLayout({
       lang={htmlLang}
       data-theme="light"
       suppressHydrationWarning
-      className={`${dmSans.variable} ${dmMono.variable} ${caveat.variable} ${fraunces.variable}`}
+      className={`${dmSans.variable} ${dmMono.variable} ${caveat.variable}`}
     >
       <head />
       <body>
