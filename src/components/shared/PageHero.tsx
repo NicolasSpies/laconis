@@ -95,7 +95,6 @@ export function PageHero({
                     <span
                       style={{
                         fontFamily: "var(--font-dm-mono), monospace",
-                        fontStyle: "italic",
                         fontWeight: 400,
                         letterSpacing: "-0.01em",
                       }}

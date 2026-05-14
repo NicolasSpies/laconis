@@ -214,7 +214,7 @@ function TypeCard({ t }: { t: Dict }) {
       <div className="mt-1.5 font-mono text-[7px] lowercase text-offwhite/55">{t.typeSubA}</div>
       <div
         className="mt-3 text-[24px] text-offwhite"
-        style={{ fontFamily: "var(--font-dm-mono), monospace", fontStyle: "italic" }}
+        style={{ fontFamily: "var(--font-dm-mono), monospace" }}
       >
         Aa
       </div>
@@ -250,7 +250,7 @@ function BizCard({ t }: { t: Dict }) {
       <div className="flex flex-col h-full justify-between text-[#1a1a1a]">
         <div>
           <span
-            className="font-serif italic text-[26px] leading-none"
+            className="text-[26px] leading-none"
             style={{ fontFamily: "var(--font-dm-mono), monospace" }}
           >
             anna béguin

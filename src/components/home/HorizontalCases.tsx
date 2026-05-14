@@ -320,7 +320,6 @@ export function HorizontalCases() {
                     className="text-[clamp(3rem,10vw,9rem)] leading-[0.95] text-offwhite tracking-[-0.03em] max-w-[1100px]"
                     style={{
                       fontFamily: "var(--font-dm-mono), monospace",
-                      fontStyle: "italic",
                     }}
                   >
                     {c.name}

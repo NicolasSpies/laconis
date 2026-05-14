@@ -221,7 +221,6 @@ export function CursorCanvas() {
                   ...(w.italic
                     ? {
                         fontFamily: "var(--font-dm-mono), monospace",
-                        fontStyle: "italic",
                       }
                     : {}),
                 }}

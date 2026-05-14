@@ -182,7 +182,6 @@ export function WebShowcase() {
                             className="text-[clamp(2.5rem,6vw,5rem)] text-[#0a0a0a]/45"
                             style={{
                               fontFamily: "var(--font-dm-mono), monospace",
-                              fontStyle: "italic",
                             }}
                           >
                             {(c.monogram ?? c.name.charAt(0)).toLowerCase()}
@@ -224,7 +223,6 @@ export function WebShowcase() {
                             className="text-[clamp(1.2rem,1.8vw,1.6rem)] leading-tight text-offwhite lowercase"
                             style={{
                               fontFamily: "var(--font-dm-mono), monospace",
-                              fontStyle: "italic",
                             }}
                           >
                             {c.name}

@@ -203,7 +203,6 @@ export default function Page() {
             className="mt-6 text-[clamp(2rem,5.5vw,4.5rem)] leading-[1.05] text-[#0a0a0a]"
             style={{
               fontFamily: "var(--font-dm-mono), monospace",
-              fontStyle: "italic",
               fontWeight: 400,
               letterSpacing: "-0.015em",
             }}

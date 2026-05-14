@@ -1218,7 +1218,6 @@ function StationeryRow({
               className="text-[11px]"
               style={{
                 fontFamily: bodyFont,
-                fontStyle: "italic",
                 opacity: 0.85,
               }}
             >
