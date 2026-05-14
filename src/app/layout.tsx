@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, DM_Mono, Caveat, Instrument_Serif } from "next/font/google";
+import { DM_Sans, DM_Mono, Caveat } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
@@ -24,6 +24,7 @@ const dmSans = DM_Sans({
 const dmMono = DM_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
+  style: ["normal", "italic"],
   variable: "--font-dm-mono",
   display: "swap",
 });
@@ -32,14 +33,6 @@ const caveat = Caveat({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-caveat",
-  display: "swap",
-});
-
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: ["400"],
-  style: ["normal", "italic"],
-  variable: "--font-instrument",
   display: "swap",
 });
 
@@ -109,7 +102,7 @@ export default function RootLayout({
       lang={htmlLang}
       data-theme="light"
       suppressHydrationWarning
-      className={`${dmSans.variable} ${dmMono.variable} ${caveat.variable} ${instrumentSerif.variable}`}
+      className={`${dmSans.variable} ${dmMono.variable} ${caveat.variable}`}
     >
       <head />
       <body>

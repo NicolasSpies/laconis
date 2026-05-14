@@ -415,7 +415,7 @@ export function ChatThread({ num = "02" }: { num?: string } = {}) {
               <br />
               <span
                 className="italic text-offwhite/55"
-                style={{ fontFamily: "var(--font-instrument), serif" }}
+                style={{ fontFamily: "var(--font-dm-mono), monospace" }}
               >
                 {t.headlineItalic}
               </span>
@@ -462,7 +462,7 @@ export function ChatThread({ num = "02" }: { num?: string } = {}) {
                   <div
                     className="text-[14px] text-offwhite leading-tight"
                     style={{
-                      fontFamily: "var(--font-instrument), serif",
+                      fontFamily: "var(--font-dm-mono), monospace",
                       fontStyle: "italic",
                     }}
                   >

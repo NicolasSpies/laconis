@@ -32,7 +32,7 @@ const FONTS: FontDef[] = [
   {
     key: "instrument",
     label: "instrument",
-    css: "var(--font-instrument), Georgia, serif",
+    css: "var(--font-dm-mono), Georgia, serif",
     kind: "display",
     hint: "elegant · italic",
   },

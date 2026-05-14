@@ -220,7 +220,7 @@ export function CursorCanvas() {
                   textShadow: force > 0.3 ? `0 0 20px ${color}` : "none",
                   ...(w.italic
                     ? {
-                        fontFamily: "var(--font-instrument), serif",
+                        fontFamily: "var(--font-dm-mono), monospace",
                         fontStyle: "italic",
                       }
                     : {}),

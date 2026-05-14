@@ -94,7 +94,7 @@ export function PageHero({
                   <span className="relative inline-block">
                     <span
                       style={{
-                        fontFamily: "var(--font-instrument), serif",
+                        fontFamily: "var(--font-dm-mono), monospace",
                         fontStyle: "italic",
                         fontWeight: 400,
                         letterSpacing: "-0.01em",

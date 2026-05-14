@@ -189,7 +189,7 @@ export default function Page() {
         line1={t.heroH1pre.replace(/\s+$/, "")}
         line2={
           <>
-            <span className="italic" style={{ fontFamily: "var(--font-instrument), serif", fontWeight: 400 }}>
+            <span className="italic" style={{ fontFamily: "var(--font-dm-mono), monospace", fontWeight: 400 }}>
               {t.heroH1mid}
             </span>
             {t.heroH1post}
