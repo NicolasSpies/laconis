@@ -1,41 +1,44 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  useReducedMotion,
+} from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { MagneticButton } from "@/components/shared/MagneticButton";
-import { GooeyText } from "@/components/shared/GooeyText";
 import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
 
 /**
- * Hero · clean left-aligned · sprint-5-rework v2.
+ * Hero · clean left-aligned · drifting-blob bg system.
  *
- * minimal · seriös · KISS:
- *   - container-grid linksbündig
- *   - headline 3-zeilig mit lime marker auf "design" + lila scribbles unter "seele"
- *   - 1-zeilen-subtitle (echtes verkaufsargument · kein DE-FR-EN-listing)
- *   - 1 primary CTA
- *   - keine meta-leisten, marginalia, chips oder dekorative zweit-elemente
+ *   - text 3-zeilig · lime marker auf "design" · lila scribbles unter accent
+ *   - hintergrund: 6 drifting blobs in 3 speed-layers (slow/mid/fast)
+ *     · mouse-parallax pro layer für depth · breathing-scale
+ *   - kein italic serif · pure DM Sans
+ *   - 1 primary CTA · magnetic
  *
- * lila #b084d3 lebt subtil nur in den scribble-strokes unter "seele".
+ * lila #b084d3 + lime #e1fd52 leben in den blobs + accent-strokes.
  */
 
-const DICT: Record<Locale, {
+type Dict = {
   line1: string;
   line2: string;
   line3prefix: string;
-  line3italic: string;
-  /** cycling words list für GooeyText · enthält line3italic als ersten eintrag */
-  cycling: string[];
+  line3accent: string;
   sub: string;
   cta: string;
-}> = {
+};
+
+const DICT: Record<Locale, Dict> = {
   de: {
     line1: "design",
     line2: "mit meinung.",
     line3prefix: "web mit ",
-    line3italic: "seele.",
-    cycling: ["seele.", "haltung.", "substanz.", "meinung."],
+    line3accent: "seele.",
     sub: "für leute, die ihre marke ernst nehmen.",
     cta: "projekt starten →",
   },
@@ -43,8 +46,7 @@ const DICT: Record<Locale, {
     line1: "design",
     line2: "avec opinion.",
     line3prefix: "web avec ",
-    line3italic: "âme.",
-    cycling: ["âme.", "sens.", "essence.", "voix."],
+    line3accent: "âme.",
     sub: "pour ceux qui prennent leur marque au sérieux.",
     cta: "démarrer un projet →",
   },
@@ -52,16 +54,14 @@ const DICT: Record<Locale, {
     line1: "design",
     line2: "with opinion.",
     line3prefix: "web with ",
-    line3italic: "soul.",
-    cycling: ["soul.", "stance.", "substance.", "voice."],
+    line3accent: "soul.",
     sub: "for people who take their brand seriously.",
     cta: "start a project →",
   },
 };
 
 /* marker-stroke pfad · single hand-stroke über "design" (lime) */
-const MARKER_PATH =
-  "M12 42 C 82 30, 160 52, 232 36 C 264 28, 284 44, 292 40";
+const MARKER_PATH = "M12 42 C 82 30, 160 52, 232 36 C 264 28, 284 44, 292 40";
 const MARKER_STROKE_WIDTH = 58;
 const MARKER_MASK = `url("data:image/svg+xml;utf8,${encodeURIComponent(
   `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'><path d='${MARKER_PATH}' stroke='black' stroke-width='${MARKER_STROKE_WIDTH}' stroke-linecap='round' fill='none'/></svg>`,
@@ -71,15 +71,42 @@ export function Hero() {
   const locale = useLocale();
   const t = pick(DICT, locale);
   const reduceMotion = useReducedMotion();
-  // reduced-motion · zeichne pathLength bereits "1" damit nix animiert wird
-  const pathFinal = reduceMotion ? 1 : 1;
+  const pathFinal = 1;
   const pathInit = reduceMotion ? 1 : 0;
   const opInit = reduceMotion ? 1 : 0;
 
+  // mouse-parallax for blob layers
+  const mx = useMotionValue(0.5);
+  const my = useMotionValue(0.5);
+  const px = useSpring(mx, { stiffness: 50, damping: 22, mass: 0.6 });
+  const py = useSpring(my, { stiffness: 50, damping: 22, mass: 0.6 });
+  const layerSlow = useTransform<number, string>(
+    [px, py],
+    ([x, y]: number[]) =>
+      `translate(${(x - 0.5) * 20}px, ${(y - 0.5) * 20}px)`,
+  );
+  const layerMid = useTransform<number, string>(
+    [px, py],
+    ([x, y]: number[]) =>
+      `translate(${(x - 0.5) * 40}px, ${(y - 0.5) * 40}px)`,
+  );
+  const layerFast = useTransform<number, string>(
+    [px, py],
+    ([x, y]: number[]) =>
+      `translate(${(x - 0.5) * 70}px, ${(y - 0.5) * 70}px)`,
+  );
+
   return (
-    <section className="relative min-h-[100svh] flex items-center">
-      {/* grid-bg · atmospheric grid · fadet nach unten aus damit der übergang
-         zur nächsten section nicht hart ist · token-aware via globals.css */}
+    <section
+      className="relative min-h-[100svh] flex items-center overflow-hidden"
+      onMouseMove={(e) => {
+        if (reduceMotion) return;
+        const r = e.currentTarget.getBoundingClientRect();
+        mx.set((e.clientX - r.left) / r.width);
+        my.set((e.clientY - r.top) / r.height);
+      }}
+    >
+      {/* atmospheric grid fadet nach unten aus · sitzt unter den blobs */}
       <div
         aria-hidden
         className="absolute inset-0 grid-bg pointer-events-none -z-10"
@@ -90,9 +117,138 @@ export function Hero() {
             "linear-gradient(to bottom, black 0%, black 35%, rgba(0,0,0,0.4) 75%, transparent 100%)",
         }}
       />
-      <div className="container-site w-full">
-        <div className="relative grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-0 items-center">
-        <div className="max-w-[1100px] md:max-w-none">
+
+      {/* ─── drifting blobs · 3 speed-layers, 6 blobs total ─── */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none -z-[5]">
+        {/* SLOW · lime · top-left */}
+        <motion.div
+          style={{ transform: layerSlow }}
+          animate={
+            reduceMotion
+              ? undefined
+              : { x: [0, 80, -40, 0], y: [0, -60, 50, 0], scale: [1, 1.08, 0.96, 1] }
+          }
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute left-[8%] top-[8%] w-[55vw] h-[55vw] rounded-full"
+        >
+          <div
+            className="w-full h-full rounded-full"
+            style={{
+              background: "radial-gradient(circle, #e1fd52 0%, transparent 60%)",
+              opacity: 0.5,
+              filter: "blur(55px)",
+            }}
+          />
+        </motion.div>
+
+        {/* SLOW · lila · bottom-right */}
+        <motion.div
+          style={{ transform: layerSlow }}
+          animate={
+            reduceMotion
+              ? undefined
+              : { x: [0, -90, 40, 0], y: [0, 70, -50, 0], scale: [1, 0.95, 1.1, 1] }
+          }
+          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute right-[5%] bottom-[5%] w-[48vw] h-[48vw] rounded-full"
+        >
+          <div
+            className="w-full h-full rounded-full"
+            style={{
+              background: "radial-gradient(circle, #b084d3 0%, transparent 60%)",
+              opacity: 0.58,
+              filter: "blur(55px)",
+            }}
+          />
+        </motion.div>
+
+        {/* MID · lila · center-left */}
+        <motion.div
+          style={{ transform: layerMid }}
+          animate={
+            reduceMotion
+              ? undefined
+              : { x: [0, 60, -50, 0], y: [0, -40, 30, 0], scale: [1, 1.15, 0.92, 1] }
+          }
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute left-[-5%] top-[40%] w-[32vw] h-[32vw] rounded-full"
+        >
+          <div
+            className="w-full h-full rounded-full"
+            style={{
+              background: "radial-gradient(circle, #b084d3 0%, transparent 60%)",
+              opacity: 0.42,
+              filter: "blur(40px)",
+            }}
+          />
+        </motion.div>
+
+        {/* MID · lime · bottom-left */}
+        <motion.div
+          style={{ transform: layerMid }}
+          animate={
+            reduceMotion
+              ? undefined
+              : { x: [0, -50, 40, 0], y: [0, -60, 20, 0], scale: [1, 1.12, 0.95, 1] }
+          }
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute left-[30%] bottom-[15%] w-[28vw] h-[28vw] rounded-full"
+        >
+          <div
+            className="w-full h-full rounded-full"
+            style={{
+              background: "radial-gradient(circle, #e1fd52 0%, transparent 60%)",
+              opacity: 0.4,
+              filter: "blur(36px)",
+            }}
+          />
+        </motion.div>
+
+        {/* FAST darter · lime · top-right */}
+        <motion.div
+          style={{ transform: layerFast }}
+          animate={
+            reduceMotion
+              ? undefined
+              : { x: [0, -40, 60, 0], y: [0, 50, -40, 0], scale: [1, 1.3, 0.85, 1] }
+          }
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute right-[20%] top-[18%] w-[18vw] h-[18vw] rounded-full"
+        >
+          <div
+            className="w-full h-full rounded-full"
+            style={{
+              background: "radial-gradient(circle, #e1fd52 0%, transparent 60%)",
+              opacity: 0.55,
+              filter: "blur(28px)",
+            }}
+          />
+        </motion.div>
+
+        {/* FAST darter · lila · center */}
+        <motion.div
+          style={{ transform: layerFast }}
+          animate={
+            reduceMotion
+              ? undefined
+              : { x: [0, 70, -30, 0], y: [0, -40, 60, 0], scale: [1, 0.8, 1.25, 1] }
+          }
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute right-[40%] bottom-[30%] w-[14vw] h-[14vw] rounded-full"
+        >
+          <div
+            className="w-full h-full rounded-full"
+            style={{
+              background: "radial-gradient(circle, #b084d3 0%, transparent 60%)",
+              opacity: 0.5,
+              filter: "blur(24px)",
+            }}
+          />
+        </motion.div>
+      </div>
+
+      <div className="container-site w-full relative z-10">
+        <div className="max-w-[1100px]">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -149,22 +305,16 @@ export function Hero() {
             {/* zeile 2 · clean */}
             <span className="block whitespace-nowrap">{t.line2}</span>
 
-            {/* zeile 3 · gooey-cycling italic-serif + 2 lila scribble-strokes drunter */}
+            {/* zeile 3 · accent + 2 lila scribble-strokes drunter · pure DM Sans */}
             <span className="block whitespace-nowrap">
               {t.line3prefix}
-              <span
-                className="relative inline-flex items-baseline align-baseline"
-                style={{
-                  // min-width = längstes wort der locale-cycling-liste (grobe ch-schätzung)
-                  minWidth: `${Math.max(...t.cycling.map((w) => w.length)) * 0.55}em`,
-                }}
-              >
-                <GooeyText texts={t.cycling} morphTime={2} cooldownTime={1.5} />
-                <motion.svg
+              <span className="relative inline-block">
+                <span>{t.line3accent}</span>
+                <svg
                   aria-hidden
                   viewBox="0 0 200 30"
                   preserveAspectRatio="none"
-                  className="absolute left-[-2%] right-[-2%] -bottom-[0.18em] w-[104%] h-[0.32em] pointer-events-none overflow-visible"
+                  className="absolute left-[-2%] right-[-2%] -bottom-[0.08em] w-[104%] h-[0.32em] pointer-events-none overflow-visible"
                 >
                   <motion.path
                     d="M6 10 C 46 3, 112 15, 194 7"
@@ -192,7 +342,7 @@ export function Hero() {
                       opacity: { duration: 0.2, delay: 1.2 },
                     }}
                   />
-                </motion.svg>
+                </svg>
               </span>
             </span>
           </motion.h1>
@@ -207,7 +357,7 @@ export function Hero() {
             {t.sub}
           </motion.p>
 
-          {/* ein primary CTA · keine zweit-buttons */}
+          {/* ein primary CTA · magnetic */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -224,61 +374,6 @@ export function Hero() {
               </Button>
             </MagneticButton>
           </motion.div>
-        </div>
-
-        {/* right side visual · desktop only */}
-        <motion.div
-          aria-hidden
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.6 }}
-          className="hidden md:flex items-center justify-center pointer-events-none select-none"
-        >
-          <svg
-            viewBox="0 0 400 400"
-            className="w-[380px] h-[380px] lg:w-[440px] lg:h-[440px] xl:w-[500px] xl:h-[500px]"
-            aria-hidden
-          >
-            {/* outer ring · lila */}
-            <circle
-              cx="200" cy="200" r="170"
-              stroke="#b084d3"
-              strokeWidth="1"
-              fill="none"
-              opacity="0.18"
-            />
-            {/* mid ring · lime */}
-            <circle
-              cx="200" cy="200" r="120"
-              stroke="#E1FD52"
-              strokeWidth="0.8"
-              fill="none"
-              opacity="0.25"
-              strokeDasharray="6 10"
-            />
-            {/* inner ring · lila */}
-            <circle
-              cx="200" cy="200" r="72"
-              stroke="#b084d3"
-              strokeWidth="0.6"
-              fill="none"
-              opacity="0.2"
-              strokeDasharray="3 7"
-            />
-            {/* center crosshair */}
-            <line x1="200" y1="148" x2="200" y2="168" stroke="#E1FD52" strokeWidth="0.8" opacity="0.5" />
-            <line x1="200" y1="232" x2="200" y2="252" stroke="#E1FD52" strokeWidth="0.8" opacity="0.5" />
-            <line x1="148" y1="200" x2="168" y2="200" stroke="#E1FD52" strokeWidth="0.8" opacity="0.5" />
-            <line x1="232" y1="200" x2="252" y2="200" stroke="#E1FD52" strokeWidth="0.8" opacity="0.5" />
-            {/* center dot */}
-            <circle cx="200" cy="200" r="3" fill="#E1FD52" opacity="0.7" />
-            {/* small accent dots on outer ring */}
-            <circle cx="200" cy="30" r="2.5" fill="#b084d3" opacity="0.45" />
-            <circle cx="370" cy="200" r="2.5" fill="#b084d3" opacity="0.45" />
-            <circle cx="200" cy="370" r="2.5" fill="#b084d3" opacity="0.45" />
-            <circle cx="30" cy="200" r="2.5" fill="#b084d3" opacity="0.45" />
-          </svg>
-        </motion.div>
         </div>
       </div>
     </section>
