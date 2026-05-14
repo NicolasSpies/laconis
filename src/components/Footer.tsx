@@ -100,31 +100,6 @@ export function Footer() {
         </div>
       </div>
 
-      {/* massive wordmark · sits at footer-bottom · pure visual signature */}
-      <div
-        aria-hidden
-        className="w-full overflow-hidden leading-none select-none pointer-events-none"
-      >
-        <div
-          className="container-site"
-          style={{
-            // bleibt im container damit's nicht edge-to-edge platzt
-            paddingTop: "1rem",
-            paddingBottom: "0.5rem",
-          }}
-        >
-          <span
-            className="block lowercase text-offwhite font-black"
-            style={{
-              fontSize: "clamp(8rem, 22vw, 18rem)",
-              lineHeight: 0.9,
-              letterSpacing: "-0.04em",
-            }}
-          >
-            laconis
-          </span>
-        </div>
-      </div>
     </footer>
   );
 }
