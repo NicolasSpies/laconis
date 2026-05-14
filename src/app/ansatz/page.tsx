@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PageHero, HeroRings } from "@/components/shared/PageHero";
+import { PageHero } from "@/components/shared/PageHero";
 import { GreySection } from "@/components/shared/GreySection";
 import { Marquee } from "@/components/shared/Marquee";
 import { AnsatzToggle } from "@/components/ansatz/AnsatzToggle";
@@ -133,7 +133,6 @@ export default function Page() {
         line2={t.heroL2}
         italicAccent={t.heroItalic}
         sub={t.intro}
-        visual={<HeroRings />}
       />
 
       {/* CHAT-THREAD opener · existing component */}

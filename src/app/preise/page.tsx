@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PageHero, HeroRings } from "@/components/shared/PageHero";
+import { PageHero } from "@/components/shared/PageHero";
 import { GreySection } from "@/components/shared/GreySection";
 import { TiltCard } from "@/components/shared/TiltCard";
 import { Marquee } from "@/components/shared/Marquee";
@@ -214,7 +214,6 @@ export default function Page() {
         line2={t.heroL2}
         italicAccent={t.heroItalic}
         sub={t.intro}
-        visual={<HeroRings />}
       />
 
       {/* RICHTWERTE · 3 tilt-cards mit animierten preis-countern */}

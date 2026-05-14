@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PageHero, HeroRings } from "@/components/shared/PageHero";
+import { PageHero } from "@/components/shared/PageHero";
 import { TiltCard } from "@/components/shared/TiltCard";
 import { GreySection } from "@/components/shared/GreySection";
 import { Marquee } from "@/components/shared/Marquee";
@@ -107,7 +107,6 @@ export default function Page() {
         line2={t.heroL2}
         italicAccent={t.heroItalic}
         sub={t.sub}
-        visual={<HeroRings />}
       />
       <h1 className="sr-only">{t.srHeadline}</h1>
 

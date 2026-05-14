@@ -1,4 +1,4 @@
-import { PageHero, HeroRings } from "@/components/shared/PageHero";
+import { PageHero } from "@/components/shared/PageHero";
 import { GreySection } from "@/components/shared/GreySection";
 import { TiltCard } from "@/components/shared/TiltCard";
 import { Marquee } from "@/components/shared/Marquee";
@@ -117,7 +117,6 @@ export default function Page() {
         line2={t.heroL2 || undefined}
         italicAccent={t.heroItalic}
         sub={t.heroBody}
-        visual={<HeroRings />}
       />
 
       <Marquee items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={42} />

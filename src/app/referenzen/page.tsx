@@ -1,4 +1,4 @@
-import { PageHero, HeroRings } from "@/components/shared/PageHero";
+import { PageHero } from "@/components/shared/PageHero";
 import { Marquee } from "@/components/shared/Marquee";
 import { ScrollTiltedCaseGrid } from "@/components/referenzen/ScrollTiltedCaseGrid";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
@@ -95,7 +95,6 @@ export default function Page() {
             </span>
           </>
         }
-        visual={<HeroRings />}
       />
 
       <Marquee items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={45} />
