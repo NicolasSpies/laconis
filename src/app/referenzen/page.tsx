@@ -1,6 +1,6 @@
 import { PageHero, HeroRings } from "@/components/shared/PageHero";
 import { Marquee } from "@/components/shared/Marquee";
-import { CaseWall } from "@/components/referenzen/CaseWall";
+import { ScrollTiltedCaseGrid } from "@/components/referenzen/ScrollTiltedCaseGrid";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { referenzen } from "@/data/referenzen";
 import { getMeta } from "@/lib/seo/getMeta";
@@ -100,12 +100,10 @@ export default function Page() {
 
       <Marquee items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={45} />
 
-      {/* CaseWall (existing 3D-tilt wall component, keeps dark island) */}
-      <div data-theme="dark" className="bg-[#0a0a0a] text-offwhite py-16 md:py-20">
-        <div className="container-site">
-          <CaseWall />
-        </div>
-      </div>
+      {/* Editorial scroll-tilted grid · jeder tile rises from below,
+         settled in focus mit caption fade-in, kippt zurück nach oben raus.
+         grey bg damit der globale cursor-morph (lime glow) drüber rollt. */}
+      <ScrollTiltedCaseGrid />
     </>
   );
 }
