@@ -96,7 +96,7 @@ function CaseTile({ case: c, side, locale, dict }: CaseTileProps) {
 
   const filter = useMotionTemplate`blur(${blur}px) brightness(${bright})`;
 
-  const href = buildPath(`referenzen/${c.slug}`, locale);
+  const href = `${buildPath("referenzen", locale)}/${c.slug}`;
   const cover = c.heroImage;
 
   if (reduce || !cover) {
