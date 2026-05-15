@@ -5,7 +5,6 @@ import { Marquee } from "@/components/shared/Marquee";
 import { BrandSystemHero } from "@/components/leistungen/branding/BrandSystemHero";
 import { BrandDesk } from "@/components/leistungen/branding/BrandDesk";
 import { BrandingBento } from "@/components/leistungen/branding/BrandingBento";
-import { BrandCase } from "@/components/leistungen/branding/BrandCase";
 import { BrandVsAlternatives } from "@/components/leistungen/branding/BrandVsAlternatives";
 import { StaerkenStrip } from "@/components/shared/StaerkenStrip";
 import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
@@ -248,10 +247,34 @@ export default function Page() {
       <BrandDesk num="02" />
       <ScribbleBreak text={t.breakLook} rotate={-1} />
       <BrandingBento num="03" />
-      <ScribbleBreak text={t.breakCase} rotate={-0.8} flip />
-      <BrandCase num="05" />
+
+      {/* andeutung statt full case · echte projekte leben auf /referenzen */}
+      <section className="py-10 md:py-14">
+        <div className="container-site text-center">
+          <Link
+            href={buildPath("referenzen", locale)}
+            className="inline-flex items-baseline gap-3 group"
+          >
+            <span
+              className="text-[#b084d3]/85 group-hover:text-[#b084d3] transition-colors"
+              style={{
+                fontFamily: "var(--font-caveat), cursive",
+                fontSize: "clamp(20px, 2.4vw, 28px)",
+                transform: "rotate(-1deg)",
+                display: "inline-block",
+              }}
+            >
+              echte marken · echte fälle
+            </span>
+            <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/55 group-hover:text-accent-ink transition-colors">
+              referenzen →
+            </span>
+          </Link>
+        </div>
+      </section>
+
       <ScribbleBreak text={t.breakHonest} rotate={0.8} />
-      <BrandVsAlternatives num="06" />
+      <BrandVsAlternatives num="05" />
 
       <section className="pb-20">
         <div className="container-site">
