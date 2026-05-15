@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
 import { Button } from "./ui/Button";
+import { MenuToggleIcon } from "./ui/MenuToggleIcon";
 import { cn } from "@/lib/cn";
 import {
   LOCALES,
@@ -238,27 +239,11 @@ export function Nav() {
         <button
           type="button"
           aria-label="menu"
-          className="tactile-press md:hidden flex flex-col gap-1.5 p-2 rounded"
+          aria-expanded={open}
+          className="tactile-press md:hidden p-2 rounded text-offwhite"
           onClick={() => setOpen((v) => !v)}
         >
-          <span
-            className={cn(
-              "block w-5 h-[1.5px] bg-offwhite transition-transform",
-              open && "translate-y-[7px] rotate-45",
-            )}
-          />
-          <span
-            className={cn(
-              "block w-5 h-[1.5px] bg-offwhite transition-opacity",
-              open && "opacity-0",
-            )}
-          />
-          <span
-            className={cn(
-              "block w-5 h-[1.5px] bg-offwhite transition-transform",
-              open && "-translate-y-[7px] -rotate-45",
-            )}
-          />
+          <MenuToggleIcon open={open} className="w-6 h-6" />
         </button>
       </div>
 
