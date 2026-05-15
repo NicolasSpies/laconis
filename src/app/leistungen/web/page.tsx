@@ -169,7 +169,6 @@ export default function Page() {
       <BreadcrumbSchema
         items={[
           { name: "home", url: `${BASE}/` },
-          { name: "leistungen", url: `${BASE}${buildPath("leistungen", locale)}` },
           { name: "web", url: `${BASE}${buildPath("leistungen/web", locale)}` },
         ]}
       />

@@ -40,7 +40,6 @@ export const HTML_LANG: Record<Locale, string> = {
  */
 export const ROUTES: Record<string, Record<Locale, string>> = {
   home: { de: "", fr: "", en: "" },
-  leistungen: { de: "leistungen", fr: "services", en: "services" },
   "leistungen/web": {
     de: "leistungen/web",
     fr: "services/web",

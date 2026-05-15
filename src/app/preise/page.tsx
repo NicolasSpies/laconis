@@ -381,7 +381,7 @@ export default function Page() {
               {t.ctaPrimary}
             </Link>
             <Link
-              href={buildPath("leistungen", locale)}
+              href={buildPath("leistungen/web", locale)}
               className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#0a0a0a] text-[#0a0a0a] hover:bg-[#0a0a0a] hover:text-[#e1fd52] transition-colors"
             >
               {t.ctaSecondary}

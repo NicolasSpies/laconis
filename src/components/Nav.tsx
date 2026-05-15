@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
 import { Button } from "./ui/Button";
 import { MenuToggleIcon } from "./ui/MenuToggleIcon";
+import { ServicesDropdown } from "./nav/ServicesDropdown";
 import { cn } from "@/lib/cn";
 import {
   LOCALES,
@@ -17,15 +18,23 @@ import {
 } from "@/i18n/config";
 
 type NavLink = {
-  routeKey: "leistungen" | "referenzen" | "preise" | "ansatz" | "ueber-mich";
+  routeKey: "referenzen" | "preise" | "ansatz" | "ueber-mich";
   labels: Record<Locale, string>;
 };
 
+const SERVICES_LABELS: Record<Locale, string> = {
+  de: "leistungen",
+  fr: "services",
+  en: "services",
+};
+
+const SERVICES_SUB_LABELS: Record<Locale, { web: string; branding: string }> = {
+  de: { web: "web", branding: "branding" },
+  fr: { web: "web", branding: "branding" },
+  en: { web: "web", branding: "branding" },
+};
+
 const links: readonly NavLink[] = [
-  {
-    routeKey: "leistungen",
-    labels: { de: "leistungen", fr: "services", en: "services" },
-  },
   {
     routeKey: "referenzen",
     labels: { de: "referenzen", fr: "références", en: "work" },
@@ -197,6 +206,16 @@ export function Nav() {
         <Logo size="sm" variant="lime" className="mr-10" />
 
         <nav className="hidden md:flex items-center gap-7">
+          <ServicesDropdown
+            currentLocale={currentLocale}
+            triggerLabel={SERVICES_LABELS[currentLocale]}
+            active={
+              pathname.startsWith(buildPath("leistungen/web", currentLocale)) ||
+              pathname.startsWith(
+                buildPath("leistungen/branding", currentLocale),
+              )
+            }
+          />
           {links.map((l) => {
             const href = buildPath(l.routeKey, currentLocale);
             const active =
@@ -255,6 +274,24 @@ export function Nav() {
         )}
       >
         <div className="container-site py-6 flex flex-col gap-5">
+          {/* leistungen · zwei flache sublinks (web + branding) */}
+          <div className="flex flex-col gap-3">
+            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/45">
+              {SERVICES_LABELS[currentLocale]}
+            </span>
+            <Link
+              href={buildPath("leistungen/web", currentLocale)}
+              className="font-mono text-[14px] lowercase text-offwhite pl-3 border-l-2 border-lime/45"
+            >
+              {SERVICES_SUB_LABELS[currentLocale].web}
+            </Link>
+            <Link
+              href={buildPath("leistungen/branding", currentLocale)}
+              className="font-mono text-[14px] lowercase text-offwhite pl-3 border-l-2 border-[#b084d3]/45"
+            >
+              {SERVICES_SUB_LABELS[currentLocale].branding}
+            </Link>
+          </div>
           {links.map((l) => (
             <Link
               key={l.routeKey}
