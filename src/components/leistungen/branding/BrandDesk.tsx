@@ -19,11 +19,14 @@ import type { Locale } from "@/i18n/config";
  * sie lässt (wie auf nem echten schreibtisch).
  */
 
+type Chip = { label: string; sub: string };
+
 type Dict = {
   sectionLabel: string;
   heading: string;
   intro: string;
   hint: string;
+  chips: Chip[];
   logoLabel: string;
   logoSub: string;
   typeLabel: string;
@@ -41,6 +44,13 @@ const DICT: Record<Locale, Dict> = {
     heading: "fass die teile an.",
     intro: "jedes branding-projekt landet auf einem echten tisch · logo-skizze, type-spec, palette, visitenkarte, moodboard. zieh sie hier rum wie auf nem echten schreibtisch.",
     hint: "drag · klick · sie bleiben wo du sie hin tust ↗",
+    chips: [
+      { label: "recherche", sub: "wer bist du · wer sind die anderen · was fehlt" },
+      { label: "wortmarke", sub: "kein 500ste kreis-mit-schwung-logo" },
+      { label: "farbwelt", sub: "system, nicht zufallsfarbe" },
+      { label: "typografie", sub: "sans + display · kein chaos" },
+      { label: "anwendungen", sub: "druckfertig + web-ready · alles greift" },
+    ],
     logoLabel: "logo · wortmarke",
     logoSub: "v·02 · 2026",
     typeLabel: "type",
@@ -56,6 +66,13 @@ const DICT: Record<Locale, Dict> = {
     heading: "touche les éléments.",
     intro: "chaque projet branding finit sur une vraie table · esquisse logo, type-spec, palette, carte de visite, moodboard. déplace-les ici comme sur un vrai bureau.",
     hint: "drag · clic · ils restent où tu les laisses ↗",
+    chips: [
+      { label: "recherche", sub: "qui tu es · qui sont les autres · ce qui manque" },
+      { label: "wordmark", sub: "pas le 500e cercle-avec-volute" },
+      { label: "couleurs", sub: "un système, pas une couleur au hasard" },
+      { label: "typographie", sub: "sans + display · pas de chaos" },
+      { label: "applications", sub: "prêt-à-imprimer + web-ready · tout s'articule" },
+    ],
     logoLabel: "logo · wordmark",
     logoSub: "v·02 · 2026",
     typeLabel: "type",
@@ -71,6 +88,13 @@ const DICT: Record<Locale, Dict> = {
     heading: "touch the pieces.",
     intro: "every brand project ends up on an actual table · logo sketch, type spec, palette, business card, moodboard. drag them around here like on a real desk.",
     hint: "drag · click · they stay where you leave them ↗",
+    chips: [
+      { label: "research", sub: "who you are · who the others are · what's missing" },
+      { label: "wordmark", sub: "not the 500th circle-with-swoosh" },
+      { label: "colours", sub: "a system, not a random hue" },
+      { label: "typography", sub: "sans + display · no chaos" },
+      { label: "applications", sub: "print-ready + web-ready · everything fits" },
+    ],
     logoLabel: "logo · wordmark",
     logoSub: "v·02 · 2026",
     typeLabel: "type",
@@ -122,10 +146,32 @@ export function BrandDesk({ num = "02" }: { num?: string } = {}) {
             <h2 className="heading-display text-[clamp(1.8rem,3.6vw,2.8rem)] leading-[1.05] text-offwhite">
               {t.heading}
             </h2>
-            <p className="mt-6 text-[15px] leading-relaxed text-offwhite/55">
+            <p className="mt-6 text-[15px] leading-relaxed text-offwhite/70">
               {t.intro}
             </p>
-            <p className="mt-6 font-hand text-[18px] text-accent-ink rotate-[-1deg] inline-block">
+
+            {/* 5 mini-bubbles · was in einem branding-projekt drin steckt.
+               carry-over content aus der gestrichenen SpecimenKartei. */}
+            <ul className="mt-8 space-y-2.5">
+              {t.chips.map((chip) => (
+                <li key={chip.label} className="flex items-baseline gap-3 group">
+                  <span
+                    aria-hidden
+                    className="shrink-0 inline-block w-1.5 h-1.5 rounded-full bg-[#b084d3] mt-1.5 group-hover:bg-[#e1fd52] transition-colors"
+                  />
+                  <div>
+                    <span className="font-mono text-[10px] uppercase tracking-label text-offwhite group-hover:text-accent-ink transition-colors">
+                      {chip.label}
+                    </span>
+                    <span className="ml-2 text-[13px] leading-relaxed text-offwhite/70">
+                      {chip.sub}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-8 font-hand text-[18px] text-accent-ink rotate-[-1deg] inline-block">
               {t.hint}
             </p>
           </div>

@@ -4,7 +4,6 @@ import { PageHero } from "@/components/shared/PageHero";
 import { Marquee } from "@/components/shared/Marquee";
 import { BrandSystemHero } from "@/components/leistungen/branding/BrandSystemHero";
 import { BrandDesk } from "@/components/leistungen/branding/BrandDesk";
-import { SpecimenKartei } from "@/components/leistungen/branding/SpecimenKartei";
 import { BrandingBento } from "@/components/leistungen/branding/BrandingBento";
 import { BrandCase } from "@/components/leistungen/branding/BrandCase";
 import { BrandVsAlternatives } from "@/components/leistungen/branding/BrandVsAlternatives";
@@ -248,8 +247,7 @@ export default function Page() {
       <StaerkenStrip />
       <BrandDesk num="02" />
       <ScribbleBreak text={t.breakLook} rotate={-1} />
-      <SpecimenKartei num="03" />
-      <BrandingBento num="04" />
+      <BrandingBento num="03" />
       <ScribbleBreak text={t.breakCase} rotate={-0.8} flip />
       <BrandCase num="05" />
       <ScribbleBreak text={t.breakHonest} rotate={0.8} />
