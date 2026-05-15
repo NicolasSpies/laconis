@@ -6,7 +6,6 @@ import { WebApproaches } from "@/components/leistungen/web/WebApproaches";
 import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
 import { WebDeliverables } from "@/components/leistungen/web/WebDeliverables";
 import { WebVsAlternatives } from "@/components/leistungen/web/WebVsAlternatives";
-import { FabryCase } from "@/components/leistungen/web/FabryCase";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
 import { FAQSchema } from "@/components/seo/FAQSchema";
@@ -31,7 +30,6 @@ type Dict = {
   stat2Value: string;
   stat3Label: string;
   breakHow: string;
-  breakCase: string;
   techLinkLabel: string;
   techLinkBody: string;
   ansatzLinkLabel: string;
@@ -59,7 +57,6 @@ const DICT: Record<Locale, Dict> = {
     stat2Value: "selbst",
     stat3Label: "launch",
     breakHow: "so läuft's ab ↓",
-    breakCase: "ein echter kunde dazu ↓",
     techLinkLabel: "für die techniker",
     techLinkBody: "hosting, cms-architektur, contentcore vs wordpress.",
     ansatzLinkLabel: "wie ich arbeite",
@@ -96,7 +93,6 @@ const DICT: Record<Locale, Dict> = {
     stat2Value: "toi-même",
     stat3Label: "lancement",
     breakHow: "comment ça se passe ↓",
-    breakCase: "un vrai client en plus ↓",
     techLinkLabel: "pour les tech",
     techLinkBody: "hébergement, architecture cms, contentcore vs wordpress.",
     ansatzLinkLabel: "comment je travaille",
@@ -133,7 +129,6 @@ const DICT: Record<Locale, Dict> = {
     stat2Value: "yourself",
     stat3Label: "launch",
     breakHow: "how it works ↓",
-    breakCase: "a real client too ↓",
     techLinkLabel: "for the technical folks",
     techLinkBody: "hosting, cms architecture, contentcore vs wordpress.",
     ansatzLinkLabel: "how i work",
@@ -202,9 +197,75 @@ export default function Page() {
       <WebApproaches num="02" />
       <WebDeliverables num="03" />
 
-      <ScribbleBreak text={t.breakCase} rotate={0.8} flip />
+      {/* andeutung statt full case · echte projekte leben auf /referenzen
+         · groß, klar sichtbar, mit pfeil + button */}
+      <section className="py-16 md:py-24">
+        <div className="container-site text-center">
+          <Link
+            href={buildPath("referenzen", locale)}
+            className="inline-flex flex-col items-center gap-6 group"
+          >
+            <span className="relative inline-block">
+              <span
+                className="block text-[#0a0a0a] group-hover:text-[#b084d3] transition-colors"
+                style={{
+                  fontFamily: "var(--font-caveat), cursive",
+                  fontSize: "clamp(32px, 5vw, 56px)",
+                  transform: "rotate(-1.5deg)",
+                  lineHeight: 1.1,
+                }}
+              >
+                echte websites · echte kunden
+              </span>
+              {/* lila scribble underline */}
+              <svg
+                aria-hidden
+                viewBox="0 0 360 16"
+                preserveAspectRatio="none"
+                className="absolute left-[-2%] right-[-2%] -bottom-1 w-[104%] h-[14px] pointer-events-none overflow-visible"
+              >
+                <path
+                  d="M6 8 C 80 3, 180 13, 354 6"
+                  stroke="#b084d3"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  fill="none"
+                  opacity="0.85"
+                />
+              </svg>
+            </span>
+            {/* hand-drawn arrow pointing down */}
+            <svg
+              aria-hidden
+              width="40"
+              height="48"
+              viewBox="0 0 40 48"
+              fill="none"
+              className="text-[#0a0a0a]/55 group-hover:text-[#0a0a0a] transition-colors -mt-1"
+            >
+              <path
+                d="M20 4 C 24 14, 14 22, 20 32 C 26 40, 16 42, 22 44"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                fill="none"
+              />
+              <path
+                d="M14 38 L20 46 L28 38"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
+            </svg>
+            <span className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label px-7 py-4 rounded-full bg-[#0a0a0a] text-[#e1fd52] group-hover:bg-[#1a1a1a] transition-colors">
+              referenzen ansehen →
+            </span>
+          </Link>
+        </div>
+      </section>
 
-      <FabryCase num="04" />
       <WebVsAlternatives num="05" />
 
       {/* VERTIEFUNGS-LINKS · clean text-links statt glass cards */}
