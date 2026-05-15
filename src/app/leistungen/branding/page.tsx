@@ -5,10 +5,9 @@ import { Marquee } from "@/components/shared/Marquee";
 import { BrandSystemHero } from "@/components/leistungen/branding/BrandSystemHero";
 import { BrandDesk } from "@/components/leistungen/branding/BrandDesk";
 import { SpecimenKartei } from "@/components/leistungen/branding/SpecimenKartei";
-import { Deliverables } from "@/components/leistungen/branding/Deliverables";
+import { BrandingBento } from "@/components/leistungen/branding/BrandingBento";
 import { BrandCase } from "@/components/leistungen/branding/BrandCase";
 import { BrandVsAlternatives } from "@/components/leistungen/branding/BrandVsAlternatives";
-import { OnDemandExtras } from "@/components/leistungen/branding/OnDemandExtras";
 import { StaerkenStrip } from "@/components/shared/StaerkenStrip";
 import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
@@ -250,8 +249,7 @@ export default function Page() {
       <BrandDesk num="02" />
       <ScribbleBreak text={t.breakLook} rotate={-1} />
       <SpecimenKartei num="03" />
-      <Deliverables num="04" />
-      <OnDemandExtras />
+      <BrandingBento num="04" />
       <ScribbleBreak text={t.breakCase} rotate={-0.8} flip />
       <BrandCase num="05" />
       <ScribbleBreak text={t.breakHonest} rotate={0.8} />
