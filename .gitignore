@@ -35,3 +35,13 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .claude/worktrees/
+
+# Claude/ruvector runtime artefacts
+*.rvf
+*.rvf.lock
+ruvector.db
+agentdb.rvf
+agentdb.rvf.lock
+
+# Generated preview routes (auto-created by Next.js tooling)
+src/app/preview/
