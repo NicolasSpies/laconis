@@ -42,6 +42,12 @@ export const CONTACT = {
   ] as readonly string[],
   /** gründungsjahr für Organization.foundingDate */
   foundingDate: "2026",
+  /**
+   * cal.com booking-URL · express-lane auf /kontakt.
+   * leer = booking-card zeigt mailto-fallback.
+   * sobald nicolas einen account hat: `https://cal.com/nicolasspies/30min`
+   */
+  calcomUrl: "",
 } as const;
 
 export type Contact = typeof CONTACT;

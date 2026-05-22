@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { referenzen, type Referenz } from "@/data/referenzen";
 import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";

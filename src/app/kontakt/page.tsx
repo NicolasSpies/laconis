@@ -3,6 +3,7 @@ import { GreySection } from "@/components/shared/GreySection";
 import { TiltCard } from "@/components/shared/TiltCard";
 import { Marquee } from "@/components/shared/Marquee";
 import { KontaktMultistep } from "@/components/kontakt/KontaktMultistep";
+import { BookingExpress } from "@/components/kontakt/BookingExpress";
 import { CONTACT } from "@/config/contact";
 import { getMeta } from "@/lib/seo/getMeta";
 import { getLocale } from "@/i18n/getLocale";
@@ -50,7 +51,7 @@ const DICT: Record<Locale, Dict> = {
     emailNote: "klassisch. antwort innerhalb 24h · meistens deutlich schneller.",
     callLabel: "video-call",
     callValue: "30 min kennenlernen",
-    callNote: "kein buchungs-tool · kurz per mail, dann steht der termin.",
+    callNote: "menschlich · kurz per mail, termin steht in stunden.",
     divider: "oder · das ausführliche formular",
     formLabel: "projekt anfragen",
     formHeadlinePre: "sag mir, ",
@@ -72,7 +73,7 @@ const DICT: Record<Locale, Dict> = {
     emailNote: "classique. réponse sous 24h · souvent bien plus vite.",
     callLabel: "visio",
     callValue: "30 min pour se rencontrer",
-    callNote: "pas d'outil de réservation · un court mail et le rendez-vous est calé.",
+    callNote: "humain · un court mail, créneau calé en quelques heures.",
     divider: "ou · le formulaire détaillé",
     formLabel: "demander un projet",
     formHeadlinePre: "dis-moi, ",
@@ -94,7 +95,7 @@ const DICT: Record<Locale, Dict> = {
     emailNote: "classic. reply within 24h · usually much sooner.",
     callLabel: "video call",
     callValue: "30 min to meet",
-    callNote: "no booking tool · a short mail and the slot's set.",
+    callNote: "human · a quick mail, slot is set in hours.",
     divider: "or · the detailed form",
     formLabel: "request a project",
     formHeadlinePre: "tell me, ",
@@ -183,10 +184,10 @@ export default function Page() {
           </TiltCard>
         </div>
 
-        <p className="mt-14 text-center font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
-          {t.divider}
-        </p>
       </GreySection>
+
+      {/* booking-express · cal.com embed (oder mailto-fallback wenn nicht konfiguriert) */}
+      <BookingExpress />
 
       {/* FORM · grey bg, neutralisiert das alte glass-styling */}
       <section

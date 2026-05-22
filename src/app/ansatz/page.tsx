@@ -5,6 +5,7 @@ import { Marquee } from "@/components/shared/Marquee";
 import { AnsatzToggle } from "@/components/ansatz/AnsatzToggle";
 import { ProcessSteps } from "@/components/ansatz/ProcessSteps";
 import { ChatThread } from "@/components/ansatz/ChatThread";
+import { BrandValues } from "@/components/ansatz/BrandValues";
 import { WebManifest } from "@/components/leistungen/web/WebManifest";
 import { Manifest } from "@/components/leistungen/branding/Manifest";
 import { HowToSchema } from "@/components/seo/HowToSchema";
@@ -139,6 +140,9 @@ export default function Page() {
       <GreySection tone="grey">
         <ChatThread num="02" />
       </GreySection>
+
+      {/* BRAND-VALUES · 4-wort-anker (tief · klar · ruhig · dein.) */}
+      <BrandValues num="03" />
 
       {/* PROCESS STEPS · scroll-triggered numbers + sticky sidebar */}
       <GreySection tone="grey" tint="lime">

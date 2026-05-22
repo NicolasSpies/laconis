@@ -8,6 +8,7 @@ import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { CaseStudySchema } from "@/components/seo/CaseStudySchema";
 import { EvolutionSlider } from "@/components/referenzen/EvolutionSlider";
 import { ReadingProgress } from "@/components/referenzen/ReadingProgress";
+import { CaseClaim } from "@/components/referenzen/CaseClaim";
 import { referenzen } from "@/data/referenzen";
 import { getLocale } from "@/i18n/getLocale";
 import { buildPath, type Locale } from "@/i18n/config";
@@ -233,6 +234,9 @@ export default function Page({ params }: Props) {
           </Link>
         </div>
       </section>
+
+      {/* literarischer anchor-claim · 1-zeiler über dem steckbrief */}
+      <CaseClaim slug={r.slug} locale={locale} />
 
       <section className="pb-16">
         <div className="container-site">

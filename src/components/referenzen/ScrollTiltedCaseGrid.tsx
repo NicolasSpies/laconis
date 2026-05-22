@@ -13,6 +13,7 @@ import { useMemo, useRef } from "react";
 import { referenzen, type Referenz } from "@/data/referenzen";
 import { buildPath, type Locale } from "@/i18n/config";
 import { useLocale, pick } from "@/i18n/useLocale";
+import { cn } from "@/lib/cn";
 
 /**
  * ScrollTiltedCaseGrid · editorial scroll-driven case grid für /referenzen.
@@ -37,12 +38,13 @@ type Side = "L" | "R";
 type Dict = {
   caseLabel: string;
   cta: string;
+  numberPrefix: string;
 };
 
 const DICT: Record<Locale, Dict> = {
-  de: { caseLabel: "case", cta: "case lesen →" },
-  fr: { caseLabel: "case", cta: "voir le case →" },
-  en: { caseLabel: "case", cta: "see case →" },
+  de: { caseLabel: "case", cta: "case lesen →", numberPrefix: "nr." },
+  fr: { caseLabel: "case", cta: "voir le case →", numberPrefix: "n°" },
+  en: { caseLabel: "case", cta: "see case →", numberPrefix: "no." },
 };
 
 type CaseTileProps = {
@@ -50,9 +52,11 @@ type CaseTileProps = {
   side: Side;
   locale: Locale;
   dict: Dict;
+  /** 1-based index for editorial numbering · 01, 02, … */
+  num: number;
 };
 
-function CaseTile({ case: c, side, locale, dict }: CaseTileProps) {
+function CaseTile({ case: c, side, locale, dict, num }: CaseTileProps) {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
 
@@ -94,14 +98,40 @@ function CaseTile({ case: c, side, locale, dict }: CaseTileProps) {
   const captionOpacity = useTransform(p, [0.35, 0.5, 0.65], [0, 1, 0]);
   const captionY = useTransform(p, [0.35, 0.5, 0.65], [20, 0, -20]);
 
+  // editorial number · subtle scroll-driven y-offset, opposite direction zum tile
+  const numY = useTransform(p, [0, 1], [-18, 18]);
+  const numOpacity = useTransform(p, [0, 0.3, 0.7, 1], [0.25, 1, 1, 0.25]);
+
   const filter = useMotionTemplate`blur(${blur}px) brightness(${bright})`;
 
   const href = `${buildPath("referenzen", locale)}/${c.slug}`;
   const cover = c.heroImage;
 
+  /* editorial number-label · "no. 01" prefix + big numeral.
+     ist in beiden render-pfaden (reduce + animated) sichtbar. */
+  const numberLabel = (
+    <div
+      className={cn(
+        "mb-3 flex items-baseline gap-2 select-none",
+        side === "R" && "md:justify-end md:text-right",
+      )}
+    >
+      <span className="font-mono text-[10px] uppercase tracking-label text-current opacity-45">
+        {dict.numberPrefix}
+      </span>
+      <span
+        className="font-sans font-black tabular-nums text-current leading-none tracking-[-0.04em]"
+        style={{ fontSize: "clamp(28px, 4vw, 44px)", fontVariantNumeric: "tabular-nums" }}
+      >
+        {String(num).padStart(2, "0")}
+      </span>
+    </div>
+  );
+
   if (reduce || !cover) {
     return (
       <figure ref={ref} className="relative z-10 m-0">
+        {numberLabel}
         <Link
           href={href}
           className="block relative w-full overflow-hidden rounded-md aspect-[3/4] no-underline"
@@ -141,6 +171,25 @@ function CaseTile({ case: c, side, locale, dict }: CaseTileProps) {
       className="relative z-10 m-0"
       style={{ perspective: 900, willChange: "transform" }}
     >
+      {/* editorial number · subtle parallax (opposite direction zum tile) */}
+      <motion.div
+        className={cn(
+          "mb-3 flex items-baseline gap-2 select-none",
+          side === "R" && "md:justify-end md:text-right",
+        )}
+        style={{ y: numY, opacity: numOpacity }}
+      >
+        <span className="font-mono text-[10px] uppercase tracking-label opacity-45">
+          {dict.numberPrefix}
+        </span>
+        <span
+          className="font-sans font-black tabular-nums leading-none tracking-[-0.04em]"
+          style={{ fontSize: "clamp(28px, 4vw, 44px)", fontVariantNumeric: "tabular-nums" }}
+        >
+          {String(num).padStart(2, "0")}
+        </span>
+      </motion.div>
+
       <Link href={href} className="block no-underline">
         <motion.div
           className="relative w-full overflow-hidden rounded-md aspect-[3/4] will-change-[filter,transform] group"
@@ -209,6 +258,7 @@ export function ScrollTiltedCaseGrid() {
             side={i % 2 === 0 ? "L" : "R"}
             locale={locale}
             dict={dict}
+            num={i + 1}
           />
         ))}
       </div>
