@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { Button } from "@/components/ui/Button";
+import { PageHero } from "@/components/shared/PageHero";
 import { GrundrauschHero } from "@/components/leistungen/web/GrundrauschHero";
 import { WebApproaches } from "@/components/leistungen/web/WebApproaches";
 import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
 import { WebDeliverables } from "@/components/leistungen/web/WebDeliverables";
 import { WebVsAlternatives } from "@/components/leistungen/web/WebVsAlternatives";
-import { FabryCase } from "@/components/leistungen/web/FabryCase";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
 import { FAQSchema } from "@/components/seo/FAQSchema";
@@ -31,7 +30,6 @@ type Dict = {
   stat2Value: string;
   stat3Label: string;
   breakHow: string;
-  breakCase: string;
   techLinkLabel: string;
   techLinkBody: string;
   ansatzLinkLabel: string;
@@ -59,7 +57,6 @@ const DICT: Record<Locale, Dict> = {
     stat2Value: "selbst",
     stat3Label: "launch",
     breakHow: "so läuft's ab ↓",
-    breakCase: "ein echter kunde dazu ↓",
     techLinkLabel: "für die techniker",
     techLinkBody: "hosting, cms-architektur, contentcore vs wordpress.",
     ansatzLinkLabel: "wie ich arbeite",
@@ -96,7 +93,6 @@ const DICT: Record<Locale, Dict> = {
     stat2Value: "toi-même",
     stat3Label: "lancement",
     breakHow: "comment ça se passe ↓",
-    breakCase: "un vrai client en plus ↓",
     techLinkLabel: "pour les tech",
     techLinkBody: "hébergement, architecture cms, contentcore vs wordpress.",
     ansatzLinkLabel: "comment je travaille",
@@ -133,7 +129,6 @@ const DICT: Record<Locale, Dict> = {
     stat2Value: "yourself",
     stat3Label: "launch",
     breakHow: "how it works ↓",
-    breakCase: "a real client too ↓",
     techLinkLabel: "for the technical folks",
     techLinkBody: "hosting, cms architecture, contentcore vs wordpress.",
     ansatzLinkLabel: "how i work",
@@ -174,93 +169,62 @@ export default function Page() {
       <BreadcrumbSchema
         items={[
           { name: "home", url: `${BASE}/` },
-          { name: "leistungen", url: `${BASE}${buildPath("leistungen", locale)}` },
           { name: "web", url: `${BASE}${buildPath("leistungen/web", locale)}` },
         ]}
       />
       <ServiceSchema services={t.services} />
       <FAQSchema items={t.faq.map((f) => ({ q: f.frage, a: f.antwort }))} />
 
-      {/* HERO */}
-      <section className="pt-32 md:pt-36 pb-16 md:pb-20">
-        <div className="container-site">
-          <SectionLabel num="01">{t.sectionLabel}</SectionLabel>
-
-          <div className="mt-10 grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-14 items-center">
-            <div className="max-w-[620px]">
-              <h1 className="heading-display text-[clamp(2.25rem,6vw,4.5rem)] text-offwhite leading-[0.98]">
-                {t.heroH1pre}
-                <span className="text-offwhite/35">{t.heroH1mid}</span>
-                {t.heroH1post}
-              </h1>
-              <p className="mt-7 max-w-[520px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-                {t.heroBody}
-              </p>
-
-              <dl className="mt-10 grid grid-cols-3 gap-4 max-w-[520px]">
-                <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">{t.stat1Label}</dt>
-                  <dd className="heading-display text-lime text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">95+</dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">{t.stat2Label}</dt>
-                  <dd className="heading-display text-offwhite text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">{t.stat2Value}</dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">{t.stat3Label}</dt>
-                  <dd className="heading-display text-offwhite text-[clamp(1.5rem,3vw,2.25rem)] leading-none mt-1">2–8w</dd>
-                </div>
-              </dl>
-            </div>
-
-            <div className="relative">
-              <GrundrauschHero />
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* HERO · grey im stil home */}
+      <PageHero
+        kicker={`· ${t.sectionLabel}`}
+        line1={t.heroH1pre.replace(/\s+$/, "")}
+        line2={
+          <>
+            <span style={{ fontFamily: "var(--font-caveat), cursive", fontWeight: 400 }}>
+              {t.heroH1mid}
+            </span>
+            {t.heroH1post}
+          </>
+        }
+        sub={t.heroBody}
+        visual={<GrundrauschHero />}
+      />
 
       <ScribbleBreak text={t.breakHow} rotate={-1} />
 
       <WebApproaches num="02" />
       <WebDeliverables num="03" />
 
-      <ScribbleBreak text={t.breakCase} rotate={0.8} flip />
-
-      <FabryCase num="04" />
       <WebVsAlternatives num="05" />
 
-      {/* VERTIEFUNGS-LINKS */}
+      {/* VERTIEFUNGS-LINKS · clean text-links statt glass cards */}
       <section className="pb-20">
         <div className="container-site">
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-[1100px] border-t-2 border-[#0a0a0a]/15">
             <Link
               href={buildPath("leistungen/web/technik", locale)}
-              className="group glass tactile-sm rounded-xl px-6 py-5 hover:border-lime/25 flex items-start justify-between gap-4"
+              className="group block py-8 border-b-2 border-[#0a0a0a]/15 md:border-b-0 md:border-r-2"
             >
-              <div>
-                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-                  {t.techLinkLabel}
-                </span>
-                <p className="mt-1.5 text-[14px] text-offwhite/75 group-hover:text-offwhite transition-colors">
-                  {t.techLinkBody}
-                </p>
-              </div>
-              <span className="font-mono text-[11px] uppercase tracking-label text-accent-ink shrink-0 self-center">→</span>
+              <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+                {t.techLinkLabel}
+              </span>
+              <p className="mt-2 text-[18px] md:text-[20px] text-[#0a0a0a] font-medium tracking-[-0.01em] group-hover:text-[#0a0a0a] transition-colors flex items-center gap-2">
+                {t.techLinkBody}
+                <span className="font-mono text-[14px] text-[#0a0a0a]/45 group-hover:text-[#0a0a0a] group-hover:translate-x-1 transition-all">→</span>
+              </p>
             </Link>
             <Link
               href={buildPath("ansatz", locale)}
-              className="group glass tactile-sm rounded-xl px-6 py-5 hover:border-lime/25 flex items-start justify-between gap-4"
+              className="group block py-8"
             >
-              <div>
-                <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-                  {t.ansatzLinkLabel}
-                </span>
-                <p className="mt-1.5 text-[14px] text-offwhite/75 group-hover:text-offwhite transition-colors">
-                  {t.ansatzLinkBody}
-                </p>
-              </div>
-              <span className="font-mono text-[11px] uppercase tracking-label text-accent-ink shrink-0 self-center">→</span>
+              <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+                {t.ansatzLinkLabel}
+              </span>
+              <p className="mt-2 text-[18px] md:text-[20px] text-[#0a0a0a] font-medium tracking-[-0.01em] group-hover:text-[#0a0a0a] transition-colors flex items-center gap-2">
+                {t.ansatzLinkBody}
+                <span className="font-mono text-[14px] text-[#0a0a0a]/45 group-hover:text-[#0a0a0a] group-hover:translate-x-1 transition-all">→</span>
+              </p>
             </Link>
           </div>
         </div>
@@ -277,7 +241,7 @@ export default function Page() {
               {t.faqH2}
             </h2>
           </div>
-          <div className="mt-12 divide-y divide-ink/10 border-y border-ink/10 max-w-[820px]">
+          <div className="mt-12 divide-y divide-ink/10 border-y border-ink/20 max-w-[820px]">
             {t.faq.map((q) => (
               <details key={q.frage} className="group py-6 cursor-pointer">
                 <summary className="flex items-center justify-between gap-4 list-none">
@@ -295,24 +259,31 @@ export default function Page() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section id="kontakt" className="pb-36 pt-8">
-        <div className="container-site">
-          <div className="liquid-glass rounded-2xl p-10 md:p-16 text-center">
-            <h2 className="heading-display text-[clamp(1.75rem,4.5vw,3rem)] text-offwhite max-w-[680px] mx-auto">
-              {t.ctaH2}
-            </h2>
-            <p className="mt-5 max-w-[520px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
-              {t.ctaBody}
-            </p>
-            <div className="mt-8 flex justify-center gap-3 flex-wrap">
-              <Button href={buildPath("kontakt", locale)} variant="primary" size="lg" analyticsLabel="leistungen_web_kontakt">
-                {t.ctaPrimary}
-              </Button>
-              <Button href={buildPath("preise", locale)} variant="glass" size="lg" analyticsLabel="leistungen_web_preise">
-                {t.ctaSecondary}
-              </Button>
-            </div>
+      {/* CTA · transparent · blobs durch · lila accent statt lime fläche */}
+      <section
+        id="kontakt"
+        className="relative py-24 md:py-32 overflow-hidden text-[#0a0a0a]"
+      >
+        <div className="container-site relative text-center">
+          <h2 className="text-[clamp(2rem,5vw,3.5rem)] leading-[1] font-black tracking-[-0.04em] text-[#0a0a0a] lowercase max-w-[680px] mx-auto">
+            {t.ctaH2}
+          </h2>
+          <p className="mt-6 max-w-[520px] mx-auto text-[14px] md:text-[15px] leading-relaxed text-[#0a0a0a]/80">
+            {t.ctaBody}
+          </p>
+          <div className="mt-10 flex justify-center gap-3 flex-wrap">
+            <Link
+              href={buildPath("kontakt", locale)}
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#0a0a0a] text-[#e1fd52] hover:bg-[#1a1a1a] transition-colors"
+            >
+              {t.ctaPrimary}
+            </Link>
+            <Link
+              href={buildPath("preise", locale)}
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#b084d3] text-[#0a0a0a] hover:bg-[#b084d3] hover:text-[#0a0a0a] transition-colors"
+            >
+              {t.ctaSecondary}
+            </Link>
           </div>
         </div>
       </section>

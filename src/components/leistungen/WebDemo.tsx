@@ -50,7 +50,7 @@ export function WebDemo() {
         hover="group-hover:translate-x-10 group-hover:-translate-y-5 group-hover:rotate-[16deg]"
         base="rotate-[6deg]"
       >
-        <div className="inline-flex items-center gap-1.5 px-2 md:px-2.5 py-1 md:py-1.5 rounded-full border border-ink/10 bg-ink/25 shadow-[0_8px_20px_-8px_rgba(0,0,0,0.5)]">
+        <div className="inline-flex items-center gap-1.5 px-2 md:px-2.5 py-1 md:py-1.5 rounded-full border border-ink/20 bg-ink/25 shadow-[0_8px_20px_-8px_rgba(0,0,0,0.5)]">
           <span className="w-1.5 h-1.5 rounded-full bg-lime" />
           <span className="font-mono text-[7px] md:text-[9px] text-offwhite/75">
             deine-marke.be

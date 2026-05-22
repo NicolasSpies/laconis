@@ -128,7 +128,7 @@ function BrandSimulatorInner() {
                 value={name}
                 onChange={(e) => setName(e.target.value.slice(0, 24))}
                 placeholder="PointVirgule, lacønis…"
-                className="w-full h-10 bg-ink/[0.04] border border-ink/10 rounded-lg px-3 text-offwhite placeholder:text-offwhite/55 font-sans text-[14px] focus:outline-none focus:border-lime/50 focus:bg-ink/[0.08] transition-colors"
+                className="w-full h-10 bg-ink/[0.04] border border-ink/20 rounded-lg px-3 text-offwhite placeholder:text-offwhite/55 font-sans text-[14px] focus:outline-none focus:border-lime/50 focus:bg-ink/[0.08] transition-colors"
                 maxLength={24}
                 autoComplete="off"
                 spellCheck="false"
@@ -140,7 +140,7 @@ function BrandSimulatorInner() {
               <label className="block font-mono text-[9.5px] uppercase tracking-label text-offwhite/55 mb-1.5">
                 modus
               </label>
-              <div className="inline-flex h-10 items-center rounded-full border border-ink/10 bg-ink/[0.04] p-1">
+              <div className="inline-flex h-10 items-center rounded-full border border-ink/20 bg-ink/[0.04] p-1">
                 <button
                   onClick={() => setColorMode("one")}
                   className={[
@@ -180,7 +180,7 @@ function BrandSimulatorInner() {
                 id="sim-mood"
                 value={moodId}
                 onChange={(e) => setMoodId(e.target.value)}
-                className="w-full h-10 bg-ink/[0.04] border border-ink/10 rounded-lg px-3 text-offwhite font-mono text-[11px] uppercase tracking-mono focus:outline-none focus:border-lime/50 transition-colors cursor-pointer"
+                className="w-full h-10 bg-ink/[0.04] border border-ink/20 rounded-lg px-3 text-offwhite font-mono text-[11px] uppercase tracking-mono focus:outline-none focus:border-lime/50 transition-colors cursor-pointer"
               >
                 {THEMES.map((t) => (
                   <option key={t.id} value={t.id} className="bg-dark">
@@ -349,7 +349,7 @@ function ColorPickerCompact({
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="inline-flex items-center gap-2 h-10 pl-1 pr-3 rounded-full border border-ink/10 bg-ink/[0.04] hover:bg-ink/[0.08] transition-colors"
+        className="inline-flex items-center gap-2 h-10 pl-1 pr-3 rounded-full border border-ink/20 bg-ink/[0.04] hover:bg-ink/[0.08] transition-colors"
         aria-expanded={open}
         aria-haspopup="true"
       >
@@ -979,7 +979,7 @@ function BrandGuideRow({
           {palette.map((c, i) => (
             <div key={i} className="flex items-center gap-3">
               <div
-                className="w-7 h-7 rounded shrink-0 border border-ink/10"
+                className="w-7 h-7 rounded shrink-0 border border-ink/20"
                 style={{ background: c.hex }}
               />
               <span className="font-mono text-[10px] text-offwhite/55 tabular-nums flex-1 truncate">
@@ -1056,7 +1056,7 @@ function BrandGuideRow({
           {mood.keywords.slice(0, 4).map((k) => (
             <span
               key={k}
-              className="font-mono text-[9px] uppercase tracking-mono px-2 py-1 rounded-full border border-ink/10 text-offwhite/55"
+              className="font-mono text-[9px] uppercase tracking-mono px-2 py-1 rounded-full border border-ink/20 text-offwhite/55"
             >
               {k}
             </span>
@@ -1074,7 +1074,7 @@ function BrandGuideRow({
             <div
               key={i}
               className={[
-                "rounded overflow-hidden border border-ink/10",
+                "rounded overflow-hidden border border-ink/20",
                 i === 0 ? "col-span-2 aspect-[2/1]" : "aspect-square",
               ].join(" ")}
               style={{ background: t.style }}
@@ -1218,7 +1218,6 @@ function StationeryRow({
               className="text-[11px]"
               style={{
                 fontFamily: bodyFont,
-                fontStyle: "italic",
                 opacity: 0.85,
               }}
             >
@@ -1374,7 +1373,7 @@ function SocialRow({
   return (
     <div className="p-5 md:p-6">
       {/* Profile header (instagram-style) */}
-      <div className="flex items-center justify-between mb-5 pb-5 border-b border-ink/10">
+      <div className="flex items-center justify-between mb-5 pb-5 border-b border-ink/20">
         <div className="flex items-center gap-3">
           {/* Avatar mit separator-ring + optionalem secondary-ring */}
           <div

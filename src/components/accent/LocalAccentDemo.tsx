@@ -27,7 +27,7 @@ export function LocalAccentDemo() {
       className="grid md:grid-cols-[1fr_auto] gap-10 items-stretch"
     >
       {/* Preview */}
-      <div className="relative rounded-xl border border-ink/10 bg-[#0a0a0a] overflow-hidden">
+      <div className="relative rounded-xl border border-ink/20 bg-[#0a0a0a] overflow-hidden">
         {/* subtle grid */}
         <div
           aria-hidden
@@ -72,7 +72,7 @@ export function LocalAccentDemo() {
             {/* ghost button */}
             <button
               type="button"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-[13px] font-medium text-offwhite/75 border border-ink/10 hover:border-ink/25 transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-[13px] font-medium text-offwhite/75 border border-ink/20 hover:border-ink/25 transition-colors"
             >
               Mehr ansehen
             </button>

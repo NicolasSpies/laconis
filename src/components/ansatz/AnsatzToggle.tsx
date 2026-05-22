@@ -84,7 +84,7 @@ export function AnsatzToggle({
             <div
               role="tablist"
               aria-label={t.tabsLabel}
-              className="inline-flex items-center gap-1 p-1 rounded-full border border-ink/10 bg-ink/[0.04]"
+              className="inline-flex items-center gap-1 p-1 rounded-full border border-ink/20 bg-ink/[0.04]"
             >
               <button
                 type="button"
@@ -119,8 +119,8 @@ export function AnsatzToggle({
         </div>
       </section>
 
-      <div className={cn(mode === "web" ? "block" : "hidden")}>{web}</div>
-      <div className={cn(mode === "branding" ? "block" : "hidden")}>
+      <div style={{ display: mode === "web" ? "block" : "none" }}>{web}</div>
+      <div style={{ display: mode === "branding" ? "block" : "none" }}>
         {branding}
       </div>
     </>

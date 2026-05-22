@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { DM_Sans, DM_Mono, Caveat, Instrument_Serif } from "next/font/google";
+import { DM_Sans, DM_Mono, Caveat } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { CursorSpotlight } from "@/components/CursorSpotlight";
 import { CursorDot } from "@/components/CursorDot";
+import { DriftingBlobs } from "@/components/DriftingBlobs";
 import { PageTransition } from "@/components/PageTransition";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { Tracker } from "@/components/analytics/Tracker";
@@ -32,14 +32,6 @@ const caveat = Caveat({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-caveat",
-  display: "swap",
-});
-
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: ["400"],
-  style: ["normal", "italic"],
-  variable: "--font-instrument",
   display: "swap",
 });
 
@@ -89,10 +81,9 @@ export const metadata: Metadata = {
   },
 };
 
-/* Inline — runs before React hydrates. Prevents flash of wrong theme.
-   default = light · dark nur wenn user explicit via localStorage ODER os-level
-   prefers-color-scheme: dark gesetzt hat · sonst immer light. */
-const themeInitScript = `(function(){try{var s=localStorage.getItem('laconis-theme');var pd=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);var t=s||(pd?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();`;
+/* sprint-5-rework: theme-toggle entfernt · site ist jetzt light-first.
+   einzelne sections können sich via `<div data-theme="dark">` als
+   dark-island überschreiben. kein localStorage, kein system-pref-listen. */
 
 export default function RootLayout({
   children,
@@ -110,11 +101,9 @@ export default function RootLayout({
       lang={htmlLang}
       data-theme="light"
       suppressHydrationWarning
-      className={`${dmSans.variable} ${dmMono.variable} ${caveat.variable} ${instrumentSerif.variable}`}
+      className={`${dmSans.variable} ${dmMono.variable} ${caveat.variable}`}
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-      </head>
+      <head />
       <body>
         <div
           aria-hidden
@@ -129,7 +118,7 @@ export default function RootLayout({
               "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 15%, black 40%)",
           }}
         />
-        <CursorSpotlight />
+        <DriftingBlobs />
         <CursorDot />
         <Nav />
         <StructuredData />

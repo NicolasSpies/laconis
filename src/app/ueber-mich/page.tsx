@@ -1,8 +1,10 @@
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import Link from "next/link";
+import { PageHero } from "@/components/shared/PageHero";
+import { GreySection } from "@/components/shared/GreySection";
+import { TiltCard } from "@/components/shared/TiltCard";
+import { Marquee } from "@/components/shared/Marquee";
+import { Werdegang } from "@/components/ueber-mich/Werdegang";
 import { Button } from "@/components/ui/Button";
-import { DeskScene } from "@/components/ueber-mich/DeskScene";
-import { Werkstatt } from "@/components/home/Werkstatt";
-import { StaerkenSection } from "@/components/ueber-mich/StaerkenSection";
 import { getMeta } from "@/lib/seo/getMeta";
 import { getLocale } from "@/i18n/getLocale";
 import { buildPath, type Locale } from "@/i18n/config";
@@ -26,16 +28,17 @@ const TOOLS = [
 type WerdegangItem = { jahr: string; titel: string; kurz: string };
 
 type Dict = {
-  sectionLabel: string;
-  heroH1pre: string;
-  heroH1accent: string;
-  heroH1post: string;
+  kicker: string;
+  heroL1: string;
+  heroL2: string;
+  heroItalic: string;
   bio: string;
   ps: string;
   tags: string[];
   ctaHero: string;
-  breakWoher: string;
-  breakWerkzeug: string;
+  quote: string;
+  quoteFrom: string;
+  marqueeBits: string[];
   werdegangLabel: string;
   werdegangH2: string;
   werdegang: WerdegangItem[];
@@ -50,86 +53,89 @@ type Dict = {
 
 const DICT: Record<Locale, Dict> = {
   de: {
-    sectionLabel: "über mich",
-    heroH1pre: "hinter laconis steckt ",
-    heroH1accent: "nur ich.",
-    heroH1post: " und ich nehme das persönlich.",
-    bio: "Nicolas Spies, 29. Designer und Web-Developer seit 2019 · seit 2026 vollzeit als lacønis. Ich bau Marken und Websites, die sich nach den Leuten anfühlen, die dahinterstehen.",
+    kicker: "· über mich",
+    heroL1: "ein mensch.",
+    heroL2: "kein team.",
+    heroItalic: "persönlich.",
+    bio: "Nicolas Spies, 29. designer und web-developer seit 2019 · seit 2026 vollzeit als laconis. ich bau marken und websites, die sich nach den leuten anfühlen, die dahinterstehen.",
     ps: "p.s. lakonisch · knapp gesagt, viel gemeint. daher der name.",
     tags: ["designer", "web-developer", "DE · FR · EN", "remote · überall"],
     ctaHero: "sag hallo →",
-    breakWoher: "und wo ich herkomme ↓",
-    breakWerkzeug: "was ich dabei nutze ↓",
+    quote: "die besten brands kommen nicht von agenturen mit 40 leuten. sie kommen von einer person, die zuhört.",
+    quoteFrom: "— meine arbeitsthese",
+    marqueeBits: ["·", "ein mensch", "·", "kein team", "·", "ø < 2h antwort", "·", "solo studio", "·", "eupen", "·"],
     werdegangLabel: "werdegang",
     werdegangH2: "in kürze · keine drei-seiten-bio.",
     werdegang: [
       { jahr: "2019", titel: "erste website", kurz: "Für einen Freund eine WordPress-Seite gebastelt. Haken tief drinnen." },
       { jahr: "2021", titel: "nebenberuflich selbständig", kurz: "Erste echte Kunden. Die ersten „ich mach das für lau\"-Fehler." },
       { jahr: "2023", titel: "umzug auf next.js", kurz: "WordPress weg. Alles selbst gebaut. Nie mehr Plugin-Hölle." },
-      { jahr: "2025", titel: "laconis als marke", kurz: "Aus „Nicolas macht Websites\" wird „lacønis\". Name, Handschrift, Haltung." },
-      { jahr: "2026", titel: "vollzeit", kurz: "Endlich. Nur noch lacønis. Volle Konzentration." },
+      { jahr: "2025", titel: "laconis als marke", kurz: "Aus „Nicolas macht Websites\" wird „laconis\". Name, Handschrift, Haltung." },
+      { jahr: "2026", titel: "vollzeit", kurz: "Endlich. Nur noch laconis. Volle Konzentration." },
     ],
     toolsLabel: "werkzeug",
     toolsH2: "tools sind mittel, nicht sinn.",
-    toolsBody: "Aber weil mich's jeder fragt · hier die aktuelle Palette. Wird sich in 2 Jahren wieder geändert haben.",
+    toolsBody: "aber weil mich's jeder fragt · hier die aktuelle palette. wird sich in 2 jahren wieder geändert haben.",
     finalH2: "soweit in kurz. lust auf ein gespräch?",
-    finalBody: "Mehr über mich als über lacønis? Auch okay. Ich mag Kaffee und ehrliche Gespräche.",
+    finalBody: "mehr über mich als über laconis? auch okay. ich mag kaffee und ehrliche gespräche.",
     finalPrimary: "kontakt aufnehmen →",
     finalSecondary: "meine arbeiten",
   },
   fr: {
-    sectionLabel: "à propos",
-    heroH1pre: "derrière laconis il n'y a ",
-    heroH1accent: "que moi.",
-    heroH1post: " et je le prends personnellement.",
-    bio: "Nicolas Spies, 29 ans. Designer et développeur web depuis 2019 · à plein temps sous lacønis depuis 2026. Je construis des marques et des sites qui ressemblent aux gens qui sont derrière.",
+    kicker: "· à propos",
+    heroL1: "un humain.",
+    heroL2: "pas une équipe.",
+    heroItalic: "personnellement.",
+    bio: "Nicolas Spies, 29 ans. designer et développeur web depuis 2019 · à plein temps sous laconis depuis 2026. je construis des marques et des sites qui ressemblent aux gens qui sont derrière.",
     ps: "p.s. laconique · peu de mots, beaucoup de sens. d'où le nom.",
     tags: ["designer", "développeur web", "DE · FR · EN", "remote · partout"],
     ctaHero: "dis bonjour →",
-    breakWoher: "et d'où je viens ↓",
-    breakWerkzeug: "et avec quoi je travaille ↓",
+    quote: "les meilleures marques ne viennent pas d'agences à 40 personnes. elles viennent d'une personne qui écoute.",
+    quoteFrom: "— ma thèse de travail",
+    marqueeBits: ["·", "un humain", "·", "pas d'équipe", "·", "ø < 2h réponse", "·", "solo studio", "·", "eupen", "·"],
     werdegangLabel: "parcours",
     werdegangH2: "en bref · pas une bio de trois pages.",
     werdegang: [
       { jahr: "2019", titel: "premier site web", kurz: "Bricolé un site WordPress pour un ami. L'hameçon est resté planté." },
       { jahr: "2021", titel: "indépendant à côté", kurz: "Premiers vrais clients. Les premières erreurs « je le fais gratuit »." },
       { jahr: "2023", titel: "passage à next.js", kurz: "WordPress hors-jeu. Tout construit à la main. Fini l'enfer des plugins." },
-      { jahr: "2025", titel: "laconis comme marque", kurz: "« Nicolas fait des sites » devient « lacønis ». Nom, écriture, posture." },
-      { jahr: "2026", titel: "temps plein", kurz: "Enfin. Plus que lacønis. Concentration totale." },
+      { jahr: "2025", titel: "laconis comme marque", kurz: "« Nicolas fait des sites » devient « laconis ». Nom, écriture, posture." },
+      { jahr: "2026", titel: "temps plein", kurz: "Enfin. Plus que laconis. Concentration totale." },
     ],
     toolsLabel: "outils",
     toolsH2: "les outils sont des moyens, pas le but.",
-    toolsBody: "Mais comme tout le monde me le demande · voici la palette actuelle. Aura changé d'ici 2 ans.",
+    toolsBody: "mais comme tout le monde me le demande · voici la palette actuelle. aura changé d'ici 2 ans.",
     finalH2: "voilà pour le rapide. envie d'échanger ?",
-    finalBody: "Plus sur moi que sur lacønis ? Pas de souci. J'aime le café et les discussions franches.",
+    finalBody: "plus sur moi que sur laconis ? pas de souci. j'aime le café et les discussions franches.",
     finalPrimary: "prendre contact →",
     finalSecondary: "mes travaux",
   },
   en: {
-    sectionLabel: "about",
-    heroH1pre: "behind laconis it's ",
-    heroH1accent: "just me.",
-    heroH1post: " and i take that personally.",
-    bio: "Nicolas Spies, 29. Designer and web developer since 2019 · full-time as lacønis since 2026. I build brands and websites that feel like the people behind them.",
+    kicker: "· about",
+    heroL1: "one person.",
+    heroL2: "not a team.",
+    heroItalic: "personally.",
+    bio: "Nicolas Spies, 29. designer and web developer since 2019 · full-time as laconis since 2026. i build brands and websites that feel like the people behind them.",
     ps: "p.s. laconic · few words, much meaning. hence the name.",
     tags: ["designer", "web developer", "DE · FR · EN", "remote · everywhere"],
     ctaHero: "say hi →",
-    breakWoher: "and where i come from ↓",
-    breakWerkzeug: "and what i use ↓",
+    quote: "the best brands don't come from 40-person agencies. they come from one person who listens.",
+    quoteFrom: "— my working thesis",
+    marqueeBits: ["·", "one human", "·", "no team", "·", "ø < 2h reply", "·", "solo studio", "·", "eupen", "·"],
     werdegangLabel: "path",
     werdegangH2: "in short · not a three-page bio.",
     werdegang: [
       { jahr: "2019", titel: "first website", kurz: "Built a WordPress site for a friend. Hook deeply set." },
       { jahr: "2021", titel: "freelance on the side", kurz: "First real clients. First \"i'll do it for free\" mistakes." },
       { jahr: "2023", titel: "moved to next.js", kurz: "WordPress gone. Built everything myself. No more plugin hell." },
-      { jahr: "2025", titel: "laconis as a brand", kurz: "\"Nicolas makes websites\" became \"lacønis\". Name, handwriting, posture." },
-      { jahr: "2026", titel: "full-time", kurz: "Finally. Just lacønis. Full focus." },
+      { jahr: "2025", titel: "laconis as a brand", kurz: "\"Nicolas makes websites\" became \"laconis\". Name, handwriting, posture." },
+      { jahr: "2026", titel: "full-time", kurz: "Finally. Just laconis. Full focus." },
     ],
     toolsLabel: "tools",
     toolsH2: "tools are means, not the point.",
-    toolsBody: "But since everyone asks · here's the current palette. Will have shifted again in 2 years.",
+    toolsBody: "but since everyone asks · here's the current palette. will have shifted again in 2 years.",
     finalH2: "that's it in short. up for a talk?",
-    finalBody: "More about me than about lacønis? Also fine. I like coffee and honest conversations.",
+    finalBody: "more about me than about laconis? also fine. i like coffee and honest conversations.",
     finalPrimary: "get in touch →",
     finalSecondary: "my work",
   },
@@ -141,208 +147,177 @@ export default function Page() {
 
   return (
     <>
-      {/* HERO */}
-      <section className="pt-36 pb-24 relative overflow-hidden">
-        <div className="container-site">
-          <SectionLabel num="06">{t.sectionLabel}</SectionLabel>
-
-          <div className="mt-8 grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-12 items-center">
-            <div>
-              <h1 className="heading-display text-[clamp(2.25rem,6vw,4.75rem)] text-offwhite leading-[1.05]">
-                {t.heroH1pre}
-                <span className="text-accent-ink">{t.heroH1accent}</span>
-                <span className="text-offwhite/35">{t.heroH1post}</span>
-              </h1>
-
-              <p className="mt-8 max-w-[520px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-                {t.bio}
-              </p>
-
-              <p
-                className="mt-5 max-w-[520px] text-accent-ink"
-                style={{
-                  fontFamily: "var(--font-caveat), cursive",
-                  fontSize: "clamp(1.15rem, 1.6vw, 1.35rem)",
-                  lineHeight: 1.25,
-                  transform: "rotate(-1deg)",
-                  transformOrigin: "left center",
-                }}
-              >
-                {t.ps}
-              </p>
-
-              <div className="mt-6 flex flex-wrap gap-2">
-                {t.tags.map((tag) => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))}
-              </div>
-
-              <div className="mt-10">
-                <Button
-                  href={buildPath("kontakt", locale)}
-                  variant="primary"
-                  size="lg"
-                  analyticsLabel="ueber_mich_hero_kontakt"
-                >
-                  {t.ctaHero}
-                </Button>
-              </div>
-            </div>
-
-            {/* right — portrait */}
-            <div className="relative">
-              <div
-                className="portrait-stand relative mx-auto w-[280px] md:w-[320px] aspect-[3/4] rounded-md border border-ink/10 overflow-hidden shadow-[0_40px_100px_-30px_rgba(0,0,0,0.9)]"
-                style={{ transform: "rotate(-2deg)" }}
-              >
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span
-                    className="heading-display text-offwhite/20 text-[140px]"
-                    style={{ letterSpacing: "-0.08em" }}
-                  >
-                    ns
-                  </span>
-                </div>
-                <span className="absolute -top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-lime/50 rounded-[1px] rotate-[-3deg]" />
-                <div className="absolute bottom-3 left-3 right-3 font-mono text-[9px] uppercase tracking-label text-offwhite/55">
-                  nicolas · 2025
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* HERO · grey · big personal headline + portrait card right */}
+      <PageHero
+        kicker={t.kicker}
+        line1={t.heroL1}
+        line2={t.heroL2}
+        italicAccent={t.heroItalic}
+        sub={
+          <>
+            <span>{t.bio}</span>
+            <span
+              className="mt-5 block"
+              style={{
+                fontFamily: "var(--font-caveat), cursive",
+                fontSize: "clamp(1.15rem, 1.6vw, 1.35rem)",
+                lineHeight: 1.25,
+                color: "#0a0a0a",
+                transform: "rotate(-1deg)",
+                transformOrigin: "left center",
+              }}
+            >
+              {t.ps}
+            </span>
+          </>
+        }
+        visual={<PortraitCard />}
+      >
+        <div className="flex flex-wrap gap-2 mb-7">
+          {t.tags.map((tag) => (
+            <span
+              key={tag}
+              className="font-mono text-[10px] uppercase tracking-label px-3 py-1.5 rounded-full border border-[#0a0a0a]/20 bg-[#0a0a0a]/[0.04] text-[#0a0a0a]/75"
+            >
+              {tag}
+            </span>
+          ))}
         </div>
-      </section>
+        <Button
+          href={buildPath("kontakt", locale)}
+          variant="primary"
+          size="lg"
+          analyticsLabel="ueber_mich_hero_kontakt"
+        >
+          {t.ctaHero}
+        </Button>
+      </PageHero>
 
-      <DeskScene />
-      <Werkstatt />
-      <StaerkenSection />
-
-      <div className="container-site py-2">
-        <div className="flex items-center gap-6">
-          <span className="h-px flex-1 bg-ink/10" />
-          <p className="font-hand text-[19px] text-offwhite/30 shrink-0" style={{ transform: "rotate(-1deg)" }}>
-            {t.breakWoher}
+      {/* Big serif quote-block · personal statement */}
+      <GreySection tint="lila">
+        <div className="max-w-[1100px]">
+          <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+            · these
+          </span>
+          <p
+            className="mt-6 text-[clamp(2rem,5.5vw,4.5rem)] leading-[1.05] text-[#0a0a0a]"
+            style={{
+              fontFamily: "var(--font-caveat), cursive",
+              fontWeight: 400,
+              letterSpacing: "-0.015em",
+            }}
+          >
+            „{t.quote}"
           </p>
-          <span className="h-px flex-1 bg-ink/10" />
+          <p className="mt-8 font-mono text-[11px] uppercase tracking-label text-[#0a0a0a]/55">
+            {t.quoteFrom}
+          </p>
         </div>
-      </div>
+      </GreySection>
 
-      {/* WERDEGANG */}
-      <section className="pb-28 pt-8">
-        <div className="container-site">
-          <SectionLabel num="08">{t.werdegangLabel}</SectionLabel>
-          <h2 className="heading-display mt-4 text-[clamp(2rem,5vw,3.5rem)] text-offwhite max-w-[720px]">
-            {t.werdegangH2}
+      <Marquee items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={40} />
+
+      {/* WERDEGANG · scroll-fill timeline · lila fillt sich von oben nach unten */}
+      <GreySection tone="grey">
+        <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+          · {t.werdegangLabel}
+        </p>
+        <h2 className="mt-4 text-[clamp(2rem,5vw,3.75rem)] leading-[1] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase max-w-[720px]">
+          {t.werdegangH2}
+        </h2>
+
+        <div className="mt-14">
+          <Werdegang items={t.werdegang} />
+        </div>
+      </GreySection>
+
+      {/* TOOLS · tilt-card mit chips */}
+      <GreySection tone="grey" tint="lime">
+        <div className="max-w-[820px]">
+          <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+            · {t.toolsLabel}
+          </p>
+          <h2 className="mt-4 text-[clamp(1.75rem,4vw,3rem)] leading-[1] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase">
+            {t.toolsH2}
           </h2>
+          <p className="mt-4 max-w-[580px] text-[14px] leading-relaxed text-[#0a0a0a]/75">
+            {t.toolsBody}
+          </p>
+        </div>
 
-          <div className="mt-14 relative">
-            <div className="absolute left-[56px] top-2 bottom-2 w-px bg-ink/10 hidden md:block" />
-
-            <div className="space-y-8">
-              {t.werdegang.map((w) => (
+        <div className="mt-10">
+          <TiltCard preset="paper" intensity={6}>
+            <div className="p-8 md:p-10 flex flex-wrap gap-2.5">
+              {TOOLS.map((tool) => (
                 <div
-                  key={w.jahr}
-                  className="grid md:grid-cols-[100px_1fr] gap-4 md:gap-8 items-start relative"
+                  key={tool.name}
+                  className="flex items-baseline gap-2 px-3 py-2 rounded-full border border-[#0a0a0a]/15 bg-[#0a0a0a]/[0.03]"
                 >
-                  <div className="relative">
-                    <span className="font-mono text-[11px] uppercase tracking-label text-accent-ink">
-                      {w.jahr}
-                    </span>
-                    <span className="absolute hidden md:block left-[52px] top-1 h-2 w-2 rounded-full bg-lime ring-4 ring-black" />
-                  </div>
-                  <div className="md:pl-4">
-                    <h3 className="heading-sans text-[22px] text-offwhite">
-                      {w.titel}
-                    </h3>
-                    <p className="mt-2 max-w-[560px] text-[14px] leading-relaxed text-offwhite/55">
-                      {w.kurz}
-                    </p>
-                  </div>
+                  <span className="font-mono text-[9px] uppercase tracking-label text-[#b084d3]">
+                    {tool.kat}
+                  </span>
+                  <span className="font-mono text-[12px] text-[#0a0a0a]">
+                    {tool.name}
+                  </span>
                 </div>
               ))}
             </div>
-          </div>
+          </TiltCard>
         </div>
-      </section>
+      </GreySection>
 
-      <div className="container-site py-2">
-        <div className="flex items-center gap-6">
-          <span className="h-px flex-1 bg-ink/10" />
-          <p className="font-hand text-[19px] text-offwhite/30 shrink-0" style={{ transform: "rotate(0.7deg)" }}>
-            {t.breakWerkzeug}
-          </p>
-          <span className="h-px flex-1 bg-ink/10" />
-        </div>
-      </div>
-
-      {/* TOOLS */}
-      <section className="pb-28 pt-8">
-        <div className="container-site">
-          <SectionLabel num="09">{t.toolsLabel}</SectionLabel>
-          <h2 className="heading-display mt-4 text-[clamp(1.75rem,4vw,3rem)] text-offwhite max-w-[720px]">
-            {t.toolsH2}
+      {/* CTA · closing */}
+      <GreySection tone="grey">
+        <div className="text-center max-w-[820px] mx-auto">
+          <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] leading-[1] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase">
+            {t.finalH2}
           </h2>
-          <p className="mt-4 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
-            {t.toolsBody}
+          <p className="mt-5 max-w-[480px] mx-auto text-[14px] leading-relaxed text-[#0a0a0a]/75">
+            {t.finalBody}
           </p>
-
-          <div className="mt-10 flex flex-wrap gap-2">
-            {TOOLS.map((tool) => (
-              <div
-                key={tool.name}
-                className="flex items-baseline gap-2 px-3 py-2 rounded-full border border-ink/10 bg-ink/[0.015]"
-              >
-                <span className="font-mono text-[9px] uppercase tracking-label text-accent-ink/80">
-                  {tool.kat}
-                </span>
-                <span className="font-mono text-[12px] text-offwhite">
-                  {tool.name}
-                </span>
-              </div>
-            ))}
+          <div className="mt-10 flex justify-center gap-3 flex-wrap">
+            <Link
+              href={buildPath("kontakt", locale)}
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#0a0a0a] text-[#e1fd52] hover:bg-[#1a1a1a] transition-colors"
+            >
+              {t.finalPrimary}
+            </Link>
+            <Link
+              href={buildPath("referenzen", locale)}
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#b084d3] text-[#0a0a0a] hover:bg-[#b084d3] hover:text-[#0a0a0a] transition-colors"
+            >
+              {t.finalSecondary}
+            </Link>
           </div>
         </div>
-      </section>
-
-      {/* CTA */}
-      <section className="pb-36">
-        <div className="container-site">
-          <div className="liquid-glass rounded-2xl p-10 md:p-16 text-center">
-            <h2 className="heading-display text-[clamp(1.75rem,4.5vw,3rem)] text-offwhite max-w-[640px] mx-auto">
-              {t.finalH2}
-            </h2>
-            <p className="mt-5 max-w-[480px] mx-auto text-[14px] leading-relaxed text-offwhite/55">
-              {t.finalBody}
-            </p>
-            <div className="mt-8 flex justify-center gap-3 flex-wrap">
-              <Button
-                href={buildPath("kontakt", locale)}
-                variant="primary"
-                size="lg"
-                analyticsLabel="ueber_mich_final_kontakt"
-              >
-                {t.finalPrimary}
-              </Button>
-              <Button
-                href={buildPath("referenzen", locale)}
-                variant="glass"
-                size="lg"
-                analyticsLabel="ueber_mich_final_referenzen"
-              >
-                {t.finalSecondary}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      </GreySection>
     </>
   );
 }
 
-function Tag({ children }: { children: React.ReactNode }) {
+function PortraitCard() {
   return (
-    <span className="font-mono text-[10px] uppercase tracking-label px-3 py-1.5 rounded-full border border-ink/10 bg-ink/[0.02] text-offwhite/55">
-      {children}
-    </span>
+    <div
+      className="relative mx-auto w-[280px] md:w-[320px] aspect-[3/4] rounded-md border border-[#0a0a0a]/15 overflow-hidden shadow-[0_40px_100px_-30px_rgba(0,0,0,0.4)]"
+      style={{
+        transform: "rotate(-2deg)",
+        background:
+          "linear-gradient(145deg, rgba(255,255,255,0.15) 0%, rgba(176,132,211,0.18) 100%)",
+      }}
+    >
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span
+          className="text-[140px] font-black text-[#0a0a0a]/15"
+          style={{ letterSpacing: "-0.08em" }}
+        >
+          ns
+        </span>
+      </div>
+      {/* tape on top */}
+      <span className="absolute -top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#e1fd52]/70 rounded-[1px] rotate-[-3deg]" />
+      <div className="absolute bottom-3 left-3 right-3 font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/65">
+        nicolas · 2026
+      </div>
+    </div>
   );
 }

@@ -32,7 +32,7 @@ const FONTS: FontDef[] = [
   {
     key: "instrument",
     label: "instrument",
-    css: "var(--font-instrument), Georgia, serif",
+    css: "var(--font-dm-mono), Georgia, serif",
     kind: "display",
     hint: "elegant · italic",
   },
@@ -91,7 +91,7 @@ export function FontPlayground() {
         initial={{ opacity: 0.85, y: 4 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="relative rounded-xl border border-ink/10 bg-[#0e0e0e] p-8 md:p-12 overflow-hidden min-h-[420px]"
+        className="relative rounded-xl border border-ink/20 bg-[#0e0e0e] p-8 md:p-12 overflow-hidden min-h-[420px]"
       >
         {/* subtle accent glow */}
         <div
@@ -171,7 +171,7 @@ export function FontPlayground() {
               value={brand}
               onChange={(e) => setBrand(e.target.value.slice(0, 26))}
               placeholder="dein brand"
-              className="flex-1 max-w-[260px] bg-transparent border-b border-ink/10 focus:border-lime/50 font-mono text-[11px] text-offwhite/75 outline-none px-1 py-1 transition-colors"
+              className="flex-1 max-w-[260px] bg-transparent border-b border-ink/20 focus:border-lime/50 font-mono text-[11px] text-offwhite/75 outline-none px-1 py-1 transition-colors"
             />
           </div>
         </div>
@@ -192,11 +192,11 @@ export function FontPlayground() {
           onSelect={setBodyKey}
         />
 
-        <div className="pt-2 border-t border-ink/10">
+        <div className="pt-2 border-t border-ink/20">
           <div className="font-mono text-[10px] uppercase tracking-label text-offwhite/55 mb-3">
             akzentfarbe
           </div>
-          <AccentSwitcher label="" className="!border-ink/10" />
+          <AccentSwitcher label="" className="!border-ink/20" />
         </div>
       </div>
     </div>
@@ -231,7 +231,7 @@ function FontPicker({
                 "w-full flex items-baseline justify-between gap-3 rounded-lg px-3 py-2.5 text-left border transition-all " +
                 (active
                   ? "border-lime/50 bg-lime/[0.06] text-offwhite"
-                  : "border-ink/10 bg-ink/[0.015] text-offwhite/55 hover:border-ink/25 hover:text-offwhite")
+                  : "border-ink/25 bg-ink/[0.035] text-offwhite/55 hover:border-ink/25 hover:text-offwhite")
               }
             >
               <span

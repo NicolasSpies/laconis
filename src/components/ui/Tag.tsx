@@ -22,7 +22,7 @@ export function Tag({
          garantiert dunkel auf lime in beiden themes */
       "bg-lime/80 text-[#111] border border-lime"
     : variant === "glass"
-      ? "bg-ink/[0.03] backdrop-blur-md border border-ink/10 text-offwhite/75 hover:bg-ink/[0.06] hover:border-ink/25 hover:text-offwhite"
+      ? "bg-ink/[0.03] backdrop-blur-md border border-ink/20 text-offwhite/75 hover:bg-ink/[0.06] hover:border-ink/25 hover:text-offwhite"
       : "bg-offwhite text-[#111] border border-offwhite";
 
   return <span className={cn(base, styles, className)}>{children}</span>;

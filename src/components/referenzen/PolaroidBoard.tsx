@@ -99,7 +99,7 @@ function PolaroidCard({
       className="absolute w-[240px] cursor-grab active:cursor-grabbing will-change-transform"
     >
       <div
-        className="polaroid-card-bg group relative text-offwhite rounded-md p-2.5 pb-3 border border-ink/10 hover:border-lime/50 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.9),0_2px_6px_rgba(0,0,0,0.5)] transition-colors"
+        className="polaroid-card-bg group relative text-offwhite rounded-md p-2.5 pb-3 border border-ink/20 hover:border-lime/50 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.9),0_2px_6px_rgba(0,0,0,0.5)] transition-colors"
         style={{ background: CARD_BG }}
       >
         {/* thin lime accent at top — the "tape" moment */}
@@ -266,7 +266,7 @@ export function PolaroidBoard({ items: itemsProp }: { items?: Referenz[] } = {})
               style={{ transform: `rotate(${rotate}deg)` }}
             >
               <div
-                className="relative text-offwhite rounded-md p-2 pb-3 border border-ink/10 shadow-[0_14px_34px_-14px_rgba(0,0,0,0.9)]"
+                className="relative text-offwhite rounded-md p-2 pb-3 border border-ink/20 shadow-[0_14px_34px_-14px_rgba(0,0,0,0.9)]"
                 style={{ background: CARD_BG }}
               >
                 <span

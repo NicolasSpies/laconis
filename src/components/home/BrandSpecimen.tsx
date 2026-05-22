@@ -346,7 +346,6 @@ export function BrandSpecimen() {
                       letterSpacing: brand.letterSpacing,
                       color: brand.inkColor,
                       opacity: 0.72,
-                      fontStyle: "italic",
                       fontSize: "7px",
                       lineHeight: 1.15,
                     }}

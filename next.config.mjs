@@ -28,6 +28,23 @@ const nextConfig = {
         destination: "/leistungen/branding/:path*",
         permanent: true,
       },
+      // Übersichts-page entfernt 2026-05 · nav-dropdown ersetzt sie
+      // alte deep-links → primary service (/leistungen/web)
+      {
+        source: "/leistungen",
+        destination: "/leistungen/web",
+        permanent: true,
+      },
+      {
+        source: "/fr/services",
+        destination: "/fr/services/web",
+        permanent: true,
+      },
+      {
+        source: "/en/services",
+        destination: "/en/services/web",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
@@ -38,7 +55,6 @@ const nextConfig = {
      */
     const fr = [
       { source: "/fr", destination: "/" },
-      { source: "/fr/services", destination: "/leistungen" },
       { source: "/fr/services/web", destination: "/leistungen/web" },
       { source: "/fr/services/web/technique", destination: "/leistungen/web/technik" },
       { source: "/fr/services/branding", destination: "/leistungen/branding" },
@@ -55,7 +71,6 @@ const nextConfig = {
 
     const en = [
       { source: "/en", destination: "/" },
-      { source: "/en/services", destination: "/leistungen" },
       { source: "/en/services/web", destination: "/leistungen/web" },
       { source: "/en/services/web/tech", destination: "/leistungen/web/technik" },
       { source: "/en/services/branding", destination: "/leistungen/branding" },

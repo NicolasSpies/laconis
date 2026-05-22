@@ -34,7 +34,7 @@ export const FONT_MAP: Record<FontKey, string> = {
   fraunces: "var(--font-fraunces), serif",
   "dm-sans": "var(--font-dm-sans), sans-serif",
   caveat: "var(--font-caveat), cursive",
-  instrument: "var(--font-instrument), serif",
+  instrument: "var(--font-dm-mono), monospace",
 };
 
 export const THEMES: Theme[] = [

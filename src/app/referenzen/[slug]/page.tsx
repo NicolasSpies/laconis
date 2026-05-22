@@ -7,6 +7,8 @@ import { RefThumb } from "@/components/referenzen/RefThumb";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { CaseStudySchema } from "@/components/seo/CaseStudySchema";
 import { EvolutionSlider } from "@/components/referenzen/EvolutionSlider";
+import { ReadingProgress } from "@/components/referenzen/ReadingProgress";
+import { CaseClaim } from "@/components/referenzen/CaseClaim";
 import { referenzen } from "@/data/referenzen";
 import { getLocale } from "@/i18n/getLocale";
 import { buildPath, type Locale } from "@/i18n/config";
@@ -212,6 +214,7 @@ export default function Page({ params }: Props) {
 
   return (
     <>
+      <ReadingProgress />
       <BreadcrumbSchema
         items={[
           { name: "home", url: `${BASE}/` },
@@ -231,6 +234,9 @@ export default function Page({ params }: Props) {
           </Link>
         </div>
       </section>
+
+      {/* literarischer anchor-claim · 1-zeiler über dem steckbrief */}
+      <CaseClaim slug={r.slug} locale={locale} />
 
       <section className="pb-16">
         <div className="container-site">
@@ -290,7 +296,7 @@ export default function Page({ params }: Props) {
 
       <section className="pb-24">
         <div className="container-site">
-          <div className="relative rounded-2xl overflow-hidden border border-ink/10">
+          <div className="relative rounded-2xl overflow-hidden border border-ink/20">
             <RefThumb ref_={r} aspect="16 / 9" />
           </div>
           {r.notiz && (
@@ -319,7 +325,7 @@ export default function Page({ params }: Props) {
           <div>
             <SectionLabel>{t.steckbrief}</SectionLabel>
             <dl className="mt-6 space-y-4">
-              <div className="flex items-baseline justify-between gap-3 pb-3 border-b border-ink/10">
+              <div className="flex items-baseline justify-between gap-3 pb-3 border-b border-ink/20">
                 <dt className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                   {t.kategorie}
                 </dt>
@@ -327,20 +333,20 @@ export default function Page({ params }: Props) {
                   {r.kategorieLabel}
                 </dd>
               </div>
-              <div className="flex items-baseline justify-between gap-3 pb-3 border-b border-ink/10">
+              <div className="flex items-baseline justify-between gap-3 pb-3 border-b border-ink/20">
                 <dt className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                   {t.ort}
                 </dt>
                 <dd className="text-[13px] text-offwhite">{r.ort}</dd>
               </div>
-              <div className="flex items-baseline justify-between gap-3 pb-3 border-b border-ink/10">
+              <div className="flex items-baseline justify-between gap-3 pb-3 border-b border-ink/20">
                 <dt className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                   {t.jahr}
                 </dt>
                 <dd className="text-[13px] text-offwhite">{r.jahr}</dd>
               </div>
               {r.tags.length > 0 && (
-                <div className="pb-3 border-b border-ink/10">
+                <div className="pb-3 border-b border-ink/20">
                   <dt className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 mb-3">
                     {t.tags}
                   </dt>
@@ -348,7 +354,7 @@ export default function Page({ params }: Props) {
                     {r.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="font-mono text-[10px] uppercase tracking-label px-2 py-0.5 rounded-full border border-ink/10 text-offwhite/55"
+                        className="font-mono text-[10px] uppercase tracking-label px-2 py-0.5 rounded-full border border-ink/20 text-offwhite/55"
                       >
                         {tag}
                       </span>
@@ -437,13 +443,13 @@ export default function Page({ params }: Props) {
         <div className="container-site">
           <SectionLabel>{t.einblicke}</SectionLabel>
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="col-span-1 md:col-span-2 relative rounded-xl overflow-hidden border border-ink/10">
+            <div className="col-span-1 md:col-span-2 relative rounded-xl overflow-hidden border border-ink/20">
               <RefThumb ref_={r} aspect="21 / 9" />
             </div>
-            <div className="relative rounded-xl overflow-hidden border border-ink/10">
+            <div className="relative rounded-xl overflow-hidden border border-ink/20">
               <RefThumb ref_={r} aspect="4 / 3" />
             </div>
-            <div className="relative rounded-xl overflow-hidden border border-ink/10">
+            <div className="relative rounded-xl overflow-hidden border border-ink/20">
               <RefThumb ref_={r} aspect="4 / 3" />
             </div>
           </div>
@@ -452,7 +458,7 @@ export default function Page({ params }: Props) {
 
       <section className="pb-24">
         <div className="container-site">
-          <div className="grid grid-cols-2 gap-4 pt-8 border-t border-ink/10">
+          <div className="grid grid-cols-2 gap-4 pt-8 border-t border-ink/20">
             <Link href={`${buildPath("referenzen", locale)}/${prevRef.slug}`} className="group block">
               <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 group-hover:text-accent-ink transition-colors">
                 {t.vorher}

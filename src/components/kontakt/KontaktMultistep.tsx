@@ -278,7 +278,7 @@ const DICT: Record<Locale, Dict> = {
 
 export function KontaktMultistep() {
   return (
-    <Suspense fallback={<div className="h-[400px]" aria-hidden />}>
+    <Suspense fallback={<div className="h-2" aria-hidden />}>
       <Inner />
     </Suspense>
   );
@@ -626,7 +626,7 @@ function Step1({
                 "text-left rounded-xl p-5 border transition-all",
                 active
                   ? "border-lime/50 bg-lime/[0.05] shadow-[0_12px_32px_-16px_rgb(var(--accent)_/_0.3)]"
-                  : "border-ink/10 bg-ink/[0.015] hover:border-ink/25",
+                  : "border-ink/25 bg-ink/[0.035] hover:border-ink/50",
               ].join(" ")}
             >
               <div className="flex items-baseline justify-between gap-3">
@@ -751,7 +751,7 @@ function Step3({
             key={r.label + i}
             className={[
               "grid grid-cols-[120px_1fr_auto] gap-4 items-baseline px-5 md:px-6 py-4",
-              i < rows.length - 1 ? "border-b border-ink/10" : "",
+              i < rows.length - 1 ? "border-b border-ink/20" : "",
             ].join(" ")}
           >
             <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
@@ -852,7 +852,7 @@ function Step4({
           onChange={(e) => update("notiz", e.target.value)}
           rows={5}
           placeholder={t.notizPlaceholder}
-          className="w-full bg-ink/[0.03] border border-ink/10 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/55 outline-none resize-none transition-colors"
+          className="w-full bg-ink/[0.03] border border-ink/20 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/55 outline-none resize-none transition-colors"
         />
       </div>
 
@@ -958,7 +958,7 @@ function ChipField<T extends string>({
                 "font-mono text-[11px] uppercase tracking-mono px-3.5 py-2 rounded-full border transition-all",
                 active
                   ? "border-lime/50 bg-lime/10 text-accent-ink"
-                  : "border-ink/10 bg-ink/[0.02] text-offwhite/55 hover:border-ink/25 hover:text-offwhite",
+                  : "border-ink/20 bg-ink/[0.02] text-offwhite/55 hover:border-ink/25 hover:text-offwhite",
               ].join(" ")}
             >
               {o.label}
@@ -1005,7 +1005,7 @@ function TextField({
         autoComplete={autoComplete}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-ink/[0.03] border border-ink/10 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/55 outline-none transition-colors"
+        className="w-full bg-ink/[0.03] border border-ink/20 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/55 outline-none transition-colors"
       />
     </div>
   );

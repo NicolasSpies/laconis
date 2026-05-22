@@ -50,7 +50,7 @@ export function QuickPreisCheck() {
   return (
     <section className="py-20">
       <div className="container-site">
-        <div className="max-w-[720px] mx-auto rounded-2xl border border-ink/10 bg-gradient-to-br from-lime/[0.04] via-ink/[0.02] to-transparent p-8 md:p-12">
+        <div className="max-w-[720px] mx-auto rounded-2xl border border-ink/20 bg-gradient-to-br from-lime/[0.04] via-ink/[0.02] to-transparent p-8 md:p-12">
           <div className="flex items-baseline justify-between gap-4 mb-8">
             <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
               quick-start · 10 sekunden
@@ -105,11 +105,11 @@ export function QuickPreisCheck() {
                 </h3>
 
                 <div className="mt-6 flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-label">
-                  <span className="px-2.5 py-1 rounded-full border border-ink/10 bg-ink/[0.02] text-offwhite/75">
+                  <span className="px-2.5 py-1 rounded-full border border-ink/20 bg-ink/[0.02] text-offwhite/75">
                     {paket}
                   </span>
                   <span className="text-offwhite/35">·</span>
-                  <span className="px-2.5 py-1 rounded-full border border-ink/10 bg-ink/[0.02] text-offwhite/75">
+                  <span className="px-2.5 py-1 rounded-full border border-ink/20 bg-ink/[0.02] text-offwhite/75">
                     {seiten}
                   </span>
                 </div>

@@ -38,7 +38,7 @@ export function UspStrip() {
   return (
     <section className="pb-20">
       <div className="container-site">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/10 rounded-xl overflow-hidden border border-ink/10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/10 rounded-xl overflow-hidden border border-ink/20">
           {t.usps.map((u) => (
             <div
               key={u.label}

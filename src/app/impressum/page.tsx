@@ -61,7 +61,7 @@ const DICT: Record<Locale, Dict> = {
     vAnschrift: "Rotenberg 18a · 4700 Eupen, Belgien",
     kMail: "e-mail",
     kTel: "telefon",
-    vTel: "Wird nachgereicht · bis dahin am schnellsten per Mail",
+    vTel: "+32 488 43 91 47",
     s2Title: "verantwortlich für inhalt",
     s2Aside: "dasselbe wie oben. der mensch hinter laconis, nicht eine redaktion.",
     s2Body: "Verantwortlich für den Inhalt dieser Website ist Nicolas Spies (Anschrift wie oben).",
@@ -94,7 +94,7 @@ const DICT: Record<Locale, Dict> = {
     vAnschrift: "Rotenberg 18a · 4700 Eupen, Belgique",
     kMail: "e-mail",
     kTel: "téléphone",
-    vTel: "À venir · en attendant, le plus rapide par mail",
+    vTel: "+32 488 43 91 47",
     s2Title: "responsable du contenu",
     s2Aside: "identique à ci-dessus. la personne derrière laconis, pas une rédaction.",
     s2Body: "Le responsable du contenu de ce site est Nicolas Spies (adresse comme ci-dessus).",
@@ -127,7 +127,7 @@ const DICT: Record<Locale, Dict> = {
     vAnschrift: "Rotenberg 18a · 4700 Eupen, Belgium",
     kMail: "e-mail",
     kTel: "phone",
-    vTel: "Coming soon · until then, mail is fastest",
+    vTel: "+32 488 43 91 47",
     s2Title: "responsible for content",
     s2Aside: "same as above. the human behind laconis, not an editorial team.",
     s2Body: "Responsible for the content of this website is Nicolas Spies (address as above).",
@@ -165,23 +165,20 @@ export default function Page() {
         <LegalRow k={t.kSitz} v={locale === "fr" ? "Eupen, Belgique" : locale === "en" ? "Eupen, Belgium" : "Eupen, Belgien"} />
         <LegalRow
           k={t.kAnschrift}
-          v={<span className="text-offwhite/55">{t.vAnschrift}</span>}
+          v={<span className="text-[#0a0a0a]/55">{t.vAnschrift}</span>}
         />
         <LegalRow
           k={t.kMail}
           v={
             <a
               href={`mailto:${CONTACT.email}`}
-              className="text-accent-ink hover:underline"
+              className="text-[#b084d3] hover:underline"
             >
               {CONTACT.email}
             </a>
           }
         />
-        <LegalRow
-          k={t.kTel}
-          v={<span className="text-offwhite/55">{t.vTel}</span>}
-        />
+        <LegalRow k={t.kTel} v={t.vTel} />
       </LegalSection>
 
       <LegalSection titel={t.s2Title} aside={t.s2Aside}>
@@ -190,11 +187,11 @@ export default function Page() {
 
       <LegalSection titel={t.s3Title} aside={t.s3Aside}>
         <p>
-          <strong className="text-offwhite">{t.s3p1Bold}</strong>
+          <strong className="text-[#0a0a0a]">{t.s3p1Bold}</strong>
           {t.s3p1}
         </p>
         <p>
-          <strong className="text-offwhite">{t.s3p2Bold}</strong>
+          <strong className="text-[#0a0a0a]">{t.s3p2Bold}</strong>
           {t.s3p2}
         </p>
       </LegalSection>
@@ -211,7 +208,7 @@ export default function Page() {
             href="https://ec.europa.eu/consumers/odr"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-accent-ink hover:underline"
+            className="text-[#b084d3] hover:underline"
           >
             ec.europa.eu/consumers/odr
           </a>
@@ -219,7 +216,7 @@ export default function Page() {
         </p>
       </LegalSection>
 
-      <p className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 pt-6 border-t border-ink/10">
+      <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55 pt-6 border-t border-[#0a0a0a]/12">
         {t.stand}
       </p>
     </LegalLayout>

@@ -134,13 +134,13 @@ export function ContentCoreVsWordpress({
         </div>
 
         <div className="mt-14 glass rounded-2xl overflow-hidden">
-          <div className="grid grid-cols-[1fr_1fr_1fr] border-b border-ink/10 bg-ink/[0.02]">
+          <div className="grid grid-cols-[1fr_1fr_1fr] border-b border-ink/20 bg-ink/[0.02]">
             <div className="px-5 py-4">
               <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
                 {t.themaLabel}
               </span>
             </div>
-            <div className="px-5 py-4 border-l border-ink/10">
+            <div className="px-5 py-4 border-l border-ink/20">
               <div className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-red-400/60" />
                 <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/55">
@@ -148,7 +148,7 @@ export function ContentCoreVsWordpress({
                 </span>
               </div>
             </div>
-            <div className="px-5 py-4 border-l border-ink/10">
+            <div className="px-5 py-4 border-l border-ink/20">
               <div className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-lime" />
                 <span className="font-mono text-[11px] uppercase tracking-label text-accent-ink">
@@ -162,7 +162,7 @@ export function ContentCoreVsWordpress({
             <div
               key={r.thema}
               className={
-                "grid grid-cols-[1fr_1fr_1fr] items-start hover:bg-ink/[0.015] transition-colors" +
+                "grid grid-cols-[1fr_1fr_1fr] items-start hover:bg-ink/[0.035] transition-colors" +
                 (i < t.rows.length - 1 ? " border-b border-ink/5" : "")
               }
             >
@@ -171,7 +171,7 @@ export function ContentCoreVsWordpress({
                   {r.thema}
                 </span>
               </div>
-              <div className="px-5 py-5 border-l border-ink/10">
+              <div className="px-5 py-5 border-l border-ink/20">
                 <div className="flex items-start gap-2">
                   <span className="font-mono text-[11px] text-red-400/70 mt-0.5 shrink-0">
                     ⚠
@@ -181,7 +181,7 @@ export function ContentCoreVsWordpress({
                   </span>
                 </div>
               </div>
-              <div className="px-5 py-5 border-l border-ink/10">
+              <div className="px-5 py-5 border-l border-ink/20">
                 <div className="flex items-start gap-2">
                   <span className="font-mono text-[11px] text-accent-ink mt-0.5 shrink-0">
                     ✓
@@ -235,7 +235,7 @@ export function ContentCoreVsWordpress({
             {t.badges.map((b) => (
               <span
                 key={b}
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-ink/10 bg-ink/[0.015] text-[12px] text-offwhite/75"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-ink/25 bg-ink/[0.035] text-[12px] text-offwhite/75"
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-lime" />
                 {b}

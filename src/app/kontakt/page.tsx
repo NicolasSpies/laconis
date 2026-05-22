@@ -1,5 +1,9 @@
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { PageHero } from "@/components/shared/PageHero";
+import { GreySection } from "@/components/shared/GreySection";
+import { TiltCard } from "@/components/shared/TiltCard";
+import { Marquee } from "@/components/shared/Marquee";
 import { KontaktMultistep } from "@/components/kontakt/KontaktMultistep";
+import { BookingExpress } from "@/components/kontakt/BookingExpress";
 import { CONTACT } from "@/config/contact";
 import { getMeta } from "@/lib/seo/getMeta";
 import { getLocale } from "@/i18n/getLocale";
@@ -11,8 +15,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 type Dict = {
-  sectionLabel: string;
-  heroHeadline: string;
+  kicker: string;
+  heroL1: string;
+  heroL2: string;
+  heroItalic: string;
   heroBody: string;
   directLabel: string;
   directHeadlinePre: string;
@@ -28,65 +34,75 @@ type Dict = {
   formHeadlineAccent: string;
   formIntro: string;
   formFooter: string;
+  marqueeBits: string[];
 };
 
 const DICT: Record<Locale, Dict> = {
   de: {
-    sectionLabel: "kontakt",
-    heroHeadline: "sag hallo.",
-    heroBody: "Eine kurze Nachricht reicht. Antwort innerhalb 24h.",
+    kicker: "· kontakt",
+    heroL1: "lass",
+    heroL2: "reden.",
+    heroItalic: "kurz oder lang.",
+    heroBody: "eine kurze nachricht reicht. antwort innerhalb 24h · meistens schneller.",
     directLabel: "direkter draht",
     directHeadlinePre: "keine lust auf formular? ",
     directHeadlineAccent: "nimm einen der wege.",
     emailLabel: "e-mail",
-    emailNote: "Klassisch. Antwort innerhalb 24h · meistens deutlich schneller.",
+    emailNote: "klassisch. antwort innerhalb 24h · meistens deutlich schneller.",
     callLabel: "video-call",
     callValue: "30 min kennenlernen",
-    callNote: "Kein Buchungs-Tool · kurz per Mail, dann steht der Termin.",
+    callNote: "menschlich · kurz per mail, termin steht in stunden.",
     divider: "oder · das ausführliche formular",
     formLabel: "projekt anfragen",
     formHeadlinePre: "sag mir, ",
     formHeadlineAccent: "was du vorhast.",
-    formIntro: "Vier kurze Schritte. Ich meld mich innerhalb von 24 Std mit einem konkreten Angebot · kein Kleingedrucktes.",
+    formIntro: "vier kurze schritte. ich meld mich innerhalb von 24 std mit einem konkreten angebot · kein kleingedrucktes.",
     formFooter: "keine tracker · keine spam-liste · dsgvo-konform",
+    marqueeBits: ["·", "schreib mir", "·", "ø < 2h antwort", "·", "kein verkaufs-pitch", "·", "einfach reden", "·"],
   },
   fr: {
-    sectionLabel: "contact",
-    heroHeadline: "dis bonjour.",
-    heroBody: "Un message court suffit. Réponse sous 24h.",
+    kicker: "· contact",
+    heroL1: "on parle?",
+    heroL2: "",
+    heroItalic: "court ou long.",
+    heroBody: "un message court suffit. réponse sous 24h · souvent plus vite.",
     directLabel: "voie directe",
     directHeadlinePre: "pas envie de formulaire ? ",
     directHeadlineAccent: "prends un des chemins.",
     emailLabel: "e-mail",
-    emailNote: "Classique. Réponse sous 24h · souvent bien plus vite.",
+    emailNote: "classique. réponse sous 24h · souvent bien plus vite.",
     callLabel: "visio",
     callValue: "30 min pour se rencontrer",
-    callNote: "Pas d'outil de réservation · un court mail et le rendez-vous est calé.",
+    callNote: "humain · un court mail, créneau calé en quelques heures.",
     divider: "ou · le formulaire détaillé",
     formLabel: "demander un projet",
     formHeadlinePre: "dis-moi, ",
     formHeadlineAccent: "ce que tu prévois.",
-    formIntro: "Quatre étapes courtes. Je te réponds dans les 24h avec une offre concrète · pas de petits caractères.",
+    formIntro: "quatre étapes courtes. je te réponds dans les 24h avec une offre concrète · pas de petits caractères.",
     formFooter: "pas de trackers · pas de liste spam · conforme rgpd",
+    marqueeBits: ["·", "écris-moi", "·", "ø < 2h réponse", "·", "pas de pitch", "·", "juste parler", "·"],
   },
   en: {
-    sectionLabel: "contact",
-    heroHeadline: "say hi.",
-    heroBody: "A short message is enough. Reply within 24h.",
+    kicker: "· contact",
+    heroL1: "let's",
+    heroL2: "talk.",
+    heroItalic: "short or long.",
+    heroBody: "a short message is enough. reply within 24h · usually sooner.",
     directLabel: "direct line",
     directHeadlinePre: "no patience for forms? ",
     directHeadlineAccent: "take one of the paths.",
     emailLabel: "e-mail",
-    emailNote: "Classic. Reply within 24h · usually much sooner.",
+    emailNote: "classic. reply within 24h · usually much sooner.",
     callLabel: "video call",
     callValue: "30 min to meet",
-    callNote: "No booking tool · a short mail and the slot's set.",
+    callNote: "human · a quick mail, slot is set in hours.",
     divider: "or · the detailed form",
     formLabel: "request a project",
     formHeadlinePre: "tell me, ",
     formHeadlineAccent: "what you're planning.",
-    formIntro: "Four short steps. I respond within 24h with a concrete offer · no small print.",
+    formIntro: "four short steps. i respond within 24h with a concrete offer · no small print.",
     formFooter: "no trackers · no spam list · gdpr-compliant",
+    marqueeBits: ["·", "write me", "·", "ø < 2h reply", "·", "no pitch", "·", "just talk", "·"],
   },
 };
 
@@ -96,74 +112,107 @@ export default function Page() {
 
   return (
     <>
-      {/* HERO */}
-      <section className="pt-36 pb-24">
-        <div className="container-site">
-          <SectionLabel num="01">{t.sectionLabel}</SectionLabel>
+      <PageHero
+        kicker={t.kicker}
+        line1={t.heroL1}
+        line2={t.heroL2 || undefined}
+        italicAccent={t.heroItalic}
+        sub={t.heroBody}
+      />
 
-          <div className="mt-8 max-w-[900px]">
-            <h1 className="heading-display text-[clamp(2.5rem,8vw,6rem)] text-offwhite">
-              {t.heroHeadline}
-            </h1>
-            <p className="mt-8 max-w-[580px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/55">
-              {t.heroBody}
-            </p>
-          </div>
+      <Marquee items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={42} />
+
+      {/* DIRECT CONTACT · 2 tilt cards · lime + lila */}
+      <GreySection tone="grey" tint="lime">
+        <div className="max-w-[820px]">
+          <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+            · {t.directLabel}
+          </p>
+          <h2 className="mt-4 text-[clamp(1.75rem,4.5vw,3rem)] leading-[1.05] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase">
+            {t.directHeadlinePre}
+            <span className="opacity-50">{t.directHeadlineAccent}</span>
+          </h2>
         </div>
-      </section>
 
-      {/* DIREKTE WEGE */}
-      <section className="pb-20">
-        <div className="container-site">
-          <div className="max-w-[820px]">
-            <SectionLabel num="02">{t.directLabel}</SectionLabel>
-            <h2 className="heading-display mt-4 text-[clamp(1.75rem,4.5vw,3rem)] text-offwhite leading-[1.05]">
-              {t.directHeadlinePre}
-              <span className="text-offwhite/35">{t.directHeadlineAccent}</span>
-            </h2>
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[560px]">
-            <ContactCard
-              label={t.emailLabel}
-              value={CONTACT.email}
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5 max-w-[820px]">
+          <TiltCard preset="lime" intensity={9}>
+            <a
               href={`mailto:${CONTACT.email}`}
-              note={t.emailNote}
-            />
-            <ContactCard
-              label={t.callLabel}
-              value={t.callValue}
+              className="block p-7 md:p-9"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="font-mono text-[10px] uppercase tracking-label opacity-65">
+                  {t.emailLabel}
+                </span>
+                <span className="font-mono text-[14px] opacity-65">→</span>
+              </div>
+              <div className="mt-4 text-[clamp(1.2rem,2.2vw,1.6rem)] font-black tracking-[-0.025em] leading-tight lowercase break-words">
+                {CONTACT.email}
+              </div>
+              <p
+                className="mt-3 text-[13px] leading-relaxed"
+                style={{ opacity: 0.75 }}
+              >
+                {t.emailNote}
+              </p>
+            </a>
+          </TiltCard>
+
+          <TiltCard preset="lila" intensity={9}>
+            <a
               href={`mailto:${CONTACT.email}?subject=call-termin`}
-              note={t.callNote}
-            />
-          </div>
+              className="block p-7 md:p-9"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="font-mono text-[10px] uppercase tracking-label opacity-65">
+                  {t.callLabel}
+                </span>
+                <span className="font-mono text-[14px] opacity-65">→</span>
+              </div>
+              <div className="mt-4 text-[clamp(1.2rem,2.2vw,1.6rem)] font-black tracking-[-0.025em] leading-tight lowercase">
+                {t.callValue}
+              </div>
+              <p
+                className="mt-3 text-[13px] leading-relaxed"
+                style={{ opacity: 0.75 }}
+              >
+                {t.callNote}
+              </p>
+            </a>
+          </TiltCard>
         </div>
-      </section>
 
-      {/* TRENNLINIE */}
-      <section className="pb-16">
-        <div className="container-site">
-          <div className="max-w-[820px] mx-auto">
-            <div className="h-px bg-gradient-to-r from-transparent via-ink/10 to-transparent" />
-            <div className="mt-6 text-center">
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-                {t.divider}
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
+      </GreySection>
 
-      {/* PROJEKT-FORMULAR */}
-      <section id="projekt" className="pb-36 scroll-mt-24">
-        <div className="container-site">
+      {/* booking-express · cal.com embed (oder mailto-fallback wenn nicht konfiguriert) */}
+      <BookingExpress />
+
+      {/* FORM · grey bg, neutralisiert das alte glass-styling */}
+      <section
+        id="projekt"
+        className="relative scroll-mt-24 pb-32 pt-12 text-[#0a0a0a] overflow-hidden"
+      >
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-[0.08] pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at center, rgba(20,20,20,0.5) 1px, transparent 1.4px)",
+            backgroundSize: "26px 26px",
+          }}
+        />
+        <div className="container-site relative">
           <div className="max-w-[820px] mx-auto">
-            <SectionLabel num="03">{t.formLabel}</SectionLabel>
-            <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.5rem)] text-offwhite leading-[1.05]">
+            <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+              · {t.formLabel}
+            </p>
+            <h2 className="mt-4 text-[clamp(2rem,5.5vw,3.5rem)] leading-[1.0] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase">
               {t.formHeadlinePre}
-              <span className="text-offwhite/35">{t.formHeadlineAccent}</span>
+              <span className="opacity-50">{t.formHeadlineAccent}</span>
             </h2>
-            <p className="mt-6 max-w-[620px] text-[14px] leading-relaxed text-offwhite/55">
+            <p className="mt-6 max-w-[620px] text-[14px] leading-relaxed text-[#0a0a0a]/75">
               {t.formIntro}
             </p>
           </div>
@@ -172,51 +221,11 @@ export default function Page() {
             <KontaktMultistep />
           </div>
 
-          <p className="mt-10 text-center font-mono text-[10px] uppercase tracking-label text-offwhite/35">
+          <p className="mt-10 text-center font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
             {t.formFooter}
           </p>
         </div>
       </section>
     </>
-  );
-}
-
-/* ══════════════════════════ helpers ══════════════════════════ */
-
-function ContactCard({
-  label,
-  value,
-  href,
-  note,
-  external,
-}: {
-  label: string;
-  value: string;
-  href: string;
-  note: string;
-  external?: boolean;
-}) {
-  return (
-    <a
-      href={href}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noopener noreferrer" : undefined}
-      className="group block glass rounded-xl p-6 hover:border-lime/25 hover:bg-ink/[0.03] transition-all"
-    >
-      <div className="flex items-baseline justify-between gap-3">
-        <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
-          {label}
-        </span>
-        <span className="text-offwhite/35 group-hover:text-accent-ink group-hover:translate-x-0.5 transition-all">
-          →
-        </span>
-      </div>
-      <div className="mt-2 heading-sans text-[18px] md:text-[20px] text-offwhite group-hover:text-accent-ink transition-colors">
-        {value}
-      </div>
-      <p className="mt-2 text-[12.5px] leading-relaxed text-offwhite/55">
-        {note}
-      </p>
-    </a>
   );
 }

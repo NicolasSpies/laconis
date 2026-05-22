@@ -80,7 +80,7 @@ export function Zahlungsoptionen() {
                 "relative rounded-2xl p-6 md:p-7 flex flex-col gap-4",
                 m.highlight
                   ? "border border-lime/25 bg-gradient-to-b from-lime/[0.03] to-transparent"
-                  : "border border-ink/10 bg-ink/[0.015] hover:border-ink/25 transition-colors",
+                  : "border border-ink/25 bg-ink/[0.035] hover:border-ink/50 transition-colors",
               ].join(" ")}
             >
               <div className="flex items-baseline justify-between">
@@ -120,7 +120,7 @@ export function Zahlungsoptionen() {
               </ul>
 
               {m.zinsNote && (
-                <div className="pt-3 border-t border-ink/10">
+                <div className="pt-3 border-t border-ink/20">
                   <div className="font-mono text-[9px] uppercase tracking-label text-offwhite/35">
                     zinsen
                   </div>

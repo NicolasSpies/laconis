@@ -88,7 +88,7 @@ export function EvolutionSlider({
     <div>
       <div
         ref={containerRef}
-        className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden border border-ink/10 select-none bg-ink/5"
+        className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden border border-ink/20 select-none bg-ink/5"
         onMouseDown={(e) => {
           draggingRef.current = true;
           updateFromClientX(e.clientX);

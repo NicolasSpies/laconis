@@ -32,7 +32,7 @@ export function VerfuegbarkeitCollapse() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls="verfuegbarkeit-panel"
-        className="mt-6 inline-flex items-center gap-3 rounded-full border border-ink/10 bg-ink/[0.02] hover:border-lime/50 hover:bg-lime/[0.04] px-5 py-2.5 font-mono text-[11px] uppercase tracking-label text-offwhite/75 hover:text-accent-ink transition-colors"
+        className="mt-6 inline-flex items-center gap-3 rounded-full border border-ink/20 bg-ink/[0.02] hover:border-lime/50 hover:bg-lime/[0.04] px-5 py-2.5 font-mono text-[11px] uppercase tracking-label text-offwhite/75 hover:text-accent-ink transition-colors"
       >
         <span
           className={[

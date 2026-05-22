@@ -95,8 +95,6 @@ const DICT: Record<Locale, Dict> = {
 
 type Tab = "neu" | "redesign";
 
-const CARD_ROTATIONS = ["-0.8deg", "0.5deg", "-0.5deg", "0.8deg"];
-
 export function WebApproaches({ num = "02" }: { num?: string } = {}) {
   const [tab, setTab] = useState<Tab>("neu");
   const locale = useLocale();
@@ -104,12 +102,12 @@ export function WebApproaches({ num = "02" }: { num?: string } = {}) {
   const cards = tab === "neu" ? t.neu : t.redesign;
 
   return (
-    <section className="pb-32 overflow-hidden">
+    <section className="pb-24 md:pb-32 overflow-hidden">
       <div className="container-site">
-        <div className="border-t border-ink/10 pt-10">
+        <div className="border-t border-[#0a0a0a]/20 pt-10">
           <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
           <h2 className="sr-only">{t.srH2}</h2>
-          <p className="mt-4 max-w-[620px] text-[14px] md:text-[15px] leading-relaxed text-offwhite/55">
+          <p className="mt-4 max-w-[620px] text-[14px] md:text-[15px] leading-relaxed text-offwhite/70">
             {tab === "neu" ? t.introNeu : t.introRedesign}
           </p>
         </div>
@@ -121,7 +119,7 @@ export function WebApproaches({ num = "02" }: { num?: string } = {}) {
           <div
             role="tablist"
             aria-label={t.tabsLabel}
-            className="flex gap-1 border-b border-ink/10"
+            className="flex gap-1 border-b border-[#0a0a0a]/20"
           >
             {(["neu", "redesign"] as const).map((tabKey) => {
               const isActive = tab === tabKey;
@@ -154,29 +152,48 @@ export function WebApproaches({ num = "02" }: { num?: string } = {}) {
           </div>
         </div>
 
-        <div
+        {/* vertical timeline · 4 schritte mit big numbers, verbunden durch
+           durchgehende linie · variabel + lesbarer als 4 flat cards */}
+        <ol
           key={tab}
-          className="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-5 animate-in fade-in duration-300"
+          className="mt-16 md:mt-20 max-w-[920px] relative animate-in fade-in duration-300"
         >
-          {cards.map((c, i) => (
-            <div key={c.num} className="relative group">
-              <article
-                className="liquid-glass-dark rounded-xl p-6 flex flex-col gap-3 transition-all duration-500 ease-out group-hover:!rotate-0 group-hover:-translate-y-1 group-hover:border-lime/50 h-full"
-                style={{ transform: `rotate(${CARD_ROTATIONS[i] ?? "0deg"})` }}
+          {/* vertical line · läuft durch alle nummern · subtle */}
+          <span
+            aria-hidden
+            className="absolute left-[44px] md:left-[56px] top-2 bottom-8 w-px bg-[#0a0a0a]/20"
+          />
+          {cards.map((c, i) => {
+            const isLast = i === cards.length - 1;
+            return (
+              <li
+                key={c.num}
+                className={`relative grid grid-cols-[88px_1fr] md:grid-cols-[120px_1fr] gap-5 md:gap-8 ${
+                  isLast ? "" : "pb-10 md:pb-12"
+                }`}
               >
-                <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
-                  {t.schritt} · {c.num}
-                </span>
-                <h3 className="heading-sans text-[16px] text-offwhite leading-tight">
-                  {c.titel}
-                </h3>
-                <p className="text-[13px] leading-relaxed text-offwhite/75">
-                  {c.text}
-                </p>
-              </article>
-            </div>
-          ))}
-        </div>
+                {/* big number · sitzt auf der linie */}
+                <div className="relative">
+                  <span className="block text-[clamp(2.5rem,5vw,4rem)] leading-[0.85] font-black tracking-[-0.04em] text-[#0a0a0a] relative z-10 bg-[#c8c8c8]">
+                    {c.num}
+                  </span>
+                </div>
+                {/* content · title + body */}
+                <div className="pt-1 md:pt-2">
+                  <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+                    {t.schritt}
+                  </span>
+                  <h3 className="mt-1 text-[clamp(1.25rem,2.4vw,1.6rem)] font-black text-[#0a0a0a] leading-[1.15] tracking-[-0.02em]">
+                    {c.titel}
+                  </h3>
+                  <p className="mt-3 text-[14px] md:text-[15px] leading-relaxed text-[#0a0a0a]/75 max-w-[600px]">
+                    {c.text}
+                  </p>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
       </div>
     </section>
   );

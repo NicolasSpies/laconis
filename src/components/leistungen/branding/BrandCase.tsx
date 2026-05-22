@@ -84,7 +84,7 @@ const DICT: Record<Locale, Dict> = {
 function HoloroomBrandSheet({ t }: { t: Dict }) {
   return (
     <div
-      className="relative aspect-[16/10] w-full rounded-lg overflow-hidden border border-ink/10"
+      className="relative aspect-[16/10] w-full rounded-lg overflow-hidden border border-ink/20"
       style={{ background: "#0a0a0a", containerType: "inline-size" }}
       aria-hidden
     >

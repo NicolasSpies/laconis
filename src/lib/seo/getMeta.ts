@@ -64,26 +64,6 @@ const STATIC_MAP: Record<string, MetaByLocale> = {
       ogDescription: "design with opinion · web with soul",
     },
   },
-  "/leistungen": {
-    de: {
-      title: "leistungen",
-      description: "zwei werkstätten, ein kopf · websites und branding aus einer hand. handgemacht.",
-      ogTitle: "leistungen · lacønis",
-      ogDescription: "web + branding · design und code aus einem kopf · handgemacht.",
-    },
-    fr: {
-      title: "services",
-      description: "deux ateliers, une tête · sites web et branding d'une même main. fait main.",
-      ogTitle: "services · lacønis",
-      ogDescription: "web + branding · design et code d'une seule tête · fait main.",
-    },
-    en: {
-      title: "services",
-      description: "two workshops, one head · websites and branding from one hand. handmade.",
-      ogTitle: "services · lacønis",
-      ogDescription: "web + branding · design and code from one head · handmade.",
-    },
-  },
   "/leistungen/web": {
     de: {
       title: "leistungen · web",

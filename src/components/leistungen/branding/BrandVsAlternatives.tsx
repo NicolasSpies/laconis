@@ -119,7 +119,7 @@ export function BrandVsAlternatives({
                 {t.rightH3}
               </p>
 
-              <div className="mt-8 space-y-6 border-t border-ink/10 pt-6">
+              <div className="mt-8 space-y-6 border-t border-ink/20 pt-6">
                 {t.unterschiede.map((u) => (
                   <div
                     key={u.num}
