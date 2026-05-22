@@ -103,7 +103,10 @@ export function CarbonBadge({ className }: { className?: string }) {
   const locale = useLocale();
   const t = pick(DICT, locale);
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
+  /* badge sitzt im footer · margin "0px" damit er triggert sobald
+     er die viewport-kante berührt · kein -10% else feuert er nie
+     wenn footer am unteren rand sitzt. */
+  const inView = useInView(ref, { once: true, margin: "0px" });
   const reduce = useReducedMotion();
   const display = useCountUp(TARGET_GRAMS, 1400, inView);
   const [open, setOpen] = useState(false);
