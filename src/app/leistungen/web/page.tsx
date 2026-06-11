@@ -36,7 +36,10 @@ type Dict = {
   techLinkBody: string;
   ansatzLinkLabel: string;
   ansatzLinkBody: string;
+  breakHonest: string;
   breakFAQ: string;
+  ctaMarginalia: string;
+  ctaSignature: string;
   faqLabel: string;
   faqH2: string;
   ctaH2: string;
@@ -64,7 +67,10 @@ const DICT: Record<Locale, Dict> = {
     techLinkBody: "hosting, cms-architektur, contentcore vs wordpress.",
     ansatzLinkLabel: "wie ich arbeite",
     ansatzLinkBody: "vier schritte, keine blackbox · und was ich nicht mache.",
+    breakHonest: "und mal ehrlich ↓",
     breakFAQ: "bevor du fragst ↓",
+    ctaMarginalia: "kurz & ehrlich ↘",
+    ctaSignature: "— nicolas",
     faqLabel: "oft gefragt",
     faqH2: "bevor du fragst.",
     ctaH2: "klingt nach deinem projekt?",
@@ -101,7 +107,10 @@ const DICT: Record<Locale, Dict> = {
     techLinkBody: "hébergement, architecture cms, contentcore vs wordpress.",
     ansatzLinkLabel: "comment je travaille",
     ansatzLinkBody: "quatre étapes, pas de boîte noire · et ce que je ne fais pas.",
+    breakHonest: "et franchement ↓",
     breakFAQ: "avant que tu demandes ↓",
+    ctaMarginalia: "court & honnête ↘",
+    ctaSignature: "— nicolas",
     faqLabel: "souvent demandé",
     faqH2: "avant que tu demandes.",
     ctaH2: "ça ressemble à ton projet ?",
@@ -138,7 +147,10 @@ const DICT: Record<Locale, Dict> = {
     techLinkBody: "hosting, cms architecture, contentcore vs wordpress.",
     ansatzLinkLabel: "how i work",
     ansatzLinkBody: "four steps, no black box · and what i don't do.",
+    breakHonest: "honestly ↓",
     breakFAQ: "before you ask ↓",
+    ctaMarginalia: "short & honest ↘",
+    ctaSignature: "— nicolas",
     faqLabel: "often asked",
     faqH2: "before you ask.",
     ctaH2: "sounds like your project?",
@@ -204,6 +216,7 @@ export default function Page() {
       <WebApproaches num="02" />
       <WebDeliverables num="03" />
 
+      <ScribbleBreak text={t.breakHonest} rotate={0.8} />
       <WebVsAlternatives num="05" />
 
       {/* VERTIEFUNGS-LINKS · clean text-links statt glass cards */}
@@ -269,32 +282,53 @@ export default function Page() {
         </div>
       </section>
 
-      {/* CTA · transparent · blobs durch · lila accent statt lime fläche */}
+      {/* CTA · dark slab · GLEICHES pattern wie branding + preise */}
       <section
         id="kontakt"
-        className="relative py-24 md:py-32 overflow-hidden text-[#0a0a0a]"
+        className="relative py-24 md:py-32 overflow-hidden bg-[#0a0a0a]"
       >
-        <div className="container-site relative text-center">
-          <h2 className="text-[clamp(2rem,5vw,3.5rem)] leading-[1] font-black tracking-[-0.04em] text-[#0a0a0a] lowercase max-w-[680px] mx-auto">
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-[0.1] pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at center, rgba(242,242,242,0.5) 1px, transparent 1.4px)",
+            backgroundSize: "26px 26px",
+          }}
+        />
+        <div className="container-site relative">
+          <p
+            className="font-mono text-[11px] uppercase tracking-label text-[#b084d3] mb-6"
+            style={{ transform: "rotate(-0.5deg)" }}
+          >
+            {t.ctaMarginalia}
+          </p>
+          <h2 className="text-[clamp(2rem,5.5vw,4rem)] leading-[1] font-black tracking-[-0.035em] text-[#f2f2f2] lowercase max-w-[820px]">
             {t.ctaH2}
           </h2>
-          <p className="mt-6 max-w-[520px] mx-auto text-[14px] md:text-[15px] leading-relaxed text-[#0a0a0a]/80">
+          <p className="mt-8 max-w-[560px] text-[15px] leading-relaxed text-[#f2f2f2]/75">
             {t.ctaBody}
           </p>
-          <div className="mt-10 flex justify-center gap-3 flex-wrap">
+          <div className="mt-10 flex flex-wrap gap-3">
             <Link
               href={buildPath("kontakt", locale)}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#0a0a0a] text-[#e1fd52] hover:bg-[#1a1a1a] transition-colors"
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#e1fd52] text-[#0a0a0a] hover:bg-[#d4f03e] transition-colors"
             >
               {t.ctaPrimary}
             </Link>
             <Link
               href={buildPath("preise", locale)}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#b084d3] text-[#0a0a0a] hover:bg-[#b084d3] hover:text-[#0a0a0a] transition-colors"
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#b084d3] text-[#f2f2f2] hover:bg-[#b084d3] hover:text-[#0a0a0a] transition-colors"
             >
               {t.ctaSecondary}
             </Link>
           </div>
+          <p
+            className="mt-10 text-[16px] text-[#b084d3]"
+            style={{ fontFamily: "var(--font-caveat), cursive", transform: "rotate(-1deg)" }}
+          >
+            {t.ctaSignature}
+          </p>
         </div>
       </section>
     </>

@@ -257,24 +257,33 @@ export default function Page() {
       <ScribbleBreak text={t.breakHonest} rotate={0.8} />
       <BrandVsAlternatives num="05" />
 
+      {/* VERTIEFUNGS-LINKS · text-rows · GLEICHES pattern wie /leistungen/web */}
       <section className="pt-16 md:pt-24 pb-20">
         <div className="container-site">
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-[1100px] border-t-2 border-[#0a0a0a]/15">
             <Link
               href={buildPath("ansatz", locale)}
-              className="group block glass rounded-xl px-6 py-5 hover:border-lime/25 transition-colors"
+              className="group block py-8 border-b-2 border-[#0a0a0a]/15 md:border-b-0 md:border-r-2"
             >
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">{t.ansatzLinkLabel}</span>
-              <p className="mt-1.5 text-[14px] text-offwhite/75 group-hover:text-offwhite transition-colors">{t.ansatzLinkBody}</p>
-              <span className="mt-3 inline-block font-mono text-[11px] uppercase tracking-label text-accent-ink">{t.ansatzLinkCta}</span>
+              <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+                {t.ansatzLinkLabel}
+              </span>
+              <p className="mt-2 text-[18px] md:text-[20px] text-[#0a0a0a] font-medium tracking-[-0.01em] transition-colors flex items-center gap-2">
+                {t.ansatzLinkBody}
+                <span className="font-mono text-[14px] text-[#0a0a0a]/45 group-hover:text-[#0a0a0a] group-hover:translate-x-1 transition-all">→</span>
+              </p>
             </Link>
             <Link
               href={buildPath("preise", locale)}
-              className="group block glass rounded-xl px-6 py-5 hover:border-lime/25 transition-colors"
+              className="group block py-8"
             >
-              <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">{t.preiseLinkLabel}</span>
-              <p className="mt-1.5 text-[14px] text-offwhite/75 group-hover:text-offwhite transition-colors">{t.preiseLinkBody}</p>
-              <span className="mt-3 inline-block font-mono text-[11px] uppercase tracking-label text-accent-ink">{t.preiseLinkCta}</span>
+              <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+                {t.preiseLinkLabel}
+              </span>
+              <p className="mt-2 text-[18px] md:text-[20px] text-[#0a0a0a] font-medium tracking-[-0.01em] transition-colors flex items-center gap-2">
+                {t.preiseLinkBody}
+                <span className="font-mono text-[14px] text-[#0a0a0a]/45 group-hover:text-[#0a0a0a] group-hover:translate-x-1 transition-all">→</span>
+              </p>
             </Link>
           </div>
         </div>
