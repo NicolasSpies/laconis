@@ -126,7 +126,7 @@ export function ServicesDropdown({
           className="absolute -top-[5px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rotate-45 bg-[rgba(10,12,10,0.78)] border-l border-t border-white/8"
           aria-hidden
         />
-        <div className="liquid-glass rounded-lg overflow-hidden">
+        <div data-theme="dark" className="liquid-glass rounded-lg overflow-hidden">
           <ul className="py-1.5">
             {SUB_LINKS.map((sub) => {
               const href = buildPath(sub.routeKey, currentLocale);

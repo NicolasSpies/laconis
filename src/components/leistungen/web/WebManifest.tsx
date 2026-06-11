@@ -117,7 +117,7 @@ export function WebManifest({
               <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
               <h2 className="heading-display mt-4 text-[clamp(2rem,4.5vw,3rem)] text-offwhite leading-[1.05]">
                 {t.h2pre}
-                <span className="italic font-serif text-accent-ink">{t.h2italic}</span>
+                <span className="font-hand text-accent-ink">{t.h2italic}</span>
                 {t.h2post}
               </h2>
               <p className="mt-6 text-[14px] leading-relaxed text-offwhite/55 max-w-[320px]">

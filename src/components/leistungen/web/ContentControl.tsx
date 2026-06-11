@@ -195,7 +195,7 @@ export function ContentControl({ num = "02" }: { num?: string } = {}) {
 
         <h2 className="mt-4 heading-display text-[clamp(2.25rem,6vw,4rem)] text-offwhite leading-[1.02] max-w-[920px]">
           {t.h2pre}
-          <span className="italic font-serif text-accent-ink">{t.h2italic}</span>
+          <span className="font-hand text-accent-ink">{t.h2italic}</span>
         </h2>
 
         <p className="mt-7 max-w-[580px] text-[15px] md:text-[16px] leading-relaxed text-offwhite/75">

@@ -84,7 +84,7 @@ export function WebVsAlternatives({ num = "04" }: { num?: string } = {}) {
           <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(2rem,5vw,3.5rem)] text-offwhite leading-[1.05]">
             {t.h2pre}
-            <span className="italic font-serif text-accent-ink">{t.h2italic}</span>
+            <span className="font-hand text-accent-ink">{t.h2italic}</span>
             {t.h2post}
           </h2>
         </div>

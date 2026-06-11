@@ -71,7 +71,7 @@ export function Werkstatt() {
             <SectionLabel num="02½">{t.sectionLabel}</SectionLabel>
             <h2 className="mt-5 heading-display text-[clamp(1.6rem,3.6vw,2.6rem)] leading-[1.05] text-offwhite max-w-[560px]">
               {t.h2pre}
-              <span className="italic font-serif text-accent-ink">{t.h2italic}</span>
+              <span className="font-hand text-accent-ink">{t.h2italic}</span>
             </h2>
           </div>
           <p

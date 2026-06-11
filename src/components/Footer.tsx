@@ -54,6 +54,7 @@ export function Footer() {
 
   return (
     <footer
+      data-theme="dark"
       className="relative z-10 bg-dark border-t border-ink/5 text-offwhite"
     >
       <div className="container-site pt-8 pb-6 relative">

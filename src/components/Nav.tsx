@@ -136,7 +136,7 @@ function LangDropdown({ currentLocale }: { currentLocale: Locale }) {
           className="absolute -top-[5px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rotate-45 bg-[rgba(10,12,10,0.78)] border-l border-t border-white/8"
           aria-hidden
         />
-        <div className="liquid-glass rounded-lg overflow-hidden">
+        <div data-theme="dark" className="liquid-glass rounded-lg overflow-hidden">
           <ul className="py-1.5">
             {LOCALES.map((code) => {
               const isActive = code === currentLocale;
@@ -228,7 +228,7 @@ export function Nav() {
                 key={l.routeKey}
                 href={href}
                 className={cn(
-                  "link-draw relative font-mono text-[12px] lowercase tracking-mono transition-colors",
+                  "link-draw relative whitespace-nowrap font-mono text-[12px] lowercase tracking-mono transition-colors",
                   active
                     ? "text-offwhite"
                     : "text-offwhite/55 hover:text-offwhite",

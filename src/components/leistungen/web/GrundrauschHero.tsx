@@ -145,7 +145,7 @@ function HeroCard({ t }: { t: HeroDict }) {
           aria-hidden
         >
           <span
-            className="font-serif italic text-offwhite leading-none"
+            className="font-display italic text-offwhite leading-none"
             style={{
               fontSize: "18cqw",
               textShadow: "0 2px 24px rgba(0,0,0,0.4)",
@@ -175,7 +175,7 @@ function HeroCard({ t }: { t: HeroDict }) {
               style={{ width: "1.4cqw", height: "1.4cqw" }}
             />
             <span
-              className="font-serif italic text-offwhite/95 leading-none"
+              className="font-display italic text-offwhite/95 leading-none"
               style={{ fontSize: "2.2cqw" }}
             >
               {t.atelier}
@@ -206,7 +206,7 @@ function HeroCard({ t }: { t: HeroDict }) {
             {t.studio}
           </p>
           <p
-            className="font-serif italic text-offwhite leading-[0.98]"
+            className="font-display italic text-offwhite leading-[0.98]"
             style={{ fontSize: "4.2cqw", marginBottom: "1.8cqw" }}
           >
             {t.h1}

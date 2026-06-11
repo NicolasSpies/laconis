@@ -142,7 +142,7 @@ export function Deliverables({ num = "05" }: { num?: string } = {}) {
                 >
                   <h3 className="heading-display text-[clamp(1.5rem,2.4vw,1.9rem)] text-offwhite leading-[1.1]">
                     {p.titelPre}
-                    <span className="italic font-serif text-accent-ink">{p.titelItalic}</span>
+                    <span className="font-hand text-accent-ink">{p.titelItalic}</span>
                     {p.titelPost}
                   </h3>
                   <p className="mt-4 text-[13.5px] leading-relaxed text-offwhite/75">

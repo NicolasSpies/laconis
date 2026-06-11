@@ -27,7 +27,7 @@ export default function Page() {
 
           <h1 className="mt-8 heading-display text-[clamp(2.25rem,6.5vw,5rem)] text-offwhite leading-[1.05] max-w-[920px]">
             fummel{" "}
-            <span className="italic font-serif text-accent-ink">mal</span>.
+            <span className="font-hand text-accent-ink">mal</span>.
             <br />
             <span className="text-offwhite/35">vibes, kein logo.</span>
           </h1>
@@ -43,7 +43,7 @@ export default function Page() {
           <div className="liquid-glass rounded-2xl p-10 md:p-14 text-center">
             <h2 className="heading-display text-[clamp(1.75rem,4.5vw,3rem)] text-offwhite max-w-[640px] mx-auto">
               lust, das{" "}
-              <span className="italic font-serif text-accent-ink">richtig</span>{" "}
+              <span className="font-hand text-accent-ink">richtig</span>{" "}
               zu machen?
             </h2>
             <div className="mt-7 flex justify-center gap-3 flex-wrap">

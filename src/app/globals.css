@@ -9,6 +9,8 @@
     /* accent color as RGB triplet so tailwind `lime/50` etc. keep working */
     /* ═══ LIME — EINE WAHRHEIT · #E1FD52 · nirgends varianten ═══ */
     --accent: 225 253 82;
+    /* accent als TEXT · auf dark ist das echte lime lesbar */
+    --accent-text: 225 253 82;
 
     --bg: 26 26 26; /* #1A1A1A page bg */
     --bg-root: 0 0 0; /* deepest shell behind everything */
@@ -76,6 +78,10 @@
        lime KNALLT auf hellem grund, lila wird edel statt dunst,
        schwarz wird tief. farben arbeiten endlich. */
     --accent: 225 253 82;
+    /* accent als TEXT · pures lime ist auf papier-hell unlesbar (≈1.6:1).
+       oliv-lime aus der gleichen familie · ~4.7:1 auf #E9E9E7.
+       flächen/marker/glows nutzen weiter --accent · das gelb bleibt. */
+    --accent-text: 88 106 6;
 
     --bg: 233 233 231; /* #E9E9E7 papier-hell · warm, nicht steril-weiß */
     --bg-root: 233 233 231; /* aligned mit --bg · sections transparent, html-bg scheint durch */

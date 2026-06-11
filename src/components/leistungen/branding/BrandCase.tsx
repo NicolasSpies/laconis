@@ -107,7 +107,7 @@ function HoloroomBrandSheet({ t }: { t: Dict }) {
           />
           <div className="absolute inset-0 flex items-center justify-center">
             <span
-              className="font-serif text-offwhite leading-none"
+              className="font-display text-offwhite leading-none"
               style={{
                 fontSize: "min(10cqw, 68px)",
                 letterSpacing: "-0.015em",
@@ -136,7 +136,7 @@ function HoloroomBrandSheet({ t }: { t: Dict }) {
           style={{ padding: "5%" }}
         >
           <div
-            className="font-serif text-offwhite leading-none"
+            className="font-display text-offwhite leading-none"
             style={{ fontSize: "min(11cqw, 72px)" }}
           >
             H.
@@ -182,7 +182,7 @@ export function BrandCase({ num = "05" }: { num?: string } = {}) {
           <blockquote className="relative">
             <span
               aria-hidden
-              className="absolute -top-4 -left-2 font-serif text-[80px] leading-none text-accent-ink/20 select-none pointer-events-none"
+              className="absolute -top-4 -left-2 font-display text-[80px] leading-none text-accent-ink/20 select-none pointer-events-none"
             >
               „
             </span>

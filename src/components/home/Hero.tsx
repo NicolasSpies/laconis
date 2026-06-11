@@ -138,19 +138,22 @@ export function Hero() {
     }));
 
     const measure = () => {
+      /* dokument-koordinaten (viewport + scroll) · so bleiben die caches
+         beim scrollen korrekt ohne ständiges re-measure */
       for (const l of letters) {
         const r = l.el.getBoundingClientRect();
         l.cx = r.left + r.width / 2;
-        l.cy = r.top + r.height / 2;
+        l.cy = r.top + r.height / 2 + window.scrollY;
       }
     };
     measure();
 
     const tick = () => {
       let active = false;
+      const mouseDocY = mouseY + window.scrollY;
       for (const l of letters) {
         const dx = l.cx - mouseX;
-        const dy = l.cy - mouseY;
+        const dy = l.cy - mouseDocY;
         const dist = Math.sqrt(dx * dx + dy * dy);
         const target = inside
           ? dist < PROX_RADIUS
@@ -179,6 +182,9 @@ export function Hero() {
     };
 
     const onMove = (e: PointerEvent) => {
+      /* move im hero IMPLIZIERT drin · pointerenter feuert nicht wenn die
+         maus beim laden schon über der section stand */
+      inside = true;
       mouseX = e.clientX;
       mouseY = e.clientY;
       kick();

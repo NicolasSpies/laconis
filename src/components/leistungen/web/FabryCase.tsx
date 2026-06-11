@@ -238,7 +238,7 @@ export function FabryCase({ num = "05" }: { num?: string } = {}) {
           <blockquote className="relative">
             <span
               aria-hidden
-              className="absolute -top-4 -left-2 font-serif text-[80px] leading-none text-accent-ink/20 select-none pointer-events-none"
+              className="absolute -top-4 -left-2 font-display text-[80px] leading-none text-accent-ink/20 select-none pointer-events-none"
             >
               „
             </span>

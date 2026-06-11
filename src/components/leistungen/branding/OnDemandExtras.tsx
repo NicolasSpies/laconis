@@ -91,7 +91,7 @@ export function OnDemandExtras() {
       <div className="container-site">
         <h3 className="heading-display text-[clamp(1.25rem,2.5vw,1.6rem)] text-offwhite leading-[1.15] text-center">
           {t.headlinePre}
-          <span className="italic font-serif text-accent-ink">{t.headlineItalic}</span>
+          <span className="font-hand text-accent-ink">{t.headlineItalic}</span>
           {t.headlinePost}
         </h3>
 

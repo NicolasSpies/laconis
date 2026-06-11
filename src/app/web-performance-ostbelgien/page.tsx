@@ -244,12 +244,16 @@ export default async function Page() {
                         {((m.transferKb ?? 0) / 1024).toFixed(1)}mb
                       </p>
                     </div>
-                    {/* score · big */}
+                    {/* score · big · dark fill damit lime-ring auf
+                        papier-hell trägt (lime pur wäre unsichtbar) */}
                     <div
-                      className="w-[64px] h-[64px] rounded-full grid place-items-center border-[3px]"
+                      className="w-[64px] h-[64px] rounded-full grid place-items-center border-[3px] bg-[#0a0a0a]"
                       style={{ borderColor: scoreColor(m.score ?? 0) }}
                     >
-                      <span className="font-display font-black text-[20px] text-[#0a0a0a] tabular-nums">
+                      <span
+                        className="font-display font-black text-[20px] tabular-nums"
+                        style={{ color: scoreColor(m.score ?? 0) }}
+                      >
                         {m.score}
                       </span>
                     </div>

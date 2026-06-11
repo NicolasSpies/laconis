@@ -114,7 +114,7 @@ export function BrandSystemHero() {
             transition={{ duration: 0.5, delay: 1.4 }}
           >
             <div
-              className="font-serif leading-none"
+              className="font-display leading-none"
               style={{ fontSize: "min(14cqw, 64px)", color: "#0f0f0f" }}
             >
               Aa
