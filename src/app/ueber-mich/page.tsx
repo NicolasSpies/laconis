@@ -171,7 +171,6 @@ export default function Page() {
             </span>
           </>
         }
-        visual={<EntityCard locale={locale} />}
       >
         <div className="flex flex-wrap gap-2 mb-7">
           {t.tags.map((tag) => (
@@ -295,93 +294,3 @@ export default function Page() {
   );
 }
 
-/**
- * EntityCard · typografisches type-specimen statt polaroid (phase 2).
- *
- * doppelfunktion:
- *   1. visual · ø-monogram + fact-zeilen im specimen-stil · grafiker-ästhetik
- *   2. GEO · fakten-dichter, zitierfähiger entity-block (gründung, standort,
- *      sprachen, besetzung) den AI-suchen als antwort übernehmen können
- */
-function EntityCard({ locale }: { locale: Locale }) {
-  const FACTS: Record<
-    Locale,
-    { rows: Array<[string, string]>; sub: string }
-  > = {
-    de: {
-      sub: "design studio",
-      rows: [
-        ["gegründet", "2026"],
-        ["standort", "ostbelgien"],
-        ["sprachen", "de · fr · en"],
-        ["besetzung", "ein mensch"],
-        ["fokus", "webdesign + branding"],
-      ],
-    },
-    fr: {
-      sub: "studio de design",
-      rows: [
-        ["fondé", "2026"],
-        ["base", "cantons de l'est"],
-        ["langues", "de · fr · en"],
-        ["effectif", "un humain"],
-        ["focus", "webdesign + branding"],
-      ],
-    },
-    en: {
-      sub: "design studio",
-      rows: [
-        ["founded", "2026"],
-        ["based in", "east belgium"],
-        ["languages", "de · fr · en"],
-        ["headcount", "one human"],
-        ["focus", "webdesign + branding"],
-      ],
-    },
-  };
-  const f = FACTS[locale];
-
-  return (
-    <div className="relative mx-auto w-[300px] md:w-[340px] rounded-xl border border-[#0a0a0a]/15 bg-[rgb(var(--surface))] p-7 md:p-8 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.3)]">
-      {/* specimen-kopf · wortmarke + ø */}
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <span className="block font-display font-black lowercase text-[28px] leading-none tracking-[-0.03em] text-[#0a0a0a]">
-            lacønis
-          </span>
-          <span className="mt-1.5 block font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/55">
-            {f.sub}
-          </span>
-        </div>
-        {/* ø-monogram · dreht sanft beim hover (css only · server component) */}
-        <span
-          aria-hidden
-          className="font-display font-black leading-none text-[#b084d3] transition-transform duration-700 ease-out hover:rotate-[360deg] select-none"
-          style={{ fontSize: 44, letterSpacing: "-0.05em" }}
-        >
-          ø
-        </span>
-      </div>
-
-      {/* fact-zeilen · GEO-entity-daten */}
-      <dl className="mt-7 space-y-2.5 border-t border-[#0a0a0a]/12 pt-6">
-        {f.rows.map(([k, v]) => (
-          <div key={k} className="flex items-baseline justify-between gap-4">
-            <dt className="font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/45">
-              {k}
-            </dt>
-            <dd className="font-mono text-[11px] lowercase text-[#0a0a0a]/85 text-right">
-              {v}
-            </dd>
-          </div>
-        ))}
-      </dl>
-
-      {/* lime-kante unten · marken-signatur */}
-      <span
-        aria-hidden
-        className="absolute -bottom-px left-7 right-7 h-[3px] rounded-full bg-[#e1fd52]"
-      />
-    </div>
-  );
-}

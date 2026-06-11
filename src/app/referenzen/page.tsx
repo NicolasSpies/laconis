@@ -1,6 +1,6 @@
 import { PageHero } from "@/components/shared/PageHero";
 import { Marquee } from "@/components/shared/Marquee";
-import { ScrollTiltedCaseGrid } from "@/components/referenzen/ScrollTiltedCaseGrid";
+import { ReferenzenIndex } from "@/components/referenzen/ReferenzenIndex";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { referenzen } from "@/data/referenzen";
 import { getMeta } from "@/lib/seo/getMeta";
@@ -99,10 +99,9 @@ export default function Page() {
 
       <Marquee items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={45} />
 
-      {/* Editorial scroll-tilted grid · jeder tile rises from below,
-         settled in focus mit caption fade-in, kippt zurück nach oben raus.
-         grey bg damit der globale cursor-morph (lime glow) drüber rollt. */}
-      <ScrollTiltedCaseGrid />
+      {/* Editorial index · full-width rows, cursor-following preview ·
+         skaliert von 3 auf 30 cases · ContentCore-API-ready */}
+      <ReferenzenIndex />
     </>
   );
 }
