@@ -260,6 +260,32 @@
     [data-theme="light"] .cursor-dot.is-hovering .cursor-dot-halo {
       background-color: rgb(var(--ink) / 0.22);
     }
+    /* context-label · data-cursor="text" am element zeigt mono-pill
+       neben dem dot (z.b. "zieh mich" auf draggables) */
+    .cursor-dot-label {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(10, 10, 10, 0.92);
+      color: #e1fd52;
+      font-family: var(--font-geist-mono), ui-monospace, monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      opacity: 0;
+      transform: scale(0.85);
+      transform-origin: top left;
+      transition:
+        opacity 0.18s ease-out,
+        transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .cursor-dot.has-label .cursor-dot-label {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }
 
@@ -489,6 +515,21 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  /* link-draw · DAS sitewide hover-pattern (phase 4) ·
+     underline zeichnet sich von links nach rechts · passt zu den scribbles.
+     currentColor → erbt automatisch text-farbe (nav, footer, body-links). */
+  .link-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1.5px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    padding-bottom: 2px;
+  }
+  .link-draw:hover,
+  .link-draw:focus-visible {
+    background-size: 100% 1.5px;
   }
   .grid-bg {
     background-image:

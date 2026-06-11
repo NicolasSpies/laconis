@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
 import { GooeyText } from "@/components/shared/GooeyText";
+import { useScrollSkew } from "@/lib/useScrollSkew";
 
 /**
  * SplitStatement · transparent grey section · gooey-cycling headline.
@@ -49,6 +51,8 @@ const DICT: Record<
 export function SplitStatement() {
   const locale = useLocale();
   const t = pick(DICT, locale);
+  /* velocity-skew · headline kippt minimal mit dem scroll (max 1.5°) */
+  const skewY = useScrollSkew();
 
   return (
     <section
@@ -58,14 +62,17 @@ export function SplitStatement() {
       <div className="container-site relative flex flex-col items-center text-center">
         {/* GooeyText cycling · zentriert, DM Sans black, dark text.
             container ist auf längste phrase fixed damit kein layout-jump. */}
-        <h2 className="text-[clamp(2.8rem,8vw,7rem)] leading-[0.9] font-black tracking-[-0.035em] text-[#0a0a0a]">
+        <motion.h2
+          style={{ skewY }}
+          className="text-[clamp(2.8rem,8vw,7rem)] leading-[0.9] font-black tracking-[-0.035em] text-[#0a0a0a]"
+        >
           <GooeyText
             texts={t.phrases}
             morphTime={1.4}
             cooldownTime={1.8}
             fitTo="longest"
           />
-        </h2>
+        </motion.h2>
 
         <p className="mt-12 max-w-[560px] text-[15px] md:text-[16px] leading-relaxed text-[#0a0a0a]/85">
           {t.body}

@@ -199,6 +199,7 @@ export function BrandDesk({ num = "02" }: { num?: string } = {}) {
             {pieces.map((p) => (
               <motion.div
                 key={p.id}
+                data-cursor="zieh mich"
                 drag
                 dragMomentum={false}
                 onPointerDown={() => bringFront(p.id)}

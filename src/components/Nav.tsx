@@ -228,7 +228,7 @@ export function Nav() {
                 key={l.routeKey}
                 href={href}
                 className={cn(
-                  "relative font-mono text-[12px] lowercase tracking-mono transition-colors",
+                  "link-draw relative font-mono text-[12px] lowercase tracking-mono transition-colors",
                   active
                     ? "text-offwhite"
                     : "text-offwhite/55 hover:text-offwhite",

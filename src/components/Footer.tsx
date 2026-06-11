@@ -100,8 +100,12 @@ export function Footer() {
           {/* trust-marker · co2 pro view · click → modal */}
           <CarbonBadge className="text-offwhite/55" />
           <div className="flex gap-5">
-            <Link href={buildPath("impressum", locale)}>{t.impressum}</Link>
-            <Link href={buildPath("datenschutz", locale)}>{t.datenschutz}</Link>
+            <Link className="link-draw" href={buildPath("impressum", locale)}>
+              {t.impressum}
+            </Link>
+            <Link className="link-draw" href={buildPath("datenschutz", locale)}>
+              {t.datenschutz}
+            </Link>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 export function CursorDot() {
   const dot = useRef<HTMLDivElement>(null);
+  const label = useRef<HTMLSpanElement>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -26,6 +27,13 @@ export function CursorDot() {
         dot.current.classList.remove("is-hovering");
         return;
       }
+      /* context-label · data-cursor="text" → mono-pill neben dem dot
+         (z.b. "zieh mich" auf draggables, "zieh" auf slidern) */
+      const labeled = t.closest("[data-cursor]") as HTMLElement | null;
+      if (labeled && label.current) {
+        label.current.textContent = labeled.getAttribute("data-cursor");
+        dot.current.classList.add("has-label");
+      }
       if (t.closest("a, button, [role='button'], summary, label, input, select, textarea")) {
         dot.current.classList.add("is-hovering");
       }
@@ -37,6 +45,9 @@ export function CursorDot() {
       if (t.closest("[data-cursor-hide]")) {
         dot.current.classList.remove("is-hidden");
         return;
+      }
+      if (t.closest("[data-cursor]")) {
+        dot.current.classList.remove("has-label");
       }
       if (t.closest("a, button, [role='button'], summary, label, input, select, textarea")) {
         dot.current.classList.remove("is-hovering");
@@ -77,6 +88,8 @@ export function CursorDot() {
       {/* halo · nur sichtbar über klickbarem · core · immer sichtbar */}
       <span className="cursor-dot-halo" />
       <span className="cursor-dot-core" />
+      {/* context-label · gefüllt via data-cursor attribute */}
+      <span ref={label} className="cursor-dot-label" />
     </div>
   );
 }
