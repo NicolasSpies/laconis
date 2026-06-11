@@ -43,7 +43,7 @@ export function HomeFAQ() {
             {t.items.map((item) => (
               <details key={item.q} className="group py-5 cursor-pointer">
                 <summary className="flex items-center justify-between gap-4 list-none">
-                  <h3 className="heading-sans text-[16px] md:text-[17px] text-offwhite group-hover:text-accent-ink transition-colors">
+                  <h3 className="heading-sans text-[16px] md:text-[17px] text-offwhite group-hover:text-[#b084d3] transition-colors">
                     {item.q}
                   </h3>
                   <span className="font-mono text-[16px] text-offwhite/35 group-open:rotate-45 transition-transform shrink-0">

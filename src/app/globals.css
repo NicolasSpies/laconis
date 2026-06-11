@@ -78,10 +78,12 @@
        lime KNALLT auf hellem grund, lila wird edel statt dunst,
        schwarz wird tief. farben arbeiten endlich. */
     --accent: 225 253 82;
-    /* accent als TEXT · pures lime ist auf papier-hell unlesbar (≈1.6:1).
-       oliv-lime aus der gleichen familie · ~4.7:1 auf #E9E9E7.
-       flächen/marker/glows nutzen weiter --accent · das gelb bleibt. */
-    --accent-text: 88 106 6;
+    /* accent als TEXT · LIME IST HEILIG, wird NIE abgewandelt (kein oliv,
+       keine opacity-tricks · regel von nicolas). auf papier-hell ist lime
+       als text unlesbar → dort wird accent-text schlicht ink. auf dunklen
+       flächen (footer #C8C8C8-override, dark slabs, dropdowns) bleibt
+       accent-text das echte 100%-lime. */
+    --accent-text: 17 17 17;
 
     --bg: 233 233 231; /* #E9E9E7 papier-hell · warm, nicht steril-weiß */
     --bg-root: 233 233 231; /* aligned mit --bg · sections transparent, html-bg scheint durch */

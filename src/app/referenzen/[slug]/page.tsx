@@ -463,7 +463,7 @@ export default function Page({ params }: Props) {
               <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 group-hover:text-accent-ink transition-colors">
                 {t.vorher}
               </span>
-              <h3 className="mt-2 heading-sans text-[20px] text-offwhite group-hover:text-accent-ink transition-colors lowercase">
+              <h3 className="mt-2 heading-sans text-[20px] text-offwhite group-hover:text-[#b084d3] transition-colors lowercase">
                 {prevRef.name}
               </h3>
             </Link>
@@ -474,7 +474,7 @@ export default function Page({ params }: Props) {
               <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35 group-hover:text-accent-ink transition-colors">
                 {t.naechstes}
               </span>
-              <h3 className="mt-2 heading-sans text-[20px] text-offwhite group-hover:text-accent-ink transition-colors lowercase">
+              <h3 className="mt-2 heading-sans text-[20px] text-offwhite group-hover:text-[#b084d3] transition-colors lowercase">
                 {nextRef.name}
               </h3>
             </Link>

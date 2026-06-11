@@ -306,7 +306,7 @@ export default function Page() {
               {t.faq.map((q) => (
                 <details key={q.frage} className="group py-6 cursor-pointer">
                   <summary className="flex items-center justify-between gap-4 list-none">
-                    <h3 className="heading-sans text-[17px] md:text-[18px] text-offwhite group-hover:text-accent-ink transition-colors">
+                    <h3 className="heading-sans text-[17px] md:text-[18px] text-offwhite group-hover:text-[#b084d3] transition-colors">
                       {q.frage}
                     </h3>
                     <span className="font-mono text-[16px] text-offwhite/35 group-open:rotate-45 transition-transform shrink-0">+</span>

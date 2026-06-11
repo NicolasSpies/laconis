@@ -54,8 +54,13 @@ export function Footer() {
 
   return (
     <footer
-      data-theme="dark"
-      className="relative z-10 bg-dark border-t border-ink/5 text-offwhite"
+      className="relative z-10 border-t border-ink/5 text-offwhite"
+      style={{
+        /* das ur-grau · auf #C8C8C8 funktioniert das echte lime perfekt
+           (original-look) · deshalb lokales accent-text-override auf lime */
+        background: "#c8c8c8",
+        ["--accent-text" as never]: "225 253 82",
+      }}
     >
       <div className="container-site pt-8 pb-6 relative">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">

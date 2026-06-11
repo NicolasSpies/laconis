@@ -80,7 +80,7 @@ export function QuickPreisCheck() {
                       onClick={() => pick(o.value)}
                       className="group relative glass rounded-xl px-5 py-5 text-left hover:border-lime/50 hover:bg-lime/[0.04] transition-all"
                     >
-                      <span className="block heading-sans text-[18px] text-offwhite group-hover:text-accent-ink transition-colors">
+                      <span className="block heading-sans text-[18px] text-offwhite group-hover:text-[#b084d3] transition-colors">
                         {o.label}
                       </span>
                       <span className="mt-2 block font-mono text-[10px] uppercase tracking-label text-offwhite/55 group-hover:text-accent-ink/80 transition-colors">

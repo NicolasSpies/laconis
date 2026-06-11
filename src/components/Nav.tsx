@@ -99,7 +99,7 @@ function LangDropdown({ currentLocale }: { currentLocale: Locale }) {
         aria-label={`sprache wechseln · aktuell ${LOCALE_LABELS[currentLocale].long}`}
         className={cn(
           "tactile-press inline-flex items-center gap-1.5 font-mono text-[11px] uppercase px-2 py-1 rounded",
-          "text-offwhite hover:text-accent-ink",
+          "text-offwhite hover:text-[#b084d3]",
         )}
       >
         <span>{LOCALE_LABELS[currentLocale].short}</span>

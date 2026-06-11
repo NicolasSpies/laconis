@@ -160,7 +160,7 @@ export function BrandDesk({ num = "02" }: { num?: string } = {}) {
                     className="shrink-0 inline-block w-1.5 h-1.5 rounded-full bg-[#b084d3] mt-1.5 group-hover:bg-[#e1fd52] transition-colors"
                   />
                   <div>
-                    <span className="font-mono text-[10px] uppercase tracking-label text-offwhite group-hover:text-accent-ink transition-colors">
+                    <span className="font-mono text-[10px] uppercase tracking-label text-offwhite group-hover:text-[#b084d3] transition-colors">
                       {chip.label}
                     </span>
                     <span className="ml-2 text-[13px] leading-relaxed text-offwhite/70">
