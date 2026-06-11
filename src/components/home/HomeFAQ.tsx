@@ -28,16 +28,18 @@ export function HomeFAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10% 0px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-[820px]"
+          className="grid md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)] gap-10 md:gap-16 items-start"
         >
-          <p className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-            · {t.label}
-          </p>
-          <h2 className="heading-display mt-4 text-[clamp(1.75rem,4.5vw,2.75rem)] text-offwhite leading-[1.05]">
-            {t.headline}
-          </h2>
+          <div className="md:sticky md:top-28">
+            <p className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
+              · {t.label}
+            </p>
+            <h2 className="heading-display mt-4 text-[clamp(1.75rem,4.5vw,2.75rem)] text-offwhite leading-[1.05]">
+              {t.headline}
+            </h2>
+          </div>
 
-          <div className="mt-10 divide-y divide-ink/10 border-y border-ink/20">
+          <div className="divide-y divide-ink/10 border-y border-ink/20">
             {t.items.map((item) => (
               <details key={item.q} className="group py-5 cursor-pointer">
                 <summary className="flex items-center justify-between gap-4 list-none">

@@ -257,7 +257,7 @@ export default function Page() {
       <ScribbleBreak text={t.breakHonest} rotate={0.8} />
       <BrandVsAlternatives num="05" />
 
-      <section className="pb-20">
+      <section className="pt-16 md:pt-24 pb-20">
         <div className="container-site">
           <div className="grid md:grid-cols-2 gap-4">
             <Link
@@ -282,29 +282,32 @@ export default function Page() {
 
       <ScribbleBreak text={t.breakFAQ} rotate={0.8} flip />
 
-      {/* FAQ */}
+      {/* FAQ · 2-col sticky-split · headline links pinned, fragen rechts ·
+          nutzt die volle container-breite statt random 820px-block */}
       <section className="pb-24 pt-4">
         <div className="container-site">
-          <div className="max-w-[820px]">
-            <SectionLabel num="08">{t.faqLabel}</SectionLabel>
-            <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.5rem)] text-offwhite leading-[1.05]">
-              {t.faqH2}
-            </h2>
-          </div>
-          <div className="mt-12 divide-y divide-ink/10 border-y border-ink/20 max-w-[820px]">
-            {t.faq.map((q) => (
-              <details key={q.frage} className="group py-6 cursor-pointer">
-                <summary className="flex items-center justify-between gap-4 list-none">
-                  <h3 className="heading-sans text-[17px] md:text-[18px] text-offwhite group-hover:text-accent-ink transition-colors">
-                    {q.frage}
-                  </h3>
-                  <span className="font-mono text-[16px] text-offwhite/35 group-open:rotate-45 transition-transform shrink-0">+</span>
-                </summary>
-                <p className="mt-4 max-w-[680px] text-[14px] leading-relaxed text-offwhite/55">
-                  {q.antwort}
-                </p>
-              </details>
-            ))}
+          <div className="grid md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)] gap-10 md:gap-16 items-start">
+            <div className="md:sticky md:top-28">
+              <SectionLabel num="08">{t.faqLabel}</SectionLabel>
+              <h2 className="heading-display mt-4 text-[clamp(2rem,4.5vw,3rem)] text-offwhite leading-[1.05]">
+                {t.faqH2}
+              </h2>
+            </div>
+            <div className="divide-y divide-ink/10 border-y border-ink/20">
+              {t.faq.map((q) => (
+                <details key={q.frage} className="group py-6 cursor-pointer">
+                  <summary className="flex items-center justify-between gap-4 list-none">
+                    <h3 className="heading-sans text-[17px] md:text-[18px] text-offwhite group-hover:text-accent-ink transition-colors">
+                      {q.frage}
+                    </h3>
+                    <span className="font-mono text-[16px] text-offwhite/35 group-open:rotate-45 transition-transform shrink-0">+</span>
+                  </summary>
+                  <p className="mt-4 max-w-[680px] text-[14px] leading-relaxed text-offwhite/55">
+                    {q.antwort}
+                  </p>
+                </details>
+              ))}
+            </div>
           </div>
         </div>
       </section>

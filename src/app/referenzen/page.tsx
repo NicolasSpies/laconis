@@ -1,6 +1,7 @@
 import { PageHero } from "@/components/shared/PageHero";
 import { Marquee } from "@/components/shared/Marquee";
 import { ReferenzenIndex } from "@/components/referenzen/ReferenzenIndex";
+import { SectionGhost } from "@/components/shared/SectionGhost";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { referenzen } from "@/data/referenzen";
 import { getMeta } from "@/lib/seo/getMeta";
@@ -98,6 +99,9 @@ export default function Page() {
       />
 
       <Marquee items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={45} />
+
+      {/* outline-ghost · typo als layout-element */}
+      <SectionGhost word="work" side="left" />
 
       {/* Editorial index · full-width rows, cursor-following preview ·
          skaliert von 3 auf 30 cases · ContentCore-API-ready */}

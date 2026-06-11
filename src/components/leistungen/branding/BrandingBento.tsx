@@ -160,7 +160,7 @@ export function BrandingBento({ num = "04" }: { num?: string } = {}) {
   const t = pick(DICT, locale);
 
   return (
-    <section className="pb-16 md:pb-20 overflow-hidden">
+    <section className="pt-10 md:pt-14 pb-16 md:pb-20 overflow-hidden">
       <div className="container-site">
         <div className="max-w-[760px]">
           <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>

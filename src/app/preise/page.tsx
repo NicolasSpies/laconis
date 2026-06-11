@@ -5,6 +5,7 @@ import { TiltCard } from "@/components/shared/TiltCard";
 import { Marquee } from "@/components/shared/Marquee";
 import { PriceCard } from "@/components/preise/PriceCard";
 import { PreisExplorer } from "@/components/preise/PreisExplorer";
+import { SectionGhost } from "@/components/shared/SectionGhost";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import { getMeta } from "@/lib/seo/getMeta";
@@ -34,6 +35,7 @@ type Dict = {
   faktoren: Faktor[];
   numbersLabel: string;
   numbersHeadline: string;
+  ghostWord: string;
   numbersIntro: string;
   websiteLabel: string;
   websiteBody: string;
@@ -76,6 +78,7 @@ const DICT: Record<Locale, Dict> = {
     ],
     numbersLabel: "richtwerte",
     numbersHeadline: "und konkret?",
+    ghostWord: "ehrlich",
     numbersIntro: "keine fixpreise, aber ehrliche faustregeln · damit klar ist, worum's geht, bevor das gespräch losgeht.",
     websiteLabel: "website",
     websiteBody: "onepager mit klarem briefing und deinem content. mehrseitig mit CMS und branding zwischen 3.500 und 6.000.",
@@ -121,6 +124,7 @@ const DICT: Record<Locale, Dict> = {
     ],
     numbersLabel: "fourchettes",
     numbersHeadline: "et concrètement ?",
+    ghostWord: "honnête",
     numbersIntro: "pas de prix fixes, mais des règles honnêtes · pour que ce soit clair avant que le premier appel commence.",
     websiteLabel: "site web",
     websiteBody: "onepage avec brief clair et ton propre contenu. multi-pages avec CMS et branding entre 3 500 et 6 000.",
@@ -166,6 +170,7 @@ const DICT: Record<Locale, Dict> = {
     ],
     numbersLabel: "ranges",
     numbersHeadline: "and concretely?",
+    ghostWord: "honest",
     numbersIntro: "no fixed prices, but honest rules of thumb · so it's clear what we're talking about before the conversation starts.",
     websiteLabel: "website",
     websiteBody: "onepager with clear brief and your own content. multi-page with CMS and branding between 3,500 and 6,000.",
@@ -215,6 +220,9 @@ export default function Page() {
         italicAccent={t.heroItalic}
         sub={t.intro}
       />
+
+      {/* outline-ghost · typo als layout-element */}
+      <SectionGhost word={t.ghostWord} side="right" />
 
       {/* RICHTWERTE · 3 tilt-cards mit animierten preis-countern */}
       <GreySection tint="lime">
