@@ -4,7 +4,6 @@ import { GreySection } from "@/components/shared/GreySection";
 import { StatementStrip } from "@/components/shared/StatementStrip";
 import { AnsatzToggle } from "@/components/ansatz/AnsatzToggle";
 import { ProcessSteps } from "@/components/ansatz/ProcessSteps";
-import { ChatThread } from "@/components/ansatz/ChatThread";
 import { BrandValues } from "@/components/ansatz/BrandValues";
 import { WebManifest } from "@/components/leistungen/web/WebManifest";
 import { Manifest } from "@/components/leistungen/branding/Manifest";
@@ -135,11 +134,6 @@ export default function Page() {
         italicAccent={t.heroItalic}
         sub={t.intro}
       />
-
-      {/* CHAT-THREAD opener · existing component */}
-      <GreySection tone="grey">
-        <ChatThread num="02" />
-      </GreySection>
 
       {/* BRAND-VALUES · 4-wort-anker (tief · klar · ruhig · dein.) */}
       <BrandValues num="03" />

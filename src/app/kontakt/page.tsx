@@ -43,16 +43,16 @@ type Dict = {
 const DICT: Record<Locale, Dict> = {
   de: {
     kicker: "· kontakt",
-    heroL1: "lass",
-    heroL2: "reden.",
-    heroItalic: "kurz oder lang.",
+    heroL1: "lass reden.",
+    heroL2: "",
+    heroItalic: "",
     heroBody:
       "eine kurze nachricht reicht · kein verkaufs-pitch, kein formular-zwang. antwort meistens in unter 2 stunden.",
     directLabel: "direkter draht",
     rowSchreiben: "schreiben",
     rowAnrufen: "anrufen",
     rowAntwort: "antwortzeit",
-    rowAntwortWert: "ø < 2h werktags",
+    rowAntwortWert: "ø < 2h antwort",
     rowBuchen: "direkt buchen",
     rowBuchenWert: "20 min video-call",
     formLabel: "projekt anfragen",
@@ -65,14 +65,14 @@ const DICT: Record<Locale, Dict> = {
     kicker: "· contact",
     heroL1: "on parle?",
     heroL2: "",
-    heroItalic: "court ou long.",
+    heroItalic: "",
     heroBody:
       "un message court suffit · pas de pitch commercial, pas de formulaire obligatoire. réponse souvent en moins de 2 heures.",
     directLabel: "voie directe",
     rowSchreiben: "écrire",
     rowAnrufen: "appeler",
     rowAntwort: "réponse",
-    rowAntwortWert: "ø < 2h en semaine",
+    rowAntwortWert: "ø < 2h de réponse",
     rowBuchen: "réserver direct",
     rowBuchenWert: "20 min en visio",
     formLabel: "demander un projet",
@@ -83,16 +83,16 @@ const DICT: Record<Locale, Dict> = {
   },
   en: {
     kicker: "· contact",
-    heroL1: "let's",
-    heroL2: "talk.",
-    heroItalic: "short or long.",
+    heroL1: "let's talk.",
+    heroL2: "",
+    heroItalic: "",
     heroBody:
       "a short message is enough · no sales pitch, no forced forms. reply usually within 2 hours.",
     directLabel: "direct line",
     rowSchreiben: "write",
     rowAnrufen: "call",
     rowAntwort: "reply time",
-    rowAntwortWert: "ø < 2h weekdays",
+    rowAntwortWert: "ø < 2h reply",
     rowBuchen: "book directly",
     rowBuchenWert: "20 min video call",
     formLabel: "request a project",
@@ -114,7 +114,7 @@ export default function Page() {
         kicker={t.kicker}
         line1={t.heroL1}
         line2={t.heroL2 || undefined}
-        italicAccent={t.heroItalic}
+        italicAccent={t.heroItalic || undefined}
         sub={t.heroBody}
       />
 

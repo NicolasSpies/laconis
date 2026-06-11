@@ -31,9 +31,9 @@ const SkeletonSection = ({ h }: { h: number }) => (
   <div aria-hidden style={{ minHeight: `${h}px` }} />
 );
 
-const ServicesMorph = dynamic(
-  () => import("@/components/home/ServicesMorph").then((m) => m.ServicesMorph),
-  { loading: () => <SkeletonSection h={500} /> },
+const ServicesSplit = dynamic(
+  () => import("@/components/home/ServicesSplit").then((m) => m.ServicesSplit),
+  { loading: () => <SkeletonSection h={600} /> },
 );
 const HorizontalCases = dynamic(
   () =>
@@ -59,7 +59,7 @@ export default function HomePage() {
       {/* FAQPage-schema · money-keywords landen als AI-/SERP-antworten */}
       <FAQSchema items={faqItems.map((f) => ({ q: f.q, a: f.a }))} />
       <Hero />
-      <ServicesMorph />
+      <ServicesSplit />
       <SplitStatement />
       <div data-theme="dark" className="bg-dark text-offwhite">
         <HorizontalCases />

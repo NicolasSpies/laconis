@@ -6,7 +6,6 @@ import { BrandSystemHero } from "@/components/leistungen/branding/BrandSystemHer
 import { BrandDesk } from "@/components/leistungen/branding/BrandDesk";
 import { BrandingBento } from "@/components/leistungen/branding/BrandingBento";
 import { BrandVsAlternatives } from "@/components/leistungen/branding/BrandVsAlternatives";
-import { StaerkenStrip } from "@/components/shared/StaerkenStrip";
 import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
 import { SectionGhost } from "@/components/shared/SectionGhost";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
@@ -247,7 +246,6 @@ export default function Page() {
         speed={45}
       />
 
-      <StaerkenStrip />
       <BrandDesk num="02" />
       <ScribbleBreak text={t.breakLook} rotate={-1} />
       {/* outline-ghost · typo als layout-element */}

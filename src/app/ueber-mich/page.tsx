@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { PageHero } from "@/components/shared/PageHero";
 import { GreySection } from "@/components/shared/GreySection";
-import { TiltCard } from "@/components/shared/TiltCard";
 import { StatementStrip } from "@/components/shared/StatementStrip";
 import { Werdegang } from "@/components/ueber-mich/Werdegang";
 import { Button } from "@/components/ui/Button";
@@ -13,17 +12,6 @@ import type { Metadata } from "next";
 export async function generateMetadata(): Promise<Metadata> {
   return getMeta("/ueber-mich");
 }
-
-const TOOLS = [
-  { name: "next.js", kat: "stack" },
-  { name: "react", kat: "stack" },
-  { name: "tailwind", kat: "stack" },
-  { name: "typescript", kat: "stack" },
-  { name: "affinity designer", kat: "design" },
-  { name: "procreate", kat: "design" },
-  { name: "notion", kat: "ops" },
-  { name: "linear", kat: "ops" },
-];
 
 type WerdegangItem = { jahr: string; titel: string; kurz: string };
 
@@ -42,9 +30,6 @@ type Dict = {
   werdegangLabel: string;
   werdegangH2: string;
   werdegang: WerdegangItem[];
-  toolsLabel: string;
-  toolsH2: string;
-  toolsBody: string;
   finalH2: string;
   finalBody: string;
   finalPrimary: string;
@@ -73,9 +58,6 @@ const DICT: Record<Locale, Dict> = {
       { jahr: "2025", titel: "laconis als marke", kurz: "Aus „Nicolas macht Websites\" wird „laconis\". Name, Handschrift, Haltung." },
       { jahr: "2026", titel: "vollzeit", kurz: "Endlich. Nur noch laconis. Volle Konzentration." },
     ],
-    toolsLabel: "werkzeug",
-    toolsH2: "tools sind mittel, nicht sinn.",
-    toolsBody: "aber weil mich's jeder fragt · hier die aktuelle palette. wird sich in 2 jahren wieder geändert haben.",
     finalH2: "soweit in kurz. lust auf ein gespräch?",
     finalBody: "mehr über mich als über laconis? auch okay. ich mag kaffee und ehrliche gespräche.",
     finalPrimary: "kontakt aufnehmen →",
@@ -102,9 +84,6 @@ const DICT: Record<Locale, Dict> = {
       { jahr: "2025", titel: "laconis comme marque", kurz: "« Nicolas fait des sites » devient « laconis ». Nom, écriture, posture." },
       { jahr: "2026", titel: "temps plein", kurz: "Enfin. Plus que laconis. Concentration totale." },
     ],
-    toolsLabel: "outils",
-    toolsH2: "les outils sont des moyens, pas le but.",
-    toolsBody: "mais comme tout le monde me le demande · voici la palette actuelle. aura changé d'ici 2 ans.",
     finalH2: "voilà pour le rapide. envie d'échanger ?",
     finalBody: "plus sur moi que sur laconis ? pas de souci. j'aime le café et les discussions franches.",
     finalPrimary: "prendre contact →",
@@ -131,9 +110,6 @@ const DICT: Record<Locale, Dict> = {
       { jahr: "2025", titel: "laconis as a brand", kurz: "\"Nicolas makes websites\" became \"laconis\". Name, handwriting, posture." },
       { jahr: "2026", titel: "full-time", kurz: "Finally. Just laconis. Full focus." },
     ],
-    toolsLabel: "tools",
-    toolsH2: "tools are means, not the point.",
-    toolsBody: "but since everyone asks · here's the current palette. will have shifted again in 2 years.",
     finalH2: "that's it in short. up for a talk?",
     finalBody: "more about me than about laconis? also fine. i like coffee and honest conversations.",
     finalPrimary: "get in touch →",
@@ -227,41 +203,6 @@ export default function Page() {
 
         <div className="mt-14">
           <Werdegang items={t.werdegang} />
-        </div>
-      </GreySection>
-
-      {/* TOOLS · tilt-card mit chips */}
-      <GreySection tone="grey" tint="lime">
-        <div className="max-w-[820px]">
-          <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
-            · {t.toolsLabel}
-          </p>
-          <h2 className="mt-4 text-[clamp(1.75rem,4vw,3rem)] leading-[1] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase">
-            {t.toolsH2}
-          </h2>
-          <p className="mt-4 max-w-[580px] text-[14px] leading-relaxed text-[#0a0a0a]/75">
-            {t.toolsBody}
-          </p>
-        </div>
-
-        <div className="mt-10">
-          <TiltCard preset="paper" intensity={6}>
-            <div className="p-8 md:p-10 flex flex-wrap gap-2.5">
-              {TOOLS.map((tool) => (
-                <div
-                  key={tool.name}
-                  className="flex items-baseline gap-2 px-3 py-2 rounded-full border border-[#0a0a0a]/15 bg-[#0a0a0a]/[0.03]"
-                >
-                  <span className="font-mono text-[9px] uppercase tracking-label text-[#b084d3]">
-                    {tool.kat}
-                  </span>
-                  <span className="font-mono text-[12px] text-[#0a0a0a]">
-                    {tool.name}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </TiltCard>
         </div>
       </GreySection>
 

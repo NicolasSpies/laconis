@@ -219,10 +219,12 @@
     background: transparent;
   }
 
-  /* ═══════════ custom cursor (desktop only, disabled on touch) ═══════════
-     core · immer sichtbar, kleiner gelber dot (dark) bzw. bleibt gelb (light idle).
-     halo · nur über klickbarem, weicher größerer kreis mit transparenz.
-     light-mode-hover: core + halo wechseln auf schwarz statt gelb. */
+  /* ═══════════ custom cursor v2 · blend-difference (phase "feinschliff")
+     weißer dot mit mix-blend-mode: difference → invertiert den hintergrund
+     · IMMER sichtbar (hell, dunkel, lime, fotos) · keine theme-overrides
+     mehr nötig. hover: dot schrumpft minimal + ring expandiert drumherum.
+     größer als v1 (12px statt 8px) · nicolas: "immer sichtbar, modern,
+     bisschen größer". */
   @media (hover: hover) and (pointer: fine) {
     * {
       cursor: none !important;
@@ -232,25 +234,34 @@
       top: 0;
       left: 0;
       display: block;
-      width: 8px;
-      height: 8px;
+      width: 12px;
+      height: 12px;
       border-radius: 9999px;
-      background-color: rgb(var(--accent));
-      transform: translate(-50%, -50%);
-      transition: background-color 0.2s ease-out;
+      background-color: #fff;
+      mix-blend-mode: difference;
+      transform: translate(-50%, -50%) scale(1);
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
     }
+    .cursor-dot.is-hovering .cursor-dot-core {
+      transform: translate(-50%, -50%) scale(0.55);
+    }
+    /* halo = expandierender RING beim hover · auch difference */
     .cursor-dot-halo {
       position: absolute;
       top: 0;
       left: 0;
       display: block;
-      width: 28px;
-      height: 28px;
+      width: 40px;
+      height: 40px;
       border-radius: 9999px;
-      background-color: rgb(var(--accent) / 0.22);
-      transform: translate(-50%, -50%) scale(0);
+      border: 1.5px solid #fff;
+      background: transparent;
+      mix-blend-mode: difference;
+      transform: translate(-50%, -50%) scale(0.3);
       opacity: 0;
-      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease-out, background-color 0.2s ease-out;
+      transition:
+        transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.2s ease-out;
     }
     .cursor-dot.is-hovering .cursor-dot-halo {
       transform: translate(-50%, -50%) scale(1);
@@ -260,13 +271,6 @@
     .cursor-dot.is-hidden .cursor-dot-core,
     .cursor-dot.is-hidden .cursor-dot-halo {
       opacity: 0;
-    }
-    /* light mode · hover → core + halo werden schwarz */
-    [data-theme="light"] .cursor-dot.is-hovering .cursor-dot-core {
-      background-color: rgb(var(--ink));
-    }
-    [data-theme="light"] .cursor-dot.is-hovering .cursor-dot-halo {
-      background-color: rgb(var(--ink) / 0.22);
     }
     /* context-label · data-cursor="text" am element zeigt mono-pill
        neben dem dot (z.b. "zieh mich" auf draggables) */
