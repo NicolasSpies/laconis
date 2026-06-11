@@ -5,7 +5,6 @@ import { useLocale, pick } from "@/i18n/useLocale";
 import type { Locale } from "@/i18n/config";
 
 type Row = { thema: string; wordpress: string; contentcore: string };
-type Schicht = { num: string; name: string; beschreibung: string };
 
 type Dict = {
   sectionLabel: string;
@@ -14,11 +13,6 @@ type Dict = {
   intro: string;
   themaLabel: string;
   rows: Row[];
-  deeperLabel: string;
-  h3pre: string;
-  h3post: string;
-  schichten: Schicht[];
-  badges: string[];
 };
 
 const DICT: Record<Locale, Dict> = {
@@ -35,22 +29,11 @@ const DICT: Record<Locale, Dict> = {
       { thema: "performance", wordpress: "PHP-Runtime + Plugin-Bloat", contentcore: "Statisch ausgeliefert, 95+ PageSpeed" },
       { thema: "mehrsprachigkeit", wordpress: "Plugin (WPML) kostet extra", contentcore: "Eingebaut: DE · FR · EN" },
       { thema: "besucher-stats", wordpress: "Google Analytics + Cookie-Banner", contentcore: "Eingebaut, 100% DSGVO, ohne Cookies" },
-      { thema: "newsletter", wordpress: "Mailchimp abonnieren", contentcore: "Direkt im System, inkl. Statistiken" },
       { thema: "online-shop", wordpress: "WooCommerce oder Shopify extra", contentcore: "Direkt integriert, Stripe-Checkout" },
       { thema: "KI-unterstützung", wordpress: "Nachrüst-Plugin, oft kostenpflichtig", contentcore: "Bild-Alt-Texte, Übersetzung, Korrektur" },
       { thema: "datenhoheit", wordpress: "Geteilter Server, unklare Lage", contentcore: "Eigene Instanz in Litauen (EU)" },
       { thema: "support", wordpress: "Forum, Stack Overflow, Google", contentcore: "Ich. Persönlich. Per Mail oder Call." },
     ],
-    deeperLabel: "tiefer in die sicherheit",
-    h3pre: "vier schutzschichten.",
-    h3post: "nicht eine einzige davon bekommst du in wordpress ohne plugin.",
-    schichten: [
-      { num: "01", name: "IP-blocking", beschreibung: "Zehn Fehlversuche und die IP ist 24 Stunden gesperrt. Bei Wiederholung permanent." },
-      { num: "02", name: "geräteerkennung", beschreibung: "Auch über VPN erkennt das System das Gerät und bleibt dicht." },
-      { num: "03", name: "konto-schutz", beschreibung: "Login aus neuem Land? Ich bekomme sofort eine Warnung aufs Handy." },
-      { num: "04", name: "zwei-faktor", beschreibung: "Passwort allein reicht nicht. Jeder Login braucht einen Code aus meiner App." },
-    ],
-    badges: ["Passwörter verschlüsselt", "HTTPS überall", "Server in der EU · Litauen", "DSGVO-konform", "Kein Cookie-Banner", "Auto-Backup täglich"],
   },
   fr: {
     sectionLabel: "contentcore vs. wordpress",
@@ -65,22 +48,11 @@ const DICT: Record<Locale, Dict> = {
       { thema: "performance", wordpress: "Runtime PHP + bloat plugins", contentcore: "Livré statique, PageSpeed 95+" },
       { thema: "multilingue", wordpress: "Plugin (WPML) coûte extra", contentcore: "Intégré : DE · FR · EN" },
       { thema: "stats visiteurs", wordpress: "Google Analytics + bandeau cookies", contentcore: "Intégré, 100% RGPD, sans cookies" },
-      { thema: "newsletter", wordpress: "S'abonner à Mailchimp", contentcore: "Direct dans le système, stats inclus" },
       { thema: "shop", wordpress: "WooCommerce ou Shopify en plus", contentcore: "Intégré direct, checkout Stripe" },
       { thema: "aide ia", wordpress: "Plugin à rajouter, souvent payant", contentcore: "Alt-texts images, traduction, correction" },
       { thema: "souveraineté", wordpress: "Serveur partagé, situation floue", contentcore: "Instance propre en Lituanie (UE)" },
       { thema: "support", wordpress: "Forum, Stack Overflow, Google", contentcore: "Moi. Perso. Par mail ou call." },
     ],
-    deeperLabel: "plus loin dans la sécurité",
-    h3pre: "quatre couches de protection.",
-    h3post: "pas une seule que tu n'aurais sous wordpress sans plugin.",
-    schichten: [
-      { num: "01", name: "blocage ip", beschreibung: "Dix tentatives ratées et l'IP est bloquée 24 heures. Si ça recommence, c'est permanent." },
-      { num: "02", name: "détection device", beschreibung: "Même via VPN le système reconnaît l'appareil et reste fermé." },
-      { num: "03", name: "protection compte", beschreibung: "Login depuis un nouveau pays ? Je reçois direct une alerte sur le téléphone." },
-      { num: "04", name: "deux facteurs", beschreibung: "Le mot de passe seul ne suffit pas. Chaque login demande un code de mon app." },
-    ],
-    badges: ["Mots de passe chiffrés", "HTTPS partout", "Serveurs en UE · Lituanie", "Conforme RGPD", "Pas de bandeau cookies", "Auto-backup quotidien"],
   },
   en: {
     sectionLabel: "contentcore vs. wordpress",
@@ -95,22 +67,11 @@ const DICT: Record<Locale, Dict> = {
       { thema: "performance", wordpress: "PHP runtime + plugin bloat", contentcore: "Statically served, 95+ PageSpeed" },
       { thema: "multilingual", wordpress: "Plugin (WPML) costs extra", contentcore: "Built in: DE · FR · EN" },
       { thema: "visitor stats", wordpress: "Google Analytics + cookie banner", contentcore: "Built in, 100% GDPR, no cookies" },
-      { thema: "newsletter", wordpress: "Subscribe to Mailchimp", contentcore: "Right in the system, stats included" },
       { thema: "online shop", wordpress: "WooCommerce or Shopify extra", contentcore: "Built in, Stripe checkout" },
       { thema: "ai support", wordpress: "Add-on plugin, often paid", contentcore: "Image alt-text, translation, correction" },
       { thema: "data sovereignty", wordpress: "Shared server, unclear setup", contentcore: "Own instance in Lithuania (EU)" },
       { thema: "support", wordpress: "Forum, Stack Overflow, Google", contentcore: "Me. In person. By mail or call." },
     ],
-    deeperLabel: "deeper into security",
-    h3pre: "four protection layers.",
-    h3post: "not a single one of these comes with wordpress without a plugin.",
-    schichten: [
-      { num: "01", name: "ip blocking", beschreibung: "Ten failed attempts and the IP is locked for 24 hours. If it repeats, permanently." },
-      { num: "02", name: "device detection", beschreibung: "Even via VPN the system recognises the device and stays sealed." },
-      { num: "03", name: "account protection", beschreibung: "Login from a new country? I get an alert on my phone immediately." },
-      { num: "04", name: "two-factor", beschreibung: "Password alone isn't enough. Every login needs a code from my app." },
-    ],
-    badges: ["Passwords encrypted", "HTTPS everywhere", "Servers in EU · Lithuania", "GDPR-compliant", "No cookie banner", "Auto-backup daily"],
   },
 };
 
@@ -195,54 +156,6 @@ export function ContentCoreVsWordpress({
           ))}
         </div>
 
-        <div className="mt-20">
-          <div className="max-w-[720px]">
-            <span className="font-mono text-[11px] uppercase tracking-label text-offwhite/35">
-              {t.deeperLabel}
-            </span>
-            <h3 className="heading-display mt-3 text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
-              {t.h3pre}{" "}
-              <span className="text-offwhite/35">
-                {t.h3post}
-              </span>
-            </h3>
-          </div>
-
-          <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {t.schichten.map((s) => (
-              <div
-                key={s.num}
-                className="glass rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden"
-              >
-                <div
-                  className="absolute -top-4 -right-4 h-16 w-16 rounded-full blur-2xl pointer-events-none"
-                  style={{ background: "rgb(var(--accent) / 0.05)" }}
-                />
-                <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
-                  {s.num}
-                </span>
-                <h4 className="heading-sans text-[16px] text-offwhite">
-                  {s.name}
-                </h4>
-                <p className="text-[13px] leading-relaxed text-offwhite/55">
-                  {s.beschreibung}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-2">
-            {t.badges.map((b) => (
-              <span
-                key={b}
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-ink/25 bg-ink/[0.035] text-[12px] text-offwhite/75"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-lime" />
-                {b}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );

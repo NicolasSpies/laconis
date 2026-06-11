@@ -15,7 +15,6 @@ type DashboardCopy = {
   navMedien: string;
   navMenues: string;
   navStats: string;
-  navNewsletter: string;
   navNutzer: string;
   navEinst: string;
   kpiVisitors: string;
@@ -63,7 +62,6 @@ const DASH: Record<Locale, DashboardCopy> = {
     navMedien: "Medien",
     navMenues: "Menüs",
     navStats: "Stats",
-    navNewsletter: "Newsletter",
     navNutzer: "Nutzer",
     navEinst: "Einstellungen",
     kpiVisitors: "BESUCHER · 7 TAGE",
@@ -87,7 +85,6 @@ const DASH: Record<Locale, DashboardCopy> = {
     navMedien: "Médias",
     navMenues: "Menus",
     navStats: "Stats",
-    navNewsletter: "Newsletter",
     navNutzer: "Utilisateurs",
     navEinst: "Paramètres",
     kpiVisitors: "VISITEURS · 7 JOURS",
@@ -111,7 +108,6 @@ const DASH: Record<Locale, DashboardCopy> = {
     navMedien: "Media",
     navMenues: "Menus",
     navStats: "Stats",
-    navNewsletter: "Newsletter",
     navNutzer: "Users",
     navEinst: "Settings",
     kpiVisitors: "VISITORS · 7 DAYS",
@@ -228,9 +224,8 @@ export function DashboardMock({ className = "" }: { className?: string }) {
           { y: 174, label: t.navMedien },
           { y: 202, label: t.navMenues },
           { y: 230, label: t.navStats },
-          { y: 258, label: t.navNewsletter },
-          { y: 286, label: t.navNutzer },
-          { y: 314, label: t.navEinst },
+          { y: 258, label: t.navNutzer },
+          { y: 286, label: t.navEinst },
         ].map((n) => (
           <g key={n.label}>
             {n.active && (

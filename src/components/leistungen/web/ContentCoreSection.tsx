@@ -35,7 +35,7 @@ const DICT: Record<Locale, Dict> = {
     editorLabel: "editor",
     statsLabel: "stats ohne cookies",
     features: ["Texte live bearbeiten", "Bilder hochladen", "Vorschau vor Freigabe", "Deutsch · Français · English", "Versionsverlauf", "Keine Cookies"],
-    footerPre: "Alles Technische dahinter (Sicherheit, KI-Bilderkennung, Shop, Newsletter, Mehrsprachigkeit) liegt auf einer eigenen Seite · ",
+    footerPre: "Alles Technische dahinter (Sicherheit, KI-Bilderkennung, Shop, Mehrsprachigkeit) liegt auf einer eigenen Seite · ",
     footerLink: "technik-details →",
   },
   fr: {
@@ -48,7 +48,7 @@ const DICT: Record<Locale, Dict> = {
     editorLabel: "éditeur",
     statsLabel: "stats sans cookies",
     features: ["Modifier les textes en live", "Uploader des images", "Prévisu avant publication", "Deutsch · Français · English", "Historique des versions", "Pas de cookies"],
-    footerPre: "Tout le technique derrière (sécurité, reconnaissance d'image ia, shop, newsletter, multilingue) est sur une page dédiée · ",
+    footerPre: "Tout le technique derrière (sécurité, reconnaissance d'image ia, shop, multilingue) est sur une page dédiée · ",
     footerLink: "détails technique →",
   },
   en: {
@@ -61,7 +61,7 @@ const DICT: Record<Locale, Dict> = {
     editorLabel: "editor",
     statsLabel: "stats without cookies",
     features: ["Edit text live", "Upload images", "Preview before publish", "Deutsch · Français · English", "Version history", "No cookies"],
-    footerPre: "Everything technical behind it (security, ai image recognition, shop, newsletter, multilingual) lives on its own page · ",
+    footerPre: "Everything technical behind it (security, ai image recognition, shop, multilingual) lives on its own page · ",
     footerLink: "tech details →",
   },
 };
