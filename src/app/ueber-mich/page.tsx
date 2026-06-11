@@ -171,7 +171,7 @@ export default function Page() {
             </span>
           </>
         }
-        visual={<PortraitCard />}
+        visual={<EntityCard locale={locale} />}
       >
         <div className="flex flex-wrap gap-2 mb-7">
           {t.tags.map((tag) => (
@@ -295,29 +295,93 @@ export default function Page() {
   );
 }
 
-function PortraitCard() {
+/**
+ * EntityCard · typografisches type-specimen statt polaroid (phase 2).
+ *
+ * doppelfunktion:
+ *   1. visual · ø-monogram + fact-zeilen im specimen-stil · grafiker-ästhetik
+ *   2. GEO · fakten-dichter, zitierfähiger entity-block (gründung, standort,
+ *      sprachen, besetzung) den AI-suchen als antwort übernehmen können
+ */
+function EntityCard({ locale }: { locale: Locale }) {
+  const FACTS: Record<
+    Locale,
+    { rows: Array<[string, string]>; sub: string }
+  > = {
+    de: {
+      sub: "design studio",
+      rows: [
+        ["gegründet", "2026"],
+        ["standort", "ostbelgien"],
+        ["sprachen", "de · fr · en"],
+        ["besetzung", "ein mensch"],
+        ["fokus", "webdesign + branding"],
+      ],
+    },
+    fr: {
+      sub: "studio de design",
+      rows: [
+        ["fondé", "2026"],
+        ["base", "cantons de l'est"],
+        ["langues", "de · fr · en"],
+        ["effectif", "un humain"],
+        ["focus", "webdesign + branding"],
+      ],
+    },
+    en: {
+      sub: "design studio",
+      rows: [
+        ["founded", "2026"],
+        ["based in", "east belgium"],
+        ["languages", "de · fr · en"],
+        ["headcount", "one human"],
+        ["focus", "webdesign + branding"],
+      ],
+    },
+  };
+  const f = FACTS[locale];
+
   return (
-    <div
-      className="relative mx-auto w-[280px] md:w-[320px] aspect-[3/4] rounded-md border border-[#0a0a0a]/15 overflow-hidden shadow-[0_40px_100px_-30px_rgba(0,0,0,0.4)]"
-      style={{
-        transform: "rotate(-2deg)",
-        background:
-          "linear-gradient(145deg, rgba(255,255,255,0.15) 0%, rgba(176,132,211,0.18) 100%)",
-      }}
-    >
-      <div className="absolute inset-0 flex items-center justify-center">
+    <div className="relative mx-auto w-[300px] md:w-[340px] rounded-xl border border-[#0a0a0a]/15 bg-[rgb(var(--surface))] p-7 md:p-8 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.3)]">
+      {/* specimen-kopf · wortmarke + ø */}
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <span className="block font-display font-black lowercase text-[28px] leading-none tracking-[-0.03em] text-[#0a0a0a]">
+            lacønis
+          </span>
+          <span className="mt-1.5 block font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/55">
+            {f.sub}
+          </span>
+        </div>
+        {/* ø-monogram · dreht sanft beim hover (css only · server component) */}
         <span
-          className="text-[140px] font-black text-[#0a0a0a]/15"
-          style={{ letterSpacing: "-0.08em" }}
+          aria-hidden
+          className="font-display font-black leading-none text-[#b084d3] transition-transform duration-700 ease-out hover:rotate-[360deg] select-none"
+          style={{ fontSize: 44, letterSpacing: "-0.05em" }}
         >
-          ns
+          ø
         </span>
       </div>
-      {/* tape on top */}
-      <span className="absolute -top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#e1fd52]/70 rounded-[1px] rotate-[-3deg]" />
-      <div className="absolute bottom-3 left-3 right-3 font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/65">
-        nicolas · 2026
-      </div>
+
+      {/* fact-zeilen · GEO-entity-daten */}
+      <dl className="mt-7 space-y-2.5 border-t border-[#0a0a0a]/12 pt-6">
+        {f.rows.map(([k, v]) => (
+          <div key={k} className="flex items-baseline justify-between gap-4">
+            <dt className="font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/45">
+              {k}
+            </dt>
+            <dd className="font-mono text-[11px] lowercase text-[#0a0a0a]/85 text-right">
+              {v}
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      {/* lime-kante unten · marken-signatur */}
+      <span
+        aria-hidden
+        className="absolute -bottom-px left-7 right-7 h-[3px] rounded-full bg-[#e1fd52]"
+      />
     </div>
   );
 }

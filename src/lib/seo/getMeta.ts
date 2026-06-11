@@ -45,23 +45,25 @@ const OG_LOCALE: Record<Locale, string> = {
  */
 const STATIC_MAP: Record<string, MetaByLocale> = {
   "/": {
+    /* title keyword-first (junge domain braucht das signal) ·
+       der brand-claim lebt im ogTitle/ogDescription weiter */
     de: {
-      title: "lacønis · design mit meinung · web mit seele",
-      description: "Freelance Graphic & Web Design aus Eupen, Belgien. Websites die für sich selbst sprechen. Eigenes CMS inklusive. Dreisprachig: Deutsch, Französisch, Englisch.",
-      ogTitle: "lacønis",
-      ogDescription: "design mit meinung · web mit seele",
+      title: "lacønis · webdesign & branding studio ostbelgien",
+      description: "Webdesigner & Grafikdesigner in Ostbelgien · Websites von null gebaut, Lighthouse 95+, eigenes CMS. Logo & Branding aus einer Hand. Dreisprachig DE/FR/EN. design mit meinung · web mit seele.",
+      ogTitle: "lacønis · design mit meinung · web mit seele",
+      ogDescription: "webdesign & branding studio · ostbelgien · handgemacht",
     },
     fr: {
-      title: "lacønis · design avec opinion · web avec âme",
-      description: "Freelance design web & graphique depuis la Belgique. Des sites web qui parlent d'eux-mêmes. CMS maison inclus. Trilingue : allemand, français, anglais.",
-      ogTitle: "lacønis",
-      ogDescription: "design avec opinion · web avec âme",
+      title: "lacønis · studio webdesign & branding · est de la belgique",
+      description: "Webdesigner & graphiste dans les Cantons de l'Est · sites construits de zéro, Lighthouse 95+, CMS maison. Logo & branding d'une seule main. Trilingue DE/FR/EN. design avec opinion · web avec âme.",
+      ogTitle: "lacønis · design avec opinion · web avec âme",
+      ogDescription: "studio webdesign & branding · cantons de l'est · fait main",
     },
     en: {
-      title: "lacønis · design with opinion · web with soul",
-      description: "Freelance graphic & web design from Belgium. Websites that speak for themselves. In-house CMS included. Trilingual: German, French, English.",
-      ogTitle: "lacønis",
-      ogDescription: "design with opinion · web with soul",
+      title: "lacønis · webdesign & branding studio east belgium",
+      description: "Web designer & graphic designer in East Belgium · websites built from scratch, Lighthouse 95+, in-house CMS. Logo & branding from one hand. Trilingual DE/FR/EN. design with opinion · web with soul.",
+      ogTitle: "lacønis · design with opinion · web with soul",
+      ogDescription: "webdesign & branding studio · east belgium · handmade",
     },
   },
   "/leistungen/web": {

@@ -1,7 +1,11 @@
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { Hero } from "@/components/home/Hero";
+import { HomeFAQ } from "@/components/home/HomeFAQ";
+import { getHomeFaqItems } from "@/data/home-faq";
+import { FAQSchema } from "@/components/seo/FAQSchema";
 import { getMeta } from "@/lib/seo/getMeta";
+import { getLocale } from "@/i18n/getLocale";
 
 export async function generateMetadata(): Promise<Metadata> {
   return getMeta("/");
@@ -47,14 +51,21 @@ const ContactBlock = dynamic(
 );
 
 export default function HomePage() {
+  const locale = getLocale();
+  const faqItems = getHomeFaqItems(locale);
+
   return (
     <>
+      {/* FAQPage-schema · money-keywords landen als AI-/SERP-antworten */}
+      <FAQSchema items={faqItems.map((f) => ({ q: f.q, a: f.a }))} />
       <Hero />
       <ServicesMorph />
       <SplitStatement />
       <div data-theme="dark" className="bg-dark text-offwhite">
         <HorizontalCases />
       </div>
+      {/* kompakte FAQ · 4 fragen · SEO-content auf der home */}
+      <HomeFAQ />
       <ContactBlock />
     </>
   );
