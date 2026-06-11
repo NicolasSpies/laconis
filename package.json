@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.2.10",
+    "@fontsource-variable/caveat": "^5.2.8",
+    "@fontsource-variable/instrument-sans": "^5.2.8",
     "framer-motion": "^12.38.0",
     "geist": "^1.7.2",
     "jspdf": "^4.2.1",

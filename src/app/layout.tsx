@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Bricolage_Grotesque,
-  Instrument_Sans,
-  Caveat,
-} from "next/font/google";
+import localFont from "next/font/local";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
@@ -20,39 +16,42 @@ import { HTML_LANG, DEFAULT_LOCALE } from "@/i18n/config";
 import { getLocale } from "@/i18n/getLocale";
 
 /**
- * Font-system v2 · typografie-reset (phase 1).
+ * Font-system v3 · SELF-HOSTED (fix für google-fonts-ausfall).
  *
- *   display → Bricolage Grotesque · variable (wght 200-800 + opsz)
- *             ink-traps + editorial-quirk · headlines, claims, big numbers
- *   sans    → Instrument Sans · variable (wght 400-700) · body, ui-text
- *   mono    → Geist Mono · variable · labels, kicker, zahlen
- *   hand    → Caveat · handschrift-akzente (bleibt)
+ * vorher kamen die fonts via next/font/google · der download zur
+ * build-zeit ist mit ETIMEDOUT gegen fonts.googleapis.com gestorben
+ * und next ist STILL auf system-fallbacks umgefallen ("was ist mit
+ * der font passiert?"). jetzt: woff2-variable-files im repo
+ * (src/fonts/ · aus @fontsource-variable kopiert, ~177KB gesamt) ·
+ * kein build hängt mehr am google-CDN, dazu dsgvo-sauberer.
  *
- * CSS-variablen heißen semantisch (--font-display etc.) statt nach
- * font-namen · nächster font-swap braucht nur diese datei.
+ *   display → Bricolage Grotesque · variable (opsz 12-96 + wght 200-800)
+ *   sans    → Instrument Sans · variable (wght 400-700)
+ *   mono    → Geist Mono · variable (npm-package, war schon lokal)
+ *   hand    → Caveat · variable (wght 400-700, genutzt: 400)
  */
-const displayFont = Bricolage_Grotesque({
-  subsets: ["latin"],
+const displayFont = localFont({
+  src: "../fonts/bricolage-grotesque-var.woff2",
   variable: "--font-display",
   display: "swap",
-  axes: ["opsz"],
+  weight: "200 800",
 });
 
-const sansFont = Instrument_Sans({
-  subsets: ["latin"],
+const sansFont = localFont({
+  src: "../fonts/instrument-sans-var.woff2",
   variable: "--font-sans-v2",
   display: "swap",
+  weight: "400 700",
 });
 
-/* GeistMono kommt aus dem offiziellen vercel-package (next 14 hat den
-   google-font-export noch nicht) · exportiert fix --font-geist-mono. */
+/* GeistMono kommt aus dem offiziellen vercel-package · lokal gebundelt. */
 const monoFont = GeistMono;
 
-const caveat = Caveat({
-  subsets: ["latin"],
-  weight: ["400"],
+const caveat = localFont({
+  src: "../fonts/caveat-var.woff2",
   variable: "--font-caveat",
   display: "swap",
+  weight: "400 700",
 });
 
 export const metadata: Metadata = {
