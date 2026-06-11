@@ -2,7 +2,7 @@ import Link from "next/link";
 import { PageHero } from "@/components/shared/PageHero";
 import { GreySection } from "@/components/shared/GreySection";
 import { TiltCard } from "@/components/shared/TiltCard";
-import { Marquee } from "@/components/shared/Marquee";
+import { StatementStrip } from "@/components/shared/StatementStrip";
 import { Werdegang } from "@/components/ueber-mich/Werdegang";
 import { Button } from "@/components/ui/Button";
 import { getMeta } from "@/lib/seo/getMeta";
@@ -214,7 +214,7 @@ export default function Page() {
         </div>
       </GreySection>
 
-      <Marquee items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={40} />
+      <StatementStrip items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={40} />
 
       {/* WERDEGANG · scroll-fill timeline · lila fillt sich von oben nach unten */}
       <GreySection tone="grey">

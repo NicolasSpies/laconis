@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { PageHero } from "@/components/shared/PageHero";
-import { Marquee } from "@/components/shared/Marquee";
+import { StatementStrip } from "@/components/shared/StatementStrip";
 import { BrandSystemHero } from "@/components/leistungen/branding/BrandSystemHero";
 import { BrandDesk } from "@/components/leistungen/branding/BrandDesk";
 import { BrandingBento } from "@/components/leistungen/branding/BrandingBento";
@@ -226,7 +226,7 @@ export default function Page() {
         visual={<BrandSystemHero />}
       />
 
-      <Marquee
+      <StatementStrip
         items={[
           "·",
           "logo",

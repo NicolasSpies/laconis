@@ -2,7 +2,7 @@ import Link from "next/link";
 import { PageHero } from "@/components/shared/PageHero";
 import { GreySection } from "@/components/shared/GreySection";
 import { TiltCard } from "@/components/shared/TiltCard";
-import { Marquee } from "@/components/shared/Marquee";
+import { StatementStrip } from "@/components/shared/StatementStrip";
 import { PriceCard } from "@/components/preise/PriceCard";
 import { PreisExplorer } from "@/components/preise/PreisExplorer";
 import { SectionGhost } from "@/components/shared/SectionGhost";
@@ -320,7 +320,7 @@ export default function Page() {
         </div>
       </GreySection>
 
-      <Marquee items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={40} />
+      <StatementStrip items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={40} />
 
       {/* FAQ */}
       <GreySection tone="grey">

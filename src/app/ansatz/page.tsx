@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { PageHero } from "@/components/shared/PageHero";
 import { GreySection } from "@/components/shared/GreySection";
-import { Marquee } from "@/components/shared/Marquee";
+import { StatementStrip } from "@/components/shared/StatementStrip";
 import { AnsatzToggle } from "@/components/ansatz/AnsatzToggle";
 import { ProcessSteps } from "@/components/ansatz/ProcessSteps";
 import { ChatThread } from "@/components/ansatz/ChatThread";
@@ -157,7 +157,7 @@ export default function Page() {
         </div>
       </GreySection>
 
-      <Marquee items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={40} />
+      <StatementStrip items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={40} />
 
       {/* AnsatzToggle · web vs branding mode */}
       <GreySection tone="grey">

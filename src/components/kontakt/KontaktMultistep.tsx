@@ -608,7 +608,7 @@ function Step1({
       <h3 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
         {t.step1H3}
       </h3>
-      <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
+      <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/70">
         {t.step1Body}
       </p>
 
@@ -623,28 +623,28 @@ function Step1({
               onClick={() => onChange(id)}
               aria-pressed={active}
               className={[
-                "text-left rounded-xl p-5 border transition-all",
+                "text-left rounded-xl p-5 border-2 transition-all",
                 active
-                  ? "border-lime/50 bg-lime/[0.05] shadow-[0_12px_32px_-16px_rgb(var(--accent)_/_0.3)]"
-                  : "border-ink/25 bg-ink/[0.035] hover:border-ink/50",
+                  ? "border-[#0a0a0a] bg-[#e1fd52]/25 shadow-[0_12px_32px_-16px_rgba(10,10,10,0.25)]"
+                  : "border-[#0a0a0a]/20 bg-transparent hover:border-[#0a0a0a]/55",
               ].join(" ")}
             >
               <div className="flex items-baseline justify-between gap-3">
                 <h4
                   className={[
                     "heading-sans text-[18px] transition-colors",
-                    active ? "text-accent-ink" : "text-offwhite",
+                    active ? "text-[#0a0a0a]" : "text-offwhite",
                   ].join(" ")}
                 >
                   {opt.titel}
                 </h4>
                 {active && (
-                  <span className="font-mono text-[10px] uppercase tracking-label text-accent-ink">
+                  <span className="font-mono text-[9px] uppercase tracking-label bg-[#e1fd52] text-[#0a0a0a] px-2 py-1 rounded-full">
                     {t.gewaehlt}
                   </span>
                 )}
               </div>
-              <p className="mt-1.5 text-[13px] leading-snug text-offwhite/55">
+              <p className="mt-1.5 text-[13px] leading-snug text-offwhite/70">
                 {opt.kurz}
               </p>
             </button>
@@ -677,7 +677,7 @@ function Step2({
       <h3 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
         {t.step2H3}
       </h3>
-      <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
+      <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/70">
         {t.step2Body}
       </p>
 
@@ -741,7 +741,7 @@ function Step3({
       <h3 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
         {t.step3H3}
       </h3>
-      <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
+      <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/70">
         {t.step3Body}
       </p>
 
@@ -809,7 +809,7 @@ function Step4({
         <h3 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
           {t.step4H3}
         </h3>
-        <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/55">
+        <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/70">
           {t.step4Body}
         </p>
       </div>
@@ -852,7 +852,7 @@ function Step4({
           onChange={(e) => update("notiz", e.target.value)}
           rows={5}
           placeholder={t.notizPlaceholder}
-          className="w-full bg-ink/[0.03] border border-ink/20 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/55 outline-none resize-none transition-colors"
+          className="w-full bg-ink/[0.03] border-2 border-ink/25 focus:border-[#0a0a0a] focus:bg-[#e1fd52]/10 rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/55 outline-none resize-none transition-colors"
         />
       </div>
 
@@ -955,10 +955,10 @@ function ChipField<T extends string>({
               onClick={() => onChange(o.id)}
               aria-pressed={active}
               className={[
-                "font-mono text-[11px] uppercase tracking-mono px-3.5 py-2 rounded-full border transition-all",
+                "font-mono text-[11px] uppercase tracking-mono px-3.5 py-2 rounded-full border-2 transition-all",
                 active
-                  ? "border-lime/50 bg-lime/10 text-accent-ink"
-                  : "border-ink/20 bg-ink/[0.02] text-offwhite/55 hover:border-ink/25 hover:text-offwhite",
+                  ? "border-[#0a0a0a] bg-[#e1fd52] text-[#0a0a0a]"
+                  : "border-ink/20 bg-ink/[0.02] text-offwhite/65 hover:border-ink/45 hover:text-offwhite",
               ].join(" ")}
             >
               {o.label}
@@ -1005,7 +1005,7 @@ function TextField({
         autoComplete={autoComplete}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-ink/[0.03] border border-ink/20 focus:border-lime/50 focus:bg-ink/[0.05] rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/55 outline-none transition-colors"
+        className="w-full bg-ink/[0.03] border-2 border-ink/25 focus:border-[#0a0a0a] focus:bg-[#e1fd52]/10 rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/55 outline-none transition-colors"
       />
     </div>
   );

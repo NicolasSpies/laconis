@@ -1,9 +1,5 @@
 import { PageHero } from "@/components/shared/PageHero";
-import { GreySection } from "@/components/shared/GreySection";
-import { TiltCard } from "@/components/shared/TiltCard";
-import { Marquee } from "@/components/shared/Marquee";
 import { KontaktMultistep } from "@/components/kontakt/KontaktMultistep";
-import { BookingExpress } from "@/components/kontakt/BookingExpress";
 import { CONTACT } from "@/config/contact";
 import { getMeta } from "@/lib/seo/getMeta";
 import { getLocale } from "@/i18n/getLocale";
@@ -14,6 +10,17 @@ export async function generateMetadata(): Promise<Metadata> {
   return getMeta("/kontakt");
 }
 
+/**
+ * Kontakt v2 · entdoppelt (nicolas: "doppelt gemoppelt · klar und deutlich").
+ *
+ * vorher: hero → marquee → 2 tilt-cards (mail + call) → BookingExpress
+ * (nochmal call via mailto) → formular = 3× derselbe weg.
+ *
+ * jetzt: hero → EIN direkt-block (text-rows: schreiben / anrufen /
+ * antwortzeit · gleiches pattern wie home-ContactBlock) → formular.
+ * cal.com erscheint als vierte row sobald CONTACT.calcomUrl gesetzt ist.
+ */
+
 type Dict = {
   kicker: string;
   heroL1: string;
@@ -21,20 +28,16 @@ type Dict = {
   heroItalic: string;
   heroBody: string;
   directLabel: string;
-  directHeadlinePre: string;
-  directHeadlineAccent: string;
-  emailLabel: string;
-  emailNote: string;
-  callLabel: string;
-  callValue: string;
-  callNote: string;
-  divider: string;
+  rowSchreiben: string;
+  rowAnrufen: string;
+  rowAntwort: string;
+  rowAntwortWert: string;
+  rowBuchen: string;
+  rowBuchenWert: string;
   formLabel: string;
   formHeadlinePre: string;
   formHeadlineAccent: string;
   formIntro: string;
-  formFooter: string;
-  marqueeBits: string[];
 };
 
 const DICT: Record<Locale, Dict> = {
@@ -43,72 +46,67 @@ const DICT: Record<Locale, Dict> = {
     heroL1: "lass",
     heroL2: "reden.",
     heroItalic: "kurz oder lang.",
-    heroBody: "eine kurze nachricht reicht. antwort innerhalb 24h · meistens schneller.",
+    heroBody:
+      "eine kurze nachricht reicht · kein verkaufs-pitch, kein formular-zwang. antwort meistens in unter 2 stunden.",
     directLabel: "direkter draht",
-    directHeadlinePre: "keine lust auf formular? ",
-    directHeadlineAccent: "nimm einen der wege.",
-    emailLabel: "e-mail",
-    emailNote: "klassisch. antwort innerhalb 24h · meistens deutlich schneller.",
-    callLabel: "video-call",
-    callValue: "30 min kennenlernen",
-    callNote: "menschlich · kurz per mail, termin steht in stunden.",
-    divider: "oder · das ausführliche formular",
+    rowSchreiben: "schreiben",
+    rowAnrufen: "anrufen",
+    rowAntwort: "antwortzeit",
+    rowAntwortWert: "ø < 2h werktags",
+    rowBuchen: "direkt buchen",
+    rowBuchenWert: "20 min video-call",
     formLabel: "projekt anfragen",
-    formHeadlinePre: "sag mir, ",
+    formHeadlinePre: "oder sag mir gleich, ",
     formHeadlineAccent: "was du vorhast.",
-    formIntro: "vier kurze schritte. ich meld mich innerhalb von 24 std mit einem konkreten angebot · kein kleingedrucktes.",
-    formFooter: "keine tracker · keine spam-liste · dsgvo-konform",
-    marqueeBits: ["·", "schreib mir", "·", "ø < 2h antwort", "·", "kein verkaufs-pitch", "·", "einfach reden", "·"],
+    formIntro:
+      "vier kurze schritte · ich meld mich innerhalb von 24 std mit einem konkreten angebot. kein kleingedrucktes.",
   },
   fr: {
     kicker: "· contact",
     heroL1: "on parle?",
     heroL2: "",
     heroItalic: "court ou long.",
-    heroBody: "un message court suffit. réponse sous 24h · souvent plus vite.",
+    heroBody:
+      "un message court suffit · pas de pitch commercial, pas de formulaire obligatoire. réponse souvent en moins de 2 heures.",
     directLabel: "voie directe",
-    directHeadlinePre: "pas envie de formulaire ? ",
-    directHeadlineAccent: "prends un des chemins.",
-    emailLabel: "e-mail",
-    emailNote: "classique. réponse sous 24h · souvent bien plus vite.",
-    callLabel: "visio",
-    callValue: "30 min pour se rencontrer",
-    callNote: "humain · un court mail, créneau calé en quelques heures.",
-    divider: "ou · le formulaire détaillé",
+    rowSchreiben: "écrire",
+    rowAnrufen: "appeler",
+    rowAntwort: "réponse",
+    rowAntwortWert: "ø < 2h en semaine",
+    rowBuchen: "réserver direct",
+    rowBuchenWert: "20 min en visio",
     formLabel: "demander un projet",
-    formHeadlinePre: "dis-moi, ",
+    formHeadlinePre: "ou dis-moi directement ",
     formHeadlineAccent: "ce que tu prévois.",
-    formIntro: "quatre étapes courtes. je te réponds dans les 24h avec une offre concrète · pas de petits caractères.",
-    formFooter: "pas de trackers · pas de liste spam · conforme rgpd",
-    marqueeBits: ["·", "écris-moi", "·", "ø < 2h réponse", "·", "pas de pitch", "·", "juste parler", "·"],
+    formIntro:
+      "quatre étapes courtes · je réponds dans les 24h avec une offre concrète. pas de petits caractères.",
   },
   en: {
     kicker: "· contact",
     heroL1: "let's",
     heroL2: "talk.",
     heroItalic: "short or long.",
-    heroBody: "a short message is enough. reply within 24h · usually sooner.",
+    heroBody:
+      "a short message is enough · no sales pitch, no forced forms. reply usually within 2 hours.",
     directLabel: "direct line",
-    directHeadlinePre: "no patience for forms? ",
-    directHeadlineAccent: "take one of the paths.",
-    emailLabel: "e-mail",
-    emailNote: "classic. reply within 24h · usually much sooner.",
-    callLabel: "video call",
-    callValue: "30 min to meet",
-    callNote: "human · a quick mail, slot is set in hours.",
-    divider: "or · the detailed form",
+    rowSchreiben: "write",
+    rowAnrufen: "call",
+    rowAntwort: "reply time",
+    rowAntwortWert: "ø < 2h weekdays",
+    rowBuchen: "book directly",
+    rowBuchenWert: "20 min video call",
     formLabel: "request a project",
-    formHeadlinePre: "tell me, ",
+    formHeadlinePre: "or tell me right away ",
     formHeadlineAccent: "what you're planning.",
-    formIntro: "four short steps. i respond within 24h with a concrete offer · no small print.",
-    formFooter: "no trackers · no spam list · gdpr-compliant",
-    marqueeBits: ["·", "write me", "·", "ø < 2h reply", "·", "no pitch", "·", "just talk", "·"],
+    formIntro:
+      "four short steps · i respond within 24h with a concrete offer. no small print.",
   },
 };
 
 export default function Page() {
   const locale = getLocale();
   const t = DICT[locale];
+  const calcomUrl = String(CONTACT.calcomUrl);
 
   return (
     <>
@@ -120,91 +118,75 @@ export default function Page() {
         sub={t.heroBody}
       />
 
-      <Marquee items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={42} />
-
-      {/* DIRECT CONTACT · 2 tilt cards · lime + lila */}
-      <GreySection tone="grey" tint="lime">
-        <div className="max-w-[820px]">
+      {/* DIREKT · text-rows · gleiches pattern wie home-ContactBlock ·
+          EIN block für alle wege, keine doppelten karten */}
+      <section className="pb-16">
+        <div className="container-site">
           <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
             · {t.directLabel}
           </p>
-          <h2 className="mt-4 text-[clamp(1.75rem,4.5vw,3rem)] leading-[1.05] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase">
-            {t.directHeadlinePre}
-            <span className="opacity-50">{t.directHeadlineAccent}</span>
-          </h2>
-        </div>
-
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5 max-w-[820px]">
-          <TiltCard preset="lime" intensity={9}>
+          <div className="mt-6 grid sm:grid-cols-3 gap-x-10 border-t-2 border-[#0a0a0a]/15 max-w-[1000px]">
             <a
               href={`mailto:${CONTACT.email}`}
-              className="block p-7 md:p-9"
-              style={{ color: "inherit", textDecoration: "none" }}
+              className="group block py-6 border-b-2 border-[#0a0a0a]/15"
             >
-              <div className="flex items-baseline justify-between gap-3">
-                <span className="font-mono text-[10px] uppercase tracking-label opacity-65">
-                  {t.emailLabel}
-                </span>
-                <span className="font-mono text-[14px] opacity-65">→</span>
-              </div>
-              <div className="mt-4 text-[clamp(1.2rem,2.2vw,1.6rem)] font-black tracking-[-0.025em] leading-tight lowercase break-words">
+              <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/45">
+                {t.rowSchreiben}
+              </span>
+              <span className="mt-1.5 block text-[16px] md:text-[18px] font-medium tracking-[-0.01em] text-[#0a0a0a] group-hover:text-[#b084d3] transition-colors break-words">
                 {CONTACT.email}
-              </div>
-              <p
-                className="mt-3 text-[13px] leading-relaxed"
-                style={{ opacity: 0.75 }}
-              >
-                {t.emailNote}
-              </p>
+              </span>
             </a>
-          </TiltCard>
-
-          <TiltCard preset="lila" intensity={9}>
             <a
-              href={`mailto:${CONTACT.email}?subject=call-termin`}
-              className="block p-7 md:p-9"
-              style={{ color: "inherit", textDecoration: "none" }}
+              href={`tel:${CONTACT.phoneE164}`}
+              className="group block py-6 border-b-2 border-[#0a0a0a]/15"
             >
-              <div className="flex items-baseline justify-between gap-3">
-                <span className="font-mono text-[10px] uppercase tracking-label opacity-65">
-                  {t.callLabel}
-                </span>
-                <span className="font-mono text-[14px] opacity-65">→</span>
-              </div>
-              <div className="mt-4 text-[clamp(1.2rem,2.2vw,1.6rem)] font-black tracking-[-0.025em] leading-tight lowercase">
-                {t.callValue}
-              </div>
-              <p
-                className="mt-3 text-[13px] leading-relaxed"
-                style={{ opacity: 0.75 }}
-              >
-                {t.callNote}
-              </p>
+              <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/45">
+                {t.rowAnrufen}
+              </span>
+              <span className="mt-1.5 block text-[16px] md:text-[18px] font-medium tracking-[-0.01em] text-[#0a0a0a] group-hover:text-[#b084d3] transition-colors">
+                {CONTACT.phone}
+              </span>
             </a>
-          </TiltCard>
+            <div className="py-6 border-b-2 border-[#0a0a0a]/15">
+              <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/45">
+                {t.rowAntwort}
+              </span>
+              <span className="mt-1.5 flex items-center gap-2 text-[16px] md:text-[18px] font-medium tracking-[-0.01em] text-[#0a0a0a]">
+                <span
+                  aria-hidden
+                  className="inline-block w-2 h-2 rounded-full bg-[#e1fd52] border border-[#0a0a0a]/30"
+                />
+                {t.rowAntwortWert}
+              </span>
+            </div>
+            {/* cal.com · erscheint automatisch sobald CONTACT.calcomUrl gesetzt */}
+            {calcomUrl.length > 0 && (
+              <a
+                href={calcomUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block py-6 border-b-2 border-[#0a0a0a]/15 sm:col-span-3"
+              >
+                <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/45">
+                  {t.rowBuchen}
+                </span>
+                <span className="mt-1.5 block text-[16px] md:text-[18px] font-medium tracking-[-0.01em] text-[#0a0a0a] group-hover:text-[#b084d3] transition-colors">
+                  {t.rowBuchenWert} →
+                </span>
+              </a>
+            )}
+          </div>
         </div>
+      </section>
 
-      </GreySection>
-
-      {/* booking-express · cal.com embed (oder mailto-fallback wenn nicht konfiguriert) */}
-      <BookingExpress />
-
-      {/* FORM · grey bg, neutralisiert das alte glass-styling */}
+      {/* FORMULAR */}
       <section
         id="projekt"
-        className="relative scroll-mt-24 pb-32 pt-12 text-[#0a0a0a] overflow-hidden"
+        className="relative scroll-mt-24 pb-32 pt-8 text-[#0a0a0a] overflow-hidden"
       >
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-[0.08] pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at center, rgba(20,20,20,0.5) 1px, transparent 1.4px)",
-            backgroundSize: "26px 26px",
-          }}
-        />
         <div className="container-site relative">
-          <div className="max-w-[820px] mx-auto">
+          <div className="max-w-[820px]">
             <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
               · {t.formLabel}
             </p>
@@ -217,13 +199,9 @@ export default function Page() {
             </p>
           </div>
 
-          <div className="mt-14">
+          <div className="mt-12">
             <KontaktMultistep />
           </div>
-
-          <p className="mt-10 text-center font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
-            {t.formFooter}
-          </p>
         </div>
       </section>
     </>

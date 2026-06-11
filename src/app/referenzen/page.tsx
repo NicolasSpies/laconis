@@ -1,5 +1,5 @@
 import { PageHero } from "@/components/shared/PageHero";
-import { Marquee } from "@/components/shared/Marquee";
+import { StatementStrip } from "@/components/shared/StatementStrip";
 import { ReferenzenIndex } from "@/components/referenzen/ReferenzenIndex";
 import { SectionGhost } from "@/components/shared/SectionGhost";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
@@ -98,7 +98,7 @@ export default function Page() {
         }
       />
 
-      <Marquee items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={45} />
+      <StatementStrip items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={45} />
 
       {/* outline-ghost · typo als layout-element */}
       <SectionGhost word="work" side="left" />
