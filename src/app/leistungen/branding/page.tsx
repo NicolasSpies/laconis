@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { PageHero } from "@/components/shared/PageHero";
-import { StatementStrip } from "@/components/shared/StatementStrip";
 import { BrandSystemHero } from "@/components/leistungen/branding/BrandSystemHero";
 import { BrandDesk } from "@/components/leistungen/branding/BrandDesk";
 import { BrandingBento } from "@/components/leistungen/branding/BrandingBento";
@@ -223,27 +222,6 @@ export default function Page() {
           </>
         }
         visual={<BrandSystemHero />}
-      />
-
-      <StatementStrip
-        items={[
-          "·",
-          "logo",
-          "·",
-          "brand guide",
-          "·",
-          "typo",
-          "·",
-          "farbe",
-          "·",
-          "print",
-          "·",
-          "social",
-          "·",
-        ]}
-        bg="#0a0a0a"
-        fg="#b084d3"
-        speed={45}
       />
 
       <BrandDesk num="02" />

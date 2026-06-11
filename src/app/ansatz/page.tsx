@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { PageHero } from "@/components/shared/PageHero";
 import { GreySection } from "@/components/shared/GreySection";
-import { StatementStrip } from "@/components/shared/StatementStrip";
 import { ProcessSteps } from "@/components/ansatz/ProcessSteps";
 import { BrandValues } from "@/components/ansatz/BrandValues";
 import { NichtListe } from "@/components/ansatz/NichtListe";
@@ -21,7 +20,6 @@ type Dict = {
   heroItalic: string;
   intro: string;
   processLabel: string;
-  marqueeBits: string[];
   ctaHeadline: string;
   ctaBody: string;
   ctaPrimary: string;
@@ -38,7 +36,6 @@ const DICT: Record<Locale, Dict> = {
     heroItalic: "ohne blackbox.",
     intro: "kein agentur-gantt-chart, keine blackbox. vier schritte vom ersten gespräch bis zur übergabe · und eine ehrliche liste von dem, was ich bewusst nicht mache.",
     processLabel: "schritte",
-    marqueeBits: ["·", "kennenlernen", "·", "richtung", "·", "bauen", "·", "übergabe", "·", "transparent", "·"],
     ctaHeadline: "klingt nach deiner art zu arbeiten?",
     ctaBody: "30 minuten video-call. keine präsentation, kein vertrag · nur klarheit.",
     ctaPrimary: "gespräch anfragen →",
@@ -61,7 +58,6 @@ const DICT: Record<Locale, Dict> = {
     heroItalic: "sans boîte noire.",
     intro: "pas de gantt d'agence, pas de boîte noire. quatre étapes de la première conversation à la livraison · et une liste honnête de ce que je ne fais volontairement pas.",
     processLabel: "étapes",
-    marqueeBits: ["·", "rencontre", "·", "direction", "·", "construire", "·", "livraison", "·", "transparent", "·"],
     ctaHeadline: "ça ressemble à ta façon de travailler ?",
     ctaBody: "30 minutes en visio. pas de présentation, pas de contrat · juste de la clarté.",
     ctaPrimary: "demander un échange →",
@@ -84,7 +80,6 @@ const DICT: Record<Locale, Dict> = {
     heroItalic: "no black box.",
     intro: "no agency gantt chart, no black box. four steps from first conversation to handover · plus an honest list of what i deliberately don't do.",
     processLabel: "steps",
-    marqueeBits: ["·", "intro", "·", "direction", "·", "build", "·", "handover", "·", "transparent", "·"],
     ctaHeadline: "sounds like your way of working?",
     ctaBody: "30-minute video call. no presentation, no contract · just clarity.",
     ctaPrimary: "request a chat →",
@@ -149,7 +144,6 @@ export default function Page() {
         </div>
       </GreySection>
 
-      <StatementStrip items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={40} />
 
       {/* EINE gemeinsame nicht-liste · toggle war versteckte interaktion
           mit doppeltem content (user-entscheidung) */}

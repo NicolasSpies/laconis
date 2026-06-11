@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { PageHero } from "@/components/shared/PageHero";
 import { GreySection } from "@/components/shared/GreySection";
-import { StatementStrip } from "@/components/shared/StatementStrip";
 import { Werdegang } from "@/components/ueber-mich/Werdegang";
 import { Button } from "@/components/ui/Button";
 import { getMeta } from "@/lib/seo/getMeta";
@@ -26,7 +25,6 @@ type Dict = {
   ctaHero: string;
   quote: string;
   quoteFrom: string;
-  marqueeBits: string[];
   werdegangLabel: string;
   werdegangH2: string;
   werdegang: WerdegangItem[];
@@ -48,7 +46,6 @@ const DICT: Record<Locale, Dict> = {
     ctaHero: "sag hallo →",
     quote: "die besten brands kommen nicht von agenturen mit 40 leuten. sie kommen von einer person, die zuhört.",
     quoteFrom: "— meine arbeitsthese",
-    marqueeBits: ["·", "ein mensch", "·", "kein team", "·", "ø < 2h antwort", "·", "solo studio", "·", "ostbelgien", "·"],
     werdegangLabel: "werdegang",
     werdegangH2: "in kürze · keine drei-seiten-bio.",
     werdegang: [
@@ -74,7 +71,6 @@ const DICT: Record<Locale, Dict> = {
     ctaHero: "dis bonjour →",
     quote: "les meilleures marques ne viennent pas d'agences à 40 personnes. elles viennent d'une personne qui écoute.",
     quoteFrom: "— ma thèse de travail",
-    marqueeBits: ["·", "un humain", "·", "pas d'équipe", "·", "ø < 2h réponse", "·", "solo studio", "·", "cantons de l'est", "·"],
     werdegangLabel: "parcours",
     werdegangH2: "en bref · pas une bio de trois pages.",
     werdegang: [
@@ -100,7 +96,6 @@ const DICT: Record<Locale, Dict> = {
     ctaHero: "say hi →",
     quote: "the best brands don't come from 40-person agencies. they come from one person who listens.",
     quoteFrom: "— my working thesis",
-    marqueeBits: ["·", "one human", "·", "no team", "·", "ø < 2h reply", "·", "solo studio", "·", "east belgium", "·"],
     werdegangLabel: "path",
     werdegangH2: "in short · not a three-page bio.",
     werdegang: [
@@ -190,7 +185,6 @@ export default function Page() {
         </div>
       </GreySection>
 
-      <StatementStrip items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={40} />
 
       {/* WERDEGANG · scroll-fill timeline · lila fillt sich von oben nach unten */}
       <GreySection tone="grey">

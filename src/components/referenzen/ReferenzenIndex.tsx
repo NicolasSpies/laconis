@@ -69,14 +69,18 @@ function PreviewVisual({ r }: { r: Referenz }) {
 
 export function ReferenzenIndex({
   limit,
+  tone = "light",
 }: {
   /** optional · zeigt nur die ersten N cases (home-teaser) */
   limit?: number;
+  /** dark = auf schwarzem slab (home) · namen füllen sich lime beim hover */
+  tone?: "light" | "dark";
 } = {}) {
   const locale = useLocale();
   const t = pick(DICT, locale);
   const reduce = useReducedMotion();
   const cases = limit ? referenzen.slice(0, limit) : referenzen;
+  const dark = tone === "dark";
 
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [followerOn, setFollowerOn] = useState(false);
@@ -159,11 +163,14 @@ export function ReferenzenIndex({
   const active = referenzen.find((r) => r.slug === activeSlug) ?? null;
 
   return (
-    <section className="relative py-16 md:py-24">
+    <section className={cn("relative", dark ? "py-6 md:py-8" : "py-16 md:py-24")}>
       <div className="container-site">
         <div
           ref={listRef}
-          className="border-t-2 border-[#0a0a0a]/15"
+          className={cn(
+            "border-t-2",
+            dark ? "border-[#f2f2f2]/15" : "border-[#0a0a0a]/15",
+          )}
           onPointerLeave={() => setActiveSlug(null)}
         >
           {cases.map((r, i) => {
@@ -186,25 +193,41 @@ export function ReferenzenIndex({
                   onPointerEnter={() => setActiveSlug(r.slug)}
                   className={cn(
                     "group relative flex items-baseline md:items-center gap-4 md:gap-8 py-7 md:py-9",
-                    "border-b-2 border-[#0a0a0a]/15 no-underline",
+                    "border-b-2 no-underline",
+                    dark ? "border-[#f2f2f2]/15" : "border-[#0a0a0a]/15",
                     "transition-opacity duration-300",
                     isDimmed && "opacity-30",
                   )}
                 >
                   {/* nr. */}
-                  <span className="shrink-0 flex items-baseline gap-1.5 font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/45 w-[52px] md:w-[64px]">
+                  <span
+                    className={cn(
+                      "shrink-0 flex items-baseline gap-1.5 font-mono text-[10px] uppercase tracking-label w-[52px] md:w-[64px]",
+                      dark ? "text-[#f2f2f2]/45" : "text-[#0a0a0a]/45",
+                    )}
+                  >
                     {t.numberPrefix}
-                    <span className="text-[13px] md:text-[14px] text-[#0a0a0a]/70 tabular-nums">
+                    <span
+                      className={cn(
+                        "text-[13px] md:text-[14px] tabular-nums",
+                        dark ? "text-[#f2f2f2]/70" : "text-[#0a0a0a]/70",
+                      )}
+                    >
                       {String(i + 1).padStart(2, "0")}
                     </span>
                   </span>
 
-                  {/* name · der star der row */}
+                  {/* name · der star der row · auf dark füllt er sich lime */}
                   <span
                     className={cn(
-                      "flex-1 min-w-0 font-display font-black lowercase leading-[0.95] tracking-[-0.03em] text-[#0a0a0a]",
+                      "flex-1 min-w-0 font-display font-black lowercase leading-[0.95] tracking-[-0.03em]",
                       "text-[clamp(1.75rem,5vw,3.75rem)]",
-                      "transition-transform duration-300 ease-out",
+                      "transition-[transform,color] duration-300 ease-out",
+                      dark
+                        ? isActive
+                          ? "text-[#e1fd52]"
+                          : "text-[#f2f2f2]"
+                        : "text-[#0a0a0a]",
                       isActive && "md:translate-x-3",
                     )}
                   >
@@ -216,17 +239,31 @@ export function ReferenzenIndex({
                   {/* meta rechts · desktop */}
                   <span className="hidden md:flex shrink-0 items-center gap-5">
                     {!r.istEcht && (
-                      <span className="font-mono text-[9px] uppercase tracking-label px-2.5 py-1 rounded-full border border-[#b084d3]/50 text-[#0a0a0a]/65">
+                      <span
+                        className={cn(
+                          "font-mono text-[9px] uppercase tracking-label px-2.5 py-1 rounded-full border border-[#b084d3]/50",
+                          dark ? "text-[#f2f2f2]/65" : "text-[#0a0a0a]/65",
+                        )}
+                      >
                         {t.konzeptBadge}
                       </span>
                     )}
-                    <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55 text-right">
+                    <span
+                      className={cn(
+                        "font-mono text-[10px] uppercase tracking-label text-right",
+                        dark ? "text-[#f2f2f2]/55" : "text-[#0a0a0a]/55",
+                      )}
+                    >
                       {r.kategorieLabel} · {r.jahr}
                     </span>
                     <span
                       className={cn(
-                        "font-mono text-[18px] text-[#0a0a0a]/35 transition-all duration-300",
-                        isActive && "text-[#0a0a0a] translate-x-1",
+                        "font-mono text-[18px] transition-all duration-300",
+                        dark ? "text-[#f2f2f2]/35" : "text-[#0a0a0a]/35",
+                        isActive &&
+                          (dark
+                            ? "text-[#e1fd52] translate-x-1"
+                            : "text-[#0a0a0a] translate-x-1"),
                       )}
                       aria-hidden
                     >
@@ -236,10 +273,20 @@ export function ReferenzenIndex({
 
                   {/* mobile · mini-thumb + meta */}
                   <span className="flex md:hidden shrink-0 flex-col items-end gap-2">
-                    <span className="block w-[64px] h-[48px] rounded-md overflow-hidden border border-[#0a0a0a]/12">
+                    <span
+                      className={cn(
+                        "block w-[64px] h-[48px] rounded-md overflow-hidden border",
+                        dark ? "border-[#f2f2f2]/15" : "border-[#0a0a0a]/12",
+                      )}
+                    >
                       <PreviewVisual r={r} />
                     </span>
-                    <span className="font-mono text-[9px] uppercase tracking-label text-[#0a0a0a]/50">
+                    <span
+                      className={cn(
+                        "font-mono text-[9px] uppercase tracking-label",
+                        dark ? "text-[#f2f2f2]/50" : "text-[#0a0a0a]/50",
+                      )}
+                    >
                       {r.kategorieLabel} · {r.jahr}
                     </span>
                   </span>

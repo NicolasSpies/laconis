@@ -1,5 +1,4 @@
 import { PageHero } from "@/components/shared/PageHero";
-import { StatementStrip } from "@/components/shared/StatementStrip";
 import { ReferenzenIndex } from "@/components/referenzen/ReferenzenIndex";
 import { SectionGhost } from "@/components/shared/SectionGhost";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
@@ -33,7 +32,6 @@ type Dict = {
   heroItalic: string;
   intro: string;
   honestNote: string;
-  marqueeBits: string[];
 };
 
 const DICT: Record<Locale, Dict> = {
@@ -44,7 +42,6 @@ const DICT: Record<Locale, Dict> = {
     heroItalic: "die bleiben.",
     intro: "projekte, die bleiben · keine 0815-websites, keine austauschbaren logos. einfach sachen, die zu den leuten passen, die dahinter stehen.",
     honestNote: "ehrlich-hinweis · ein teil der gezeigten arbeiten sind konzept-studien (mit „konzept\"-badge markiert). echte kunden-projekte kommen laufend dazu.",
-    marqueeBits: ["·", "real work", "·", "konzept-studien", "·", "echte kunden", "·", "case lesen →", "·"],
   },
   fr: {
     kicker: "· références",
@@ -53,7 +50,6 @@ const DICT: Record<Locale, Dict> = {
     heroItalic: "qui durent.",
     intro: "des projets qui durent · pas de sites lambda, pas de logos interchangeables. juste des choses qui collent aux gens derrière.",
     honestNote: "note honnête · une partie des travaux montrés sont des études concept (badge « concept »). les vrais projets clients arrivent en continu.",
-    marqueeBits: ["·", "vraie work", "·", "études concept", "·", "vrais clients", "·", "voir le case →", "·"],
   },
   en: {
     kicker: "· work",
@@ -62,7 +58,6 @@ const DICT: Record<Locale, Dict> = {
     heroItalic: "that sticks.",
     intro: "projects that stick · no off-the-shelf websites, no interchangeable logos. just things that fit the people behind them.",
     honestNote: "honest note · some of the work shown is concept studies (marked with \"concept\" badge). real client projects keep coming.",
-    marqueeBits: ["·", "real work", "·", "concept studies", "·", "real clients", "·", "see case →", "·"],
   },
 };
 
@@ -98,7 +93,6 @@ export default function Page() {
         }
       />
 
-      <StatementStrip items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={45} />
 
       {/* outline-ghost · typo als layout-element */}
       <SectionGhost word="work" side="left" />

@@ -2,7 +2,6 @@ import Link from "next/link";
 import { PageHero } from "@/components/shared/PageHero";
 import { GreySection } from "@/components/shared/GreySection";
 import { TiltCard } from "@/components/shared/TiltCard";
-import { StatementStrip } from "@/components/shared/StatementStrip";
 import { PriceCard } from "@/components/preise/PriceCard";
 import { PreisExplorer } from "@/components/preise/PreisExplorer";
 import { SectionGhost } from "@/components/shared/SectionGhost";
@@ -49,7 +48,6 @@ type Dict = {
   faqLabel: string;
   faqHeadline: string;
   faq: FaqItem[];
-  marqueeBits: string[];
   ctaHand: string;
   ctaHeadlinePre: string;
   ctaHeadlinePost: string;
@@ -97,7 +95,6 @@ const DICT: Record<Locale, Dict> = {
       { frage: "was ist nicht enthalten?", antwort: "Stock-Fotos, Premium-Fonts und externe Tools mit eigenen Lizenzkosten liegen beim Kunden, es sei denn das war vorher besprochen. Domain-Registrierung ist optional. Alles, was über den besprochenen Scope hinausgeht, klär ich vor dem Start · keine Überraschungen auf der Rechnung." },
       { frage: "läuft nach dem launch noch was?", antwort: "Hosting, Backups und kleine Pflege · je nach Setup 20–50 €/Monat. Domain separat, ca. 2 €/Monat je nach TLD. Das erklär ich dir im Gespräch ganz konkret, damit du weißt, womit du langfristig rechnest." },
     ],
-    marqueeBits: ["·", "ab 1.500 €", "·", "onepager", "·", "ab 1.200 €", "·", "branding", "·", "ab 3.500 €", "·", "komplett-paket", "·"],
     ctaHand: "kurze frage, klare antwort.",
     ctaHeadlinePre: "ich sag dir innerhalb von 24 std, ",
     ctaHeadlinePost: "wo wir stehen.",
@@ -143,7 +140,6 @@ const DICT: Record<Locale, Dict> = {
       { frage: "qu'est-ce qui n'est pas inclus ?", antwort: "Les photos stock, les fonts premium et les outils externes avec leurs propres licences sont à la charge du client, sauf accord préalable. L'enregistrement du domaine est optionnel. Tout ce qui dépasse le scope discuté, je le clarifie avant le démarrage · pas de surprises sur la facture." },
       { frage: "il y a quelque chose qui tourne après le launch ?", antwort: "Hébergement, sauvegardes et petite maintenance · selon le setup 20–50 €/mois. Domaine à part, environ 2 €/mois selon le TLD. Je t'explique ça concrètement en discussion, pour que tu saches sur quoi tu comptes à long terme." },
     ],
-    marqueeBits: ["·", "dès 1 500 €", "·", "onepage", "·", "dès 1 200 €", "·", "branding", "·", "dès 3 500 €", "·", "pack complet", "·"],
     ctaHand: "question courte, réponse claire.",
     ctaHeadlinePre: "je te dis en 24h, ",
     ctaHeadlinePost: "où on en est.",
@@ -189,7 +185,6 @@ const DICT: Record<Locale, Dict> = {
       { frage: "what's not included?", antwort: "Stock photos, premium fonts and external tools with their own licence costs are on the client, unless agreed otherwise. Domain registration is optional. Anything beyond the agreed scope I clarify before starting · no surprises on the invoice." },
       { frage: "does anything keep running after launch?", antwort: "Hosting, backups and small maintenance · depending on setup €20–50/month. Domain separate, around €2/month depending on TLD. I explain that concretely in the conversation, so you know what to plan for long-term." },
     ],
-    marqueeBits: ["·", "from 1,500 €", "·", "onepager", "·", "from 1,200 €", "·", "branding", "·", "from 3,500 €", "·", "complete pack", "·"],
     ctaHand: "short question, clear answer.",
     ctaHeadlinePre: "i'll tell you within 24h, ",
     ctaHeadlinePost: "where we stand.",
@@ -320,7 +315,6 @@ export default function Page() {
         </div>
       </GreySection>
 
-      <StatementStrip items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={40} />
 
       {/* FAQ */}
       <GreySection tone="grey">

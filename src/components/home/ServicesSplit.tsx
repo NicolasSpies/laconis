@@ -35,21 +35,21 @@ type Dict = {
 const DICT: Record<Locale, Dict> = {
   de: {
     kicker: "zwei werkbänke · ein kopf",
-    webWords: ["von null gebaut", "eigenes cms", "dreisprachig", "95+ pagespeed"],
+    webWords: ["von null gebaut", "eigenes cms", "seo ab tag eins", "95+ pagespeed"],
     brandWords: ["wortmarke", "farbsystem", "brand guide", "print + social"],
     webCta: "alles über web",
     brandCta: "alles über branding",
   },
   fr: {
     kicker: "deux ateliers · une tête",
-    webWords: ["construit de zéro", "cms maison", "trilingue", "95+ pagespeed"],
+    webWords: ["construit de zéro", "cms maison", "seo dès le jour un", "95+ pagespeed"],
     brandWords: ["logotype", "système couleur", "brand guide", "print + social"],
     webCta: "tout sur le web",
     brandCta: "tout sur le branding",
   },
   en: {
     kicker: "two workbenches · one head",
-    webWords: ["built from scratch", "in-house cms", "trilingual", "95+ pagespeed"],
+    webWords: ["built from scratch", "in-house cms", "seo from day one", "95+ pagespeed"],
     brandWords: ["wordmark", "colour system", "brand guide", "print + social"],
     webCta: "all about web",
     brandCta: "all about branding",
@@ -162,7 +162,7 @@ export function ServicesSplit() {
             className={cn(
               "relative font-display font-black lowercase leading-[0.85] tracking-[-0.04em] select-none",
               "text-[clamp(4rem,12vw,11rem)] transition-colors duration-500",
-              "text-transparent group-hover:text-[#f2f2f2]",
+              "text-transparent group-hover:text-[#b084d3]",
             )}
             style={{ WebkitTextStroke: "2px #b084d3" }}
           >
