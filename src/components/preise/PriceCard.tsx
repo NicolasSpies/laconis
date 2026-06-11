@@ -40,7 +40,7 @@ export function PriceCard({
           <span className="font-mono text-[12px]" style={{ opacity: 0.65 }}>
             ab
           </span>
-          <span className="text-[clamp(2.5rem,5vw,4rem)] font-black tracking-[-0.04em] leading-none">
+          <span className="font-display text-[clamp(2.5rem,5vw,4rem)] font-black tracking-[-0.04em] leading-none">
             <CounterUp
               value={fromPrice}
               duration={900}

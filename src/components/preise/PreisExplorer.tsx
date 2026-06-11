@@ -163,7 +163,7 @@ export function PreisExplorer() {
         <span className="font-mono text-[11px] uppercase tracking-label text-[#f2f2f2]/55">
           {t.sum}
         </span>
-        <span className="text-[clamp(2.5rem,6vw,4.5rem)] font-black tracking-[-0.04em] leading-none text-[#e1fd52]">
+        <span className="font-display text-[clamp(2.5rem,6vw,4.5rem)] font-black tracking-[-0.04em] leading-none text-[#e1fd52]">
           <CounterUp
             value={total}
             duration={400}

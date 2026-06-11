@@ -302,50 +302,47 @@ export default function Page() {
         </div>
       </section>
 
-      {/* CTA · lila slab im home-stil */}
-      <section
-        className="relative py-24 md:py-32 overflow-hidden"
-        style={{ background: "#b084d3", color: "#0a0a0a" }}
-      >
+      {/* CTA · dark slab · lila als akzent statt fläche (brand-regel) */}
+      <section className="relative py-24 md:py-32 overflow-hidden bg-[#0a0a0a]">
         <div
           aria-hidden
-          className="absolute inset-0 opacity-[0.14] pointer-events-none"
+          className="absolute inset-0 opacity-[0.1] pointer-events-none"
           style={{
             backgroundImage:
-              "radial-gradient(circle at center, rgba(20,20,20,0.55) 1px, transparent 1.4px)",
+              "radial-gradient(circle at center, rgba(242,242,242,0.5) 1px, transparent 1.4px)",
             backgroundSize: "26px 26px",
           }}
         />
         <div className="container-site relative">
           <p
-            className="font-mono text-[11px] uppercase tracking-label text-[#0a0a0a]/65 mb-6"
+            className="font-mono text-[11px] uppercase tracking-label text-[#b084d3] mb-6"
             style={{ transform: "rotate(-0.5deg)" }}
           >
             {t.ctaMarginalia}
           </p>
-          <h2 className="text-[clamp(2rem,5.5vw,4rem)] leading-[1] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase max-w-[820px]">
+          <h2 className="text-[clamp(2rem,5.5vw,4rem)] leading-[1] font-black tracking-[-0.035em] text-[#f2f2f2] lowercase max-w-[820px]">
             {t.ctaH2pre}
-            <span className="opacity-50">{t.ctaH2post}</span>
+            <span className="opacity-55">{t.ctaH2post}</span>
           </h2>
-          <p className="mt-8 max-w-[560px] text-[15px] leading-relaxed text-[#0a0a0a]/80">
+          <p className="mt-8 max-w-[560px] text-[15px] leading-relaxed text-[#f2f2f2]/75">
             {t.ctaBody}
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Link
               href={buildPath("kontakt", locale)}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#0a0a0a] text-[#e1fd52] hover:bg-[#1a1a1a] transition-colors"
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#e1fd52] text-[#0a0a0a] hover:bg-[#d4f03e] transition-colors"
             >
               {t.ctaPrimary}
             </Link>
             <Link
               href={buildPath("referenzen", locale)}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#0a0a0a] text-[#0a0a0a] hover:bg-[#0a0a0a] hover:text-[#e1fd52] transition-colors"
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#b084d3] text-[#f2f2f2] hover:bg-[#b084d3] hover:text-[#0a0a0a] transition-colors"
             >
               {t.ctaSecondary}
             </Link>
           </div>
           <p
-            className="mt-10 text-[16px] text-[#0a0a0a]/75"
+            className="mt-10 text-[16px] text-[#b084d3]"
             style={{ fontFamily: "var(--font-caveat), cursive", transform: "rotate(-1deg)" }}
           >
             {t.ctaSignature}

@@ -120,7 +120,7 @@ function CaseTile({ case: c, side, locale, dict, num }: CaseTileProps) {
         {dict.numberPrefix}
       </span>
       <span
-        className="font-sans font-black tabular-nums text-current leading-none tracking-[-0.04em]"
+        className="font-display font-black tabular-nums text-current leading-none tracking-[-0.04em]"
         style={{ fontSize: "clamp(28px, 4vw, 44px)", fontVariantNumeric: "tabular-nums" }}
       >
         {String(num).padStart(2, "0")}
@@ -146,7 +146,7 @@ function CaseTile({ case: c, side, locale, dict, num }: CaseTileProps) {
               className="absolute inset-0 grid place-items-center"
               style={{ background: c.farbe }}
             >
-              <span className="text-[#f2f2f2] font-black text-6xl">
+              <span className="font-display text-[#f2f2f2] font-black text-6xl">
                 {c.monogram ?? c.name[0]}
               </span>
             </div>
@@ -156,7 +156,7 @@ function CaseTile({ case: c, side, locale, dict, num }: CaseTileProps) {
             <div className="font-mono text-[10px] uppercase tracking-label opacity-70">
               {c.kategorieLabel} · {c.jahr}
             </div>
-            <div className="text-2xl md:text-3xl font-black tracking-[-0.02em] mt-1">
+            <div className="font-display text-2xl md:text-3xl font-black tracking-[-0.02em] mt-1">
               {c.name.toLowerCase()}.
             </div>
           </figcaption>
@@ -183,7 +183,7 @@ function CaseTile({ case: c, side, locale, dict, num }: CaseTileProps) {
           {dict.numberPrefix}
         </span>
         <span
-          className="font-sans font-black tabular-nums leading-none tracking-[-0.04em]"
+          className="font-display font-black tabular-nums leading-none tracking-[-0.04em]"
           style={{ fontSize: "clamp(28px, 4vw, 44px)", fontVariantNumeric: "tabular-nums" }}
         >
           {String(num).padStart(2, "0")}
@@ -228,7 +228,7 @@ function CaseTile({ case: c, side, locale, dict, num }: CaseTileProps) {
             <div className="font-mono text-[10px] uppercase tracking-label opacity-80">
               {c.kategorieLabel} · {c.jahr} · {c.ort}
             </div>
-            <div className="text-2xl md:text-3xl font-black tracking-[-0.02em] mt-1 leading-[0.95]">
+            <div className="font-display text-2xl md:text-3xl font-black tracking-[-0.02em] mt-1 leading-[0.95]">
               {c.name.toLowerCase()}.
             </div>
             <div className="font-mono text-[10px] uppercase tracking-label opacity-70 mt-3">

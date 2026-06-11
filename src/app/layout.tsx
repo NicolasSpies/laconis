@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { DM_Sans, DM_Mono, Caveat } from "next/font/google";
+import {
+  Bricolage_Grotesque,
+  Instrument_Sans,
+  Caveat,
+} from "next/font/google";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
@@ -14,19 +19,34 @@ import { AutoReveal } from "@/components/AutoReveal";
 import { HTML_LANG, DEFAULT_LOCALE } from "@/i18n/config";
 import { getLocale } from "@/i18n/getLocale";
 
-const dmSans = DM_Sans({
+/**
+ * Font-system v2 · typografie-reset (phase 1).
+ *
+ *   display → Bricolage Grotesque · variable (wght 200-800 + opsz)
+ *             ink-traps + editorial-quirk · headlines, claims, big numbers
+ *   sans    → Instrument Sans · variable (wght 400-700) · body, ui-text
+ *   mono    → Geist Mono · variable · labels, kicker, zahlen
+ *   hand    → Caveat · handschrift-akzente (bleibt)
+ *
+ * CSS-variablen heißen semantisch (--font-display etc.) statt nach
+ * font-namen · nächster font-swap braucht nur diese datei.
+ */
+const displayFont = Bricolage_Grotesque({
   subsets: ["latin"],
-  weight: ["400", "700", "900"],
-  variable: "--font-dm-sans",
+  variable: "--font-display",
+  display: "swap",
+  axes: ["opsz"],
+});
+
+const sansFont = Instrument_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans-v2",
   display: "swap",
 });
 
-const dmMono = DM_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-dm-mono",
-  display: "swap",
-});
+/* GeistMono kommt aus dem offiziellen vercel-package (next 14 hat den
+   google-font-export noch nicht) · exportiert fix --font-geist-mono. */
+const monoFont = GeistMono;
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -101,7 +121,7 @@ export default function RootLayout({
       lang={htmlLang}
       data-theme="light"
       suppressHydrationWarning
-      className={`${dmSans.variable} ${dmMono.variable} ${caveat.variable}`}
+      className={`${displayFont.variable} ${sansFont.variable} ${monoFont.variable} ${caveat.variable}`}
     >
       <head />
       <body>

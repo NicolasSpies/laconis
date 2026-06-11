@@ -48,7 +48,7 @@ const DICT: Record<Locale, Dict> = {
       { t: "websites", x: 0.46, y: 0.38, size: 64, italic: false, color: "offwhite" },
       { t: "print", x: 0.85, y: 0.78, size: 50, italic: false, color: "offwhite" },
       { t: "DE·FR·EN", x: 0.08, y: 0.85, size: 32, italic: false, color: "muted" },
-      { t: "eupen", x: 0.88, y: 0.45, size: 36, italic: true, color: "muted" },
+      { t: "ostbelgien", x: 0.88, y: 0.45, size: 36, italic: true, color: "muted" },
     ],
   },
   fr: {
@@ -64,7 +64,7 @@ const DICT: Record<Locale, Dict> = {
       { t: "sites web", x: 0.46, y: 0.38, size: 64, italic: false, color: "offwhite" },
       { t: "print", x: 0.85, y: 0.78, size: 50, italic: false, color: "offwhite" },
       { t: "DE·FR·EN", x: 0.08, y: 0.85, size: 32, italic: false, color: "muted" },
-      { t: "eupen", x: 0.88, y: 0.45, size: 36, italic: true, color: "muted" },
+      { t: "cantons de l'est", x: 0.88, y: 0.45, size: 36, italic: true, color: "muted" },
     ],
   },
   en: {
@@ -80,7 +80,7 @@ const DICT: Record<Locale, Dict> = {
       { t: "websites", x: 0.46, y: 0.38, size: 64, italic: false, color: "offwhite" },
       { t: "print", x: 0.85, y: 0.78, size: 50, italic: false, color: "offwhite" },
       { t: "DE·FR·EN", x: 0.08, y: 0.85, size: 32, italic: false, color: "muted" },
-      { t: "eupen", x: 0.88, y: 0.45, size: 36, italic: true, color: "muted" },
+      { t: "east belgium", x: 0.88, y: 0.45, size: 36, italic: true, color: "muted" },
     ],
   },
 };

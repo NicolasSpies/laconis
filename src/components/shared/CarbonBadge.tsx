@@ -186,7 +186,7 @@ export function CarbonBadge({ className }: { className?: string }) {
               </span>
             </div>
             <div className="flex items-baseline gap-3 mb-3">
-              <span className="font-sans font-black text-[clamp(40px,7vw,64px)] leading-[0.9] text-accent-ink tabular-nums">
+              <span className="font-display font-black text-[clamp(40px,7vw,64px)] leading-[0.9] text-accent-ink tabular-nums">
                 {TARGET_GRAMS.toFixed(2)}
                 <span className="text-[0.5em] text-offwhite/65 ml-1">
                   {t.unit}

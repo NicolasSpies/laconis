@@ -222,7 +222,7 @@ export function BrandingBento({ num = "04" }: { num?: string } = {}) {
                   { bg: "#e1fd52", label: "lime" },
                   { bg: "#0a0a0a", label: "dark" },
                   { bg: "#b084d3", label: "lila" },
-                  { bg: "#c8c8c8", label: "grey" },
+                  { bg: "#e9e9e7", label: "grey" },
                 ].map((s) => (
                   <div
                     key={s.label}
@@ -233,7 +233,7 @@ export function BrandingBento({ num = "04" }: { num?: string } = {}) {
                 ))}
               </div>
               {/* typo sample */}
-              <div className="font-black text-[#0a0a0a] tracking-[-0.04em] leading-[0.9]">
+              <div className="font-display font-black text-[#0a0a0a] tracking-[-0.04em] leading-[0.9]">
                 <div className="text-[clamp(2rem,3.6vw,2.6rem)]">Aa</div>
               </div>
             </div>
@@ -340,16 +340,20 @@ export function BrandingBento({ num = "04" }: { num?: string } = {}) {
             </ul>
           </article>
 
-          {/* print extras · lila card */}
+          {/* print extras · papier-card mit lila-akzent (kein flächen-lila ·
+              lila ist akzent, nicht surface · brand-regel) */}
           <article
-            className="col-span-full lg:col-span-3 relative rounded-2xl overflow-hidden p-7 md:p-8 min-h-[260px] flex flex-col"
-            style={{ background: LILA }}
+            className="col-span-full lg:col-span-3 relative rounded-2xl overflow-hidden p-7 md:p-8 min-h-[260px] flex flex-col border border-[#0a0a0a]/12 bg-[#0a0a0a]/[0.03]"
+            style={{ borderTop: `3px solid ${LILA}` }}
           >
             <div className="flex items-baseline justify-between gap-3">
               <h3 className="font-black text-[20px] md:text-[22px] text-[#0a0a0a] tracking-[-0.02em] leading-tight">
                 {t.printLabel}
               </h3>
-              <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/65">
+              <span
+                className="font-mono text-[10px] uppercase tracking-label"
+                style={{ color: LILA }}
+              >
                 {t.extrasHint}
               </span>
             </div>
@@ -359,7 +363,9 @@ export function BrandingBento({ num = "04" }: { num?: string } = {}) {
                   key={item}
                   className="flex items-baseline gap-2 text-[13px] leading-relaxed text-[#0a0a0a]/80"
                 >
-                  <span className="text-[#0a0a0a]/40 shrink-0">·</span>
+                  <span className="shrink-0" style={{ color: LILA }}>
+                    ·
+                  </span>
                   <span>{item}</span>
                 </li>
               ))}

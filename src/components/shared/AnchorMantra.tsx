@@ -48,7 +48,7 @@ const PRESETS: Record<
 > = {
   hero: {
     container: "inline-flex items-baseline justify-center flex-wrap",
-    word: "font-sans font-black lowercase text-[clamp(20px,2.4vw,32px)] text-[#0a0a0a] tracking-[-0.02em]",
+    word: "font-display font-black lowercase text-[clamp(20px,2.4vw,32px)] text-[#0a0a0a] tracking-[-0.02em]",
     separator: "text-[clamp(16px,2vw,24px)] text-[#b084d3]",
     gap: "gap-3 md:gap-4",
   },

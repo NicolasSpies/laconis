@@ -101,7 +101,7 @@ export function ServicesMorph() {
                     justifyContent: "space-between",
                   }}
                 >
-                  <p className="text-[clamp(2.8rem,5.5vw,4.5rem)] leading-[0.9] font-black tracking-[-0.03em] relative inline-block">
+                  <p className="font-display text-[clamp(2.8rem,5.5vw,4.5rem)] leading-[0.9] font-black tracking-[-0.03em] relative inline-block">
                     <span className="relative inline-block">
                       {s.title}
                       {/* nur auf der branding-card: zarter lila scribble drunter

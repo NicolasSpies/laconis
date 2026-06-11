@@ -174,7 +174,7 @@ export function WebApproaches({ num = "02" }: { num?: string } = {}) {
               >
                 {/* big number · sitzt auf der linie */}
                 <div className="relative">
-                  <span className="block text-[clamp(2.5rem,5vw,4rem)] leading-[0.85] font-black tracking-[-0.04em] text-[#0a0a0a] relative z-10 bg-[#c8c8c8]">
+                  <span className="font-display block text-[clamp(2.5rem,5vw,4rem)] leading-[0.85] font-black tracking-[-0.04em] text-[#0a0a0a] relative z-10 bg-[rgb(var(--bg))]">
                     {c.num}
                   </span>
                 </div>

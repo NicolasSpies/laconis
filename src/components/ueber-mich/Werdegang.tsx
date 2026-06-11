@@ -88,7 +88,7 @@ export function Werdegang({ items }: Props) {
                   background: passed ? "#b084d3" : "#0a0a0a",
                   // ring-color matches grey body bg
                   // @ts-expect-error -- arbitrary css var
-                  "--tw-ring-color": "#c8c8c8",
+                  "--tw-ring-color": "rgb(var(--bg))",
                   boxShadow: passed ? "0 0 14px rgba(176,132,211,0.7)" : "none",
                 }}
               />

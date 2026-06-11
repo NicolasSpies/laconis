@@ -23,10 +23,9 @@ const config: Config = {
         ink: "rgb(var(--ink) / <alpha-value>)",
       },
       fontFamily: {
-        sans: ["var(--font-dm-sans)", "system-ui", "sans-serif"],
-        mono: ["var(--font-dm-mono)", "ui-monospace", "monospace"],
-        display: ["var(--font-dm-sans)", "system-ui", "sans-serif"],
-        serif: ["var(--font-instrument)", "Georgia", "serif"],
+        sans: ["var(--font-sans-v2)", "system-ui", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
+        display: ["var(--font-display)", "system-ui", "sans-serif"],
         hand: ["var(--font-caveat)", "cursive"],
       },
       letterSpacing: {

@@ -71,31 +71,32 @@
   }
 
   [data-theme="light"] {
-    /* ═══════════ LIGHT THEME — Neutral Light Grey (v5) ═══════════
-       neutrales hellgrau · lime leuchtet von selbst, kein effekt · cards sind
-       pure translucent glass über dem bg (paper-tint + backdrop-blur) */
+    /* ═══════════ LIGHT THEME — Papier-Hell (v6 · phase 1) ═══════════
+       warm-helles papier statt beton-grau · "licht statt nebel".
+       lime KNALLT auf hellem grund, lila wird edel statt dunst,
+       schwarz wird tief. farben arbeiten endlich. */
     --accent: 225 253 82;
 
-    --bg: 200 200 200; /* #C8C8C8 neutral hellgrau · lime leuchtet drauf */
-    --bg-root: 200 200 200; /* aligned mit --bg · sections sind transparent, html-bg ist der durchscheinende grey */
-    --surface: 215 215 215;
-    --surface-elev: 208 208 208;
+    --bg: 233 233 231; /* #E9E9E7 papier-hell · warm, nicht steril-weiß */
+    --bg-root: 233 233 231; /* aligned mit --bg · sections transparent, html-bg scheint durch */
+    --surface: 242 242 240;
+    --surface-elev: 238 238 236;
 
     --fg: 17 17 17;
-    --fg-muted: 70 70 70;
-    --fg-subtle: 115 115 115;
+    --fg-muted: 64 64 62;
+    --fg-subtle: 118 118 115;
 
     --ink: 17 17 17;
     --anthrazit: 56 56 56;
 
-    --autofill-bg: 205 205 205;
+    --autofill-bg: 238 238 236;
 
     /* ═══ GLASS TOKENS (v10 · ice-glass · tint = body-ton, low alpha, strong blur)
        gleiche logik wie dark: body schimmert durch, starker blur schmiert
        hintergrund weich · keine creme-paper-opazität mehr. */
     /* frosted-glass tokens · weiß-tint, höhere alpha in light damit der
        panel klar vom grau-body absetzt. blur schmiert body + lime-glows weich. */
-    --glass-tint: 200 200 200;      /* = body-bg · gleicher ton wie nav */
+    --glass-tint: 233 233 231;      /* = body-bg · gleicher ton wie nav */
     --glass-alpha: 0.65;
     --glass-alpha-strong: 0.75;
     --glass-alpha-hover: 0.80;
@@ -104,9 +105,10 @@
     --glass-border-alpha-strong: 0.24;
     --glass-blur: 32px;
 
-    /* cursor-spotlight · light = präsenter + kompakter */
-    --cursor-glow-a1: 0.28;
-    --cursor-glow-a2: 0.12;
+    /* cursor-spotlight · light = präsenter + kompakter
+       (auf papier-hell leicht reduziert · lime wirkt heller von selbst) */
+    --cursor-glow-a1: 0.22;
+    --cursor-glow-a2: 0.09;
     --cursor-glow-size: 720px;
 
     /* ═══ DEPTH TOKENS · light = papier wirft echte schatten ═══ */
@@ -147,6 +149,18 @@
       background 0.35s ease;
   }
 
+  /* ═══════════ HEADLINES → DISPLAY-FONT (Bricolage Grotesque) ═══════════
+     globale regel statt 50 komponenten anfassen · alle h1-h3 sind headlines.
+     font-black (900) in komponenten clamp der variable font automatisch
+     auf 800 (max axis) · optical-sizing nutzt die opsz-achse für schärfere
+     display-schnitte bei großen größen. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-optical-sizing: auto;
+  }
+
   /* ═══════════ PAPER GRAIN · body-weit textur-overlay ═══════════
      fixed position · grain steht still beim scrollen · pointer-events:none
      damit klicks durchgehen · opacity niedrig · soll nur spürbar sein. */
@@ -156,7 +170,8 @@
     inset: 0;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='paper'><feTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' stitchTiles='stitch' seed='7'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23paper)'/></svg>");
     background-size: 260px 260px;
-    opacity: 0.08;
+    /* auf papier-hell subtiler · soll textur sein, kein schmutzfilm */
+    opacity: 0.055;
     mix-blend-mode: overlay;
     pointer-events: none;
     z-index: 9999;
@@ -259,17 +274,17 @@
     @apply border-l-2 border-lime pl-4 italic text-offwhite;
   }
   .heading-sans {
-    font-family: var(--font-dm-sans), system-ui, sans-serif;
-    font-weight: 900;
-    letter-spacing: -0.035em;
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.025em;
     line-height: 1;
     text-transform: lowercase;
   }
   .heading-display {
-    font-family: var(--font-dm-sans), system-ui, sans-serif;
-    font-weight: 900;
-    letter-spacing: -0.055em;
-    line-height: 0.92;
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.94;
     text-transform: lowercase;
   }
 

@@ -18,7 +18,7 @@ const FONTS: FontDef[] = [
   {
     key: "dm-sans",
     label: "dm sans",
-    css: "var(--font-dm-sans), system-ui, sans-serif",
+    css: "var(--font-sans-v2), system-ui, sans-serif",
     kind: "both",
     hint: "klar · modern",
   },
@@ -32,7 +32,7 @@ const FONTS: FontDef[] = [
   {
     key: "instrument",
     label: "instrument",
-    css: "var(--font-dm-mono), Georgia, serif",
+    css: "var(--font-geist-mono), Georgia, serif",
     kind: "display",
     hint: "elegant · italic",
   },
@@ -53,7 +53,7 @@ const FONTS: FontDef[] = [
   {
     key: "dm-mono",
     label: "dm mono",
-    css: "var(--font-dm-mono), ui-monospace, monospace",
+    css: "var(--font-geist-mono), ui-monospace, monospace",
     kind: "body",
     hint: "nerdig · lakonisch",
   },

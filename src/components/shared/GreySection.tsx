@@ -21,7 +21,7 @@ type Props = {
 };
 
 const TONES = {
-  grey: { bg: "#c8c8c8", fg: "#0a0a0a", dot: "rgba(20,20,20,0.55)" },
+  grey: { bg: "rgb(var(--bg))", fg: "#0a0a0a", dot: "rgba(20,20,20,0.55)" },
   dark: { bg: "#0a0a0a", fg: "#f2f2f2", dot: "rgba(255,255,255,0.18)" },
   paper: { bg: "#f2f2f2", fg: "#0a0a0a", dot: "rgba(20,20,20,0.4)" },
 } as const;

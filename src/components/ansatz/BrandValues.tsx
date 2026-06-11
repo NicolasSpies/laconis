@@ -195,7 +195,7 @@ export function BrandValues({ num }: { num?: string }) {
 
                 {/* big word · mit hover-underline */}
                 <div className="relative inline-block">
-                  <span className="block font-sans font-black text-[clamp(34px,4.2vw,52px)] leading-[0.95] tracking-[-0.035em] text-[#0a0a0a] lowercase">
+                  <span className="block font-display font-black text-[clamp(34px,4.2vw,52px)] leading-[0.95] tracking-[-0.025em] text-[#0a0a0a] lowercase">
                     {v.label}
                   </span>
                   {/* scribble-underline · draws in on hover/active */}

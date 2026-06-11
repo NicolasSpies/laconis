@@ -203,7 +203,8 @@ export function Nav() {
       )}
     >
       <div className="container-site flex items-center justify-between h-16">
-        <Logo size="sm" variant="lime" className="mr-10" />
+        {/* dark variant · lime-logo wäre auf papier-hellem bg unsichtbar */}
+        <Logo size="sm" variant="dark" className="mr-10" />
 
         <nav className="hidden md:flex items-center gap-7">
           <ServicesDropdown
