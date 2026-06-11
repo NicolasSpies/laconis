@@ -1,0 +1,19 @@
+{
+  "month": "2026-06",
+  "lighthouseVersion": "12",
+  "formFactor": "mobile",
+  "runsPerSite": 5,
+  "generatedAt": "2026-06-11T00:00:00.000Z",
+  "demo": true,
+  "_kommentar": "DEMO-DATEN für layout-entwicklung · NICHT veröffentlichen. erster echter lauf: node scripts/perf-index/run.mjs · überschreibt dieses file. solange demo: true gesetzt ist, rendert die page einen demo-banner und bleibt noindex.",
+  "measurements": [
+    { "id": "laconis", "score": 98, "lcpMs": 1100, "cls": 0.001, "tbtMs": 40, "transferKb": 240, "runs": 5, "measuredAt": "2026-06-11T00:00:00.000Z" },
+    { "id": "fabry", "score": 96, "lcpMs": 1300, "cls": 0.004, "tbtMs": 70, "transferKb": 310, "runs": 5, "measuredAt": "2026-06-11T00:00:00.000Z" },
+    { "id": "agentur-d", "score": 71, "lcpMs": 2900, "cls": 0.02, "tbtMs": 320, "transferKb": 1850, "runs": 5, "measuredAt": "2026-06-11T00:00:00.000Z" },
+    { "id": "agentur-b", "score": 54, "lcpMs": 3800, "cls": 0.11, "tbtMs": 540, "transferKb": 2700, "runs": 5, "measuredAt": "2026-06-11T00:00:00.000Z" },
+    { "id": "agentur-e", "score": 49, "lcpMs": 4100, "cls": 0.08, "tbtMs": 690, "transferKb": 3100, "runs": 5, "measuredAt": "2026-06-11T00:00:00.000Z" },
+    { "id": "agentur-a", "score": 43, "lcpMs": 4600, "cls": 0.15, "tbtMs": 780, "transferKb": 3600, "runs": 5, "measuredAt": "2026-06-11T00:00:00.000Z" },
+    { "id": "agentur-f", "score": 38, "lcpMs": 5200, "cls": 0.19, "tbtMs": 850, "transferKb": 4000, "runs": 5, "measuredAt": "2026-06-11T00:00:00.000Z" },
+    { "id": "agentur-c", "score": 35, "lcpMs": 5600, "cls": 0.22, "tbtMs": 960, "transferKb": 4400, "runs": 5, "measuredAt": "2026-06-11T00:00:00.000Z" }
+  ]
+}

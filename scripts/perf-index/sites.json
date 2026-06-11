@@ -1,0 +1,76 @@
+{
+  "$schema": "./sites.schema.json",
+  "_kommentar": [
+    "Web Performance Index Ostbelgien · site-liste.",
+    "displayMode: 'named' = mit domain sichtbar (KMU, eigene projekte, goodwill)",
+    "displayMode: 'anonymous' = alias statt name (direkte konkurrenten · politik)",
+    "WICHTIG: aliase müssen über monate STABIL bleiben (trends!) · nie neu mischen.",
+    "VOR DEM ERSTEN ECHTEN RUN: liste von nicolas bestätigen lassen · ergänzen/streichen."
+  ],
+  "sites": [
+    {
+      "id": "laconis",
+      "url": "https://laconis.be",
+      "displayMode": "named",
+      "displayName": "laconis.be",
+      "stack": "next.js · contentcore",
+      "notiz": "das bin ich · wird namentlich geführt, ehrlich gemessen wie alle"
+    },
+    {
+      "id": "fabry",
+      "url": "https://fabry-baumpflege.be",
+      "displayMode": "named",
+      "displayName": "fabry-baumpflege.be",
+      "stack": "next.js · contentcore",
+      "notiz": "laconis-projekt · transparenz: wird als eigenes projekt markiert"
+    },
+    {
+      "id": "agentur-a",
+      "url": "https://www.pavonet.be",
+      "displayMode": "anonymous",
+      "displayName": "agentur a",
+      "stack": "wordpress",
+      "notiz": "etablierte werbeagentur · print-wurzeln"
+    },
+    {
+      "id": "agentur-b",
+      "url": "https://cloth.be",
+      "displayMode": "anonymous",
+      "displayName": "agentur b",
+      "stack": "wordpress",
+      "notiz": "kreativagentur · breites service-portfolio"
+    },
+    {
+      "id": "agentur-c",
+      "url": "https://graphic-house.be",
+      "displayMode": "anonymous",
+      "displayName": "agentur c",
+      "stack": "unbekannt",
+      "notiz": "werbeagentur mit ki-positionierung"
+    },
+    {
+      "id": "agentur-d",
+      "url": "https://www.we-are-nexo.com",
+      "displayMode": "anonymous",
+      "displayName": "agentur d",
+      "stack": "webflow",
+      "notiz": "junge grafik/web/event-agentur"
+    },
+    {
+      "id": "agentur-e",
+      "url": "https://www.pixelbar.be",
+      "displayMode": "anonymous",
+      "displayName": "agentur e",
+      "stack": "wordpress",
+      "notiz": "webentwicklung · cms-spezialist"
+    },
+    {
+      "id": "agentur-f",
+      "url": "https://cito.be",
+      "displayMode": "anonymous",
+      "displayName": "agentur f",
+      "stack": "unbekannt",
+      "notiz": "kommunikation + grafikdesign"
+    }
+  ]
+}
