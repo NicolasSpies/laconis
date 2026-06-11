@@ -4,6 +4,7 @@ import { PageHero } from "@/components/shared/PageHero";
 import { GrundrauschHero } from "@/components/leistungen/web/GrundrauschHero";
 import { WebApproaches } from "@/components/leistungen/web/WebApproaches";
 import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
+import { SectionGhost } from "@/components/shared/SectionGhost";
 import { WebDeliverables } from "@/components/leistungen/web/WebDeliverables";
 import { WebVsAlternatives } from "@/components/leistungen/web/WebVsAlternatives";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
@@ -30,6 +31,7 @@ type Dict = {
   stat2Value: string;
   stat3Label: string;
   breakHow: string;
+  ghostAblauf: string;
   techLinkLabel: string;
   techLinkBody: string;
   ansatzLinkLabel: string;
@@ -57,6 +59,7 @@ const DICT: Record<Locale, Dict> = {
     stat2Value: "selbst",
     stat3Label: "launch",
     breakHow: "so läuft's ab ↓",
+    ghostAblauf: "ablauf",
     techLinkLabel: "für die techniker",
     techLinkBody: "hosting, cms-architektur, contentcore vs wordpress.",
     ansatzLinkLabel: "wie ich arbeite",
@@ -93,6 +96,7 @@ const DICT: Record<Locale, Dict> = {
     stat2Value: "toi-même",
     stat3Label: "lancement",
     breakHow: "comment ça se passe ↓",
+    ghostAblauf: "déroulé",
     techLinkLabel: "pour les tech",
     techLinkBody: "hébergement, architecture cms, contentcore vs wordpress.",
     ansatzLinkLabel: "comment je travaille",
@@ -129,6 +133,7 @@ const DICT: Record<Locale, Dict> = {
     stat2Value: "yourself",
     stat3Label: "launch",
     breakHow: "how it works ↓",
+    ghostAblauf: "process",
     techLinkLabel: "for the technical folks",
     techLinkBody: "hosting, cms architecture, contentcore vs wordpress.",
     ansatzLinkLabel: "how i work",
@@ -192,6 +197,9 @@ export default function Page() {
       />
 
       <ScribbleBreak text={t.breakHow} rotate={-1} />
+
+      {/* outline-ghost · typo als layout-element, bewusst angeschnitten */}
+      <SectionGhost word={t.ghostAblauf} side="right" />
 
       <WebApproaches num="02" />
       <WebDeliverables num="03" />

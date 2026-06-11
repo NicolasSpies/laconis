@@ -8,6 +8,7 @@ import { BrandingBento } from "@/components/leistungen/branding/BrandingBento";
 import { BrandVsAlternatives } from "@/components/leistungen/branding/BrandVsAlternatives";
 import { StaerkenStrip } from "@/components/shared/StaerkenStrip";
 import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
+import { SectionGhost } from "@/components/shared/SectionGhost";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
 import { FAQSchema } from "@/components/seo/FAQSchema";
@@ -36,6 +37,7 @@ type Dict = {
   stat2Label: string; stat2Value: string;
   stat3Label: string; stat3Value: string;
   breakLook: string;
+  ghostPakete: string;
   breakCase: string;
   breakHonest: string;
   breakFAQ: string;
@@ -70,6 +72,7 @@ const DICT: Record<Locale, Dict> = {
     stat2Label: "gehört dir", stat2Value: "immer",
     stat3Label: "halbwertszeit", stat3Value: "5+ j.",
     breakLook: "und so sieht's aus ↓",
+    ghostPakete: "pakete",
     breakCase: "ein echter kunde dazu ↓",
     breakHonest: "und mal ehrlich ↓",
     breakFAQ: "bevor du fragst ↓",
@@ -113,6 +116,7 @@ const DICT: Record<Locale, Dict> = {
     stat2Label: "t'appartient", stat2Value: "toujours",
     stat3Label: "durée de vie", stat3Value: "5+ ans",
     breakLook: "et voilà à quoi ça ressemble ↓",
+    ghostPakete: "formules",
     breakCase: "un vrai client en plus ↓",
     breakHonest: "et franchement ↓",
     breakFAQ: "avant que tu demandes ↓",
@@ -156,6 +160,7 @@ const DICT: Record<Locale, Dict> = {
     stat2Label: "yours", stat2Value: "always",
     stat3Label: "half-life", stat3Value: "5+ y.",
     breakLook: "and here's what it looks like ↓",
+    ghostPakete: "packages",
     breakCase: "a real client too ↓",
     breakHonest: "honestly ↓",
     breakFAQ: "before you ask ↓",
@@ -245,6 +250,8 @@ export default function Page() {
       <StaerkenStrip />
       <BrandDesk num="02" />
       <ScribbleBreak text={t.breakLook} rotate={-1} />
+      {/* outline-ghost · typo als layout-element */}
+      <SectionGhost word={t.ghostPakete} side="left" />
       <BrandingBento num="03" />
 
       <ScribbleBreak text={t.breakHonest} rotate={0.8} />
