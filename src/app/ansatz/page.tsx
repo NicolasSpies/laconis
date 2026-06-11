@@ -2,11 +2,9 @@ import Link from "next/link";
 import { PageHero } from "@/components/shared/PageHero";
 import { GreySection } from "@/components/shared/GreySection";
 import { StatementStrip } from "@/components/shared/StatementStrip";
-import { AnsatzToggle } from "@/components/ansatz/AnsatzToggle";
 import { ProcessSteps } from "@/components/ansatz/ProcessSteps";
 import { BrandValues } from "@/components/ansatz/BrandValues";
-import { WebManifest } from "@/components/leistungen/web/WebManifest";
-import { Manifest } from "@/components/leistungen/branding/Manifest";
+import { NichtListe } from "@/components/ansatz/NichtListe";
 import { HowToSchema } from "@/components/seo/HowToSchema";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { getMeta } from "@/lib/seo/getMeta";
@@ -153,47 +151,41 @@ export default function Page() {
 
       <StatementStrip items={t.marqueeBits} bg="#0a0a0a" fg="#e1fd52" speed={40} />
 
-      {/* AnsatzToggle · web vs branding mode */}
-      <GreySection tone="grey">
-        <AnsatzToggle
-          num="04"
-          web={<WebManifest hideHeader />}
-          branding={<Manifest hideHeader />}
-        />
-      </GreySection>
+      {/* EINE gemeinsame nicht-liste · toggle war versteckte interaktion
+          mit doppeltem content (user-entscheidung) */}
+      <NichtListe num="04" />
 
-      {/* CTA · lila */}
+      {/* CTA · dark slab · gleiches pattern wie alle anderen seiten */}
       <section
-        className="relative py-24 md:py-32 overflow-hidden"
-        style={{ background: "#b084d3" }}
+        className="relative py-24 md:py-32 overflow-hidden bg-[#0a0a0a]"
         aria-label={t.ctaHeadline}
       >
         <div
           aria-hidden
-          className="absolute inset-0 opacity-[0.12] pointer-events-none"
+          className="absolute inset-0 opacity-[0.1] pointer-events-none"
           style={{
             backgroundImage:
-              "radial-gradient(circle at center, rgba(20,20,20,0.55) 1px, transparent 1.4px)",
+              "radial-gradient(circle at center, rgba(242,242,242,0.5) 1px, transparent 1.4px)",
             backgroundSize: "26px 26px",
           }}
         />
-        <div className="container-site relative text-center">
-          <h2 className="text-[clamp(2rem,6vw,4rem)] leading-[1] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase max-w-[820px] mx-auto">
+        <div className="container-site relative">
+          <h2 className="text-[clamp(2rem,5.5vw,4rem)] leading-[1] font-black tracking-[-0.035em] text-[#f2f2f2] lowercase max-w-[820px]">
             {t.ctaHeadline}
           </h2>
-          <p className="mt-6 max-w-[520px] mx-auto text-[15px] leading-relaxed text-[#0a0a0a]/80">
+          <p className="mt-8 max-w-[560px] text-[15px] leading-relaxed text-[#f2f2f2]/75">
             {t.ctaBody}
           </p>
-          <div className="mt-10 flex justify-center gap-3 flex-wrap">
+          <div className="mt-10 flex flex-wrap gap-3">
             <Link
               href={buildPath("kontakt", locale)}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#0a0a0a] text-[#e1fd52] hover:bg-[#1a1a1a] transition-colors"
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#e1fd52] text-[#0a0a0a] hover:bg-[#d4f03e] transition-colors"
             >
               {t.ctaPrimary}
             </Link>
             <Link
               href={buildPath("leistungen/web", locale)}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#0a0a0a] text-[#0a0a0a] hover:bg-[#0a0a0a] hover:text-[#e1fd52] transition-colors"
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#b084d3] text-[#f2f2f2] hover:bg-[#b084d3] hover:text-[#0a0a0a] transition-colors"
             >
               {t.ctaSecondary}
             </Link>

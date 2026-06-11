@@ -9,7 +9,6 @@ const BASE = "https://laconis.be";
  * jede page in allen 3 sprachen (DE, FR, EN) mit hreflang-alternates.
  *
  * Bewusst NICHT in der sitemap:
- *  - /leistungen/branding/simulator (spielzeug · noindex)
  *  - /preise/baukasten (redirect)
  */
 

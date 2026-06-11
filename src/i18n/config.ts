@@ -55,11 +55,6 @@ export const ROUTES: Record<string, Record<Locale, string>> = {
     fr: "services/branding",
     en: "services/branding",
   },
-  "leistungen/branding/simulator": {
-    de: "leistungen/branding/simulator",
-    fr: "services/branding/simulateur",
-    en: "services/branding/simulator",
-  },
   ansatz: { de: "ansatz", fr: "approche", en: "approach" },
   preise: { de: "preise", fr: "prix", en: "pricing" },
   kontakt: { de: "kontakt", fr: "contact", en: "contact" },

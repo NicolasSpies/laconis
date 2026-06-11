@@ -67,10 +67,16 @@ function PreviewVisual({ r }: { r: Referenz }) {
   );
 }
 
-export function ReferenzenIndex() {
+export function ReferenzenIndex({
+  limit,
+}: {
+  /** optional · zeigt nur die ersten N cases (home-teaser) */
+  limit?: number;
+} = {}) {
   const locale = useLocale();
   const t = pick(DICT, locale);
   const reduce = useReducedMotion();
+  const cases = limit ? referenzen.slice(0, limit) : referenzen;
 
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [followerOn, setFollowerOn] = useState(false);
@@ -160,7 +166,7 @@ export function ReferenzenIndex() {
           className="border-t-2 border-[#0a0a0a]/15"
           onPointerLeave={() => setActiveSlug(null)}
         >
-          {referenzen.map((r, i) => {
+          {cases.map((r, i) => {
             const isActive = activeSlug === r.slug;
             const isDimmed = activeSlug !== null && !isActive;
             return (

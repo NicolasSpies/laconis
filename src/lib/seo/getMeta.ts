@@ -126,29 +126,6 @@ const STATIC_MAP: Record<string, MetaByLocale> = {
       ogDescription: "logo, brand identity, business cards, brand guide · from first sketch to vehicle wrap.",
     },
   },
-  "/leistungen/branding/simulator": {
-    de: {
-      title: "brand-simulator · probier's selber aus",
-      description: "spielplatz · name, farben, stimmung wählen und in sekunden eine marke bauen. ein vorgeschmack, kein fertiges logo.",
-      ogTitle: "brand-simulator · lacønis",
-      ogDescription: "spielplatz · in sekunden eine marke zusammenklicken. kein fertiges design, nur ein gefühl.",
-      noindex: true,
-    },
-    fr: {
-      title: "simulateur de marque · essaie toi-même",
-      description: "terrain de jeu · choisis nom, couleurs, ambiance et construis une marque en quelques secondes. un avant-goût, pas un logo fini.",
-      ogTitle: "simulateur de marque · lacønis",
-      ogDescription: "terrain de jeu · clique-toi une marque en quelques secondes. pas un design final, juste un ressenti.",
-      noindex: true,
-    },
-    en: {
-      title: "brand simulator · try it yourself",
-      description: "playground · pick name, colours, mood and build a brand in seconds. a taste, not a finished logo.",
-      ogTitle: "brand simulator · lacønis",
-      ogDescription: "playground · click together a brand in seconds. not a final design, just a feel.",
-      noindex: true,
-    },
-  },
   "/ansatz": {
     de: {
       title: "ansatz",

@@ -35,10 +35,9 @@ const ServicesSplit = dynamic(
   () => import("@/components/home/ServicesSplit").then((m) => m.ServicesSplit),
   { loading: () => <SkeletonSection h={600} /> },
 );
-const HorizontalCases = dynamic(
-  () =>
-    import("@/components/home/HorizontalCases").then((m) => m.HorizontalCases),
-  { loading: () => <SkeletonSection h={1200} /> },
+const HomeCases = dynamic(
+  () => import("@/components/home/HomeCases").then((m) => m.HomeCases),
+  { loading: () => <SkeletonSection h={700} /> },
 );
 const SplitStatement = dynamic(
   () =>
@@ -61,9 +60,9 @@ export default function HomePage() {
       <Hero />
       <ServicesSplit />
       <SplitStatement />
-      <div data-theme="dark" className="bg-dark text-offwhite">
-        <HorizontalCases />
-      </div>
+      {/* referenzen-teaser · der cursor-follower-index, top 3 ·
+          kein scroll-jacking mehr */}
+      <HomeCases />
       {/* kompakte FAQ · 4 fragen · SEO-content auf der home */}
       <HomeFAQ />
       <ContactBlock />
