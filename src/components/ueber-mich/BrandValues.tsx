@@ -128,7 +128,7 @@ const DICT: Record<Locale, Dict> = {
 
 const ACCENT_COLORS = ["#e1fd52", "#b084d3", "#e1fd52", "#b084d3"] as const;
 
-export function BrandValues({ num }: { num?: string }) {
+export function BrandValues() {
   const locale = useLocale();
   const t = pick(DICT, locale);
   const reduce = useReducedMotion();
@@ -137,21 +137,11 @@ export function BrandValues({ num }: { num?: string }) {
   return (
     <section className="py-20 md:py-28">
       <div className="container-site">
-        {/* header */}
-        <div className="flex items-baseline gap-4 mb-12">
-          {num && (
-            <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/45">
-              {num}
-            </span>
-          )}
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
-              {t.kicker}
-            </p>
-            <h2 className="mt-2 text-[clamp(2rem,5vw,3.5rem)] leading-[1] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase max-w-[720px]">
-              {t.headline}
-            </h2>
-          </div>
+        {/* header · eyebrow raus (sitewide) · nur headline */}
+        <div className="mb-12">
+          <h2 className="text-[clamp(2rem,5vw,3.5rem)] leading-[1] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase max-w-[720px]">
+            {t.headline}
+          </h2>
         </div>
 
         {/* values grid · 4 cards, stagger reveal */}

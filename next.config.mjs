@@ -45,6 +45,23 @@ const nextConfig = {
         destination: "/en/services/web",
         permanent: true,
       },
+      // /ansatz aufgelöst (2026-06) · inhalte verteilt: 4-schritte →
+      // /leistungen/web (#ablauf), nicht-liste → /preise, haltung → /ueber-mich
+      {
+        source: "/ansatz",
+        destination: "/leistungen/web",
+        permanent: true,
+      },
+      {
+        source: "/fr/approche",
+        destination: "/fr/services/web",
+        permanent: true,
+      },
+      {
+        source: "/en/approach",
+        destination: "/en/services/web",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
@@ -58,7 +75,6 @@ const nextConfig = {
       { source: "/fr/services/web", destination: "/leistungen/web" },
       { source: "/fr/services/web/technique", destination: "/leistungen/web/technik" },
       { source: "/fr/services/branding", destination: "/leistungen/branding" },
-      { source: "/fr/approche", destination: "/ansatz" },
       { source: "/fr/prix", destination: "/preise" },
       { source: "/fr/contact", destination: "/kontakt" },
       { source: "/fr/references", destination: "/referenzen" },
@@ -73,7 +89,6 @@ const nextConfig = {
       { source: "/en/services/web", destination: "/leistungen/web" },
       { source: "/en/services/web/tech", destination: "/leistungen/web/technik" },
       { source: "/en/services/branding", destination: "/leistungen/branding" },
-      { source: "/en/approach", destination: "/ansatz" },
       { source: "/en/pricing", destination: "/preise" },
       { source: "/en/contact", destination: "/kontakt" },
       { source: "/en/work", destination: "/referenzen" },

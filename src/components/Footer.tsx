@@ -12,6 +12,7 @@ const DICT: Record<
   {
     signed: string;
     laconisGloss: string;
+    branding: string;
     impressum: string;
     datenschutz: string;
     title: string;
@@ -22,6 +23,7 @@ const DICT: Record<
   de: {
     signed: "by Nicolas Spies",
     laconisGloss: "lakonisch · knapp gesagt, viel gemeint",
+    branding: "logo & branding",
     impressum: "impressum",
     datenschutz: "datenschutz",
     title: "Von Hand · Nicolas Spies",
@@ -31,6 +33,7 @@ const DICT: Record<
   fr: {
     signed: "par Nicolas Spies",
     laconisGloss: "laconique · peu de mots, beaucoup de sens",
+    branding: "logo & branding",
     impressum: "mentions légales",
     datenschutz: "confidentialité",
     title: "Fait main · Nicolas Spies",
@@ -40,6 +43,7 @@ const DICT: Record<
   en: {
     signed: "by Nicolas Spies",
     laconisGloss: "laconic · few words, much meaning",
+    branding: "logo & branding",
     impressum: "legal notice",
     datenschutz: "privacy",
     title: "Made by hand · Nicolas Spies",
@@ -106,6 +110,14 @@ export function Footer() {
           {/* trust-marker · co2 pro view · click → modal */}
           <CarbonBadge className="text-offwhite/55" />
           <div className="flex gap-5">
+            {/* stiller branding-link · web-only-positionierung: die seite
+                existiert weiter (SEO + wer's sucht), aber ohne spotlight */}
+            <Link
+              className="link-draw"
+              href={buildPath("leistungen/branding", locale)}
+            >
+              {t.branding}
+            </Link>
             <Link className="link-draw" href={buildPath("impressum", locale)}>
               {t.impressum}
             </Link>

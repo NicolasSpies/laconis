@@ -8,7 +8,6 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
 
@@ -50,7 +49,7 @@ const DICT: Record<Locale, Dict> = {
       },
       {
         title: "extras.",
-        desc: "branding, print, foto-direction dazu? kommt obendrauf · spart koordination, sieht stimmiger aus.",
+        desc: "logo, print, foto-direction dazu? kommt obendrauf · spart koordination, sieht stimmiger aus.",
       },
     ],
     cta: "preise im detail →",
@@ -72,7 +71,7 @@ const DICT: Record<Locale, Dict> = {
       },
       {
         title: "extras.",
-        desc: "branding, print, direction photo en plus ? ça s'ajoute · gain de coordination, plus cohérent.",
+        desc: "logo, print, direction photo en plus ? ça s'ajoute · gain de coordination, plus cohérent.",
       },
     ],
     cta: "voir les prix →",
@@ -94,7 +93,7 @@ const DICT: Record<Locale, Dict> = {
       },
       {
         title: "extras.",
-        desc: "branding, print, photo direction on top? adds up · saves coordination, looks more cohesive.",
+        desc: "logo, print, photo direction on top? adds up · saves coordination, looks more cohesive.",
       },
     ],
     cta: "see pricing →",
@@ -160,7 +159,6 @@ export function PreiseTeaser() {
       aria-label={t.sectionLabel}
     >
       <div className="container-site">
-        <SectionLabel>{t.sectionLabel}</SectionLabel>
 
         <div className="mt-8 flex items-end justify-between flex-wrap gap-6 mb-12">
           <h2 className="text-[clamp(2.5rem,6vw,5rem)] leading-[0.92] font-black tracking-[-0.03em] text-[#0a0a0a] max-w-[800px]">

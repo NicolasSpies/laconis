@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { useLocale, pick } from "@/i18n/useLocale";
 import type { Locale } from "@/i18n/config";
 
@@ -141,17 +140,29 @@ const DICT: Record<Locale, Dict> = {
   },
 };
 
-export function NichtListe({ num = "04" }: { num?: string } = {}) {
+export function NichtListe() {
   const locale = useLocale();
   const t = pick(DICT, locale);
   const reduce = useReducedMotion();
 
   return (
-    <section className="py-20 md:py-24">
-      <div className="container-site">
+    <section
+      data-theme="dark"
+      className="relative py-24 md:py-32 overflow-hidden bg-[#0a0a0a]"
+    >
+      {/* inverted dot-grid · helle punkte auf dunkel (dark room) */}
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-[0.08] pointer-events-none"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at center, rgba(242,242,242,0.5) 1px, transparent 1.4px)",
+          backgroundSize: "26px 26px",
+        }}
+      />
+      <div className="container-site relative">
         <div className="grid md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)] gap-10 md:gap-16 items-start">
           <div className="md:sticky md:top-28">
-            <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
             <h2 className="heading-display mt-4 text-[clamp(1.75rem,4.5vw,2.75rem)] text-offwhite leading-[1.05]">
               {t.h2pre}
               <span className="text-[#b084d3]">{t.h2accent}</span>
@@ -162,7 +173,7 @@ export function NichtListe({ num = "04" }: { num?: string } = {}) {
             </p>
           </div>
 
-          <div className="border-t-2 border-[#0a0a0a]/15">
+          <div className="border-t-2 border-offwhite/15">
             {t.zeilen.map((z, i) => (
               <motion.div
                 key={z.nicht}
@@ -174,7 +185,7 @@ export function NichtListe({ num = "04" }: { num?: string } = {}) {
                   delay: 0.04 + i * 0.05,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="py-5 border-b-2 border-[#0a0a0a]/15"
+                className="py-5 border-b-2 border-offwhite/15"
               >
                 <p className="heading-sans text-[16px] md:text-[18px] text-offwhite leading-tight">
                   <span aria-hidden className="text-[#b084d3] mr-2">
@@ -183,7 +194,7 @@ export function NichtListe({ num = "04" }: { num?: string } = {}) {
                   {z.nicht}
                 </p>
                 <p className="mt-1.5 pl-6 text-[13.5px] leading-relaxed text-offwhite/65">
-                  <span aria-hidden className="text-[#0a0a0a] mr-2">
+                  <span aria-hidden className="text-offwhite/70 mr-2">
                     →
                   </span>
                   {z.stattdessen}

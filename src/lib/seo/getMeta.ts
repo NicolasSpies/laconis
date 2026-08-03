@@ -48,22 +48,22 @@ const STATIC_MAP: Record<string, MetaByLocale> = {
     /* title keyword-first (junge domain braucht das signal) ·
        der brand-claim lebt im ogTitle/ogDescription weiter */
     de: {
-      title: "lacønis · webdesign & branding studio ostbelgien",
-      description: "Webdesigner & Grafikdesigner in Ostbelgien · Websites von null gebaut, Lighthouse 95+, eigenes CMS. Logo & Branding aus einer Hand. Dreisprachig DE/FR/EN. design mit meinung · web mit seele.",
+      title: "lacønis · webdesign studio ostbelgien",
+      description: "Webdesigner & Web-Entwickler in Ostbelgien · Websites von null gebaut, Lighthouse 95+, eigenes CMS. Übernimmt auch bestehende Seiten · Inhalte bleiben, alles wird schneller. Dreisprachig DE/FR/EN.",
       ogTitle: "lacønis · design mit meinung · web mit seele",
-      ogDescription: "webdesign & branding studio · ostbelgien · handgemacht",
+      ogDescription: "webdesign studio · ostbelgien · handgemacht",
     },
     fr: {
-      title: "lacønis · studio webdesign & branding · est de la belgique",
-      description: "Webdesigner & graphiste dans les Cantons de l'Est · sites construits de zéro, Lighthouse 95+, CMS maison. Logo & branding d'une seule main. Trilingue DE/FR/EN. design avec opinion · web avec âme.",
+      title: "lacønis · studio webdesign · est de la belgique",
+      description: "Webdesigner & développeur web dans les Cantons de l'Est · sites construits de zéro, Lighthouse 95+, CMS maison. Reprend aussi ton site existant · contenus conservés, tout devient plus rapide. Trilingue DE/FR/EN.",
       ogTitle: "lacønis · design avec opinion · web avec âme",
-      ogDescription: "studio webdesign & branding · cantons de l'est · fait main",
+      ogDescription: "studio webdesign · cantons de l'est · fait main",
     },
     en: {
-      title: "lacønis · webdesign & branding studio east belgium",
-      description: "Web designer & graphic designer in East Belgium · websites built from scratch, Lighthouse 95+, in-house CMS. Logo & branding from one hand. Trilingual DE/FR/EN. design with opinion · web with soul.",
+      title: "lacønis · webdesign studio east belgium",
+      description: "Web designer & developer in East Belgium · websites built from scratch, Lighthouse 95+, in-house CMS. Existing sites taken over too · content stays, everything gets faster. Trilingual DE/FR/EN.",
       ogTitle: "lacønis · design with opinion · web with soul",
-      ogDescription: "webdesign & branding studio · east belgium · handmade",
+      ogDescription: "webdesign studio · east belgium · handmade",
     },
   },
   "/leistungen/web": {
@@ -124,26 +124,6 @@ const STATIC_MAP: Record<string, MetaByLocale> = {
       description: "logo creation · brand identity, business cards, brand guide, typography, colour palette · for startups, makers, small businesses.",
       ogTitle: "branding & logo · lacønis",
       ogDescription: "logo, brand identity, business cards, brand guide · from first sketch to vehicle wrap.",
-    },
-  },
-  "/ansatz": {
-    de: {
-      title: "ansatz",
-      description: "wie ich arbeite · von gespräch bis übergabe. der prozess für web + branding, und was ich bewusst nicht mache.",
-      ogTitle: "ansatz · lacønis",
-      ogDescription: "der prozess hinter web + branding · vier schritte, keine blackbox. und was ich nicht mache.",
-    },
-    fr: {
-      title: "approche",
-      description: "comment je travaille · de la conversation à la livraison. le processus pour web + branding, et ce que je ne fais volontairement pas.",
-      ogTitle: "approche · lacønis",
-      ogDescription: "le processus derrière web + branding · quatre étapes, pas de boîte noire. et ce que je ne fais pas.",
-    },
-    en: {
-      title: "approach",
-      description: "how i work · from conversation to handover. the process for web + branding, and what i deliberately don't do.",
-      ogTitle: "approach · lacønis",
-      ogDescription: "the process behind web + branding · four steps, no black box. and what i don't do.",
     },
   },
   "/preise": {

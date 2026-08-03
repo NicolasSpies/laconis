@@ -27,7 +27,6 @@ const I18N_ROUTES: Array<{
   { routeKey: "preise", priority: 0.9, changeFrequency: "monthly" },
   { routeKey: "kontakt", priority: 0.9, changeFrequency: "monthly" },
   { routeKey: "referenzen", priority: 0.8, changeFrequency: "weekly" },
-  { routeKey: "ansatz", priority: 0.8, changeFrequency: "monthly" },
   { routeKey: "ueber-mich", priority: 0.7, changeFrequency: "monthly" },
   { routeKey: "impressum", priority: 0.2, changeFrequency: "yearly" },
   { routeKey: "datenschutz", priority: 0.2, changeFrequency: "yearly" },

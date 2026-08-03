@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
 import { Button } from "./ui/Button";
 import { MenuToggleIcon } from "./ui/MenuToggleIcon";
-import { ServicesDropdown } from "./nav/ServicesDropdown";
 import { cn } from "@/lib/cn";
 import {
   LOCALES,
@@ -18,20 +18,17 @@ import {
 } from "@/i18n/config";
 
 type NavLink = {
-  routeKey: "referenzen" | "preise" | "ansatz" | "ueber-mich";
+  routeKey: "referenzen" | "preise" | "ueber-mich";
   labels: Record<Locale, string>;
 };
 
-const SERVICES_LABELS: Record<Locale, string> = {
-  de: "leistungen",
-  fr: "services",
-  en: "services",
-};
-
-const SERVICES_SUB_LABELS: Record<Locale, { web: string; branding: string }> = {
-  de: { web: "web", branding: "branding" },
-  fr: { web: "web", branding: "branding" },
-  en: { web: "web", branding: "branding" },
+/* web-only: EIN direkter "leistungen"-link auf /leistungen/web ·
+   kein dropdown ("web" als label wäre doppelt — die ganze seite IST web) ·
+   branding bleibt stille seite (footer-link), nicht im spotlight */
+const SERVICE_LABELS: Record<Locale, string> = {
+  de: "leistung",
+  fr: "service",
+  en: "service",
 };
 
 const links: readonly NavLink[] = [
@@ -42,10 +39,6 @@ const links: readonly NavLink[] = [
   {
     routeKey: "preise",
     labels: { de: "preise", fr: "prix", en: "pricing" },
-  },
-  {
-    routeKey: "ansatz",
-    labels: { de: "ansatz", fr: "approche", en: "approach" },
   },
   {
     routeKey: "ueber-mich",
@@ -195,28 +188,81 @@ export function Nav() {
 
   useEffect(() => setOpen(false), [pathname]);
 
+  /* body-scroll-lock + escape solange das fullscreen-menü offen ist */
+  useEffect(() => {
+    if (!open) return;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  /* einträge fürs fullscreen-menü · web zuerst, branding bewusst NICHT
+     (stille seite · nur über footer erreichbar) */
+  const menuItems = [
+    {
+      key: "web",
+      href: buildPath("leistungen/web", currentLocale),
+      label: SERVICE_LABELS[currentLocale],
+      accent: "#e1fd52",
+    },
+    ...links.map((l) => ({
+      key: l.routeKey,
+      href: buildPath(l.routeKey, currentLocale),
+      label: l.labels[currentLocale],
+      accent: "#e1fd52",
+    })),
+  ];
+
   return (
     <header
+      data-theme={open ? "dark" : undefined}
       className={cn(
         "fixed top-0 left-0 right-0 z-[10000] transition-all duration-300 border-b",
-        scrolled ? "nav-glass-scrolled border-ink/15" : "nav-glass border-ink/5",
+        open
+          ? "bg-transparent border-transparent"
+          : scrolled
+            ? "nav-glass-scrolled border-ink/15"
+            : "nav-glass border-ink/5",
       )}
     >
       <div className="container-site flex items-center justify-between h-16">
-        {/* dark variant · lime-logo wäre auf papier-hellem bg unsichtbar */}
-        <Logo size="sm" variant="dark" className="mr-10" />
+        {/* logo · auf dem dunklen fullscreen-menü hell, sonst dark */}
+        <Logo
+          size="sm"
+          variant={open ? "light" : "dark"}
+          className="mr-10 relative z-[1]"
+        />
 
         <nav className="hidden md:flex items-center gap-7">
-          <ServicesDropdown
-            currentLocale={currentLocale}
-            triggerLabel={SERVICES_LABELS[currentLocale]}
-            active={
-              pathname.startsWith(buildPath("leistungen/web", currentLocale)) ||
-              pathname.startsWith(
-                buildPath("leistungen/branding", currentLocale),
-              )
-            }
-          />
+          {(() => {
+            const href = buildPath("leistungen/web", currentLocale);
+            const active = pathname === href || pathname.startsWith(href + "/");
+            return (
+              <Link
+                href={href}
+                className={cn(
+                  "link-draw relative whitespace-nowrap font-mono text-[12px] lowercase tracking-mono transition-colors",
+                  active
+                    ? "text-offwhite"
+                    : "text-offwhite/55 hover:text-offwhite",
+                )}
+              >
+                {SERVICE_LABELS[currentLocale]}
+                {active && (
+                  <span
+                    aria-hidden
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-lime"
+                  />
+                )}
+              </Link>
+            );
+          })()}
           {links.map((l) => {
             const href = buildPath(l.routeKey, currentLocale);
             const active =
@@ -260,80 +306,135 @@ export function Nav() {
           type="button"
           aria-label="menu"
           aria-expanded={open}
-          className="tactile-press md:hidden p-2 rounded text-offwhite"
+          className={cn(
+            "tactile-press md:hidden p-2 -mr-2 rounded relative z-[1] transition-colors",
+            open ? "text-[#f2f2f2]" : "text-offwhite",
+          )}
           onClick={() => setOpen((v) => !v)}
         >
           <MenuToggleIcon open={open} className="w-6 h-6" />
         </button>
       </div>
 
-      {/* Mobile drawer */}
-      <div
-        className={cn(
-          "md:hidden overflow-hidden transition-[max-height,opacity] duration-300 nav-glass-drawer border-t border-ink/20",
-          open ? "max-h-[520px] opacity-100" : "max-h-0 opacity-0",
-        )}
-      >
-        <div className="container-site py-6 flex flex-col gap-5">
-          {/* leistungen · zwei flache sublinks (web + branding) */}
-          <div className="flex flex-col gap-3">
-            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/45">
-              {SERVICES_LABELS[currentLocale]}
-            </span>
-            <Link
-              href={buildPath("leistungen/web", currentLocale)}
-              className="font-mono text-[14px] lowercase text-offwhite pl-3 border-l-2 border-lime/45"
-            >
-              {SERVICES_SUB_LABELS[currentLocale].web}
-            </Link>
-            <Link
-              href={buildPath("leistungen/branding", currentLocale)}
-              className="font-mono text-[14px] lowercase text-offwhite pl-3 border-l-2 border-[#b084d3]/45"
-            >
-              {SERVICES_SUB_LABELS[currentLocale].branding}
-            </Link>
-          </div>
-          {links.map((l) => (
-            <Link
-              key={l.routeKey}
-              href={buildPath(l.routeKey, currentLocale)}
-              className="font-mono text-[14px] lowercase text-offwhite"
-            >
-              {l.labels[currentLocale]}
-            </Link>
-          ))}
-          <div className="flex items-center justify-between gap-3 pt-2 border-t border-ink/20">
-            <div className="flex items-center gap-4">
-              {LOCALES.map((code) => {
-                const isActive = code === currentLocale;
-                return (
-                  <Link
-                    key={code}
-                    href={switchLocale(pathname, code)}
-                    hrefLang={code}
-                    aria-current={isActive ? "page" : undefined}
-                    className={cn(
-                      "font-mono text-[11px] uppercase transition-colors",
-                      isActive
-                        ? "text-accent-ink"
-                        : "text-offwhite/55 hover:text-offwhite",
-                    )}
-                  >
-                    {LOCALE_LABELS[code].short}
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-          <Button
-            href={`${buildPath("kontakt", currentLocale)}#projekt`}
-            size="md"
-            className="mt-2 self-start"
+      {/* Fullscreen mobile menu · portal in body, hinter der nav-leiste
+          (z-9990 < header 10000, damit logo + X klickbar bleiben) */}
+      {open &&
+        createPortal(
+          <div
+            data-theme="dark"
+            className="md:hidden fixed inset-0 z-[9990] bg-[#0a0a0a] animate-in fade-in duration-300"
           >
-            {CTA_LABELS[currentLocale]}
-          </Button>
-        </div>
-      </div>
+            {/* inverted dot-grid */}
+            <div
+              aria-hidden
+              className="absolute inset-0 opacity-[0.07] pointer-events-none"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle at center, rgba(242,242,242,0.6) 1px, transparent 1.4px)",
+                backgroundSize: "26px 26px",
+              }}
+            />
+            {/* akzent-glows */}
+            <div
+              aria-hidden
+              className="absolute -top-28 -right-28 w-[65vw] h-[65vw] rounded-full pointer-events-none"
+              style={{
+                background:
+                  "radial-gradient(circle, rgba(225,253,82,0.10), transparent 70%)",
+              }}
+            />
+            <div
+              aria-hidden
+              className="absolute -bottom-32 -left-24 w-[65vw] h-[65vw] rounded-full pointer-events-none"
+              style={{
+                background:
+                  "radial-gradient(circle, rgba(176,132,211,0.13), transparent 70%)",
+              }}
+            />
+
+            <div className="relative h-[100dvh] container-site flex flex-col pt-24 pb-10 overflow-y-auto">
+              <nav className="flex-1 flex flex-col justify-center gap-0.5">
+                {menuItems.map((item, i) => {
+                  const active =
+                    pathname === item.href ||
+                    pathname.startsWith(item.href + "/");
+                  return (
+                    <Link
+                      key={item.key}
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className="group flex items-center gap-4 py-2 animate-in fade-in slide-in-from-bottom-4 fill-mode-both"
+                      style={{
+                        animationDelay: `${90 + i * 55}ms`,
+                        animationDuration: "560ms",
+                      }}
+                    >
+                      <span
+                        className="font-mono text-[12px] tabular-nums w-7 shrink-0"
+                        style={{ color: item.accent, opacity: active ? 1 : 0.55 }}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span
+                        className="font-display font-black lowercase tracking-[-0.035em] leading-[0.92] text-[clamp(2.6rem,13vw,4.4rem)] transition-colors"
+                        style={{ color: active ? item.accent : "#f2f2f2" }}
+                      >
+                        {item.label}
+                      </span>
+                      {active && (
+                        <span
+                          aria-hidden
+                          className="ml-2 w-2.5 h-2.5 rounded-full shrink-0"
+                          style={{ background: item.accent }}
+                        />
+                      )}
+                    </Link>
+                  );
+                })}
+              </nav>
+
+              {/* footer · sprache + CTA */}
+              <div
+                className="relative pt-7 mt-6 border-t border-offwhite/15 flex items-center justify-between gap-4 animate-in fade-in fill-mode-both"
+                style={{
+                  animationDelay: `${90 + menuItems.length * 55 + 80}ms`,
+                  animationDuration: "560ms",
+                }}
+              >
+                <div className="flex items-center gap-4">
+                  {LOCALES.map((code) => {
+                    const isActive = code === currentLocale;
+                    return (
+                      <Link
+                        key={code}
+                        href={switchLocale(pathname, code)}
+                        hrefLang={code}
+                        onClick={() => setOpen(false)}
+                        aria-current={isActive ? "page" : undefined}
+                        className={cn(
+                          "font-mono text-[12px] uppercase tracking-mono transition-colors",
+                          isActive
+                            ? "text-[#e1fd52]"
+                            : "text-offwhite/45 hover:text-offwhite",
+                        )}
+                      >
+                        {LOCALE_LABELS[code].short}
+                      </Link>
+                    );
+                  })}
+                </div>
+                <Link
+                  href={`${buildPath("kontakt", currentLocale)}#projekt`}
+                  onClick={() => setOpen(false)}
+                  className="tactile inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-label px-6 py-3.5 rounded-full bg-[#e1fd52] text-[#0a0a0a]"
+                >
+                  {CTA_LABELS[currentLocale]}
+                </Link>
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )}
     </header>
   );
 }

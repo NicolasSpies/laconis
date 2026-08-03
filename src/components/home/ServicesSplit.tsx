@@ -1,202 +1,231 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
-import { cn } from "@/lib/cn";
 
 /**
- * ServicesSplit · ersetzt die ServicesMorph-cards (nicolas: "man kann
- * nicht sagen dass das interessant aussieht").
+ * ServicesSplit · web-lead als BENTO (nicolas: "konzept 2").
  *
- * konzept: KEINE cards · der viewport selbst wird geteilt. zwei
- * full-bleed werkbänke (web = lime · branding = dark), die trennlinie
- * lebt: hover expandiert die hälfte auf 62%, die andere weicht.
+ * statt einer flachen lime-platte ein modulares raster · kein leerraum,
+ * jede kachel trägt was:
+ *   - WEB · großes dunkles anker-tile (lime "web." + no-limits-statement)
+ *   - PROOF · lime · die harten zahlen (95+ pagespeed …)
+ *   - ANSATZ · lila · vier schritte, keine blackbox (link auf /ansatz)
+ *   - CAPABILITIES · dunkles band mit laufender marquee ("alles machbar")
  *
- * micro-interactions:
- *   - flex-basis transition (smooth takeover beim hover)
- *   - headline: outline-typo → füllt sich beim hover (text-stroke trick)
- *   - leistungs-stichworte staggern rein beim hover
- *   - pfeil wandert · inaktive hälfte dimmt leicht
- *   - mobile: gestackt, beide voll sichtbar, kein hover-spiel
- *   - reduced-motion: statisch 50/50, gefüllte typo
+ * web-only-positionierung (juni 2026): branding hat KEINE kachel mehr ·
+ * es lebt nur als "auch mal ein logo" nebenbei in der marquee. die
+ * /leistungen/branding-seite bleibt still erreichbar (footer).
  */
 
+const LILA = "#b084d3";
+const LIME = "#e1fd52";
+
 type Dict = {
-  kicker: string;
-  webWords: string[];
-  brandWords: string[];
+  webStatement: string;
   webCta: string;
-  brandCta: string;
+  proofValue: string;
+  proofLabel: string;
+  proofWords: string[];
+  caps: string[];
+  ansatzTitle: string;
+  ansatzLine: string;
+  ansatzCta: string;
+  ariaLabel: string;
 };
 
 const DICT: Record<Locale, Dict> = {
   de: {
-    kicker: "zwei werkbänke · ein kopf",
-    webWords: ["von null gebaut", "eigenes cms", "seo ab tag eins", "95+ pagespeed"],
-    brandWords: ["wortmarke", "farbsystem", "brand guide", "print + social"],
+    webStatement:
+      "von null gebaut · kein template, keine WordPress-grenzen. genau das, was du wirklich brauchst · nicht was die vorlage hergibt.",
     webCta: "alles über web",
-    brandCta: "alles über branding",
+    proofValue: "95+",
+    proofLabel: "pagespeed mobil",
+    proofWords: ["eigenes cms", "seo ab tag eins", "0.8s ladezeit"],
+    caps: [
+      "onlineshop",
+      "buchungssystem",
+      "konfigurator",
+      "mehrsprachig",
+      "dashboard",
+      "mitgliederbereich",
+      "api-anbindung",
+      "live-animationen",
+      "portal",
+      "auch mal ein logo",
+      "was du brauchst",
+    ],
+    ansatzTitle: "vier schritte.",
+    ansatzLine: "kennenlernen · richtung · bauen · übergabe. keine blackbox, keine funkstille.",
+    ansatzCta: "so arbeite ich",
+    ariaLabel: "web von null · vier schritte",
   },
   fr: {
-    kicker: "deux ateliers · une tête",
-    webWords: ["construit de zéro", "cms maison", "seo dès le jour un", "95+ pagespeed"],
-    brandWords: ["logotype", "système couleur", "brand guide", "print + social"],
+    webStatement:
+      "construit de zéro · pas de template, pas de limites WordPress. exactement ce dont tu as besoin · pas ce que le modèle permet.",
     webCta: "tout sur le web",
-    brandCta: "tout sur le branding",
+    proofValue: "95+",
+    proofLabel: "pagespeed mobile",
+    proofWords: ["cms maison", "seo dès le jour un", "0.8s de chargement"],
+    caps: [
+      "boutique en ligne",
+      "réservation",
+      "configurateur",
+      "multilingue",
+      "dashboard",
+      "espace membres",
+      "connexion api",
+      "animations live",
+      "portail",
+      "un logo au passage",
+      "ce dont tu as besoin",
+    ],
+    ansatzTitle: "quatre étapes.",
+    ansatzLine: "rencontre · direction · construction · livraison. pas de boîte noire, pas de silence radio.",
+    ansatzCta: "ma façon de bosser",
+    ariaLabel: "web de zéro · quatre étapes",
   },
   en: {
-    kicker: "two workbenches · one head",
-    webWords: ["built from scratch", "in-house cms", "seo from day one", "95+ pagespeed"],
-    brandWords: ["wordmark", "colour system", "brand guide", "print + social"],
+    webStatement:
+      "built from scratch · no template, no WordPress limits. exactly what you really need · not what the template allows.",
     webCta: "all about web",
-    brandCta: "all about branding",
+    proofValue: "95+",
+    proofLabel: "pagespeed mobile",
+    proofWords: ["in-house cms", "seo from day one", "0.8s load time"],
+    caps: [
+      "online shop",
+      "booking system",
+      "configurator",
+      "multilingual",
+      "dashboard",
+      "member area",
+      "api integration",
+      "live animations",
+      "portal",
+      "the odd logo, too",
+      "whatever you need",
+    ],
+    ansatzTitle: "four steps.",
+    ansatzLine: "meet · direction · build · handover. no black box, no radio silence.",
+    ansatzCta: "how i work",
+    ariaLabel: "web from scratch · four steps",
   },
 };
 
-type Side = "web" | "brand" | null;
+/** endlos-marquee · zwei identische kopien → nahtloser css-loop */
+function Marquee({ items, duration = 36 }: { items: string[]; duration?: number }) {
+  const Copy = (
+    <span className="flex shrink-0 items-center">
+      {items.map((w, i) => (
+        <span key={i} className="flex items-center">
+          {w}
+          <span aria-hidden className="px-4 md:px-5 font-light" style={{ color: LILA }}>
+            ·
+          </span>
+        </span>
+      ))}
+    </span>
+  );
+  return (
+    <div className="flex w-full overflow-hidden whitespace-nowrap select-none" aria-hidden>
+      <div
+        className="marquee-track flex shrink-0 whitespace-nowrap font-display font-black lowercase tracking-[-0.02em] text-[clamp(1.4rem,3vw,2.2rem)] text-offwhite will-change-transform"
+        style={{ animation: `marqueeX ${duration}s linear infinite` }}
+      >
+        {Copy}
+        {Copy}
+      </div>
+    </div>
+  );
+}
 
 export function ServicesSplit() {
   const locale = useLocale();
   const t = pick(DICT, locale);
-  const reduce = useReducedMotion();
-  const [hovered, setHovered] = useState<Side>(null);
-
-  const basis = (side: Exclude<Side, null>) => {
-    if (reduce || hovered === null) return "50%";
-    return hovered === side ? "62%" : "38%";
-  };
 
   return (
-    <section className="py-12 md:py-20" aria-label={t.kicker}>
-      {/* kicker · mittig über dem split */}
-      <p className="container-site font-mono text-[10px] uppercase tracking-label text-offwhite/55 mb-6">
-        · {t.kicker}
-      </p>
-
-      {/* der split · full-bleed, keine container-grenzen */}
-      <div className="flex flex-col md:flex-row w-full min-h-[70vh] md:min-h-[78vh]">
-        {/* ─── WEB · lime ─── */}
-        <Link
-          href={buildPath("leistungen/web", locale)}
-          onPointerEnter={() => setHovered("web")}
-          onPointerLeave={() => setHovered(null)}
-          className={cn(
-            "group relative flex flex-col justify-between overflow-hidden",
-            "bg-[#e1fd52] text-[#0a0a0a] p-8 md:p-14 min-h-[44vh] md:min-h-0",
-            "transition-[flex-basis,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-            hovered === "brand" && "md:opacity-80",
-          )}
-          style={{ flexBasis: basis("web") }}
-        >
-          {/* riesige outline-headline · füllt sich beim hover */}
-          <span
-            aria-hidden
-            className={cn(
-              "font-display font-black lowercase leading-[0.85] tracking-[-0.04em] select-none",
-              "text-[clamp(4rem,12vw,11rem)] transition-colors duration-500",
-              "text-transparent group-hover:text-[#0a0a0a]",
-            )}
-            style={{ WebkitTextStroke: "2px #0a0a0a" }}
+    <section className="relative -mt-6 md:-mt-16 pb-12 md:pb-20" aria-label={t.ariaLabel}>
+      <div className="container-site">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 md:[grid-template-rows:minmax(200px,1fr)_minmax(200px,1fr)_auto]">
+          {/* ─── WEB · großes dunkles anker-tile ─── */}
+          <Link
+            href={buildPath("leistungen/web", locale)}
+            data-theme="dark"
+            className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a] p-7 md:p-9 flex flex-col justify-between min-h-[340px] md:min-h-0 md:col-span-2 md:row-span-2"
           >
-            web.
-          </span>
+            <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/45">
+              · leistung
+            </span>
+            <div>
+              <span
+                className="block font-display font-black lowercase leading-[0.82] tracking-[-0.045em] text-[clamp(4rem,11vw,9rem)]"
+                style={{ color: LIME }}
+              >
+                web.
+              </span>
+              <p className="mt-5 max-w-[460px] font-display font-light lowercase text-[clamp(1.1rem,1.8vw,1.5rem)] leading-[1.2] tracking-[-0.01em] text-offwhite/80">
+                {t.webStatement}
+              </p>
+              <span className="mt-6 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label text-offwhite">
+                {t.webCta}
+                <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">
+                  →
+                </span>
+              </span>
+            </div>
+          </Link>
 
-          <div className="flex items-end justify-between gap-6">
-            <ul className="space-y-1">
-              {t.webWords.map((w, i) => (
-                <motion.li
-                  key={w}
-                  initial={false}
-                  animate={
-                    reduce
-                      ? { opacity: 1, x: 0 }
-                      : hovered === "web"
-                        ? { opacity: 1, x: 0 }
-                        : { opacity: 0.55, x: -6 }
-                  }
-                  transition={{ duration: 0.3, delay: i * 0.04 }}
-                  className="font-mono text-[11px] md:text-[12px] uppercase tracking-label"
-                >
+          {/* ─── PROOF · lime ─── */}
+          <div className="rounded-2xl bg-[#e1fd52] text-[#0a0a0a] p-7 flex flex-col justify-between min-h-[180px] md:min-h-0 md:col-start-3 md:row-start-1">
+            <div>
+              <span className="font-display font-black leading-none tracking-[-0.04em] text-[clamp(2.8rem,5vw,4rem)]">
+                {t.proofValue}
+              </span>
+              <span className="ml-2 font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
+                {t.proofLabel}
+              </span>
+            </div>
+            <ul className="flex flex-col gap-1">
+              {t.proofWords.map((w) => (
+                <li key={w} className="font-mono text-[11px] uppercase tracking-label text-[#0a0a0a]/70">
                   · {w}
-                </motion.li>
+                </li>
               ))}
             </ul>
-            <span className="shrink-0 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label">
-              {t.webCta}
-              <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">
-                →
-              </span>
-            </span>
           </div>
-        </Link>
 
-        {/* ─── BRANDING · dark ─── */}
-        <Link
-          href={buildPath("leistungen/branding", locale)}
-          onPointerEnter={() => setHovered("brand")}
-          onPointerLeave={() => setHovered(null)}
-          className={cn(
-            "group relative flex flex-col justify-between overflow-hidden",
-            "bg-[#0a0a0a] text-[#f2f2f2] p-8 md:p-14 min-h-[44vh] md:min-h-0",
-            "transition-[flex-basis,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-            hovered === "web" && "md:opacity-80",
-          )}
-          style={{ flexBasis: basis("brand") }}
-        >
-          {/* zarter dot-grid wie auf den CTA-slabs */}
-          <div
-            aria-hidden
-            className="absolute inset-0 opacity-[0.08] pointer-events-none"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at center, rgba(242,242,242,0.5) 1px, transparent 1.4px)",
-              backgroundSize: "26px 26px",
-            }}
-          />
-
-          <span
-            aria-hidden
-            className={cn(
-              "relative font-display font-black lowercase leading-[0.85] tracking-[-0.04em] select-none",
-              "text-[clamp(4rem,12vw,11rem)] transition-colors duration-500",
-              "text-transparent group-hover:text-[#b084d3]",
-            )}
-            style={{ WebkitTextStroke: "2px #b084d3" }}
+          {/* ─── ABLAUF · lila · vier schritte (anker auf /leistungen/web) ─── */}
+          <Link
+            href={`${buildPath("leistungen/web", locale)}#ablauf`}
+            scroll={false}
+            className="group rounded-2xl p-7 flex flex-col justify-between min-h-[180px] md:min-h-0 md:col-start-3 md:row-start-2 text-[#0a0a0a]"
+            style={{ background: LILA }}
           >
-            branding.
-          </span>
-
-          <div className="relative flex items-end justify-between gap-6">
-            <ul className="space-y-1">
-              {t.brandWords.map((w, i) => (
-                <motion.li
-                  key={w}
-                  initial={false}
-                  animate={
-                    reduce
-                      ? { opacity: 1, x: 0 }
-                      : hovered === "brand"
-                        ? { opacity: 1, x: 0 }
-                        : { opacity: 0.55, x: -6 }
-                  }
-                  transition={{ duration: 0.3, delay: i * 0.04 }}
-                  className="font-mono text-[11px] md:text-[12px] uppercase tracking-label text-[#f2f2f2]/90"
-                >
-                  <span className="text-[#b084d3]">·</span> {w}
-                </motion.li>
-              ))}
-            </ul>
-            <span className="shrink-0 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label text-[#e1fd52]">
-              {t.brandCta}
-              <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">
-                →
-              </span>
+            <span className="font-display font-black lowercase leading-none tracking-[-0.03em] text-[clamp(1.9rem,3.4vw,2.6rem)]">
+              {t.ansatzTitle}
             </span>
+            <div>
+              <p className="text-[13px] md:text-[14px] leading-snug text-[#0a0a0a]/75 max-w-[260px]">
+                {t.ansatzLine}
+              </p>
+              <span className="mt-3 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-label">
+                {t.ansatzCta}
+                <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">
+                  →
+                </span>
+              </span>
+            </div>
+          </Link>
+
+          {/* ─── CAPABILITIES · dunkles marquee-band ─── */}
+          <div
+            data-theme="dark"
+            className="rounded-2xl bg-[#0a0a0a] py-5 md:py-6 overflow-hidden flex items-center md:col-span-3 md:row-start-3"
+          >
+            <Marquee items={t.caps} />
           </div>
-        </Link>
+        </div>
       </div>
     </section>
   );

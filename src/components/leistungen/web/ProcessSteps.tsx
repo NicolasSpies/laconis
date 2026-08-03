@@ -2,24 +2,32 @@
 
 import { useEffect, useRef, useState } from "react";
 import { TiltCard } from "@/components/shared/TiltCard";
+import { ProcessScene, type SceneKind } from "@/components/leistungen/web/ProcessScenes";
 
 /**
- * ProcessSteps · 4-5 numbered tilt-cards mit sticky scroll-indicator.
+ * ProcessSteps · 4 schritte als premium-storyboard (visual-first umbau).
  *
- * sticky-leiste links zeigt aktive step (durch viewport-center).
- * jede step-number wird lime sobald die card passiert wurde.
+ * vorher: nummer + 4-satz-absatz pro karte (textwüste, laien steigen aus).
+ * jetzt: pro schritt eine handgezeichnete szene + große zahl + dauer-chip +
+ * EIN destillierter halbsatz. der volltext lebt im HowTo-schema weiter (SEO),
+ * sichtbar ist nur das wesentliche. sticky chapter-rail links bleibt.
  */
 
 type Step = {
   name: string;
   text: string;
   duration?: string;
+  short: string;
+  dauer: string;
+  scene: SceneKind;
 };
 
 type Props = {
   steps: Step[];
   label?: string;
 };
+
+const ACCENTS = ["#e1fd52", "#b084d3", "#e1fd52", "#b084d3"] as const;
 
 export function ProcessSteps({ steps, label = "process" }: Props) {
   const refs = useRef<(HTMLLIElement | null)[]>([]);
@@ -43,7 +51,6 @@ export function ProcessSteps({ steps, label = "process" }: Props) {
           bestDist = dist;
           bestIdx = i;
         }
-        // passed = element's top is above viewport center
         if (r.top < center) passed.add(i);
       });
 
@@ -109,10 +116,16 @@ export function ProcessSteps({ steps, label = "process" }: Props) {
         </div>
       </aside>
 
-      {/* step cards */}
+      {/* step cards · storyboard */}
       <ol className="space-y-5">
         {steps.map((step, i) => {
           const isPassed = passedSet.has(i);
+          const paper = i % 2 === 0;
+          const accent = ACCENTS[i % ACCENTS.length];
+          const sceneStroke = paper ? "#0f0f0f" : "#f2f2f2";
+          const chipColor = paper ? "rgba(10,10,10,0.6)" : "rgba(242,242,242,0.65)";
+          const chipBorder = paper ? "rgba(10,10,10,0.2)" : "rgba(242,242,242,0.25)";
+
           return (
             <li
               key={step.name}
@@ -120,35 +133,51 @@ export function ProcessSteps({ steps, label = "process" }: Props) {
                 refs.current[i] = el;
               }}
             >
-              <TiltCard
-                preset={i % 2 === 0 ? "paper" : "ink"}
-                intensity={8}
-              >
-                <div className="p-8 md:p-10 grid grid-cols-[auto_1fr] gap-6 md:gap-8 items-start">
-                  <span
-                    className="text-[clamp(2.5rem,5vw,4rem)] font-black tracking-[-0.04em] leading-none tabular-nums transition-colors"
+              <TiltCard preset={paper ? "paper" : "ink"} intensity={6}>
+                <div className="p-7 md:p-9 grid grid-cols-[1fr] sm:grid-cols-[132px_1fr] md:grid-cols-[156px_1fr] gap-6 md:gap-9 items-center">
+                  {/* szene · handgezeichnet */}
+                  <div
+                    className="hidden sm:flex items-center justify-center rounded-2xl p-3 aspect-square"
                     style={{
-                      color: isPassed
-                        ? "#e1fd52"
-                        : i % 2 === 0
-                          ? "rgba(10,10,10,0.55)"
-                          : "rgba(242,242,242,0.55)",
-                      textShadow: isPassed
-                        ? "0 0 24px rgba(225,253,82,0.6)"
-                        : "none",
+                      background: paper
+                        ? "rgba(10,10,10,0.035)"
+                        : "rgba(242,242,242,0.05)",
                     }}
                   >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                    <ProcessScene kind={step.scene} stroke={sceneStroke} accent={accent} />
+                  </div>
+
+                  {/* text · destilliert */}
                   <div>
-                    <h3 className="text-[clamp(1.4rem,2.6vw,1.9rem)] font-black tracking-[-0.025em] leading-tight lowercase">
+                    <div className="flex items-center gap-4 mb-3">
+                      <span
+                        className="text-[clamp(2.4rem,5vw,3.6rem)] font-black tracking-[-0.04em] leading-none tabular-nums transition-colors"
+                        style={{
+                          color: isPassed
+                            ? "#e1fd52"
+                            : paper
+                              ? "rgba(10,10,10,0.5)"
+                              : "rgba(242,242,242,0.5)",
+                          textShadow: isPassed ? "0 0 24px rgba(225,253,82,0.55)" : "none",
+                        }}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span
+                        className="font-mono text-[10px] uppercase tracking-label px-3 py-1.5 rounded-full"
+                        style={{ color: chipColor, border: `1px solid ${chipBorder}` }}
+                      >
+                        {step.dauer}
+                      </span>
+                    </div>
+                    <h3 className="text-[clamp(1.5rem,2.8vw,2.1rem)] font-black tracking-[-0.025em] leading-tight lowercase">
                       {step.name}.
                     </h3>
                     <p
-                      className="mt-4 text-[14px] md:text-[15px] leading-relaxed"
-                      style={{ opacity: 0.85 }}
+                      className="mt-3 text-[15px] md:text-[16px] leading-snug max-w-[440px]"
+                      style={{ opacity: 0.8 }}
                     >
-                      {step.text}
+                      {step.short}
                     </p>
                   </div>
                 </div>
