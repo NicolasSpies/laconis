@@ -12,6 +12,7 @@ import { Tracker } from "@/components/analytics/Tracker";
 import { ConsoleGreeting } from "@/components/ConsoleGreeting";
 import { KonamiListener } from "@/components/easteregg/KonamiListener";
 import { AutoReveal } from "@/components/AutoReveal";
+import { HashScroll } from "@/components/HashScroll";
 import { HTML_LANG, DEFAULT_LOCALE } from "@/i18n/config";
 import { getLocale } from "@/i18n/getLocale";
 
@@ -54,6 +55,17 @@ const caveat = localFont({
   weight: "400 700",
 });
 
+/* Archivo Variable · wdth-schnitt (wght 100-900 UND width 62-125%) ·
+   die neue display-schrift für die geräte-richtung: auf 125% gezogen
+   wird sie breit-industriell wie ein gefrästes typenschild. */
+const labDisplay = localFont({
+  src: "../fonts/archivo-wdth-var.woff2",
+  variable: "--font-lab",
+  display: "swap",
+  weight: "100 900",
+  declarations: [{ prop: "font-stretch", value: "62% 125%" }],
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://laconis.be"),
   title: {
@@ -61,7 +73,7 @@ export const metadata: Metadata = {
     template: "%s · lacønis",
   },
   description:
-    "Freelance Graphic & Web Design aus Eupen, Belgien. Websites die für sich selbst sprechen. Eigenes CMS inklusive. Dreisprachig: Deutsch, Französisch, Englisch.",
+    "Webdesign & Webentwicklung aus Eupen, Belgien. Websites von null gebaut, die für sich selbst sprechen. Eigenes CMS inklusive. Dreisprachig: Deutsch, Französisch, Englisch.",
   applicationName: "lacønis",
   authors: [{ name: "Nicolas Spies", url: "https://laconis.be/ueber-mich" }],
   creator: "Nicolas Spies",
@@ -120,7 +132,7 @@ export default function RootLayout({
       lang={htmlLang}
       data-theme="light"
       suppressHydrationWarning
-      className={`${displayFont.variable} ${sansFont.variable} ${monoFont.variable} ${caveat.variable}`}
+      className={`${displayFont.variable} ${sansFont.variable} ${monoFont.variable} ${caveat.variable} ${labDisplay.variable}`}
     >
       <head />
       <body>
@@ -145,6 +157,7 @@ export default function RootLayout({
         <ConsoleGreeting />
         <KonamiListener />
         <AutoReveal />
+        <HashScroll />
         <main className="relative z-[1]">
           <PageTransition>{children}</PageTransition>
         </main>

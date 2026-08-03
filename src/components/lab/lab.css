@@ -1,0 +1,488 @@
+/* ═══════════════════════════════════════════════════════════════
+   LAB · material-system der geräte-richtung (prototyp)
+
+   isoliert in dieser datei · wird NUR von /lab importiert. wenn die
+   richtung nicht sitzt: route + diese datei löschen, rest unberührt.
+
+   drei materialien:
+     chassis · das dunkle gehäuse (grundfläche)
+     glass   · liquid-glass-panel (refraktion + specular, folgt cursor)
+     metal   · erhabene bedienteile (caps, wippen)
+
+   physik-regel für alle oberflächen:
+     VERTIEFT  = inset-schatten oben dunkel + unten heller lichtsaum
+     ERHABEN   = außenschatten unten + 1px lichtkante oben
+   ═══════════════════════════════════════════════════════════════ */
+
+.lab-root {
+  --lime: #e1fd52;
+  --lila: #b084d3;
+  --ink: #0a0a0a;
+  --panel: #141414;
+  --edge: rgba(242, 242, 242, 0.09);
+  background: var(--ink);
+  color: #f2f2f2;
+  min-height: 100vh;
+  font-family: var(--font-sans-v2), system-ui, sans-serif;
+}
+
+/* ── typografie ──────────────────────────────────────────────── */
+
+.lab-display {
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 125%; /* expanded · das industrielle */
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.86;
+  text-transform: lowercase;
+}
+
+.lab-label {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.5);
+}
+
+.lab-hint {
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgba(242, 242, 242, 0.38);
+}
+
+.lab-readout-value {
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.lab-readout-unit,
+.lab-readout-sm {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: rgba(242, 242, 242, 0.55);
+  font-variant-numeric: tabular-nums;
+}
+
+.lab-readout-sm {
+  color: var(--lime);
+}
+
+/* ── CHASSIS · das gehäuse ───────────────────────────────────── */
+
+.lab-chassis {
+  position: relative;
+  background:
+    radial-gradient(120% 90% at 50% -10%, rgba(242, 242, 242, 0.05), transparent 60%),
+    linear-gradient(180deg, #171717 0%, #101010 100%);
+  border: 1px solid var(--edge);
+  border-radius: 20px;
+  box-shadow:
+    0 1px 0 rgba(242, 242, 242, 0.07) inset,
+    0 40px 90px -40px rgba(0, 0, 0, 0.9);
+}
+
+/* schrauben in den ecken · 6px, vertieft */
+.lab-screw {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #050505, #242424);
+  box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.9),
+    0 1px 0 rgba(242, 242, 242, 0.09);
+}
+
+/* ── GLASS · liquid-glass-panel ──────────────────────────────── */
+
+.lab-glass {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: linear-gradient(
+    180deg,
+    rgba(242, 242, 242, 0.075) 0%,
+    rgba(242, 242, 242, 0.028) 45%,
+    rgba(242, 242, 242, 0.045) 100%
+  );
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(242, 242, 242, 0.11);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 242, 242, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    0 30px 60px -30px rgba(0, 0, 0, 0.85);
+}
+
+/* specular · wanderndes glanzlicht, folgt dem cursor via --mx/--my */
+.lab-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    360px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(242, 242, 242, 0.14),
+    transparent 62%
+  );
+  transition: background 90ms linear;
+}
+
+/* kantenlicht oben · das was glas von "grauer kasten" trennt */
+.lab-glass::after {
+  content: "";
+  position: absolute;
+  inset-inline: 12%;
+  top: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(242, 242, 242, 0.6), transparent);
+}
+
+/* ── FADER ───────────────────────────────────────────────────── */
+
+.lab-fader-track {
+  border-radius: 999px;
+  background: linear-gradient(180deg, #070707, #131313);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.95),
+    inset 0 -1px 0 rgba(242, 242, 242, 0.07);
+}
+
+.lab-fader-cap {
+  width: 34px;
+  height: 30px;
+  border-radius: 7px;
+  background: linear-gradient(180deg, #5a5a5a 0%, #2a2a2a 48%, #171717 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 242, 242, 0.45),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.9),
+    0 3px 0 rgba(0, 0, 0, 0.55),
+    0 8px 18px -4px rgba(0, 0, 0, 0.8);
+  cursor: grab;
+}
+
+/* griffrillen auf dem cap */
+.lab-fader-cap::before {
+  content: "";
+  position: absolute;
+  inset: 8px 7px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.55) 0 1px,
+    transparent 1px 4px
+  );
+  border-radius: 2px;
+}
+
+/* lime-markierung in der cap-mitte */
+.lab-fader-cap::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 13px;
+  border-radius: 1px;
+  background: var(--lime);
+  box-shadow: 0 0 8px var(--lime);
+}
+
+.lab-fader-cap:active {
+  cursor: grabbing;
+}
+
+.lab-fader-cap:focus-visible {
+  outline: 2px solid var(--lila);
+  outline-offset: 3px;
+}
+
+/* ── ROCKER SWITCH ───────────────────────────────────────────── */
+
+.lab-rocker {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.lab-rocker:hover {
+  background: rgba(242, 242, 242, 0.03);
+  border-color: var(--edge);
+}
+
+.lab-rocker:focus-visible {
+  outline: 2px solid var(--lila);
+  outline-offset: 2px;
+}
+
+.lab-rocker-body {
+  display: block;
+  width: 52px;
+  height: 30px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #060606, #141414);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.95),
+    inset 0 -1px 0 rgba(242, 242, 242, 0.07);
+  transition: box-shadow 220ms ease;
+}
+
+.lab-rocker-body[data-on="1"] {
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.9),
+    inset 0 0 14px rgba(225, 253, 82, 0.28),
+    inset 0 -1px 0 rgba(242, 242, 242, 0.08);
+}
+
+.lab-rocker-cap {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #5e5e5e, #232323);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 242, 242, 0.5),
+    0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+/* ── BOOT · das gerät fährt hoch ─────────────────────────────── */
+
+@keyframes labBoot {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes labSweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(200%);
+  }
+}
+
+.lab-boot {
+  animation: labBoot 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* lichtbalken der einmal übers panel wischt beim hochfahren */
+.lab-sweep {
+  position: absolute;
+  inset-block: 0;
+  width: 38%;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(225, 253, 82, 0.16),
+    transparent
+  );
+  animation: labSweep 1500ms cubic-bezier(0.5, 0, 0.2, 1) 260ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-boot,
+  .lab-sweep {
+    animation: none;
+  }
+  .lab-sweep {
+    display: none;
+  }
+}
+
+/* ── CHANNEL-STRIP · referenzen als kanalzüge ────────────────── */
+
+.lab-channel {
+  transition: border-color 260ms ease, transform 260ms ease;
+}
+
+.lab-channel[data-live="1"] {
+  border-color: rgba(225, 253, 82, 0.34);
+  transform: translateY(-3px);
+}
+
+/* die vorschau · sitzt VERTIEFT hinter glas wie ein display */
+.lab-screen {
+  aspect-ratio: 4 / 3;
+  border-radius: 9px;
+  overflow: hidden;
+  background: #0b0b0b;
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.95),
+    inset 0 -1px 0 rgba(242, 242, 242, 0.08);
+}
+
+/* diagonaler glasreflex überm display */
+.lab-screen-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    128deg,
+    rgba(242, 242, 242, 0.15) 0%,
+    rgba(242, 242, 242, 0.03) 26%,
+    transparent 52%
+  );
+}
+
+/* VU-segmente · im ruhezustand still, bei hover pumpen sie gestaffelt */
+.lab-vu-seg {
+  width: 5px;
+  border-radius: 1px;
+  transition: background 220ms ease, box-shadow 220ms ease;
+}
+
+@keyframes labVu {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  45% {
+    transform: scaleY(0.62);
+  }
+}
+
+.lab-vu-live {
+  transform-origin: bottom;
+  animation: labVu 900ms ease-in-out infinite;
+}
+
+/* taste · flache gerätetaste mit echtem druckweg */
+.lab-key {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 9px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.8);
+  background: linear-gradient(180deg, #2d2d2d, #1a1a1a);
+  border: 1px solid rgba(242, 242, 242, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 242, 242, 0.16),
+    0 2px 0 rgba(0, 0, 0, 0.7);
+  transition: transform 90ms ease, box-shadow 90ms ease, color 200ms ease;
+}
+
+.lab-key:hover {
+  color: #e1fd52;
+}
+
+.lab-key:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 1px 0 rgba(242, 242, 242, 0.1), 0 0 0 rgba(0, 0, 0, 0);
+}
+
+.lab-key:focus-visible {
+  outline: 2px solid #b084d3;
+  outline-offset: 2px;
+}
+
+/* ── SENDEKNOPF MIT SCHUTZKAPPE ──────────────────────────────── */
+
+.lab-guard-housing {
+  position: relative;
+  width: 214px;
+  height: 72px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #0a0a0a, #151515);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.95),
+    inset 0 -1px 0 rgba(242, 242, 242, 0.07);
+  padding: 8px;
+}
+
+/* die klappe · scharnier oben, warnstreifen wie an echtem gerät */
+.lab-guard-lid {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: linear-gradient(180deg, #e1fd52, #b9d233);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 6px 16px -4px rgba(0, 0, 0, 0.8);
+  backface-visibility: hidden;
+}
+
+.lab-guard-lid:focus-visible {
+  outline: 2px solid #b084d3;
+  outline-offset: 3px;
+}
+
+/* warnstreifen · nur die textur, kein bild */
+.lab-guard-stripes {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  opacity: 0.22;
+  background: repeating-linear-gradient(
+    -45deg,
+    #0a0a0a 0 9px,
+    transparent 9px 20px
+  );
+}
+
+/* der knopf unter der klappe */
+.lab-guard-key {
+  position: absolute;
+  inset: 8px;
+  z-index: 1;
+  border-radius: 8px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.35);
+  background: linear-gradient(180deg, #262626, #141414);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 242, 242, 0.12),
+    0 3px 0 rgba(0, 0, 0, 0.75);
+  transition: color 240ms ease, background 240ms ease, box-shadow 90ms ease,
+    transform 90ms ease;
+  cursor: not-allowed;
+}
+
+.lab-guard-key[data-armed="1"] {
+  color: #0a0a0a;
+  background: linear-gradient(180deg, #e1fd52, #c4dd3c);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 3px 0 #7d8f1c,
+    0 10px 26px -8px rgba(225, 253, 82, 0.55);
+  cursor: pointer;
+}
+
+.lab-guard-key:focus-visible {
+  outline: 2px solid #b084d3;
+  outline-offset: 3px;
+}
+
+/* prototyp: nav + footer der alten seite ausblenden, damit das gerät
+   für sich steht (root-layout rendert sie global) */
+body[data-lab="1"] header,
+body[data-lab="1"] footer {
+  display: none !important;
+}
