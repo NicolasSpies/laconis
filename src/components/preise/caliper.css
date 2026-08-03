@@ -1,0 +1,256 @@
+/**
+ * caliper.css · der messschieber auf /preise.
+ *
+ * die seite verweigert fixpreise · also darf das instrument auch keinen
+ * einzelwert ausgeben. es misst einen KORRIDOR: zwei backen auf einer
+ * gravierten schiene, dazwischen der lime-balken. je mehr du einstellst,
+ * desto enger wird er. eine zahl kommt nie raus, und genau das ist die
+ * aussage.
+ *
+ * baut auf lab.css auf. prefix .pr-.
+ */
+
+.pr-beam {
+  position: relative;
+  height: clamp(84px, 12vw, 116px);
+  border-radius: 8px;
+  /* gefräste schiene · oben lichtkante, unten im schatten */
+  background: linear-gradient(180deg, #202027 0%, #16161c 46%, #0d0d11 100%);
+  overflow: hidden; /* am endanschlag ragt die backe sonst über die schiene */
+  box-shadow:
+    inset 0 1px 0 rgba(242, 242, 242, 0.16),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.8),
+    0 10px 26px -12px rgba(0, 0, 0, 0.9);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* die gravur · lange striche bei jedem tausender, kurze dazwischen */
+.pr-tick {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  background: rgba(242, 242, 242, 0.24);
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.7);
+}
+.pr-tick[data-major="1"] {
+  height: 22px;
+  background: rgba(242, 242, 242, 0.42);
+}
+.pr-tick[data-major="0"] {
+  height: 11px;
+}
+
+.pr-tick-label {
+  position: absolute;
+  top: 26px;
+  transform: translateX(-50%);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  color: rgba(242, 242, 242, 0.38);
+  white-space: nowrap;
+}
+
+/* der gemessene korridor */
+.pr-corridor {
+  position: absolute;
+  bottom: 15px;
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, rgba(225, 253, 82, 0.55), #e1fd52);
+  box-shadow: 0 0 20px rgba(225, 253, 82, 0.4);
+  transition:
+    left 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    width 560ms cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+}
+
+/* der messglanz wandert dauerhaft durch den balken · das instrument
+   steht nie still, auch ohne dass jemand etwas anfasst */
+.pr-corridor::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 42%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: prSweep 3200ms cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+@keyframes prSweep {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(340%);
+  }
+}
+
+/* ── die backen ─────────────────────────────────────── */
+
+.pr-jaw {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  transition: left 560ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+/* die messkante · dünn, scharf, lime */
+.pr-jaw-blade {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  margin-left: -1px;
+  border-radius: 1px;
+  background: #e1fd52;
+  box-shadow: 0 0 12px rgba(225, 253, 82, 0.8);
+}
+
+/* der schieber-körper · sitzt auf der schiene, erhaben */
+.pr-jaw-body {
+  position: absolute;
+  top: 50%;
+  width: clamp(26px, 3.4vw, 38px);
+  height: clamp(30px, 4vw, 42px);
+  margin-top: calc(clamp(30px, 4vw, 42px) / -2);
+  border-radius: 5px;
+  background: linear-gradient(180deg, #3b3b45, #1a1a20 62%, #111116);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 242, 242, 0.34),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.6),
+    0 4px 10px -2px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(0, 0, 0, 0.7);
+}
+.pr-jaw[data-side="min"] .pr-jaw-body {
+  right: 2px;
+}
+.pr-jaw[data-side="max"] .pr-jaw-body {
+  left: 2px;
+}
+
+/* der nonius · die feinskala auf dem schieber. rein handwerk, aber
+   ohne sie ist es kein messschieber, sondern ein regler. */
+.pr-vernier {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  bottom: 5px;
+  height: 7px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(242, 242, 242, 0.42) 0 1px,
+    transparent 1px 4px
+  );
+}
+
+/* endanschlag · alles über der skala läuft hier auf */
+.pr-endstop {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  right: 3px;
+  width: 5px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(176, 132, 211, 0.55) 0 4px,
+    rgba(10, 10, 10, 0.75) 4px 8px
+  );
+}
+
+/* ── ablesung ───────────────────────────────────────── */
+
+.pr-value {
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 118%;
+  font-weight: 800;
+  font-size: clamp(2rem, 6vw, 4.2rem);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: #f2f2f2;
+}
+/* der trenner läuft in der mono-schrift · der archivo-subset hat kein
+   U+00B7 und rendert dort ein leeres kästchen */
+.pr-value-sep {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.5em;
+  vertical-align: 0.28em;
+  color: rgba(242, 242, 242, 0.42);
+  margin: 0 0.24em;
+}
+
+/* ── wahlschalter · drei stellungen ─────────────────── */
+
+.pr-switch {
+  display: flex;
+  padding: 4px;
+  border-radius: 11px;
+  gap: 4px;
+  background: #0a0a0c;
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.92),
+    inset 0 -1px 0 rgba(242, 242, 242, 0.07);
+}
+
+.pr-switch button {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.5);
+  background: transparent;
+  transition: color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+}
+.pr-switch button:hover {
+  color: rgba(242, 242, 242, 0.85);
+}
+.pr-switch button[data-on="1"] {
+  color: #0a0a0a;
+  background: linear-gradient(180deg, #eaffa0, #cbe93c);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 2px 0 rgba(0, 0, 0, 0.55);
+}
+.pr-switch button:focus-visible {
+  outline: 2px solid #b084d3;
+  outline-offset: 3px;
+}
+
+/* ── laufende kosten · kleine ablesung ──────────────── */
+
+.pr-mini {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 15px 0;
+  border-top: 1px solid rgba(242, 242, 242, 0.09);
+}
+.pr-mini-value {
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+  color: #f2f2f2;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pr-corridor,
+  .pr-jaw {
+    transition: none;
+  }
+  .pr-corridor::after {
+    animation: none;
+    opacity: 0;
+  }
+}

@@ -20,7 +20,9 @@ import { useEffect, useRef, useState } from "react";
  *    kurz nach. mikro-animationen laufen immer (mobil gibt es kein hover).
  */
 
-const CHARS = " abcdefghijklmnopqrstuvwxyzäöüéß0123456789·+.&";
+/* kein „·" hier · der archivo-subset kennt U+00B7 nicht und würde
+   ein leeres kästchen aufs blatt legen */
+const CHARS = " abcdefghijklmnopqrstuvwxyzäöüéß0123456789+.&";
 const COLS = 16;
 const TICK = 52;
 
