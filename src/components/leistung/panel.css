@@ -264,42 +264,6 @@
   background: rgba(10, 10, 10, 0.1);
 }
 
-/* der publish-schlüssel · echte taste mit hub */
-.lx-pub {
-  padding: 12px 20px;
-  border-radius: 10px;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #0a0a0a;
-  background: linear-gradient(180deg, #eaffa0, #cbe93c);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.75),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.22),
-    0 4px 0 #7f9917,
-    0 12px 22px -8px rgba(225, 253, 82, 0.5);
-  transition: transform 90ms ease, box-shadow 90ms ease, filter 200ms ease;
-}
-.lx-pub:hover {
-  filter: brightness(1.06);
-}
-.lx-pub:active,
-.lx-pub[data-busy="1"] {
-  transform: translateY(4px);
-  box-shadow:
-    inset 0 2px 5px rgba(0, 0, 0, 0.28),
-    0 0 0 #7f9917,
-    0 6px 14px -8px rgba(225, 253, 82, 0.4);
-}
-.lx-pub:disabled {
-  cursor: default;
-}
-.lx-pub:focus-visible {
-  outline: 2px solid #b084d3;
-  outline-offset: 4px;
-}
-
 /* ════════════════════════════════════════════════════════
    RUHIGE TEILE
    ════════════════════════════════════════════════════════ */

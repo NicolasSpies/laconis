@@ -126,7 +126,7 @@ export function LiveEditor({ t }: { t: T }) {
         </div>
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
-          <button type="button" className="lx-pub" onClick={publish} data-busy={busy ? "1" : "0"} disabled={busy}>
+          <button type="button" className="lab-key-lime" onClick={publish} data-busy={busy ? "1" : "0"} disabled={busy}>
             {t.publish}
           </button>
           {statusLine && (

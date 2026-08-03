@@ -139,21 +139,21 @@ const STATIC_MAP: Record<string, MetaByLocale> = {
   "/referenzen": {
     de: {
       title: "referenzen",
-      description: "ausgewählte arbeiten · websites, brands, print · teilweise konzept-studien, teilweise live-projekte.",
+      description: "drei projekte · eine website live beim kunden, zwei konzept-studien. was nicht live ist, steht auch so da. webdesign aus ostbelgien.",
       ogTitle: "referenzen · lacønis",
-      ogDescription: "ausgewählte arbeiten · websites, brands, print.",
+      ogDescription: "drei projekte · eins live, zwei konzept-studien. ehrlich ausgeschildert.",
     },
     fr: {
       title: "références",
-      description: "travaux sélectionnés · sites web, marques, print · en partie études concept, en partie projets live.",
+      description: "trois projets · un site en ligne chez le client, deux études concept. ce qui n'est pas en ligne est marqué comme tel. webdesign des cantons de l'est.",
       ogTitle: "références · lacønis",
-      ogDescription: "travaux sélectionnés · sites web, marques, print.",
+      ogDescription: "trois projets · un en ligne, deux études concept. marqué honnêtement.",
     },
     en: {
       title: "work",
-      description: "selected work · websites, brands, print · partly concept studies, partly live projects.",
+      description: "three projects · one website live at the client, two concept studies. what is not live says so. webdesign from east belgium.",
       ogTitle: "work · lacønis",
-      ogDescription: "selected work · websites, brands, print.",
+      ogDescription: "three projects · one live, two concept studies. honestly labelled.",
     },
   },
   "/kontakt": {

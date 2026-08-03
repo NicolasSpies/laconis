@@ -165,7 +165,7 @@ export function LeistungDevice() {
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
-              <Link href={buildPath("kontakt", locale)} className="lx-pub">
+              <Link href={buildPath("kontakt", locale)} className="lab-key-lime">
                 {t.ctaPrimary}
               </Link>
               {/* gleiche bauhöhe wie die lime-taste · sonst sitzen die
