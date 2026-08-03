@@ -1037,3 +1037,94 @@ body[data-lab="1"] header:not(.lab-nav),
 body[data-lab="1"] footer {
   display: none !important;
 }
+
+/* ── TYPENSCHILD · gebürstetes metall mit gravur ──────────────
+   die "wer das hier baut"-sektion darf NICHT wie der hero aussehen
+   (beides grosse typo auf dunkel = echo). Deshalb hier ein OBJEKT
+   statt einer typo-geste: eine geschraubte metallplatte.
+
+   gravur-trick: dunkler text + 1px heller schimmer DARUNTER liest
+   das auge als vertiefung. umgekehrt (hell oben) wäre es erhaben. */
+
+.dv-plate {
+  position: relative;
+  border-radius: 8px;
+  padding: 30px 30px 26px;
+  background:
+    repeating-linear-gradient(
+      92deg,
+      rgba(255, 255, 255, 0.03) 0 1px,
+      transparent 1px 3px
+    ),
+    linear-gradient(157deg, #3c3c41 0%, #26262b 45%, #313136 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+    0 24px 55px -22px rgba(0, 0, 0, 0.95);
+}
+
+/* schrauben · echte vier ecken, versenkt */
+.dv-plate-screw {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #56565c, #17171a 72%);
+  box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.9),
+    0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+/* der schlitz im schraubenkopf */
+.dv-plate-screw::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  top: 50%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.75);
+  transform: translateY(-50%) rotate(28deg);
+}
+
+.dv-engrave {
+  color: #141417;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.dv-engrave-label {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(20, 20, 23, 0.52);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+/* die eine lime-zeile · wie ein eingeklebtes prüfsiegel */
+.dv-plate-seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 22px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: rgba(225, 253, 82, 0.14);
+  border: 1px solid rgba(225, 253, 82, 0.4);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #e1fd52;
+  text-shadow: none;
+}
+
+.dv-plate-rows {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 26px;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.42);
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.09) inset;
+}

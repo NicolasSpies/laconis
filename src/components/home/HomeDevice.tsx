@@ -127,47 +127,71 @@ export function HomeDevice() {
         </div>
       </section>
 
-      {/* ═══ WER DAS HIER BAUT · bewusst ruhig, nur typo + licht ═══ */}
+      {/* ═══ WER DAS HIER BAUT ═══
+          bewusst KEIN zweiter typo-hero (sah aus wie ein echo) —
+          hier steht ein OBJEKT: das geschraubte typenschild. */}
       <section data-no-reveal className="relative px-6 md:px-12 py-32 md:py-44">
-        <div className="max-w-[1200px] mx-auto">
-          <span className="lab-label">· wer das hier baut</span>
+        <div className="max-w-[1200px] mx-auto grid lg:grid-cols-[minmax(0,400px)_minmax(0,1fr)] gap-14 lg:gap-24 items-center">
+          {/* das typenschild */}
+          <div className="dv-plate">
+            <span className="dv-plate-screw" style={{ left: 12, top: 12 }} aria-hidden />
+            <span className="dv-plate-screw" style={{ right: 12, top: 12 }} aria-hidden />
+            <span className="dv-plate-screw" style={{ left: 12, bottom: 12 }} aria-hidden />
+            <span className="dv-plate-screw" style={{ right: 12, bottom: 12 }} aria-hidden />
 
-          <h2 className="lab-display mt-8 text-[clamp(2.4rem,7vw,5.5rem)] max-w-[900px]">
-            eine person.
-            <br />
-            <span style={{ color: "rgba(242,242,242,0.4)" }}>
-              keine zwischenschicht.
+            <div className="dv-engrave-label">hergestellt von</div>
+            <div
+              className="dv-engrave dv-display mt-2 text-[clamp(1.9rem,3.6vw,2.5rem)]"
+              style={{ fontStretch: "118%" }}
+            >
+              nicolas spies
+            </div>
+
+            <div className="dv-plate-rows">
+              {FACTS.map(([k, v]) => (
+                <div key={k}>
+                  <div className="dv-engrave-label">{k}</div>
+                  <div
+                    className="dv-engrave mt-1.5 text-[15px]"
+                    style={{ fontWeight: 600 }}
+                  >
+                    {v}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <span className="dv-plate-seal">
+              <span
+                className="w-1.5 h-1.5 rounded-full lab-led-idle"
+                style={{ background: "#e1fd52", boxShadow: "0 0 7px #e1fd52" }}
+                aria-hidden
+              />
+              geprüft · eupen be
             </span>
-          </h2>
+          </div>
 
-          <div className="mt-12 grid md:grid-cols-2 gap-10 md:gap-16 max-w-[980px]">
-            <p className="text-[15px] md:text-[16px] leading-relaxed text-[rgba(242,242,242,0.62)]">
+          {/* der text · deutlich kleiner als der hero, kein zweiter knall */}
+          <div>
+            <span className="lab-label">· wer das hier baut</span>
+            <h2 className="lab-display mt-6 text-[clamp(1.8rem,3.6vw,2.9rem)] max-w-[560px]">
+              eine person.
+              <br />
+              <span style={{ color: "rgba(242,242,242,0.38)" }}>
+                keine zwischenschicht.
+              </span>
+            </h2>
+            <p className="mt-8 max-w-[520px] text-[15px] md:text-[16px] leading-relaxed text-[rgba(242,242,242,0.6)]">
               Ich bin Nicolas. Du schreibst mir, ich antworte — meistens in
               unter zwei Stunden. Kein Ticket-Tool, kein Projektmanager
               dazwischen, kein Agentur-Ping-Pong. Wer mit dir spricht, baut
               deine Seite auch.
             </p>
-            <p className="text-[15px] md:text-[16px] leading-relaxed text-[rgba(242,242,242,0.62)]">
-              Ich nehm's persönlich, und das ist so gemeint: ich nehme wenige
-              Projekte gleichzeitig, damit deins nicht in einer Pipeline
-              versauert. Dafür kennst du am Ende jede Entscheidung, die in
-              deiner Seite steckt.
+            <p className="mt-5 max-w-[520px] text-[15px] md:text-[16px] leading-relaxed text-[rgba(242,242,242,0.6)]">
+              Ich nehme wenige Projekte gleichzeitig, damit deins nicht in einer
+              Pipeline versauert. Dafür kennst du am Ende jede Entscheidung, die
+              in deiner Seite steckt.
             </p>
-          </div>
-
-          {/* typenschild · der eine dezente geräte-anklang hier */}
-          <div className="mt-16 flex flex-wrap gap-x-14 gap-y-6 pt-8 border-t border-[rgba(242,242,242,0.09)]">
-            {FACTS.map(([k, v]) => (
-              <div key={k}>
-                <div className="lab-label">{k}</div>
-                <div
-                  className="lab-display mt-1.5 text-[clamp(1.1rem,2vw,1.5rem)]"
-                  style={{ fontStretch: "112%", fontWeight: 700 }}
-                >
-                  {v}
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
