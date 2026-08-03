@@ -174,7 +174,7 @@ export function PriceCaliper({ t }: { t: CaliperT }) {
       <div className="mt-10 grid gap-7 md:grid-cols-2">
         <div>
           <span className="lab-label">{t.labelWas}</span>
-          <div className="pr-switch mt-3" role="radiogroup" aria-label={t.labelWas}>
+          <div className="lab-switch mt-3" role="radiogroup" aria-label={t.labelWas}>
             {(
               [
                 ["web", t.wasWeb],
@@ -198,7 +198,7 @@ export function PriceCaliper({ t }: { t: CaliperT }) {
 
         <div>
           <span className="lab-label">{t.labelUmfang}</span>
-          <div className="pr-switch mt-3" role="radiogroup" aria-label={t.labelUmfang}>
+          <div className="lab-switch mt-3" role="radiogroup" aria-label={t.labelUmfang}>
             {tierLabels.map((label, i) => (
               <button
                 key={label}

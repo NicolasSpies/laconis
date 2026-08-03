@@ -1,0 +1,193 @@
+/**
+ * tageslauf.css · der sonnenbogen auf der fabry-case-study.
+ *
+ * die gebaute seite kennt die uhrzeit und ändert ihr licht mit dem tag.
+ * genau das ist hier bedienbar: der besucher zieht die sonne über den
+ * himmel und sieht die lichtstimmung wandern. das feature wird also
+ * vorgeführt statt beschrieben.
+ *
+ * der weg der marke ist ein echter bogen, keine gerade · die sonne
+ * steigt und fällt. das ist der unterschied zwischen einem regler und
+ * einem tageslauf.
+ *
+ * baut auf lab.css auf. prefix .tl-.
+ */
+
+.tl-scene {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  aspect-ratio: 16 / 9;
+  background: #07070a;
+  box-shadow:
+    inset 0 0 0 1px rgba(242, 242, 242, 0.09),
+    0 40px 90px -40px rgba(0, 0, 0, 0.95);
+}
+
+.tl-shot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+.tl-shot[data-on="1"] {
+  opacity: 1;
+}
+
+/* die lichtstimmung liegt ÜBER dem bild · sie macht die tageszeit,
+   nicht die bildauswahl. deshalb funktioniert sie mit jedem motiv. */
+.tl-grade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  transition: background 620ms ease;
+}
+.tl-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transition: background 620ms ease, opacity 620ms ease;
+}
+
+/* damit die typo auf jedem motiv steht */
+.tl-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(7, 7, 10, 0.62) 0%, transparent 34%, rgba(7, 7, 10, 0.82) 100%);
+}
+
+/* ── der bogen ──────────────────────────────────────── */
+
+.tl-arc {
+  position: relative;
+  height: clamp(96px, 13vw, 148px);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: ew-resize;
+}
+
+/* die bahn · gestrichelt wie eine konstruktionslinie */
+/* width/height MÜSSEN explizit stehen · ein svg mit viewBox hat ein
+   eigenes seitenverhältnis und zieht sich sonst auf 1200x1200 auf,
+   obwohl inset:0 gesetzt ist. der bogen lief dadurch weit unter die
+   schiene hinaus. */
+.tl-arc-path {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+.tl-arc-line {
+  fill: none;
+  stroke: rgba(242, 242, 242, 0.16);
+  stroke-width: 1;
+  stroke-dasharray: 4 6;
+}
+/* die horizontlinie · drunter ist nacht */
+.tl-arc-horizon {
+  stroke: rgba(242, 242, 242, 0.1);
+  stroke-width: 1;
+}
+
+.tl-hour {
+  position: absolute;
+  bottom: 0;
+  width: 1px;
+  height: 8px;
+  background: rgba(242, 242, 242, 0.18);
+}
+.tl-hour[data-major="1"] {
+  height: 14px;
+  background: rgba(242, 242, 242, 0.34);
+}
+.tl-hour-label {
+  position: absolute;
+  top: 17px;
+  transform: translateX(-50%);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: rgba(242, 242, 242, 0.34);
+}
+
+/* die marke · tags sonne, nachts mond */
+.tl-sun {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: background 620ms ease, box-shadow 620ms ease;
+}
+.tl-sun[data-night="0"] {
+  background: radial-gradient(circle at 38% 34%, #ffffff, #e1fd52 62%);
+  box-shadow:
+    0 0 22px rgba(225, 253, 82, 0.9),
+    0 0 46px rgba(225, 253, 82, 0.45);
+}
+.tl-sun[data-night="1"] {
+  background: radial-gradient(circle at 38% 34%, #f2f2f2, #b084d3 70%);
+  box-shadow:
+    0 0 18px rgba(176, 132, 211, 0.75),
+    0 0 38px rgba(176, 132, 211, 0.3);
+}
+
+/* ── ablesung ───────────────────────────────────────── */
+
+.tl-clock {
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 118%;
+  font-weight: 800;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: #f2f2f2;
+}
+
+/* der jetzt-knopf · springt auf die echte uhrzeit. das ist die pointe:
+   so sieht die seite beim kunden in diesem moment aus. */
+.tl-now {
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.8);
+  background: linear-gradient(180deg, #2d2d36, #1a1a20);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 242, 242, 0.18),
+    0 3px 0 rgba(0, 0, 0, 0.7);
+  transition: transform 90ms ease, box-shadow 90ms ease, color 200ms ease;
+}
+.tl-now:hover {
+  color: #e1fd52;
+}
+.tl-now:active {
+  transform: translateY(3px);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.6), 0 0 0 rgba(0, 0, 0, 0.7);
+}
+.tl-now:focus-visible {
+  outline: 2px solid #b084d3;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-shot,
+  .tl-grade,
+  .tl-glow,
+  .tl-sun {
+    transition: none;
+  }
+}

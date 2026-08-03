@@ -164,44 +164,6 @@
   border-top: 1px solid rgba(242, 242, 242, 0.09);
 }
 
-.sf-tag {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  color: rgba(242, 242, 242, 0.62);
-  background: rgba(242, 242, 242, 0.045);
-  border: 1px solid rgba(242, 242, 242, 0.08);
-}
-
-/* der stempel · macht aus der einschränkung ein glaubwürdigkeits-signal */
-.sf-stamp {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-.sf-stamp[data-kind="live"] {
-  color: #e1fd52;
-  background: rgba(225, 253, 82, 0.09);
-  border: 1px solid rgba(225, 253, 82, 0.3);
-}
-.sf-stamp[data-kind="konzept"] {
-  color: rgba(242, 242, 242, 0.62);
-  background: rgba(242, 242, 242, 0.045);
-  border: 1px solid rgba(242, 242, 242, 0.13);
-}
-
-/* auf schmal bricht die zeile um: blätter oben, metadaten drunter.
-   nebeneinander quetschte sich „web + branding" in drei zeilen und
-   lief in die status-lampe rein. */
 @media (max-width: 640px) {
   .sf-line {
     flex-wrap: wrap;

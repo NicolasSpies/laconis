@@ -84,7 +84,7 @@ export function LiveEditor({ t }: { t: T }) {
         <label className="block">
           <span className="lab-label">{t.fieldHeadline}</span>
           <input
-            className="lx-field mt-2"
+            className="lab-field mt-2"
             value={headline}
             maxLength={38}
             onChange={(e) => setHeadline(e.target.value)}
@@ -95,7 +95,7 @@ export function LiveEditor({ t }: { t: T }) {
         <label className="mt-5 block">
           <span className="lab-label">{t.fieldButton}</span>
           <input
-            className="lx-field mt-2"
+            className="lab-field mt-2"
             value={cta}
             maxLength={22}
             onChange={(e) => setCta(e.target.value)}

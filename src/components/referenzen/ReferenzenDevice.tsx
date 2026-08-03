@@ -101,7 +101,7 @@ export function ReferenzenDevice() {
         <div className="mx-auto max-w-[1200px]">
           <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] md:gap-16">
             <div>
-              <span className="sf-stamp" data-kind={stampKind}>
+              <span className="lab-stamp" data-kind={stampKind}>
                 <span
                   className="h-1.5 w-1.5 rounded-full"
                   aria-hidden
@@ -121,7 +121,7 @@ export function ReferenzenDevice() {
 
               <div className="mt-8 flex flex-wrap gap-2">
                 {r.tags.map((tag) => (
-                  <span key={tag} className="sf-tag">
+                  <span key={tag} className="lab-tag">
                     {tag}
                   </span>
                 ))}
