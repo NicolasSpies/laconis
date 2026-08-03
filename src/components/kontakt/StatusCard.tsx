@@ -13,7 +13,7 @@ const DICT: Record<
     header: "status",
     status: "offen für projekte",
     rows: [
-      { k: "antwortzeit", v: "ø < 2h" },
+      { k: "erreichbar", v: "direkt" },
       { k: "sprachen", v: "DE · FR · EN" },
       { k: "arbeitsweise", v: "remote · überall" },
     ],
@@ -23,7 +23,7 @@ const DICT: Record<
     header: "statut",
     status: "ouvert aux projets",
     rows: [
-      { k: "délai de réponse", v: "ø < 2h" },
+      { k: "joignable", v: "direct" },
       { k: "langues", v: "DE · FR · EN" },
       { k: "façon de bosser", v: "remote · partout" },
     ],
@@ -33,7 +33,7 @@ const DICT: Record<
     header: "status",
     status: "open for projects",
     rows: [
-      { k: "reply time", v: "ø < 2h" },
+      { k: "reachable", v: "direct" },
       { k: "languages", v: "DE · FR · EN" },
       { k: "how i work", v: "remote · everywhere" },
     ],
@@ -45,7 +45,7 @@ const DICT: Record<
  * StatusCard · hero-anker für /kontakt · eine gekippte „live"-status-karte.
  *
  * pulsierender lime-dot (animate-ping · CSS/compositor, friert nicht ein) +
- * „offen für projekte", drunter antwortzeit / sprachen / arbeitsweise. macht
+ * „offen für projekte", drunter erreichbar / sprachen / arbeitsweise. macht
  * den leeren hero-raum zu einem verfügbarkeits-signal. dunkle karte =
  * eigener kleiner kontrast-moment im sonst hellen kontakt-hero.
  */

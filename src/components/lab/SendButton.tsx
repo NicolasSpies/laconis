@@ -75,7 +75,7 @@ export function SendButton({ onSend }: { onSend?: () => void }) {
           >
             {phase === "closed" && "Kappe hochklappen, dann senden."}
             {phase === "armed" && "Scharf. Jetzt drücken."}
-            {phase === "sent" && "Raus damit · Antwort in unter 2h."}
+            {phase === "sent" && "Raus damit · ich melde mich."}
           </motion.p>
         </AnimatePresence>
       </div>

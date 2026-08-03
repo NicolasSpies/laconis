@@ -31,19 +31,19 @@ const DICT: Record<
   de: {
     kicker: "· was ich glaube",
     phrases: ["ein mensch", "kein team", "persönlich einfach."],
-    body: "kein ticket-tool, keine zwischenschicht, kein agentur-höflichkeits-ping-pong. du schreibst mir, ich antworte · meistens in unter 2h.",
+    body: "kein ticket-tool, keine zwischenschicht, kein agentur-höflichkeits-ping-pong. du schreibst mir, ich antworte · direkt, nicht über drei ecken.",
     ctaMore: "mehr über mich →",
   },
   fr: {
     kicker: "· ce que je crois",
     phrases: ["un humain", "pas une équipe", "simplement personnel."],
-    body: "pas d'outil de tickets, pas d'intermédiaire, pas de politesse d'agence en ping-pong. tu m'écris, je réponds · le plus souvent en moins de 2h.",
+    body: "pas d'outil de tickets, pas d'intermédiaire, pas de politesse d'agence en ping-pong. tu m'écris, je réponds · directement, pas via trois détours.",
     ctaMore: "en savoir plus →",
   },
   en: {
     kicker: "· what i believe",
     phrases: ["one person", "not a team", "simply personal."],
-    body: "no ticket tool, no middle layer, no agency-politeness ping-pong. you write, i answer · usually within 2h.",
+    body: "no ticket tool, no middle layer, no agency-politeness ping-pong. you write, i answer · directly, not through three layers.",
     ctaMore: "more about me →",
   },
 };

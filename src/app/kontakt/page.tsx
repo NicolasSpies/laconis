@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
  * (nochmal call via mailto) → formular = 3× derselbe weg.
  *
  * jetzt: hero → EIN direkt-block (text-rows: schreiben / anrufen /
- * antwortzeit · gleiches pattern wie home-ContactBlock) → formular.
+ * erreichbarkeit · gleiches pattern wie home-ContactBlock) → formular.
  * cal.com erscheint als vierte row sobald CONTACT.calcomUrl gesetzt ist.
  */
 
@@ -48,19 +48,19 @@ const DICT: Record<Locale, Dict> = {
     heroL2: "",
     heroItalic: "",
     heroBody:
-      "eine kurze nachricht reicht · kein verkaufs-pitch, kein formular-zwang. antwort meistens in unter 2 stunden.",
+      "eine kurze nachricht reicht · kein verkaufs-pitch, kein formular-zwang. du landest direkt bei mir, nicht in einem ticket-system.",
     directLabel: "direkter draht",
     rowSchreiben: "schreiben",
     rowAnrufen: "anrufen",
-    rowAntwort: "antwortzeit",
-    rowAntwortWert: "ø < 2h antwort",
+    rowAntwort: "erreichbar",
+    rowAntwortWert: "direkt an mich",
     rowBuchen: "direkt buchen",
     rowBuchenWert: "20 min video-call",
     formLabel: "projekt anfragen",
     formHeadlinePre: "oder sag mir gleich, ",
     formHeadlineAccent: "was du vorhast.",
     formIntro:
-      "vier kurze schritte · ich meld mich innerhalb von 24 std mit einem konkreten angebot. kein kleingedrucktes.",
+      "vier kurze schritte · ich melde mich mit einem konkreten angebot. kein kleingedrucktes.",
   },
   fr: {
     kicker: "· contact",
@@ -68,19 +68,19 @@ const DICT: Record<Locale, Dict> = {
     heroL2: "",
     heroItalic: "",
     heroBody:
-      "un message court suffit · pas de pitch commercial, pas de formulaire obligatoire. réponse souvent en moins de 2 heures.",
+      "un message court suffit · pas de pitch commercial, pas de formulaire obligatoire. tu tombes directement chez moi, pas dans un système de tickets.",
     directLabel: "voie directe",
     rowSchreiben: "écrire",
     rowAnrufen: "appeler",
-    rowAntwort: "réponse",
-    rowAntwortWert: "ø < 2h de réponse",
+    rowAntwort: "joignable",
+    rowAntwortWert: "directement à moi",
     rowBuchen: "réserver direct",
     rowBuchenWert: "20 min en visio",
     formLabel: "demander un projet",
     formHeadlinePre: "ou dis-moi directement ",
     formHeadlineAccent: "ce que tu prévois.",
     formIntro:
-      "quatre étapes courtes · je réponds dans les 24h avec une offre concrète. pas de petits caractères.",
+      "quatre étapes courtes · je reviens vers toi avec une offre concrète. pas de petits caractères.",
   },
   en: {
     kicker: "· contact",
@@ -88,19 +88,19 @@ const DICT: Record<Locale, Dict> = {
     heroL2: "",
     heroItalic: "",
     heroBody:
-      "a short message is enough · no sales pitch, no forced forms. reply usually within 2 hours.",
+      "a short message is enough · no sales pitch, no forced forms. you land straight with me, not in a ticket system.",
     directLabel: "direct line",
     rowSchreiben: "write",
     rowAnrufen: "call",
-    rowAntwort: "reply time",
-    rowAntwortWert: "ø < 2h reply",
+    rowAntwort: "reachable",
+    rowAntwortWert: "straight to me",
     rowBuchen: "book directly",
     rowBuchenWert: "20 min video call",
     formLabel: "request a project",
     formHeadlinePre: "or tell me right away ",
     formHeadlineAccent: "what you're planning.",
     formIntro:
-      "four short steps · i respond within 24h with a concrete offer. no small print.",
+      "four short steps · i get back to you with a concrete offer. no small print.",
   },
 };
 

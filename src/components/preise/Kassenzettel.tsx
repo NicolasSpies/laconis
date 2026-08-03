@@ -221,7 +221,7 @@ export function Kassenzettel({
           <div className="mt-5 text-center text-[9px] leading-relaxed text-[#1a1a1a]/45 uppercase tracking-[0.18em]">
             richtpreis · kein angebot
             <br />
-            antwort innerhalb 24 std
+            angebot schriftlich
           </div>
 
           <div className="mt-3 text-center text-[11px] text-[#1a1a1a]/70">

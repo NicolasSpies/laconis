@@ -472,8 +472,8 @@ function Inner() {
         </div>
 
         <p className="mt-4 text-[11px] leading-relaxed text-offwhite/35">
-          Richtpreis · kein verbindliches Angebot. Ich antworte innerhalb
-          24 Std mit der finalen Zahl (werktags).
+          Richtpreis · kein verbindliches Angebot. Nach einem kurzen call
+          bekommst du die finale Zahl.
         </p>
       </div>
     </div>

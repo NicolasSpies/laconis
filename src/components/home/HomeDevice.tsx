@@ -32,7 +32,7 @@ const FACTS: [string, string][] = [
   ["seit", "2019"],
   ["im team", "1"],
   ["sprachen", "3"],
-  ["antwortzeit", "< 2h"],
+  ["kontakt", "1:1"],
 ];
 
 export function HomeDevice() {
@@ -140,9 +140,8 @@ export function HomeDevice() {
               fliesstext gesetzt, damit die sektion trägt */}
           <p className="mt-8 max-w-[720px] text-[clamp(1.15rem,2.2vw,1.65rem)] leading-[1.5] text-[rgba(242,242,242,0.9)]">
             Ich bin Nicolas. Du schreibst mir,{" "}
-            <span style={{ color: "#e1fd52" }}>ich antworte</span> — meistens in
-            unter zwei Stunden. Kein Ticket-Tool, kein Projektmanager
-            dazwischen, kein Agentur-Ping-Pong.
+            <span style={{ color: "#e1fd52" }}>ich antworte</span> — nicht ein
+            Ticket-System, nicht ein Projektmanager, nicht ein Praktikant.
           </p>
           <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-[rgba(242,242,242,0.5)]">
             Ich nehme wenige Projekte gleichzeitig, damit deins nicht in einer

@@ -186,7 +186,7 @@ export function downloadBonPdf({
   doc.setFont("courier", "normal");
   centerText(doc, "RICHTPREIS · KEIN ANGEBOT", y);
   y += 3;
-  centerText(doc, "ANTWORT INNERHALB 24 STD", y);
+  centerText(doc, "ANGEBOT FOLGT SCHRIFTLICH", y);
   y += 5;
 
   doc.setFontSize(8);

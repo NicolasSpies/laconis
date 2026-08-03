@@ -38,7 +38,7 @@ const DICT: Record<
     chips: [
       { label: "schreiben", value: CONTACT.email },
       { label: "anrufen", value: CONTACT.phone },
-      { label: "antwortzeit", value: "ø < 2h werktags" },
+      { label: "erreichbar", value: "direkt an mich" },
     ],
     ctaPrimary: "projekt starten →",
     ctaSecondary: "preise ansehen",
@@ -54,7 +54,7 @@ const DICT: Record<
     chips: [
       { label: "écrire", value: CONTACT.email },
       { label: "appeler", value: CONTACT.phone },
-      { label: "délai de réponse", value: "ø < 2h jours ouvrés" },
+      { label: "joignable", value: "directement à moi" },
     ],
     ctaPrimary: "démarrer un projet →",
     ctaSecondary: "voir les prix",
@@ -70,7 +70,7 @@ const DICT: Record<
     chips: [
       { label: "write", value: CONTACT.email },
       { label: "call", value: CONTACT.phone },
-      { label: "response time", value: "ø < 2h on workdays" },
+      { label: "reachable", value: "straight to me" },
     ],
     ctaPrimary: "start a project →",
     ctaSecondary: "see pricing",

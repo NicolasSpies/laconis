@@ -179,21 +179,21 @@ const STATIC_MAP: Record<string, MetaByLocale> = {
   "/kontakt": {
     de: {
       title: "kontakt",
-      description: "projekt besprechen · antwort innerhalb 24h. e-mail, call buchen, oder kurz das projekt-formular ausfüllen.",
+      description: "projekt besprechen · direkt mit mir. e-mail, call buchen, oder kurz das projekt-formular ausfüllen.",
       ogTitle: "kontakt · lacønis",
-      ogDescription: "projekt besprechen · antwort innerhalb 24h.",
+      ogDescription: "projekt besprechen · direkt mit mir.",
     },
     fr: {
       title: "contact",
-      description: "discuter du projet · réponse sous 24h. e-mail, appel, ou remplis brièvement le formulaire projet.",
+      description: "discuter du projet · e-mail, appel, ou remplis brièvement le formulaire projet.",
       ogTitle: "contact · lacønis",
-      ogDescription: "discuter du projet · réponse sous 24h.",
+      ogDescription: "discuter du projet · directement avec moi.",
     },
     en: {
       title: "contact",
-      description: "discuss the project · reply within 24h. email, call, or briefly fill out the project form.",
+      description: "discuss the project · email, call, or briefly fill out the project form.",
       ogTitle: "contact · lacønis",
-      ogDescription: "discuss the project · reply within 24h.",
+      ogDescription: "discuss the project · straight with me.",
     },
   },
   "/ueber-mich": {
