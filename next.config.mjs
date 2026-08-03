@@ -32,34 +32,68 @@ const nextConfig = {
       // alte deep-links → primary service (/leistungen/web)
       {
         source: "/leistungen",
-        destination: "/leistungen/web",
+        destination: "/leistung",
         permanent: true,
       },
       {
         source: "/fr/services",
-        destination: "/fr/services/web",
+        destination: "/fr/prestation",
         permanent: true,
       },
       {
         source: "/en/services",
-        destination: "/en/services/web",
+        destination: "/en/service",
         permanent: true,
       },
       // /ansatz aufgelöst (2026-06) · inhalte verteilt: 4-schritte →
-      // /leistungen/web (#ablauf), nicht-liste → /preise, haltung → /ueber-mich
+      // leistung, nicht-liste → /preise, haltung → /ueber-mich
       {
         source: "/ansatz",
-        destination: "/leistungen/web",
+        destination: "/leistung",
         permanent: true,
       },
       {
         source: "/fr/approche",
-        destination: "/fr/services/web",
+        destination: "/fr/prestation",
         permanent: true,
       },
       {
         source: "/en/approach",
-        destination: "/en/services/web",
+        destination: "/en/service",
+        permanent: true,
+      },
+      /* 2026-08 · /leistungen/web + .../technik zusammengelegt zu EINER
+         seite (/leistung). tiefe 3 war ein grund, warum die technik-
+         inhalte nie jemand gesehen hat. redirects laufen VOR den
+         rewrites, die alten alias-urls sind damit auch abgedeckt. */
+      {
+        source: "/leistungen/web/technik",
+        destination: "/leistung",
+        permanent: true,
+      },
+      {
+        source: "/leistungen/web",
+        destination: "/leistung",
+        permanent: true,
+      },
+      {
+        source: "/fr/services/web/technique",
+        destination: "/fr/prestation",
+        permanent: true,
+      },
+      {
+        source: "/fr/services/web",
+        destination: "/fr/prestation",
+        permanent: true,
+      },
+      {
+        source: "/en/services/web/tech",
+        destination: "/en/service",
+        permanent: true,
+      },
+      {
+        source: "/en/services/web",
+        destination: "/en/service",
         permanent: true,
       },
     ];
@@ -72,8 +106,7 @@ const nextConfig = {
      */
     const fr = [
       { source: "/fr", destination: "/" },
-      { source: "/fr/services/web", destination: "/leistungen/web" },
-      { source: "/fr/services/web/technique", destination: "/leistungen/web/technik" },
+      { source: "/fr/prestation", destination: "/leistung" },
       { source: "/fr/services/branding", destination: "/leistungen/branding" },
       { source: "/fr/prix", destination: "/preise" },
       { source: "/fr/contact", destination: "/kontakt" },
@@ -86,8 +119,7 @@ const nextConfig = {
 
     const en = [
       { source: "/en", destination: "/" },
-      { source: "/en/services/web", destination: "/leistungen/web" },
-      { source: "/en/services/web/tech", destination: "/leistungen/web/technik" },
+      { source: "/en/service", destination: "/leistung" },
       { source: "/en/services/branding", destination: "/leistungen/branding" },
       { source: "/en/pricing", destination: "/preise" },
       { source: "/en/contact", destination: "/kontakt" },

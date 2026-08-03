@@ -140,7 +140,7 @@ export function HomeDevice() {
               fliesstext gesetzt, damit die sektion trägt */}
           <p className="mt-8 max-w-[720px] text-[clamp(1.15rem,2.2vw,1.65rem)] leading-[1.5] text-[rgba(242,242,242,0.9)]">
             Ich bin Nicolas. Du schreibst mir,{" "}
-            <span style={{ color: "#e1fd52" }}>ich antworte</span> — nicht ein
+            <span style={{ color: "#e1fd52" }}>ich antworte</span>. Nicht ein
             Ticket-System, nicht ein Projektmanager, nicht ein Praktikant.
           </p>
           <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-[rgba(242,242,242,0.5)]">
@@ -210,7 +210,7 @@ export function HomeDevice() {
 
           {/* schlichter fuss · das chrome bleibt still */}
           <div className="mt-16 pt-6 border-t border-[rgba(242,242,242,0.08)] flex flex-wrap justify-between gap-4">
-            <span className="lab-label">© 2026 lacønis · eupen</span>
+            <span className="lab-label">© 2026 lacønis</span>
             <span className="lab-label">nicolas@laconis.be</span>
           </div>
         </div>

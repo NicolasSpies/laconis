@@ -21,8 +21,7 @@ const I18N_ROUTES: Array<{
   changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
 }> = [
   { routeKey: "home", priority: 1.0, changeFrequency: "weekly" },
-  { routeKey: "leistungen/web", priority: 0.9, changeFrequency: "monthly" },
-  { routeKey: "leistungen/web/technik", priority: 0.7, changeFrequency: "monthly" },
+  { routeKey: "leistung", priority: 0.9, changeFrequency: "monthly" },
   { routeKey: "leistungen/branding", priority: 0.9, changeFrequency: "monthly" },
   { routeKey: "preise", priority: 0.9, changeFrequency: "monthly" },
   { routeKey: "kontakt", priority: 0.9, changeFrequency: "monthly" },

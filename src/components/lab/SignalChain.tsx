@@ -20,7 +20,7 @@ import { useEffect, useRef, useState } from "react";
 type Station = { nr: string; title: string; who: "ich" | "du"; detail: string };
 
 const STATIONS: Station[] = [
-  { nr: "01", title: "scannen", who: "ich", detail: "Ich zieh deine alte Seite komplett — Texte, Bilder, Struktur. Du schickst mir vorab nichts." },
+  { nr: "01", title: "scannen", who: "ich", detail: "Ich zieh deine alte Seite komplett: Texte, Bilder, Struktur. Du schickst mir vorab nichts." },
   { nr: "02", title: "analysieren", who: "ich", detail: "Was funktioniert, was bremst, was kann weg. Du kriegst eine ehrliche Liste." },
   { nr: "03", title: "briefing", who: "du", detail: "Dein einziger Job: ja, nein oder „das brauch ich nicht mehr\". Zehn Minuten." },
   { nr: "04", title: "bauen", who: "ich", detail: "Neu gebaut, schneller, sauber. Klickbare Vorschauen alle paar Tage." },
@@ -70,7 +70,7 @@ export function SignalChain() {
         <div className="dv-chain-head">
           <h2 className="dv-display dv-chain-h2">du hast schon eine seite?</h2>
           <p className="dv-chain-sub">
-            Dann fängst du nicht bei null an. Fünf Stationen — vier laufen bei
+            Dann fängst du nicht bei null an. Fünf Stationen · vier laufen bei
             mir, eine gehört dir.
           </p>
         </div>

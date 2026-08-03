@@ -66,44 +66,24 @@ const STATIC_MAP: Record<string, MetaByLocale> = {
       ogDescription: "webdesign studio · east belgium · handmade",
     },
   },
-  "/leistungen/web": {
+  "/leistung": {
     de: {
-      title: "leistungen · web",
-      description: "websites die nicht im grundrauschen verschwinden · design, development, seo aus einer hand. eigenes CMS optional. handgemacht.",
-      ogTitle: "web · lacønis",
-      ogDescription: "websites · design + development + seo aus einer hand · eigenes CMS optional.",
+      title: "leistung · websites von null gebaut",
+      description: "Websites von null gebaut · kein Template, kein WordPress-Limit. Lighthouse 95+, eigenes CMS zum Selberpflegen, bestehende Seiten werden übernommen. Ostbelgien, dreisprachig.",
+      ogTitle: "leistung · lacønis",
+      ogDescription: "von null gebaut · lighthouse 95+ · eigenes cms · übernahme bestehender seiten.",
     },
     fr: {
-      title: "services · web",
-      description: "des sites web qui ne se noient pas dans la masse · design, développement, seo d'une seule main. cms maison en option. fait main.",
-      ogTitle: "web · lacønis",
-      ogDescription: "sites web · design + développement + seo d'une seule main · cms maison en option.",
+      title: "prestation · des sites construits de zéro",
+      description: "Sites web construits de zéro · pas de template, pas de limite WordPress. Lighthouse 95+, CMS maison à gérer soi-même, reprise de sites existants. Cantons de l'Est, trilingue.",
+      ogTitle: "prestation · lacønis",
+      ogDescription: "construit de zéro · lighthouse 95+ · cms maison · reprise de sites existants.",
     },
     en: {
-      title: "services · web",
-      description: "websites that don't drown in the noise · design, development, seo from one hand. in-house cms optional. handmade.",
-      ogTitle: "web · lacønis",
-      ogDescription: "websites · design + development + seo from one hand · in-house cms optional.",
-    },
-  },
-  "/leistungen/web/technik": {
-    de: {
-      title: "leistungen · web · technik",
-      description: "tiefer-tauchen · contentcore, hosting, wordpress-vergleich. für alle die's genau wissen wollen.",
-      ogTitle: "web · technik · lacønis",
-      ogDescription: "contentcore, hosting, cms-vergleich · für techniker und entscheider.",
-    },
-    fr: {
-      title: "services · web · technique",
-      description: "plus en profondeur · contentcore, hébergement, comparaison wordpress. pour ceux qui veulent savoir précisément.",
-      ogTitle: "web · technique · lacønis",
-      ogDescription: "contentcore, hébergement, comparaison cms · pour techniciens et décideurs.",
-    },
-    en: {
-      title: "services · web · tech",
-      description: "dive deeper · contentcore, hosting, wordpress comparison. for those who want the details.",
-      ogTitle: "web · tech · lacønis",
-      ogDescription: "contentcore, hosting, cms comparison · for technical folks and decision-makers.",
+      title: "service · websites built from scratch",
+      description: "Websites built from scratch · no template, no WordPress ceiling. Lighthouse 95+, in-house CMS you run yourself, existing sites taken over. East Belgium, trilingual.",
+      ogTitle: "service · lacønis",
+      ogDescription: "built from scratch · lighthouse 95+ · in-house cms · existing sites taken over.",
     },
   },
   "/leistungen/branding": {

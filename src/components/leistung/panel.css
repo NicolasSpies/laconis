@@ -1,0 +1,385 @@
+/**
+ * panel.css · die bedienelemente von /leistung: ballast-regler,
+ * live-editor und die ruhigen typo-strecken dazwischen.
+ *
+ * physik wie überall im geräte-system:
+ *   versenkt = inset-schatten oben dunkel + lichtkante unten
+ *   erhaben  = aussenschatten unten + 1px lichtkante oben
+ *
+ * dosierung: pro bildschirmhöhe EIN objekt zum anfassen · der regler und
+ * der editor stehen deshalb in getrennten sektionen, nie nebeneinander.
+ */
+
+/* ════════════════════════════════════════════════════════
+   2 · BALLAST-REGLER
+   ════════════════════════════════════════════════════════ */
+
+.lx-dial-wrap {
+  position: relative;
+  width: 178px;
+  height: 178px;
+  flex-shrink: 0;
+  touch-action: none;
+}
+
+/* die versenkte mulde, in der der knopf sitzt */
+.lx-dial-well {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, #0d0d10, #08080a);
+  box-shadow:
+    inset 0 3px 8px rgba(0, 0, 0, 0.95),
+    inset 0 -1px 0 rgba(242, 242, 242, 0.09);
+}
+
+.lx-dial-tick {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 50%;
+  transform-origin: 50% 100%;
+  margin-left: -0.5px;
+}
+.lx-dial-tick span {
+  display: block;
+  width: 1px;
+  height: 9px;
+  border-radius: 1px;
+  background: rgba(242, 242, 242, 0.3);
+  transition: background 260ms ease, box-shadow 260ms ease;
+}
+.lx-dial-tick[data-on="1"] span {
+  background: #e1fd52;
+  box-shadow: 0 0 7px rgba(225, 253, 82, 0.85);
+}
+.lx-dial-tick[data-on="2"] span {
+  background: #b084d3;
+  box-shadow: 0 0 7px rgba(176, 132, 211, 0.75);
+}
+
+/* der knopf · geriffelter rand, erhabene deckfläche */
+.lx-dial-knob {
+  position: absolute;
+  inset: 26px;
+  border-radius: 50%;
+  cursor: grab;
+  background:
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(242, 242, 242, 0.34) 0deg 4.5deg,
+      rgba(0, 0, 0, 0.66) 4.5deg 9deg
+    ),
+    radial-gradient(circle at 50% 26%, #45454f, #1b1b22 66%, #101014);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 242, 242, 0.34),
+    inset 0 -9px 16px rgba(0, 0, 0, 0.75),
+    0 14px 30px -10px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(0, 0, 0, 0.7);
+}
+.lx-dial-knob:active {
+  cursor: grabbing;
+}
+.lx-dial-knob:focus-visible {
+  outline: 2px solid #b084d3;
+  outline-offset: 5px;
+}
+
+/* deckfläche · glatt, hebt sich vom riffel-rand ab */
+.lx-dial-face {
+  position: absolute;
+  inset: 15px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 46% 24%, #4a4a56, #232329 52%, #16161c 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -6px 12px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(0, 0, 0, 0.75),
+    0 5px 11px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+}
+
+.lx-dial-marker {
+  position: absolute;
+  left: 50%;
+  top: 9px;
+  width: 3px;
+  height: 34px;
+  margin-left: -1.5px;
+  border-radius: 2px;
+  z-index: 2;
+  background: #e1fd52;
+  box-shadow: 0 0 10px rgba(225, 253, 82, 0.9);
+  pointer-events: none;
+  transition: background 300ms ease, box-shadow 300ms ease;
+}
+.lx-dial-wrap[data-heavy="1"] .lx-dial-marker {
+  background: #b084d3;
+  box-shadow: 0 0 10px rgba(176, 132, 211, 0.9);
+}
+
+/* ── messwerte ────────────────────────────────────────── */
+
+.lx-gauge + .lx-gauge {
+  margin-top: 17px;
+}
+.lx-gauge-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.lx-gauge-val {
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: #f2f2f2;
+}
+.lx-gauge-bar {
+  position: relative;
+  height: 5px;
+  margin-top: 8px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #0a0a0c;
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.95),
+    inset 0 -1px 0 rgba(242, 242, 242, 0.07);
+}
+.lx-gauge-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, rgba(225, 253, 82, 0.55), #e1fd52);
+  box-shadow: 0 0 12px rgba(225, 253, 82, 0.45);
+  transition: width 320ms cubic-bezier(0.22, 1, 0.36, 1), background 320ms ease,
+    box-shadow 320ms ease;
+}
+.lx-gauge[data-bad="1"] .lx-gauge-fill {
+  background: linear-gradient(90deg, rgba(176, 132, 211, 0.4), #b084d3);
+  box-shadow: 0 0 12px rgba(176, 132, 211, 0.4);
+}
+
+/* ════════════════════════════════════════════════════════
+   3 · LIVE-EDITOR
+   ════════════════════════════════════════════════════════ */
+
+/* eingabefeld · versenkt, wie ein eingelassenes namensschild */
+.lx-field {
+  width: 100%;
+  padding: 11px 13px;
+  border-radius: 8px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 13px;
+  color: #f2f2f2;
+  background: #0a0a0c;
+  border: 1px solid rgba(242, 242, 242, 0.07);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.9),
+    inset 0 -1px 0 rgba(242, 242, 242, 0.07);
+  transition: box-shadow 220ms ease;
+}
+.lx-field::placeholder {
+  color: rgba(242, 242, 242, 0.26);
+}
+.lx-field:focus {
+  outline: none;
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.9),
+    inset 0 -1px 0 rgba(242, 242, 242, 0.07),
+    0 0 0 1px rgba(225, 253, 82, 0.5),
+    0 0 18px -4px rgba(225, 253, 82, 0.4);
+}
+
+/* farbtasten · kleine erhabene kappen */
+.lx-swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 2px 0 rgba(0, 0, 0, 0.7);
+  transition: transform 110ms ease, box-shadow 110ms ease;
+}
+.lx-swatch[data-on="1"] {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.6),
+    0 0 0 2px rgba(242, 242, 242, 0.55);
+}
+.lx-swatch:focus-visible {
+  outline: 2px solid #b084d3;
+  outline-offset: 3px;
+}
+
+/* der bildschirm · leichte wölbung + glasreflex */
+.lx-screen {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f4f4f2;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.35),
+    inset 0 2px 10px rgba(0, 0, 0, 0.28),
+    0 30px 60px -28px rgba(0, 0, 0, 0.9);
+}
+.lx-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(196deg, rgba(255, 255, 255, 0.34) 0%, transparent 34%);
+}
+
+/* browser-leiste, aber in geräte-sprache: kein ampel-klischee */
+.lx-screen-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  background: linear-gradient(180deg, #e6e6e2, #d8d8d3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+}
+.lx-screen-url {
+  flex: 1;
+  padding: 3px 9px;
+  border-radius: 5px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.05em;
+  color: rgba(10, 10, 10, 0.5);
+  background: #f6f6f4;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.14);
+}
+
+.lx-skel {
+  height: 7px;
+  border-radius: 3px;
+  background: rgba(10, 10, 10, 0.1);
+}
+
+/* der publish-schlüssel · echte taste mit hub */
+.lx-pub {
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: linear-gradient(180deg, #eaffa0, #cbe93c);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.22),
+    0 4px 0 #7f9917,
+    0 12px 22px -8px rgba(225, 253, 82, 0.5);
+  transition: transform 90ms ease, box-shadow 90ms ease, filter 200ms ease;
+}
+.lx-pub:hover {
+  filter: brightness(1.06);
+}
+.lx-pub:active,
+.lx-pub[data-busy="1"] {
+  transform: translateY(4px);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.28),
+    0 0 0 #7f9917,
+    0 6px 14px -8px rgba(225, 253, 82, 0.4);
+}
+.lx-pub:disabled {
+  cursor: default;
+}
+.lx-pub:focus-visible {
+  outline: 2px solid #b084d3;
+  outline-offset: 4px;
+}
+
+/* ════════════════════════════════════════════════════════
+   RUHIGE TEILE
+   ════════════════════════════════════════════════════════ */
+
+.lx-row {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 16px;
+  padding: 17px 0;
+  border-top: 1px solid rgba(242, 242, 242, 0.09);
+}
+.lx-row-nr {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: rgba(225, 253, 82, 0.65);
+  padding-top: 4px;
+}
+
+.lx-faq {
+  border-top: 1px solid rgba(242, 242, 242, 0.09);
+}
+.lx-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 19px 0;
+  cursor: pointer;
+  list-style: none;
+  transition: color 240ms ease;
+}
+.lx-faq summary::-webkit-details-marker {
+  display: none;
+}
+.lx-faq summary:hover {
+  color: #e1fd52;
+}
+.lx-faq summary:focus-visible {
+  outline: 2px solid #b084d3;
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+.lx-faq-sign {
+  position: relative;
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+.lx-faq-sign::before,
+.lx-faq-sign::after {
+  content: "";
+  position: absolute;
+  background: rgba(242, 242, 242, 0.45);
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), background 240ms ease;
+}
+.lx-faq-sign::before {
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  margin-left: -0.5px;
+}
+.lx-faq-sign::after {
+  top: 50%;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  margin-top: -0.5px;
+}
+.lx-faq[open] .lx-faq-sign::before {
+  transform: rotate(90deg);
+  background: #e1fd52;
+}
+.lx-faq[open] .lx-faq-sign::after {
+  background: #e1fd52;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lx-gauge-fill {
+    transition: none;
+  }
+}

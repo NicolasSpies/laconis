@@ -40,6 +40,9 @@ export const HTML_LANG: Record<Locale, string> = {
  */
 export const ROUTES: Record<string, Record<Locale, string>> = {
   home: { de: "", fr: "", en: "" },
+  /* die eine leistungs-seite · web. löst /leistungen/web +
+     /leistungen/web/technik ab (beide 301 hierher, siehe next.config). */
+  leistung: { de: "leistung", fr: "prestation", en: "service" },
   "leistungen/web": {
     de: "leistungen/web",
     fr: "services/web",

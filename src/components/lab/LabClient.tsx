@@ -120,7 +120,7 @@ export function LabClient() {
               className="w-1.5 h-1.5 rounded-full"
               style={{ background: "#e1fd52", boxShadow: "0 0 10px #e1fd52" }}
             />
-            <span className="lab-label">laconis · web systems · eupen be</span>
+            <span className="lab-label">laconis · web systems</span>
           </div>
 
           <h1
@@ -306,7 +306,7 @@ export function LabClient() {
             </h2>
             <p className="lab-hint mt-4 text-[13.5px] leading-relaxed">
               Dann fängst du nicht bei null an. Fünf Stationen von deiner alten
-              Seite zur neuen — vier laufen automatisch bei mir, eine gehört
+              Seite zur neuen · vier laufen automatisch bei mir, eine gehört
               dir.
             </p>
           </div>
