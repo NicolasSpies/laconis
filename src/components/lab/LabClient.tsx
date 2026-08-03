@@ -89,6 +89,13 @@ export function LabClient() {
 
   return (
     <div className="lab-root" data-no-reveal>
+      {/* ambient · zwei sehr grosse, sehr schwache farbwolken die
+          minutenlang driften · macht die fläche lebendig ohne aufzufallen */}
+      <div className="lab-ambient" aria-hidden>
+        <span />
+        <span />
+      </div>
+
       <LabNav />
 
       {/* ═══ HERO · das gerät fährt hoch ═══ */}
@@ -294,7 +301,7 @@ export function LabClient() {
       <section data-no-reveal className="relative px-6 md:px-12 pb-32">
         <div className="max-w-[1200px] mx-auto">
           <div className="mb-12 max-w-[620px]">
-            <h2 className="lab-display text-[clamp(2rem,5vw,3.6rem)]">
+            <h2 className="lab-display lab-skew text-[clamp(2rem,5vw,3.6rem)]">
               du hast schon eine seite?
             </h2>
             <p className="lab-hint mt-4 text-[13.5px] leading-relaxed">

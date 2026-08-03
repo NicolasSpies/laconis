@@ -78,14 +78,17 @@
 
 .lab-chassis {
   position: relative;
+  /* farbtemperatur statt neutralgrau · lila im korpus, lime-hauch oben.
+     reines weiss-alpha auf dunkel liest IMMER als billiges grau. */
   background:
-    radial-gradient(120% 90% at 50% -10%, rgba(242, 242, 242, 0.05), transparent 60%),
-    linear-gradient(180deg, #171717 0%, #101010 100%);
-  border: 1px solid var(--edge);
+    radial-gradient(130% 100% at 50% -15%, rgba(225, 253, 82, 0.055), transparent 58%),
+    radial-gradient(90% 120% at 12% 110%, rgba(176, 132, 211, 0.10), transparent 62%),
+    linear-gradient(180deg, #14121a 0%, #0b0b0e 100%);
+  border: 1px solid rgba(242, 242, 242, 0.07);
   border-radius: 20px;
   box-shadow:
-    0 1px 0 rgba(242, 242, 242, 0.07) inset,
-    0 40px 90px -40px rgba(0, 0, 0, 0.9);
+    0 1px 0 rgba(242, 242, 242, 0.06) inset,
+    0 40px 90px -40px rgba(0, 0, 0, 0.95);
 }
 
 /* schrauben in den ecken · 6px, vertieft */
@@ -106,15 +109,16 @@
   position: relative;
   overflow: hidden;
   border-radius: 16px;
+  /* leicht getöntes glas · lila-kühle unten, lime-wärme oben */
   background: linear-gradient(
-    180deg,
-    rgba(242, 242, 242, 0.075) 0%,
-    rgba(242, 242, 242, 0.028) 45%,
-    rgba(242, 242, 242, 0.045) 100%
+    172deg,
+    rgba(225, 253, 82, 0.055) 0%,
+    rgba(242, 242, 242, 0.022) 42%,
+    rgba(176, 132, 211, 0.07) 100%
   );
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  border: 1px solid rgba(242, 242, 242, 0.11);
+  backdrop-filter: blur(20px) saturate(185%);
+  -webkit-backdrop-filter: blur(20px) saturate(185%);
+  border: 1px solid rgba(242, 242, 242, 0.09);
   box-shadow:
     inset 0 1px 0 rgba(242, 242, 242, 0.22),
     inset 0 -1px 0 rgba(0, 0, 0, 0.5),
@@ -163,8 +167,8 @@
   inset: 0;
   pointer-events: none;
   background: radial-gradient(
-    360px circle at var(--mx, 50%) var(--my, 0%),
-    rgba(242, 242, 242, 0.14),
+    380px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(233, 255, 150, 0.13),
     transparent 62%
   );
   transition: background 90ms linear;
@@ -786,133 +790,241 @@
   }
 }
 
-/* ── SIGNALKETTE · der ablauf als signalweg ──────────────────── */
+/* ── SIGNALKETTE · horizontal ────────────────────────────────
+   v1 war eine linke spalte mit toter fläche rechts. Jetzt quer über
+   die volle breite, stationen vertikal versetzt (--off) damit es
+   nicht wie eine tabelle wirkt. */
 
-.lab-chain {
+.lab-hchain {
   position: relative;
-  padding-left: 34px;
+  padding: 74px 0 40px;
 }
 
-/* die leitung */
-.lab-chain-line {
+/* die leitung · quer auf höhe der knoten */
+.lab-hchain-rail {
   position: absolute;
-  left: 9px;
-  top: 12px;
-  bottom: 12px;
-  width: 2px;
+  left: 0;
+  right: 0;
+  top: 74px;
+  height: 2px;
   border-radius: 2px;
-  background: rgba(242, 242, 242, 0.1);
-  overflow: hidden;
+  background: rgba(242, 242, 242, 0.09);
+  display: none;
 }
 
-.lab-chain-fill {
+.lab-hchain-fill {
   position: absolute;
   inset: 0;
-  transform-origin: top;
-  background: linear-gradient(180deg, #b084d3, #e1fd52);
-  box-shadow: 0 0 12px rgba(225, 253, 82, 0.6);
+  transform-origin: left;
+  background: linear-gradient(90deg, rgba(176, 132, 211, 0.9), #e1fd52);
+  box-shadow: 0 0 14px rgba(225, 253, 82, 0.5);
   will-change: transform;
 }
 
-.lab-chain-list {
-  display: flex;
-  flex-direction: column;
-  gap: 34px;
+/* impuls-punkt reitet auf der spitze der füllung */
+.lab-hchain-pulse {
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  border-radius: 50%;
+  translate: 0 -50%;
+  background: #e1fd52;
+  box-shadow: 0 0 16px #e1fd52, 0 0 32px rgba(225, 253, 82, 0.6);
+  transition: opacity 300ms ease;
+  will-change: left;
 }
 
-.lab-chain-station {
-  position: relative;
+.lab-hchain-list {
   display: flex;
-  gap: 18px;
+  flex-direction: column;
+  gap: 26px;
+}
+
+@media (min-width: 900px) {
+  .lab-hchain-rail {
+    display: block;
+  }
+  .lab-hchain-list {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .lab-hchain-station {
+    flex: 1 1 0;
+    /* versatz bricht die tabellen-optik */
+    padding-top: var(--off, 0px);
+  }
+}
+
+.lab-hchain-station {
+  position: relative;
+  min-width: 0;
 }
 
 /* der kontakt auf der leitung */
-.lab-chain-node {
+.lab-hchain-node {
   position: absolute;
-  left: -32px;
-  top: 7px;
+  left: 0;
+  top: calc(var(--off, 0px) * -1 - 5px);
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #131313;
-  border: 2px solid rgba(242, 242, 242, 0.18);
+  background: #101010;
+  border: 2px solid rgba(242, 242, 242, 0.16);
   transition: border-color 420ms ease, box-shadow 420ms ease, background 420ms ease;
+  display: none;
 }
 
-.lab-chain-station[data-on="1"] .lab-chain-node {
+@media (min-width: 900px) {
+  .lab-hchain-node {
+    display: block;
+  }
+}
+
+.lab-hchain-station[data-on="1"] .lab-hchain-node {
   background: #e1fd52;
   border-color: #e1fd52;
-  box-shadow: 0 0 14px rgba(225, 253, 82, 0.85);
+  box-shadow: 0 0 15px rgba(225, 253, 82, 0.9);
 }
 
-/* die EINE station die dem kunden gehört · lila statt lime */
-.lab-chain-station[data-du="1"][data-on="1"] .lab-chain-node {
+.lab-hchain-station[data-du="1"][data-on="1"] .lab-hchain-node {
   background: #b084d3;
   border-color: #b084d3;
-  box-shadow: 0 0 16px rgba(176, 132, 211, 0.9);
+  box-shadow: 0 0 18px rgba(176, 132, 211, 0.95);
 }
 
-.lab-chain-body {
-  opacity: 0.42;
-  transform: translateY(4px);
-  transition: opacity 520ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+.lab-hchain-body {
+  opacity: 0.34;
+  transform: translateY(8px);
+  transition: opacity 560ms ease, transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.lab-chain-station[data-on="1"] .lab-chain-body {
+@media (min-width: 900px) {
+  .lab-hchain-body {
+    padding-top: 26px;
+  }
+}
+
+.lab-hchain-station[data-on="1"] .lab-hchain-body {
   opacity: 1;
   transform: none;
 }
 
-.lab-chain-nr {
+.lab-hchain-nr {
+  display: block;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  color: rgba(242, 242, 242, 0.32);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: rgba(242, 242, 242, 0.3);
 }
 
-.lab-chain-title {
-  font-size: clamp(1.5rem, 3.4vw, 2.3rem);
+.lab-hchain-title {
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
   line-height: 1;
+  margin-top: 8px;
 }
 
-/* auto/du · das kleine schild das den unterschied macht */
-.lab-chain-who {
+.lab-hchain-who {
+  display: inline-block;
+  margin-top: 10px;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 9px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  padding: 3px 8px;
+  padding: 3px 9px;
   border-radius: 999px;
-  border: 1px solid rgba(242, 242, 242, 0.16);
-  color: rgba(242, 242, 242, 0.42);
+  border: 1px solid rgba(242, 242, 242, 0.14);
+  color: rgba(242, 242, 242, 0.4);
   transition: all 420ms ease;
 }
 
-.lab-chain-station[data-on="1"] .lab-chain-who {
-  border-color: rgba(225, 253, 82, 0.4);
+.lab-hchain-station[data-on="1"] .lab-hchain-who {
+  border-color: rgba(225, 253, 82, 0.38);
   color: #e1fd52;
 }
 
-.lab-chain-station[data-du="1"][data-on="1"] .lab-chain-who {
+.lab-hchain-station[data-du="1"][data-on="1"] .lab-hchain-who {
   border-color: #b084d3;
-  background: rgba(176, 132, 211, 0.16);
-  color: #d3b6e8;
+  background: rgba(176, 132, 211, 0.18);
+  color: #ddc4ee;
 }
 
-.lab-chain-detail {
-  margin-top: 7px;
-  font-size: 13.5px;
+.lab-hchain-detail {
+  margin-top: 12px;
+  font-size: 13px;
   line-height: 1.55;
-  max-width: 460px;
-  color: rgba(242, 242, 242, 0.55);
+  color: rgba(242, 242, 242, 0.5);
+}
+
+/* angeschrägte überschrift · leichte neigung, kein gimmick */
+.lab-skew {
+  display: inline-block;
+  transform: rotate(-1.6deg);
+  transform-origin: left center;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lab-chain-body {
+  .lab-hchain-body {
     opacity: 1;
     transform: none;
   }
 }
+
+/* ── AMBIENT · das "ganz affine im hintergrund" ──────────────
+   zwei sehr grosse, sehr schwache farbwolken die minutenlang
+   driften. bei 6% deckkraft merkt man sie nicht bewusst — die
+   fläche wirkt nur nicht mehr tot. blur macht sie konturlos. */
+
+@keyframes labAmbientA {
+  0%, 100% { transform: translate3d(-6%, 0, 0) scale(1); }
+  50%      { transform: translate3d(10%, -6%, 0) scale(1.18); }
+}
+@keyframes labAmbientB {
+  0%, 100% { transform: translate3d(8%, 4%, 0) scale(1.1); }
+  50%      { transform: translate3d(-8%, -4%, 0) scale(0.92); }
+}
+
+.lab-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.lab-ambient span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  will-change: transform;
+}
+
+.lab-ambient span:nth-child(1) {
+  width: 60vw;
+  height: 60vw;
+  left: -12vw;
+  top: 8vh;
+  background: rgba(176, 132, 211, 0.11);
+  animation: labAmbientA 46s ease-in-out infinite;
+}
+
+.lab-ambient span:nth-child(2) {
+  width: 48vw;
+  height: 48vw;
+  right: -8vw;
+  bottom: 4vh;
+  background: rgba(225, 253, 82, 0.06);
+  animation: labAmbientB 62s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-ambient span { animation: none; }
+}
+
+/* inhalt über die ambient-schicht heben */
+.lab-root > section { position: relative; z-index: 1; }
 
 /* prototyp: nav + footer der alten seite ausblenden, damit das gerät
    für sich steht (root-layout rendert sie global) */
