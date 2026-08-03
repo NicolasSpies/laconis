@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { useLocale, pick } from "@/i18n/useLocale";
 import type { Locale } from "@/i18n/config";
 
@@ -124,7 +123,7 @@ const INITIAL: Piece[] = [
   { id: "photo", z: 5, left: "32%", top: "32%", rotate: -1, width: 220 },
 ];
 
-export function BrandDesk({ num = "02" }: { num?: string } = {}) {
+export function BrandDesk() {
   const locale = useLocale();
   const t = pick(DICT, locale);
   const [pieces, setPieces] = useState<Piece[]>(INITIAL);
@@ -139,7 +138,6 @@ export function BrandDesk({ num = "02" }: { num?: string } = {}) {
   return (
     <section className="relative py-20 md:py-28">
       <div className="container-site">
-        <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
 
         <div className="mt-6 grid lg:grid-cols-[1fr_1.4fr] gap-10 items-start">
           <div className="max-w-[460px]">

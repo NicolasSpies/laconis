@@ -35,6 +35,11 @@ const ServicesSplit = dynamic(
   () => import("@/components/home/ServicesSplit").then((m) => m.ServicesSplit),
   { loading: () => <SkeletonSection h={600} /> },
 );
+const RedesignTeaser = dynamic(
+  () =>
+    import("@/components/home/RedesignTeaser").then((m) => m.RedesignTeaser),
+  { loading: () => <SkeletonSection h={0} /> },
+);
 const HomeCases = dynamic(
   () => import("@/components/home/HomeCases").then((m) => m.HomeCases),
   { loading: () => <SkeletonSection h={700} /> },
@@ -59,6 +64,8 @@ export default function HomePage() {
       <FAQSchema items={faqItems.map((f) => ({ q: f.q, a: f.a }))} />
       <Hero />
       <ServicesSplit />
+      {/* übernahme-hook · zweiter einstieg für die "schon eine seite?"-persona */}
+      <RedesignTeaser />
       <SplitStatement />
       {/* referenzen-teaser · der cursor-follower-index, top 3 ·
           kein scroll-jacking mehr */}

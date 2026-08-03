@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { referenzen, type Referenz } from "@/data/referenzen";
 import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
@@ -86,7 +85,6 @@ export function WebShowcase() {
   return (
     <section className="relative py-20 md:py-28">
       <div className="container-site">
-        <SectionLabel num="06">{t.sectionLabel}</SectionLabel>
 
         <div className="flex items-start justify-between mt-4 mb-10">
           <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">

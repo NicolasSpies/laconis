@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { PageHero } from "@/components/shared/PageHero";
 import { BrandSystemHero } from "@/components/leistungen/branding/BrandSystemHero";
 import { BrandDesk } from "@/components/leistungen/branding/BrandDesk";
@@ -7,6 +6,7 @@ import { BrandingBento } from "@/components/leistungen/branding/BrandingBento";
 import { BrandVsAlternatives } from "@/components/leistungen/branding/BrandVsAlternatives";
 import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
 import { SectionGhost } from "@/components/shared/SectionGhost";
+import { LimeCta } from "@/components/shared/LimeCta";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
 import { FAQSchema } from "@/components/seo/FAQSchema";
@@ -75,7 +75,7 @@ const DICT: Record<Locale, Dict> = {
     breakHonest: "und mal ehrlich ↓",
     breakFAQ: "bevor du fragst ↓",
     ansatzLinkLabel: "wie ich arbeite",
-    ansatzLinkBody: "vier skizzen vom ersten gespräch bis zur übergabe · und was ich bewusst nicht mache.",
+    ansatzLinkBody: "vier schritte vom ersten gespräch bis zur übergabe · ohne blackbox.",
     ansatzLinkCta: "ansatz ansehen →",
     preiseLinkLabel: "was es kostet",
     preiseLinkBody: "ehrliche faustregeln statt paket-tabelle · damit du weißt woran du bist.",
@@ -119,7 +119,7 @@ const DICT: Record<Locale, Dict> = {
     breakHonest: "et franchement ↓",
     breakFAQ: "avant que tu demandes ↓",
     ansatzLinkLabel: "comment je travaille",
-    ansatzLinkBody: "quatre croquis de la première discussion à la livraison · et ce que je ne fais volontairement pas.",
+    ansatzLinkBody: "quatre étapes de la première discussion à la livraison · sans boîte noire.",
     ansatzLinkCta: "voir l'approche →",
     preiseLinkLabel: "ce que ça coûte",
     preiseLinkBody: "des règles honnêtes plutôt qu'une grille forfaitaire · pour que tu saches à quoi t'en tenir.",
@@ -163,7 +163,7 @@ const DICT: Record<Locale, Dict> = {
     breakHonest: "honestly ↓",
     breakFAQ: "before you ask ↓",
     ansatzLinkLabel: "how i work",
-    ansatzLinkBody: "four sketches from first conversation to handover · and what i deliberately don't do.",
+    ansatzLinkBody: "four steps from first conversation to handover · no black box.",
     ansatzLinkCta: "see approach →",
     preiseLinkLabel: "what it costs",
     preiseLinkBody: "honest rules of thumb instead of a package grid · so you know where you stand.",
@@ -224,21 +224,22 @@ export default function Page() {
         visual={<BrandSystemHero />}
       />
 
-      <BrandDesk num="02" />
+      <BrandDesk />
       <ScribbleBreak text={t.breakLook} rotate={-1} />
       {/* outline-ghost · typo als layout-element */}
       <SectionGhost word={t.ghostPakete} side="left" />
-      <BrandingBento num="03" />
+      <BrandingBento />
 
       <ScribbleBreak text={t.breakHonest} rotate={0.8} />
-      <BrandVsAlternatives num="05" />
+      <BrandVsAlternatives />
 
       {/* VERTIEFUNGS-LINKS · text-rows · GLEICHES pattern wie /leistungen/web */}
       <section className="pt-16 md:pt-24 pb-20">
         <div className="container-site">
           <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-[1100px] border-t-2 border-[#0a0a0a]/15">
             <Link
-              href={buildPath("ansatz", locale)}
+              href={`${buildPath("leistungen/web", locale)}#ablauf`}
+              scroll={false}
               className="group block py-8 border-b-2 border-[#0a0a0a]/15 md:border-b-0 md:border-r-2"
             >
               <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
@@ -273,7 +274,6 @@ export default function Page() {
         <div className="container-site">
           <div className="grid md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)] gap-10 md:gap-16 items-start">
             <div className="md:sticky md:top-28">
-              <SectionLabel num="08">{t.faqLabel}</SectionLabel>
               <h2 className="heading-display mt-4 text-[clamp(2rem,4.5vw,3rem)] text-offwhite leading-[1.05]">
                 {t.faqH2}
               </h2>
@@ -297,53 +297,23 @@ export default function Page() {
         </div>
       </section>
 
-      {/* CTA · dark slab · lila als akzent statt fläche (brand-regel) */}
-      <section className="relative py-24 md:py-32 overflow-hidden bg-[#0a0a0a]">
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-[0.1] pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at center, rgba(242,242,242,0.5) 1px, transparent 1.4px)",
-            backgroundSize: "26px 26px",
-          }}
-        />
-        <div className="container-site relative">
-          <p
-            className="font-mono text-[11px] uppercase tracking-label text-[#b084d3] mb-6"
-            style={{ transform: "rotate(-0.5deg)" }}
-          >
-            {t.ctaMarginalia}
-          </p>
-          <h2 className="text-[clamp(2rem,5.5vw,4rem)] leading-[1] font-black tracking-[-0.035em] text-[#f2f2f2] lowercase max-w-[820px]">
+      {/* CTA · sitewide lime-flood sign-off (war dark slab) */}
+      <LimeCta
+        ariaLabel={t.ctaH2pre}
+        kicker={t.ctaMarginalia}
+        h2={
+          <>
             {t.ctaH2pre}
             <span className="opacity-55">{t.ctaH2post}</span>
-          </h2>
-          <p className="mt-8 max-w-[560px] text-[15px] leading-relaxed text-[#f2f2f2]/75">
-            {t.ctaBody}
-          </p>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <Link
-              href={buildPath("kontakt", locale)}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#e1fd52] text-[#0a0a0a] hover:bg-[#d4f03e] transition-colors"
-            >
-              {t.ctaPrimary}
-            </Link>
-            <Link
-              href={buildPath("referenzen", locale)}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#b084d3] text-[#f2f2f2] hover:bg-[#b084d3] hover:text-[#0a0a0a] transition-colors"
-            >
-              {t.ctaSecondary}
-            </Link>
-          </div>
-          <p
-            className="mt-10 text-[16px] text-[#b084d3]"
-            style={{ fontFamily: "var(--font-caveat), cursive", transform: "rotate(-1deg)" }}
-          >
-            {t.ctaSignature}
-          </p>
-        </div>
-      </section>
+          </>
+        }
+        body={t.ctaBody}
+        primaryLabel={t.ctaPrimary}
+        primaryHref={buildPath("kontakt", locale)}
+        secondaryLabel={t.ctaSecondary}
+        secondaryHref={buildPath("referenzen", locale)}
+        signature={t.ctaSignature}
+      />
     </>
   );
 }

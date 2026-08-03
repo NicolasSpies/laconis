@@ -56,9 +56,20 @@ export function SplitStatement() {
 
   return (
     <section
-      className="relative py-24 md:py-32 lg:py-40 text-[#0a0a0a] overflow-hidden"
+      className="relative py-24 md:py-32 lg:py-40 text-[#0a0a0a] overflow-hidden bg-[#b084d3]"
       aria-label={t.kicker}
     >
+      {/* ink dot-grid auf lila · der lila-moment im seiten-rhythmus */}
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-[0.12] pointer-events-none"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at center, rgba(10,10,10,0.6) 1px, transparent 1.5px)",
+          backgroundSize: "26px 26px",
+        }}
+      />
+
       <div className="container-site relative flex flex-col items-center text-center">
         {/* GooeyText cycling · zentriert, DM Sans black, dark text.
             container ist auf längste phrase fixed damit kein layout-jump. */}

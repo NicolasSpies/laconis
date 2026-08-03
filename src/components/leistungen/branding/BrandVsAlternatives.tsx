@@ -1,6 +1,5 @@
 "use client";
 
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { useLocale, pick } from "@/i18n/useLocale";
 import type { Locale } from "@/i18n/config";
 
@@ -74,16 +73,17 @@ const DICT: Record<Locale, Dict> = {
   },
 };
 
-export function BrandVsAlternatives({
-  num = "06",
-}: { num?: string } = {}) {
+export function BrandVsAlternatives() {
   const locale = useLocale();
   const t = pick(DICT, locale);
   /* dark slab statt glass-card-zwilling der web-version (phase 4b) ·
      branding-page spricht dark+lila, web-page bleibt light+lime ·
      gleicher ehrlicher content, zwei inszenierungen */
   return (
-    <section className="relative py-24 md:py-28 overflow-hidden bg-[#0a0a0a] text-[#f2f2f2]">
+    <section
+      data-theme="dark"
+      className="relative py-24 md:py-32 overflow-hidden bg-[#0a0a0a] text-[#f2f2f2]"
+    >
       {/* zarter dot-grid wie auf den CTA-slabs */}
       <div
         aria-hidden
@@ -96,7 +96,6 @@ export function BrandVsAlternatives({
       />
       <div className="container-site relative">
         <div className="max-w-[820px]">
-          <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(2rem,5vw,3.5rem)] text-[#f2f2f2] leading-[1.05]">
             {t.h2pre}
             <span className="text-[#b084d3]">{t.h2italic}</span>
@@ -137,6 +136,9 @@ export function BrandVsAlternatives({
                   </span>
                   <div>
                     <p className="text-[14px] text-[#f2f2f2]/90 font-medium leading-snug">
+                      <span aria-hidden className="text-[#b084d3] mr-2">
+                        ✕
+                      </span>
                       {u.punkt}
                     </p>
                     <p className="mt-1.5 text-[13px] leading-relaxed text-[#f2f2f2]/50">

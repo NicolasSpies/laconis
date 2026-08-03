@@ -1,5 +1,6 @@
 import { PageHero } from "@/components/shared/PageHero";
 import { KontaktMultistep } from "@/components/kontakt/KontaktMultistep";
+import { StatusCard } from "@/components/kontakt/StatusCard";
 import { CONTACT } from "@/config/contact";
 import { getMeta } from "@/lib/seo/getMeta";
 import { getLocale } from "@/i18n/getLocale";
@@ -116,15 +117,13 @@ export default function Page() {
         line2={t.heroL2 || undefined}
         italicAccent={t.heroItalic || undefined}
         sub={t.heroBody}
+        visual={<StatusCard />}
       />
 
       {/* DIREKT · text-rows · gleiches pattern wie home-ContactBlock ·
           EIN block für alle wege, keine doppelten karten */}
       <section className="pb-16">
         <div className="container-site">
-          <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
-            · {t.directLabel}
-          </p>
           <div className="mt-6 grid sm:grid-cols-3 gap-x-10 border-t-2 border-[#0a0a0a]/15 max-w-[1000px]">
             <a
               href={`mailto:${CONTACT.email}`}
@@ -187,9 +186,6 @@ export default function Page() {
       >
         <div className="container-site relative">
           <div className="max-w-[820px]">
-            <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
-              · {t.formLabel}
-            </p>
             <h2 className="mt-4 text-[clamp(2rem,5.5vw,3.5rem)] leading-[1.0] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase">
               {t.formHeadlinePre}
               <span className="opacity-50">{t.formHeadlineAccent}</span>

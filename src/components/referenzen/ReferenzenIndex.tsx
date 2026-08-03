@@ -189,7 +189,8 @@ export function ReferenzenIndex({
                 }}
               >
                 <Link
-                  href={`${buildPath("referenzen", locale)}/${r.slug}`}
+                  /* TEMPORÄR · alle referenzen → fabry-detailseite (siehe [slug]/page.tsx) */
+                  href={`${buildPath("referenzen", locale)}/fabry-baumpflege`}
                   onPointerEnter={() => setActiveSlug(r.slug)}
                   className={cn(
                     "group relative flex items-baseline md:items-center gap-4 md:gap-8 py-7 md:py-9",

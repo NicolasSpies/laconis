@@ -1,6 +1,5 @@
 "use client";
 
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { useLocale, pick } from "@/i18n/useLocale";
 import type { Locale } from "@/i18n/config";
 
@@ -161,7 +160,7 @@ const DICT: Record<Locale, Dict> = {
   },
 };
 
-export function ContentCoreDeepDive({ num = "07" }: { num?: string } = {}) {
+export function ContentCoreDeepDive() {
   const locale = useLocale();
   const t = pick(DICT, locale);
 
@@ -169,7 +168,6 @@ export function ContentCoreDeepDive({ num = "07" }: { num?: string } = {}) {
     <section className="py-20 md:py-24">
       <div className="container-site">
         <div className="max-w-[760px]">
-          <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(2rem,5vw,3.25rem)] text-offwhite leading-[1.05]">
             {t.h2pre} <span className="text-offwhite/45">{t.h2post}</span>
           </h2>

@@ -1,4 +1,3 @@
-import { SectionLabel } from "@/components/ui/SectionLabel";
 
 /**
  * Zahlungsoptionen — drei modelle, transparent gelistet. plus hosting-hinweis
@@ -57,7 +56,6 @@ export function Zahlungsoptionen() {
     <section className="pb-28">
       <div className="container-site">
         <div className="max-w-[820px]">
-          <SectionLabel num="05">zahlung</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.75rem)] text-offwhite leading-[1.05]">
             so kannst du zahlen.{" "}
             <span className="text-offwhite/35">

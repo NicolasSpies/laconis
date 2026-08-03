@@ -1,19 +1,27 @@
 import Link from "next/link";
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { PageHero } from "@/components/shared/PageHero";
 import { GrundrauschHero } from "@/components/leistungen/web/GrundrauschHero";
 import { WebApproaches } from "@/components/leistungen/web/WebApproaches";
+import { WebAblauf } from "@/components/leistungen/web/WebAblauf";
+import { WebUebernahme } from "@/components/leistungen/web/WebUebernahme";
 import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
 import { SectionGhost } from "@/components/shared/SectionGhost";
+import { LimeCta } from "@/components/shared/LimeCta";
 import { WebDeliverables } from "@/components/leistungen/web/WebDeliverables";
 import { WebVsAlternatives } from "@/components/leistungen/web/WebVsAlternatives";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
 import { FAQSchema } from "@/components/seo/FAQSchema";
+import { HowToSchema } from "@/components/seo/HowToSchema";
+import { WEB_ABLAUF } from "@/data/web-ablauf";
 import { getMeta } from "@/lib/seo/getMeta";
 import { getLocale } from "@/i18n/getLocale";
 import { buildPath, type Locale } from "@/i18n/config";
 import type { Metadata } from "next";
+
+/* TODO · noch einzubauen: CMS-showcase (aufbewahrt in
+   docs/leistungen-web-future-sections.md). die „vier schritte"-section
+   ist seit juni 2026 drin (WebAblauf · umgezogen von /ansatz). */
 
 const BASE = "https://laconis.be";
 
@@ -34,8 +42,8 @@ type Dict = {
   ghostAblauf: string;
   techLinkLabel: string;
   techLinkBody: string;
-  ansatzLinkLabel: string;
-  ansatzLinkBody: string;
+  refsLinkLabel: string;
+  refsLinkBody: string;
   breakHonest: string;
   breakFAQ: string;
   ctaMarginalia: string;
@@ -65,8 +73,8 @@ const DICT: Record<Locale, Dict> = {
     ghostAblauf: "ablauf",
     techLinkLabel: "für die techniker",
     techLinkBody: "hosting, cms-architektur, contentcore vs wordpress.",
-    ansatzLinkLabel: "wie ich arbeite",
-    ansatzLinkBody: "vier schritte, keine blackbox · und was ich nicht mache.",
+    refsLinkLabel: "meine arbeiten",
+    refsLinkBody: "ausgewählte projekte · was am ende wirklich rauskommt.",
     breakHonest: "und mal ehrlich ↓",
     breakFAQ: "bevor du fragst ↓",
     ctaMarginalia: "kurz & ehrlich ↘",
@@ -105,8 +113,8 @@ const DICT: Record<Locale, Dict> = {
     ghostAblauf: "déroulé",
     techLinkLabel: "pour les tech",
     techLinkBody: "hébergement, architecture cms, contentcore vs wordpress.",
-    ansatzLinkLabel: "comment je travaille",
-    ansatzLinkBody: "quatre étapes, pas de boîte noire · et ce que je ne fais pas.",
+    refsLinkLabel: "mes travaux",
+    refsLinkBody: "projets sélectionnés · ce qui sort vraiment à la fin.",
     breakHonest: "et franchement ↓",
     breakFAQ: "avant que tu demandes ↓",
     ctaMarginalia: "court & honnête ↘",
@@ -145,8 +153,8 @@ const DICT: Record<Locale, Dict> = {
     ghostAblauf: "process",
     techLinkLabel: "for the technical folks",
     techLinkBody: "hosting, cms architecture, contentcore vs wordpress.",
-    ansatzLinkLabel: "how i work",
-    ansatzLinkBody: "four steps, no black box · and what i don't do.",
+    refsLinkLabel: "my work",
+    refsLinkBody: "selected projects · what actually comes out in the end.",
     breakHonest: "honestly ↓",
     breakFAQ: "before you ask ↓",
     ctaMarginalia: "short & honest ↘",
@@ -180,6 +188,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function Page() {
   const locale = getLocale();
   const t = DICT[locale];
+  const ablauf = WEB_ABLAUF[locale];
 
   return (
     <>
@@ -191,6 +200,12 @@ export default function Page() {
       />
       <ServiceSchema services={t.services} />
       <FAQSchema items={t.faq.map((f) => ({ q: f.frage, a: f.antwort }))} />
+      <HowToSchema
+        name={ablauf.howToName}
+        description={ablauf.howToDescription}
+        totalTime="P6W"
+        steps={ablauf.steps}
+      />
 
       {/* HERO · grey im stil home */}
       <PageHero
@@ -208,19 +223,29 @@ export default function Page() {
         visual={<GrundrauschHero />}
       />
 
+      {/* rhythmus wie branding: content direkt nach hero, break+ghost
+          ZWISCHEN den zwei sektionen statt davor */}
+      <WebApproaches />
+
+      {/* ABLAUF · die 4 projekt-schritte (umgezogen von /ansatz) ·
+          anker-ziel der home-bento-kachel "vier schritte" */}
+      <WebAblauf />
+
+      {/* übernahme-pfad · der redesign-ablauf, direkt neben "neu von null" */}
+      <WebUebernahme />
+
       <ScribbleBreak text={t.breakHow} rotate={-1} />
 
       {/* outline-ghost · typo als layout-element, bewusst angeschnitten */}
       <SectionGhost word={t.ghostAblauf} side="right" />
 
-      <WebApproaches num="02" />
-      <WebDeliverables num="03" />
+      <WebDeliverables />
 
       <ScribbleBreak text={t.breakHonest} rotate={0.8} />
-      <WebVsAlternatives num="05" />
+      <WebVsAlternatives />
 
-      {/* VERTIEFUNGS-LINKS · clean text-links statt glass cards */}
-      <section className="pb-20">
+      {/* VERTIEFUNGS-LINKS · text-rows · GLEICHES pattern wie branding */}
+      <section className="pt-16 md:pt-24 pb-20">
         <div className="container-site">
           <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-[1100px] border-t-2 border-[#0a0a0a]/15">
             <Link
@@ -236,14 +261,14 @@ export default function Page() {
               </p>
             </Link>
             <Link
-              href={buildPath("ansatz", locale)}
+              href={buildPath("referenzen", locale)}
               className="group block py-8"
             >
               <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
-                {t.ansatzLinkLabel}
+                {t.refsLinkLabel}
               </span>
               <p className="mt-2 text-[18px] md:text-[20px] text-[#0a0a0a] font-medium tracking-[-0.01em] group-hover:text-[#0a0a0a] transition-colors flex items-center gap-2">
-                {t.ansatzLinkBody}
+                {t.refsLinkBody}
                 <span className="font-mono text-[14px] text-[#0a0a0a]/45 group-hover:text-[#0a0a0a] group-hover:translate-x-1 transition-all">→</span>
               </p>
             </Link>
@@ -258,7 +283,6 @@ export default function Page() {
         <div className="container-site">
           <div className="grid md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)] gap-10 md:gap-16 items-start">
             <div className="md:sticky md:top-28">
-              <SectionLabel num="08">{t.faqLabel}</SectionLabel>
               <h2 className="heading-display mt-4 text-[clamp(2rem,4.5vw,3rem)] text-offwhite leading-[1.05]">
                 {t.faqH2}
               </h2>
@@ -282,55 +306,19 @@ export default function Page() {
         </div>
       </section>
 
-      {/* CTA · dark slab · GLEICHES pattern wie branding + preise */}
-      <section
+      {/* CTA · sitewide lime-flood sign-off (war dark slab) */}
+      <LimeCta
         id="kontakt"
-        className="relative py-24 md:py-32 overflow-hidden bg-[#0a0a0a]"
-      >
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-[0.1] pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at center, rgba(242,242,242,0.5) 1px, transparent 1.4px)",
-            backgroundSize: "26px 26px",
-          }}
-        />
-        <div className="container-site relative">
-          <p
-            className="font-mono text-[11px] uppercase tracking-label text-[#b084d3] mb-6"
-            style={{ transform: "rotate(-0.5deg)" }}
-          >
-            {t.ctaMarginalia}
-          </p>
-          <h2 className="text-[clamp(2rem,5.5vw,4rem)] leading-[1] font-black tracking-[-0.035em] text-[#f2f2f2] lowercase max-w-[820px]">
-            {t.ctaH2}
-          </h2>
-          <p className="mt-8 max-w-[560px] text-[15px] leading-relaxed text-[#f2f2f2]/75">
-            {t.ctaBody}
-          </p>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <Link
-              href={buildPath("kontakt", locale)}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#e1fd52] text-[#0a0a0a] hover:bg-[#d4f03e] transition-colors"
-            >
-              {t.ctaPrimary}
-            </Link>
-            <Link
-              href={buildPath("preise", locale)}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#b084d3] text-[#f2f2f2] hover:bg-[#b084d3] hover:text-[#0a0a0a] transition-colors"
-            >
-              {t.ctaSecondary}
-            </Link>
-          </div>
-          <p
-            className="mt-10 text-[16px] text-[#b084d3]"
-            style={{ fontFamily: "var(--font-caveat), cursive", transform: "rotate(-1deg)" }}
-          >
-            {t.ctaSignature}
-          </p>
-        </div>
-      </section>
+        ariaLabel={t.ctaH2}
+        kicker={t.ctaMarginalia}
+        h2={t.ctaH2}
+        body={t.ctaBody}
+        primaryLabel={t.ctaPrimary}
+        primaryHref={buildPath("kontakt", locale)}
+        secondaryLabel={t.ctaSecondary}
+        secondaryHref={buildPath("preise", locale)}
+        signature={t.ctaSignature}
+      />
     </>
   );
 }

@@ -41,10 +41,7 @@ export function HomeCases() {
       />
 
       <div className="container-site relative">
-        <p className="font-mono text-[10px] uppercase tracking-label text-[#b084d3]">
-          · {t.label}
-        </p>
-      </div>
+        </div>
 
       <div className="relative">
         <ReferenzenIndex limit={3} tone="dark" />

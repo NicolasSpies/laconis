@@ -1,6 +1,7 @@
-import Link from "next/link";
 import { PageHero } from "@/components/shared/PageHero";
-import { GreySection } from "@/components/shared/GreySection";
+import { EstimateCard } from "@/components/preise/EstimateCard";
+import { NichtListe } from "@/components/preise/NichtListe";
+import { LimeCta } from "@/components/shared/LimeCta";
 import { TiltCard } from "@/components/shared/TiltCard";
 import { PriceCard } from "@/components/preise/PriceCard";
 import { PreisExplorer } from "@/components/preise/PreisExplorer";
@@ -214,17 +215,17 @@ export default function Page() {
         line2={t.heroL2}
         italicAccent={t.heroItalic}
         sub={t.intro}
+        visual={<EstimateCard />}
       />
 
       {/* outline-ghost · typo als layout-element */}
       <SectionGhost word={t.ghostWord} side="right" />
 
       {/* RICHTWERTE · 3 tilt-cards mit animierten preis-countern */}
-      <GreySection tint="lime">
+      {/* RICHTWERTE · plain papier (war fake-grey) · luft */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <div className="container-site relative">
         <div className="max-w-[820px]">
-          <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
-            · {t.numbersLabel}
-          </p>
           <h2 className="mt-4 text-[clamp(2rem,6vw,4rem)] leading-[0.95] font-black tracking-[-0.04em] text-[#0a0a0a] lowercase">
             {t.numbersHeadline}
           </h2>
@@ -259,20 +260,21 @@ export default function Page() {
             preset="dark"
           />
         </div>
-      </GreySection>
+        </div>
+      </section>
 
-      {/* PreisExplorer · interaktiv */}
-      <GreySection tone="grey">
-        <PreisExplorer />
-      </GreySection>
+      {/* PreisExplorer · interaktiv · plain papier */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <div className="container-site relative">
+          <PreisExplorer />
+        </div>
+      </section>
 
-      {/* FAKTOREN · sticky linke seite + ol rechts · gleicher pattern wie alt aber neu styled */}
-      <GreySection tone="grey" tint="lila">
+      {/* FAKTOREN · plain papier (war fake-grey) */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <div className="container-site relative">
         <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-12 lg:gap-20">
           <div className="lg:sticky lg:top-32 lg:self-start">
-            <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
-              · {t.factorsLabel}
-            </p>
             <h2 className="mt-4 text-[clamp(1.75rem,4.5vw,3rem)] leading-[1.05] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase">
               {t.factorsHeadlinePre}
               <span className="opacity-50">{t.factorsHeadlinePost}</span>
@@ -313,15 +315,14 @@ export default function Page() {
             ))}
           </ol>
         </div>
-      </GreySection>
+        </div>
+      </section>
 
 
-      {/* FAQ */}
-      <GreySection tone="grey">
+      {/* FAQ · plain papier (war fake-grey) */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <div className="container-site relative">
         <div className="max-w-[820px]">
-          <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
-            · {t.faqLabel}
-          </p>
           <h2 className="mt-4 text-[clamp(2rem,5.5vw,3.5rem)] leading-[1.0] font-black tracking-[-0.04em] text-[#0a0a0a] lowercase">
             {t.faqHeadline}
           </h2>
@@ -344,52 +345,29 @@ export default function Page() {
             </details>
           ))}
         </div>
-      </GreySection>
-
-      {/* CTA · dark slab · lila als akzent statt fläche (brand-regel) */}
-      <section
-        className="relative py-24 md:py-32 overflow-hidden bg-[#0a0a0a]"
-        aria-label={t.ctaHeadlinePre}
-      >
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-[0.1] pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at center, rgba(242,242,242,0.5) 1px, transparent 1.4px)",
-            backgroundSize: "26px 26px",
-          }}
-        />
-        <div className="container-site relative">
-          <p
-            className="font-mono text-[11px] uppercase tracking-label text-[#b084d3] mb-6"
-            style={{ transform: "rotate(-0.5deg)" }}
-          >
-            {t.ctaHand}
-          </p>
-          <h2 className="text-[clamp(2rem,6vw,4.5rem)] leading-[0.95] font-black tracking-[-0.035em] text-[#f2f2f2] lowercase max-w-[820px]">
-            {t.ctaHeadlinePre}
-            <span className="opacity-55">{t.ctaHeadlinePost}</span>
-          </h2>
-          <p className="mt-8 max-w-[560px] text-[15px] leading-relaxed text-[#f2f2f2]/75">
-            {t.ctaBody}
-          </p>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <Link
-              href={`${buildPath("kontakt", locale)}#projekt`}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#e1fd52] text-[#0a0a0a] hover:bg-[#d4f03e] transition-colors"
-            >
-              {t.ctaPrimary}
-            </Link>
-            <Link
-              href={buildPath("leistungen/web", locale)}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#b084d3] text-[#f2f2f2] hover:bg-[#b084d3] hover:text-[#0a0a0a] transition-colors"
-            >
-              {t.ctaSecondary}
-            </Link>
-          </div>
         </div>
       </section>
+
+      {/* NICHT-LISTE · dark room (umgezogen von /ansatz) · die ehrlichkeit
+          gehört neben die zahlen: "ein telefonat · klare zahl" */}
+      <NichtListe />
+
+      {/* CTA · sitewide lime-flood sign-off (war dark slab) */}
+      <LimeCta
+        ariaLabel={t.ctaHeadlinePre}
+        kicker={t.ctaHand}
+        h2={
+          <>
+            {t.ctaHeadlinePre}
+            <span className="opacity-55">{t.ctaHeadlinePost}</span>
+          </>
+        }
+        body={t.ctaBody}
+        primaryLabel={t.ctaPrimary}
+        primaryHref={`${buildPath("kontakt", locale)}#projekt`}
+        secondaryLabel={t.ctaSecondary}
+        secondaryHref={buildPath("leistungen/web", locale)}
+      />
     </>
   );
 }

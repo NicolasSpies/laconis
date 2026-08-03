@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import {
   DashboardMock,
   EditorMock,
@@ -66,16 +65,13 @@ const DICT: Record<Locale, Dict> = {
   },
 };
 
-export function ContentCoreSection({
-  num = "03",
-}: { num?: string } = {}) {
+export function ContentCoreSection() {
   const locale = useLocale();
   const t = pick(DICT, locale);
   return (
     <section className="pb-32">
       <div className="container-site">
         <div className="max-w-[760px]">
-          <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(2rem,5.5vw,3.75rem)] text-offwhite">
             {t.h2pre}
             <span className="text-offwhite/35">{t.h2post}</span>

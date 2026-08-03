@@ -1,7 +1,9 @@
-import Link from "next/link";
 import { PageHero } from "@/components/shared/PageHero";
 import { GreySection } from "@/components/shared/GreySection";
+import { LimeCta } from "@/components/shared/LimeCta";
 import { Werdegang } from "@/components/ueber-mich/Werdegang";
+import { PortraitCard } from "@/components/ueber-mich/PortraitCard";
+import { BrandValues } from "@/components/ueber-mich/BrandValues";
 import { Button } from "@/components/ui/Button";
 import { getMeta } from "@/lib/seo/getMeta";
 import { getLocale } from "@/i18n/getLocale";
@@ -25,6 +27,8 @@ type Dict = {
   ctaHero: string;
   quote: string;
   quoteFrom: string;
+  /** das eine wort der these, das im dark-room lime + lila-unterstrich kriegt */
+  quoteHighlight: string;
   werdegangLabel: string;
   werdegangH2: string;
   werdegang: WerdegangItem[];
@@ -40,12 +44,13 @@ const DICT: Record<Locale, Dict> = {
     heroL1: "ein mensch.",
     heroL2: "kein team.",
     heroItalic: "persönlich.",
-    bio: "Nicolas Spies, 29. designer und web-developer seit 2019 · seit 2026 vollzeit als laconis. ich bau marken und websites, die sich nach den leuten anfühlen, die dahinterstehen.",
+    bio: "Nicolas Spies, 29. designer und web-developer seit 2019 · seit 2026 vollzeit als laconis. ich bau websites, die sich nach den leuten anfühlen, die dahinterstehen.",
     ps: "p.s. lakonisch · knapp gesagt, viel gemeint. daher der name.",
     tags: ["designer", "web-developer", "DE · FR · EN", "remote · überall"],
     ctaHero: "sag hallo →",
     quote: "die besten brands kommen nicht von agenturen mit 40 leuten. sie kommen von einer person, die zuhört.",
     quoteFrom: "— meine arbeitsthese",
+    quoteHighlight: "zuhört",
     werdegangLabel: "werdegang",
     werdegangH2: "in kürze · keine drei-seiten-bio.",
     werdegang: [
@@ -65,12 +70,13 @@ const DICT: Record<Locale, Dict> = {
     heroL1: "un humain.",
     heroL2: "pas une équipe.",
     heroItalic: "personnellement.",
-    bio: "Nicolas Spies, 29 ans. designer et développeur web depuis 2019 · à plein temps sous laconis depuis 2026. je construis des marques et des sites qui ressemblent aux gens qui sont derrière.",
+    bio: "Nicolas Spies, 29 ans. designer et développeur web depuis 2019 · à plein temps sous laconis depuis 2026. je construis des sites qui ressemblent aux gens qui sont derrière.",
     ps: "p.s. laconique · peu de mots, beaucoup de sens. d'où le nom.",
     tags: ["designer", "développeur web", "DE · FR · EN", "remote · partout"],
     ctaHero: "dis bonjour →",
     quote: "les meilleures marques ne viennent pas d'agences à 40 personnes. elles viennent d'une personne qui écoute.",
     quoteFrom: "— ma thèse de travail",
+    quoteHighlight: "écoute",
     werdegangLabel: "parcours",
     werdegangH2: "en bref · pas une bio de trois pages.",
     werdegang: [
@@ -90,12 +96,13 @@ const DICT: Record<Locale, Dict> = {
     heroL1: "one person.",
     heroL2: "not a team.",
     heroItalic: "personally.",
-    bio: "Nicolas Spies, 29. designer and web developer since 2019 · full-time as laconis since 2026. i build brands and websites that feel like the people behind them.",
+    bio: "Nicolas Spies, 29. designer and web developer since 2019 · full-time as laconis since 2026. i build websites that feel like the people behind them.",
     ps: "p.s. laconic · few words, much meaning. hence the name.",
     tags: ["designer", "web developer", "DE · FR · EN", "remote · everywhere"],
     ctaHero: "say hi →",
     quote: "the best brands don't come from 40-person agencies. they come from one person who listens.",
     quoteFrom: "— my working thesis",
+    quoteHighlight: "listens",
     werdegangLabel: "path",
     werdegangH2: "in short · not a three-page bio.",
     werdegang: [
@@ -115,10 +122,12 @@ const DICT: Record<Locale, Dict> = {
 export default function Page() {
   const locale = getLocale();
   const t = DICT[locale];
+  /* these-quote für den dark-room splitten · ein wort wird lime + lila-strich */
+  const [qpre, qpost = ""] = t.quote.split(t.quoteHighlight);
 
   return (
     <>
-      {/* HERO · grey · big personal headline + portrait card right */}
+      {/* HERO · grey · big personal headline */}
       <PageHero
         kicker={t.kicker}
         line1={t.heroL1}
@@ -142,6 +151,8 @@ export default function Page() {
             </span>
           </>
         }
+        visual={<PortraitCard />}
+        visualInteractive
       >
         <div className="flex flex-wrap gap-2 mb-7">
           {t.tags.map((tag) => (
@@ -163,68 +174,65 @@ export default function Page() {
         </Button>
       </PageHero>
 
-      {/* Big serif quote-block · personal statement */}
-      <GreySection tint="lila">
+      {/* THESE · dark-room · die persönliche arbeitsthese (früh, nach hero).
+          ein wort lime + lila-unterstrich · quote in offwhite */}
+      <GreySection tone="dark">
         <div className="max-w-[1100px]">
-          <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
-            · these
-          </span>
           <p
-            className="mt-6 text-[clamp(2rem,5.5vw,4.5rem)] leading-[1.05] text-[#0a0a0a]"
+            className="mt-6 text-[clamp(2rem,5.5vw,4.5rem)] leading-[1.05] text-[#f2f2f2]"
             style={{
               fontFamily: "var(--font-caveat), cursive",
               fontWeight: 400,
               letterSpacing: "-0.015em",
             }}
           >
-            „{t.quote}"
+            „{qpre}
+            <span
+              style={{
+                color: "#e1fd52",
+                textDecoration: "underline",
+                textDecorationColor: "#b084d3",
+                textDecorationThickness: "3px",
+                textUnderlineOffset: "0.1em",
+              }}
+            >
+              {t.quoteHighlight}
+            </span>
+            {qpost}"
           </p>
-          <p className="mt-8 font-mono text-[11px] uppercase tracking-label text-[#0a0a0a]/55">
+          <p className="mt-8 font-mono text-[11px] uppercase tracking-label text-[#f2f2f2]/55">
             {t.quoteFrom}
           </p>
         </div>
       </GreySection>
 
+      {/* HALTUNG · 4-wort-anker tief·klar·ruhig·dein (umgezogen von /ansatz ·
+          haltung gehört zur person) */}
+      <BrandValues />
 
-      {/* WERDEGANG · scroll-fill timeline · lila fillt sich von oben nach unten */}
-      <GreySection tone="grey">
-        <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
-          · {t.werdegangLabel}
-        </p>
-        <h2 className="mt-4 text-[clamp(2rem,5vw,3.75rem)] leading-[1] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase max-w-[720px]">
-          {t.werdegangH2}
-        </h2>
-
-        <div className="mt-14">
-          <Werdegang items={t.werdegang} />
-        </div>
-      </GreySection>
-
-      {/* CTA · closing */}
-      <GreySection tone="grey">
-        <div className="text-center max-w-[820px] mx-auto">
-          <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] leading-[1] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase">
-            {t.finalH2}
+      {/* WERDEGANG · plain papier (war fake-grey) */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <div className="container-site relative">
+          <h2 className="mt-4 text-[clamp(2rem,5vw,3.75rem)] leading-[1] font-black tracking-[-0.035em] text-[#0a0a0a] lowercase max-w-[720px]">
+            {t.werdegangH2}
           </h2>
-          <p className="mt-5 max-w-[480px] mx-auto text-[14px] leading-relaxed text-[#0a0a0a]/75">
-            {t.finalBody}
-          </p>
-          <div className="mt-10 flex justify-center gap-3 flex-wrap">
-            <Link
-              href={buildPath("kontakt", locale)}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#0a0a0a] text-[#e1fd52] hover:bg-[#1a1a1a] transition-colors"
-            >
-              {t.finalPrimary}
-            </Link>
-            <Link
-              href={buildPath("referenzen", locale)}
-              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full border-2 border-[#b084d3] text-[#0a0a0a] hover:bg-[#b084d3] hover:text-[#0a0a0a] transition-colors"
-            >
-              {t.finalSecondary}
-            </Link>
+
+          <div className="mt-14">
+            <Werdegang items={t.werdegang} />
           </div>
         </div>
-      </GreySection>
+      </section>
+
+      {/* CTA · sitewide lime-flood sign-off (war grey) */}
+      <LimeCta
+        ariaLabel={t.finalH2}
+        h2={t.finalH2}
+        body={t.finalBody}
+        primaryLabel={t.finalPrimary}
+        primaryHref={buildPath("kontakt", locale)}
+        secondaryLabel={t.finalSecondary}
+        secondaryHref={buildPath("referenzen", locale)}
+      />
     </>
   );
 }

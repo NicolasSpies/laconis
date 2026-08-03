@@ -25,6 +25,7 @@ const DICT: Record<
     chips: { label: string; value: string }[];
     ctaPrimary: string;
     ctaSecondary: string;
+    signature: string;
     footerLeft: string;
     footerRight: string;
   }
@@ -41,6 +42,7 @@ const DICT: Record<
     ],
     ctaPrimary: "projekt starten →",
     ctaSecondary: "preise ansehen",
+    signature: "freu mich · nicolas",
     footerLeft: "· laconis · solo studio · eupen · 2026 ·",
     footerRight: "DE · FR · EN",
   },
@@ -56,6 +58,7 @@ const DICT: Record<
     ],
     ctaPrimary: "démarrer un projet →",
     ctaSecondary: "voir les prix",
+    signature: "au plaisir · nicolas",
     footerLeft: "· laconis · solo studio · eupen · 2026 ·",
     footerRight: "DE · FR · EN",
   },
@@ -71,6 +74,7 @@ const DICT: Record<
     ],
     ctaPrimary: "start a project →",
     ctaSecondary: "see pricing",
+    signature: "looking forward · nicolas",
     footerLeft: "· laconis · solo studio · eupen · 2026 ·",
     footerRight: "DE · FR · EN",
   },
@@ -82,18 +86,9 @@ export function ContactBlock() {
 
   return (
     <section
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative py-24 md:py-32 overflow-hidden bg-[#e1fd52]"
       aria-label={t.h1}
     >
-      {/* subtle lime tint */}
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(225,253,82,0.18) 0%, transparent 70%)",
-        }}
-      />
       {/* dot-grid */}
       <div
         aria-hidden
@@ -142,6 +137,10 @@ export function ContactBlock() {
           >
             {t.ctaSecondary}
           </Link>
+        </div>
+
+        <div className="mt-10 font-hand text-[22px] md:text-[26px] text-[#0a0a0a]/70 -rotate-1">
+          {t.signature}
         </div>
 
       </div>

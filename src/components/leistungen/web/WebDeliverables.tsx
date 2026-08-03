@@ -1,6 +1,5 @@
 "use client";
 
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
@@ -155,15 +154,14 @@ const SLAB_STYLES: SlabStyle[] = [
   },
 ];
 
-export function WebDeliverables({ num = "05" }: { num?: string } = {}) {
+export function WebDeliverables() {
   const locale = useLocale();
   const t = pick(DICT, locale);
 
   return (
-    <section className="relative py-12 md:py-16 overflow-hidden">
+    <section className="relative py-20 md:py-28 overflow-hidden">
       <div className="container-site">
         <div className="max-w-[760px]">
-          <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(2rem,5vw,3.5rem)] text-offwhite leading-[1.05]">
             {t.h2pre}{" "}
             <span className="text-offwhite/45">{t.h2post}</span>

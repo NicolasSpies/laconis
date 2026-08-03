@@ -623,10 +623,10 @@ function Step1({
               onClick={() => onChange(id)}
               aria-pressed={active}
               className={[
-                "text-left rounded-xl p-5 border-2 transition-all",
+                "text-left rounded-xl p-5 border-2 transition-all hover:-translate-y-0.5",
                 active
                   ? "border-[#0a0a0a] bg-[#e1fd52]/25 shadow-[0_12px_32px_-16px_rgba(10,10,10,0.25)]"
-                  : "border-[#0a0a0a]/20 bg-transparent hover:border-[#0a0a0a]/55",
+                  : "border-[#0a0a0a]/15 bg-[#0a0a0a]/[0.02] hover:border-[#0a0a0a]/45 hover:bg-[#0a0a0a]/[0.04] hover:shadow-[0_10px_28px_-18px_rgba(10,10,10,0.3)]",
               ].join(" ")}
             >
               <div className="flex items-baseline justify-between gap-3">

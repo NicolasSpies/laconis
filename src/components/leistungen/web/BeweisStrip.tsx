@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { useLocale, pick } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
 
@@ -128,7 +127,7 @@ function BeweisZeile({ c, tilt, note, liveCta }: { c: Case; tilt: string; note?:
   );
 }
 
-export function BeweisStrip({ num = "04" }: { num?: string } = {}) {
+export function BeweisStrip() {
   const locale = useLocale();
   const t = pick(DICT, locale);
 
@@ -147,7 +146,6 @@ export function BeweisStrip({ num = "04" }: { num?: string } = {}) {
     <section className="pb-28 md:pb-32">
       <div className="container-site">
         <div className="max-w-[780px]">
-          <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(1.75rem,4.5vw,3rem)] text-offwhite leading-[1.05]">
             {t.h2pre}{" "}
             <span className="text-offwhite/35">{t.h2post}</span>

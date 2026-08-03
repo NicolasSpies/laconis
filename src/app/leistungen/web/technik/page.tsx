@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ScribbleBreak } from "@/components/shared/ScribbleBreak";
 import { SectionGhost } from "@/components/shared/SectionGhost";
 import { ContentCoreSection } from "@/components/leistungen/web/ContentCoreSection";
@@ -155,7 +154,6 @@ export default function Page() {
       {/* HERO · gestrafft · sprungmarken raus (page ist kurz genug) */}
       <section className="pb-16">
         <div className="container-site">
-          <SectionLabel num="01">{t.sectionLabel}</SectionLabel>
           <div className="mt-8 max-w-[920px]">
             <h1 className="heading-display text-[clamp(2.5rem,7vw,5rem)] text-offwhite leading-[1.02]">
               {t.h1pre}
@@ -169,21 +167,20 @@ export default function Page() {
       </section>
 
       {/* BEWEIS · echte scores · stärkster content zuerst */}
-      <BeweisStrip num="02" />
+      <BeweisStrip />
 
       {/* CONTENTCORE · dashboard-mockup */}
-      <ContentCoreSection num="03" />
+      <ContentCoreSection />
 
       {/* outline-ghost + feature-rows (v2 · kein card-friedhof) */}
       <SectionGhost word={t.ghost} side="right" />
-      <ContentCoreDeepDive num="04" />
+      <ContentCoreDeepDive />
 
       {/* HOSTING · kompakte fakten-rows statt 588-zeilen-monster */}
       <section className="py-16 md:py-20">
         <div className="container-site">
           <div className="grid md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)] gap-10 md:gap-16 items-start">
             <div className="md:sticky md:top-28">
-              <SectionLabel num="05">{t.hostingLabel}</SectionLabel>
               <h2 className="heading-display mt-4 text-[clamp(1.75rem,4.5vw,2.75rem)] text-offwhite leading-[1.05]">
                 {t.hostingH2}
               </h2>
@@ -221,7 +218,7 @@ export default function Page() {
       <ScribbleBreak text={t.breakVergleich} rotate={-0.8} />
 
       {/* VERGLEICH · tabelle (gestrafft · schichten-cards raus) */}
-      <ContentCoreVsWordpress num="06" />
+      <ContentCoreVsWordpress />
 
       {/* CTA · dark slab · gleiches pattern wie alle service-pages */}
       <section className="relative py-24 md:py-32 overflow-hidden bg-[#0a0a0a]">

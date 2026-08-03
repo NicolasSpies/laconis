@@ -1,6 +1,5 @@
 "use client";
 
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { useLocale, pick } from "@/i18n/useLocale";
 import type { Locale } from "@/i18n/config";
 
@@ -74,17 +73,29 @@ const DICT: Record<Locale, Dict> = {
   },
 };
 
-export function WebVsAlternatives({ num = "04" }: { num?: string } = {}) {
+export function WebVsAlternatives() {
   const locale = useLocale();
   const t = pick(DICT, locale);
   return (
-    <section className="pb-32 overflow-hidden">
-      <div className="container-site">
+    <section
+      data-theme="dark"
+      className="relative py-24 md:py-32 overflow-hidden bg-[#0a0a0a] text-[#f2f2f2]"
+    >
+      {/* inverted dot-grid · helle punkte auf dunkel (dark room) */}
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-[0.08] pointer-events-none"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at center, rgba(242,242,242,0.5) 1px, transparent 1.4px)",
+          backgroundSize: "26px 26px",
+        }}
+      />
+      <div className="container-site relative">
         <div className="max-w-[820px]">
-          <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
-          <h2 className="heading-display mt-4 text-[clamp(2rem,5vw,3.5rem)] text-offwhite leading-[1.05]">
+          <h2 className="heading-display mt-4 text-[clamp(2rem,5vw,3.5rem)] text-[#f2f2f2] leading-[1.05]">
             {t.h2pre}
-            <span className="font-hand text-accent-ink">{t.h2italic}</span>
+            <span className="text-[#b084d3]">{t.h2italic}</span>
             {t.h2post}
           </h2>
         </div>
@@ -92,52 +103,51 @@ export function WebVsAlternatives({ num = "04" }: { num?: string } = {}) {
         <div className="mt-14 grid md:grid-cols-[1fr_1.2fr] gap-10 md:gap-16 items-start">
           <div>
             <p
-              className="font-hand text-[22px] md:text-[26px] text-offwhite/50 leading-tight"
+              className="font-hand text-[22px] md:text-[26px] text-[#b084d3] leading-tight"
               style={{ transform: "rotate(-1deg)" }}
             >
               {t.manchmalNicht}
             </p>
-            <p className="mt-5 text-[15px] leading-relaxed text-offwhite/55 max-w-[400px]">
+            <p className="mt-5 text-[15px] leading-relaxed text-[#f2f2f2]/60 max-w-[400px]">
               {t.leftBody1}
             </p>
-            <p className="mt-4 text-[15px] leading-relaxed text-offwhite/55 max-w-[400px]">
+            <p className="mt-4 text-[15px] leading-relaxed text-[#f2f2f2]/60 max-w-[400px]">
               {t.leftBody2}
             </p>
           </div>
 
+          {/* offene liste statt glass-card · dark slab IST der rahmen (wie branding) */}
           <div className="relative">
-            <div
-              className="glass rounded-2xl p-7 md:p-9"
-              style={{ transform: "rotate(0.4deg)" }}
-            >
-              <p className="font-mono text-[10px] uppercase tracking-label text-accent-ink/70">
-                {t.rightLabel}
-              </p>
-              <p className="mt-3 heading-display text-[clamp(1.5rem,3vw,2.1rem)] text-offwhite leading-[1.08]">
-                {t.rightH3}
-              </p>
+            <p className="font-mono text-[10px] uppercase tracking-label text-[#b084d3]">
+              {t.rightLabel}
+            </p>
+            <p className="mt-3 heading-display text-[clamp(1.5rem,3vw,2.1rem)] text-[#f2f2f2] leading-[1.08]">
+              {t.rightH3}
+            </p>
 
-              <div className="mt-8 space-y-6 border-t border-ink/20 pt-6">
-                {t.unterschiede.map((u) => (
-                  <div key={u.num} className="grid grid-cols-[28px_1fr] gap-3">
-                    <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/30 pt-1">
-                      {u.num}
-                    </span>
-                    <div>
-                      <p className="text-[14px] text-offwhite/85 font-medium leading-snug">
-                        {u.punkt}
-                      </p>
-                      <p className="mt-1.5 text-[13px] leading-relaxed text-offwhite/45">
-                        {u.detail}
-                      </p>
-                    </div>
+            <div className="mt-8 space-y-7 border-t border-[#f2f2f2]/15 pt-7">
+              {t.unterschiede.map((u) => (
+                <div key={u.num} className="grid grid-cols-[28px_1fr] gap-3">
+                  <span className="font-mono text-[9px] uppercase tracking-label text-[#b084d3]/70 pt-1">
+                    {u.num}
+                  </span>
+                  <div>
+                    <p className="text-[14px] text-[#f2f2f2]/90 font-medium leading-snug">
+                      <span aria-hidden className="text-[#b084d3] mr-2">
+                        ✕
+                      </span>
+                      {u.punkt}
+                    </p>
+                    <p className="mt-1.5 text-[13px] leading-relaxed text-[#f2f2f2]/50">
+                      {u.detail}
+                    </p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
 
             <p
-              className="mt-5 font-hand text-[19px] text-offwhite/35 text-right"
+              className="mt-6 font-hand text-[19px] text-[#f2f2f2]/40 text-right"
               style={{ transform: "rotate(-1.5deg)" }}
             >
               {t.marginNote}

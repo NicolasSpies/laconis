@@ -3,7 +3,6 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Kassenzettel } from "./Kassenzettel";
 import { track } from "@/lib/analytics";
 import {
@@ -432,7 +431,6 @@ function Inner() {
 
       {/* ─────────── RECHTS · kassenzettel (sticky) ─────────── */}
       <div className="lg:sticky lg:top-28">
-        <SectionLabel>dein bon · live</SectionLabel>
 
         <div className="mt-4">
           <Kassenzettel

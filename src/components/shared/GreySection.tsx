@@ -1,19 +1,22 @@
 import type { ReactNode } from "react";
 
 /**
- * GreySection · einheitliche grey (#c8c8c8) section mit subtilem dot-grid.
- * matched dem hero-look damit cursor-morph konsistent durchs ganze layout glüht.
+ * GreySection · section-wrapper mit dot-grid.
  *
- * usage:
- *   <GreySection>...content...</GreySection>
- *   <GreySection tone="dark">...</GreySection>  // #0a0a0a für proof/contrast
- *   <GreySection tint="lime">...</GreySection>  // mit lime radial-tint
- *   <GreySection tint="lila">...</GreySection>  // mit lila radial-tint
+ * tonaler umbau (juni 2026): tone="grey" raus — es renderte exakt den
+ * body-hintergrund (--bg) und täuschte nur struktur vor. helle sektionen
+ * laufen jetzt als plain <section> auf papier. übrig bleiben:
+ *
+ *   tone="paper" (default) · #f2f2f2 · echter subtiler card-unterschied
+ *   tone="dark"  · #0a0a0a · ein "dark room" (data-theme-flip → tokens
+ *                  offwhite/accent-ink kippen automatisch auf hell/lime)
+ *
+ * tints (lime/lila radial) bleiben als akzent erlaubt.
  */
 
 type Props = {
   children: ReactNode;
-  tone?: "grey" | "dark" | "paper";
+  tone?: "dark" | "paper";
   tint?: "lime" | "lila" | null;
   className?: string;
   id?: string;
@@ -21,14 +24,13 @@ type Props = {
 };
 
 const TONES = {
-  grey: { bg: "rgb(var(--bg))", fg: "#0a0a0a", dot: "rgba(20,20,20,0.55)" },
   dark: { bg: "#0a0a0a", fg: "#f2f2f2", dot: "rgba(255,255,255,0.18)" },
   paper: { bg: "#f2f2f2", fg: "#0a0a0a", dot: "rgba(20,20,20,0.4)" },
 } as const;
 
 export function GreySection({
   children,
-  tone = "grey",
+  tone = "paper",
   tint = null,
   className = "",
   id,
@@ -39,6 +41,7 @@ export function GreySection({
   return (
     <section
       id={id}
+      data-theme={tone === "dark" ? "dark" : undefined}
       aria-label={rest["aria-label"]}
       className={`relative py-20 md:py-28 overflow-hidden ${className}`}
       style={{ background: t.bg, color: t.fg }}

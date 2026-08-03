@@ -31,9 +31,6 @@ export function HomeFAQ() {
           className="grid md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)] gap-10 md:gap-16 items-start"
         >
           <div className="md:sticky md:top-28">
-            <p className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-              · {t.label}
-            </p>
             <h2 className="heading-display mt-4 text-[clamp(1.75rem,4.5vw,2.75rem)] text-offwhite leading-[1.05]">
               {t.headline}
             </h2>

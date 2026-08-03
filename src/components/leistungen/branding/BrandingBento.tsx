@@ -1,6 +1,5 @@
 "use client";
 
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { useLocale, pick } from "@/i18n/useLocale";
 import type { Locale } from "@/i18n/config";
 
@@ -155,7 +154,7 @@ const DICT: Record<Locale, Dict> = {
 
 const LILA = "#b084d3";
 
-export function BrandingBento({ num = "04" }: { num?: string } = {}) {
+export function BrandingBento() {
   const locale = useLocale();
   const t = pick(DICT, locale);
 
@@ -163,7 +162,6 @@ export function BrandingBento({ num = "04" }: { num?: string } = {}) {
     <section className="pt-10 md:pt-14 pb-16 md:pb-20 overflow-hidden">
       <div className="container-site">
         <div className="max-w-[760px]">
-          <SectionLabel num={num}>{t.sectionLabel}</SectionLabel>
           <h2 className="heading-display mt-4 text-[clamp(2rem,5vw,3.5rem)] text-offwhite leading-[1.05]">
             {t.h2pre} <span className="text-offwhite/45">{t.h2post}</span>
           </h2>

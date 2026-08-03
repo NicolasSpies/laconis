@@ -35,7 +35,7 @@ type Dict = {
 
 const DICT: Record<Locale, Dict> = {
   de: {
-    kicker: "webdesign & branding studio · ostbelgien",
+    kicker: "webdesign studio · ostbelgien",
     line1: "design",
     line2: "mit meinung.",
     line3prefix: "web mit ",
@@ -44,7 +44,7 @@ const DICT: Record<Locale, Dict> = {
     cta: "projekt starten →",
   },
   fr: {
-    kicker: "studio webdesign & branding · cantons de l'est",
+    kicker: "studio webdesign · cantons de l'est",
     line1: "design",
     line2: "avec opinion.",
     line3prefix: "web avec ",
@@ -53,7 +53,7 @@ const DICT: Record<Locale, Dict> = {
     cta: "démarrer un projet →",
   },
   en: {
-    kicker: "webdesign & branding studio · east belgium",
+    kicker: "webdesign studio · east belgium",
     line1: "design",
     line2: "with opinion.",
     line3prefix: "web with ",
@@ -264,6 +264,7 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
+      data-no-reveal
       className="relative min-h-[100svh] flex items-center overflow-hidden"
     >
       {/* atmospheric grid · subtle texture · fadet aus */}

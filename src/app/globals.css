@@ -761,6 +761,53 @@ body.scribble-mode h2::after {
   }
 }
 
+/* horizontale wort-marquee · services web-block (zwei kopien → nahtlos) */
+@keyframes marqueeX {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes marqueeXReverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* vorher/nachher-regler (home) · idle-nudge am griff + oldschool-blink
+   im 2014-layer · beides compositor-only, stoppt bei reduced-motion */
+@keyframes vnNudge {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) translateX(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateX(8px);
+  }
+}
+@keyframes vnBlink {
+  50% {
+    opacity: 0;
+  }
+}
+.vn-idle {
+  animation: vnNudge 1.5s ease-in-out infinite;
+}
+.vn-blink {
+  animation: vnBlink 1.1s steps(1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vn-idle,
+  .vn-blink {
+    animation: none;
+  }
+}
+
 @media (pointer: coarse) {
   /* touch-geräte → kein cursor-/hover-scribble */
   body.scribble-mode a:not([role="tab"]):hover,

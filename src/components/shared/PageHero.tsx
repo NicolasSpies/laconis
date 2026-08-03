@@ -36,6 +36,8 @@ type Props = {
   sub?: ReactNode;
   /** rechtes side-visual · desktop-only */
   visual?: ReactNode;
+  /** visual darf pointer-events empfangen (draggable cards o.ä.) */
+  visualInteractive?: boolean;
   /** mehr padding-top falls hero im funnel weiter unten sitzt */
   paddedTop?: boolean;
   children?: ReactNode;
@@ -48,11 +50,15 @@ export function PageHero({
   italicAccent,
   sub,
   visual,
+  visualInteractive = false,
   paddedTop = false,
   children,
 }: Props) {
   return (
     <section
+      /* eigene framer-entrance · AutoReveal aus (v2-typo macht den hero
+         teils >100vh → würde im wash hängen, wie damals der home-hero) */
+      data-no-reveal
       className={`relative ${paddedTop ? "pt-36 md:pt-44" : "pt-32 md:pt-36"} pb-20 md:pb-28 text-[#0a0a0a] overflow-hidden`}
     >
       {/* atmospheric dot-grid – gleicher tone wie homepage SplitStatement */}
@@ -67,8 +73,22 @@ export function PageHero({
       />
 
       <div className="container-site relative">
-        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,0.7fr)] gap-10 items-center">
-          <div>
+        {/* v2 · ebenen statt zwei-spalter: visual liegt HINTER der headline
+            (z-0), die riesige typo überlappt die karte · tiefe statt raster */}
+        <div className={`relative ${visual ? "md:min-h-[440px]" : ""}`}>
+          {visual && (
+            <motion.div
+              aria-hidden={visualInteractive ? undefined : true}
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.1, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className={`hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-[46%] z-0 select-none ${visualInteractive ? "" : "pointer-events-none"}`}
+            >
+              {visual}
+            </motion.div>
+          )}
+
+          <div className="relative z-10 md:max-w-[74%]">
             {kicker && (
               <motion.p
                 initial={{ opacity: 0, y: 8 }}
@@ -84,7 +104,7 @@ export function PageHero({
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[clamp(2.6rem,9vw,8rem)] leading-[0.92] tracking-[-0.04em] font-black text-[#0a0a0a]"
+              className="text-[clamp(2.8rem,10.5vw,9.5rem)] leading-[0.9] tracking-[-0.045em] font-black text-[#0a0a0a]"
               style={{ textTransform: "lowercase" }}
             >
               <span className="block">{line1}</span>
@@ -169,18 +189,6 @@ export function PageHero({
               </motion.div>
             )}
           </div>
-
-          {visual && (
-            <motion.div
-              aria-hidden
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1.2, delay: 0.5 }}
-              className="hidden md:flex items-center justify-center pointer-events-none select-none"
-            >
-              {visual}
-            </motion.div>
-          )}
         </div>
       </div>
     </section>
