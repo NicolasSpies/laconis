@@ -4,36 +4,30 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 /**
- * LabNav · die navigation als gerätefront.
+ * LabNav v2 · leise leiste, das ganze drama im menü.
  *
- * eine glas-schiene oben: geätztes logo links, beleuchtete tastenbank
- * mitte, sprach-wahlschalter + scharfe CTA-taste rechts. darunter eine
- * hairline die den scroll-fortschritt als lime-LED zeigt.
+ * v1 war eine volle gerätefront (tastenbank + wahlschalter + CTA) —
+ * zu viel. Regel: chrome bleibt still, die geräte-sprache ist den
+ * interaktions-momenten vorbehalten.
  *
- * der fortschrittsbalken läuft über NATIVES scroll-driven CSS
- * (animation-timeline: scroll()) — null javascript, läuft auf dem
- * compositor. seit 2026 baseline. fallback: bleibt einfach leer.
+ * geblieben: logo, burger, haarlinie mit scroll-fortschritt (natives
+ * scroll-driven CSS, 0 KB JS).
  *
- * struktur-entscheidung: "leistung" (singular) ist EIN ziel, keine
- * unterseite mehr — der ganze web-kram lebt dort.
- *
- * mobile: menü-taste öffnet ein vollflächiges panel mit großen tasten
- * (kein hover nötig · die aktive taste pulst von selbst).
+ * das menü ist der eine große moment: eine lime-linie fährt einmal
+ * durchs bild, dann klappen die einträge gestaffelt hoch. keine
+ * schrauben, keine LEDs — nur typo, licht und timing.
  */
 
 const ITEMS = [
-  { key: "leistung", label: "leistung" },
-  { key: "referenzen", label: "referenzen" },
-  { key: "preise", label: "preise" },
-  { key: "ueber", label: "über mich" },
+  { key: "leistung", label: "leistung", meta: "websites · cms · shop" },
+  { key: "referenzen", label: "referenzen", meta: "drei projekte" },
+  { key: "preise", label: "preise", meta: "richtwerte, ehrlich" },
+  { key: "ueber", label: "über mich", meta: "eine person, kein team" },
 ] as const;
 
-const LOCALES = ["de", "fr", "en"] as const;
-
 export function LabNav() {
-  const [active, setActive] = useState<string>("leistung");
-  const [loc, setLoc] = useState<string>("de");
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string>("leistung");
 
   useEffect(() => {
     if (!open) return;
@@ -50,112 +44,77 @@ export function LabNav() {
     <>
       <header className="lab-nav">
         <div className="lab-nav-inner">
-          {/* geätztes logo */}
           <span className="lab-nav-logo">
             lac<span style={{ color: "#e1fd52" }}>ø</span>nis
           </span>
 
-          {/* tastenbank · desktop */}
-          <nav className="lab-nav-keys" aria-label="hauptnavigation">
-            {ITEMS.map((it) => {
-              const on = active === it.key;
-              return (
-                <button
-                  key={it.key}
-                  type="button"
-                  onClick={() => setActive(it.key)}
-                  aria-current={on ? "page" : undefined}
-                  className="lab-navkey"
-                  data-on={on ? "1" : "0"}
-                >
-                  {/* status-LED · aktive taste pulst dauerhaft */}
-                  <span
-                    aria-hidden
-                    className={`lab-navkey-led ${on ? "lab-led-idle" : ""}`}
-                  />
-                  <span>{it.label}</span>
-                </button>
-              );
-            })}
-          </nav>
-
-          <div className="lab-nav-right">
-            {/* sprach-wahlschalter · drei rasten */}
-            <div className="lab-selector" role="group" aria-label="sprache">
-              {LOCALES.map((l) => (
-                <button
-                  key={l}
-                  type="button"
-                  onClick={() => setLoc(l)}
-                  aria-pressed={loc === l}
-                  className="lab-selector-pos"
-                  data-on={loc === l ? "1" : "0"}
-                >
-                  {l}
-                </button>
-              ))}
-            </div>
-
-            <button type="button" className="lab-cta-key">
-              projekt starten
-            </button>
-
-            {/* menü-taste · nur mobile */}
-            <button
-              type="button"
-              className="lab-menu-key"
-              aria-expanded={open}
-              aria-label="menü"
-              onClick={() => setOpen((v) => !v)}
-            >
-              <span data-bar="1" />
-              <span data-bar="2" />
-            </button>
-          </div>
+          <button
+            type="button"
+            className="lab-burger"
+            aria-expanded={open}
+            aria-label={open ? "menü schließen" : "menü öffnen"}
+            onClick={() => setOpen((v) => !v)}
+            data-open={open ? "1" : "0"}
+          >
+            <span aria-hidden />
+            <span aria-hidden />
+          </button>
         </div>
 
-        {/* scroll-fortschritt · natives scroll-driven CSS, 0 KB JS */}
+        {/* scroll-fortschritt · natives scroll-driven CSS */}
         <span className="lab-nav-progress" aria-hidden />
       </header>
 
-      {/* mobile-panel */}
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.22 }}
-            className="lab-menu-panel"
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className="lab-menu"
           >
-            <nav className="flex flex-col gap-3">
+            {/* die lime-linie fährt einmal durch */}
+            <span className="lab-menu-scan" aria-hidden />
+
+            <nav className="lab-menu-list" aria-label="hauptnavigation">
               {ITEMS.map((it, i) => {
                 const on = active === it.key;
                 return (
                   <motion.button
                     key={it.key}
                     type="button"
-                    initial={{ opacity: 0, y: 18 }}
+                    initial={{ opacity: 0, y: 34 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.05 + i * 0.06, duration: 0.4 }}
+                    transition={{
+                      delay: 0.14 + i * 0.07,
+                      duration: 0.62,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
                     onClick={() => {
                       setActive(it.key);
                       setOpen(false);
                     }}
-                    className="lab-menu-key-big"
+                    className="lab-menu-item"
                     data-on={on ? "1" : "0"}
                   >
-                    <span
-                      aria-hidden
-                      className={`lab-navkey-led ${on ? "lab-led-idle" : ""}`}
-                    />
-                    <span className="lab-display text-[clamp(2rem,11vw,3.4rem)]">
-                      {it.label}
-                    </span>
+                    <span className="lab-menu-idx">0{i + 1}</span>
+                    <span className="lab-display lab-menu-word">{it.label}</span>
+                    <span className="lab-menu-meta">{it.meta}</span>
                   </motion.button>
                 );
               })}
             </nav>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+              className="lab-menu-foot"
+            >
+              <span className="lab-label">de · fr · en</span>
+              <span className="lab-label">nicolas@laconis.be</span>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
