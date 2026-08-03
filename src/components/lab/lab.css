@@ -786,6 +786,134 @@
   }
 }
 
+/* ── SIGNALKETTE · der ablauf als signalweg ──────────────────── */
+
+.lab-chain {
+  position: relative;
+  padding-left: 34px;
+}
+
+/* die leitung */
+.lab-chain-line {
+  position: absolute;
+  left: 9px;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  border-radius: 2px;
+  background: rgba(242, 242, 242, 0.1);
+  overflow: hidden;
+}
+
+.lab-chain-fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: top;
+  background: linear-gradient(180deg, #b084d3, #e1fd52);
+  box-shadow: 0 0 12px rgba(225, 253, 82, 0.6);
+  will-change: transform;
+}
+
+.lab-chain-list {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.lab-chain-station {
+  position: relative;
+  display: flex;
+  gap: 18px;
+}
+
+/* der kontakt auf der leitung */
+.lab-chain-node {
+  position: absolute;
+  left: -32px;
+  top: 7px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #131313;
+  border: 2px solid rgba(242, 242, 242, 0.18);
+  transition: border-color 420ms ease, box-shadow 420ms ease, background 420ms ease;
+}
+
+.lab-chain-station[data-on="1"] .lab-chain-node {
+  background: #e1fd52;
+  border-color: #e1fd52;
+  box-shadow: 0 0 14px rgba(225, 253, 82, 0.85);
+}
+
+/* die EINE station die dem kunden gehört · lila statt lime */
+.lab-chain-station[data-du="1"][data-on="1"] .lab-chain-node {
+  background: #b084d3;
+  border-color: #b084d3;
+  box-shadow: 0 0 16px rgba(176, 132, 211, 0.9);
+}
+
+.lab-chain-body {
+  opacity: 0.42;
+  transform: translateY(4px);
+  transition: opacity 520ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lab-chain-station[data-on="1"] .lab-chain-body {
+  opacity: 1;
+  transform: none;
+}
+
+.lab-chain-nr {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: rgba(242, 242, 242, 0.32);
+}
+
+.lab-chain-title {
+  font-size: clamp(1.5rem, 3.4vw, 2.3rem);
+  line-height: 1;
+}
+
+/* auto/du · das kleine schild das den unterschied macht */
+.lab-chain-who {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(242, 242, 242, 0.16);
+  color: rgba(242, 242, 242, 0.42);
+  transition: all 420ms ease;
+}
+
+.lab-chain-station[data-on="1"] .lab-chain-who {
+  border-color: rgba(225, 253, 82, 0.4);
+  color: #e1fd52;
+}
+
+.lab-chain-station[data-du="1"][data-on="1"] .lab-chain-who {
+  border-color: #b084d3;
+  background: rgba(176, 132, 211, 0.16);
+  color: #d3b6e8;
+}
+
+.lab-chain-detail {
+  margin-top: 7px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  max-width: 460px;
+  color: rgba(242, 242, 242, 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-chain-body {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* prototyp: nav + footer der alten seite ausblenden, damit das gerät
    für sich steht (root-layout rendert sie global) */
 /* :not(.lab-nav) — sonst versteckt die regel die EIGENE geräte-nav mit,

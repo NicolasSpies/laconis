@@ -6,6 +6,7 @@ import { Fader, RockerSwitch, Readout } from "@/components/lab/Controls";
 import { ChannelRack } from "@/components/lab/ChannelRack";
 import { SendButton } from "@/components/lab/SendButton";
 import { LabNav } from "@/components/lab/LabNav";
+import { SignalChain } from "@/components/lab/SignalChain";
 import "./lab.css";
 
 /**
@@ -286,6 +287,23 @@ export function LabClient() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ═══ SIGNALKETTE · der übernahme-ablauf ═══ */}
+      <section data-no-reveal className="relative px-6 md:px-12 pb-32">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="mb-12 max-w-[620px]">
+            <h2 className="lab-display text-[clamp(2rem,5vw,3.6rem)]">
+              du hast schon eine seite?
+            </h2>
+            <p className="lab-hint mt-4 text-[13.5px] leading-relaxed">
+              Dann fängst du nicht bei null an. Fünf Stationen von deiner alten
+              Seite zur neuen — vier laufen automatisch bei mir, eine gehört
+              dir.
+            </p>
+          </div>
+          <SignalChain />
         </div>
       </section>
 
