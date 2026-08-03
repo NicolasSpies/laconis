@@ -1,0 +1,262 @@
+/**
+ * ueber.css · die tastenbank auf /ueber-mich.
+ *
+ * das prinzip sind alte radio-stationstasten: du drückst eine, die
+ * vorher gedrückte springt hoch. genau dieses aufploppen ist der
+ * moment · deshalb hat der übergang einen überschwinger und keinen
+ * sauberen ease-out.
+ *
+ * jede taste ist eine frage, die leute einem einzelkämpfer wirklich
+ * stellen. die antwort tippt sich oben ins fenster. eine seite, auf der
+ * jemand über sich schreibt, wird dadurch zu einem gespräch.
+ *
+ * baut auf lab.css auf. prefix .ub-.
+ */
+
+/* ── das antwortfenster ─────────────────────────────── */
+
+.ub-display {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  padding: clamp(20px, 3vw, 34px);
+  min-height: clamp(180px, 24vw, 230px);
+  background: linear-gradient(168deg, #101408 0%, #0a0b09 60%, #08080a 100%);
+  box-shadow:
+    inset 0 3px 10px rgba(0, 0, 0, 0.95),
+    inset 0 -1px 0 rgba(242, 242, 242, 0.08),
+    inset 0 0 60px rgba(225, 253, 82, 0.05);
+}
+
+/* zeilenraster wie auf einer röhre · sehr schwach, man sieht es
+   erst, wenn man draufschaut */
+.ub-display::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0 2px,
+    rgba(0, 0, 0, 0.22) 2px 3px
+  );
+}
+
+/* glasreflex oben links · macht aus der fläche eine scheibe */
+.ub-display::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(152deg, rgba(255, 255, 255, 0.055) 0%, transparent 38%);
+}
+
+.ub-display-q {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(225, 253, 82, 0.75);
+}
+
+.ub-display-a {
+  position: relative;
+  z-index: 1;
+  margin-top: 16px;
+  /* alle antworten teilen sich EIN rasterfeld · die höhe richtet sich
+     nach der längsten, das fenster steht damit still */
+  display: grid;
+  font-size: clamp(0.98rem, 1.7vw, 1.22rem);
+  line-height: 1.62;
+  color: rgba(242, 242, 242, 0.88);
+  text-wrap: pretty;
+}
+
+.ub-display-a > * {
+  grid-area: 1 / 1;
+}
+.ub-a-ghost {
+  visibility: hidden;
+}
+
+.ub-caret {
+  display: inline-block;
+  width: 0.52em;
+  height: 1.05em;
+  margin-left: 0.1em;
+  vertical-align: -0.16em;
+  background: #e1fd52;
+  box-shadow: 0 0 10px rgba(225, 253, 82, 0.7);
+  animation: ubBlink 1100ms steps(1) infinite;
+}
+@keyframes ubBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ── die tastenbank ─────────────────────────────────── */
+
+.ub-keybank {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
+  gap: 10px;
+}
+
+.ub-key {
+  position: relative;
+  padding: 15px 14px 17px;
+  border-radius: 9px;
+  text-align: left;
+  color: rgba(242, 242, 242, 0.72);
+  background: linear-gradient(180deg, #2e2e37, #191920 72%, #14141a);
+  /* der 5px-sockel ist der tastenhub · beim drücken fällt er weg */
+  box-shadow:
+    inset 0 1px 0 rgba(242, 242, 242, 0.24),
+    inset 0 -6px 12px rgba(0, 0, 0, 0.45),
+    0 5px 0 #0b0b0e,
+    0 11px 18px -7px rgba(0, 0, 0, 0.92);
+  transform: translateY(0);
+  /* überschwinger · sonst gleitet die taste hoch statt zu springen */
+  transition:
+    transform 150ms cubic-bezier(0.3, 1.5, 0.5, 1),
+    box-shadow 150ms ease,
+    color 240ms ease;
+}
+.ub-key:hover {
+  color: rgba(242, 242, 242, 0.95);
+}
+.ub-key[data-on="1"] {
+  color: #e1fd52;
+  transform: translateY(5px);
+  box-shadow:
+    inset 0 2px 7px rgba(0, 0, 0, 0.7),
+    inset 0 0 16px rgba(225, 253, 82, 0.12),
+    0 0 0 #0b0b0e,
+    0 3px 20px -8px rgba(225, 253, 82, 0.6);
+}
+.ub-key:focus-visible {
+  outline: 2px solid #b084d3;
+  outline-offset: 4px;
+}
+
+.ub-key-label {
+  display: block;
+  font-size: 13px;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+}
+
+/* die lampe in der tastenkappe */
+.ub-key-led {
+  position: absolute;
+  right: 11px;
+  top: 11px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(242, 242, 242, 0.16);
+  transition: background 240ms ease, box-shadow 240ms ease;
+}
+.ub-key[data-on="1"] .ub-key-led {
+  background: #e1fd52;
+  box-shadow: 0 0 9px rgba(225, 253, 82, 0.9);
+}
+
+/* ── portrait im bildschirmrahmen ───────────────────── */
+
+.ub-portrait {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(168deg, #1c1c22, #0d0d11);
+  box-shadow:
+    inset 0 0 0 1px rgba(242, 242, 242, 0.09),
+    inset 0 2px 10px rgba(0, 0, 0, 0.7),
+    0 34px 70px -30px rgba(0, 0, 0, 0.95);
+}
+.ub-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* das monogramm, solange kein foto da liegt · bewusst kein
+   platzhalter-symbol, sondern ein zeichen */
+.ub-monogram {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: clamp(4rem, 11vw, 8rem);
+  line-height: 1;
+  color: rgba(242, 242, 242, 0.15);
+  letter-spacing: -0.05em;
+}
+
+/* der schein wandert langsam über die scheibe · läuft immer */
+.ub-portrait::after {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  pointer-events: none;
+  background: linear-gradient(
+    118deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.075) 48%,
+    transparent 58%
+  );
+  animation: ubGlare 9s ease-in-out infinite;
+}
+@keyframes ubGlare {
+  0%,
+  100% {
+    transform: translateX(-18%);
+  }
+  50% {
+    transform: translateX(18%);
+  }
+}
+
+/* ── werdegang · jahr als marke ─────────────────────── */
+
+.ub-year {
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  color: #e1fd52;
+  padding-top: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ub-key {
+    transition: none;
+  }
+  .ub-display-a > * {
+  grid-area: 1 / 1;
+}
+.ub-a-ghost {
+  visibility: hidden;
+}
+
+.ub-caret {
+    animation: none;
+  }
+  .ub-portrait::after {
+    animation: none;
+  }
+}
