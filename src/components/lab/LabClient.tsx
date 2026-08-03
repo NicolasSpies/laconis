@@ -5,6 +5,7 @@ import { ShaderField } from "@/components/lab/ShaderField";
 import { Fader, RockerSwitch, Readout } from "@/components/lab/Controls";
 import { ChannelRack } from "@/components/lab/ChannelRack";
 import { SendButton } from "@/components/lab/SendButton";
+import { LabNav } from "@/components/lab/LabNav";
 import "./lab.css";
 
 /**
@@ -87,6 +88,8 @@ export function LabClient() {
 
   return (
     <div className="lab-root" data-no-reveal>
+      <LabNav />
+
       {/* ═══ HERO · das gerät fährt hoch ═══ */}
       <section
         data-no-reveal
@@ -127,8 +130,8 @@ export function LabClient() {
             className="lab-boot mt-10 max-w-[440px] text-[15px] leading-relaxed"
             style={{ animationDelay: "320ms", color: "rgba(242,242,242,0.62)" }}
           >
-            von null gebaut · kein template, keine wordpress-grenzen. das hier
-            läuft auf einem shader, nicht auf einem plugin.
+            Von null gebaut · kein Template, keine WordPress-Grenzen. Das hier
+            läuft auf einem Shader, nicht auf einem Plugin.
           </p>
 
           {/* spec-leiste · wie ein typenschild */}
@@ -172,7 +175,7 @@ export function LabClient() {
               stell dir was zusammen.
             </h2>
             <span className="lab-hint max-w-[280px]">
-              richtwerte, keine offerte · damit du ein gefühl kriegst, was wohin
+              Richtwerte, keine Offerte · damit du ein Gefühl kriegst, was wohin
               treibt.
             </span>
           </div>
@@ -235,13 +238,13 @@ export function LabClient() {
                 <div className="flex flex-col gap-1 -mx-4">
                   <RockerSwitch
                     label="cms · selbst pflegen"
-                    hint="texte und bilder selbst ändern, ohne mich"
+                    hint="Texte und Bilder selbst ändern, ohne mich"
                     on={cms}
                     onToggle={() => setCms((v) => !v)}
                   />
                   <RockerSwitch
                     label="onlineshop"
-                    hint="produkte, warenkorb, stripe-checkout"
+                    hint="Produkte, Warenkorb, Stripe-Checkout"
                     on={shop}
                     onToggle={() => setShop((v) => !v)}
                   />
@@ -266,7 +269,7 @@ export function LabClient() {
                     style={{ background: "rgba(242,242,242,0.1)" }}
                   />
                   <p className="lab-hint mb-5">
-                    kein angebot · echtes angebot nach einem 30-min-gespräch.
+                    Kein Angebot · echtes Angebot nach einem 30-Min-Gespräch.
                   </p>
                   <button
                     type="button"
@@ -294,7 +297,7 @@ export function LabClient() {
               was schon läuft.
             </h2>
             <span className="lab-hint max-w-[280px]">
-              drei kanäle · fahr mit der maus drüber, dann geht der pegel hoch.
+              Drei Kanäle, alle live · fahr drüber, dann geht der Pegel auf Vollausschlag.
             </span>
           </div>
           <ChannelRack />
@@ -315,8 +318,8 @@ export function LabClient() {
                 erzähl mir, was du vorhast.
               </h2>
               <p className="lab-hint mt-4">
-                30 minuten, kein pitch-deck, kostet nichts · danach weißt du ob
-                wir zusammenpassen.
+                30 Minuten, kein Pitch-Deck, kostet nichts · danach weißt du, ob wir
+                zusammenpassen.
               </p>
             </div>
 
@@ -324,7 +327,7 @@ export function LabClient() {
           </div>
 
           <p className="lab-hint mt-8 text-center">
-            prototyp · nicht verlinkt, nicht indexiert
+            Prototyp · nicht verlinkt, nicht indexiert
           </p>
         </div>
       </section>

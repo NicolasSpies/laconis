@@ -73,9 +73,9 @@ export function SendButton({ onSend }: { onSend?: () => void }) {
             transition={{ duration: 0.22 }}
             className="lab-hint max-w-[220px]"
           >
-            {phase === "closed" && "kappe hochklappen, dann senden."}
-            {phase === "armed" && "scharf. jetzt drücken."}
-            {phase === "sent" && "raus damit · antwort in unter 2h."}
+            {phase === "closed" && "Kappe hochklappen, dann senden."}
+            {phase === "armed" && "Scharf. Jetzt drücken."}
+            {phase === "sent" && "Raus damit · Antwort in unter 2h."}
           </motion.p>
         </AnimatePresence>
       </div>

@@ -43,7 +43,11 @@ const CHANNELS = [
   },
 ];
 
-/** 12 segmente · gefüllt bis zum pegel, oberste zwei in lila (peak) */
+/**
+ * 12 segmente · gefüllt bis zum pegel, oberste zwei in lila (peak).
+ * pegel läuft IMMER (leises atmen), hover schaltet auf vollausschlag —
+ * hover-only wäre auf mobile unsichtbar.
+ */
 function VuMeter({ value, live }: { value: number; live: boolean }) {
   const segs = 12;
   const filled = Math.round((value / 100) * segs);
@@ -142,13 +146,16 @@ export function ChannelRack() {
 
               {/* tag-LEDs + jahr */}
               <div className="flex items-center gap-4 pt-1">
-                {c.tags.map((t) => (
+                {c.tags.map((t, i) => (
                   <span key={t} className="flex items-center gap-1.5">
+                    {/* glimmt dauerhaft (auch ohne hover/mobile), zündet
+                        bei live voll durch · versetzte delays = "leben" */}
                     <span
-                      className="w-1.5 h-1.5 rounded-full transition-all duration-300"
+                      className="w-1.5 h-1.5 rounded-full transition-all duration-300 lab-led-idle"
                       style={{
-                        background: live ? "#e1fd52" : "rgba(242,242,242,0.22)",
-                        boxShadow: live ? "0 0 8px #e1fd52" : "none",
+                        background: live ? "#e1fd52" : "rgba(225,253,82,0.42)",
+                        boxShadow: live ? "0 0 8px #e1fd52" : "0 0 5px rgba(225,253,82,0.35)",
+                        animationDelay: `${i * 700}ms`,
                       }}
                     />
                     <span className="lab-label">{t}</span>
