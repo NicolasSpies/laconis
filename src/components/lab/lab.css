@@ -28,7 +28,8 @@
 
 /* ── typografie ──────────────────────────────────────────────── */
 
-.lab-display {
+.lab-display,
+.dv-display {
   font-family: var(--font-lab), system-ui, sans-serif;
   font-stretch: 125%; /* expanded · das industrielle */
   font-weight: 800;
@@ -82,8 +83,8 @@
      reines weiss-alpha auf dunkel liest IMMER als billiges grau. */
   background:
     radial-gradient(130% 100% at 50% -15%, rgba(225, 253, 82, 0.055), transparent 58%),
-    radial-gradient(90% 120% at 12% 110%, rgba(176, 132, 211, 0.10), transparent 62%),
-    linear-gradient(180deg, #14121a 0%, #0b0b0e 100%);
+    radial-gradient(90% 120% at 12% 110%, rgba(176, 132, 211, 0.035), transparent 62%),
+    linear-gradient(180deg, #17161b 0%, #0e0e11 100%);
   border: 1px solid rgba(242, 242, 242, 0.07);
   border-radius: 20px;
   box-shadow:
@@ -112,9 +113,9 @@
   /* leicht getöntes glas · lila-kühle unten, lime-wärme oben */
   background: linear-gradient(
     172deg,
-    rgba(225, 253, 82, 0.055) 0%,
-    rgba(242, 242, 242, 0.022) 42%,
-    rgba(176, 132, 211, 0.07) 100%
+    rgba(225, 253, 82, 0.045) 0%,
+    rgba(242, 242, 242, 0.03) 42%,
+    rgba(176, 132, 211, 0.022) 100%
   );
   backdrop-filter: blur(20px) saturate(185%);
   -webkit-backdrop-filter: blur(20px) saturate(185%);
@@ -790,145 +791,137 @@
   }
 }
 
-/* ── SIGNALKETTE · horizontal ────────────────────────────────
-   v1 war eine linke spalte mit toter fläche rechts. Jetzt quer über
-   die volle breite, stationen vertikal versetzt (--off) damit es
-   nicht wie eine tabelle wirkt. */
+/* ── SIGNALKETTE v3 · sticky horizontal-scroll ───────────────
+   sektion ist hoch, innen klebt eine bildschirm-hohe bühne. beim
+   runterscrollen fährt die kette seitlich durch. knoten und schiene
+   liegen auf DERSELBEN absoluten y-linie → sitzen immer exakt drauf,
+   auf jeder bildschirmgrösse. */
 
-.lab-hchain {
+.dv-chain {
   position: relative;
-  padding: 74px 0 40px;
+  height: 320vh; /* scroll-weg für den seitlichen durchlauf */
 }
 
-/* die leitung · quer auf höhe der knoten */
-.lab-hchain-rail {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 74px;
+.dv-chain-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dv-chain-head {
+  padding: 0 clamp(22px, 5vw, 64px);
+  max-width: 720px;
+  margin-bottom: clamp(40px, 7vh, 80px);
+}
+
+.dv-chain-h2 {
+  font-size: clamp(2rem, 5.4vw, 4rem);
+}
+
+.dv-chain-sub {
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(242, 242, 242, 0.5);
+  max-width: 480px;
+}
+
+/* schiene · liegt auf exakt der y-höhe wie die knoten (beide top:0
+   in ihrem jeweiligen container, der auf gleicher linie sitzt) */
+.dv-chain-railwrap {
+  position: relative;
+  height: 0;
+  padding: 0 clamp(22px, 5vw, 64px);
+}
+
+.dv-chain-rail {
+  position: relative;
   height: 2px;
   border-radius: 2px;
-  background: rgba(242, 242, 242, 0.09);
-  display: none;
+  background: rgba(242, 242, 242, 0.1);
+  overflow: hidden;
 }
 
-.lab-hchain-fill {
+.dv-chain-fill {
   position: absolute;
   inset: 0;
   transform-origin: left;
-  background: linear-gradient(90deg, rgba(176, 132, 211, 0.9), #e1fd52);
-  box-shadow: 0 0 14px rgba(225, 253, 82, 0.5);
+  background: linear-gradient(90deg, rgba(176, 132, 211, 0.85), #e1fd52);
+  box-shadow: 0 0 16px rgba(225, 253, 82, 0.45);
   will-change: transform;
 }
 
-/* impuls-punkt reitet auf der spitze der füllung */
-.lab-hchain-pulse {
-  position: absolute;
-  top: 50%;
-  width: 7px;
-  height: 7px;
-  margin-left: -3.5px;
-  border-radius: 50%;
-  translate: 0 -50%;
-  background: #e1fd52;
-  box-shadow: 0 0 16px #e1fd52, 0 0 32px rgba(225, 253, 82, 0.6);
-  transition: opacity 300ms ease;
-  will-change: left;
-}
-
-.lab-hchain-list {
+.dv-chain-track {
   display: flex;
-  flex-direction: column;
-  gap: 26px;
+  gap: clamp(22px, 3vw, 46px);
+  padding: 0 clamp(22px, 5vw, 64px);
+  will-change: transform;
+  /* startet auf der schienen-höhe · knoten sitzen bei top:-5px */
+  margin-top: 0;
 }
 
-@media (min-width: 900px) {
-  .lab-hchain-rail {
-    display: block;
-  }
-  .lab-hchain-list {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 20px;
-  }
-  .lab-hchain-station {
-    flex: 1 1 0;
-    /* versatz bricht die tabellen-optik */
-    padding-top: var(--off, 0px);
-  }
-}
-
-.lab-hchain-station {
+.dv-chain-station {
   position: relative;
-  min-width: 0;
+  flex: 0 0 auto;
+  width: clamp(230px, 26vw, 320px);
+  padding-top: 34px;
 }
 
-/* der kontakt auf der leitung */
-.lab-hchain-node {
+/* der knoten · sitzt auf der schiene (schiene ist 2px, knoten 12px
+   → -5px hebt ihn exakt mittig auf die linie) */
+.dv-chain-node {
   position: absolute;
   left: 0;
-  top: calc(var(--off, 0px) * -1 - 5px);
+  top: -5px;
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #101010;
-  border: 2px solid rgba(242, 242, 242, 0.16);
-  transition: border-color 420ms ease, box-shadow 420ms ease, background 420ms ease;
-  display: none;
+  background: #0e0e11;
+  border: 2px solid rgba(242, 242, 242, 0.2);
+  transition: background 380ms ease, border-color 380ms ease, box-shadow 380ms ease;
 }
 
-@media (min-width: 900px) {
-  .lab-hchain-node {
-    display: block;
-  }
-}
-
-.lab-hchain-station[data-on="1"] .lab-hchain-node {
+.dv-chain-station[data-on="1"] .dv-chain-node {
   background: #e1fd52;
   border-color: #e1fd52;
-  box-shadow: 0 0 15px rgba(225, 253, 82, 0.9);
+  box-shadow: 0 0 16px rgba(225, 253, 82, 0.9);
 }
 
-.lab-hchain-station[data-du="1"][data-on="1"] .lab-hchain-node {
+.dv-chain-station[data-du="1"][data-on="1"] .dv-chain-node {
   background: #b084d3;
   border-color: #b084d3;
-  box-shadow: 0 0 18px rgba(176, 132, 211, 0.95);
+  box-shadow: 0 0 20px rgba(176, 132, 211, 1);
 }
 
-.lab-hchain-body {
-  opacity: 0.34;
-  transform: translateY(8px);
-  transition: opacity 560ms ease, transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+.dv-chain-card {
+  opacity: 0.3;
+  transform: translateY(10px);
+  transition: opacity 520ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@media (min-width: 900px) {
-  .lab-hchain-body {
-    padding-top: 26px;
-  }
-}
-
-.lab-hchain-station[data-on="1"] .lab-hchain-body {
+.dv-chain-station[data-on="1"] .dv-chain-card {
   opacity: 1;
   transform: none;
 }
 
-.lab-hchain-nr {
-  display: block;
+.dv-chain-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dv-chain-nr {
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 10px;
-  letter-spacing: 0.16em;
-  color: rgba(242, 242, 242, 0.3);
+  letter-spacing: 0.18em;
+  color: rgba(242, 242, 242, 0.32);
 }
 
-.lab-hchain-title {
-  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
-  line-height: 1;
-  margin-top: 8px;
-}
-
-.lab-hchain-who {
-  display: inline-block;
-  margin-top: 10px;
+.dv-chain-who {
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 9px;
   letter-spacing: 0.16em;
@@ -940,33 +933,43 @@
   transition: all 420ms ease;
 }
 
-.lab-hchain-station[data-on="1"] .lab-hchain-who {
-  border-color: rgba(225, 253, 82, 0.38);
+.dv-chain-station[data-on="1"] .dv-chain-who {
+  border-color: rgba(225, 253, 82, 0.4);
   color: #e1fd52;
 }
 
-.lab-hchain-station[data-du="1"][data-on="1"] .lab-hchain-who {
+.dv-chain-station[data-du="1"][data-on="1"] .dv-chain-who {
   border-color: #b084d3;
-  background: rgba(176, 132, 211, 0.18);
-  color: #ddc4ee;
+  background: rgba(176, 132, 211, 0.2);
+  color: #e2cef1;
 }
 
-.lab-hchain-detail {
-  margin-top: 12px;
-  font-size: 13px;
-  line-height: 1.55;
+.dv-chain-title {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1;
+  margin-top: 16px;
+}
+
+.dv-chain-detail {
+  margin-top: 14px;
+  font-size: 13.5px;
+  line-height: 1.6;
   color: rgba(242, 242, 242, 0.5);
 }
 
-/* angeschrägte überschrift · leichte neigung, kein gimmick */
-.lab-skew {
-  display: inline-block;
-  transform: rotate(-1.6deg);
-  transform-origin: left center;
+.dv-chain-hint {
+  position: absolute;
+  left: clamp(22px, 5vw, 64px);
+  bottom: 5vh;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.3);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lab-hchain-body {
+  .dv-chain-card {
     opacity: 1;
     transform: none;
   }
@@ -1006,7 +1009,7 @@
   height: 60vw;
   left: -12vw;
   top: 8vh;
-  background: rgba(176, 132, 211, 0.11);
+  background: rgba(176, 132, 211, 0.07);
   animation: labAmbientA 46s ease-in-out infinite;
 }
 

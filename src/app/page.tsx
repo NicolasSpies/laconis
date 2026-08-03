@@ -1,7 +1,5 @@
-import dynamic from "next/dynamic";
 import type { Metadata } from "next";
-import { Hero } from "@/components/home/Hero";
-import { HomeFAQ } from "@/components/home/HomeFAQ";
+import { HomeDevice } from "@/components/home/HomeDevice";
 import { getHomeFaqItems } from "@/data/home-faq";
 import { FAQSchema } from "@/components/seo/FAQSchema";
 import { getMeta } from "@/lib/seo/getMeta";
@@ -12,67 +10,31 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * home composition · sprint-5 final · light-first mit lila als duo-akzent.
- * referenzen tiefer gesetzt · funnel-flow: identität → proof → action.
+ * home · geräte-richtung (aug 2026).
  *
- *   1 · Hero              ☼ LIGHT  (clean left-aligned, marker + lila scribbles)
- *   2 · ServicesMorph     ☼ LIGHT  (2 cards web/branding · web primary dark)
- *   3 · SplitStatement    ◆ LILA   (lila slab + dark portrait · "wer ich bin")
- *   4 · PreiseTeaser      ☼ LIGHT  (3 factor-cards · klein-print price-range)
- *   5 · HorizontalCases   ◐ DARK   (scroll-jacked cases · proof tiefer in der seite)
- *   6 · ContactBlock      ☼ LIGHT  (warm closing · lime + lila CTAs)
+ * ablauf: shader-hero → wer das hier baut → signalkette (übernahme) →
+ * kanalzüge (referenzen) → sendeknopf.
  *
- * UeberMichTeaser raus · personal-content lebt jetzt im SplitStatement-portrait.
- * MarqueeI18n raus · zu viel noise.
- * OParallax raus · 3D-ø-experiment passte nicht zum sauberen funnel.
- * Numerierung überall raus · KISS.
+ * KEINE preise mehr auf der home — die leben auf /preise. Statt der
+ * preis-sektion steht jetzt der lacønis-teil ("eine person, keine
+ * zwischenschicht").
+ *
+ * die alte light-komposition (Hero/ServicesSplit/RedesignTeaser/
+ * SplitStatement/HomeCases/HomeFAQ/ContactBlock) ist ersetzt · die
+ * komponenten bleiben im repo, bis alle seiten umgestellt sind.
+ *
+ * FAQ-schema bleibt im markup (SEO-substanz), auch wenn die FAQ optisch
+ * nicht mehr auf der home sitzt — die antworten stehen inhaltlich auf
+ * /leistung und /preise.
  */
-const SkeletonSection = ({ h }: { h: number }) => (
-  <div aria-hidden style={{ minHeight: `${h}px` }} />
-);
-
-const ServicesSplit = dynamic(
-  () => import("@/components/home/ServicesSplit").then((m) => m.ServicesSplit),
-  { loading: () => <SkeletonSection h={600} /> },
-);
-const RedesignTeaser = dynamic(
-  () =>
-    import("@/components/home/RedesignTeaser").then((m) => m.RedesignTeaser),
-  { loading: () => <SkeletonSection h={0} /> },
-);
-const HomeCases = dynamic(
-  () => import("@/components/home/HomeCases").then((m) => m.HomeCases),
-  { loading: () => <SkeletonSection h={700} /> },
-);
-const SplitStatement = dynamic(
-  () =>
-    import("@/components/home/SplitStatement").then((m) => m.SplitStatement),
-  { loading: () => <SkeletonSection h={0} /> },
-);
-const ContactBlock = dynamic(
-  () => import("@/components/home/ContactBlock").then((m) => m.ContactBlock),
-  { loading: () => <SkeletonSection h={680} /> },
-);
-
 export default function HomePage() {
   const locale = getLocale();
   const faqItems = getHomeFaqItems(locale);
 
   return (
     <>
-      {/* FAQPage-schema · money-keywords landen als AI-/SERP-antworten */}
       <FAQSchema items={faqItems.map((f) => ({ q: f.q, a: f.a }))} />
-      <Hero />
-      <ServicesSplit />
-      {/* übernahme-hook · zweiter einstieg für die "schon eine seite?"-persona */}
-      <RedesignTeaser />
-      <SplitStatement />
-      {/* referenzen-teaser · der cursor-follower-index, top 3 ·
-          kein scroll-jacking mehr */}
-      <HomeCases />
-      {/* kompakte FAQ · 4 fragen · SEO-content auf der home */}
-      <HomeFAQ />
-      <ContactBlock />
+      <HomeDevice />
     </>
   );
 }
