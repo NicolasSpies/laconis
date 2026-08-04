@@ -121,8 +121,52 @@
 
 /* ── messwerte ────────────────────────────────────────── */
 
+.lx-gauge-head {
+  display: flex;
+  justify-content: flex-end;
+  gap: 26px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(242, 242, 242, 0.08);
+}
+.lx-gauge-head span {
+  width: 92px;
+  text-align: right;
+  line-height: 1.5;
+}
+
+.lx-gauge {
+  padding-top: 15px;
+}
 .lx-gauge + .lx-gauge {
-  margin-top: 17px;
+  margin-top: 2px;
+}
+
+/* zwei werte pro zeile · links was der regler anrichtet, rechts was
+   bei mir passiert. gleiche breite, damit man sie übereinander liest. */
+.lx-gauge-pair {
+  display: flex;
+  gap: 26px;
+}
+.lx-gauge-pair > * {
+  width: 92px;
+  text-align: right;
+  white-space: nowrap; /* „1.3 mb" brach sonst auf zwei zeilen um */
+}
+.lx-gauge-mine {
+  color: #e1fd52;
+}
+
+/* die feste marke im balken · sie steht da, wo meine seite steht,
+   und bewegt sich nie. der abstand dazwischen IST das argument. */
+.lx-gauge-flat {
+  position: absolute;
+  left: 1.5%;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  border-radius: 1px;
+  background: #e1fd52;
+  box-shadow: 0 0 8px rgba(225, 253, 82, 0.8);
 }
 .lx-gauge-top {
   display: flex;
@@ -145,7 +189,6 @@
   height: 5px;
   margin-top: 8px;
   border-radius: 3px;
-  overflow: hidden;
   background: #0a0a0c;
   box-shadow:
     inset 0 1px 3px rgba(0, 0, 0, 0.95),

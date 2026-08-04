@@ -3,17 +3,16 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
-import { Tageslauf } from "@/components/referenzen/Tageslauf";
 import { ClaimSwitch } from "@/components/referenzen/ClaimSwitch";
-import { KieferMark } from "@/components/referenzen/KieferMark";
+import { ProjektAnsicht } from "@/components/referenzen/ProjektAnsicht";
 import { CASE } from "@/components/referenzen/case.dict";
 import { REFERENZEN } from "@/components/referenzen/referenzen.dict";
 import { referenzen } from "@/data/referenzen";
 import { useLocale } from "@/i18n/useLocale";
 import { buildPath } from "@/i18n/config";
 import "@/components/device/device.css";
-import "@/components/referenzen/tageslauf.css";
 import "@/components/referenzen/case.css";
+import "@/components/referenzen/projektansicht.css";
 
 /**
  * CaseDevice · die referenz-detailseite.
@@ -147,37 +146,18 @@ export function CaseDevice({ slug }: { slug: string }) {
             </div>
           </section>
 
-          {/* ═══ DER TAGESLAUF · das gebaute feature ═══ */}
-          <section data-no-reveal className="relative px-6 pb-28 md:px-12">
-            <div className="mx-auto max-w-[1200px]">
-              <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
-                <h2 className="lab-display max-w-[16ch] text-[clamp(1.8rem,4.6vw,3.2rem)]">
-                  {t.tagH2}
-                </h2>
-                <p className="lab-hint max-w-[340px] text-[12.5px] leading-relaxed">{t.tagLead}</p>
-              </div>
-              <Tageslauf t={t.tageslauf} />
-            </div>
-          </section>
-
-          {/* ═══ DAS ZEICHEN · amplitude zum nachfühlen ═══ */}
+          {/* ═══ DIE GEBAUTE SEITE · funktioniert bei jedem projekt ═══ */}
           <section data-no-reveal className="relative px-6 pb-28 md:px-12">
             <div className="mx-auto max-w-[1200px]">
               <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
                 <h2 className="lab-display max-w-[16ch] text-[clamp(1.8rem,4.6vw,3.2rem)]">
-                  {t.markH2}
+                  {t.ansichtH2}
                 </h2>
                 <p className="lab-hint max-w-[340px] text-[12.5px] leading-relaxed">
-                  {t.markLead}
+                  {t.ansichtLead}
                 </p>
               </div>
-              <div className="lab-chassis relative p-6 md:p-10">
-                <span className="lab-screw" style={{ left: 14, top: 14 }} aria-hidden />
-                <span className="lab-screw" style={{ right: 14, top: 14 }} aria-hidden />
-                <span className="lab-screw" style={{ left: 14, bottom: 14 }} aria-hidden />
-                <span className="lab-screw" style={{ right: 14, bottom: 14 }} aria-hidden />
-                <KieferMark t={t.kiefer} />
-              </div>
+              <ProjektAnsicht shots={r.shots} t={t.ansicht} />
             </div>
           </section>
 
@@ -187,6 +167,9 @@ export function CaseDevice({ slug }: { slug: string }) {
               <h2 className="lab-display max-w-[14ch] text-[clamp(2rem,5vw,3.4rem)]">
                 {t.detailsH2}
               </h2>
+              <p className="mt-7 max-w-[560px] text-[15px] leading-relaxed text-[rgba(242,242,242,0.55)]">
+                {t.detailsLead}
+              </p>
               <div className="mt-12 grid gap-x-16 md:grid-cols-2">
                 {t.details.map(([title, body], i) => (
                   <div key={title} className="lx-row">

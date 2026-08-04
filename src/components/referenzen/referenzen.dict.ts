@@ -3,7 +3,7 @@ import type { Locale } from "@/i18n/config";
 /**
  * Copy der referenzen-seite · dreisprachig.
  *
- * haltung: die tafel zeigt genau drei zeilen, weil es genau drei gibt.
+ * haltung: der index zeigt genau drei zeilen, weil es genau drei gibt.
  * ein aufgeblasenes portfolio wäre in zwei minuten durchschaut · die
  * ehrlichkeit ist hier das eigentliche verkaufsargument.
  *
@@ -47,8 +47,8 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     kicker: "referenzen",
     h1a: "was schon",
     h1b: "läuft.",
-    sub: "Drei Zeilen auf der Tafel, drei Projekte. Tipp eine an, dann siehst du, was dahinter steckt.",
-    boardHint: "tipp auf eine zeile",
+    sub: "Drei Projekte. Fahr drüber, dann siehst du die Seite · klick drauf, dann siehst du, wie sie entstanden ist.",
+    boardHint: "jede zeile führt direkt rein",
 
     lStatus: "status",
     lLeistung: "leistung",
@@ -81,8 +81,8 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     kicker: "références",
     h1a: "ce qui tourne",
     h1b: "déjà.",
-    sub: "Trois lignes sur le tableau, trois projets. Touche une ligne et tu vois ce qu'il y a derrière.",
-    boardHint: "touche une ligne",
+    sub: "Trois projets. Survole pour voir le site · clique pour voir comment il est né.",
+    boardHint: "chaque ligne mène directement au projet",
 
     lStatus: "statut",
     lLeistung: "prestation",
@@ -115,8 +115,8 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     kicker: "work",
     h1a: "what's already",
     h1b: "running.",
-    sub: "Three rows on the board, three projects. Tap one and you see what's behind it.",
-    boardHint: "tap a row",
+    sub: "Three projects. Hover to see the site · click to see how it came about.",
+    boardHint: "every row leads straight in",
 
     lStatus: "status",
     lLeistung: "scope",

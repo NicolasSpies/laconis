@@ -49,6 +49,16 @@ export type Referenz = {
    * verwendet. 16:10 oder 16:9 querformat, ≥ 1600px breite idealerweise.
    */
   heroImage?: string;
+  /**
+   * ganzseitige aufnahmen der gebauten seite · desktop 1440 breit,
+   * mobil 390 breit, jeweils volle seitenhöhe. sie laufen auf der
+   * detailseite in laptop und handy durch.
+   *
+   * bewusst aufnahmen statt iframe: fremde seiten schicken meistens
+   * x-frame-options, und die kontrolle darüber hat man nur bei den
+   * eigenen. aufnahmen funktionieren bei jedem projekt.
+   */
+  shots?: { desktop: string; mobile: string };
 };
 
 export const referenzen: Referenz[] = [
@@ -70,6 +80,10 @@ export const referenzen: Referenz[] = [
     istEcht: true,
     heroImage:
       "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1800&q=80&auto=format&fit=crop",
+    shots: {
+      desktop: "/cases/fabry-desktop.jpg",
+      mobile: "/cases/fabry-mobile.jpg",
+    },
     testimonial: {
       quote:
         "ich hab einfach angerufen, geschrieben wenn was war. keine tickets, keine agentur-höflichkeit.",

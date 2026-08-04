@@ -339,6 +339,18 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .lx-row::before {
+    animation: none;
+    transform: scaleX(1);
+  }
+  .lx-row-nr {
+    animation: none;
+    opacity: 1;
+  }
+  .lx-row > *:last-child {
+    transition: none;
+  }
+
   .lab-boot,
   .lab-sweep,
   .lab-vu-seg,
@@ -1033,18 +1045,89 @@
    deshalb liegen sie hier im basis-system und nicht bei einer seite. */
 
 .lx-row {
+  position: relative;
   display: grid;
   grid-template-columns: 26px minmax(0, 1fr);
   gap: 16px;
   padding: 17px 0;
-  border-top: 1px solid rgba(242, 242, 242, 0.09);
 }
+
+/* die trennlinie wird gezeichnet, nicht gesetzt · sie fährt beim
+   reinscrollen von links auf. listen kommen auf dieser seite sehr oft
+   vor, und ohne das steht da nur ein stapel striche. */
+.lx-row::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(225, 253, 82, 0.4) 0%,
+    rgba(242, 242, 242, 0.09) 22%,
+    rgba(242, 242, 242, 0.09) 100%
+  );
+  transform-origin: 0 50%;
+}
+
+/* natives scroll-driven CSS · kein beobachter, kein javascript.
+   wo der browser es nicht kann, steht die linie einfach da. */
+@supports (animation-timeline: view()) {
+  .lx-row::before {
+    animation: lxDraw linear both;
+    animation-timeline: view();
+    animation-range: entry 5% cover 22%;
+  }
+}
+@keyframes lxDraw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 .lx-row-nr {
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 10px;
   letter-spacing: 0.12em;
-  color: rgba(225, 253, 82, 0.65);
+  color: rgba(225, 253, 82, 0.55);
   padding-top: 4px;
+  /* die nummern atmen leicht · versetzt, damit der stapel nicht im
+     gleichtakt blinkt. läuft immer, auch wo niemand hovern kann. */
+  animation: lxNr 5200ms ease-in-out infinite;
+}
+.lx-row:nth-child(2n) .lx-row-nr {
+  animation-delay: -1300ms;
+}
+.lx-row:nth-child(3n) .lx-row-nr {
+  animation-delay: -2600ms;
+}
+.lx-row:nth-child(4n) .lx-row-nr {
+  animation-delay: -3900ms;
+}
+@keyframes lxNr {
+  0%,
+  100% {
+    opacity: 0.62;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* beim drüberfahren rückt die zeile leicht auf · nicht klickbar,
+   also bewusst sehr wenig. es soll leben, nicht locken. */
+.lx-row > *:last-child {
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lx-row:hover > *:last-child {
+  transform: translateX(5px);
+}
+.lx-row:hover .lx-row-nr {
+  color: #e1fd52;
+  animation-play-state: paused;
+  opacity: 1;
 }
 
 .lx-faq {

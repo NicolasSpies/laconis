@@ -29,6 +29,9 @@ type T = {
   gLoad: string;
   gRequests: string;
   gThirdParty: string;
+  colPlugins: string;
+  colMine: string;
+  flatNote: string;
   hint: string;
   verdicts: [string, string, string, string];
 };
@@ -101,16 +104,24 @@ export function BallastDial({ t }: { t: T }) {
     }
   };
 
-  /* alle vier balken zeigen dasselbe: wieviel ballast schon drauf ist.
-     die zahl daneben bleibt der echte messwert. */
-  const gauges: { label: string; value: string; fill: number }[] = [
-    { label: t.gPagespeed, value: String(score), fill: (100 - score) / 100 },
-    { label: t.gLoad, value: `${load.toFixed(1)}s`, fill: Math.min(1, (load - 0.4) / 6) },
-    { label: t.gRequests, value: String(req), fill: Math.min(1, (req - 14) / 168) },
+  /* jede zeile zeigt jetzt BEIDE seiten: was der regler mit einer
+     plugin-gestapelten seite macht, und was er mit meiner macht.
+     ohne den zweiten wert war der pegel nur eine kurve ohne bezug ·
+     die aussage ist ja gerade, dass sich hier drüben nichts rührt. */
+  const gauges: {
+    label: string;
+    value: string;
+    fill: number;
+    mine: string;
+  }[] = [
+    { label: t.gPagespeed, value: String(score), fill: (100 - score) / 100, mine: "98" },
+    { label: t.gLoad, value: `${load.toFixed(1)}s`, fill: Math.min(1, (load - 0.4) / 6), mine: "0.4s" },
+    { label: t.gRequests, value: String(req), fill: Math.min(1, (req - 14) / 168), mine: "14" },
     {
       label: t.gThirdParty,
       value: js >= 1000 ? `${(js / 1024).toFixed(1)} mb` : `${js} kb`,
       fill: Math.min(1, js / 2304),
+      mine: "0 kb",
     },
   ];
 
@@ -178,14 +189,30 @@ export function BallastDial({ t }: { t: T }) {
 
       {/* ── die messwerte ── */}
       <div className="min-w-0 flex-1 md:max-w-[560px]">
+        {/* spaltenköpfe · ohne sie weiss niemand, was die zweite zahl ist */}
+        <div className="lx-gauge-head">
+          <span className="lab-label" style={{ color: "rgba(176,132,211,0.85)" }}>
+            {t.colPlugins}
+          </span>
+          <span className="lab-label" style={{ color: "rgba(225,253,82,0.85)" }}>
+            {t.colMine}
+          </span>
+        </div>
+
         {gauges.map((g) => (
           <div key={g.label} className="lx-gauge" data-bad={g.fill > 0.34 ? "1" : "0"}>
             <div className="lx-gauge-top">
               <span className="lab-label">{g.label}</span>
-              <span className="lx-gauge-val">{g.value}</span>
+              <span className="lx-gauge-pair">
+                <span className="lx-gauge-val">{g.value}</span>
+                <span className="lx-gauge-val lx-gauge-mine">{g.mine}</span>
+              </span>
             </div>
             <div className="lx-gauge-bar">
               <span className="lx-gauge-fill" style={{ width: `${Math.max(1.5, g.fill * 100)}%` }} />
+              {/* die feste linie · sie rührt sich nicht, egal wie weit
+                  der regler steht. genau das ist der punkt. */}
+              <span className="lx-gauge-flat" aria-hidden />
             </div>
           </div>
         ))}
@@ -195,6 +222,9 @@ export function BallastDial({ t }: { t: T }) {
           style={{ color: v === 0 ? "#e1fd52" : "rgba(242,242,242,0.62)" }}
         >
           {t.verdicts[verdictIndex(v)]}
+        </p>
+        <p className="mt-3 text-[13px] leading-relaxed" style={{ color: "rgba(225,253,82,0.75)" }}>
+          {t.flatNote}
         </p>
         <p className="lab-hint mt-3">{t.hint}</p>
       </div>

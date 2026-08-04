@@ -1,0 +1,253 @@
+/**
+ * refindex.css · die referenzen-übersicht als editorial-index.
+ *
+ * ersetzt die fallblatt-tafel. die war ein schöner mechanismus, aber
+ * eine übersichtsseite hat einen job: zeigen, was es gibt, und rein
+ * lassen. die blätter waren auf dem handy schwer zu lesen und alle
+ * infos lagen unter der falz.
+ *
+ * jetzt ist die ganze zeile der link, alles steht drin, und die
+ * vorschau folgt dem zeiger.
+ *
+ * baut auf device.css auf. prefix .ri-.
+ */
+
+.ri-wrap {
+  position: relative;
+}
+
+.ri-row {
+  position: relative;
+  display: grid;
+  align-items: center;
+  gap: 10px 20px;
+  padding: clamp(20px, 3vw, 34px) 0;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  grid-template-areas:
+    "nr name go"
+    "nr meta go"
+    "thumb stamp go";
+  transition: opacity 380ms ease, transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* die trennlinie fährt beim reinscrollen auf · dieselbe geste wie
+   überall sonst auf der seite */
+.ri-row::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(225, 253, 82, 0.45) 0%,
+    rgba(242, 242, 242, 0.1) 20%,
+    rgba(242, 242, 242, 0.1) 100%
+  );
+  transform-origin: 0 50%;
+}
+@supports (animation-timeline: view()) {
+  .ri-row::before {
+    animation: riDraw linear both;
+    animation-timeline: view();
+    animation-range: entry 5% cover 20%;
+  }
+}
+@keyframes riDraw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* wer nicht gemeint ist, tritt zurück · das lenkt den blick, ohne
+   dass irgendwas blinken muss */
+.ri-row[data-dim="1"] {
+  opacity: 0.4;
+}
+.ri-row[data-on="1"] {
+  transform: translateX(clamp(4px, 0.8vw, 14px));
+}
+.ri-row:focus-visible {
+  outline: 2px solid #b084d3;
+  outline-offset: 6px;
+  border-radius: 10px;
+}
+
+.ri-nr {
+  grid-area: nr;
+  align-self: start;
+  padding-top: 0.5em;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: rgba(225, 253, 82, 0.55);
+  transition: color 260ms ease;
+}
+.ri-row[data-on="1"] .ri-nr {
+  color: #e1fd52;
+}
+
+.ri-name {
+  grid-area: name;
+  font-size: clamp(1.9rem, 6.4vw, 4.4rem);
+  color: #f2f2f2;
+  transition: color 260ms ease;
+}
+.ri-row[data-on="1"] .ri-name {
+  color: #e1fd52;
+}
+
+.ri-meta {
+  grid-area: meta;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+}
+
+.ri-stamp {
+  grid-area: stamp;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.ri-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: rgba(242, 242, 242, 0.22);
+}
+.ri-led[data-live="1"] {
+  background: #e1fd52;
+  box-shadow: 0 0 9px rgba(225, 253, 82, 0.85);
+  animation: riPulse 3400ms ease-in-out infinite;
+}
+.ri-led[data-live="wip"] {
+  background: #b084d3;
+  box-shadow: 0 0 8px rgba(176, 132, 211, 0.7);
+  animation: riPulse 2600ms ease-in-out infinite;
+}
+@keyframes riPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.ri-go {
+  grid-area: go;
+  align-self: center;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.3);
+  white-space: nowrap;
+  transition: color 260ms ease, transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ri-row[data-on="1"] .ri-go {
+  color: #e1fd52;
+  transform: translateX(6px);
+}
+
+/* ── vorschau ───────────────────────────────────────── */
+
+/* im zeile stehendes bild · nur da, wo es keinen zeiger gibt */
+.ri-thumb {
+  grid-area: thumb;
+  width: 34px;
+  height: 46px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 4px;
+  opacity: 0.75;
+  box-shadow: 0 0 0 1px rgba(242, 242, 242, 0.12);
+}
+
+/* die vorschau am zeiger · nur auf zeiger-geräten */
+.ri-peek {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ri-thumb {
+    display: none;
+  }
+  .ri-row {
+    grid-template-areas:
+      "nr name go"
+      "nr meta go"
+      "nr stamp go";
+  }
+  .ri-peek {
+    display: block;
+    position: absolute;
+    left: var(--px, 50%);
+    top: var(--py, 50%);
+    width: 260px;
+    height: 168px;
+    margin: -84px 0 0 -130px;
+    border-radius: 10px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 3;
+    opacity: 0;
+    transform: scale(0.94);
+    transition: opacity 260ms ease, transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow:
+      0 0 0 1px rgba(242, 242, 242, 0.14),
+      0 30px 60px -22px rgba(0, 0, 0, 0.95);
+  }
+  .ri-peek[data-on="1"] {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.ri-peek-shot {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+.ri-peek-shot[data-on="1"] {
+  opacity: 1;
+}
+.ri-peek-shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+.ri-peek-mono {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: 68px;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ri-row,
+  .ri-row::before,
+  .ri-go,
+  .ri-peek {
+    animation: none;
+    transition: none;
+  }
+  .ri-row::before {
+    transform: scaleX(1);
+  }
+  .ri-led[data-live] {
+    animation: none;
+  }
+}

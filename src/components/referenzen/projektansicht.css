@@ -1,0 +1,217 @@
+/**
+ * projektansicht.css · laptop + handy mit der echten seite drin.
+ *
+ * das ist der eine baustein, der bei JEDEM projekt funktioniert. keine
+ * projekt-spezifische mechanik, keine sonderlocke, die im CMS gesetzt
+ * werden müsste · zwei screenshots rein, fertig.
+ *
+ * bewusst kein iframe: fabry-baumpflege.be schickt x-frame-options DENY
+ * und frame-ancestors 'none'. das ist richtig so, und bei fremden seiten
+ * hat man diese kontrolle sowieso nie. screenshots funktionieren immer.
+ *
+ * baut auf device.css auf. prefix .pv-.
+ */
+
+.pv-wrap {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+.pv-wrap[data-grab="1"] {
+  cursor: grabbing;
+}
+
+/* ── laptop ─────────────────────────────────────────── */
+
+.pv-laptop {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* der deckel · gefräster rahmen, lichtkante oben */
+.pv-lid {
+  position: relative;
+  border-radius: 14px 14px 6px 6px;
+  padding: 12px 12px 14px;
+  background: linear-gradient(180deg, #2a2a32, #16161b 60%, #101014);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 242, 242, 0.28),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.6),
+    0 40px 80px -34px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(0, 0, 0, 0.7);
+}
+
+/* die kamera · ein punkt, mehr braucht es nicht */
+.pv-lid::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: #05050a;
+  box-shadow: inset 0 0 0 1px rgba(242, 242, 242, 0.14);
+}
+
+/* der fuss · schmaler streifen mit ausklinkung in der mitte */
+.pv-foot {
+  position: relative;
+  height: 13px;
+  margin: 0 auto;
+  width: 112%;
+  max-width: none;
+  transform: translateX(-5.4%);
+  border-radius: 0 0 12px 12px;
+  background: linear-gradient(180deg, #23232a, #14141a 62%, #0d0d11);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 242, 242, 0.24),
+    0 14px 26px -14px rgba(0, 0, 0, 0.9);
+}
+.pv-foot::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 84px;
+  height: 5px;
+  margin-left: -42px;
+  border-radius: 0 0 5px 5px;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+/* ── handy ──────────────────────────────────────────── */
+
+.pv-phone {
+  position: relative;
+  width: clamp(132px, 17vw, 216px);
+  border-radius: 26px;
+  padding: 8px;
+  background: linear-gradient(168deg, #2c2c34, #15151a 62%, #0f0f13);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 242, 242, 0.3),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.6),
+    0 34px 60px -26px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(0, 0, 0, 0.75);
+}
+/* die einkerbung oben */
+.pv-phone::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 34%;
+  height: 15px;
+  margin-left: -17%;
+  border-radius: 0 0 9px 9px;
+  background: #0d0d11;
+  z-index: 2;
+}
+/* seitentaste */
+.pv-phone::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  top: 27%;
+  width: 2px;
+  height: 44px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #35353d, #1b1b21);
+}
+
+/* auf breiten schirmen sitzt das handy vor dem laptop */
+@media (min-width: 900px) {
+  .pv-wrap {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 0;
+  }
+  .pv-phone {
+    margin-left: -13%;
+    margin-bottom: 22px;
+    z-index: 2;
+  }
+}
+@media (max-width: 899px) {
+  .pv-phone {
+    margin: 26px auto 0;
+  }
+}
+
+/* ── die scheibe ────────────────────────────────────── */
+
+.pv-screen {
+  position: relative;
+  overflow: hidden;
+  background: #0b0b0e;
+}
+.pv-laptop .pv-screen {
+  border-radius: 5px;
+  aspect-ratio: 16 / 10;
+}
+.pv-phone .pv-screen {
+  border-radius: 19px;
+  aspect-ratio: 9 / 19.5;
+}
+
+/* der screenshot ist hoch · er wandert unter der scheibe durch */
+.pv-shot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  will-change: transform;
+}
+
+/* glasreflex · liegt über allem und macht aus dem bild eine scheibe */
+.pv-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(148deg, rgba(255, 255, 255, 0.13) 0%, transparent 32%);
+}
+
+/* ── fortschritt ────────────────────────────────────── */
+
+.pv-rail {
+  position: relative;
+  height: 4px;
+  border-radius: 3px;
+  background: #0a0a0c;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.95);
+  overflow: hidden;
+}
+.pv-rail-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, rgba(225, 253, 82, 0.5), #e1fd52);
+  box-shadow: 0 0 12px rgba(225, 253, 82, 0.45);
+}
+
+/* platzhalter, solange keine aufnahmen hinterlegt sind */
+.pv-empty {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.3);
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(242, 242, 242, 0.03) 0 8px,
+    transparent 8px 16px
+  );
+}

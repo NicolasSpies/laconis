@@ -1,7 +1,6 @@
 import type { Locale } from "@/i18n/config";
-import type { TageslaufT } from "@/components/referenzen/Tageslauf";
 import type { ClaimT } from "@/components/referenzen/ClaimSwitch";
-import type { KieferT } from "@/components/referenzen/KieferMark";
+import type { ProjektAnsichtT } from "@/components/referenzen/ProjektAnsicht";
 
 /**
  * Copy der referenz-detailseiten · dreisprachig.
@@ -31,15 +30,12 @@ export type CaseDict = {
   claimLead: string;
   claim: ClaimT;
 
-  tagH2: string;
-  tagLead: string;
-  tageslauf: TageslaufT;
-
-  markH2: string;
-  markLead: string;
-  kiefer: KieferT;
+  ansichtH2: string;
+  ansichtLead: string;
+  ansicht: ProjektAnsichtT;
 
   detailsH2: string;
+  detailsLead: string;
   details: [string, string][];
 
   konzeptH2: string;
@@ -86,26 +82,18 @@ export const CASE: Record<Locale, CaseDict> = {
       hint: "Die Typografie führt hier das Argument. Kein Text musste erklären, was sich geändert hat.",
     },
 
-    markH2: "ein zeichen, das wurzeln schlägt.",
-    markLead:
-      "Eine Kiefer, runtergebrochen auf drei Striche. Sie wiegt sich dauerhaft, kaum merklich, wie unter leichtem Wind. Zieh am Regler und du merkst selbst, wo die Grenze liegt.",
-    kiefer: {
-      label: "ausschlag",
-      unit: "grad",
-      real: "so steht es live",
-      verdicts: ["atmet", "wird unruhig", "zappelt"],
-      hint: "Ein Logo, das atmet, wirkt lebendig. Eins, das zappelt, wirkt billig. Der ganze Unterschied liegt in knapp zwei Grad.",
+    ansichtH2: "so läuft sie heute.",
+    ansichtLead:
+      "Die echte Seite, auf beiden Geräten. Zieh sie durch · oder lass sie laufen, sie fährt von selbst.",
+    ansicht: {
+      hint: "Ziehen scrubbt durch die Seite. Losgelassen läuft sie weiter.",
+      empty: "aufnahmen folgen",
+      desktopLabel: "Desktop-Ansicht der gebauten Seite",
+      mobileLabel: "Mobile Ansicht der gebauten Seite",
     },
 
-    tagH2: "die seite kennt die uhrzeit.",
-    tagLead:
-      "Zieh die Sonne über den Himmel. Genau das passiert beim Besucher auch, nur ohne Regler · die Seite liest die Uhr und stellt ihr Licht selbst.",
-    tageslauf: {
-      label: "tageslauf",
-      now: "jetzt",
-      phases: ["morgentau", "vormittag", "mittagslicht", "abendgold", "nachtruhe"],
-      hint: "Die Lichtstimmung liegt über dem Bild, nicht in der Bildauswahl. Deshalb funktioniert sie mit jedem Motiv.",
-    },
+    detailsLead:
+      "Die Dinge, nach denen keiner gefragt hat. Sie stehen in keinem Angebot und sind trotzdem der Grund, warum die Seite nicht wie tausend andere aussieht.",
 
     detailsH2: "was drin steckt.",
     details: [
@@ -162,26 +150,18 @@ export const CASE: Record<Locale, CaseDict> = {
       hint: "C'est la typographie qui porte l'argument ici. Aucun texte n'a eu besoin d'expliquer ce qui a changé.",
     },
 
-    markH2: "un signe qui prend racine.",
-    markLead:
-      "Un pin, réduit à trois traits. Il se balance en continu, à peine perceptible, comme sous un vent léger. Tire le curseur et tu sens toi-même où est la limite.",
-    kiefer: {
-      label: "amplitude",
-      unit: "degrés",
-      real: "valeur en ligne",
-      verdicts: ["respire", "devient nerveux", "gigote"],
-      hint: "Un logo qui respire semble vivant. Un qui gigote semble bon marché. Toute la différence tient à deux degrés.",
+    ansichtH2: "voilà comment il tourne.",
+    ansichtLead:
+      "Le vrai site, sur les deux appareils. Fais-le défiler · ou laisse-le, il avance tout seul.",
+    ansicht: {
+      hint: "Tirer fait défiler le site. Relâché, il continue.",
+      empty: "captures à venir",
+      desktopLabel: "Vue desktop du site construit",
+      mobileLabel: "Vue mobile du site construit",
     },
 
-    tagH2: "le site connaît l'heure.",
-    tagLead:
-      "Fais glisser le soleil dans le ciel. C'est exactement ce qui arrive chez le visiteur, sans curseur · le site lit l'heure et règle sa lumière lui-même.",
-    tageslauf: {
-      label: "course du jour",
-      now: "maintenant",
-      phases: ["rosée du matin", "matinée", "plein midi", "or du soir", "repos nocturne"],
-      hint: "L'ambiance lumineuse est posée sur l'image, pas dans le choix de l'image. C'est pour ça qu'elle marche avec n'importe quel motif.",
-    },
+    detailsLead:
+      "Les choses que personne n'avait demandées. Elles ne figurent dans aucun devis et sont pourtant la raison pour laquelle le site ne ressemble pas à mille autres.",
 
     detailsH2: "ce qu'il y a dedans.",
     details: [
@@ -238,26 +218,18 @@ export const CASE: Record<Locale, CaseDict> = {
       hint: "The typography carries the argument here. No copy had to explain what changed.",
     },
 
-    markH2: "a mark that takes root.",
-    markLead:
-      "A pine, reduced to three strokes. It sways continuously, barely noticeable, as if under a light wind. Pull the slider and you feel for yourself where the line is.",
-    kiefer: {
-      label: "amplitude",
-      unit: "degrees",
-      real: "the live value",
-      verdicts: ["breathes", "gets restless", "jitters"],
-      hint: "A logo that breathes feels alive. One that jitters feels cheap. The whole difference is under two degrees.",
+    ansichtH2: "how it runs today.",
+    ansichtLead:
+      "The real site, on both devices. Drag it through · or leave it, it moves on its own.",
+    ansicht: {
+      hint: "Dragging scrubs through the site. Let go and it keeps going.",
+      empty: "captures to follow",
+      desktopLabel: "Desktop view of the built site",
+      mobileLabel: "Mobile view of the built site",
     },
 
-    tagH2: "the site knows the time.",
-    tagLead:
-      "Drag the sun across the sky. That's exactly what happens for the visitor too, just without a slider · the site reads the clock and sets its own light.",
-    tageslauf: {
-      label: "course of the day",
-      now: "now",
-      phases: ["morning dew", "forenoon", "midday light", "evening gold", "night rest"],
-      hint: "The light grade sits on top of the image, not in the choice of image. That's why it works with any subject.",
-    },
+    detailsLead:
+      "The things nobody asked for. They're in no quote and are still the reason the site doesn't look like a thousand others.",
 
     detailsH2: "what's inside.",
     details: [

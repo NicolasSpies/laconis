@@ -1,32 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
-import { SplitFlapBoard, type BoardRow } from "@/components/referenzen/SplitFlapBoard";
+import { RefIndex } from "@/components/referenzen/RefIndex";
 import { REFERENZEN } from "@/components/referenzen/referenzen.dict";
-import { referenzen } from "@/data/referenzen";
 import { useLocale } from "@/i18n/useLocale";
 import { buildPath } from "@/i18n/config";
 import "@/components/device/device.css";
-import "@/components/referenzen/splitflap.css";
+import "@/components/referenzen/refindex.css";
 
 /**
- * ReferenzenDevice · die referenzen als fallblatt-tafel.
+ * ReferenzenDevice · die referenzen als editorial-index.
  *
- * ein einziges gerät trägt die ganze seite: die tafel ist hero UND
- * navigation, das datenblatt drunter ist die ruhige auflösung. mehr
- * braucht es bei drei projekten auch nicht · eine zweite grosse geste
- * wäre nur kaschieren.
+ * die übersichtsseite hat genau einen job: zeigen was es gibt, und
+ * rein lassen. deshalb steht alles in der zeile und die ganze zeile
+ * ist der link · niemand muss ahnen, dass unten noch was kommt.
  *
- * ehrlichkeit ist hier das konzept: was nicht live ist, bekommt den
- * konzept-stempel. das steht so schon auf der alten seite und bleibt.
+ * die fallblatt-tafel, die vorher hier stand, war ein schöner
+ * mechanismus am falschen ort: schwer zu lesen auf dem handy, und die
+ * infos lagen unter der falz.
+ *
+ * ehrlichkeit bleibt das konzept: was nicht live ist, bekommt den
+ * konzept-stempel, und zwar schon in der übersicht.
  */
 
 export function ReferenzenDevice() {
   const locale = useLocale();
   const t = REFERENZEN[locale];
-  const [sel, setSel] = useState(0);
 
   useEffect(() => {
     document.body.dataset.lab = "1";
@@ -34,18 +35,6 @@ export function ReferenzenDevice() {
       delete document.body.dataset.lab;
     };
   }, []);
-
-  const rows: BoardRow[] = referenzen.map((r) => ({
-    key: r.slug,
-    name: r.name,
-    meta: r.kategorieLabel,
-    jahr: r.jahr,
-    led: r.istEcht ? "1" : r.inArbeit ? "wip" : "0",
-  }));
-
-  const r = referenzen[sel]!;
-  const stamp = r.istEcht ? t.stampLive : r.inArbeit ? t.stampWip : t.stampKonzept;
-  const stampKind = r.istEcht ? "live" : "konzept";
 
   return (
     <div className="lab-root" data-no-reveal>
@@ -56,10 +45,10 @@ export function ReferenzenDevice() {
 
       <DeviceNav />
 
-      {/* ═══ DIE TAFEL ═══ */}
+      {/* ═══ DER INDEX ═══ */}
       <section
         data-no-reveal
-        className="relative flex min-h-[100svh] flex-col justify-center px-6 pb-24 pt-28 md:px-12"
+        className="relative px-6 pb-24 pt-36 md:px-12 md:pt-44"
       >
         <div className="mx-auto w-full max-w-[1200px]">
           <div className="lab-boot mb-8 flex items-center gap-3" style={{ animationDelay: "80ms" }}>
@@ -86,126 +75,20 @@ export function ReferenzenDevice() {
             {t.sub}
           </p>
 
-          <div className="lab-boot mt-14" style={{ animationDelay: "420ms" }}>
-            <SplitFlapBoard rows={rows} selected={sel} onSelect={setSel} />
-          </div>
-
-          <span className="lab-label lab-boot mt-8 block" style={{ animationDelay: "620ms" }}>
-            ↑ {t.boardHint}
+          <span className="lab-label lab-boot mt-6 block" style={{ animationDelay: "380ms" }}>
+            {t.boardHint}
           </span>
-        </div>
-      </section>
 
-      {/* ═══ DAS DATENBLATT · ruhig ═══ */}
-      <section data-no-reveal className="relative px-6 pb-32 md:px-12">
-        <div className="mx-auto max-w-[1200px]">
-          <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] md:gap-16">
-            <div>
-              <span className="lab-stamp" data-kind={stampKind}>
-                <span
-                  className="h-1.5 w-1.5 rounded-full"
-                  aria-hidden
-                  style={{
-                    background: r.istEcht ? "#e1fd52" : "rgba(242,242,242,0.4)",
-                    boxShadow: r.istEcht ? "0 0 8px #e1fd52" : "none",
-                  }}
-                />
-                {stamp}
-              </span>
-
-              <h2 className="lab-display mt-6 text-[clamp(2rem,5vw,3.6rem)]">{r.name}</h2>
-
-              {r.notiz && (
-                <p className="lab-hint mt-4 max-w-[380px] text-[13px] leading-relaxed">{r.notiz}</p>
-              )}
-
-              <div className="mt-8 flex flex-wrap gap-2">
-                {r.tags.map((tag) => (
-                  <span key={tag} className="lab-tag">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-9 flex flex-wrap items-center gap-3">
-                <Link
-                  href={`${buildPath("referenzen", locale)}/${r.slug}`}
-                  className="lab-key"
-                  style={{ width: "auto", padding: "12px 20px" }}
-                >
-                  {t.linkCase}
-                </Link>
-                {r.urlExtern && (
-                  <a
-                    href={r.urlExtern}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="lab-key"
-                    style={{ width: "auto", padding: "12px 20px" }}
-                  >
-                    {t.linkLive} ↗
-                  </a>
-                )}
-              </div>
-            </div>
-
-            <div>
-              {/* kein status-zeile hier · der stempel links sagt es
-                  schon, zweimal dasselbe liest sich wie ein fehler */}
-              <div className="sf-sheet-row">
-                <span className="lab-label">{t.lLeistung}</span>
-                <span className="text-[14px] text-[#f2f2f2]">{r.kurz}</span>
-              </div>
-              <div className="sf-sheet-row">
-                <span className="lab-label">{t.lOrt}</span>
-                <span className="text-[14px] text-[#f2f2f2]">{r.ort}</span>
-              </div>
-              <div className="sf-sheet-row">
-                <span className="lab-label">{t.lJahr}</span>
-                <span className="text-[14px] text-[#f2f2f2]">{r.jahr}</span>
-              </div>
-
-              {/* zahlen gibt es nur, wo wirklich gemessen wurde */}
-              {r.pagespeedMobile != null && (
-                <div className="sf-sheet-row">
-                  <span className="lab-label">{t.lTempo}</span>
-                  <span className="flex flex-wrap gap-x-8 gap-y-2">
-                    <span>
-                      <span
-                        className="lab-readout-value"
-                        style={{ fontSize: "1.7rem", color: "#e1fd52" }}
-                      >
-                        {r.pagespeedMobile}
-                      </span>
-                      <span className="lab-label ml-2">{t.mobil}</span>
-                    </span>
-                    {r.pagespeedDesktop != null && (
-                      <span>
-                        <span className="lab-readout-value" style={{ fontSize: "1.7rem" }}>
-                          {r.pagespeedDesktop}
-                        </span>
-                        <span className="lab-label ml-2">{t.desktop}</span>
-                      </span>
-                    )}
-                  </span>
-                </div>
-              )}
-
-              {r.testimonial && (
-                <div className="sf-sheet-row">
-                  <span className="lab-label">{t.lStimme}</span>
-                  <blockquote>
-                    <p className="text-[15px] leading-relaxed text-[rgba(242,242,242,0.85)]">
-                      „{r.testimonial.quote}"
-                    </p>
-                    <footer className="lab-label mt-3">
-                      {r.testimonial.author}
-                      {r.testimonial.rolle ? ` · ${r.testimonial.rolle}` : ""}
-                    </footer>
-                  </blockquote>
-                </div>
-              )}
-            </div>
+          <div className="lab-boot mt-14" style={{ animationDelay: "420ms" }}>
+            <RefIndex
+              locale={locale}
+              t={{
+                stampLive: t.stampLive,
+                stampKonzept: t.stampKonzept,
+                stampWip: t.stampWip,
+                open: t.linkCase,
+              }}
+            />
           </div>
         </div>
       </section>

@@ -24,6 +24,9 @@ export type LeistungDict = {
     gLoad: string;
     gRequests: string;
     gThirdParty: string;
+    colPlugins: string;
+    colMine: string;
+    flatNote: string;
     hint: string;
     verdicts: [string, string, string, string];
   };
@@ -92,6 +95,10 @@ export const LEISTUNG: Record<Locale, LeistungDict> = {
       gLoad: "ladezeit",
       gRequests: "requests",
       gThirdParty: "fremd-js",
+      colPlugins: "mit plugins",
+      colMine: "bei mir",
+      flatNote:
+        "Die lime Linie ist meine Seite. Sie rührt sich nicht, egal wie weit du drehst · weil da nichts drin ist, was mitwachsen könnte.",
       hint: "Grössenordnungen aus echten Messungen an gewachsenen Seiten, keine Laborwerte.",
       verdicts: [
         "Null Ballast. Genau so baue ich.",
@@ -182,6 +189,10 @@ export const LEISTUNG: Record<Locale, LeistungDict> = {
       gLoad: "chargement",
       gRequests: "requêtes",
       gThirdParty: "js externe",
+      colPlugins: "avec plugins",
+      colMine: "chez moi",
+      flatNote:
+        "La ligne lime, c'est mon site. Elle ne bouge pas, quelle que soit la position du bouton · parce qu'il n'y a rien dedans qui puisse grossir.",
       hint: "Ordres de grandeur mesurés sur de vrais sites, pas des valeurs de labo.",
       verdicts: [
         "Zéro lest. C'est exactement comme ça que je construis.",
@@ -272,6 +283,10 @@ export const LEISTUNG: Record<Locale, LeistungDict> = {
       gLoad: "load time",
       gRequests: "requests",
       gThirdParty: "3rd-party js",
+      colPlugins: "with plugins",
+      colMine: "with me",
+      flatNote:
+        "The lime line is my site. It doesn't move, however far you turn · because there's nothing in it that could grow.",
       hint: "Orders of magnitude measured on real grown sites, not lab numbers.",
       verdicts: [
         "Zero ballast. This is exactly how i build.",
