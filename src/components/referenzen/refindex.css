@@ -6,8 +6,10 @@
  * lassen. die blätter waren auf dem handy schwer zu lesen und alle
  * infos lagen unter der falz.
  *
- * jetzt ist die ganze zeile der link, alles steht drin, und unter
- * der zeile fährt die echte seite durch ein kinoband.
+ * jetzt ist die ganze zeile der link, alles steht drin, und die
+ * vorschau liegt im stapel darüber · drüberfahren legt das projekt
+ * hinein. das kinoband, das hier mal unter der zeile lief, ist raus:
+ * es war das zweite bild derselben sache.
  *
  * baut auf device.css auf. prefix .ri-.
  */
@@ -16,23 +18,60 @@
   position: relative;
 }
 
-.ri-row {
-  position: relative;
-  display: block;
-  padding: clamp(20px, 3vw, 34px) 0;
-  transition: opacity 380ms ease, transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+/* ── das raster der übersicht ───────────────────────── */
+
+.rz-raster {
+  display: grid;
+  gap: clamp(34px, 5vw, 52px);
 }
 
-.ri-kopf {
+@media (min-width: 1024px) {
+  .rz-raster {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    column-gap: 40px;
+    align-items: start;
+  }
+  .rz-kopf {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .rz-liste {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  /* über beide zeilen und klebend · der stapel muss sichtbar
+     bleiben, während die hand unten über die zeilen fährt.
+     wäre er nur oben, liefe das umschalten ins leere. */
+  .rz-stapel {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    position: sticky;
+    top: 112px;
+  }
+}
+
+.ri-row {
+  position: relative;
   display: grid;
   align-items: center;
-  gap: 10px 20px;
+  gap: 8px 20px;
+  padding: clamp(16px, 2.2vw, 24px) 0;
   grid-template-columns: 34px minmax(0, 1fr) auto;
+  /* der name bekommt die volle spaltenbreite · stand „case lesen"
+     rechts DANEBEN, blieben ihm keine 300px und „fabry baumpflege"
+     brach auf zwei zeilen um. der hinweis sitzt jetzt am fuss der
+     zeile, wo ohnehin platz ist. */
   grid-template-areas:
-    "nr name go"
-    "nr meta go"
+    "nr name name"
+    "nr meta meta"
     "nr stamp go";
+  transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* KEIN einzeiliges layout auf breiten schirmen · die liste steht
+   jetzt in einer schmalen spalte neben dem stapel, nicht über die
+   volle breite. eine viewport-media-query würde dort trotzdem
+   greifen und die zeile aus der spalte schieben. */
 
 /* die trennlinie fährt beim reinscrollen auf · dieselbe geste wie
    überall sonst auf der seite */
@@ -65,11 +104,10 @@
   }
 }
 
-/* wer nicht gemeint ist, tritt zurück · das lenkt den blick, ohne
-   dass irgendwas blinken muss */
-.ri-row[data-dim="1"] {
-  opacity: 0.4;
-}
+/* die aktive zeile rückt vor · sie ist die, die gerade im stapel
+   liegt. die anderen bleiben voll lesbar · sie wegzudimmen hiesse,
+   zwei drittel der arbeit auszugrauen, nur weil die maus woanders
+   steht. */
 .ri-row[data-on="1"] {
   transform: translateX(clamp(4px, 0.8vw, 14px));
 }
@@ -95,7 +133,7 @@
 
 .ri-name {
   grid-area: name;
-  font-size: clamp(1.9rem, 6.4vw, 4.4rem);
+  font-size: clamp(1.6rem, 3.4vw, 2.5rem);
   color: #f2f2f2;
   transition: color 260ms ease;
 }
@@ -146,7 +184,7 @@
 
 .ri-go {
   grid-area: go;
-  align-self: center;
+  align-self: baseline;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 10px;
   letter-spacing: 0.14em;
@@ -160,154 +198,17 @@
   transform: translateX(6px);
 }
 
-/* ── das kinoband ──────────────────────────────────── */
-
-/* aufklappen über grid statt über height · so muss keine feste
-   höhe geraten werden und der übergang läuft trotzdem sauber */
-.ri-band {
-  display: grid;
-  grid-template-rows: 0fr;
-  margin-left: 34px;
-  transition: grid-template-rows 620ms cubic-bezier(0.22, 1, 0.36, 1),
-    margin-top 620ms cubic-bezier(0.22, 1, 0.36, 1), opacity 420ms ease;
-  opacity: 0;
-}
-.ri-band-innen {
-  overflow: hidden;
-  min-height: 0;
-}
-
-.ri-band-bild {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  border-radius: 8px;
-  height: var(--ri-h);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  /* am zeiger öffnet sich nur die zeile, auf der man steht */
-  .ri-row[data-on="1"] .ri-band {
-    grid-template-rows: 1fr;
-    margin-top: 22px;
-    opacity: 1;
-  }
-}
-
-@media not all and (hover: hover) {
-  /* ohne zeiger gibt es kein hover · dort stehen alle bänder von
-     anfang an offen, sonst sieht dieses gerät die arbeit nie */
-  .ri-band {
-    grid-template-rows: 1fr;
-    margin-top: 20px;
-    opacity: 1;
-  }
-}
-
-.ri-band-bild::after {
-  /* rahmen und tiefe · liegt über dem bild, damit die kanten des
-     screenshots nicht hart auf den seitenhintergrund stossen */
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 8px;
-  pointer-events: none;
-  box-shadow:
-    inset 0 0 0 1px rgba(242, 242, 242, 0.14),
-    inset 0 -40px 50px -30px rgba(12, 12, 14, 0.95),
-    inset 0 40px 50px -30px rgba(12, 12, 14, 0.8);
-}
-
-/* die seite fährt durch · das ist der eigentliche unterschied zur
-   briefmarke von vorher. hin UND zurück, damit es nie springt */
-.ri-fahrt {
-  display: block;
-  width: 100%;
-  height: auto;
-  animation: riFahrt 46s ease-in-out infinite alternate;
-}
-@keyframes riFahrt {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    /* das bild ist ein ganzseiten-screenshot · der letzte sichtbare
-       streifen bleibt stehen statt ins leere zu laufen */
-    transform: translateY(calc(-100% + var(--ri-h, 210px)));
-  }
-}
-
-.ri-band {
-  --ri-h: 150px;
-}
-@media (min-width: 700px) {
-  .ri-band {
-    --ri-h: 210px;
-  }
-}
-@media (min-width: 1000px) {
-  .ri-band {
-    --ri-h: 260px;
-  }
-}
-
-/* ein leiser lichtstreifen wandert über das glas · das band lebt
-   dadurch auch dann, wenn das bild gerade in einem ruhigen bereich
-   der seite steht */
-.ri-band-glanz {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    104deg,
-    rgba(255, 255, 255, 0) 38%,
-    rgba(255, 255, 255, 0.07) 50%,
-    rgba(255, 255, 255, 0) 62%
-  );
-  background-size: 260% 100%;
-  animation: riGlanz 9s ease-in-out infinite;
-}
-@keyframes riGlanz {
-  0%,
-  100% {
-    background-position: 120% 0;
-  }
-  50% {
-    background-position: -20% 0;
-  }
-}
-
-.ri-mono {
-  display: grid;
-  place-items: center;
-  height: 100%;
-  font-family: var(--font-lab), system-ui, sans-serif;
-  font-stretch: 125%;
-  font-weight: 800;
-  font-size: clamp(54px, 12vw, 110px);
-  color: rgba(255, 255, 255, 0.32);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .ri-row,
   .ri-row::before,
-  .ri-go,
-  .ri-band {
+  .ri-go {
     animation: none;
     transition: none;
   }
   .ri-row::before {
     transform: scaleX(1);
   }
-  .ri-led[data-live],
-  .ri-fahrt,
-  .ri-band-glanz {
+  .ri-led[data-live] {
     animation: none;
-  }
-  /* ohne bewegung wäre ein zugeklapptes band nicht erreichbar */
-  .ri-band {
-    grid-template-rows: 1fr;
-    opacity: 1;
-    margin-top: 20px;
   }
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { HeroRail } from "@/components/device/HeroRail";
@@ -14,23 +15,52 @@ import "@/components/referenzen/refindex.css";
 import "@/components/referenzen/schichten.css";
 
 /**
- * ReferenzenDevice · die referenzen als editorial-index.
+ * ReferenzenDevice · die referenzen als ein einziges gerät.
  *
  * die übersichtsseite hat genau einen job: zeigen was es gibt, und
  * rein lassen. deshalb steht alles in der zeile und die ganze zeile
  * ist der link · niemand muss ahnen, dass unten noch was kommt.
  *
- * die fallblatt-tafel, die vorher hier stand, war ein schöner
- * mechanismus am falschen ort: schwer zu lesen auf dem handy, und die
- * infos lagen unter der falz.
+ * der aufbau ist seit august 2026 auf EIN element zusammengezogen:
+ * oben liegt der stapel, unten stehen die drei zeilen, und wer über
+ * eine zeile fährt, legt das projekt in den stapel. vorher war das
+ * zweigeteilt · der stapel im hero, darunter je projekt noch ein
+ * grosses vorschau-band. zwei bilder derselben sache übereinander,
+ * und das schöne von beiden ging dabei unter.
+ *
+ * ohne zeiger gibt es kein hover, deshalb schaltet der stapel dort
+ * von selbst weiter. sobald eine hand mitspielt, hört er damit auf
+ * und folgt ihr · niemand will gegen eine automatik anhovern.
  *
  * ehrlichkeit bleibt das konzept: was nicht live ist, bekommt den
  * konzept-stempel, und zwar schon in der übersicht.
  */
 
+/* wie lange ein projekt im stapel liegt, solange niemand steuert */
+const TAKT = 4200;
+
 export function ReferenzenDevice() {
   const locale = useLocale();
   const t = REFERENZEN[locale];
+
+  const [aktiv, setAktiv] = useState(0);
+  /* sobald jemand selbst steuert, ist die automatik aus · sie soll
+     nicht gegen die hand arbeiten. einmal aus, bleibt aus. */
+  const [vonHand, setVonHand] = useState(false);
+
+  useEffect(() => {
+    if (vonHand) return;
+    const uhr = setInterval(
+      () => setAktiv((i) => (i + 1) % referenzen.length),
+      TAKT,
+    );
+    return () => clearInterval(uhr);
+  }, [vonHand]);
+
+  const waehle = (i: number) => {
+    setVonHand(true);
+    setAktiv(i);
+  };
 
   return (
     <div className="lab-root" data-no-reveal>
@@ -42,18 +72,27 @@ export function ReferenzenDevice() {
       <DeviceNav />
       <HeroRail label={t.kicker} />
 
-      {/* ═══ HERO · die explosionszeichnung ═══
-          statt einer atmosphäre im hintergrund steht hier ein objekt,
-          das der besucher tatsächlich bedient. es zeigt nicht wieviele
-          projekte es gibt (drei), sondern wieviel in einem steckt. */}
+      {/* ═══ DAS GERÄT · zeilen links, stapel rechts ═══
+          der stapel zeigt immer genau ein projekt. die zeilen daneben
+          schalten ihn um und führen gleichzeitig hinein · ein element
+          macht vorschau und navigation.
+
+          beides muss GLEICHZEITIG sichtbar sein. standen die zeilen
+          unter dem stapel, war er beim drüberfahren längst aus dem
+          bild gescrollt und das umschalten lief ins leere. */}
       <section
         data-no-reveal
-        className="relative isolate px-6 pb-20 pt-36 md:px-12 md:pt-44"
+        className="relative isolate px-6 pb-24 pt-32 md:px-12 md:pt-40"
       >
-        <div className="mx-auto grid w-full max-w-[1200px] items-center gap-12 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-8">
-          <div>
+        {/* die reihenfolge im DOM ist die MOBILE reihenfolge: titel,
+            stapel, liste. auf breiten schirmen setzt das raster den
+            stapel in die zweite spalte über beide zeilen · so steht er
+            am handy dort, wo er hingehört (direkt unter dem titel,
+            nicht hinter der liste), ohne dass es zwei markups braucht. */}
+        <div className="rz-raster mx-auto w-full max-w-[1200px]">
+          <div className="rz-kopf">
             <h1
-              className="lab-display lab-boot text-[clamp(2.6rem,7vw,5.6rem)]"
+              className="lab-display lab-boot text-[clamp(2.4rem,6vw,4.6rem)]"
               style={{ animationDelay: "180ms" }}
             >
               {t.h1a}
@@ -62,40 +101,42 @@ export function ReferenzenDevice() {
             </h1>
 
             <p
-              className="lab-boot mt-8 max-w-[440px] text-[15px] leading-relaxed"
+              className="lab-boot mt-6 max-w-[420px] text-[15px] leading-relaxed"
               style={{ animationDelay: "300ms", color: "rgba(242,242,242,0.62)" }}
             >
               {t.sub}
             </p>
           </div>
 
-          <div className="lab-boot" style={{ animationDelay: "420ms" }}>
+          {/* der stapel bleibt stehen, während die zeilen daneben
+              durchlaufen · so sieht man das umschalten auch dann noch,
+              wenn die liste länger wird als der schirm */}
+          <div className="rz-stapel lab-boot" style={{ animationDelay: "500ms" }}>
             <Schichten
               schichten={t.sxSchichten}
-              shot={referenzen.find((r) => r.shots)?.shots?.desktop}
+              projekte={referenzen}
+              aktiv={aktiv}
               zieh={t.sxZieh}
               einheit={t.sxEinheit}
               seite={t.sxSeite}
             />
           </div>
-        </div>
-      </section>
 
-      {/* ═══ DER INDEX ═══ */}
-      <section data-no-reveal className="relative px-6 pb-24 md:px-12">
-        <div className="mx-auto w-full max-w-[1200px]">
-          <span className="lab-label block">{t.boardHint}</span>
-
-          <div className="mt-8">
-            <RefIndex
-              locale={locale}
-              t={{
-                stampLive: t.stampLive,
-                stampKonzept: t.stampKonzept,
-                stampWip: t.stampWip,
-                open: t.linkCase,
-              }}
-            />
+          <div className="rz-liste lab-boot" style={{ animationDelay: "420ms" }}>
+            <span className="lab-label block">{t.boardHint}</span>
+            <div className="mt-5">
+              <RefIndex
+                locale={locale}
+                aktiv={aktiv}
+                setzeAktiv={waehle}
+                t={{
+                  stampLive: t.stampLive,
+                  stampKonzept: t.stampKonzept,
+                  stampWip: t.stampWip,
+                  open: t.linkCase,
+                }}
+              />
+            </div>
           </div>
         </div>
       </section>

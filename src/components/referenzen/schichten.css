@@ -157,6 +157,35 @@
 
 /* ── was auf den einzelnen schichten liegt ───────────────── */
 
+/* die projekt-schichten liegen ALLE gleichzeitig da und werden nur
+   über opacity getauscht · das blendet weich über statt zu blitzen,
+   und die aufnahmen sind vor dem umschalten schon geladen */
+.sx-wechsel {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.sx-wechsel[data-on="1"] {
+  opacity: 1;
+}
+
+.sx-leer {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;
+  /* etwas licht drauf · eine plane farbfläche neben einer echten
+     aufnahme sieht nach fehlendem bild aus, nicht nach „noch keine
+     aufnahme" */
+  background-image: radial-gradient(
+    120% 90% at 26% 18%,
+    rgba(255, 255, 255, 0.24),
+    rgba(0, 0, 0, 0.35) 72%
+  );
+  background-blend-mode: overlay;
+}
+
 .sx-schraube {
   position: absolute;
   width: 8px;
@@ -188,7 +217,6 @@
 
 .sx-farbe {
   display: flex;
-  height: 100%;
 }
 .sx-farbe span { flex: 1; }
 /* das lime sitzt links, wo der stapel es freigibt · das helle feld
@@ -209,7 +237,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
   font-family: var(--font-display, inherit);
   font-size: 140px;
   font-weight: 800;
@@ -223,7 +250,6 @@
   flex-direction: column;
   justify-content: center;
   gap: 13px;
-  height: 100%;
   padding: 0 34px;
 }
 .sx-inhalt span {
@@ -355,6 +381,13 @@
 .sx-zaehler i {
   font-style: normal;
   color: rgba(242, 242, 242, 0.25);
+}
+/* der projektname im fuss · beim umschalten kurz aufblenden, sonst
+   merkt man beim ziehen nicht, dass sich der stapel gewechselt hat */
+.sx-zaehler em {
+  font-style: normal;
+  font-size: 11px;
+  color: rgba(242, 242, 242, 0.6);
 }
 
 @media (prefers-reduced-motion: reduce) {

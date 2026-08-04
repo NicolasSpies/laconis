@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type { Referenz } from "@/data/referenzen";
 
 /**
  * Schichten · die explosionszeichnung im referenzen-hero.
@@ -13,8 +14,20 @@ import { useEffect, useRef } from "react";
  * also wird nicht die MENGE der projekte gezeigt, sondern die tiefe
  * von einem. eine website sieht aus wie eine fläche. zieht man sie
  * auseinander, sind es sieben schichten, die alle jemand bauen muss.
- * das ist ehrlich, es ist bei jedem projekt hier wahr, und man kann
- * es anfassen · genau das versprechen aus dem startseiten-hero.
+ *
+ * seit august 2026 ist der stapel zusätzlich die NAVIGATION: er zeigt
+ * immer genau ein projekt, und wer unten über die zeilen fährt,
+ * schaltet ihn um. vorher stand darunter noch eine zweite, grosse
+ * vorschau je projekt · zwei bilder derselben sache übereinander,
+ * einmal als objekt und einmal als briefmarke. jetzt macht das eine
+ * element beides.
+ *
+ * die schichten, die das projekt tragen (bild, farbe, schrift, inhalt),
+ * liegen für ALLE projekte gleichzeitig im DOM und werden nur über
+ * opacity getauscht. so blendet der wechsel weich über statt zu
+ * blitzen, und die aufnahmen sind schon geladen, bevor jemand
+ * umschaltet. die schichten, die das HANDWERK tragen (unterbau, code,
+ * raster), ändern sich nicht · sie sind bei jedem projekt dieselben.
  *
  * bedienung: ziehen. hoch = auseinander, runter = zusammen. ein
  * kurzer tipp klappt komplett auf oder zu.
@@ -38,15 +51,30 @@ export type SchichtT = {
   was: string;
 };
 
+/* die balken auf der inhalts-schicht · pro projekt ein anderer satz,
+   damit der wechsel auch ganz oben sichtbar ist und nicht nur im bild */
+const BALKEN = [
+  ["62%", "84%", "46%"],
+  ["78%", "52%", "66%"],
+  ["48%", "72%", "88%"],
+];
+
+function monogramm(r: Referenz) {
+  return (r.monogram ?? r.name[0] ?? "·").toLowerCase();
+}
+
 export function Schichten({
   schichten,
-  shot,
+  projekte,
+  aktiv,
   zieh,
   einheit,
   seite,
 }: {
   schichten: SchichtT[];
-  shot?: string;
+  projekte: Referenz[];
+  /** index des projekts, das der stapel gerade zeigt */
+  aktiv: number;
   zieh: string;
   einheit: string;
   seite: string;
@@ -114,6 +142,8 @@ export function Schichten({
     else lauf();
   };
 
+  const jetzt = projekte[aktiv];
+
   return (
     <div
       className="sx"
@@ -144,8 +174,7 @@ export function Schichten({
           {schichten.map((s, i) => (
             <div key={s.name} className="sx-platte" data-k={i} style={{ "--z": i } as React.CSSProperties}>
               <div className="sx-flaeche" data-k={i}>
-                {/* jede schicht zeigt WAS sie ist · nicht dasselbe
-                    rechteck in sieben farben */}
+                {/* ── das handwerk · bei jedem projekt gleich ── */}
                 {i === 0 && (
                   <>
                     <span className="sx-schraube" style={{ left: 10, top: 10 }} />
@@ -162,28 +191,48 @@ export function Schichten({
                   </div>
                 )}
                 {i === 2 && <div className="sx-raster" />}
-                {i === 3 && (
-                  <div className="sx-farbe">
-                    <span style={{ background: "#e1fd52" }} />
-                    <span style={{ background: "#1a1a1f" }} />
-                    <span style={{ background: "#c9c9d0" }} />
-                  </div>
-                )}
-                {i === 4 &&
-                  (shot ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img src={shot} alt="" className="sx-shot" />
-                  ) : (
-                    <div className="sx-raster" />
+
+                {/* ── das projekt · alle gleichzeitig da, per opacity
+                    getauscht. so blendet es weich über und die bilder
+                    sind vor dem umschalten schon geladen ── */}
+                {i === 3 &&
+                  projekte.map((p, n) => (
+                    <div key={p.slug} className="sx-wechsel sx-farbe" data-on={n === aktiv ? "1" : "0"}>
+                      <span style={{ background: "#e1fd52" }} />
+                      <span style={{ background: "#1a1a1f" }} />
+                      <span style={{ background: p.farbe }} />
+                    </div>
                   ))}
-                {i === 5 && <div className="sx-typo">Aa</div>}
-                {i === 6 && (
-                  <div className="sx-inhalt">
-                    <span style={{ width: "62%" }} />
-                    <span style={{ width: "84%" }} />
-                    <span style={{ width: "46%" }} />
-                  </div>
-                )}
+
+                {i === 4 &&
+                  projekte.map((p, n) => (
+                    <div key={p.slug} className="sx-wechsel" data-on={n === aktiv ? "1" : "0"}>
+                      {p.shots ? (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img src={p.shots.desktop} alt="" className="sx-shot" />
+                      ) : (
+                        /* ohne aufnahme steht die projektfarbe · das ist
+                           ehrlicher als ein platzhalter-screenshot */
+                        <span className="sx-leer" style={{ background: p.farbe }} />
+                      )}
+                    </div>
+                  ))}
+
+                {i === 5 &&
+                  projekte.map((p, n) => (
+                    <div key={p.slug} className="sx-wechsel sx-typo" data-on={n === aktiv ? "1" : "0"}>
+                      {monogramm(p)}
+                    </div>
+                  ))}
+
+                {i === 6 &&
+                  projekte.map((p, n) => (
+                    <div key={p.slug} className="sx-wechsel sx-inhalt" data-on={n === aktiv ? "1" : "0"}>
+                      {(BALKEN[n % BALKEN.length] ?? BALKEN[0]!).map((b, k) => (
+                        <span key={k} style={{ width: b }} />
+                      ))}
+                    </div>
+                  ))}
               </div>
             </div>
           ))}
@@ -207,7 +256,9 @@ export function Schichten({
         <span className="sx-zaehler">
           <b>{String(schichten.length).padStart(2, "0")}</b> {einheit}
           <i>·</i>
-          <b>01</b> {seite}
+          {/* das schild sagt, welches projekt gerade im stapel liegt ·
+              sonst weiss man beim ziehen nicht mehr, wessen seite das ist */}
+          <em>{jetzt ? jetzt.name.toLowerCase() : seite}</em>
         </span>
       </div>
     </div>
