@@ -32,7 +32,7 @@ export const HTML_LANG: Record<Locale, string> = {
 
 /**
  * Canonical path (DE) → lokalisierter slug.
- * Format: { '/leistungen/web': { de: 'leistungen/web', fr: 'services/web', en: 'services/web' } }
+ * Format: { 'leistung': { de: 'leistung', fr: 'prestation', en: 'service' } }
  *
  * Wichtig: die KEYS sind die deutschen (canonical) pfade ohne führenden /.
  * Die werte sind die lokalisierten slugs (auch ohne führendes /).
@@ -43,21 +43,6 @@ export const ROUTES: Record<string, Record<Locale, string>> = {
   /* die eine leistungs-seite · web. löst /leistungen/web +
      /leistungen/web/technik ab (beide 301 hierher, siehe next.config). */
   leistung: { de: "leistung", fr: "prestation", en: "service" },
-  "leistungen/web": {
-    de: "leistungen/web",
-    fr: "services/web",
-    en: "services/web",
-  },
-  "leistungen/web/technik": {
-    de: "leistungen/web/technik",
-    fr: "services/web/technique",
-    en: "services/web/tech",
-  },
-  "leistungen/branding": {
-    de: "leistungen/branding",
-    fr: "services/branding",
-    en: "services/branding",
-  },
   preise: { de: "preise", fr: "prix", en: "pricing" },
   kontakt: { de: "kontakt", fr: "contact", en: "contact" },
   referenzen: { de: "referenzen", fr: "references", en: "work" },
@@ -79,8 +64,8 @@ export const ROUTES: Record<string, Record<Locale, string>> = {
  * Beispiele:
  *   buildPath('home', 'de')             → '/'
  *   buildPath('home', 'fr')             → '/fr'
- *   buildPath('leistungen/web', 'de')   → '/leistungen/web'
- *   buildPath('leistungen/web', 'fr')   → '/fr/services/web'
+ *   buildPath('leistung', 'de')         → '/leistung'
+ *   buildPath('leistung', 'fr')         → '/fr/prestation'
  *   buildPath('preise', 'en')           → '/en/pricing'
  */
 export function buildPath(routeKey: keyof typeof ROUTES, locale: Locale): string {
@@ -100,8 +85,8 @@ export function buildPath(routeKey: keyof typeof ROUTES, locale: Locale): string
 /**
  * Mappt einen lokalisierten path zurück auf den canonical route-key.
  * Beispiele:
- *   parsePath('/leistungen/web')   → { routeKey: 'leistungen/web', locale: 'de' }
- *   parsePath('/fr/services/web')  → { routeKey: 'leistungen/web', locale: 'fr' }
+ *   parsePath('/leistung')         → { routeKey: 'leistung', locale: 'de' }
+ *   parsePath('/fr/prestation')    → { routeKey: 'leistung', locale: 'fr' }
  *   parsePath('/en/pricing')       → { routeKey: 'preise', locale: 'en' }
  *   parsePath('/')                 → { routeKey: 'home', locale: 'de' }
  *   parsePath('/fr')               → { routeKey: 'home', locale: 'fr' }
@@ -143,12 +128,12 @@ export function parsePath(
 /**
  * Gibt die path-alternates für einen route-key zurück · für hreflang-tags.
  * Beispiele:
- *   getAlternates('leistungen/web')
+ *   getAlternates('leistung')
  *   → {
- *       de: '/leistungen/web',
- *       fr: '/fr/services/web',
- *       en: '/en/services/web',
- *       'x-default': '/leistungen/web',
+ *       de: '/leistung',
+ *       fr: '/fr/prestation',
+ *       en: '/en/service',
+ *       'x-default': '/leistung',
  *     }
  */
 export function getAlternates(
@@ -168,8 +153,8 @@ export function getAlternates(
  * Behandelt auch dynamic-segments wie /referenzen/<slug> → /fr/references/<slug>.
  *
  * Beispiele:
- *   switchLocale('/leistungen/web', 'fr')              → '/fr/services/web'
- *   switchLocale('/fr/services/web', 'en')             → '/en/services/web'
+ *   switchLocale('/leistung', 'fr')                    → '/fr/prestation'
+ *   switchLocale('/fr/prestation', 'en')               → '/en/service'
  *   switchLocale('/referenzen/fabry', 'en')            → '/en/work/fabry'
  *   switchLocale('/en/work/fabry', 'de')               → '/referenzen/fabry'
  *   switchLocale('/', 'fr')                            → '/fr'
@@ -200,7 +185,7 @@ export function switchLocale(pathname: string, targetLocale: Locale): string {
     const currentSlug = slugMap[currentLocale];
     if (!currentSlug) continue;
 
-    // exact match (z.b. /leistungen/web matches "leistungen/web")
+    // exact match (z.b. /leistung matches "leistung")
     if (pathWithoutLocale === currentSlug) {
       return buildPath(routeKey as keyof typeof ROUTES, targetLocale);
     }

@@ -86,26 +86,6 @@ const STATIC_MAP: Record<string, MetaByLocale> = {
       ogDescription: "built from scratch · lighthouse 95+ · in-house cms · existing sites taken over.",
     },
   },
-  "/leistungen/branding": {
-    de: {
-      title: "branding & logo-design · lacønis",
-      description: "logo erstellen lassen · brand identity, visitenkarten, brand guide, typografie, farbwelt · für startups, handwerker, kleine unternehmen.",
-      ogTitle: "branding & logo · lacønis",
-      ogDescription: "logo, brand identity, visitenkarten, brand guide · vom ersten strich bis zur fahrzeugbeschriftung.",
-    },
-    fr: {
-      title: "branding & design de logo · lacønis",
-      description: "création de logo · brand identity, cartes de visite, brand guide, typographie, palette · pour startups, artisans, petites entreprises.",
-      ogTitle: "branding & logo · lacønis",
-      ogDescription: "logo, brand identity, cartes de visite, brand guide · du premier trait au marquage véhicule.",
-    },
-    en: {
-      title: "branding & logo design · lacønis",
-      description: "logo creation · brand identity, business cards, brand guide, typography, colour palette · for startups, makers, small businesses.",
-      ogTitle: "branding & logo · lacønis",
-      ogDescription: "logo, brand identity, business cards, brand guide · from first sketch to vehicle wrap.",
-    },
-  },
   "/preise": {
     de: {
       title: "preise · was kostet eine website oder ein logo?",

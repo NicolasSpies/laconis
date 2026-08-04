@@ -150,7 +150,7 @@ export function ServicesSplit() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 md:[grid-template-rows:minmax(200px,1fr)_minmax(200px,1fr)_auto]">
           {/* ─── WEB · großes dunkles anker-tile ─── */}
           <Link
-            href={buildPath("leistungen/web", locale)}
+            href={buildPath("leistung", locale)}
             data-theme="dark"
             className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a] p-7 md:p-9 flex flex-col justify-between min-h-[340px] md:min-h-0 md:col-span-2 md:row-span-2"
           >
@@ -197,7 +197,7 @@ export function ServicesSplit() {
 
           {/* ─── ABLAUF · lila · vier schritte (anker auf /leistungen/web) ─── */}
           <Link
-            href={`${buildPath("leistungen/web", locale)}#ablauf`}
+            href={`${buildPath("leistung", locale)}#ablauf`}
             scroll={false}
             className="group rounded-2xl p-7 flex flex-col justify-between min-h-[180px] md:min-h-0 md:col-start-3 md:row-start-2 text-[#0a0a0a]"
             style={{ background: LILA }}

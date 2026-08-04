@@ -95,7 +95,7 @@ export function RedesignTeaser() {
           </p>
 
           <Link
-            href={`${buildPath("leistungen/web", locale)}#uebernahme`}
+            href={`${buildPath("leistung", locale)}#uebernahme`}
             scroll={false}
             className="link-draw mt-9 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label text-[#0a0a0a]"
           >

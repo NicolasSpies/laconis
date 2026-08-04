@@ -24,7 +24,7 @@ type NavLink = {
 
 /* web-only: EIN direkter "leistungen"-link auf /leistungen/web ·
    kein dropdown ("web" als label wäre doppelt — die ganze seite IST web) ·
-   branding bleibt stille seite (footer-link), nicht im spotlight */
+   branding hat keine eigene seite mehr (august 2026) */
 const SERVICE_LABELS: Record<Locale, string> = {
   de: "leistung",
   fr: "service",
@@ -207,7 +207,7 @@ export function Nav() {
   const menuItems = [
     {
       key: "web",
-      href: buildPath("leistungen/web", currentLocale),
+      href: buildPath("leistung", currentLocale),
       label: SERVICE_LABELS[currentLocale],
       accent: "#e1fd52",
     },
@@ -241,7 +241,7 @@ export function Nav() {
 
         <nav className="hidden md:flex items-center gap-7">
           {(() => {
-            const href = buildPath("leistungen/web", currentLocale);
+            const href = buildPath("leistung", currentLocale);
             const active = pathname === href || pathname.startsWith(href + "/");
             return (
               <Link

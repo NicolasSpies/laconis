@@ -17,15 +17,32 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      // Altroute → neue Route (2026-04 umbenannt: grafik → branding)
+      /* 2026-08 · die branding-seite ist ersatzlos raus. alles was
+         mal dorthin zeigte, landet jetzt auf der einen leistungs-
+         seite · dort steht das web-angebot, um das es geht. */
+      {
+        source: "/leistungen/branding",
+        destination: "/leistung",
+        permanent: true,
+      },
       {
         source: "/leistungen/grafik",
-        destination: "/leistungen/branding",
+        destination: "/leistung",
         permanent: true,
       },
       {
         source: "/leistungen/grafik/:path*",
-        destination: "/leistungen/branding/:path*",
+        destination: "/leistung",
+        permanent: true,
+      },
+      {
+        source: "/fr/services/branding",
+        destination: "/fr/prestation",
+        permanent: true,
+      },
+      {
+        source: "/en/services/branding",
+        destination: "/en/service",
         permanent: true,
       },
       // Übersichts-page entfernt 2026-05 · nav-dropdown ersetzt sie
@@ -107,7 +124,6 @@ const nextConfig = {
     const fr = [
       { source: "/fr", destination: "/" },
       { source: "/fr/prestation", destination: "/leistung" },
-      { source: "/fr/services/branding", destination: "/leistungen/branding" },
       { source: "/fr/prix", destination: "/preise" },
       { source: "/fr/contact", destination: "/kontakt" },
       { source: "/fr/references", destination: "/referenzen" },
@@ -120,7 +136,6 @@ const nextConfig = {
     const en = [
       { source: "/en", destination: "/" },
       { source: "/en/service", destination: "/leistung" },
-      { source: "/en/services/branding", destination: "/leistungen/branding" },
       { source: "/en/pricing", destination: "/preise" },
       { source: "/en/contact", destination: "/kontakt" },
       { source: "/en/work", destination: "/referenzen" },
