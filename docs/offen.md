@@ -27,8 +27,8 @@ werkbank aussehen.
 
 ## 2 · mehr wort und bild statt raster
 
-Der `ArtQuote` ist der anfang: grosse zitate, versetzt gesetzt, wörter
-weichen dem zeiger aus. Weiter gedacht:
+Der `ArtQuote` ist der anfang: grosse zitate, zeilenweise versetzt,
+jede zeile driftet für sich. Weiter gedacht:
 
 - text, der auf ein bild reagiert (oder umgekehrt) und wo der
   zusammenhang inhaltlich stimmt, nicht nur dekorativ ist
