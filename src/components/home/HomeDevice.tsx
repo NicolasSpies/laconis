@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { HOME } from "@/components/home/home.dict";
 import { useLocale } from "@/i18n/useLocale";
 import { ShaderField } from "@/components/device/ShaderField";
@@ -28,15 +27,6 @@ import "@/components/device/device.css";
 export function HomeDevice() {
   const locale = useLocale();
   const t = HOME[locale];
-
-  /* alte nav/footer auf dieser seite stilllegen · die geräte-nav
-     übernimmt (root-layout rendert beide global) */
-  useEffect(() => {
-    document.body.dataset.lab = "1";
-    return () => {
-      delete document.body.dataset.lab;
-    };
-  }, []);
 
   return (
     <div className="lab-root" data-no-reveal>

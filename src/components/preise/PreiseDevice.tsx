@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { HeroRail } from "@/components/device/HeroRail";
@@ -25,13 +24,6 @@ import "@/components/preise/caliper.css";
 export function PreiseDevice() {
   const locale = useLocale();
   const t = PREISE[locale];
-
-  useEffect(() => {
-    document.body.dataset.lab = "1";
-    return () => {
-      delete document.body.dataset.lab;
-    };
-  }, []);
 
   return (
     <div className="lab-root" data-no-reveal>

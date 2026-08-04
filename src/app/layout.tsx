@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
-import { Nav } from "@/components/Nav";
-import { Footer } from "@/components/Footer";
+import { LegacyChrome } from "@/components/LegacyChrome";
 import { CursorDot } from "@/components/CursorDot";
 import { DriftingBlobs } from "@/components/DriftingBlobs";
 import { PageTransition } from "@/components/PageTransition";
@@ -151,7 +150,7 @@ export default function RootLayout({
         />
         <DriftingBlobs />
         <CursorDot />
-        <Nav />
+        <LegacyChrome position="nav" />
         <StructuredData />
         <Tracker />
         <ConsoleGreeting />
@@ -161,7 +160,7 @@ export default function RootLayout({
         <main className="relative z-[1]">
           <PageTransition>{children}</PageTransition>
         </main>
-        <Footer />
+        <LegacyChrome position="footer" />
       </body>
     </html>
   );

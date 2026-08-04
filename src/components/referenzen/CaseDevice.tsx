@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { ArtQuote } from "@/components/device/ArtQuote";
 import { ClaimSwitch } from "@/components/referenzen/ClaimSwitch";
 import { ProjektAnsicht } from "@/components/referenzen/ProjektAnsicht";
+import { HeroAtmo } from "@/components/device/HeroAtmo";
 import { CASE } from "@/components/referenzen/case.dict";
 import { REFERENZEN } from "@/components/referenzen/referenzen.dict";
 import { referenzen } from "@/data/referenzen";
@@ -37,13 +37,6 @@ export function CaseDevice({ slug }: { slug: string }) {
   const tr = REFERENZEN[locale];
   const r = referenzen.find((x) => x.slug === slug) ?? referenzen[0]!;
 
-  useEffect(() => {
-    document.body.dataset.lab = "1";
-    return () => {
-      delete document.body.dataset.lab;
-    };
-  }, []);
-
   const isLive = Boolean(r.istEcht);
   const stamp = isLive ? tr.stampLive : r.inArbeit ? tr.stampWip : tr.stampKonzept;
 
@@ -56,31 +49,35 @@ export function CaseDevice({ slug }: { slug: string }) {
 
       <DeviceNav />
 
-      {/* ═══ KOPF ═══ */}
-      <section data-no-reveal className="relative px-6 pb-12 pt-36 md:px-12 md:pt-44">
-        <div className="mx-auto max-w-[1200px]">
-          <Link href={buildPath("referenzen", locale)} className="lab-label lab-boot inline-block">
-            ← {t.back}
-          </Link>
+      {/* ═══ KOPF · die gebaute seite steht sofort da ═══ */}
+      <section data-no-reveal className="relative isolate px-6 pb-16 pt-36 md:px-12 md:pt-44">
+        <HeroAtmo variant="schweben" />
+        <div className="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:gap-14">
+          <div>
+          <div>
+            <Link href={buildPath("referenzen", locale)} className="lab-label lab-boot">
+              ← {t.back}
+            </Link>
+          </div>
 
-          <span className="lab-stamp lab-boot mt-7 block w-fit" data-kind={isLive ? "live" : "konzept"}>
+          <span className="lab-stamp lab-boot mt-7" data-kind={isLive ? "live" : "konzept"}>
             {stamp}
           </span>
 
           <h1
-            className="lab-display lab-boot mt-6 text-[clamp(2.4rem,7.5vw,6rem)]"
+            className="lab-display lab-boot mt-6 text-[clamp(2.1rem,4.6vw,3.8rem)]"
             style={{ animationDelay: "120ms" }}
           >
             {r.name.toLowerCase()}
           </h1>
           <p
-            className="lab-boot mt-6 max-w-[520px] text-[clamp(1rem,1.8vw,1.25rem)] leading-[1.55] text-[rgba(242,242,242,0.8)]"
+            className="lab-boot mt-5 max-w-[420px] text-[clamp(0.98rem,1.5vw,1.12rem)] leading-[1.55] text-[rgba(242,242,242,0.8)]"
             style={{ animationDelay: "220ms" }}
           >
             {r.kurz}
           </p>
 
-          <div className="mt-9 flex flex-wrap gap-x-10 gap-y-4">
+          <div className="mt-8 flex flex-wrap gap-x-9 gap-y-4">
             {[
               [t.lOrt, r.ort],
               [t.lJahr, String(r.jahr)],
@@ -91,6 +88,13 @@ export function CaseDevice({ slug }: { slug: string }) {
                 <div className="mt-1.5 text-[15px] text-[#f2f2f2]">{v}</div>
               </div>
             ))}
+            </div>
+          </div>
+
+          {/* die geräte im hero statt weiter unten · niemand soll
+              scrollen müssen, um die seite zu sehen, um die es geht */}
+          <div className="lab-boot" style={{ animationDelay: "320ms" }}>
+            <ProjektAnsicht shots={r.shots} t={t.ansicht} />
           </div>
         </div>
       </section>
@@ -140,21 +144,6 @@ export function CaseDevice({ slug }: { slug: string }) {
                 </p>
               </div>
               <ClaimSwitch t={t.claim} />
-            </div>
-          </section>
-
-          {/* ═══ DIE GEBAUTE SEITE · funktioniert bei jedem projekt ═══ */}
-          <section data-no-reveal className="relative px-6 pb-28 md:px-12">
-            <div className="mx-auto max-w-[1200px]">
-              <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
-                <h2 className="lab-display max-w-[16ch] text-[clamp(1.8rem,4.6vw,3.2rem)]">
-                  {t.ansichtH2}
-                </h2>
-                <p className="lab-hint max-w-[340px] text-[12.5px] leading-relaxed">
-                  {t.ansichtLead}
-                </p>
-              </div>
-              <ProjektAnsicht shots={r.shots} t={t.ansicht} />
             </div>
           </section>
 

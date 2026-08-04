@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { HeroRail } from "@/components/device/HeroRail";
 import { HeroAtmo } from "@/components/device/HeroAtmo";
@@ -26,13 +25,6 @@ import "@/components/kontakt/konsole.css";
 export function KontaktDevice() {
   const locale = useLocale();
   const t = KONTAKT[locale];
-
-  useEffect(() => {
-    document.body.dataset.lab = "1";
-    return () => {
-      delete document.body.dataset.lab;
-    };
-  }, []);
 
   return (
     <div className="lab-root" data-no-reveal>

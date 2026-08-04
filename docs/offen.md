@@ -15,11 +15,11 @@ Alles darunter ist besprochen, nichts davon ist eine überraschung.
 | `/preise` | zwei lichtbänder bilden einen korridor |
 | `/ueber-mich` | licht auf dem portrait folgt der hand |
 | `/kontakt` | ringe laufen nach aussen wie eine stimme |
-| `/referenzen/[slug]` | **fehlt noch** · idee: laptop+handy direkt in den hero |
+| `/referenzen/[slug]` | laptop+handy mit der echten seite, direkt im hero |
 
-Offen bleibt der case-hero. Und: sobald weitere projekte aufnahmen
-haben, füllt sich der referenzen-hero von selbst · aktuell schwebt
-dort nur fabry, weil nur fabry aufnahmen hat.
+Alle heros stehen. Sobald weitere projekte aufnahmen haben, füllt sich
+der referenzen-hero von selbst · aktuell schwebt dort nur fabry, weil
+nur fabry aufnahmen hat.
 
 Wichtig weiterhin: **nicht mechanischer werden.** Die geräte-sprache
 trägt die bedienelemente, aber ein hero soll einladen und nicht nach
@@ -50,12 +50,16 @@ aus der sitemap nehmen. Das ist eine entscheidung, keine aufgabe.
 `/impressum`, `/datenschutz`, `/web-performance-ostbelgien` laufen
 noch im alten stil. Pflichtseiten, aber der bruch ist sichtbar.
 
-## 5 · screenshots der referenzen altern still
+## 5 · screenshots nachziehen · erledigt, aber manuell
 
-`public/cases/fabry-*.jpg` sind momentaufnahmen vom 4.8.2026. Ändert
-sich die kundenseite, veraltet die case-study unbemerkt. Ein kleines
-skript (playwright, zwei viewports, ablage in `public/cases/`) würde
-das lösen. Für weitere projekte sowieso nötig.
+`npm run shots` zieht alle aufnahmen neu (oder `npm run shots
+fabry-baumpflege` für eins). Playwright ist bewusst KEINE feste
+abhängigkeit · 300 MB browser für ein skript, das dreimal im jahr
+läuft, gehören nicht in jede installation. Das skript sagt beim
+ersten lauf, was zu installieren ist.
+
+Offen bleibt: es läuft nicht von selbst. Wer die kundenseite ändert,
+muss dran denken.
 
 ## 6 · `public/nicolas.jpg` fehlt
 
@@ -66,8 +70,6 @@ Der austausch braucht keine codeänderung.
 
 - klassen-prefix ist noch `lab-`, obwohl der ordner `device/` heisst.
   1.300 css-zeilen · lohnt nur, wenn sonst nichts ansteht.
-- alte `Nav` und `Footer` werden auf jeder seite gerendert und per
-  CSS versteckt. sauberer wäre, sie nur für die alten seiten zu laden.
 - der pegel auf `/leistung` könnte weitere zeilen vertragen
   (update-aufwand, lizenzkosten, wartung über jahre) · aber als
   erweiterung DIESES geräts, nicht als zweites daneben.

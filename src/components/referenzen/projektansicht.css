@@ -133,7 +133,9 @@
     gap: 0;
   }
   .pv-phone {
-    margin-left: -13%;
+    /* nur so viel überlappung, dass es räumlich wirkt · bei -13%
+       verdeckte das handy den halben laptop */
+    margin-left: -6%;
     margin-bottom: 22px;
     z-index: 2;
   }

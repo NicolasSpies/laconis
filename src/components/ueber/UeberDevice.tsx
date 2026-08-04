@@ -37,13 +37,9 @@ export function UeberDevice() {
   const [hasPhoto, setHasPhoto] = useState(false);
 
   useEffect(() => {
-    document.body.dataset.lab = "1";
     const probe = new window.Image();
     probe.onload = () => setHasPhoto(true);
     probe.src = PORTRAIT;
-    return () => {
-      delete document.body.dataset.lab;
-    };
   }, []);
 
   return (

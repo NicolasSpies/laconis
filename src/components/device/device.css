@@ -1340,15 +1340,6 @@
 /* inhalt über die ambient-schicht heben */
 .lab-root > section { position: relative; z-index: 1; }
 
-/* prototyp: nav + footer der alten seite ausblenden, damit das gerät
-   für sich steht (root-layout rendert sie global) */
-/* :not(.lab-nav) — sonst versteckt die regel die EIGENE geräte-nav mit,
-   die ja auch ein <header> ist */
-body[data-lab="1"] header:not(.lab-nav),
-body[data-lab="1"] footer {
-  display: none !important;
-}
-
 /* ── DATENSTREIFEN · zahlen statt worte ──────────────────────
    ersetzt das typenschild (las sich als firmen-plakette).
    grosse ziffern sind ein anderes register als der wort-hero,
