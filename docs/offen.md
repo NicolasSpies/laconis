@@ -11,7 +11,7 @@ Alles darunter ist besprochen, nichts davon ist eine überraschung.
 |---|---|
 | `/` | shader-feld |
 | `/leistung` | die lupe |
-| `/referenzen` | explosionszeichnung · sieben schichten zum aufziehen |
+| `/referenzen` | explosionszeichnung · zieht auf UND schaltet die projekte um |
 | `/preise` | zwei lichtbänder bilden einen korridor |
 | `/ueber-mich` | licht auf dem portrait folgt der hand |
 | `/kontakt` | ringe laufen nach aussen wie eine stimme |
@@ -20,6 +20,13 @@ Alles darunter ist besprochen, nichts davon ist eine überraschung.
 Alle heros stehen. Der referenzen-hero zeigt bewusst NICHT die menge
 der projekte (es sind drei), sondern die tiefe von einem · das bleibt
 auch dann richtig, wenn projekte dazukommen.
+
+Er ist gleichzeitig die navigation: die zeilen daneben legen das
+projekt in den stapel, ohne zeiger schaltet er selbst weiter. Wer ein
+projekt aufnimmt, muss nichts anfassen · bild, farbe und monogramm
+kommen aus `src/data/referenzen.ts`. Nur wenn die liste deutlich
+länger wird, lohnt ein blick: drei zeilen neben dem stapel gehen auf,
+zehn brauchen wahrscheinlich eine andere anordnung.
 
 Wichtig weiterhin: **nicht mechanischer werden.** Die geräte-sprache
 trägt die bedienelemente, aber ein hero soll einladen und nicht nach
