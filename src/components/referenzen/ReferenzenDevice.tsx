@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
+import { HeroRail } from "@/components/device/HeroRail";
 import { RefIndex } from "@/components/referenzen/RefIndex";
 import { REFERENZEN } from "@/components/referenzen/referenzen.dict";
 import { useLocale } from "@/i18n/useLocale";
@@ -44,6 +45,7 @@ export function ReferenzenDevice() {
       </div>
 
       <DeviceNav />
+      <HeroRail label={t.kicker} />
 
       {/* ═══ DER INDEX ═══ */}
       <section
@@ -51,13 +53,6 @@ export function ReferenzenDevice() {
         className="relative px-6 pb-24 pt-36 md:px-12 md:pt-44"
       >
         <div className="mx-auto w-full max-w-[1200px]">
-          <div className="lab-boot mb-8 flex items-center gap-3" style={{ animationDelay: "80ms" }}>
-            <span
-              className="lab-led-idle h-1.5 w-1.5 rounded-full"
-              style={{ background: "#e1fd52", boxShadow: "0 0 10px #e1fd52" }}
-            />
-            <span className="lab-label">{t.kicker}</span>
-          </div>
 
           <h1
             className="lab-display lab-boot text-[clamp(2.6rem,8vw,7rem)]"

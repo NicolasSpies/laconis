@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
+import { HeroRail } from "@/components/device/HeroRail";
 import { PriceCaliper } from "@/components/preise/PriceCaliper";
 import { PREISE } from "@/components/preise/preise.dict";
 import { useLocale } from "@/i18n/useLocale";
@@ -39,6 +40,7 @@ export function PreiseDevice() {
       </div>
 
       <DeviceNav />
+      <HeroRail label={t.kicker} />
 
       {/* ═══ DER MESSSCHIEBER ═══ */}
       <section
@@ -46,13 +48,6 @@ export function PreiseDevice() {
         className="relative flex min-h-[100svh] flex-col justify-center px-6 pb-24 pt-28 md:px-12"
       >
         <div className="mx-auto w-full max-w-[1200px]">
-          <div className="lab-boot mb-8 flex items-center gap-3" style={{ animationDelay: "80ms" }}>
-            <span
-              className="lab-led-idle h-1.5 w-1.5 rounded-full"
-              style={{ background: "#e1fd52", boxShadow: "0 0 10px #e1fd52" }}
-            />
-            <span className="lab-label">{t.kicker}</span>
-          </div>
 
           <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
             <h1

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { HeroRail } from "@/components/device/HeroRail";
 
 /**
  * LensHero · das eine objekt im hero: eine echte glaslinse, die man zieht.
@@ -164,19 +165,12 @@ export function LensHero({ t }: { t: T }) {
       style={{ ["--lx-z" as string]: "1.3" }}
     >
       <div className="lx-grid" aria-hidden />
+      <HeroRail label={t.kicker} />
 
       {/* ── oben: das design ── */}
       <div className="lx-layer">
         <div className={`${box} min-h-[100svh]`}>
           <div className={inner}>
-            <div className="lab-boot mb-8 flex items-center gap-3" style={{ animationDelay: "80ms" }}>
-              <span
-                className="lab-led-idle h-1.5 w-1.5 rounded-full"
-                style={{ background: "#e1fd52", boxShadow: "0 0 10px #e1fd52" }}
-              />
-              <span className="lab-label">{t.kicker}</span>
-            </div>
-
             <h1 className="lab-display lab-boot text-[clamp(3rem,10vw,9rem)]" style={{ animationDelay: "180ms" }}>
               {t.l1}
               <br />
@@ -201,12 +195,6 @@ export function LensHero({ t }: { t: T }) {
           <div className="lx-grid" />
           <div className={`${box} h-full`}>
             <div className={inner}>
-              <div className="mb-8 flex items-center gap-3">
-                <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#e1fd52" }} />
-                <span className="lab-label" style={{ color: "rgba(225,253,82,0.7)" }}>
-                  {t.kicker}
-                </span>
-              </div>
               <h1 className="lab-display lx-h1-wire text-[clamp(3rem,10vw,9rem)]">
                 {t.l1}
                 <br />

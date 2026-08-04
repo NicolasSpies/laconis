@@ -5,6 +5,7 @@ import { HOME } from "@/components/home/home.dict";
 import { useLocale } from "@/i18n/useLocale";
 import { ShaderField } from "@/components/device/ShaderField";
 import { DeviceNav } from "@/components/device/DeviceNav";
+import { HeroRail } from "@/components/device/HeroRail";
 import { SignalChain } from "@/components/device/SignalChain";
 import { ChannelRack } from "@/components/device/ChannelRack";
 import { SendButton } from "@/components/device/SendButton";
@@ -45,6 +46,7 @@ export function HomeDevice() {
       </div>
 
       <DeviceNav />
+      <HeroRail label={t.kicker} />
 
       {/* ═══ HERO ═══ */}
       <section
@@ -62,14 +64,6 @@ export function HomeDevice() {
         />
 
         <div className="relative max-w-[1200px] mx-auto w-full">
-          <div className="lab-boot flex items-center gap-3 mb-8" style={{ animationDelay: "80ms" }}>
-            <span
-              className="w-1.5 h-1.5 rounded-full lab-led-idle"
-              style={{ background: "#e1fd52", boxShadow: "0 0 10px #e1fd52" }}
-            />
-            <span className="lab-label">{t.kicker}</span>
-          </div>
-
           <h1
             className="lab-display lab-boot text-[clamp(3rem,11vw,10rem)]"
             style={{ animationDelay: "180ms" }}

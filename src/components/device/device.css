@@ -1391,3 +1391,129 @@ body[data-lab="1"] footer {
   font-stretch: 118%;
   font-variant-numeric: tabular-nums;
 }
+
+/* ── hero-schiene · der kicker hochkant am rand ────────
+   er sass vorher als mono-zeile über jeder headline und hat ihr die
+   luft genommen. hochkant liest er sich wie eine beschriftung am
+   gerät, und die headline darf oben anfangen. */
+
+.lab-rail {
+  position: absolute;
+  right: clamp(10px, 2.2vw, 34px);
+  top: clamp(96px, 16vh, 190px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.lab-rail-line {
+  width: 1px;
+  height: clamp(28px, 6vh, 62px);
+  background: linear-gradient(180deg, transparent, rgba(242, 242, 242, 0.28));
+}
+
+.lab-rail-text {
+  /* vertical-rl + 180° = von unten nach oben lesbar, also gegen den
+     uhrzeigersinn gedreht */
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.5);
+  white-space: nowrap;
+}
+
+.lab-rail-led {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #e1fd52;
+  box-shadow: 0 0 10px rgba(225, 253, 82, 0.9);
+}
+
+/* ── artQuote · grosse zitate, die man anfassen kann ───
+   gegen das raster: das anführungszeichen hängt links raus, die
+   wörter sitzen minimal gekippt und unterschiedlich hoch. nichts
+   liegt auf einer linie, und genau deshalb liest es sich gesetzt
+   statt generiert. */
+
+.aq {
+  position: relative;
+  padding-left: clamp(0px, 3vw, 46px);
+}
+
+.aq-mark {
+  position: absolute;
+  left: clamp(-14px, -1.6vw, -4px);
+  top: clamp(-0.28em, -2vw, -0.1em);
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: clamp(4rem, 13vw, 11rem);
+  line-height: 1;
+  color: rgba(225, 253, 82, 0.16);
+  pointer-events: none;
+  user-select: none;
+}
+
+.aq-body {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 118%;
+  font-weight: 800;
+  font-size: clamp(1.6rem, 5.2vw, 4rem);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  text-transform: lowercase;
+  color: #f2f2f2;
+  max-width: 17ch;
+  /* der satz darf nicht als blocksatz-klotz stehen */
+  text-wrap: balance;
+}
+
+.aq-w {
+  display: inline-block;
+  margin-right: 0.26em;
+  transform-origin: 50% 90%;
+  rotate: var(--tilt, 0deg);
+  will-change: transform;
+  transition: color 300ms ease;
+}
+.aq-w[data-mark="1"] {
+  color: #e1fd52;
+}
+
+/* jedes zweite wort sitzt einen hauch tiefer · das nimmt der zeile
+   die maschinelle geradheit, ohne dass es auffällt */
+.aq-w:nth-child(3n) {
+  margin-top: 0.06em;
+}
+.aq-w:nth-child(4n) {
+  margin-top: -0.05em;
+}
+
+.aq-src {
+  display: block;
+  margin-top: clamp(20px, 3vw, 38px);
+  padding-left: 0.2em;
+}
+
+/* auf breiten schirmen darf das zitat aus der spalte ausbrechen ·
+   das ist der ganze punkt an einem eingeschobenen zitat */
+@media (min-width: 900px) {
+  .aq--versetzt {
+    margin-left: clamp(40px, 9vw, 170px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aq-w {
+    transform: none !important;
+  }
+}

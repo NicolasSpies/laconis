@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
+import { ArtQuote } from "@/components/device/ArtQuote";
 import { ClaimSwitch } from "@/components/referenzen/ClaimSwitch";
 import { ProjektAnsicht } from "@/components/referenzen/ProjektAnsicht";
 import { CASE } from "@/components/referenzen/case.dict";
@@ -123,11 +124,7 @@ export function CaseDevice({ slug }: { slug: string }) {
               </div>
 
               {/* das briefing in seinen worten · so kurz stand es da */}
-              <p className="lab-display mt-16 max-w-[900px] text-[clamp(1.5rem,4vw,2.8rem)]">
-                <span style={{ color: "rgba(242,242,242,0.35)" }}>„</span>
-                {t.briefing}
-                <span style={{ color: "rgba(242,242,242,0.35)" }}>"</span>
-              </p>
+              <ArtQuote className="aq--versetzt mt-20" text={t.briefing} />
             </div>
           </section>
 
@@ -218,15 +215,11 @@ export function CaseDevice({ slug }: { slug: string }) {
           {r.testimonial && (
             <section data-no-reveal className="relative px-6 pb-28 md:px-12">
               <div className="mx-auto max-w-[1200px]">
-                <blockquote>
-                  <p className="lab-display max-w-[900px] text-[clamp(1.6rem,4.4vw,3.2rem)]">
-                    „{r.testimonial.quote}"
-                  </p>
-                  <footer className="lab-label mt-8">
-                    {r.testimonial.author}
-                    {r.testimonial.rolle ? ` · ${r.testimonial.rolle}` : ""}
-                  </footer>
-                </blockquote>
+                <ArtQuote
+                  className="aq--versetzt"
+                  text={r.testimonial.quote}
+                  source={`${r.testimonial.author}${r.testimonial.rolle ? ` · ${r.testimonial.rolle}` : ""}`}
+                />
               </div>
             </section>
           )}

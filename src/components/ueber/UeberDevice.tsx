@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
+import { HeroRail } from "@/components/device/HeroRail";
+import { ArtQuote } from "@/components/device/ArtQuote";
 import { PresetKeys } from "@/components/ueber/PresetKeys";
 import { UEBER } from "@/components/ueber/ueber.dict";
 import { useLocale } from "@/i18n/useLocale";
@@ -51,6 +53,7 @@ export function UeberDevice() {
       </div>
 
       <DeviceNav />
+      <HeroRail label={t.kicker} />
 
       {/* ═══ HERO · ruhig, das portrait trägt ═══ */}
       <section
@@ -59,17 +62,6 @@ export function UeberDevice() {
       >
         <div className="mx-auto grid w-full max-w-[1200px] items-center gap-12 md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] md:gap-16">
           <div>
-            <div
-              className="lab-boot mb-8 flex items-center gap-3"
-              style={{ animationDelay: "80ms" }}
-            >
-              <span
-                className="lab-led-idle h-1.5 w-1.5 rounded-full"
-                style={{ background: "#e1fd52", boxShadow: "0 0 10px #e1fd52" }}
-              />
-              <span className="lab-label">{t.kicker}</span>
-            </div>
-
             <h1
               className="lab-display lab-boot text-[clamp(2.6rem,8vw,6.5rem)]"
               style={{ animationDelay: "180ms" }}
@@ -160,14 +152,12 @@ export function UeberDevice() {
           {/* die breite MUSS am satz hängen, nicht am blockquote · „ch"
               rechnet gegen die schriftgrösse des elements, und aussen
               sind das 16px. vorher stand hier ein wort pro zeile. */}
-          <blockquote className="mt-8">
-            <p className="lab-display max-w-[900px] text-[clamp(1.9rem,5.4vw,4.2rem)]">
-              {t.these.split(t.theseMark)[0]}
-              <span style={{ color: "#e1fd52" }}>{t.theseMark}</span>
-              {t.these.split(t.theseMark)[1]}
-            </p>
-            <footer className="lab-label mt-8">{t.theseFrom}</footer>
-          </blockquote>
+          <ArtQuote
+            className="aq--versetzt mt-10"
+            text={t.these}
+            mark={t.theseMark}
+            source={t.theseFrom}
+          />
         </div>
       </section>
 
