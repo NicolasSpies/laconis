@@ -4,8 +4,10 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { HeroRail } from "@/components/device/HeroRail";
+import { HeroAtmo } from "@/components/device/HeroAtmo";
 import { RefIndex } from "@/components/referenzen/RefIndex";
 import { REFERENZEN } from "@/components/referenzen/referenzen.dict";
+import { referenzen } from "@/data/referenzen";
 import { useLocale } from "@/i18n/useLocale";
 import { buildPath } from "@/i18n/config";
 import "@/components/device/device.css";
@@ -50,8 +52,10 @@ export function ReferenzenDevice() {
       {/* ═══ DER INDEX ═══ */}
       <section
         data-no-reveal
-        className="relative px-6 pb-24 pt-36 md:px-12 md:pt-44"
+        className="relative isolate px-6 pb-24 pt-36 md:px-12 md:pt-44"
       >
+        <HeroAtmo variant="schweben" shots={referenzen.map((r) => r.shots?.desktop).filter(Boolean) as string[]} />
+
         <div className="mx-auto w-full max-w-[1200px]">
 
           <h1

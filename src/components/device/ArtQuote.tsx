@@ -1,33 +1,37 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 /**
- * ArtQuote · ein grosses zitat, das man anfassen kann.
+ * ArtQuote · ein grosses zitat, gesetzt statt gerastert.
  *
- * gegen das raster: die zeilen sind unterschiedlich weit eingerückt und
- * leicht gegeneinander gekippt, das anführungszeichen hängt über den
- * satzspiegel hinaus. nichts davon liegt auf einer linie, und genau
- * deshalb liest es sich wie gesetzt und nicht wie generiert.
+ * jede zeile beginnt woanders. keine schrägen, keine gekippten wörter ·
+ * die spannung kommt allein aus dem versatz der zeilenanfänge, so wie
+ * man ein zitat auf einem plakat setzt. links und rechts darf es über
+ * den satzspiegel hinauslaufen, solange es lesbar bleibt.
  *
- * die wörter weichen dem zeiger aus · nicht als effekt, sondern weil
- * der hero verspricht, dass man diese seite anfassen will. worte, die
- * auf die hand reagieren, sind die einfachste einlösung davon.
+ * die zeilen werden AUTORISIERT übergeben, nicht automatisch gebrochen.
+ * wo ein zitat umbricht, ist eine gestalterische entscheidung · ein
+ * algorithmus, der nach breite bricht, trifft sie zufällig.
  *
- * ohne zeiger (touch) läuft eine sehr langsame welle durch den satz.
- * eine wörter-wolke, die tot daliegt, wäre auf dem handy die hälfte.
+ * bewegung: jede zeile driftet sehr langsam und für sich, wenige pixel.
+ * kein zeiger-effekt · der wirkte mechanisch, und ein zitat soll atmen,
+ * nicht auf die maus reagieren.
  */
 
-const REACH = 190; // px · so weit greift die hand
-const PUSH = 22; // px · so weit weicht ein wort aus
+/* der versatz der zeilenanfänge · in em der schriftgrösse gerechnet,
+   damit er auf jedem schirm gleich proportioniert bleibt. bewusst
+   unregelmässig und wiederholend, wie von hand gesetzt. */
+const INDENTS = [1.4, -0.6, 2.6, 2.9, 0.4, 1.9, 2.1, 0.9];
 
 export function ArtQuote({
-  text,
+  lines,
   mark,
   source,
   className = "",
 }: {
-  text: string;
+  /** jede zeile einzeln · der umbruch ist gestaltung, keine berechnung */
+  lines: string[];
   /** ein wort, das lime gesetzt wird */
   mark?: string;
   source?: string;
@@ -35,94 +39,53 @@ export function ArtQuote({
 }) {
   const wrap = useRef<HTMLQuoteElement>(null);
 
-  /* feste, aber unregelmässige einrückung pro zeile · aus dem index
-     gerechnet, damit es bei jedem zitat gleich „handgesetzt" wirkt
-     und trotzdem nie zufällig springt */
-  const words = useMemo(() => text.split(" ").filter(Boolean), [text]);
-
   useEffect(() => {
     const el = wrap.current;
     if (!el) return;
-    const spans = Array.from(el.querySelectorAll<HTMLElement>(".aq-w"));
-    if (!spans.length) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return;
+    const rows = Array.from(el.querySelectorAll<HTMLElement>(".aq-line"));
+    if (!rows.length) return;
 
     let raf = 0;
-    let px = -9999;
-    let py = -9999;
-    let hasPointer = false;
-
-    const onMove = (e: PointerEvent) => {
-      const b = el.getBoundingClientRect();
-      px = e.clientX - b.left;
-      py = e.clientY - b.top;
-      hasPointer = true;
-    };
-    const onLeave = () => {
-      hasPointer = false;
-    };
-
     const tick = (time: number) => {
-      spans.forEach((sp, i) => {
-        let dx = 0;
-        let dy = 0;
-        if (hasPointer) {
-          const cx = sp.offsetLeft + sp.offsetWidth / 2;
-          const cy = sp.offsetTop + sp.offsetHeight / 2;
-          const vx = cx - px;
-          const vy = cy - py;
-          const d = Math.hypot(vx, vy);
-          if (d < REACH && d > 0.5) {
-            /* quadratisch abfallend · direkt am zeiger kräftig,
-               am rand des radius fast nichts */
-            const f = (1 - d / REACH) ** 2;
-            dx = (vx / d) * PUSH * f;
-            dy = (vy / d) * PUSH * f;
-          }
-        } else {
-          /* ruhewelle · versetzt pro wort, sehr klein */
-          dy = Math.sin(time * 0.0009 + i * 0.55) * 2.2;
-          dx = Math.sin(time * 0.0006 + i * 0.31) * 1.4;
-        }
-        sp.style.transform = `translate3d(${dx.toFixed(2)}px, ${dy.toFixed(2)}px, 0)`;
+      rows.forEach((row, i) => {
+        /* lange, ungleiche perioden · dadurch findet der stapel nie in
+           einen gemeinsamen takt und wirkt nicht wie eine welle */
+        const dx = Math.sin(time * 0.000085 + i * 1.7) * 5;
+        const dy = Math.sin(time * 0.000061 + i * 2.3) * 2.4;
+        row.style.transform = `translate3d(${dx.toFixed(2)}px, ${dy.toFixed(2)}px, 0)`;
       });
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-
-    el.addEventListener("pointermove", onMove);
-    el.addEventListener("pointerleave", onLeave);
-    return () => {
-      cancelAnimationFrame(raf);
-      el.removeEventListener("pointermove", onMove);
-      el.removeEventListener("pointerleave", onLeave);
-    };
-  }, [words.length]);
+    return () => cancelAnimationFrame(raf);
+  }, [lines.length]);
 
   return (
     <blockquote className={`aq ${className}`} ref={wrap}>
-      <span className="aq-mark" aria-hidden>
-        „
-      </span>
-      <p className="aq-body">
-        {words.map((w, i) => {
-          const isMark = mark && w.replace(/[.,!?»«"„"]/g, "").toLowerCase() === mark.toLowerCase();
-          return (
-            <span
-              key={`${w}-${i}`}
-              className="aq-w"
-              data-mark={isMark ? "1" : "0"}
-              /* jedes wort bekommt seinen eigenen minimalen versatz ·
-                 das nimmt der zeile die maschinelle geradheit */
-              style={{ ["--tilt" as string]: `${(((i * 37) % 7) - 3) * 0.55}deg` }}
-            >
-              {w}
-            </span>
-          );
-        })}
-      </p>
+      {lines.map((line, i) => (
+        <span
+          key={`${line}-${i}`}
+          className="aq-line"
+          style={{ ["--in" as string]: `${INDENTS[i % INDENTS.length]}em` }}
+        >
+          {mark && line.toLowerCase().includes(mark.toLowerCase()) ? (
+            <>
+              {line.slice(0, line.toLowerCase().indexOf(mark.toLowerCase()))}
+              <em className="aq-mark">
+                {line.slice(
+                  line.toLowerCase().indexOf(mark.toLowerCase()),
+                  line.toLowerCase().indexOf(mark.toLowerCase()) + mark.length,
+                )}
+              </em>
+              {line.slice(line.toLowerCase().indexOf(mark.toLowerCase()) + mark.length)}
+            </>
+          ) : (
+            line
+          )}
+        </span>
+      ))}
       {source && <footer className="aq-src lab-label">{source}</footer>}
     </blockquote>
   );

@@ -124,7 +124,7 @@ export function CaseDevice({ slug }: { slug: string }) {
               </div>
 
               {/* das briefing in seinen worten · so kurz stand es da */}
-              <ArtQuote className="aq--versetzt mt-20" text={t.briefing} />
+              <ArtQuote className="aq--versetzt mt-20" lines={t.briefing} />
             </div>
           </section>
 
@@ -215,9 +215,11 @@ export function CaseDevice({ slug }: { slug: string }) {
           {r.testimonial && (
             <section data-no-reveal className="relative px-6 pb-28 md:px-12">
               <div className="mx-auto max-w-[1200px]">
+                {/* der umbruch kommt aus den daten · wo ein zitat
+                    bricht, ist gestaltung und keine berechnung */}
                 <ArtQuote
                   className="aq--versetzt"
-                  text={r.testimonial.quote}
+                  lines={r.testimonial.lines ?? [r.testimonial.quote]}
                   source={`${r.testimonial.author}${r.testimonial.rolle ? ` · ${r.testimonial.rolle}` : ""}`}
                 />
               </div>

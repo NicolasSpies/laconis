@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { HeroRail } from "@/components/device/HeroRail";
+import { HeroAtmo } from "@/components/device/HeroAtmo";
 import { ArtQuote } from "@/components/device/ArtQuote";
 import { PresetKeys } from "@/components/ueber/PresetKeys";
 import { UEBER } from "@/components/ueber/ueber.dict";
@@ -96,7 +97,10 @@ export function UeberDevice() {
             </div>
           </div>
 
+          {/* das licht folgt der hand · ein portrait im dunkeln, auf
+              das niemand leuchtet, ist nur ein grauer kasten */}
           <div className="lab-boot ub-portrait" style={{ animationDelay: "260ms" }}>
+            <HeroAtmo variant="lampe" />
             {hasPhoto ? (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img src={PORTRAIT} alt="Nicolas Spies" />
@@ -154,7 +158,7 @@ export function UeberDevice() {
               sind das 16px. vorher stand hier ein wort pro zeile. */}
           <ArtQuote
             className="aq--versetzt mt-10"
-            text={t.these}
+            lines={t.these}
             mark={t.theseMark}
             source={t.theseFrom}
           />

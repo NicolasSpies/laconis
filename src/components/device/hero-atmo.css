@@ -1,0 +1,297 @@
+/**
+ * hero-atmo.css · die stimmung hinter den heros.
+ *
+ * jede seite bekommt eine eigene idee, keine tapete. sie sind alle
+ * WARM und weich gebaut · licht, das wandert, nichts das schraubt.
+ * die geräte-sprache trägt die bedienelemente, aber ein hero soll
+ * einladen und nicht nach werkbank aussehen.
+ *
+ * alles läuft als CSS-keyframe. bewegung, die immer läuft, darf nicht
+ * an rAF hängen · in einem inaktiven tab friert das ein.
+ */
+
+.ha {
+  position: absolute;
+  inset: 0 0 auto 0;
+  /* auf den sichtbaren hero begrenzt · sonst rechnen alle prozente
+     gegen die volle sektionshöhe, und auf /referenzen ist das die
+     ganze liste. die schwebenden aufnahmen landeten dann irgendwo
+     weit unten im nichts. */
+  height: min(100svh, 940px);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  /* nach unten ausblenden · ohne das endet die wärme an der
+     sektionskante und der hero sieht aus wie ein aufgeklebter block */
+  mask-image: linear-gradient(180deg, #000 62%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 100%);
+}
+
+/* im portrait-rahmen soll sie ganz füllen, nicht auslaufen */
+.ub-portrait .ha {
+  inset: 0;
+  height: auto;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+/* ── der korridor · /preise ─────────────────────────────
+   zwei weiche lichtbänder, die sich langsam aufeinander zu und
+   wieder auseinander bewegen. die seite misst korridore, also
+   liegt der besucher hier in einem. */
+
+.ha-band {
+  position: absolute;
+  left: -10%;
+  width: 120%;
+  height: clamp(70px, 12vw, 150px);
+  filter: blur(46px);
+  opacity: 0.5;
+}
+.ha-band[data-side="top"] {
+  top: 18%;
+  background: linear-gradient(90deg, transparent, rgba(225, 253, 82, 0.34), transparent 92%);
+  animation: haBandTop 17s ease-in-out infinite;
+}
+.ha-band[data-side="bottom"] {
+  bottom: 12%;
+  background: linear-gradient(90deg, transparent 8%, rgba(176, 132, 211, 0.3), transparent);
+  animation: haBandBottom 21s ease-in-out infinite;
+}
+@keyframes haBandTop {
+  0%,
+  100% {
+    transform: translateY(0) scaleX(1);
+  }
+  50% {
+    transform: translateY(58px) scaleX(1.08);
+  }
+}
+@keyframes haBandBottom {
+  0%,
+  100% {
+    transform: translateY(0) scaleX(1.06);
+  }
+  50% {
+    transform: translateY(-52px) scaleX(1);
+  }
+}
+
+/* ── das signal · /kontakt ──────────────────────────────
+   ringe laufen langsam nach aussen und verlaufen. die seite heisst
+   „lass reden" · das hier ist eine stimme, die den raum füllt. */
+
+.ha-ring {
+  position: absolute;
+  left: var(--rx, 24%);
+  top: var(--ry, 46%);
+  width: clamp(300px, 46vw, 780px);
+  aspect-ratio: 1;
+  margin: -23vw 0 0 -23vw;
+  border-radius: 50%;
+  border: 1px solid rgba(225, 253, 82, 0.4);
+  opacity: 0;
+  animation: haRing 9s cubic-bezier(0.22, 0.7, 0.3, 1) infinite;
+}
+.ha-ring:nth-of-type(2) {
+  animation-delay: -3s;
+  border-color: rgba(176, 132, 211, 0.38);
+}
+.ha-ring:nth-of-type(3) {
+  animation-delay: -6s;
+}
+@keyframes haRing {
+  0% {
+    transform: scale(0.15);
+    opacity: 0;
+  }
+  14% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* ── die glut · gemeinsame grundwärme ───────────────────
+   ein sehr weiches, langsam wanderndes licht. es liegt unter allen
+   heros und nimmt der dunkelheit die kälte. */
+
+.ha-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+}
+.ha-glow[data-a] {
+  width: 54vw;
+  height: 54vw;
+  left: -8vw;
+  top: -12vh;
+  background: rgba(225, 253, 82, 0.075);
+  animation: haGlowA 38s ease-in-out infinite;
+}
+.ha-glow[data-b] {
+  width: 46vw;
+  height: 46vw;
+  right: -10vw;
+  bottom: -16vh;
+  background: rgba(176, 132, 211, 0.085);
+  animation: haGlowB 52s ease-in-out infinite;
+}
+@keyframes haGlowA {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(9vw, 7vh, 0);
+  }
+}
+@keyframes haGlowB {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-8vw, -6vh, 0);
+  }
+}
+
+/* ── die hand · /ueber-mich ─────────────────────────────
+   das licht auf dem portrait folgt dem zeiger. ohne zeiger wandert
+   es von selbst · ein gesicht im dunkeln, auf das niemand leuchtet,
+   ist auf dem handy nur ein grauer kasten. */
+
+.ha-lamp {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--lx, 50%) var(--ly, 34%),
+    rgba(255, 246, 214, 0.26) 0%,
+    rgba(255, 246, 214, 0.09) 26%,
+    transparent 58%
+  );
+  mix-blend-mode: screen;
+  transition: background 320ms ease-out;
+}
+.ha-lamp[data-idle="1"] {
+  animation: haLampDrift 15s ease-in-out infinite;
+}
+@keyframes haLampDrift {
+  0%,
+  100% {
+    --lx: 34%;
+    --ly: 30%;
+  }
+  50% {
+    --lx: 66%;
+    --ly: 46%;
+  }
+}
+
+/* damit --lx/--ly überhaupt weich animierbar sind */
+@property --lx {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+@property --ly {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 34%;
+}
+
+/* ── die schwebenden seiten · /referenzen ───────────────
+   die drei projekte liegen als aufnahmen im raum und atmen leicht.
+   man sieht sofort, dass es um gebaute seiten geht, nicht um eine
+   liste von namen. */
+
+.ha-float {
+  position: absolute;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(242, 242, 242, 0.09),
+    0 44px 80px -34px rgba(0, 0, 0, 0.95);
+  opacity: 0.42;
+}
+.ha-float img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+.ha-float:nth-of-type(1) {
+  width: clamp(170px, 21vw, 320px);
+  aspect-ratio: 16 / 11;
+  right: 6%;
+  top: 12%;
+  animation: haFloatA 26s ease-in-out infinite;
+}
+.ha-float:nth-of-type(2) {
+  width: clamp(120px, 15vw, 230px);
+  aspect-ratio: 16 / 11;
+  right: 27%;
+  bottom: 14%;
+  opacity: 0.3;
+  animation: haFloatB 33s ease-in-out infinite;
+}
+.ha-float:nth-of-type(3) {
+  width: clamp(96px, 11vw, 170px);
+  aspect-ratio: 16 / 11;
+  right: 2%;
+  bottom: 30%;
+  opacity: 0.22;
+  animation: haFloatC 41s ease-in-out infinite;
+}
+@keyframes haFloatA {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-1.4deg);
+  }
+  50% {
+    transform: translate3d(-16px, 26px, 0) rotate(0.6deg);
+  }
+}
+@keyframes haFloatB {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(1.8deg);
+  }
+  50% {
+    transform: translate3d(20px, -22px, 0) rotate(-0.8deg);
+  }
+}
+@keyframes haFloatC {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-2.2deg);
+  }
+  50% {
+    transform: translate3d(-12px, -18px, 0) rotate(1.2deg);
+  }
+}
+
+/* auf schmalen schirmen nehmen die schwebenden aufnahmen der typo
+   die luft · dort bleibt nur die grundwärme */
+@media (max-width: 780px) {
+  .ha-float {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ha-band,
+  .ha-ring,
+  .ha-glow,
+  .ha-lamp,
+  .ha-float {
+    animation: none;
+  }
+  .ha-ring {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+}

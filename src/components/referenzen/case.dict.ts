@@ -24,7 +24,7 @@ export type CaseDict = {
   auftragH2: string;
   auftragLead: string;
   auftrag: [string, string][];
-  briefing: string;
+  briefing: string[];
 
   claimH2: string;
   claimLead: string;
@@ -65,7 +65,7 @@ export const CASE: Record<Locale, CaseDict> = {
       ["fremdes theme", "Ein Layout von der Stange, das tausend andere Betriebe auch hatten. Nichts daran erzählte, dass hier jemand seit zwanzig Jahren klettert."],
       ["nicht selbst pflegbar", "Änderungen gingen nur über jemand anderen. Also wurden sie nicht gemacht."],
     ],
-    briefing: "gefunden werden, selbst pflegen können",
+    briefing: ["gefunden werden,", "selbst pflegen", "können"],
 
     claimH2: "derselbe betrieb, zwei welten.",
     claimLead:
@@ -133,7 +133,7 @@ export const CASE: Record<Locale, CaseDict> = {
       ["thème générique", "Une mise en page toute faite que mille autres entreprises avaient aussi. Rien n'y racontait que quelqu'un grimpe ici depuis vingt ans."],
       ["pas gérable soi-même", "Les changements passaient par quelqu'un d'autre. Donc ils n'étaient pas faits."],
     ],
-    briefing: "être trouvé, pouvoir gérer soi-même",
+    briefing: ["être trouvé,", "pouvoir gérer", "soi-même"],
 
     claimH2: "la même entreprise, deux mondes.",
     claimLead:
@@ -201,7 +201,7 @@ export const CASE: Record<Locale, CaseDict> = {
       ["someone else's theme", "An off-the-shelf layout a thousand other businesses had too. Nothing about it said that someone here has been climbing for twenty years."],
       ["not self-maintainable", "Changes had to go through someone else. So they didn't happen."],
     ],
-    briefing: "get found, be able to maintain it yourself",
+    briefing: ["get found,", "be able to", "maintain it yourself"],
 
     claimH2: "same business, two worlds.",
     claimLead:

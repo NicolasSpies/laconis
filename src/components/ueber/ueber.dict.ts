@@ -29,7 +29,7 @@ export type UeberDict = {
   weg: [string, string, string][];
 
   theseH2: string;
-  these: string;
+  these: string[];
   theseMark: string;
   theseFrom: string;
 
@@ -89,8 +89,15 @@ export const UEBER: Record<Locale, UeberDict> = {
     ],
 
     theseH2: "worauf das hinausläuft.",
-    these:
-      "Die besten Marken kommen nicht von Agenturen mit vierzig Leuten. Sie kommen von einer Person, die zuhört.",
+    these: [
+      "die besten marken",
+      "kommen nicht von",
+      "agenturen mit",
+      "vierzig leuten.",
+      "sie kommen von",
+      "einer person,",
+      "die zuhört.",
+    ],
     theseMark: "zuhört",
     theseFrom: "meine arbeitsthese",
 
@@ -150,8 +157,15 @@ export const UEBER: Record<Locale, UeberDict> = {
     ],
 
     theseH2: "ce que ça donne.",
-    these:
-      "Les meilleures marques ne viennent pas d'agences à quarante personnes. Elles viennent d'une personne qui écoute.",
+    these: [
+      "les meilleures",
+      "marques ne viennent",
+      "pas d'agences à",
+      "quarante personnes.",
+      "elles viennent",
+      "d'une personne",
+      "qui écoute.",
+    ],
     theseMark: "écoute",
     theseFrom: "ma thèse de travail",
 
@@ -211,8 +225,15 @@ export const UEBER: Record<Locale, UeberDict> = {
     ],
 
     theseH2: "what it comes down to.",
-    these:
-      "The best brands don't come from agencies with forty people. They come from one person who listens.",
+    these: [
+      "the best brands",
+      "don't come from",
+      "agencies with",
+      "forty people.",
+      "they come from",
+      "one person",
+      "who listens.",
+    ],
     theseMark: "listens",
     theseFrom: "my working thesis",
 

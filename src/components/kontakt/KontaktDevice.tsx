@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { HeroRail } from "@/components/device/HeroRail";
+import { HeroAtmo } from "@/components/device/HeroAtmo";
 import { KontaktKonsole } from "@/components/kontakt/KontaktKonsole";
 import { KONTAKT } from "@/components/kontakt/kontakt.dict";
 import { CONTACT } from "@/config/contact";
@@ -44,7 +45,9 @@ export function KontaktDevice() {
       <HeroRail label={t.kicker} />
 
       {/* ═══ HERO + DIREKTWEGE · ruhig ═══ */}
-      <section data-no-reveal className="relative px-6 pb-16 pt-36 md:px-12 md:pt-44">
+      <section data-no-reveal className="relative isolate flex min-h-[86svh] flex-col justify-center px-6 pb-20 pt-36 md:px-12 md:pt-44">
+        <HeroAtmo variant="signal" />
+
         <div className="mx-auto max-w-[1200px]">
 
           <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6">

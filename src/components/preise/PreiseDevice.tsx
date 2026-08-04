@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { HeroRail } from "@/components/device/HeroRail";
+import { HeroAtmo } from "@/components/device/HeroAtmo";
 import { PriceCaliper } from "@/components/preise/PriceCaliper";
 import { PREISE } from "@/components/preise/preise.dict";
 import { useLocale } from "@/i18n/useLocale";
@@ -45,8 +46,10 @@ export function PreiseDevice() {
       {/* ═══ DER MESSSCHIEBER ═══ */}
       <section
         data-no-reveal
-        className="relative flex min-h-[100svh] flex-col justify-center px-6 pb-24 pt-28 md:px-12"
+        className="relative isolate flex min-h-[100svh] flex-col justify-center px-6 pb-24 pt-28 md:px-12"
       >
+        <HeroAtmo variant="korridor" />
+
         <div className="mx-auto w-full max-w-[1200px]">
 
           <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6">

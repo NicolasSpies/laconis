@@ -5,22 +5,25 @@ Alles darunter ist besprochen, nichts davon ist eine überraschung.
 
 ---
 
-## 1 · jede seite bekommt ihren eigenen hero
+## 1 · heros · was steht, was fehlt
 
-Der lupen-hero auf `/leistung` ist der massstab. Zwei seiten haben schon
-einen (home: shader, leistung: lupe), der rest fängt noch mit typo an.
+| seite | hero |
+|---|---|
+| `/` | shader-feld |
+| `/leistung` | die lupe |
+| `/referenzen` | die gebauten seiten schweben im raum |
+| `/preise` | zwei lichtbänder bilden einen korridor |
+| `/ueber-mich` | licht auf dem portrait folgt der hand |
+| `/kontakt` | ringe laufen nach aussen wie eine stimme |
+| `/referenzen/[slug]` | **fehlt noch** · idee: laptop+handy direkt in den hero |
 
-| seite | jetzt | idee |
-|---|---|---|
-| `/referenzen` | nur typo | die drei projekte als aufnahmen, die sich beim scrollen wie karten auffächern |
-| `/preise` | nur typo, messschieber kommt drunter | den messschieber in den hero ziehen statt drunter |
-| `/ueber-mich` | portrait im rahmen | portrait reagiert auf den zeiger · licht wandert mit der hand |
-| `/kontakt` | nur typo | offen |
-| `/referenzen/[slug]` | nur typo | laptop+handy direkt in den hero statt weiter unten |
+Offen bleibt der case-hero. Und: sobald weitere projekte aufnahmen
+haben, füllt sich der referenzen-hero von selbst · aktuell schwebt
+dort nur fabry, weil nur fabry aufnahmen hat.
 
-Wichtig dabei: **nicht mechanischer werden.** Die geräte-sprache trägt,
-aber sie darf nicht nach alter fabrik aussehen. Wärmer, weicher,
-mehr licht und bewegung als schrauben und riffel.
+Wichtig weiterhin: **nicht mechanischer werden.** Die geräte-sprache
+trägt die bedienelemente, aber ein hero soll einladen und nicht nach
+werkbank aussehen.
 
 ## 2 · mehr wort und bild statt raster
 

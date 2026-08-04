@@ -1436,84 +1436,66 @@ body[data-lab="1"] footer {
   box-shadow: 0 0 10px rgba(225, 253, 82, 0.9);
 }
 
-/* ── artQuote · grosse zitate, die man anfassen kann ───
-   gegen das raster: das anführungszeichen hängt links raus, die
-   wörter sitzen minimal gekippt und unterschiedlich hoch. nichts
-   liegt auf einer linie, und genau deshalb liest es sich gesetzt
-   statt generiert. */
+/* ── artQuote · grosse zitate, gesetzt statt gerastert ─
+   jede zeile beginnt woanders. keine schrägen, keine gekippten
+   wörter · die spannung kommt allein aus dem versatz der
+   zeilenanfänge, so wie man ein zitat auf einem plakat setzt. */
 
 .aq {
-  position: relative;
-  padding-left: clamp(0px, 3vw, 46px);
+  display: block;
+}
+
+.aq-line {
+  display: block;
+  margin-left: var(--in, 0em);
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 108%;
+  font-weight: 300;
+  font-size: clamp(1.9rem, 7.4vw, 6rem);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  text-transform: lowercase;
+  color: #f2f2f2;
+  will-change: transform;
+}
+
+/* der autorisierte umbruch gilt erst, wenn platz dafür da ist ·
+   auf dem handy würde nowrap die zeilen aus dem bild schieben */
+@media (min-width: 720px) {
+  .aq-line {
+    white-space: nowrap;
+  }
+}
+
+/* schmal: versatz halbiert, sonst frisst er die zeile auf */
+@media (max-width: 719px) {
+  .aq-line {
+    margin-left: calc(var(--in, 0em) * 0.45);
+  }
 }
 
 .aq-mark {
-  position: absolute;
-  left: clamp(-14px, -1.6vw, -4px);
-  top: clamp(-0.28em, -2vw, -0.1em);
-  font-family: var(--font-lab), system-ui, sans-serif;
-  font-stretch: 125%;
-  font-weight: 800;
-  font-size: clamp(4rem, 13vw, 11rem);
-  line-height: 1;
-  color: rgba(225, 253, 82, 0.16);
-  pointer-events: none;
-  user-select: none;
-}
-
-.aq-body {
-  position: relative;
-  z-index: 1;
-  font-family: var(--font-lab), system-ui, sans-serif;
-  font-stretch: 118%;
-  font-weight: 800;
-  font-size: clamp(1.6rem, 5.2vw, 4rem);
-  line-height: 1.06;
-  letter-spacing: -0.03em;
-  text-transform: lowercase;
-  color: #f2f2f2;
-  max-width: 17ch;
-  /* der satz darf nicht als blocksatz-klotz stehen */
-  text-wrap: balance;
-}
-
-.aq-w {
-  display: inline-block;
-  margin-right: 0.26em;
-  transform-origin: 50% 90%;
-  rotate: var(--tilt, 0deg);
-  will-change: transform;
-  transition: color 300ms ease;
-}
-.aq-w[data-mark="1"] {
+  font-style: normal;
   color: #e1fd52;
 }
 
-/* jedes zweite wort sitzt einen hauch tiefer · das nimmt der zeile
-   die maschinelle geradheit, ohne dass es auffällt */
-.aq-w:nth-child(3n) {
-  margin-top: 0.06em;
-}
-.aq-w:nth-child(4n) {
-  margin-top: -0.05em;
+/* auf breiten schirmen darf der block links aus der spalte laufen ·
+   das ist der ganze punkt an einem eingeschobenen zitat. nach rechts
+   bleibt luft, damit nichts abgeschnitten wirkt. */
+@media (min-width: 1100px) {
+  .aq--versetzt {
+    margin-left: clamp(-90px, -5vw, -20px);
+  }
 }
 
 .aq-src {
   display: block;
-  margin-top: clamp(20px, 3vw, 38px);
-  padding-left: 0.2em;
-}
-
-/* auf breiten schirmen darf das zitat aus der spalte ausbrechen ·
-   das ist der ganze punkt an einem eingeschobenen zitat */
-@media (min-width: 900px) {
-  .aq--versetzt {
-    margin-left: clamp(40px, 9vw, 170px);
-  }
+  margin-top: clamp(24px, 3.4vw, 46px);
+  margin-left: var(--in-src, 2.6em);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .aq-w {
+  .aq-line {
     transform: none !important;
   }
 }

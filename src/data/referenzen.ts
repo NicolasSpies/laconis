@@ -41,6 +41,9 @@ export type Referenz = {
    */
   testimonial?: {
     quote: string;
+    /** optionaler autorisierter zeilenumbruch für das grosse zitat ·
+        ohne ihn steht der satz in einer zeile */
+    lines?: string[];
     author: string;
     rolle?: string;
   };
@@ -87,6 +90,15 @@ export const referenzen: Referenz[] = [
     testimonial: {
       quote:
         "ich hab einfach angerufen, geschrieben wenn was war. keine tickets, keine agentur-höflichkeit.",
+      lines: [
+        "ich hab einfach",
+        "angerufen,",
+        "geschrieben",
+        "wenn was war.",
+        "keine tickets,",
+        "keine agentur-",
+        "höflichkeit.",
+      ],
       author: "Reimund Fabry",
       rolle: "Fabry Baumpflege",
     },
