@@ -1,4 +1,5 @@
 import type { Locale } from "@/i18n/config";
+import type { FeatureT } from "@/components/leistung/FeatureVergleich";
 
 /**
  * Copy der leistungs-seite · dreisprachig.
@@ -17,19 +18,7 @@ export type LeistungDict = {
 
   ballastH2: string;
   ballastLead: string;
-  dial: {
-    label: string;
-    unitPlugins: string;
-    gPagespeed: string;
-    gLoad: string;
-    gRequests: string;
-    gThirdParty: string;
-    colPlugins: string;
-    colMine: string;
-    flatNote: string;
-    hint: string;
-    verdicts: [string, string, string, string];
-  };
+  vergleich: FeatureT;
 
   cmsH2: string;
   cmsLead: string;
@@ -85,26 +74,33 @@ export const LEISTUNG: Record<Locale, LeistungDict> = {
       ["Du kriegst den Schlüssel", "Code, Domain, Hosting-Zugang laufen auf deinen Namen. Kein Mietmodell, keine Geiselhaft, du kannst jederzeit gehen."],
     ],
 
-    ballastH2: "warum das schnell bleibt.",
+    ballastH2: "was passiert, wenn die seite mehr können soll.",
     ballastLead:
-      "Jedes Plugin ist fremder Code, der in deiner Seite mitläuft. Man sieht ihn nicht, aber der Besucher wartet auf ihn. Dreh mal auf.",
-    dial: {
-      label: "ballast · plugins",
-      unitPlugins: "plugins",
+      "Schalt zu, was du brauchst. Links wird jedes Feature ein zugekauftes Plugin und bringt sein eigenes JavaScript mit. Rechts ist es Teil der Seite.",
+    vergleich: {
+      label: "was die seite können soll",
+      colPlugins: "mit plugins gebaut",
+      colMine: "bei mir gebaut",
+      mineNote: "Kein Zukauf, kein fremdes JavaScript. Die Felder dafür sind schon im CMS.",
       gPagespeed: "pagespeed",
       gLoad: "ladezeit",
       gRequests: "requests",
       gThirdParty: "fremd-js",
-      colPlugins: "mit plugins",
-      colMine: "bei mir",
-      flatNote:
-        "Die lime Linie ist meine Seite. Sie rührt sich nicht, egal wie weit du drehst · weil da nichts drin ist, was mitwachsen könnte.",
-      hint: "Grössenordnungen aus echten Messungen an gewachsenen Seiten, keine Laborwerte.",
+      none: "nichts zugeschaltet",
+      builtIn: "eingebaut",
+      hint: "Grössenordnungen aus Messungen an gewachsenen Seiten. Die Plugin-Namen sind die, die man dafür üblicherweise nimmt · das ist kein Seitenhieb, sondern der Grund, warum die Zahlen auseinanderlaufen.",
       verdicts: [
-        "Null Ballast. Genau so baue ich.",
-        "Geht noch. Auf schnellem Netz merkt das kaum jemand.",
-        "Das merkt jetzt jeder Besucher. Und Google merkt es auch.",
-        "Ungefähr da steht der Durchschnitt da draussen. Jedes Feature einmal bezahlt, und dann jeden Tag wieder.",
+        "Zwei leere Seiten. Ab hier wird es interessant.",
+        "Rechts kostet jedes Feature ein paar Kilobyte. Links kostet es ein ganzes Plugin.",
+        "Und das ist der ganze Unterschied: Bei mir wächst die Seite mit ihren Aufgaben. Beim Plugin-Stapel wächst sie an ihnen.",
+      ],
+      features: [
+        { key: "form", label: "kontaktformular", plugin: "Contact Form 7" },
+        { key: "gallery", label: "bildergalerie", plugin: "NextGEN Gallery" },
+        { key: "news", label: "newsletter", plugin: "Mailchimp for WP" },
+        { key: "shop", label: "shop", plugin: "WooCommerce" },
+        { key: "i18n", label: "mehrsprachig", plugin: "WPML" },
+        { key: "cookie", label: "cookie-banner", plugin: "Complianz" },
       ],
     },
 
@@ -179,26 +175,33 @@ export const LEISTUNG: Record<Locale, LeistungDict> = {
       ["Tu reçois les clés", "Code, domaine, accès hébergement à ton nom. Pas de location, pas de prise d'otage, tu peux partir quand tu veux."],
     ],
 
-    ballastH2: "pourquoi ça reste rapide.",
+    ballastH2: "ce qui se passe quand le site doit en faire plus.",
     ballastLead:
-      "Chaque plugin, c'est du code étranger qui tourne dans ton site. On ne le voit pas, mais le visiteur l'attend. Vas-y, tourne.",
-    dial: {
-      label: "lest · plugins",
-      unitPlugins: "plugins",
+      "Active ce dont tu as besoin. À gauche, chaque fonction devient un plugin acheté qui traîne son propre JavaScript. À droite, elle fait partie du site.",
+    vergleich: {
+      label: "ce que le site doit savoir faire",
+      colPlugins: "construit avec plugins",
+      colMine: "construit chez moi",
+      mineNote: "Pas d'achat, pas de JavaScript étranger. Les champs sont déjà dans le CMS.",
       gPagespeed: "pagespeed",
       gLoad: "chargement",
       gRequests: "requêtes",
       gThirdParty: "js externe",
-      colPlugins: "avec plugins",
-      colMine: "chez moi",
-      flatNote:
-        "La ligne lime, c'est mon site. Elle ne bouge pas, quelle que soit la position du bouton · parce qu'il n'y a rien dedans qui puisse grossir.",
-      hint: "Ordres de grandeur mesurés sur de vrais sites, pas des valeurs de labo.",
+      none: "rien d'activé",
+      builtIn: "intégré",
+      hint: "Ordres de grandeur mesurés sur de vrais sites. Les noms de plugins sont ceux qu'on prend habituellement · ce n'est pas une pique, c'est la raison pour laquelle les chiffres divergent.",
       verdicts: [
-        "Zéro lest. C'est exactement comme ça que je construis.",
-        "Ça va encore. Sur un bon réseau, presque personne ne le remarque.",
-        "Là, chaque visiteur le sent. Et Google aussi.",
-        "C'est à peu près la moyenne dehors. Chaque fonction payée une fois, puis tous les jours à nouveau.",
+        "Deux pages vides. C'est à partir d'ici que ça devient intéressant.",
+        "À droite chaque fonction coûte quelques kilo-octets. À gauche elle coûte un plugin entier.",
+        "Et c'est toute la différence : chez moi le site grandit avec ses tâches. Avec la pile de plugins, il grossit à cause d'elles.",
+      ],
+      features: [
+        { key: "form", label: "formulaire", plugin: "Contact Form 7" },
+        { key: "gallery", label: "galerie photos", plugin: "NextGEN Gallery" },
+        { key: "news", label: "newsletter", plugin: "Mailchimp for WP" },
+        { key: "shop", label: "boutique", plugin: "WooCommerce" },
+        { key: "i18n", label: "multilingue", plugin: "WPML" },
+        { key: "cookie", label: "bandeau cookies", plugin: "Complianz" },
       ],
     },
 
@@ -273,26 +276,33 @@ export const LEISTUNG: Record<Locale, LeistungDict> = {
       ["You get the keys", "Code, domain and hosting are in your name. No rental model, no hostage situation, you can walk any time."],
     ],
 
-    ballastH2: "why it stays fast.",
+    ballastH2: "what happens when the site needs to do more.",
     ballastLead:
-      "Every plugin is someone else's code running inside your site. You don't see it, but your visitor waits for it. Go ahead, turn it up.",
-    dial: {
-      label: "ballast · plugins",
-      unitPlugins: "plugins",
+      "Switch on what you need. On the left every feature becomes a bought plugin dragging its own JavaScript along. On the right it's part of the site.",
+    vergleich: {
+      label: "what the site should be able to do",
+      colPlugins: "built with plugins",
+      colMine: "built with me",
+      mineNote: "Nothing bought in, no foreign JavaScript. The fields for it are already in the CMS.",
       gPagespeed: "pagespeed",
       gLoad: "load time",
       gRequests: "requests",
       gThirdParty: "3rd-party js",
-      colPlugins: "with plugins",
-      colMine: "with me",
-      flatNote:
-        "The lime line is my site. It doesn't move, however far you turn · because there's nothing in it that could grow.",
-      hint: "Orders of magnitude measured on real grown sites, not lab numbers.",
+      none: "nothing switched on",
+      builtIn: "built in",
+      hint: "Orders of magnitude measured on real grown sites. The plugin names are the ones people actually use · that's not a jab, it's the reason the numbers drift apart.",
       verdicts: [
-        "Zero ballast. This is exactly how i build.",
-        "Still fine. On a fast connection almost nobody notices.",
-        "Now every visitor feels it. And so does Google.",
-        "That's roughly the average out there. Every feature paid for once, then again every single day.",
+        "Two empty pages. This is where it gets interesting.",
+        "On the right each feature costs a few kilobytes. On the left it costs a whole plugin.",
+        "And that's the whole difference: with me the site grows with its jobs. With the plugin stack it grows because of them.",
+      ],
+      features: [
+        { key: "form", label: "contact form", plugin: "Contact Form 7" },
+        { key: "gallery", label: "image gallery", plugin: "NextGEN Gallery" },
+        { key: "news", label: "newsletter", plugin: "Mailchimp for WP" },
+        { key: "shop", label: "shop", plugin: "WooCommerce" },
+        { key: "i18n", label: "multilingual", plugin: "WPML" },
+        { key: "cookie", label: "cookie banner", plugin: "Complianz" },
       ],
     },
 

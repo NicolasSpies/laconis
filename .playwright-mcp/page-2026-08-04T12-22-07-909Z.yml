@@ -1,0 +1,228 @@
+- generic [active] [ref=e1]:
+  - link "Zum Inhalt springen" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - navigation [ref=e3]:
+    - generic [ref=e4]:
+      - link "Fabry Baumpflege" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "Fabry Baumpflege Logo" [ref=e6]
+      - generic [ref=e448]:
+        - link "Kontakt" [ref=e449] [cursor=pointer]:
+          - /url: /kontakt
+        - button "Menü öffnen" [ref=e450] [cursor=pointer]
+  - generic [ref=e18]:
+    - generic [ref=e19]:
+      - img "Kletterer in Schutzausrüstung rappelt an einem moosigen Baum in einem Wald hinab." [ref=e23]
+      - generic [ref=e26]:
+        - heading "Baumpflege und Gartenpflege" [level=1] [ref=e27]:
+          - generic [ref=e28]: Baumpflege
+          - generic [ref=e29]: und Gartenpflege
+        - paragraph [ref=e30]: Bäume machen Arbeit. Die übernehme ich. Baumpflege, Baumfällung und alles, was im Garten sonst anfällt, in Ostbelgien und Umgebung
+    - generic [ref=e38]:
+      - heading "Baum und Gartenpflege aus einer Hand" [level=2] [ref=e40]
+      - generic [ref=e43]:
+        - paragraph [ref=e48]: Bäume wachsen. Mal besser, mal weniger kontrolliert. Genau da setzt Baumpflege an und sorgt für Struktur, Sicherheit und langfristige Gesundheit.
+        - paragraph [ref=e53]: Beim Rückschnitt geht es nicht nur ums „schön aussehen“, sondern darum, dass der Baum gesund bleibt und stabil wächst.
+        - paragraph [ref=e58]: Wenn ein Baum weg muss, wird das sauber vorbereitet und Schritt für Schritt umgesetzt. Gerade bei wenig Platz kommt Seilklettertechnik zum Einsatz, damit nichts beschädigt wird, was stehen bleiben soll.
+        - paragraph [ref=e63]: Auch im Garten selbst fällt genug an. Pflege, Schnittarbeiten oder neue Bepflanzung. Am Ende soll es einfach ordentlich aussehen und funktionieren.
+    - generic [ref=e66]:
+      - generic [ref=e67]:
+        - text: Leistungen
+        - heading "Alles rund um Baum und Garten" [level=2] [ref=e68]
+      - generic [ref=e69]:
+        - link "Baumpflege Damit Bäume nicht machen, was sie wollen. Mehr erfahren" [ref=e71] [cursor=pointer]:
+          - /url: /leistungen#baumpflege
+          - generic [ref=e76]:
+            - heading "Baumpflege" [level=3] [ref=e77]
+            - paragraph [ref=e79]: Damit Bäume nicht machen, was sie wollen.
+            - generic [ref=e80]: Mehr erfahren
+        - link "Baumfällung Wenn’s nicht mehr anders geht, dann richtig. Mehr erfahren" [ref=e83] [cursor=pointer]:
+          - /url: /leistungen#baumfaellung
+          - generic [ref=e92]:
+            - heading "Baumfällung" [level=3] [ref=e93]
+            - paragraph [ref=e95]: Wenn’s nicht mehr anders geht, dann richtig.
+            - generic [ref=e96]: Mehr erfahren
+        - link "Gartenpflege Damit es nicht nach „ich mach das irgendwann mal“ aussieht. Mehr erfahren" [ref=e99] [cursor=pointer]:
+          - /url: /leistungen#gartenpflege
+          - generic [ref=e107]:
+            - heading "Gartenpflege" [level=3] [ref=e108]
+            - paragraph [ref=e110]: Damit es nicht nach „ich mach das irgendwann mal“ aussieht.
+            - generic [ref=e111]: Mehr erfahren
+        - link "Bepflanzung Damit am Ende auch das wächst, was wachsen soll. Mehr erfahren" [ref=e114] [cursor=pointer]:
+          - /url: /leistungen#bepflanzung
+          - generic [ref=e121]:
+            - heading "Bepflanzung" [level=3] [ref=e122]
+            - paragraph [ref=e124]: Damit am Ende auch das wächst, was wachsen soll.
+            - generic [ref=e125]: Mehr erfahren
+      - link "Leistungen" [ref=e128] [cursor=pointer]:
+        - /url: /leistungen
+    - generic [ref=e132]:
+      - generic [ref=e133]:
+        - generic [ref=e134]: Referenzen
+        - heading "Was zuletzt unter die Säge gekommen ist" [level=2] [ref=e135]
+      - generic [ref=e453]:
+        - link [ref=e455] [cursor=pointer]:
+          - /url: /referenzen/verkehrssicherheit-entlang-einer-strasse
+          - generic [ref=e456]:
+            - img "Iveco-Hubsteiger mit ausgefahrenem Arm zwischen Bäumen in einem Waldweg." [ref=e457]
+            - generic [ref=e458]:
+              - generic [ref=e459]:
+                - generic [ref=e460]: Baumpflege
+                - generic [ref=e462]: Eupen
+              - heading "Verkehrssicherheit entlang einer Straße" [level=3] [ref=e463]
+              - paragraph [ref=e464]: Bei diesem Einsatz stand die Wiederherstellung der Verkehrssicherheit entlang einer Straße in steiler Hanglage im Mittelpunkt. An mehreren Eichen wurde Totholz fachgerecht entfernt, um potenzielle Gefahren für den Straßenverkehr und Passanten zu beseitigen. Aufgrund der anspruchsvollen Geländesituation entschieden wir uns bewusst für eine Kombination aus Hubsteiger und Seilklettertechnik (SKT). Diese Arbeitsweise ermöglichte es uns, alle Bereiche der Bäume sicher und effizient zu erreichen und die Arbeiten zügig durchzuführen. Durch den gezielten Einsatz beider Verfahren konnten wir den Auftrag entlang der Straße schnell, sicher und mit möglichst geringer Beeinträchtigung des Verkehrs abschließen. So wurde die Verkehrssicherheit nachhaltig wiederhergestellt und die wertvollen Eichen konnten gleichzeitig schonend erhalten werden. Ob Verkehrssicherungsmaßnahmen, Totholzentfernung oder anspruchsvolle Baumarbeiten in schwierigem Gelände – wir bieten sichere und professionelle Lösungen für jede Herausforderung.
+              - generic [ref=e465]: Mehr erfahren
+        - link [ref=e470] [cursor=pointer]:
+          - /url: /referenzen/kronenpflege-apfelbaum
+          - generic [ref=e471]:
+            - img "Dichter Wald mit grünen Laubbäumen unter bewölktem Himmel, alte Bäume mit ausladenden Ästen." [ref=e472]
+            - generic [ref=e473]:
+              - generic [ref=e474]:
+                - generic [ref=e475]: Baumpflege
+                - generic [ref=e477]: Eupenn
+              - heading "Kronenpflege - Apfelbaum" [level=3] [ref=e478]
+              - paragraph [ref=e479]: Bei diesem Projekt stand der langfristige Erhalt eines alten Apfelbaums im Mittelpunkt. Durch eine gezielte Auslichtung wurde die Krone entlastet und die Baumgesundheit gefördert. Zusätzlich erfolgte eine biologische Behandlung gegen die Gespinstmotte und die Blutlaus – vollständig ohne den Einsatz chemischer Pflanzenschutzmittel. Die Raupen der Gespinstmotte können ganze Zweige mit ihren charakteristischen Gespinsten überziehen und durch starken Blattfraß die Vitalität des Baumes beeinträchtigen. Die Blutlaus saugt an jungen Trieben und Ästen, wodurch Wucherungen, Rindenschäden und Wachstumsstörungen entstehen können. Durch die fachgerechte Pflege und die biologische Behandlung konnte die Gesundheit des Baumes nachhaltig gefördert werden. Sollten Sie an Ihren Obstbäumen Auffälligkeiten feststellen oder Fragen zur Baumgesundheit haben, stehen wir Ihnen gerne für eine Begutachtung und Beratung vor Ort zur Verfügung.
+              - generic [ref=e480]: Mehr erfahren
+        - link [ref=e485] [cursor=pointer]:
+          - /url: /referenzen/eichenprozessionspinner-entfernung
+          - generic [ref=e486]:
+            - img "Schlange auf Baumrinde mit Moos und Flechten, umgeben von grünen Blättern." [ref=e487]
+            - generic [ref=e488]:
+              - generic [ref=e489]:
+                - generic [ref=e490]: Baumpflege
+                - generic [ref=e492]: Gemmenich
+              - heading "Eichenprozessionspinner Entfernung" [level=3] [ref=e493]
+              - paragraph [ref=e494]: Im Rahmen eines Vor-Ort-Termins wurde an einer Eiche ein Befall durch den Eichenprozessionsspinner festgestellt. Das Nest wurde anschließend fachgerecht entfernt, um die von den Raupen ausgehende Gefahr für Menschen und Tiere zu beseitigen. Der Eichenprozessionsspinner stellt insbesondere durch seine Brennhaare ein erhebliches Gesundheitsrisiko dar. Die feinen Haare enthalten ein Nesselgift und können bereits bei Hautkontakt oder durch die Luft übertragen starke Hautreizungen, Juckreiz, Augenreizungen sowie Atemwegsbeschwerden verursachen. Die Brennhaare bleiben zudem über lange Zeit in alten Nestern aktiv und können auch nach dem Verlassen der Raupen noch gesundheitliche Probleme auslösen. Sollten Sie an Ihren Bäumen einen Verdacht auf Eichenprozessionsspinner haben oder ein Nest entdecken, nehmen Sie gerne Kontakt mit uns auf. Eine frühzeitige Begutachtung hilft dabei, Risiken rechtzeitig zu erkennen und geeignete Maßnahmen einzuleiten.
+              - generic [ref=e495]: Mehr erfahren
+      - link "Alle Referenzen ansehen" [ref=e180] [cursor=pointer]:
+        - /url: /referenzen
+    - generic [ref=e183]:
+      - generic [ref=e185]:
+        - generic [ref=e186]: Kundenstimmen
+        - heading "Was bisher so zurückkam" [level=2] [ref=e187]
+      - generic [ref=e499]:
+        - generic [ref=e500]:
+          - generic [ref=e502]:
+            - paragraph [ref=e514]: "\"Unsere Baumfällarbeiten wurden mit größter Sorgfalt erledigt. Wir sind total zufrieden und können Fabry Baumpflege zu 100 % empfehlen. Vielen Dank für die tolle Arbeitsausführung 😃\""
+            - heading "Natascha H." [level=3] [ref=e517]
+          - generic [ref=e519]:
+            - paragraph [ref=e531]: "\"Die Arbeit wurde professionell und unter Einhaltung von Fristen und Budget ausgeführt. Zu 100% zu empfehlen.\""
+            - heading "William W." [level=3] [ref=e534]
+          - generic [ref=e536]:
+            - paragraph [ref=e548]: "\"Gute Arbeit zu fairen Preisen.\""
+            - heading "Mike" [level=3] [ref=e551]
+          - generic [ref=e553]:
+            - paragraph [ref=e565]: "\"Unsere Baumfällarbeiten wurden, trotz komplizierter Lage, sowohl schnell als auch super professionell bewältigt. Die Kommunikation hat sehr gut geklappt und ich kann Fabry Baumpflege nur jedem empfehlen!\""
+            - heading "Michel M." [level=3] [ref=e568]
+        - generic [ref=e569]:
+          - button "Kundenstimme 1" [ref=e570] [cursor=pointer]
+          - button "Kundenstimme 2" [ref=e572] [cursor=pointer]
+          - button "Kundenstimme 3" [ref=e574] [cursor=pointer]
+          - button "Kundenstimme 4" [ref=e576] [cursor=pointer]
+    - generic [ref=e319]:
+      - generic [ref=e320]:
+        - generic [ref=e321]: Häufige Fragen
+        - heading "Antworten auf häufige Fragen" [level=2] [ref=e322]
+      - generic [ref=e323]:
+        - generic [ref=e324]:
+          - button "Braucht man in Belgien eine Genehmigung zum Baumfällen? +" [expanded] [ref=e325] [cursor=pointer]:
+            - generic [ref=e326]: Braucht man in Belgien eine Genehmigung zum Baumfällen?
+            - generic [ref=e327]: +
+          - generic [ref=e328]: In Belgien ist für das Fällen geschützter Bäume eine Genehmigung des Gemeindekollegiums erforderlich. In den meisten Gemeinden Ostbelgiens gilt dies ab einem Stammumfang von 50 bis 60 cm. Angepflanzte Bäume benötigen unabhängig von ihrer Größe oft eine Genehmigung. Fabry Baumpflege berät zur geltenden Regelung und hilft bei der Antragstellung.
+        - generic [ref=e331]:
+          - button "Welche Gemeinden und Regionen werden abgedeckt? +" [ref=e332] [cursor=pointer]:
+            - generic [ref=e333]: Welche Gemeinden und Regionen werden abgedeckt?
+            - generic [ref=e334]: +
+          - generic: "Fabry Baumpflege ist in der gesamten Deutschsprachigen Gemeinschaft Belgiens tätig: Eupen, Raeren, Kelmis, Lontzen, Sankt-Vith, Malmedy, Bütgenbach, Büllingen und Umgebung. Auch angrenzende französischsprachige Orte wie Verviers, Aubel, Welkenraedt, Limbourg und Herve werden bedient."
+        - generic [ref=e336]:
+          - button "Was kostet eine Baumfällung? +" [ref=e337] [cursor=pointer]:
+            - generic [ref=e338]: Was kostet eine Baumfällung?
+            - generic [ref=e339]: +
+          - paragraph [ref=e341]: Die Kosten hängen von Baumhöhe, Standort, Zugänglichkeit und gewünschter Entsorgung ab. Nach einer kostenlosen Vor-Ort-Besichtigung wird ein unverbindliches Angebot erstellt.
+        - generic [ref=e342]:
+          - button "Wann ist der beste Zeitpunkt für einen Baumschnitt? +" [ref=e343] [cursor=pointer]:
+            - generic [ref=e344]: Wann ist der beste Zeitpunkt für einen Baumschnitt?
+            - generic [ref=e345]: +
+          - generic: Leichte Pflegeschnitte sind ganzjährig möglich. Stärkere Eingriffe empfehlen sich in der Vegetationsruhe von November bis Februar. Aus Artenschutzgründen sind starke Schnitte an Hecken und Bäumen von März bis September gesetzlich eingeschränkt. Ausnahmen gelten bei Verkehrssicherung und Gefahrensituationen.
+        - generic [ref=e347]:
+          - button "Was tun, wenn ein Baum nach einem Sturm gefährlich wird? +" [ref=e348] [cursor=pointer]:
+            - generic [ref=e349]: Was tun, wenn ein Baum nach einem Sturm gefährlich wird?
+            - generic [ref=e350]: +
+          - generic: Zunächst den Gefahrenbereich absichern und Abstand halten. Fabry Baumpflege ist für Notfalleinsätze in Ostbelgien erreichbar. Mithilfe der Seilklettertechnik (SKT) und kontrollierter Abseilverfahren werden Sturmschäden sicher und schnell abgetragen.
+        - generic [ref=e352]:
+          - button "Ist Baumfällung in den Sommermonaten erlaubt? +" [ref=e353] [cursor=pointer]:
+            - generic [ref=e354]: Ist Baumfällung in den Sommermonaten erlaubt?
+            - generic [ref=e355]: +
+          - generic: Aus Vogelschutz- und Artenschutzgründen sind starke Schnitte an Bäumen und Hecken von März bis September grundsätzlich eingeschränkt. Verkehrssicherungsmaßnahmen und Gefahrenbaumfällungen sind jedoch ganzjährig zulässig. Die rechtliche Situation in der jeweiligen Gemeinde wird auf Anfrage geklärt.
+        - generic [ref=e357]:
+          - button "Wird auch Gartenpflege und Bepflanzung angeboten? +" [ref=e358] [cursor=pointer]:
+            - generic [ref=e359]: Wird auch Gartenpflege und Bepflanzung angeboten?
+            - generic [ref=e360]: +
+          - generic: Neben Baumpflege und Baumfällung umfasst das Angebot auch vollständige Gartenpflege (Heckenschnitt, Rasenpflege, Beetaufbereitung) sowie fachgerechte Neupflanzungen von Bäumen, Sträuchern und Stauden. Auf Anfrage sind individuelle Pflegepakete erhältlich.
+        - generic [ref=e362]:
+          - button "Wie läuft die Angebotsanfrage ab? +" [ref=e363] [cursor=pointer]:
+            - generic [ref=e364]: Wie läuft die Angebotsanfrage ab?
+            - generic [ref=e365]: +
+          - generic: Per Anruf oder Kontaktformular auf fabry-baumpflege.be. Fabry Baumpflege kommt für eine kostenlose Vor-Ort-Besichtigung und erstellt ein detailliertes, unverbindliches Angebot in der Regel innerhalb von 24 bis 48 Stunden.
+        - generic [ref=e367]:
+          - button "Ist Fabry Baumpflege zertifiziert? +" [ref=e368] [cursor=pointer]:
+            - generic [ref=e369]: Ist Fabry Baumpflege zertifiziert?
+            - generic [ref=e370]: +
+          - generic: Ja. Vincent Fabry ist zertifizierter Baumpflegeexperte mit anerkannter Ausbildung in Seilklettertechnik (SKT). Alle Arbeiten werden nach geltenden Sicherheitsstandards und den Umweltschutzvorschriften in Belgien ausgeführt.
+        - generic [ref=e372]:
+          - button "Wie schnell kommt Fabry Baumpflege vor Ort? +" [ref=e373] [cursor=pointer]:
+            - generic [ref=e374]: Wie schnell kommt Fabry Baumpflege vor Ort?
+            - generic [ref=e375]: +
+          - generic: Bei normalen Anfragen wird ein Vor-Ort-Termin innerhalb weniger Werktage vereinbart, das Angebot folgt in der Regel innerhalb von 24 bis 48 Stunden. Bei Notfällen — zum Beispiel nach Sturmschäden — ist eine kurzfristige Reaktion in Ostbelgien möglich.
+        - generic [ref=e377]:
+          - button "Arbeitet Fabry Baumpflege auch für Gemeinden und Gewerbebetriebe? +" [ref=e378] [cursor=pointer]:
+            - generic [ref=e379]: Arbeitet Fabry Baumpflege auch für Gemeinden und Gewerbebetriebe?
+            - generic [ref=e380]: +
+          - generic: Ja. Fabry Baumpflege übernimmt Aufträge für Privatpersonen, Gemeinden, Gewerbebetriebe und landwirtschaftliche Betriebe in der gesamten Deutschsprachigen Gemeinschaft Belgiens und angrenzenden Regionen.
+    - generic [ref=e383]:
+      - generic [ref=e384]:
+        - generic [ref=e385]: Ganz kurz über mich
+        - heading "Kein großes Team. Dafür klare Arbeit." [level=2] [ref=e386]
+      - generic [ref=e387]:
+        - generic [ref=e390]:
+          - img "Baumpfleger in Schutzausrüstung mit Helm und Seil sitzt in Baumkrone und arbeitet an Ästen." [ref=e391]
+          - paragraph [ref=e395]: "\"Sorgfalt bis ins Detail\""
+        - generic [ref=e396]:
+          - paragraph [ref=e398]: Hinter Fabry Baumpflege steht Vincent Fabry, gelernter Gärtner und zertifizierter Baumpfleger in Ostbelgien. Jeder Baum wird vor Ort individuell beurteilt und fachgerecht gepflegt, ohne Standardlösung für alles. Fachwissen, Sorgfalt und der respektvolle Umgang mit der Natur stehen dabei an erster Stelle.
+          - link "Falls du mehr über mich wissen willst" [ref=e400] [cursor=pointer]:
+            - /url: /kontakt
+  - contentinfo [ref=e403]:
+    - generic [ref=e404]:
+      - generic [ref=e405]:
+        - img "Fabry Logo White" [ref=e406]
+        - paragraph [ref=e407]: Zertifizierter Baumpfleger und Baumfäller in Eupen, Raeren, Kelmis, Lontzen, Kettenis und ganz Ostbelgien. Professionelle Baumpflege, Baumfällung und Gartengestaltung.
+        - link "Instagram" [ref=e579] [cursor=pointer]:
+          - /url: https://www.instagram.com/fabry_baumpflege
+      - generic [ref=e414]:
+        - heading "Kontakt" [level=3] [ref=e415]
+        - list [ref=e416]:
+          - listitem [ref=e417]:
+            - link "Halloux 16, 4830 Limbourg, BE" [ref=e421] [cursor=pointer]:
+              - /url: https://maps.app.goo.gl/syziuAu3hqbNM2tP6
+          - listitem [ref=e422]:
+            - link "+32 476 32 09 69" [ref=e425] [cursor=pointer]:
+              - /url: tel:+32476320969
+          - listitem [ref=e426]:
+            - link "info@fabry-baumpflege.be" [ref=e430] [cursor=pointer]:
+              - /url: mailto:info@fabry-baumpflege.be
+          - listitem [ref=e431]:
+            - list [ref=e435]:
+              - listitem [ref=e436]:
+                - generic [ref=e437]: Mo–Fr
+                - generic [ref=e438]: 08:00–17:00
+    - generic [ref=e439]:
+      - paragraph [ref=e440]: © 2026 Fabry Baumpflege. Alle Rechte vorbehalten.
+      - generic [ref=e441]:
+        - link "Impressum" [ref=e442] [cursor=pointer]:
+          - /url: /impressum
+        - link "Datenschutz" [ref=e443] [cursor=pointer]:
+          - /url: /datenschutz
+  - paragraph [ref=e445]:
+    - text: made with ❤ by
+    - link "lacønis" [ref=e446] [cursor=pointer]:
+      - /url: https://laconis.be

@@ -70,9 +70,9 @@ Der austausch braucht keine codeänderung.
 
 - klassen-prefix ist noch `lab-`, obwohl der ordner `device/` heisst.
   1.300 css-zeilen · lohnt nur, wenn sonst nichts ansteht.
-- der pegel auf `/leistung` könnte weitere zeilen vertragen
-  (update-aufwand, lizenzkosten, wartung über jahre) · aber als
-  erweiterung DIESES geräts, nicht als zweites daneben.
+- der feature-vergleich auf `/leistung` könnte weitere zeilen
+  vertragen (update-aufwand, lizenzkosten, wartung über jahre) · aber
+  als weitere messwerte in DEN zwei tafeln, nicht als drittes element.
 - alter der bio auf `/ueber-mich` ist raus („29"), weil er still
   veraltet. wenn er rein soll, sagen.
 

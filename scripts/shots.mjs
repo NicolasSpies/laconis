@@ -80,15 +80,39 @@ for (const { slug, url } of ziele) {
     });
     try {
       await page.goto(url, { waitUntil: "networkidle", timeout: 45_000 });
-      /* kurz warten · viele seiten blenden beim ersten scroll noch
-         inhalte ein, und die sollen mit aufs bild */
-      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-      await page.waitForTimeout(1200);
+
+      /* WICHTIG · in stufen durchscrollen, damit jedes lazy-bild seinen
+         ladebefehl bekommt. ohne das landen leere kästen im bild, und
+         genau das ist beim ersten versuch passiert. */
+      const hoehe = await page.evaluate(() => document.body.scrollHeight);
+      for (let y = 0; y < hoehe; y += 600) {
+        await page.evaluate((py) => window.scrollTo(0, py), y);
+        await page.waitForTimeout(240);
+      }
+      await page.waitForTimeout(1500);
+
+      /* nachzügler hart anstossen · manche bilder hängen an einem
+         observer, der beim schnellen scrollen nicht auslöst */
+      await page.evaluate(() => {
+        for (const img of document.images) {
+          if (!img.complete || img.naturalWidth === 0) img.loading = "eager";
+        }
+      });
+      await page.waitForTimeout(1500);
+
+      const offen = await page.evaluate(
+        () => [...document.images].filter((i) => !i.complete || i.naturalWidth === 0).length,
+      );
+      if (offen) console.warn(`  ! ${offen} bild(er) nicht geladen · aufnahme kann lücken haben`);
+
       await page.evaluate(() => window.scrollTo(0, 0));
-      await page.waitForTimeout(400);
+      await page.waitForTimeout(600);
 
       const file = path.join(OUT, `${slug}-${view.name}.jpg`);
-      await page.screenshot({ path: file, fullPage: true, type: "jpeg", quality: 82 });
+      /* qualität 58 · die aufnahmen laufen in einer kleinen scheibe,
+         mehr sieht man nicht, und 1 MB pro projekt wäre absurd auf
+         einer seite, die mit ladezeit wirbt */
+      await page.screenshot({ path: file, fullPage: true, type: "jpeg", quality: 58 });
       console.log(`✓ ${file}`);
     } catch (err) {
       console.error(`✗ ${slug} · ${view.name}: ${err.message}`);

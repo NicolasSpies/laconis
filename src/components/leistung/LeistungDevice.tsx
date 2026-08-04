@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { LensHero } from "@/components/leistung/LensHero";
-import { BallastDial } from "@/components/leistung/BallastDial";
+import { FeatureVergleich } from "@/components/leistung/FeatureVergleich";
 import { LiveEditor } from "@/components/leistung/LiveEditor";
 import { LEISTUNG } from "@/components/leistung/leistung.dict";
 import { useLocale } from "@/i18n/useLocale";
@@ -18,12 +18,12 @@ import "@/components/leistung/panel.css";
  *
  * dosierung, wie überall: pro bildschirmhöhe EIN objekt zum anfassen,
  * dazwischen ruhige typo-strecken.
- *   lupe (hero) → ruhig → ballast-regler → ruhig → live-editor → ruhig
+ *   lupe (hero) → ruhig → feature-vergleich → ruhig → live-editor → ruhig
  *
  * drei mal darf der besucher selbst was tun, und jedes mal beweist es
  * ein argument, statt es zu behaupten:
  *   lupe      → „ich kann das handwerk"   (design oben, technik drunter)
- *   regler    → „deshalb bleibt es schnell"
+ *   vergleich → „deshalb bleibt es schnell"
  *   editor    → „du pflegst das selbst"
  */
 
@@ -67,7 +67,7 @@ export function LeistungDevice() {
         </div>
       </section>
 
-      {/* ═══ 3 · DER BALLAST-REGLER ═══ */}
+      {/* ═══ 3 · DER FEATURE-VERGLEICH ═══ */}
       <section data-no-reveal className="relative px-6 pb-32 md:px-12">
         <div className="mx-auto max-w-[1200px]">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
@@ -75,7 +75,7 @@ export function LeistungDevice() {
             <p className="lab-hint max-w-[340px] text-[12.5px] leading-relaxed">{t.ballastLead}</p>
           </div>
 
-          <BallastDial t={t.dial} />
+          <FeatureVergleich t={t.vergleich} />
         </div>
       </section>
 

@@ -285,3 +285,171 @@
     transition: none;
   }
 }
+
+/* ── feature-vergleich · zwei tafeln nebeneinander ─────
+   der vorgänger war ein regler mit der beschriftung „plugins" · das
+   war schief, weil Nicolas keine hat. was BEIDE seiten haben, sind
+   features. die schaltet man zu, und dann läuft es auseinander. */
+
+.fv-keys-label {
+  display: block;
+  margin-bottom: 12px;
+}
+.fv-keys-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* jede taste ist ein feature · erhaben solange aus, versenkt wenn an */
+.fv-key {
+  padding: 11px 16px;
+  border-radius: 9px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  color: rgba(242, 242, 242, 0.6);
+  background: linear-gradient(180deg, #2b2b33, #17171d);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 242, 242, 0.2),
+    0 3px 0 rgba(0, 0, 0, 0.65);
+  transform: translateY(0);
+  transition:
+    transform 140ms cubic-bezier(0.3, 1.4, 0.5, 1),
+    box-shadow 140ms ease,
+    color 220ms ease;
+}
+.fv-key:hover {
+  color: rgba(242, 242, 242, 0.92);
+}
+.fv-key[data-on="1"] {
+  color: #0a0a0a;
+  background: linear-gradient(180deg, #eaffa0, #cbe93c);
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 0 0 rgba(0, 0, 0, 0.65),
+    0 0 18px -6px rgba(225, 253, 82, 0.6);
+}
+.fv-key:focus-visible {
+  outline: 2px solid #b084d3;
+  outline-offset: 3px;
+}
+
+.fv-panels {
+  display: grid;
+  gap: 14px;
+}
+@media (min-width: 860px) {
+  .fv-panels {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.fv-panel {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 3vw, 32px);
+}
+.fv-panel[data-seite="plugins"] {
+  /* die linke tafel bekommt die lila-kühle, die rechte die lime-wärme ·
+     man soll auf einen blick sehen, welche welche ist */
+  background:
+    radial-gradient(120% 90% at 50% -10%, rgba(176, 132, 211, 0.075), transparent 60%),
+    linear-gradient(180deg, #17161b 0%, #0e0e11 100%);
+}
+
+.fv-panel-head {
+  display: block;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(242, 242, 242, 0.09);
+}
+
+/* der stapel · links wachsen die zugekauften stücke sichtbar an */
+.fv-stack {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 7px;
+  padding: 18px 0 22px;
+  min-height: 118px;
+}
+.fv-stack-empty,
+.fv-stack-note {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: rgba(242, 242, 242, 0.32);
+}
+.fv-stack-note {
+  flex-basis: 100%;
+}
+
+.fv-chip {
+  padding: 6px 11px;
+  border-radius: 6px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: rgba(242, 242, 242, 0.72);
+  background: rgba(176, 132, 211, 0.14);
+  border: 1px solid rgba(176, 132, 211, 0.32);
+  animation: fvChip 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes fvChip {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+.fv-builtin {
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+  letter-spacing: -0.02em;
+  color: #e1fd52;
+}
+
+.fv-rows {
+  margin-top: auto;
+  border-top: 1px solid rgba(242, 242, 242, 0.09);
+}
+.fv-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 13px 0;
+}
+.fv-row + .fv-row {
+  border-top: 1px solid rgba(242, 242, 242, 0.055);
+}
+
+.fv-val {
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2.3vw, 1.7rem);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  color: #f2f2f2;
+  white-space: nowrap;
+  transition: color 300ms ease;
+}
+.fv-val[data-bad="1"] {
+  color: #b084d3;
+}
+.fv-val[data-good="1"] {
+  color: #e1fd52;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fv-key,
+  .fv-chip,
+  .fv-val {
+    transition: none;
+    animation: none;
+  }
+}
