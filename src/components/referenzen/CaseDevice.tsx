@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { Tageslauf } from "@/components/referenzen/Tageslauf";
+import { ClaimSwitch } from "@/components/referenzen/ClaimSwitch";
+import { KieferMark } from "@/components/referenzen/KieferMark";
 import { CASE } from "@/components/referenzen/case.dict";
 import { REFERENZEN } from "@/components/referenzen/referenzen.dict";
 import { referenzen } from "@/data/referenzen";
@@ -11,6 +13,7 @@ import { useLocale } from "@/i18n/useLocale";
 import { buildPath } from "@/i18n/config";
 import "@/components/device/device.css";
 import "@/components/referenzen/tageslauf.css";
+import "@/components/referenzen/case.css";
 
 /**
  * CaseDevice · die referenz-detailseite.
@@ -94,6 +97,56 @@ export function CaseDevice({ slug }: { slug: string }) {
 
       {isLive ? (
         <>
+          {/* ═══ DER BEFUND · ruhig, die geschichte ═══ */}
+          <section data-no-reveal className="relative px-6 pb-28 md:px-12">
+            <div className="mx-auto max-w-[1200px]">
+              <h2 className="lab-display max-w-[14ch] text-[clamp(2rem,5.5vw,3.8rem)]">
+                {t.auftragH2}
+              </h2>
+              <p className="mt-7 max-w-[620px] text-[clamp(1rem,1.7vw,1.2rem)] leading-[1.6] text-[rgba(242,242,242,0.75)]">
+                {t.auftragLead}
+              </p>
+
+              <div className="mt-12 grid gap-x-16 md:grid-cols-2">
+                {t.auftrag.map(([title, body], i) => (
+                  <div key={title} className="lx-row">
+                    <span className="lx-row-nr">{String(i + 1).padStart(2, "0")}</span>
+                    <div>
+                      <h3 className="text-[17px] font-medium tracking-[-0.01em] text-[#f2f2f2]">
+                        {title}
+                      </h3>
+                      <p className="mt-2 max-w-[46ch] text-[13.5px] leading-relaxed text-[rgba(242,242,242,0.5)]">
+                        {body}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* das briefing in seinen worten · so kurz stand es da */}
+              <p className="lab-display mt-16 max-w-[900px] text-[clamp(1.5rem,4vw,2.8rem)]">
+                <span style={{ color: "rgba(242,242,242,0.35)" }}>„</span>
+                {t.briefing}
+                <span style={{ color: "rgba(242,242,242,0.35)" }}>"</span>
+              </p>
+            </div>
+          </section>
+
+          {/* ═══ DER UMSCHALTER · das argument in typografie ═══ */}
+          <section data-no-reveal className="relative px-6 pb-28 md:px-12">
+            <div className="mx-auto max-w-[1200px]">
+              <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
+                <h2 className="lab-display max-w-[16ch] text-[clamp(1.8rem,4.6vw,3.2rem)]">
+                  {t.claimH2}
+                </h2>
+                <p className="lab-hint max-w-[340px] text-[12.5px] leading-relaxed">
+                  {t.claimLead}
+                </p>
+              </div>
+              <ClaimSwitch t={t.claim} />
+            </div>
+          </section>
+
           {/* ═══ DER TAGESLAUF · das gebaute feature ═══ */}
           <section data-no-reveal className="relative px-6 pb-28 md:px-12">
             <div className="mx-auto max-w-[1200px]">
@@ -104,6 +157,27 @@ export function CaseDevice({ slug }: { slug: string }) {
                 <p className="lab-hint max-w-[340px] text-[12.5px] leading-relaxed">{t.tagLead}</p>
               </div>
               <Tageslauf t={t.tageslauf} />
+            </div>
+          </section>
+
+          {/* ═══ DAS ZEICHEN · amplitude zum nachfühlen ═══ */}
+          <section data-no-reveal className="relative px-6 pb-28 md:px-12">
+            <div className="mx-auto max-w-[1200px]">
+              <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+                <h2 className="lab-display max-w-[16ch] text-[clamp(1.8rem,4.6vw,3.2rem)]">
+                  {t.markH2}
+                </h2>
+                <p className="lab-hint max-w-[340px] text-[12.5px] leading-relaxed">
+                  {t.markLead}
+                </p>
+              </div>
+              <div className="lab-chassis relative p-6 md:p-10">
+                <span className="lab-screw" style={{ left: 14, top: 14 }} aria-hidden />
+                <span className="lab-screw" style={{ right: 14, top: 14 }} aria-hidden />
+                <span className="lab-screw" style={{ left: 14, bottom: 14 }} aria-hidden />
+                <span className="lab-screw" style={{ right: 14, bottom: 14 }} aria-hidden />
+                <KieferMark t={t.kiefer} />
+              </div>
             </div>
           </section>
 

@@ -1,5 +1,7 @@
 import type { Locale } from "@/i18n/config";
 import type { TageslaufT } from "@/components/referenzen/Tageslauf";
+import type { ClaimT } from "@/components/referenzen/ClaimSwitch";
+import type { KieferT } from "@/components/referenzen/KieferMark";
 
 /**
  * Copy der referenz-detailseiten · dreisprachig.
@@ -20,9 +22,22 @@ export type CaseDict = {
   lTempo: string;
   tempoNote: string;
 
+  auftragH2: string;
+  auftragLead: string;
+  auftrag: [string, string][];
+  briefing: string;
+
+  claimH2: string;
+  claimLead: string;
+  claim: ClaimT;
+
   tagH2: string;
   tagLead: string;
   tageslauf: TageslaufT;
+
+  markH2: string;
+  markLead: string;
+  kiefer: KieferT;
 
   detailsH2: string;
   details: [string, string][];
@@ -44,6 +59,43 @@ export const CASE: Record<Locale, CaseDict> = {
     lTempo: "gemessen",
     tempoNote:
       "Lighthouse, mobil und Desktop, an der echten Seite gemessen. Kein Laborwert aus einer lokalen Umgebung.",
+
+    auftragH2: "der befund.",
+    auftragLead:
+      "Reimund Fabry klettert seit über zwanzig Jahren in Bäume. Seine Website war das Gegenteil davon: ein gekauftes WordPress-Theme, das er nie selbst ändern konnte.",
+    auftrag: [
+      ["stand still seit 2009", "Die letzte Änderung stand als Datum im Fussbereich. Sechzehn Jahre, in denen sich der Betrieb weiterentwickelt hat und die Seite nicht."],
+      ["auf seite vier", "Wer in der Region nach Baumpflege suchte, fand ihn nicht. Nicht weil er schlecht war, sondern weil die Seite Google nichts anzubieten hatte."],
+      ["fremdes theme", "Ein Layout von der Stange, das tausend andere Betriebe auch hatten. Nichts daran erzählte, dass hier jemand seit zwanzig Jahren klettert."],
+      ["nicht selbst pflegbar", "Änderungen gingen nur über jemand anderen. Also wurden sie nicht gemacht."],
+    ],
+    briefing: "gefunden werden, selbst pflegen können",
+
+    claimH2: "derselbe betrieb, zwei welten.",
+    claimLead:
+      "Wirf den Schalter. Beides sind die echten Sätze · links wie er 2009 dastand, rechts wie er heute dasteht.",
+    claim: {
+      eraAlt: "2009",
+      eraNeu: "heute",
+      altTitle: "Wir sind Ihr zuverlässiger Partner für Baumpflege, Baumfällung und Heckenschnitt in der Region.",
+      altBody: "Fragen Sie uns! Wir beraten Sie gerne.",
+      altLink: "» Kontakt",
+      altFoot: "Letzte Aktualisierung: 14.03.2009",
+      neuTitle: "wir halten ihre bäume gesund.",
+      neuBody: "Ein Baumpfleger. Keine Agentur. Sechs Wörter, die sagen, was er tut · und nicht, was jeder Anbieter über sich sagen würde.",
+      hint: "Die Typografie führt hier das Argument. Kein Text musste erklären, was sich geändert hat.",
+    },
+
+    markH2: "ein zeichen, das wurzeln schlägt.",
+    markLead:
+      "Eine Kiefer, runtergebrochen auf drei Striche. Sie wiegt sich dauerhaft, kaum merklich, wie unter leichtem Wind. Zieh am Regler und du merkst selbst, wo die Grenze liegt.",
+    kiefer: {
+      label: "ausschlag",
+      unit: "grad",
+      real: "so steht es live",
+      verdicts: ["atmet", "wird unruhig", "zappelt"],
+      hint: "Ein Logo, das atmet, wirkt lebendig. Eins, das zappelt, wirkt billig. Der ganze Unterschied liegt in knapp zwei Grad.",
+    },
 
     tagH2: "die seite kennt die uhrzeit.",
     tagLead:
@@ -84,6 +136,43 @@ export const CASE: Record<Locale, CaseDict> = {
     tempoNote:
       "Lighthouse, mobile et desktop, mesuré sur le site réel. Pas une valeur de labo dans un environnement local.",
 
+    auftragH2: "le diagnostic.",
+    auftragLead:
+      "Reimund Fabry grimpe dans les arbres depuis plus de vingt ans. Son site était tout le contraire : un thème WordPress acheté qu'il n'a jamais pu modifier lui-même.",
+    auftrag: [
+      ["figé depuis 2009", "La dernière modification était datée en pied de page. Seize ans pendant lesquels l'entreprise a évolué et le site non."],
+      ["en page quatre", "Qui cherchait un élagueur dans la région ne le trouvait pas. Pas parce qu'il était mauvais, mais parce que le site n'avait rien à offrir à Google."],
+      ["thème générique", "Une mise en page toute faite que mille autres entreprises avaient aussi. Rien n'y racontait que quelqu'un grimpe ici depuis vingt ans."],
+      ["pas gérable soi-même", "Les changements passaient par quelqu'un d'autre. Donc ils n'étaient pas faits."],
+    ],
+    briefing: "être trouvé, pouvoir gérer soi-même",
+
+    claimH2: "la même entreprise, deux mondes.",
+    claimLead:
+      "Bascule l'interrupteur. Les deux phrases sont réelles · à gauche telle qu'il apparaissait en 2009, à droite telle qu'il apparaît aujourd'hui.",
+    claim: {
+      eraAlt: "2009",
+      eraNeu: "aujourd'hui",
+      altTitle: "Wir sind Ihr zuverlässiger Partner für Baumpflege, Baumfällung und Heckenschnitt in der Region.",
+      altBody: "Fragen Sie uns! Wir beraten Sie gerne.",
+      altLink: "» Kontakt",
+      altFoot: "Letzte Aktualisierung: 14.03.2009",
+      neuTitle: "wir halten ihre bäume gesund.",
+      neuBody: "Un élagueur. Pas une agence. Six mots qui disent ce qu'il fait · et pas ce que n'importe quel prestataire dirait de lui-même.",
+      hint: "C'est la typographie qui porte l'argument ici. Aucun texte n'a eu besoin d'expliquer ce qui a changé.",
+    },
+
+    markH2: "un signe qui prend racine.",
+    markLead:
+      "Un pin, réduit à trois traits. Il se balance en continu, à peine perceptible, comme sous un vent léger. Tire le curseur et tu sens toi-même où est la limite.",
+    kiefer: {
+      label: "amplitude",
+      unit: "degrés",
+      real: "valeur en ligne",
+      verdicts: ["respire", "devient nerveux", "gigote"],
+      hint: "Un logo qui respire semble vivant. Un qui gigote semble bon marché. Toute la différence tient à deux degrés.",
+    },
+
     tagH2: "le site connaît l'heure.",
     tagLead:
       "Fais glisser le soleil dans le ciel. C'est exactement ce qui arrive chez le visiteur, sans curseur · le site lit l'heure et règle sa lumière lui-même.",
@@ -122,6 +211,43 @@ export const CASE: Record<Locale, CaseDict> = {
     lTempo: "measured",
     tempoNote:
       "Lighthouse, mobile and desktop, measured on the live site. Not a lab number from a local environment.",
+
+    auftragH2: "the findings.",
+    auftragLead:
+      "Reimund Fabry has been climbing trees for over twenty years. His website was the opposite: a bought WordPress theme he could never change himself.",
+    auftrag: [
+      ["frozen since 2009", "The last change was dated in the footer. Sixteen years in which the business moved on and the site didn't."],
+      ["on page four", "Anyone searching for tree care in the region didn't find him. Not because he was bad, but because the site had nothing to offer Google."],
+      ["someone else's theme", "An off-the-shelf layout a thousand other businesses had too. Nothing about it said that someone here has been climbing for twenty years."],
+      ["not self-maintainable", "Changes had to go through someone else. So they didn't happen."],
+    ],
+    briefing: "get found, be able to maintain it yourself",
+
+    claimH2: "same business, two worlds.",
+    claimLead:
+      "Throw the switch. Both sentences are real · on the left how he appeared in 2009, on the right how he appears today.",
+    claim: {
+      eraAlt: "2009",
+      eraNeu: "today",
+      altTitle: "Wir sind Ihr zuverlässiger Partner für Baumpflege, Baumfällung und Heckenschnitt in der Region.",
+      altBody: "Fragen Sie uns! Wir beraten Sie gerne.",
+      altLink: "» Kontakt",
+      altFoot: "Letzte Aktualisierung: 14.03.2009",
+      neuTitle: "wir halten ihre bäume gesund.",
+      neuBody: "One arborist. Not an agency. Six words that say what he does · and not what any provider would say about themselves.",
+      hint: "The typography carries the argument here. No copy had to explain what changed.",
+    },
+
+    markH2: "a mark that takes root.",
+    markLead:
+      "A pine, reduced to three strokes. It sways continuously, barely noticeable, as if under a light wind. Pull the slider and you feel for yourself where the line is.",
+    kiefer: {
+      label: "amplitude",
+      unit: "degrees",
+      real: "the live value",
+      verdicts: ["breathes", "gets restless", "jitters"],
+      hint: "A logo that breathes feels alive. One that jitters feels cheap. The whole difference is under two degrees.",
+    },
 
     tagH2: "the site knows the time.",
     tagLead:
