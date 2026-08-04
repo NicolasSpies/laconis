@@ -37,6 +37,14 @@ const DEVICE_PATHS = [
   "/about",
   "/kontakt",
   "/contact",
+  /* die pflichtseiten laufen seit august 2026 auch im geräte-stil und
+     bringen ihre nav über LegalLayout mit */
+  "/impressum",
+  "/mentions-legales",
+  "/legal-notice",
+  "/datenschutz",
+  "/confidentialite",
+  "/privacy",
 ];
 
 function istGeraeteSeite(pathname: string): boolean {

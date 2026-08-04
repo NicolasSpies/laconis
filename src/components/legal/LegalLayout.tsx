@@ -1,7 +1,24 @@
+"use client";
+
+import Link from "next/link";
+import { DeviceNav } from "@/components/device/DeviceNav";
+import { HeroRail } from "@/components/device/HeroRail";
+import { useLocale } from "@/i18n/useLocale";
+import { buildPath } from "@/i18n/config";
+import "@/components/device/device.css";
+
 /**
- * LegalLayout · clean grey-bg pass für legal-seiten.
- * gleiche design-sprache wie restliche site (#c8c8c8 + dot-grid + lowercase typo)
- * aber minimal · keine theatralik · paragraphen lesen sich klar.
+ * LegalLayout · impressum und datenschutz in der geräte-sprache.
+ *
+ * lief bis august 2026 noch in der alten papier-richtung: heller grund,
+ * handschrift-schnitt für die randnotizen, leicht gedrehte texte. das
+ * war der letzte ort auf der seite, an dem die verworfene bildsprache
+ * überlebt hat.
+ *
+ * hier bleibt es bewusst RUHIG. pflichtseiten brauchen kein gerät zum
+ * anfassen · sie brauchen luft, klare hierarchie und lesbare zeilen.
+ * die einzige geste ist die schiene am rand, damit man sieht, dass man
+ * dieselbe seite nicht verlassen hat.
  */
 
 type Props = {
@@ -13,56 +30,51 @@ type Props = {
 };
 
 export function LegalLayout({ num, label, titel, intro, children }: Props) {
+  const locale = useLocale();
+
   return (
-    <section
-      className="relative pt-32 md:pt-36 pb-36 text-[#0a0a0a] overflow-hidden"
-    >
-      {/* subtler dot-grid */}
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-[0.08] pointer-events-none"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at center, rgba(20,20,20,0.5) 1px, transparent 1.4px)",
-          backgroundSize: "26px 26px",
-        }}
-      />
+    <div className="lab-root" data-no-reveal>
+      <div className="lab-ambient" aria-hidden>
+        <span />
+        <span />
+      </div>
 
-      <div className="container-site relative">
-        <div className="flex items-center gap-3">
-          <span className="inline-block w-2 h-2 rounded-full bg-[#b084d3]" />
-          <span className="font-mono text-[10px] text-[#0a0a0a]/55 tracking-label uppercase">
-            {num}
-          </span>
-          <span className="font-mono text-[11px] text-[#0a0a0a]/75 tracking-label uppercase">
-            {label}
-          </span>
-          <span className="h-px flex-1 bg-[#0a0a0a]/12" />
-        </div>
+      <DeviceNav />
+      <HeroRail label={`${num} · ${label}`} />
 
-        <div className="mt-8 max-w-[820px]">
-          <h1 className="text-[clamp(2rem,6vw,4.5rem)] leading-[1] font-black tracking-[-0.04em] text-[#0a0a0a] lowercase">
+      <section data-no-reveal className="relative px-6 pb-20 pt-36 md:px-12 md:pt-44">
+        <div className="mx-auto max-w-[1200px]">
+          <h1 className="lab-display lab-boot max-w-[14ch] text-[clamp(2.4rem,7vw,5.5rem)]">
             {titel}
           </h1>
           {intro && (
             <p
-              className="mt-6 text-[18px] md:text-[20px] leading-snug text-[#0a0a0a]/75"
-              style={{
-                fontFamily: "var(--font-caveat), cursive",
-                transform: "rotate(-0.3deg)",
-                transformOrigin: "left center",
-              }}
+              className="lab-boot mt-7 max-w-[620px] text-[clamp(1rem,1.7vw,1.2rem)] leading-[1.6] text-[rgba(242,242,242,0.72)]"
+              style={{ animationDelay: "160ms" }}
             >
               {intro}
             </p>
           )}
         </div>
+      </section>
 
-        <div className="mt-14 max-w-[820px] space-y-12 text-[14px] leading-relaxed text-[#0a0a0a]/80">
-          {children}
+      <section data-no-reveal className="relative px-6 pb-32 md:px-12">
+        <div className="mx-auto max-w-[1200px] space-y-14">{children}</div>
+      </section>
+
+      <section data-no-reveal className="relative px-6 pb-40 md:px-12">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="flex flex-wrap justify-between gap-4 border-t border-[rgba(242,242,242,0.08)] pt-6">
+            <Link href={buildPath("home", locale)} className="lab-label">
+              ← lacønis
+            </Link>
+            <a className="lab-label" href="mailto:nicolas@laconis.be">
+              nicolas@laconis.be
+            </a>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
 
@@ -76,21 +88,22 @@ export function LegalSection({
   children: React.ReactNode;
 }) {
   return (
-    <div className="grid lg:grid-cols-[minmax(0,1fr)_220px] gap-8 items-start">
+    <div className="grid items-start gap-8 md:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] md:gap-14">
       <div>
-        <h2 className="text-[20px] font-black tracking-[-0.025em] lowercase text-[#0a0a0a] mb-4">
+        {/* juristische überschriften sind lang ("§5 ddg / art. iii.74
+            wer (be)") · in display-grösse fressen sie zwei zeilen und
+            schreien lauter als der text, um den es geht */}
+        <h2 className="text-[clamp(1.05rem,1.9vw,1.35rem)] font-medium leading-snug tracking-[-0.015em] text-[#f2f2f2]">
           {titel}
         </h2>
-        <div className="space-y-3">{children}</div>
+        <div className="mt-5 space-y-3 text-[14px] leading-relaxed text-[rgba(242,242,242,0.72)]">
+          {children}
+        </div>
       </div>
+      {/* die randnotiz stand vorher in handschrift und leicht gedreht ·
+          jetzt ist sie einfach eine leise spalte */}
       {aside && (
-        <aside
-          className="text-[17px] leading-snug text-[#0a0a0a]/80 lg:pt-10 lg:border-l lg:border-[#0a0a0a]/15 lg:pl-5"
-          style={{
-            fontFamily: "var(--font-caveat), cursive",
-            transform: "rotate(-0.4deg)",
-          }}
-        >
+        <aside className="text-[13.5px] leading-relaxed text-[rgba(242,242,242,0.45)] md:border-l md:border-[rgba(242,242,242,0.1)] md:pl-6 md:pt-1">
           {aside}
         </aside>
       )}
@@ -100,11 +113,9 @@ export function LegalSection({
 
 export function LegalRow({ k, v }: { k: string; v: React.ReactNode }) {
   return (
-    <div className="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-5">
-      <span className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55 md:w-[160px] shrink-0">
-        {k}
-      </span>
-      <span className="text-[#0a0a0a]/85">{v}</span>
+    <div className="lx-row" style={{ gridTemplateColumns: "minmax(120px,180px) minmax(0,1fr)" }}>
+      <span className="lab-label pt-0.5">{k}</span>
+      <span className="text-[14px] leading-relaxed text-[rgba(242,242,242,0.85)]">{v}</span>
     </div>
   );
 }

@@ -38,17 +38,16 @@ jede zeile driftet für sich. Weiter gedacht:
   raster zu bleiben. sachliche teile (FAQ, stack, laufende kosten)
   bleiben im raster, das ist dort richtig.
 
-## 3 · `/leistungen/branding` entscheiden
+## 3 · letzte seite im alten stil
 
-Läuft noch im alten stil, steht in der sitemap, ist aber von der
-neuen navigation aus **nicht erreichbar**. Aktuell die schlechteste
-von beiden welten. Entweder in den geräte-stil ziehen oder bewusst
-aus der sitemap nehmen. Das ist eine entscheidung, keine aufgabe.
+`/web-performance-ostbelgien` ist eine SEO-landingpage und läuft noch
+in der alten richtung. Erst entscheiden, ob sie überhaupt bleibt ·
+sie ist von der navigation aus nicht erreichbar und existiert nur für
+suchanfragen. Wenn ja: geräte-stil wie die pflichtseiten.
 
-## 4 · restliche alte seiten
-
-`/impressum`, `/datenschutz`, `/web-performance-ostbelgien` laufen
-noch im alten stil. Pflichtseiten, aber der bruch ist sichtbar.
+Erledigt: branding ist ersatzlos raus, impressum und datenschutz
+laufen im geräte-stil (und damit ohne die letzte handschrift auf der
+seite).
 
 ## 5 · screenshots nachziehen · erledigt, aber manuell
 
