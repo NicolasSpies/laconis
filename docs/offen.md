@@ -11,22 +11,29 @@ Alles darunter ist besprochen, nichts davon ist eine überraschung.
 |---|---|
 | `/` | shader-feld |
 | `/leistung` | die lupe |
-| `/referenzen` | explosionszeichnung · zieht auf UND schaltet die projekte um |
+| `/referenzen` | der stapel · eine schicht ist ein projekt |
 | `/preise` | zwei lichtbänder bilden einen korridor |
 | `/ueber-mich` | licht auf dem portrait folgt der hand |
 | `/kontakt` | ringe laufen nach aussen wie eine stimme |
 | `/referenzen/[slug]` | laptop+handy mit der echten seite, direkt im hero |
 
-Alle heros stehen. Der referenzen-hero zeigt bewusst NICHT die menge
-der projekte (es sind drei), sondern die tiefe von einem · das bleibt
-auch dann richtig, wenn projekte dazukommen.
+Alle heros stehen. Auf `/referenzen` trägt EIN element die ganze
+übersicht: eine schicht ist ein projekt, der name daneben ist die
+beschriftung dieser schicht, und der stapel ist damit gleichzeitig
+die liste. Kommt ein projekt dazu, wird er dicker · nichts anzufassen,
+bild und farbe kommen aus `src/data/referenzen.ts`.
 
-Er ist gleichzeitig die navigation: die zeilen daneben legen das
-projekt in den stapel, ohne zeiger schaltet er selbst weiter. Wer ein
-projekt aufnimmt, muss nichts anfassen · bild, farbe und monogramm
-kommen aus `src/data/referenzen.ts`. Nur wenn die liste deutlich
-länger wird, lohnt ein blick: drei zeilen neben dem stapel gehen auf,
-zehn brauchen wahrscheinlich eine andere anordnung.
+Zwischenschritt, der verworfen wurde: ein stapel aus sieben schichten
+(unterbau, code, raster …), der zeigte, was in EINER website steckt,
+plus eine liste der projekte darunter. Beides zusammen war zu viel ·
+vierzehn zeilen beschriftung, ein zähler, ein hinweis über der liste
+und der projektname an zwei stellen. Die schicht-erklärung kann
+zurückkommen, aber dann auf der case-seite, wo von genau einem
+projekt die rede ist.
+
+Grenze: bei etwa acht projekten wird der stapel zu hoch für eine
+bildschirmhöhe. Dann braucht es entweder eine flachere spreizung
+oder eine zweite anordnung.
 
 Wichtig weiterhin: **nicht mechanischer werden.** Die geräte-sprache
 trägt die bedienelemente, aber ein hero soll einladen und nicht nach

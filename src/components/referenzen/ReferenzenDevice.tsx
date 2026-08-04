@@ -1,66 +1,37 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { HeroRail } from "@/components/device/HeroRail";
-import { Schichten } from "@/components/referenzen/Schichten";
-import { RefIndex } from "@/components/referenzen/RefIndex";
+import { Stapel } from "@/components/referenzen/Stapel";
 import { REFERENZEN } from "@/components/referenzen/referenzen.dict";
 import { referenzen } from "@/data/referenzen";
 import { useLocale } from "@/i18n/useLocale";
 import { buildPath } from "@/i18n/config";
 import "@/components/device/device.css";
-import "@/components/referenzen/refindex.css";
-import "@/components/referenzen/schichten.css";
+import "@/components/referenzen/stapel.css";
 
 /**
- * ReferenzenDevice · die referenzen als ein einziges gerät.
+ * ReferenzenDevice · die referenzen als ein einziges objekt.
  *
- * die übersichtsseite hat genau einen job: zeigen was es gibt, und
- * rein lassen. deshalb steht alles in der zeile und die ganze zeile
- * ist der link · niemand muss ahnen, dass unten noch was kommt.
+ * die seite war zwischenzeitlich überladen: ein stapel aus sieben
+ * beschrifteten schichten, darunter eine liste derselben projekte,
+ * dazu ein hinweis über der liste, ein zähler unter dem stapel und
+ * pro zeile nochmal „case lesen". der projektname stand doppelt, der
+ * hinweis zum stapel dreifach.
  *
- * der aufbau ist seit august 2026 auf EIN element zusammengezogen:
- * oben liegt der stapel, unten stehen die drei zeilen, und wer über
- * eine zeile fährt, legt das projekt in den stapel. vorher war das
- * zweigeteilt · der stapel im hero, darunter je projekt noch ein
- * grosses vorschau-band. zwei bilder derselben sache übereinander,
- * und das schöne von beiden ging dabei unter.
+ * jetzt trägt EIN element die ganze übersicht: eine schicht ist ein
+ * projekt. der stapel ist damit gleichzeitig die liste, und was in
+ * einer website steckt, wird dort erklärt, wo von genau einer die
+ * rede ist · auf der case-seite.
  *
- * ohne zeiger gibt es kein hover, deshalb schaltet der stapel dort
- * von selbst weiter. sobald eine hand mitspielt, hört er damit auf
- * und folgt ihr · niemand will gegen eine automatik anhovern.
- *
- * ehrlichkeit bleibt das konzept: was nicht live ist, bekommt den
- * konzept-stempel, und zwar schon in der übersicht.
+ * ehrlichkeit bleibt das konzept: was nicht live ist, trägt seinen
+ * stempel direkt an der schicht.
  */
-
-/* wie lange ein projekt im stapel liegt, solange niemand steuert */
-const TAKT = 4200;
 
 export function ReferenzenDevice() {
   const locale = useLocale();
   const t = REFERENZEN[locale];
-
-  const [aktiv, setAktiv] = useState(0);
-  /* sobald jemand selbst steuert, ist die automatik aus · sie soll
-     nicht gegen die hand arbeiten. einmal aus, bleibt aus. */
-  const [vonHand, setVonHand] = useState(false);
-
-  useEffect(() => {
-    if (vonHand) return;
-    const uhr = setInterval(
-      () => setAktiv((i) => (i + 1) % referenzen.length),
-      TAKT,
-    );
-    return () => clearInterval(uhr);
-  }, [vonHand]);
-
-  const waehle = (i: number) => {
-    setVonHand(true);
-    setAktiv(i);
-  };
 
   return (
     <div className="lab-root" data-no-reveal>
@@ -72,27 +43,15 @@ export function ReferenzenDevice() {
       <DeviceNav />
       <HeroRail label={t.kicker} />
 
-      {/* ═══ DAS GERÄT · zeilen links, stapel rechts ═══
-          der stapel zeigt immer genau ein projekt. die zeilen daneben
-          schalten ihn um und führen gleichzeitig hinein · ein element
-          macht vorschau und navigation.
-
-          beides muss GLEICHZEITIG sichtbar sein. standen die zeilen
-          unter dem stapel, war er beim drüberfahren längst aus dem
-          bild gescrollt und das umschalten lief ins leere. */}
+      {/* ═══ DER STAPEL · übersicht und navigation in einem ═══ */}
       <section
         data-no-reveal
-        className="relative isolate px-6 pb-24 pt-32 md:px-12 md:pt-40"
+        className="relative isolate flex min-h-[100svh] flex-col justify-center px-6 pb-24 pt-32 md:px-12"
       >
-        {/* die reihenfolge im DOM ist die MOBILE reihenfolge: titel,
-            stapel, liste. auf breiten schirmen setzt das raster den
-            stapel in die zweite spalte über beide zeilen · so steht er
-            am handy dort, wo er hingehört (direkt unter dem titel,
-            nicht hinter der liste), ohne dass es zwei markups braucht. */}
-        <div className="rz-raster mx-auto w-full max-w-[1200px]">
-          <div className="rz-kopf">
+        <div className="mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-10">
+          <div>
             <h1
-              className="lab-display lab-boot text-[clamp(2.4rem,6vw,4.6rem)]"
+              className="lab-display lab-boot text-[clamp(2.6rem,7vw,5.4rem)]"
               style={{ animationDelay: "180ms" }}
             >
               {t.h1a}
@@ -101,51 +60,33 @@ export function ReferenzenDevice() {
             </h1>
 
             <p
-              className="lab-boot mt-6 max-w-[420px] text-[15px] leading-relaxed"
-              style={{ animationDelay: "300ms", color: "rgba(242,242,242,0.62)" }}
+              className="lab-boot mt-7 max-w-[360px] text-[15px] leading-relaxed"
+              style={{ animationDelay: "300ms", color: "rgba(242,242,242,0.6)" }}
             >
               {t.sub}
             </p>
           </div>
 
-          {/* der stapel bleibt stehen, während die zeilen daneben
-              durchlaufen · so sieht man das umschalten auch dann noch,
-              wenn die liste länger wird als der schirm */}
-          <div className="rz-stapel lab-boot" style={{ animationDelay: "500ms" }}>
-            <Schichten
-              schichten={t.sxSchichten}
+          <div className="lab-boot" style={{ animationDelay: "440ms" }}>
+            <Stapel
               projekte={referenzen}
-              aktiv={aktiv}
-              zieh={t.sxZieh}
-              einheit={t.sxEinheit}
-              seite={t.sxSeite}
+              locale={locale}
+              t={{
+                zieh: t.sxZieh,
+                stampLive: t.stampLive,
+                stampKonzept: t.stampKonzept,
+                stampWip: t.stampWip,
+              }}
             />
-          </div>
-
-          <div className="rz-liste lab-boot" style={{ animationDelay: "420ms" }}>
-            <span className="lab-label block">{t.boardHint}</span>
-            <div className="mt-5">
-              <RefIndex
-                locale={locale}
-                aktiv={aktiv}
-                setzeAktiv={waehle}
-                t={{
-                  stampLive: t.stampLive,
-                  stampKonzept: t.stampKonzept,
-                  stampWip: t.stampWip,
-                  open: t.linkCase,
-                }}
-              />
-            </div>
           </div>
         </div>
       </section>
 
-      {/* ═══ EHRLICH · ruhig ═══ */}
+      {/* ═══ EHRLICH · ein satz, mehr braucht es nicht ═══ */}
       <section data-no-reveal className="relative px-6 pb-32 md:px-12">
         <div className="mx-auto max-w-[1200px]">
-          <h2 className="lab-display max-w-[14ch] text-[clamp(2rem,5vw,3.6rem)]">{t.honestH2}</h2>
-          <p className="mt-8 max-w-[640px] text-[clamp(1rem,1.6vw,1.2rem)] leading-[1.6] text-[rgba(242,242,242,0.72)]">
+          <h2 className="lab-display max-w-[13ch] text-[clamp(2rem,5vw,3.6rem)]">{t.honestH2}</h2>
+          <p className="mt-7 max-w-[560px] text-[clamp(1rem,1.6vw,1.15rem)] leading-[1.6] text-[rgba(242,242,242,0.7)]">
             {t.honestBody}
           </p>
         </div>

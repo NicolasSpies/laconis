@@ -1,0 +1,373 @@
+/* ═══════════════════════════════════════════════════════════
+   Stapel · die referenzen als ein objekt
+
+   eine schicht ist ein projekt. der stapel ist damit gleichzeitig
+   die liste · eine zweite daneben wäre dasselbe nochmal.
+
+   der mechanismus hängt an EINER zahl: --e (0..1), aus zwei
+   quellen addiert:
+     --atem   läuft als CSS-keyframe, immer, ohne javascript
+     --zieh   schreibt das JS, solange ein finger drauf ist
+
+   die trennung ist kein stil, sondern nötig: ein rAF steht still,
+   sobald das fenster nicht im vordergrund ist · der stapel wäre
+   beim zurückkommen eingefroren. das grundleben gehört deshalb
+   der CSS, das spiel dem finger.
+
+   die projektion ist ORTHOGRAFISCH (kein perspective). mit
+   fluchtpunkt wachsen die oberen platten und wandern weiter als
+   eine flache rechnung erwartet · die namen liefen dann sichtbar
+   aus dem takt. ohne fluchtpunkt gilt exakt
+       bildschirm-y = -z · sin(kippwinkel)
+   und die flach gerechneten namen sitzen auf den millimeter.
+   ═══════════════════════════════════════════════════════════ */
+
+@property --atem {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.72;
+}
+@property --zieh {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.st {
+  --atem: 0.72;
+  --zieh: 0;
+  --e: clamp(0, calc(var(--atem) + var(--zieh)), 1);
+  /* sin(56°) · muss zum rotateX des decks passen */
+  --p: 0.829;
+  /* abstand pro schicht bei voll ausgefahren */
+  --sp: 72px;
+  /* wie weit die darüberliegenden schichten beim anfassen ausweichen */
+  --auf: 84px;
+  /* --n (projekte minus eins) kommt aus dem tsx */
+  --n: 2;
+  /* die bühne ist auf 390px platten gebaut und wird als ganzes
+     skaliert · so bleibt die geometrie über alle breiten gleich */
+  --s: 0.62;
+  /* der stapel wächst nach OBEN · ohne gegenschub liefe er beim
+     auffächern aus dem bild statt in der mitte zu bleiben */
+  --hub: calc(var(--n) / 2 * (2px + var(--e) * var(--sp)) * var(--p) * var(--s));
+  /* winzig · ein grosser atemzug würde die namen im sekundentakt
+     gegeneinander verschieben. das grosse spiel gehört dem finger */
+  animation: stAtmen 13s ease-in-out infinite alternate;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+@keyframes stAtmen {
+  from { --atem: 0.68; }
+  to { --atem: 0.79; }
+}
+
+@media (min-width: 560px) { .st { --s: 0.78; } }
+@media (min-width: 1024px) { .st { --s: 0.86; } }
+@media (min-width: 1280px) { .st { --s: 1; } }
+
+/* schmal: bühne oben, namen als liste darunter. breit: beide in
+   derselben rasterzelle, die namen liegen dann rechts neben dem
+   deck und wandern mit ihrer schicht mit. */
+.st-inhalt {
+  display: grid;
+  gap: 26px;
+}
+@media (min-width: 900px) {
+  .st-inhalt {
+    gap: 0;
+  }
+  .st-inhalt > * {
+    grid-area: 1 / 1;
+  }
+}
+
+.st-buehne {
+  position: relative;
+  height: calc(340px * var(--s));
+  cursor: grab;
+  touch-action: pan-y;
+}
+.st-buehne:active { cursor: grabbing; }
+
+/* ── das gekippte deck ───────────────────────────────────── */
+
+.st-deck {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 390px;
+  height: 245px;
+  margin-top: -122px;
+  transform-origin: 0 50%;
+  transform-style: preserve-3d;
+  /* nur leicht um die hochachse gedreht · ein starker isometrie-
+     winkel macht das deck doppelt so breit wie hoch und lässt
+     rechts keinen platz mehr für die namen.
+     das translateY steht VOR den drehungen, wirkt also flach im
+     elternraum und schiebt den stapel zurück in die mitte */
+  transform: translateY(var(--hub)) scale(var(--s)) rotateX(56deg) rotateZ(-10deg);
+}
+
+.st-platte {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  /* 2px grundabstand · bei --e = 0 liest sich der stapel als EIN
+     objekt, nicht als drei lose blätter.
+     --x hebt die schichten, die ÜBER der angefassten liegen · so
+     entsteht die lücke, in der man sie ganz sieht. sie selbst nach
+     vorne zu ziehen hätte nichts gebracht: die obere platte deckt
+     sie ja, und weit genug nach vorn hiesse weg von ihrem namen. */
+  transform: translate3d(
+    0,
+    0,
+    calc(
+      var(--z) * (2px + var(--e) * var(--sp)) + var(--x, 0) * var(--auf) +
+        var(--lift, 0px)
+    )
+  );
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.st-platte[data-on="1"] { --lift: 8px; }
+
+.st-flaeche {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: block;
+  background: #131317;
+  border: 1px solid rgba(242, 242, 242, 0.14);
+  /* der schlagschatten wächst mit dem abstand · das ist der
+     eigentliche tiefen-hinweis, mehr als die verschiebung selbst */
+  box-shadow:
+    0 calc(var(--z) * var(--e) * 10px) calc(16px + var(--z) * var(--e) * 22px)
+      rgba(0, 0, 0, calc(0.4 + var(--e) * 0.2)),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: filter 380ms ease, border-color 380ms ease;
+}
+/* wer gerade nicht gemeint ist, tritt einen schritt zurück ·
+   ausgrauen wäre zu viel, es sind ja alles echte arbeiten */
+.st-platte[data-ab="1"] .st-flaeche { filter: brightness(0.62) saturate(0.8); }
+.st-platte[data-on="1"] .st-flaeche { border-color: rgba(225, 253, 82, 0.45); }
+
+.st-flaeche img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* ohne aufnahme trägt die projektfarbe das ZEICHEN, nicht die
+   ganze fläche · eine vollflächige farbplatte neben einem echten
+   screenshot schreit lauter als die arbeit und sieht aus wie ein
+   fehlendes bild */
+.st-mono {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  background:
+    radial-gradient(120% 100% at 22% 12%, rgba(255, 255, 255, 0.07), transparent 62%),
+    linear-gradient(158deg, color-mix(in srgb, var(--f) 34%, #131317), #101014);
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: 104px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: color-mix(in srgb, var(--f) 62%, #f2f2f2);
+}
+
+/* ein streiflicht auf dem glas · das ist die einzige stelle, an
+   der die platten ohne zutun leben */
+.st-glanz {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    124deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0) 44%
+  );
+}
+
+/* ── die namen ───────────────────────────────────────────── */
+
+/* schmal · eine schlichte liste unter dem stapel. deck plus
+   namensspalte passen auf 375px nicht nebeneinander, dort schoben
+   sich die meta-zeilen quer über die platten. */
+.st-namen {
+  display: grid;
+}
+
+@media (min-width: 900px) {
+  /* breit · eine FESTE spalte rechts. rechtsbündig gesetzt waren die
+     namen unterschiedlich breit und die längste meta-zeile schob sich
+     unter die platten. jetzt haben sie eine kante, an der sie
+     beginnen, und das deck hat garantiert seinen platz. */
+  .st-namen {
+    /* relative, sonst hängen die absolut gesetzten namen am
+       nächsten positionierten vorfahren und landen über dem deck
+       statt in ihrer spalte */
+    position: relative;
+    display: block;
+    justify-self: end;
+    width: clamp(210px, 22vw, 278px);
+    pointer-events: none;
+  }
+}
+
+.st-name {
+  display: grid;
+  padding: 13px 0;
+  border-top: 1px solid rgba(242, 242, 242, 0.09);
+  grid-template-columns: auto auto auto;
+  /* ohne das verteilt das raster die restbreite auf die spalten
+     und der titel landet am rechten rand · die drei namen stünden
+     dann auf drei verschiedenen kanten */
+  justify-content: start;
+  align-items: baseline;
+  gap: 0 9px;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+
+@media (min-width: 900px) {
+  .st-name {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    padding: 0;
+    border-top: 0;
+    /* dieselbe projektion wie die platte im deck, nur flach · und
+       derselbe gegenschub, sonst wandern namen und platten beim
+       auffächern auseinander */
+    transform: translateY(
+      calc(
+        -50% + var(--hub) - var(--p) * var(--s) *
+          (var(--z) * (2px + var(--e) * var(--sp)) + var(--x, 0) * var(--auf))
+      )
+    );
+    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+.st-name:focus-visible {
+  outline: 1px solid rgba(225, 253, 82, 0.6);
+  outline-offset: 8px;
+  border-radius: 3px;
+}
+
+/* der leiter-strich verbindet namen und schicht · ohne die
+   nebeneinander-anordnung verbindet er nichts */
+.st-strich {
+  display: none;
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: center;
+  /* der strich hängt LINKS aus dem block heraus und überbrückt den
+     spalt zum deck · als reguläre spalte wäre er nur ein kurzer
+     stummel neben der schrift und verbände nichts */
+  width: 52px;
+  margin-left: -52px;
+  height: 1px;
+  background: linear-gradient(to right, rgba(242, 242, 242, 0), rgba(242, 242, 242, 0.3));
+  transition: background 300ms ease;
+}
+@media (min-width: 900px) {
+  .st-strich {
+    display: block;
+  }
+}
+.st-name[data-on="1"] .st-strich {
+  background: linear-gradient(to right, rgba(225, 253, 82, 0), rgba(225, 253, 82, 0.75));
+}
+
+.st-nr {
+  /* alle nummern sind zweistellig, also ist die spalte für jede
+     zeile gleich breit und die namen stehen trotzdem auf einer
+     kante */
+  grid-column: 2;
+  grid-row: 1;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  color: rgba(225, 253, 82, 0.7);
+}
+
+.st-titel {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: start;
+  font-size: clamp(0.98rem, 1.8vw, 1.35rem);
+  line-height: 1.1;
+  color: #f2f2f2;
+  transition: color 300ms ease;
+}
+.st-name[data-on="1"] .st-titel { color: #e1fd52; }
+
+.st-meta {
+  /* NICHT über zwei spalten spannen · ist die meta-zeile breiter
+     als nummer plus name, verteilt das raster die mehrbreite auf
+     beide spalten und schiebt die nummernspalte auf. die namen
+     starteten dann in jeder zeile woanders. */
+  grid-column: 3;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding-top: 4px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.4);
+}
+
+.st-led {
+  width: 5px;
+  height: 5px;
+  flex: none;
+  border-radius: 50%;
+  background: rgba(242, 242, 242, 0.24);
+}
+.st-led[data-live="1"] {
+  background: #e1fd52;
+  box-shadow: 0 0 8px rgba(225, 253, 82, 0.85);
+  animation: stPuls 3400ms ease-in-out infinite;
+}
+.st-led[data-live="wip"] {
+  background: #b084d3;
+  box-shadow: 0 0 7px rgba(176, 132, 211, 0.7);
+  animation: stPuls 2600ms ease-in-out infinite;
+}
+@keyframes stPuls {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* ── der einzige hinweistext ─────────────────────────────── */
+
+.st-zieh {
+  display: block;
+  margin-top: 26px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(242, 242, 242, 0.08);
+  animation: stWink 3.8s ease-in-out infinite;
+}
+@keyframes stWink {
+  0%, 100% { opacity: 0.38; }
+  50% { opacity: 0.85; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .st,
+  .st-zieh,
+  .st-led[data-live] {
+    animation: none;
+  }
+  .st-platte {
+    transition: none;
+  }
+}

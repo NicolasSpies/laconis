@@ -3,9 +3,13 @@ import type { Locale } from "@/i18n/config";
 /**
  * Copy der referenzen-seite · dreisprachig.
  *
- * haltung: der index zeigt genau drei zeilen, weil es genau drei gibt.
- * ein aufgeblasenes portfolio wäre in zwei minuten durchschaut · die
- * ehrlichkeit ist hier das eigentliche verkaufsargument.
+ * haltung: der stapel hat genau drei schichten, weil es genau drei
+ * projekte gibt. ein aufgeblasenes portfolio wäre in zwei minuten
+ * durchschaut · die ehrlichkeit ist hier das verkaufsargument.
+ *
+ * die copy ist bewusst KURZ. jede aussage steht genau einmal: der
+ * name an der schicht, der status am stempel, der hinweis zur geste
+ * einmal unter dem stapel. was doppelt stand, ist raus.
  *
  * trenner ist immer „·" · nie ein binde- oder gedankenstrich.
  */
@@ -15,12 +19,9 @@ export type ReferenzenDict = {
   h1a: string;
   h1b: string;
   sub: string;
-  boardHint: string;
-
+  /* der einzige hinweistext am stapel · alles andere steht als
+     name oder stempel direkt an der schicht */
   sxZieh: string;
-  sxEinheit: string;
-  sxSeite: string;
-  sxSchichten: { name: string; was: string }[];
 
   lStatus: string;
   lLeistung: string;
@@ -52,21 +53,9 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     kicker: "referenzen",
     h1a: "was schon",
     h1b: "läuft.",
-    sub: "Drei Projekte. Eine Website ist keine Fläche · zieh am Stapel, dann siehst du, was in einer steckt.",
-    boardHint: "jede zeile führt direkt rein",
+    sub: "Drei Projekte. Zieh am Stapel oder klick dich rein.",
 
-    sxZieh: "zieh den stapel auseinander",
-    sxEinheit: "schichten",
-    sxSeite: "seite",
-    sxSchichten: [
-      { name: "unterbau", was: "server & auslieferung" },
-      { name: "code", was: "struktur, semantik" },
-      { name: "raster", was: "abstände & spalten" },
-      { name: "farbe", was: "kontrast, hierarchie" },
-      { name: "bild", was: "zuschnitt & gewicht" },
-      { name: "schrift", was: "grössen, laufweite" },
-      { name: "inhalt", was: "das was zählt" },
-    ],
+    sxZieh: "ziehen · klicken",
 
     lStatus: "status",
     lLeistung: "leistung",
@@ -77,16 +66,16 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     mobil: "mobil",
     desktop: "desktop",
 
-    stampLive: "live beim kunden",
-    stampKonzept: "konzept-studie",
-    stampWip: "konzept-studie · in arbeit",
+    stampLive: "live",
+    stampKonzept: "konzept",
+    stampWip: "in arbeit",
 
     linkLive: "seite ansehen",
     linkCase: "case lesen",
 
-    honestH2: "drei zeilen. mehr nicht.",
+    honestH2: "kein aufgeblasenes regal.",
     honestBody:
-      "Ich zeige nur, was es wirklich gibt. Eine Seite läuft live beim Kunden, zwei sind Konzept-Studien und genau so gestempelt. Kein aufgeblasenes Regal mit fremden Arbeiten drin. Wenn du Nummer vier sein willst: gerade ist Platz, und entsprechend viel Aufmerksamkeit bekommst du auch.",
+      "Hier steht nur, was ich selbst gebaut habe. Was noch nicht live ist, sagt das an seiner Schicht auch.",
 
     ctaH2: "dein projekt als nummer vier?",
     ctaBody:
@@ -99,21 +88,9 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     kicker: "références",
     h1a: "ce qui tourne",
     h1b: "déjà.",
-    sub: "Trois projets. Un site n'est pas une surface · tire sur la pile pour voir ce qu'il y a dedans.",
-    boardHint: "chaque ligne mène directement au projet",
+    sub: "Trois projets. Tire sur la pile ou entre directement.",
 
-    sxZieh: "écarte les couches",
-    sxEinheit: "couches",
-    sxSeite: "page",
-    sxSchichten: [
-      { name: "socle", was: "serveur & livraison" },
-      { name: "code", was: "structure, sémantique" },
-      { name: "grille", was: "espaces & colonnes" },
-      { name: "couleur", was: "contraste, hiérarchie" },
-      { name: "image", was: "cadrage & poids" },
-      { name: "typo", was: "tailles, interlettrage" },
-      { name: "contenu", was: "ce qui compte" },
-    ],
+    sxZieh: "tirer · cliquer",
 
     lStatus: "statut",
     lLeistung: "prestation",
@@ -124,16 +101,16 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     mobil: "mobile",
     desktop: "desktop",
 
-    stampLive: "en ligne chez le client",
-    stampKonzept: "étude concept",
-    stampWip: "étude concept · en cours",
+    stampLive: "en ligne",
+    stampKonzept: "concept",
+    stampWip: "en cours",
 
     linkLive: "voir le site",
     linkCase: "lire le case",
 
-    honestH2: "trois lignes. pas plus.",
+    honestH2: "pas d'étagère gonflée.",
     honestBody:
-      "Je ne montre que ce qui existe vraiment. Un site tourne en ligne chez le client, deux sont des études concept et marquées comme telles. Pas d'étagère gonflée avec les travaux des autres dedans. Si tu veux être le numéro quatre : il y a de la place en ce moment, et donc beaucoup d'attention pour toi.",
+      "Ici, il n'y a que ce que j'ai construit moi-même. Ce qui n'est pas encore en ligne le dit sur sa couche.",
 
     ctaH2: "ton projet en numéro quatre ?",
     ctaBody:
@@ -146,21 +123,9 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     kicker: "work",
     h1a: "what's already",
     h1b: "running.",
-    sub: "Three projects. A website is not a surface · pull the stack apart and see what sits inside one.",
-    boardHint: "every row leads straight in",
+    sub: "Three projects. Pull the stack apart or click straight in.",
 
-    sxZieh: "pull the stack apart",
-    sxEinheit: "layers",
-    sxSeite: "page",
-    sxSchichten: [
-      { name: "groundwork", was: "server & delivery" },
-      { name: "code", was: "structure, semantics" },
-      { name: "grid", was: "spacing & columns" },
-      { name: "colour", was: "contrast, hierarchy" },
-      { name: "image", was: "crop & weight" },
-      { name: "type", was: "sizes, tracking" },
-      { name: "content", was: "what matters" },
-    ],
+    sxZieh: "drag · click",
 
     lStatus: "status",
     lLeistung: "scope",
@@ -171,16 +136,16 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     mobil: "mobile",
     desktop: "desktop",
 
-    stampLive: "live at the client",
-    stampKonzept: "concept study",
-    stampWip: "concept study · in progress",
+    stampLive: "live",
+    stampKonzept: "concept",
+    stampWip: "in progress",
 
     linkLive: "visit the site",
     linkCase: "read the case",
 
-    honestH2: "three rows. that's it.",
+    honestH2: "no padded shelf.",
     honestBody:
-      "I only show what actually exists. One site is live at the client, two are concept studies and stamped as such. No inflated shelf with other people's work on it. If you want to be number four: there's room right now, and you get the attention that comes with it.",
+      "Only what I built myself is on here. Whatever is not live yet says so on its own layer.",
 
     ctaH2: "your project as number four?",
     ctaBody:
