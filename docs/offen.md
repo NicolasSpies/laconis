@@ -11,15 +11,15 @@ Alles darunter ist besprochen, nichts davon ist eine überraschung.
 |---|---|
 | `/` | shader-feld |
 | `/leistung` | die lupe |
-| `/referenzen` | die gebauten seiten schweben im raum |
+| `/referenzen` | explosionszeichnung · sieben schichten zum aufziehen |
 | `/preise` | zwei lichtbänder bilden einen korridor |
 | `/ueber-mich` | licht auf dem portrait folgt der hand |
 | `/kontakt` | ringe laufen nach aussen wie eine stimme |
 | `/referenzen/[slug]` | laptop+handy mit der echten seite, direkt im hero |
 
-Alle heros stehen. Sobald weitere projekte aufnahmen haben, füllt sich
-der referenzen-hero von selbst · aktuell schwebt dort nur fabry, weil
-nur fabry aufnahmen hat.
+Alle heros stehen. Der referenzen-hero zeigt bewusst NICHT die menge
+der projekte (es sind drei), sondern die tiefe von einem · das bleibt
+auch dann richtig, wenn projekte dazukommen.
 
 Wichtig weiterhin: **nicht mechanischer werden.** Die geräte-sprache
 trägt die bedienelemente, aber ein hero soll einladen und nicht nach
@@ -37,6 +37,18 @@ jede zeile driftet für sich. Weiter gedacht:
 - sektionen, die bewusst aus der spalte ausbrechen statt brav im
   raster zu bleiben. sachliche teile (FAQ, stack, laufende kosten)
   bleiben im raster, das ist dort richtig.
+
+## 2b · noch offen aus der letzten runde
+
+Aus der rückmeldung vom 4. august ist alles umgesetzt bis auf zwei
+punkte, die bewusst liegen bleiben:
+
+- der referenzen-hero ist eine INTERAKTION geworden, kein mini-spiel.
+  ein spiel bräuchte eine punktzahl, und die einzige ehrliche zahl
+  hier wären drei projekte · das trägt kein spiel.
+- die tiefe gravur auf dem typenschild ist nur mit zeiger zu finden.
+  ohne zeiger steht sie offen da. wer sie auch am handy als fund
+  will, braucht eine eigene geste (kippsensor? wischen?).
 
 ## 3 · letzte seite im alten stil
 
@@ -74,6 +86,16 @@ Der austausch braucht keine codeänderung.
   als weitere messwerte in DEN zwei tafeln, nicht als drittes element.
 - alter der bio auf `/ueber-mich` ist raus („29"), weil er still
   veraltet. wenn er rein soll, sagen.
+- `animation-timeline: view()` trägt die trennlinien (`lxDraw`,
+  `riDraw`). fällt eine davon aus, sieht man es NICHT · eine tote
+  zeitachse lässt das element einfach im grundzustand, und der ist
+  hier die fertig gezogene linie. wer sich künftig darauf verlässt,
+  muss prüfen, ob der grundzustand das ENDbild ist. wo er der anfang
+  sein müsste (zählwerk auf `/preise`), läuft es deshalb über einen
+  IntersectionObserver.
+- die walzen-zahl im zählwerk (`22` bis `52`) ist die summe der
+  zeilen daneben. ändert sich hosting oder domain, muss sie mit ·
+  sie steht im dict direkt über den zeilen.
 
 ---
 
