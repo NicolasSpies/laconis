@@ -1,0 +1,363 @@
+/* ═══════════════════════════════════════════════════════════
+   Schichten · explosionszeichnung im referenzen-hero
+
+   der ganze mechanismus hängt an EINER zahl: --e (0..1). sie wird
+   aus zwei quellen addiert:
+
+     --atem   läuft als CSS-keyframe, immer, ohne javascript
+     --zieh   schreibt das JS, solange ein finger drauf ist
+
+   die trennung ist kein stil, sondern nötig: ein rAF steht still,
+   sobald das fenster nicht im vordergrund ist · der stapel wäre
+   dann beim zurückkommen eingefroren. das grundleben gehört
+   deshalb der CSS, das spiel dem finger.
+
+   die projektion ist bewusst ORTHOGRAFISCH (kein perspective).
+   mit fluchtpunkt wachsen die oberen platten und wandern weiter
+   als eine flache rechnung erwartet · die etiketten liefen dann
+   sichtbar aus dem takt. ohne fluchtpunkt gilt exakt
+       bildschirm-y = -z · sin(kippwinkel)
+   und die flach gerechneten etiketten sitzen auf den millimeter.
+
+   kippwinkel und spreizung stehen deshalb NUR hier, als --p und
+   --sp. das tsx kennt sie nicht mehr · es schreibt ausschliesslich
+   --e und die zahl der schichten.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ohne registrierung wäre --atem für den browser ein string und
+   die keyframe würde bei 50% hart umspringen statt zu laufen */
+@property --atem {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.7;
+}
+@property --zieh {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.sx {
+  --atem: 0.7;
+  --zieh: 0;
+  --e: clamp(0, calc(var(--atem) + var(--zieh)), 1);
+  /* winzig · die etiketten blenden abhängig vom abstand ein, ein
+     grosser atemzug hätte sie im sekundentakt an- und ausgeknipst */
+  animation: sxAtmen 11s ease-in-out infinite alternate;
+  /* die bühne ist auf 430px platten gebaut und wird als ganzes
+     skaliert · so bleibt die geometrie über alle breiten gleich
+     und es gibt keine media-query pro einzelteil */
+  --s: 0.56;
+  /* sin(56°) · muss zum rotateX des decks passen */
+  --p: 0.829;
+  /* abstand pro schicht bei voll ausgefahren */
+  --sp: 48px;
+  /* --n (schichten minus eins) kommt aus dem tsx */
+  --n: 6;
+  /* der stapel wächst nach OBEN · ohne gegenschub würde er beim
+     aufziehen aus dem bild laufen statt in der mitte zu bleiben */
+  --hub: calc(var(--n) / 2 * (2px + var(--e) * var(--sp)) * var(--p) * var(--s));
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+@keyframes sxAtmen {
+  from { --atem: 0.665; }
+  to { --atem: 0.755; }
+}
+
+@media (min-width: 560px) {
+  .sx { --s: 0.72; }
+}
+@media (min-width: 900px) {
+  .sx { --s: 0.9; }
+}
+@media (min-width: 1200px) {
+  .sx { --s: 1; }
+}
+
+.sx-buehne {
+  position: relative;
+  height: calc(430px * var(--s));
+  cursor: grab;
+  touch-action: pan-y;
+  outline: none;
+}
+.sx-buehne:active { cursor: grabbing; }
+.sx-buehne:focus-visible {
+  outline: 1px solid rgba(225, 253, 82, 0.5);
+  outline-offset: 12px;
+  border-radius: 4px;
+}
+
+/* ── das gekippte deck ───────────────────────────────────── */
+
+.sx-deck {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 380px;
+  height: 200px;
+  margin-top: -100px;
+  transform-origin: 0 50%;
+  transform-style: preserve-3d;
+  /* nur leicht um die hochachse gedreht · ein starker isometrie-
+     winkel macht das deck doppelt so breit wie hoch und lässt
+     rechts keinen platz mehr für die beschriftung.
+     das translateY steht VOR den drehungen, wirkt also flach im
+     elternraum und schiebt den ganzen stapel zurück in die mitte */
+  transform: translateY(var(--hub)) scale(var(--s)) rotateX(56deg) rotateZ(-10deg);
+}
+
+.sx-platte {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  /* 2px grundabstand · bei --e = 0 liest sich der stapel als EIN
+     objekt, nicht als sieben lose blätter */
+  transform: translate3d(0, 0, calc(var(--z) * (2px + var(--e) * var(--sp))));
+}
+
+.sx-flaeche {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #131317;
+  border: 1px solid rgba(242, 242, 242, 0.13);
+  /* der schlagschatten wächst mit dem abstand · das ist der
+     eigentliche tiefen-hinweis, mehr als die verschiebung selbst */
+  box-shadow:
+    0 calc(var(--z) * var(--e) * 9px) calc(14px + var(--z) * var(--e) * 20px)
+      rgba(0, 0, 0, calc(0.34 + var(--e) * 0.2)),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* je höher die schicht, desto heller · licht kommt von oben */
+.sx-flaeche[data-k="0"] { background: #0e0e12; }
+.sx-flaeche[data-k="1"] { background: #121217; }
+.sx-flaeche[data-k="2"] { background: #141419; }
+.sx-flaeche[data-k="3"] { background: #16161c; }
+.sx-flaeche[data-k="4"] { background: #17171d; }
+.sx-flaeche[data-k="5"] { background: #191920; }
+.sx-flaeche[data-k="6"] { background: #1c1c23; }
+
+/* die oberste schicht bekommt den glanz · sie ist die, die man
+   im browser tatsächlich sieht */
+.sx-flaeche[data-k="6"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    128deg,
+    rgba(255, 255, 255, 0.11) 0%,
+    rgba(255, 255, 255, 0) 42%
+  );
+  pointer-events: none;
+}
+
+/* ── was auf den einzelnen schichten liegt ───────────────── */
+
+.sx-schraube {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #4a4a52, #1c1c20 68%);
+  box-shadow: inset 0 -1px 1px rgba(0, 0, 0, 0.7), 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.sx-code {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 16px 22px;
+  font-family: var(--font-mono, ui-monospace), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: rgba(225, 253, 82, 0.42);
+}
+
+.sx-raster {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(242, 242, 242, 0.11) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(242, 242, 242, 0.07) 1px, transparent 1px);
+  background-size: 38px 40px;
+}
+
+.sx-farbe {
+  display: flex;
+  height: 100%;
+}
+.sx-farbe span { flex: 1; }
+/* das lime sitzt links, wo der stapel es freigibt · das helle feld
+   rechts ist bewusst gedämpft, sonst ist der hellste punkt im hero
+   ein zufälliger streifen und nicht die überschrift */
+.sx-farbe span:nth-child(1) { flex: 0.4; }
+.sx-farbe span:nth-child(3) { flex: 0.7; }
+
+.sx-shot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  opacity: 0.82;
+}
+
+.sx-typo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-family: var(--font-display, inherit);
+  font-size: 140px;
+  font-weight: 800;
+  line-height: 1;
+  color: rgba(242, 242, 242, 0.1);
+  letter-spacing: -0.04em;
+}
+
+.sx-inhalt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 13px;
+  height: 100%;
+  padding: 0 34px;
+}
+.sx-inhalt span {
+  height: 12px;
+  border-radius: 2px;
+  background: rgba(242, 242, 242, 0.16);
+}
+.sx-inhalt span:first-child { background: rgba(225, 253, 82, 0.5); }
+
+/* ── die etiketten ───────────────────────────────────────── */
+
+.sx-tags {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sx-tag {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, auto);
+  align-items: baseline;
+  gap: 0 8px;
+  white-space: nowrap;
+  text-align: left;
+  /* dieselbe projektion wie die platte im deck, nur flach · und
+     derselbe gegenschub, sonst wandern etiketten und platten beim
+     aufziehen auseinander */
+  transform: translateY(
+    calc(
+      -50% + var(--hub) - var(--z) * var(--p) * var(--s) *
+        (2px + var(--e) * var(--sp))
+    )
+  );
+  /* sieben zweizeilige etiketten brauchen rund 24px abstand · den
+     gibt der stapel erst ab etwa --e 0.6 her. vorher lägen sie
+     übereinander und wären matsch statt beschriftung */
+  opacity: clamp(0, calc((var(--e) - 0.34) * 4), 1);
+}
+
+.sx-tag-strich {
+  /* leiter-linie vom deck zum etikett · sie stösst von links an
+     und macht klar, welche zeile zu welcher platte gehört */
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: center;
+  width: clamp(14px, 4vw, 46px);
+  height: 1px;
+  background: linear-gradient(to right, rgba(242, 242, 242, 0), rgba(242, 242, 242, 0.32));
+}
+
+.sx-tag-nr {
+  font-family: var(--font-mono, ui-monospace), ui-monospace, monospace;
+  font-size: 10px;
+  color: rgba(225, 253, 82, 0.75);
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.sx-tag-name {
+  font-size: clamp(13px, 2.2vw, 15px);
+  line-height: 1.15;
+  font-weight: 500;
+  color: #f2f2f2;
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.sx-tag-was {
+  font-family: var(--font-mono, ui-monospace), ui-monospace, monospace;
+  font-size: 9px;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.38);
+  /* zweite zeile statt daneben · nebeneinander wäre die spalte
+     doppelt so breit und schöbe das deck aus dem bild */
+  grid-column: 2 / span 2;
+  grid-row: 2;
+  padding-top: 1px;
+}
+
+@media (max-width: 640px) {
+  /* auf dem handy fliegt die erklärung raus · name und nummer
+     tragen die zeile, mehr passt nicht neben das deck */
+  .sx-tag-was { display: none; }
+}
+
+/* ── fuss ────────────────────────────────────────────────── */
+
+.sx-fuss {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 26px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(242, 242, 242, 0.08);
+}
+
+.sx-zieh {
+  /* der hinweis pulst leise · ohne ihn probiert es niemand aus */
+  animation: sx-atmen 3.4s ease-in-out infinite;
+}
+
+@keyframes sx-atmen {
+  0%, 100% { opacity: 0.42; }
+  50% { opacity: 0.92; }
+}
+
+.sx-zaehler {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  font-family: var(--font-mono, ui-monospace), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.42);
+}
+.sx-zaehler b {
+  font-size: 15px;
+  font-weight: 600;
+  color: #e1fd52;
+}
+.sx-zaehler i {
+  font-style: normal;
+  color: rgba(242, 242, 242, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sx-zieh { animation: none; opacity: 0.7; }
+  .sx { animation: none; }
+}

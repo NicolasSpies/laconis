@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { HeroRail } from "@/components/device/HeroRail";
-import { HeroAtmo } from "@/components/device/HeroAtmo";
+import { Schichten } from "@/components/referenzen/Schichten";
 import { RefIndex } from "@/components/referenzen/RefIndex";
 import { REFERENZEN } from "@/components/referenzen/referenzen.dict";
 import { referenzen } from "@/data/referenzen";
@@ -11,6 +11,7 @@ import { useLocale } from "@/i18n/useLocale";
 import { buildPath } from "@/i18n/config";
 import "@/components/device/device.css";
 import "@/components/referenzen/refindex.css";
+import "@/components/referenzen/schichten.css";
 
 /**
  * ReferenzenDevice · die referenzen als editorial-index.
@@ -41,36 +42,51 @@ export function ReferenzenDevice() {
       <DeviceNav />
       <HeroRail label={t.kicker} />
 
-      {/* ═══ DER INDEX ═══ */}
+      {/* ═══ HERO · die explosionszeichnung ═══
+          statt einer atmosphäre im hintergrund steht hier ein objekt,
+          das der besucher tatsächlich bedient. es zeigt nicht wieviele
+          projekte es gibt (drei), sondern wieviel in einem steckt. */}
       <section
         data-no-reveal
-        className="relative isolate px-6 pb-24 pt-36 md:px-12 md:pt-44"
+        className="relative isolate px-6 pb-20 pt-36 md:px-12 md:pt-44"
       >
-        <HeroAtmo variant="schweben" shots={referenzen.map((r) => r.shots?.desktop).filter(Boolean) as string[]} />
+        <div className="mx-auto grid w-full max-w-[1200px] items-center gap-12 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-8">
+          <div>
+            <h1
+              className="lab-display lab-boot text-[clamp(2.6rem,7vw,5.6rem)]"
+              style={{ animationDelay: "180ms" }}
+            >
+              {t.h1a}
+              <br />
+              <span style={{ color: "#e1fd52" }}>{t.h1b}</span>
+            </h1>
 
+            <p
+              className="lab-boot mt-8 max-w-[440px] text-[15px] leading-relaxed"
+              style={{ animationDelay: "300ms", color: "rgba(242,242,242,0.62)" }}
+            >
+              {t.sub}
+            </p>
+          </div>
+
+          <div className="lab-boot" style={{ animationDelay: "420ms" }}>
+            <Schichten
+              schichten={t.sxSchichten}
+              shot={referenzen.find((r) => r.shots)?.shots?.desktop}
+              zieh={t.sxZieh}
+              einheit={t.sxEinheit}
+              seite={t.sxSeite}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ DER INDEX ═══ */}
+      <section data-no-reveal className="relative px-6 pb-24 md:px-12">
         <div className="mx-auto w-full max-w-[1200px]">
+          <span className="lab-label block">{t.boardHint}</span>
 
-          <h1
-            className="lab-display lab-boot text-[clamp(2.6rem,8vw,7rem)]"
-            style={{ animationDelay: "180ms" }}
-          >
-            {t.h1a}
-            <br />
-            <span style={{ color: "#e1fd52" }}>{t.h1b}</span>
-          </h1>
-
-          <p
-            className="lab-boot mt-8 max-w-[460px] text-[15px] leading-relaxed"
-            style={{ animationDelay: "300ms", color: "rgba(242,242,242,0.62)" }}
-          >
-            {t.sub}
-          </p>
-
-          <span className="lab-label lab-boot mt-6 block" style={{ animationDelay: "380ms" }}>
-            {t.boardHint}
-          </span>
-
-          <div className="lab-boot mt-14" style={{ animationDelay: "420ms" }}>
+          <div className="mt-8">
             <RefIndex
               locale={locale}
               t={{

@@ -25,6 +25,14 @@ export type PreiseDict = {
 
   laufendH2: string;
   laufendLead: string;
+  /* die summe der zeilen darunter · hosting 20 bis 50 plus domain
+     rund 2, CMS und lizenzen ändern sie nicht. wird eine zeile
+     angefasst, muss diese spanne mit */
+  zaehlerLabel: string;
+  zaehlerVon: string;
+  zaehlerBis: string;
+  zaehlerBisLabel: string;
+  zaehlerEinheit: string;
   laufend: [string, string][];
 
   faqH2: string;
@@ -51,9 +59,11 @@ export const PREISE: Record<Locale, PreiseDict> = {
       tiersWeb: ["eine seite", "mehrere seiten", "+ shop"],
       tiersBrand: ["logo", "brand identity", "+ anwendungen"],
       tiersBoth: ["klein", "mittel", "gross"],
-      labelTexte: "texte & bilder",
-      texteHint: "an, wenn text und bilder noch entstehen müssen",
+      labelSprachen: "sprachen",
+      sprachen: ["eine", "zwei", "drei"],
       readoutLabel: "korridor",
+      vonLabel: "von",
+      bisLabel: "bis",
       note: "Ein Korridor, kein Angebot. Die belastbare Zahl kommt nach einem kurzen Gespräch, weil sie an deinem Projekt hängt und nicht an einer Paketstufe.",
       overflowNote: "Ab hier hört die Skala auf. In der Grössenordnung reden wir sowieso besser einmal miteinander, bevor irgendeine Zahl im Raum steht.",
     },
@@ -72,6 +82,11 @@ export const PREISE: Record<Locale, PreiseDict> = {
     laufendH2: "und danach?",
     laufendLead:
       "Nach dem Launch läuft nur, was du wirklich brauchst. Keine Vertragsbindung, kein Paket, das mitwächst ohne dass du es merkst.",
+    zaehlerLabel: "zählerstand · monatlich",
+    zaehlerVon: "22",
+    zaehlerBis: "52",
+    zaehlerBisLabel: "bis",
+    zaehlerEinheit: "€ / monat",
     laufend: [
       ["hosting · backups · kleine pflege", "20 bis 50 € im monat"],
       ["domain", "ca. 2 € im monat, je nach endung"],
@@ -109,9 +124,11 @@ export const PREISE: Record<Locale, PreiseDict> = {
       tiersWeb: ["une page", "plusieurs pages", "+ boutique"],
       tiersBrand: ["logo", "brand identity", "+ supports"],
       tiersBoth: ["petit", "moyen", "grand"],
-      labelTexte: "textes & images",
-      texteHint: "activé si les textes et images restent à créer",
+      labelSprachen: "langues",
+      sprachen: ["une", "deux", "trois"],
       readoutLabel: "couloir",
+      vonLabel: "de",
+      bisLabel: "à",
       note: "Un couloir, pas une offre. Le chiffre solide arrive après un court échange, parce qu'il tient à ton projet et pas à un palier de forfait.",
       overflowNote: "Ici l'échelle s'arrête. À cet ordre de grandeur, mieux vaut de toute façon se parler une fois avant qu'un chiffre traîne dans la pièce.",
     },
@@ -130,6 +147,11 @@ export const PREISE: Record<Locale, PreiseDict> = {
     laufendH2: "et après ?",
     laufendLead:
       "Après la mise en ligne, il ne tourne que ce dont tu as vraiment besoin. Pas d'engagement, pas de forfait qui grossit sans que tu le voies.",
+    zaehlerLabel: "relevé · par mois",
+    zaehlerVon: "22",
+    zaehlerBis: "52",
+    zaehlerBisLabel: "à",
+    zaehlerEinheit: "€ / mois",
     laufend: [
       ["hébergement · sauvegardes · petit entretien", "20 à 50 € par mois"],
       ["domaine", "env. 2 € par mois, selon l'extension"],
@@ -167,9 +189,11 @@ export const PREISE: Record<Locale, PreiseDict> = {
       tiersWeb: ["one page", "several pages", "+ shop"],
       tiersBrand: ["logo", "brand identity", "+ applications"],
       tiersBoth: ["small", "medium", "large"],
-      labelTexte: "text & images",
-      texteHint: "on if text and images still have to be made",
+      labelSprachen: "languages",
+      sprachen: ["one", "two", "three"],
       readoutLabel: "corridor",
+      vonLabel: "from",
+      bisLabel: "to",
       note: "A corridor, not an offer. The solid number comes after a short conversation, because it depends on your project and not on a package tier.",
       overflowNote: "The scale ends here. At this order of magnitude we're better off talking once before any number is on the table anyway.",
     },
@@ -188,6 +212,11 @@ export const PREISE: Record<Locale, PreiseDict> = {
     laufendH2: "and afterwards?",
     laufendLead:
       "After launch only what you actually need keeps running. No lock-in, no package that grows without you noticing.",
+    zaehlerLabel: "meter reading · monthly",
+    zaehlerVon: "22",
+    zaehlerBis: "52",
+    zaehlerBisLabel: "to",
+    zaehlerEinheit: "€ / month",
     laufend: [
       ["hosting · backups · small upkeep", "20 to 50 € per month"],
       ["domain", "around 2 € per month, depending on the extension"],

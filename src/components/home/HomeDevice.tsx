@@ -8,20 +8,24 @@ import { HeroRail } from "@/components/device/HeroRail";
 import { SignalChain } from "@/components/device/SignalChain";
 import { ChannelRack } from "@/components/device/ChannelRack";
 import { SendButton } from "@/components/device/SendButton";
+import { Typenschild } from "@/components/home/Typenschild";
+import { buildPath } from "@/i18n/config";
 import "@/components/device/device.css";
+import "@/components/home/typenschild.css";
 
 /**
  * HomeDevice · die echte startseite in der geräte-richtung.
  *
- * ablauf: shader-hero → wer das hier baut (kurz, ohne preise) →
- * signalkette (übernahme) → kanalzüge (referenzen) → sendeknopf.
+ * ablauf: shader-hero → typenschild → signalkette (übernahme) →
+ * kanalzüge (referenzen) → sendeknopf.
  *
  * KEINE preise auf der home (Nicolas: "preise will definitiv nicht
  * auf der startseite, da will ich was mehr über lacønis quatschen") —
  * die zahlen leben auf /preise.
  *
- * dosierung: hero und "wer das baut" sind RUHIG (nur typo + licht),
- * die geräte-momente sind kette, kanalzüge und sendeknopf.
+ * dosierung: der hero ist RUHIG (nur typo + licht). die geräte-
+ * momente sind typenschild, kette, kanalzüge und sendeknopf · jeweils
+ * einer pro bildschirmhöhe.
  */
 
 export function HomeDevice() {
@@ -41,7 +45,12 @@ export function HomeDevice() {
       {/* ═══ HERO ═══ */}
       <section
         data-no-reveal
-        className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden px-6 md:px-12"
+        /* der block sass oben. mittig geht aber nur, wenn er auch
+           REINPASST · vier zeilen à 11vw plus fliesstext plus zahlen
+           waren höher als der bildschirm, da hilft kein justify-center.
+           deshalb: titel etwas kleiner, und die kennzahlen wandern an
+           den fuss statt unter den fliesstext */
+        className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden px-6 pb-32 pt-28 md:px-12"
       >
         <ShaderField className="absolute inset-0 w-full h-full" />
         <div
@@ -53,9 +62,9 @@ export function HomeDevice() {
           }}
         />
 
-        <div className="relative max-w-[1200px] mx-auto w-full">
+        <div className="relative mx-auto my-auto w-full max-w-[1200px]">
           <h1
-            className="lab-display lab-boot text-[clamp(3rem,11vw,10rem)]"
+            className="lab-display lab-boot text-[clamp(2.9rem,8.6vw,8rem)]"
             style={{ animationDelay: "180ms" }}
           >
             {t.h1a}
@@ -73,65 +82,46 @@ export function HomeDevice() {
             {t.sub}
           </p>
 
-          <div
-            className="lab-boot mt-12 flex flex-wrap gap-x-10 gap-y-4"
-            style={{ animationDelay: "440ms" }}
-          >
-            {t.facts.map(([k, v]) => (
-              <div key={k}>
-                <div className="lab-label">{k}</div>
-                <div
-                  className="lab-display mt-1 text-[22px]"
-                  style={{ fontStretch: "112%", fontWeight: 700 }}
-                >
-                  {v}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
-        <div
-          aria-hidden
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 lab-label lab-boot"
-          style={{ animationDelay: "700ms" }}
-        >
-          {t.scroll}
+        {/* die kennzahlen sitzen am fuss der ersten bildschirmhöhe ·
+            im fluss hätten sie den titel aus der mitte gedrückt */}
+        <div className="pointer-events-none absolute inset-x-6 bottom-9 md:inset-x-12">
+          <div
+            className="lab-boot mx-auto flex max-w-[1200px] flex-wrap items-end justify-between gap-x-10 gap-y-4"
+            style={{ animationDelay: "440ms" }}
+          >
+            <div className="flex flex-wrap gap-x-10 gap-y-4">
+              {t.facts.map(([k, v]) => (
+                <div key={k}>
+                  <div className="lab-label">{k}</div>
+                  <div
+                    className="lab-display mt-1 text-[22px]"
+                    style={{ fontStretch: "112%", fontWeight: 700 }}
+                  >
+                    {v}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <span aria-hidden className="lab-label">
+              {t.scroll}
+            </span>
+          </div>
         </div>
       </section>
 
-      {/* ═══ WER DAS HIER BAUT ═══
-          bewusst KEIN zweiter typo-hero (sah aus wie ein echo) —
-          hier steht ein OBJEKT: das geschraubte typenschild. */}
-      <section data-no-reveal className="relative px-6 md:px-12 py-32 md:py-44">
-        <div className="max-w-[1200px] mx-auto">
-          <span className="lab-label">{t.werLabel}</span>
-
-          {/* prosa führt · kein zweiter typo-knall, aber grösser als
-              fliesstext gesetzt, damit die sektion trägt */}
-          <p className="mt-8 max-w-[720px] text-[clamp(1.15rem,2.2vw,1.65rem)] leading-[1.5] text-[rgba(242,242,242,0.9)]">
-            {t.werLead1}
-            <span style={{ color: "#e1fd52" }}>{t.werAccent}</span>
-            {t.werLead2}
-          </p>
-          <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-[rgba(242,242,242,0.5)]">
-            {t.werBody}
-          </p>
-
-          {/* datenstreifen · zahlen statt worte = anderes register als
-              der hero, ohne zweite grosse überschrift */}
-          <div className="dv-stats">
-            {t.zahlen.map(([k, v], i) => (
-              <div key={k} className="dv-stat">
-                <div
-                  className="dv-display dv-stat-value"
-                  style={{ color: i === 1 ? "#e1fd52" : undefined }}
-                >
-                  {v}
-                </div>
-                <div className="lab-label mt-2">{k}</div>
-              </div>
-            ))}
+      {/* ═══ TYPENSCHILD ═══
+          hier stand ein absatz prosa plus ein zahlenstreifen. es
+          passierte nichts, man konnte nichts anfassen, und es stand
+          zu viel über Nicolas für eine startseite. das gehört auf
+          /ueber-mich · hier steht jetzt ein objekt, das man kippt,
+          und ein knopf, der dorthin führt. */}
+      <section data-no-reveal className="relative px-6 py-32 md:px-12 md:py-44">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="max-w-[860px]">
+            <Typenschild t={t.ts} href={buildPath("ueber-mich", locale)} />
           </div>
         </div>
       </section>

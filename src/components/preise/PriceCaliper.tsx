@@ -1,15 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { RockerSwitch } from "@/components/device/Controls";
 
 /**
- * PriceCaliper · der messschieber.
+ * PriceCaliper · das messinstrument auf /preise.
  *
  * die seite verweigert fixpreise, also gibt das instrument auch keinen
- * einzelwert aus: es misst einen KORRIDOR. je mehr du einstellst, desto
- * enger wird er · eine einzelne zahl kommt nie raus. genau das ist die
- * haltung, und sie ist hier gebaut statt behauptet.
+ * einzelwert aus: es misst einen KORRIDOR. je nach einstellung wandert
+ * und dehnt er sich · eine einzelne zahl kommt nie raus. genau das ist
+ * die haltung, und sie ist hier gebaut statt behauptet.
+ *
+ * das lag bis august 2026 QUER: eine 1100px breite schiene von 0 bis
+ * 8000, auf der der eigentliche korridor knapp ein sechstel einnahm.
+ * daneben und darunter viel leerer kasten. das instrument war damit
+ * grösstenteils leere skala.
+ *
+ * jetzt steht es HOCHKANT. die säule nutzt die höhe, die der kasten
+ * ohnehin hat, der korridor ist ein körper statt eines striches, und
+ * die regler stehen als schmale spalte daneben statt darunter. dazu
+ * wandern die beiden ablesungen mit den enden des korridors mit ·
+ * man sieht die spanne, statt sie zu lesen.
  *
  * alle grenzen stammen aus Nicolas' eigenen, veröffentlichten zahlen:
  *   onepager ab 1.500 · mehrseitig mit CMS 2.800 bis 4.500 · website
@@ -19,7 +29,20 @@ import { RockerSwitch } from "@/components/device/Controls";
  * die er ohnehin nennt (alles aus einer hand).
  */
 
-const SCALE_MAX = 8000;
+/* die skala muss den EIGENEN höchstwert fassen: beides · grösste
+   stufe · drei sprachen landet bei 12.600. eine 8.000er skala hat
+   dort „von 8.100" neben „bis 8.000+" gezeigt · der untere wert war
+   höher als der obere. */
+const SCALE_MAX = 13000;
+
+/* die skala ist bewusst NICHT linear. linear säuft der normalfall
+   (1.500 bis 2.800) im untersten fünftel ab, während oben leere
+   fläche steht. die wurzel spreizt unten und staucht oben, wie bei
+   einem rechenschieber · und weil die striche derselben kurve
+   folgen, bleibt jede ablesung korrekt. */
+function pos(v: number) {
+  return Math.sqrt(Math.min(1, Math.max(0, v / SCALE_MAX))) * 100;
+}
 
 /* [von, bis] je stufe · in euro */
 const TIERS: Record<"web" | "brand", [number, number][]> = {
@@ -37,8 +60,14 @@ const TIERS: Record<"web" | "brand", [number, number][]> = {
 
 /* aus einer hand · spart die abstimmung zwischen zwei dienstleistern */
 const BUNDLE = 0.88;
-/* wenn texte und bilder noch entstehen müssen */
-const CONTENT_UP = 1.15;
+/* jede weitere sprache · übersetzung, pflege, hreflang, und im CMS
+   ein zweiter satz felder pro inhalt. das ist echter aufwand, kein
+   knopfdruck. */
+const PRO_SPRACHE = 0.15;
+
+/* mindestabstand der beiden ablesungen auf der säule, in prozent ·
+   bei 800 bis 1200 € lägen sie sonst übereinander */
+const MIN_LUFT = 13;
 
 export type CaliperT = {
   labelWas: string;
@@ -49,9 +78,11 @@ export type CaliperT = {
   tiersWeb: [string, string, string];
   tiersBrand: [string, string, string];
   tiersBoth: [string, string, string];
-  labelTexte: string;
-  texteHint: string;
+  labelSprachen: string;
+  sprachen: [string, string, string];
   readoutLabel: string;
+  vonLabel: string;
+  bisLabel: string;
   note: string;
   overflowNote: string;
 };
@@ -67,7 +98,7 @@ function fmt(n: number) {
 export function PriceCaliper({ t }: { t: CaliperT }) {
   const [was, setWas] = useState<"web" | "brand" | "both">("web");
   const [tier, setTier] = useState(0);
-  const [hilfe, setHilfe] = useState(false);
+  const [sprachen, setSprachen] = useState(0);
 
   let lo: number;
   let hi: number;
@@ -77,151 +108,130 @@ export function PriceCaliper({ t }: { t: CaliperT }) {
   } else {
     [lo, hi] = TIERS[was][tier]!;
   }
-  if (hilfe) hi *= CONTENT_UP;
+  /* die zusatzsprachen heben BEIDE enden · eine zweite sprache macht
+     auch das kleinste projekt spürbar grösser */
+  if (sprachen > 0) {
+    lo *= 1 + sprachen * PRO_SPRACHE * 0.7;
+    hi *= 1 + sprachen * PRO_SPRACHE;
+  }
 
   lo = round100(lo);
   hi = round100(hi);
 
   const overflow = hi > SCALE_MAX;
-  const loPct = Math.min(100, (lo / SCALE_MAX) * 100);
-  const hiPct = Math.min(100, (hi / SCALE_MAX) * 100);
+  const loPct = pos(lo);
+  const hiPct = pos(hi);
+
+  /* die schilder hängen an den enden des korridors, dürfen sich aber
+     nicht überlagern · bei engen spannen weichen sie symmetrisch aus */
+  const mitte = (loPct + hiPct) / 2;
+  const luft = Math.max(MIN_LUFT, hiPct - loPct) / 2;
+  const loTag = Math.max(0, Math.min(100 - MIN_LUFT, mitte - luft));
+  const hiTag = Math.min(100, Math.max(MIN_LUFT, mitte + luft));
 
   const tierLabels =
     was === "web" ? t.tiersWeb : was === "brand" ? t.tiersBrand : t.tiersBoth;
 
-  /* gravur: strich pro 500, langer strich + zahl pro 2000 */
-  const ticks = Array.from({ length: SCALE_MAX / 500 + 1 }, (_, i) => i * 500);
+  /* gravur: strich pro tausender, beschriftet alle dreitausend */
+  const ticks = Array.from({ length: SCALE_MAX / 1000 + 1 }, (_, i) => i * 1000);
+
+  const regler: [string, string[], number, (i: number) => void][] = [
+    [t.labelWas, [t.wasWeb, t.wasBrand, t.wasBoth], ["web", "brand", "both"].indexOf(was), (i) =>
+      setWas((["web", "brand", "both"] as const)[i]!)],
+    [t.labelUmfang, [...tierLabels], tier, setTier],
+    [t.labelSprachen, [...t.sprachen], sprachen, setSprachen],
+  ];
 
   return (
-    <div className="lab-chassis relative p-6 md:p-10">
+    <div className="lab-chassis pr-box relative p-6 md:p-10">
       <span className="lab-screw" style={{ left: 14, top: 14 }} aria-hidden />
       <span className="lab-screw" style={{ right: 14, top: 14 }} aria-hidden />
       <span className="lab-screw" style={{ left: 14, bottom: 14 }} aria-hidden />
       <span className="lab-screw" style={{ right: 14, bottom: 14 }} aria-hidden />
 
-      {/* ── ablesung ── */}
-      <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
-        <div>
-          <span className="lab-label">{t.readoutLabel}</span>
-          <div className="pr-value mt-3">
-            {fmt(lo)}
-            <span className="pr-value-sep">·</span>
-            {overflow ? `${fmt(SCALE_MAX)}+` : fmt(hi)}
-            <span style={{ color: "#e1fd52" }}> €</span>
+      {/* ── die regler ── */}
+      <div className="pr-regler">
+        <span className="lab-label">{t.readoutLabel}</span>
+
+        {regler.map(([label, opts, aktiv, setzen]) => (
+          <div key={label} className="pr-regler-zeile">
+            <span className="lab-label">{label}</span>
+            <div className="lab-switch mt-3" role="radiogroup" aria-label={label}>
+              {opts.map((o, i) => (
+                <button
+                  key={o}
+                  type="button"
+                  role="radio"
+                  aria-checked={aktiv === i}
+                  data-on={aktiv === i ? "1" : "0"}
+                  onClick={() => setzen(i)}
+                >
+                  {o}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-        <p className="lab-hint max-w-[290px] text-[12px] leading-relaxed">
-          {overflow ? t.overflowNote : t.note}
-        </p>
+        ))}
+
+        <p className="lab-hint pr-note">{overflow ? t.overflowNote : t.note}</p>
       </div>
 
-      {/* ── die schiene ── */}
-      <div className="pr-beam mt-9" role="img" aria-label={`${fmt(lo)} bis ${overflow ? `über ${fmt(SCALE_MAX)}` : fmt(hi)} euro`}>
-        {ticks.map((v) => {
-          const major = v % 2000 === 0;
-          return (
+      {/* ── die säule ── */}
+      <div
+        className="pr-saeule"
+        role="img"
+        aria-label={`${fmt(lo)} bis ${overflow ? `über ${fmt(SCALE_MAX)}` : fmt(hi)} euro`}
+      >
+        <div className="pr-skala" aria-hidden>
+          {ticks
+            .filter((v) => v % 3000 === 0)
+            .map((v) => (
+              <span key={v} style={{ bottom: `${pos(v)}%` }}>
+                {v === 0 ? "0" : `${v / 1000}k`}
+              </span>
+            ))}
+        </div>
+
+        <div className="pr-schiene">
+          {ticks.map((v) => (
             <span
               key={v}
               className="pr-tick"
-              data-major={major ? "1" : "0"}
-              style={{ left: `${(v / SCALE_MAX) * 100}%` }}
+              data-major={v % 3000 === 0 ? "1" : "0"}
+              style={{ bottom: `${pos(v)}%` }}
               aria-hidden
-            >
-              {major && (
-                <span
-                  className="pr-tick-label"
-                  /* erste und letzte zahl nach innen rücken · die schiene
-                     schneidet ab (overflow), sonst fehlt die halbe ziffer */
-                  style={
-                    v === 0
-                      ? { transform: "translateX(2px)" }
-                      : v === SCALE_MAX
-                        ? { transform: "translateX(calc(-100% - 3px))" }
-                        : undefined
-                  }
-                >
-                  {v === 0 ? "0" : `${v / 1000}k`}
-                </span>
-              )}
+            />
+          ))}
+
+          {/* der pegel bis zur unterkante des korridors */}
+          <span className="pr-pegel" aria-hidden style={{ height: `${loPct}%` }} />
+
+          <span
+            className="pr-korridor"
+            aria-hidden
+            style={{ bottom: `${loPct}%`, height: `${Math.max(1.4, hiPct - loPct)}%` }}
+          />
+
+          {overflow && <span className="pr-endstop" aria-hidden />}
+        </div>
+
+        {/* die ablesungen hängen am korridor und wandern mit */}
+        <div className="pr-tafeln" aria-hidden>
+          <span className="pr-tafel" data-end="hi" style={{ bottom: `${hiTag}%` }}>
+            <span className="pr-tafel-key">{t.bisLabel}</span>
+            <span className="pr-tafel-wert">
+              {overflow ? `${fmt(SCALE_MAX)}+` : fmt(hi)}
+              <i>€</i>
             </span>
-          );
-        })}
-
-        <span
-          className="pr-corridor"
-          aria-hidden
-          style={{ left: `${loPct}%`, width: `${Math.max(1.5, hiPct - loPct)}%` }}
-        />
-
-        <span className="pr-jaw" data-side="min" style={{ left: `${loPct}%` }} aria-hidden>
-          <span className="pr-jaw-blade" />
-          <span className="pr-jaw-body">
-            <span className="pr-vernier" />
           </span>
-        </span>
-
-        <span className="pr-jaw" data-side="max" style={{ left: `${hiPct}%` }} aria-hidden>
-          <span className="pr-jaw-blade" />
-          <span className="pr-jaw-body">
-            <span className="pr-vernier" />
+          <span className="pr-tafel" data-end="lo" style={{ bottom: `${loTag}%` }}>
+            <span className="pr-tafel-key">{t.vonLabel}</span>
+            <span className="pr-tafel-wert">
+              {fmt(lo)}
+              <i>€</i>
+            </span>
           </span>
-        </span>
-
-        {overflow && <span className="pr-endstop" aria-hidden />}
-      </div>
-
-      {/* ── die einstellungen ── */}
-      <div className="mt-10 grid gap-7 md:grid-cols-2">
-        <div>
-          <span className="lab-label">{t.labelWas}</span>
-          <div className="lab-switch mt-3" role="radiogroup" aria-label={t.labelWas}>
-            {(
-              [
-                ["web", t.wasWeb],
-                ["brand", t.wasBrand],
-                ["both", t.wasBoth],
-              ] as const
-            ).map(([k, label]) => (
-              <button
-                key={k}
-                type="button"
-                role="radio"
-                aria-checked={was === k}
-                data-on={was === k ? "1" : "0"}
-                onClick={() => setWas(k)}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
         </div>
-
-        <div>
-          <span className="lab-label">{t.labelUmfang}</span>
-          <div className="lab-switch mt-3" role="radiogroup" aria-label={t.labelUmfang}>
-            {tierLabels.map((label, i) => (
-              <button
-                key={label}
-                type="button"
-                role="radio"
-                aria-checked={tier === i}
-                data-on={tier === i ? "1" : "0"}
-                onClick={() => setTier(i)}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-8">
-        <RockerSwitch
-          label={t.labelTexte}
-          hint={t.texteHint}
-          on={hilfe}
-          onToggle={() => setHilfe((p) => !p)}
-        />
       </div>
     </div>
   );

@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-
 /**
  * ArtQuote · ein grosses zitat, gesetzt statt gerastert.
  *
@@ -14,9 +12,14 @@ import { useEffect, useRef } from "react";
  * wo ein zitat umbricht, ist eine gestalterische entscheidung · ein
  * algorithmus, der nach breite bricht, trifft sie zufällig.
  *
- * bewegung: jede zeile driftet sehr langsam und für sich, wenige pixel.
- * kein zeiger-effekt · der wirkte mechanisch, und ein zitat soll atmen,
+ * bewegung: jede zeile driftet für sich, und eine helligkeitswelle
+ * wandert langsam nach unten durch den block. beides in CSS · vorher
+ * lief das driften in einem rAF, und genau deshalb hat es kaum jemand
+ * gesehen: rAF steht still, sobald das fenster nicht vorne ist. kein
+ * zeiger-effekt · der wirkte mechanisch, und ein zitat soll atmen,
  * nicht auf die maus reagieren.
+ *
+ * die komponente rendert damit nur noch markup. null laufzeit.
  */
 
 /* der versatz der zeilenanfänge · in em der schriftgrösse gerechnet,
@@ -37,38 +40,19 @@ export function ArtQuote({
   source?: string;
   className?: string;
 }) {
-  const wrap = useRef<HTMLQuoteElement>(null);
-
-  useEffect(() => {
-    const el = wrap.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const rows = Array.from(el.querySelectorAll<HTMLElement>(".aq-line"));
-    if (!rows.length) return;
-
-    let raf = 0;
-    const tick = (time: number) => {
-      rows.forEach((row, i) => {
-        /* lange, ungleiche perioden · dadurch findet der stapel nie in
-           einen gemeinsamen takt und wirkt nicht wie eine welle */
-        const dx = Math.sin(time * 0.000085 + i * 1.7) * 5;
-        const dy = Math.sin(time * 0.000061 + i * 2.3) * 2.4;
-        row.style.transform = `translate3d(${dx.toFixed(2)}px, ${dy.toFixed(2)}px, 0)`;
-      });
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [lines.length]);
-
   return (
-    <blockquote className={`aq ${className}`} ref={wrap}>
+    <blockquote className={`aq ${className}`}>
       {lines.map((line, i) => (
         <span
           key={`${line}-${i}`}
           className="aq-line"
-          style={{ ["--in" as string]: `${INDENTS[i % INDENTS.length]}em` }}
+          style={
+            {
+              ["--in" as string]: `${INDENTS[i % INDENTS.length]}em`,
+              /* der zeilenindex versetzt drift und welle gegeneinander */
+              ["--i" as string]: i,
+            } as React.CSSProperties
+          }
         >
           {mark && line.toLowerCase().includes(mark.toLowerCase()) ? (
             <>

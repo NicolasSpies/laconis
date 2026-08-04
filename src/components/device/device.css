@@ -1430,7 +1430,18 @@
 /* ── artQuote · grosse zitate, gesetzt statt gerastert ─
    jede zeile beginnt woanders. keine schrägen, keine gekippten
    wörter · die spannung kommt allein aus dem versatz der
-   zeilenanfänge, so wie man ein zitat auf einem plakat setzt. */
+   zeilenanfänge, so wie man ein zitat auf einem plakat setzt.
+
+   die bewegung lief bis august 2026 in einem rAF im component.
+   das war der grund, warum sie praktisch niemand gesehen hat:
+   rAF steht still, sobald das fenster nicht im vordergrund ist,
+   und ein zitat mitten auf der seite wird meistens genau dann
+   gelesen. jetzt läuft alles in CSS und hört nie auf.
+
+   zwei bewegungen, zwei VERSCHIEDENE eigenschaften · sonst
+   überschreibt die letzte animation die vorherige:
+     translate  → das langsame driften jeder zeile
+     opacity    → eine helligkeitswelle, die nach unten wandert  */
 
 .aq {
   display: block;
@@ -1447,8 +1458,42 @@
   letter-spacing: -0.022em;
   text-transform: lowercase;
   color: #f2f2f2;
-  will-change: transform;
+  will-change: translate, opacity;
+  /* die negativen verzögerungen setzen jede zeile an eine andere
+     stelle derselben kurve · so entsteht der versatz ohne sieben
+     einzelne keyframes, und nichts läuft je im gleichtakt */
+  animation:
+    aqDrift 21s ease-in-out infinite alternate,
+    aqWelle 8.5s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * -2.7s), calc(var(--i, 0) * -0.7s);
 }
+
+@keyframes aqDrift {
+  from {
+    translate: -5px -2.5px;
+  }
+  to {
+    translate: 5px 2.5px;
+  }
+}
+
+/* die welle ist bewusst flach · ein zitat soll atmen, nicht
+   blinken. unter 0.8 fängt es an, nach fehler auszusehen */
+@keyframes aqWelle {
+  0%,
+  100% {
+    opacity: 0.82;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* bewusst KEIN drittes, scroll-getriebenes einlaufen · driften und
+   welle laufen an der dokument-uhr und sind damit auf jedem gerät
+   und in jeder tab-lage sichtbar. ein zitat, das erst beim scrollen
+   erwacht, steht für alle still, die schon mittendrin gelandet sind
+   (anker-link, zurück-taste, geteilter link). */
 
 /* der autorisierte umbruch gilt erst, wenn platz dafür da ist ·
    auf dem handy würde nowrap die zeilen aus dem bild schieben */
@@ -1487,6 +1532,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .aq-line {
-    transform: none !important;
+    animation: none;
+    translate: none;
+    transform: none;
+    opacity: 1;
   }
 }

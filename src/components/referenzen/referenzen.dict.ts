@@ -17,6 +17,11 @@ export type ReferenzenDict = {
   sub: string;
   boardHint: string;
 
+  sxZieh: string;
+  sxEinheit: string;
+  sxSeite: string;
+  sxSchichten: { name: string; was: string }[];
+
   lStatus: string;
   lLeistung: string;
   lOrt: string;
@@ -47,8 +52,21 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     kicker: "referenzen",
     h1a: "was schon",
     h1b: "läuft.",
-    sub: "Drei Projekte. Fahr drüber, dann siehst du die Seite · klick drauf, dann siehst du, wie sie entstanden ist.",
+    sub: "Drei Projekte. Eine Website ist keine Fläche · zieh am Stapel, dann siehst du, was in einer steckt.",
     boardHint: "jede zeile führt direkt rein",
+
+    sxZieh: "zieh den stapel auseinander",
+    sxEinheit: "schichten",
+    sxSeite: "seite",
+    sxSchichten: [
+      { name: "unterbau", was: "server & auslieferung" },
+      { name: "code", was: "struktur, semantik" },
+      { name: "raster", was: "abstände & spalten" },
+      { name: "farbe", was: "kontrast, hierarchie" },
+      { name: "bild", was: "zuschnitt & gewicht" },
+      { name: "schrift", was: "grössen, laufweite" },
+      { name: "inhalt", was: "das was zählt" },
+    ],
 
     lStatus: "status",
     lLeistung: "leistung",
@@ -81,8 +99,21 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     kicker: "références",
     h1a: "ce qui tourne",
     h1b: "déjà.",
-    sub: "Trois projets. Survole pour voir le site · clique pour voir comment il est né.",
+    sub: "Trois projets. Un site n'est pas une surface · tire sur la pile pour voir ce qu'il y a dedans.",
     boardHint: "chaque ligne mène directement au projet",
+
+    sxZieh: "écarte les couches",
+    sxEinheit: "couches",
+    sxSeite: "page",
+    sxSchichten: [
+      { name: "socle", was: "serveur & livraison" },
+      { name: "code", was: "structure, sémantique" },
+      { name: "grille", was: "espaces & colonnes" },
+      { name: "couleur", was: "contraste, hiérarchie" },
+      { name: "image", was: "cadrage & poids" },
+      { name: "typo", was: "tailles, interlettrage" },
+      { name: "contenu", was: "ce qui compte" },
+    ],
 
     lStatus: "statut",
     lLeistung: "prestation",
@@ -115,8 +146,21 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     kicker: "work",
     h1a: "what's already",
     h1b: "running.",
-    sub: "Three projects. Hover to see the site · click to see how it came about.",
+    sub: "Three projects. A website is not a surface · pull the stack apart and see what sits inside one.",
     boardHint: "every row leads straight in",
+
+    sxZieh: "pull the stack apart",
+    sxEinheit: "layers",
+    sxSeite: "page",
+    sxSchichten: [
+      { name: "groundwork", was: "server & delivery" },
+      { name: "code", was: "structure, semantics" },
+      { name: "grid", was: "spacing & columns" },
+      { name: "colour", was: "contrast, hierarchy" },
+      { name: "image", was: "crop & weight" },
+      { name: "type", was: "sizes, tracking" },
+      { name: "content", was: "what matters" },
+    ],
 
     lStatus: "status",
     lLeistung: "scope",

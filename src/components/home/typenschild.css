@@ -1,0 +1,309 @@
+/* ═══════════════════════════════════════════════════════════
+   Typenschild · die kippbare platte auf der startseite
+
+   drei zahlen tragen alles:
+     --kx / --ky   neigung, -1..1, aus der hand (JS)
+     --rake        wie flach das licht steht, 0..1 (JS)
+   dazu --nx / --ny als ruhiges eigenleben aus einer keyframe.
+
+   warum die trennung: ein rAF steht still, sobald das fenster
+   nicht vorne ist. das grundleben muss aber laufen · sonst ist
+   die platte beim zurückkommen eingefroren. also CSS fürs
+   atmen, JS nur solange eine hand drauf liegt.
+   ═══════════════════════════════════════════════════════════ */
+
+@property --nx {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --ny {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.ts {
+  --kx: 0;
+  --ky: 0;
+  --rake: 0;
+  --nx: 0;
+  --ny: 0;
+  perspective: 1200px;
+  /* die platte darf nicht am rand kleben · sonst hat man beim
+     kippen keinen platz und der schatten wird abgeschnitten */
+  padding: clamp(8px, 2vw, 26px);
+}
+
+/* zwei perioden mit teilerfremden zeiten · das schild wiegt sich
+   dadurch unregelmässig statt zu takten */
+@keyframes tsWiegen {
+  0% { --nx: 0.055; --ny: -0.08; }
+  33% { --nx: -0.07; --ny: 0.045; }
+  66% { --nx: 0.03; --ny: 0.085; }
+  100% { --nx: 0.055; --ny: -0.08; }
+}
+
+.ts-platte {
+  position: relative;
+  isolation: isolate;
+  border-radius: 14px;
+  padding: clamp(26px, 4vw, 48px);
+  transform-style: preserve-3d;
+  animation: tsWiegen 19s ease-in-out infinite;
+  transform: rotateX(calc((var(--kx) * 9deg) + (var(--nx) * 9deg)))
+    rotateY(calc((var(--ky) * 11deg) + (var(--ny) * 11deg)));
+  /* metall, kein karton: leichter verlauf über die fläche, harte
+     helle oberkante, dunkle unterkante */
+  background:
+    linear-gradient(163deg, #26262e 0%, #1a1a20 46%, #131318 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.13),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.75),
+    inset 0 0 0 1px rgba(242, 242, 242, 0.07),
+    /* der schlagschatten folgt der neigung · ohne das wirkt jede
+       drehung wie ein aufgeklebtes bild statt wie ein körper */
+    calc(var(--ky) * -22px) calc(28px + var(--kx) * 18px)
+      calc(46px + var(--rake) * 26px) rgba(0, 0, 0, 0.72);
+  transition: box-shadow 220ms ease;
+}
+
+/* ── oberfläche ──────────────────────────────────────────── */
+
+.ts-buerste,
+.ts-glanz {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+/* gebürstetes alu · sehr feine senkrechte striche */
+.ts-buerste {
+  z-index: 0;
+  opacity: 0.5;
+  background-image: repeating-linear-gradient(
+    91deg,
+    rgba(255, 255, 255, 0.035) 0px,
+    rgba(255, 255, 255, 0.035) 1px,
+    rgba(0, 0, 0, 0.035) 2px,
+    rgba(0, 0, 0, 0.035) 3px
+  );
+}
+
+/* das streiflicht · wandert gegen die kipprichtung, wie eine
+   spiegelung es tut. das verkauft das gewicht mehr als die
+   drehung selbst */
+.ts-glanz {
+  z-index: 1;
+  background: linear-gradient(
+    102deg,
+    rgba(255, 255, 255, 0) 34%,
+    rgba(255, 255, 255, 0.11) 47%,
+    rgba(225, 253, 82, 0.07) 51%,
+    rgba(255, 255, 255, 0) 66%
+  );
+  background-size: 260% 100%;
+  background-position: calc(50% - (var(--ky) + var(--ny)) * 46%) 0;
+}
+
+.ts-schraube {
+  position: absolute;
+  z-index: 2;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, #55555f, #1b1b20 70%);
+  box-shadow:
+    inset 0 -1px 1px rgba(0, 0, 0, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.ts-schraube::after {
+  /* der schlitz · dreht sich pro schraube leicht anders, weil kein
+     mensch vier schrauben exakt gleich anzieht */
+  content: "";
+  position: absolute;
+  inset: 3px 1px;
+  border-radius: 1px;
+  background: rgba(0, 0, 0, 0.55);
+}
+.ts-schraube[data-e="lo"] { left: 14px; top: 14px; }
+.ts-schraube[data-e="ro"] { right: 14px; top: 14px; }
+.ts-schraube[data-e="lu"] { left: 14px; bottom: 14px; }
+.ts-schraube[data-e="ru"] { right: 14px; bottom: 14px; }
+.ts-schraube[data-e="lo"]::after { transform: rotate(24deg); }
+.ts-schraube[data-e="ro"]::after { transform: rotate(-58deg); }
+.ts-schraube[data-e="lu"]::after { transform: rotate(72deg); }
+.ts-schraube[data-e="ru"]::after { transform: rotate(8deg); }
+
+/* nur für screenreader · die tiefe gravur ist ein optisches
+   versteck, kein inhaltliches. wer sie nicht sehen kann, soll
+   den satz trotzdem bekommen */
+.lab-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── gravur ──────────────────────────────────────────────── */
+
+.ts-inhalt {
+  position: relative;
+  z-index: 2;
+  /* der text liegt eine spur über der fläche · beim kippen
+     entsteht dadurch echte parallaxe statt eines aufdrucks */
+  transform: translateZ(14px);
+}
+
+.ts-kopf {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.ts-label,
+.ts-serie {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.ts-label { color: rgba(225, 253, 82, 0.7); }
+.ts-serie { color: rgba(242, 242, 242, 0.3); }
+
+/* der hauptsatz ist GEPRÄGT, nicht graviert: heller als die
+   fläche, mit dunkler kante oben und einem hauch licht unten.
+   graviert (dunkel in dunkel) sah zwar echter aus, war auf einer
+   ohnehin dunklen platte aber schlicht nicht mehr lesbar · und
+   der satz ist der grund, warum die sektion existiert. */
+.ts-satz {
+  max-width: 17ch;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-size: clamp(1.5rem, 3.2vw, 2.6rem);
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: #f2f2f2;
+  text-shadow:
+    0 -1px 0 rgba(0, 0, 0, 0.7),
+    0 1px 0 rgba(255, 255, 255, 0.09);
+}
+.ts-akzent {
+  color: #e1fd52;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6);
+}
+
+/* DAS hier ist die echte gravur · dunkel in dunkel, bei
+   senkrechter sicht unsichtbar und erst bei flachem streiflicht
+   lesbar. der unterschied zum geprägten satz darüber verkauft
+   beides: das eine liegt oben auf, das andere ist reingefräst.
+   der platz bleibt immer reserviert, sonst springt beim kippen
+   das ganze layout */
+.ts-tief {
+  max-width: 30ch;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: clamp(11.5px, 1.5vw, 13px);
+  line-height: 1.75;
+  letter-spacing: 0.04em;
+  color: rgba(0, 0, 0, 0.95);
+  /* die helle kante UNTER dem buchstaben ist das, was eine fräsung
+     lesbar macht · ohne sie ist es nur schwarz auf fast-schwarz */
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+  opacity: clamp(0, calc((var(--rake) - 0.24) * 2.4), 1);
+  transition: opacity 120ms linear;
+}
+
+/* auf breiten platten stehen satz und gravur nebeneinander · eine
+   80cm-platte mit text nur in der linken hälfte sieht aus wie ein
+   fehler, nicht wie ein objekt */
+.ts-koerper {
+  display: grid;
+  gap: clamp(22px, 3vw, 46px);
+  margin-top: clamp(24px, 3.4vw, 38px);
+}
+@media (min-width: 760px) {
+  .ts-koerper {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: start;
+  }
+}
+
+.ts-daten {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px clamp(24px, 4vw, 52px);
+  margin-top: clamp(24px, 3.4vw, 38px);
+  padding-top: clamp(20px, 2.6vw, 28px);
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.ts-datum {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.ts-datum-wert {
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1;
+  color: rgba(242, 242, 242, 0.88);
+}
+.ts-datum-key {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.34);
+}
+
+.ts-fuss {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 20px;
+  margin-top: clamp(28px, 3.6vw, 44px);
+}
+.ts-key {
+  width: auto;
+  padding: 13px 22px;
+}
+.ts-hinweis {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.3);
+  /* der hinweis pulst leise · ohne ihn kippt niemand die platte
+     und findet die zweite zeile nie */
+  animation: tsWink 3.8s ease-in-out infinite;
+}
+@keyframes tsWink {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.95; }
+}
+
+@media (hover: none) {
+  /* ohne zeiger gibt es kein kippen zur hand · dort trägt das
+     eigenleben allein, und die tiefe zeile steht offen da */
+  .ts-tief { opacity: 0.9; }
+  .ts-hinweis { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ts-platte { animation: none; }
+  .ts-hinweis { animation: none; opacity: 0.7; }
+  .ts-tief { opacity: 0.9; transition: none; }
+}

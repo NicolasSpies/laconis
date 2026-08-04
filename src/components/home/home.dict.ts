@@ -20,12 +20,17 @@ export type HomeDict = {
   facts: [string, string][];
   scroll: string;
 
-  werLabel: string;
-  werLead1: string;
-  werAccent: string;
-  werLead2: string;
-  werBody: string;
-  zahlen: [string, string][];
+  ts: {
+    label: string;
+    serie: string;
+    zeile1: string;
+    akzent: string;
+    zeile2: string;
+    tief: string;
+    daten: [string, string][];
+    key: string;
+    hinweis: string;
+  };
 
   refH2: string;
   refHint: string;
@@ -50,18 +55,21 @@ export const HOME: Record<Locale, HomeDict> = {
     ],
     scroll: "↓ scrollen",
 
-    werLabel: "· wer das hier baut",
-    werLead1: "Ich bin Nicolas. Du schreibst mir, ",
-    werAccent: "ich antworte",
-    werLead2: ". Nicht ein Ticket-System, nicht ein Projektmanager, nicht ein Praktikant.",
-    werBody:
-      "Ich nehme wenige Projekte gleichzeitig, damit deins nicht in einer Pipeline versauert. Dafür kennst du am Ende jede Entscheidung, die in deiner Seite steckt.",
-    zahlen: [
-      ["seit", "2019"],
-      ["im team", "1"],
-      ["sprachen", "3"],
-      ["kontakt", "1:1"],
-    ],
+    ts: {
+      label: "typenschild",
+      serie: "lac-01 · ostbelgien",
+      zeile1: "hier baut ",
+      akzent: "genau einer",
+      zeile2: ". von der ersten zeile bis live.",
+      tief: "Kein Ticket-System, kein Projektmanager, kein Praktikant. Du schreibst mir, ich antworte.",
+      daten: [
+        ["seit", "2019"],
+        ["im team", "1"],
+        ["kontakt", "1:1"],
+      ],
+      key: "mehr über mich",
+      hinweis: "kipp mich",
+    },
 
     refH2: "was schon läuft.",
     refHint: "Drei Kanäle, alle live · fahr drüber, dann geht der Pegel auf Vollausschlag.",
@@ -85,18 +93,21 @@ export const HOME: Record<Locale, HomeDict> = {
     ],
     scroll: "↓ défiler",
 
-    werLabel: "· qui construit ça",
-    werLead1: "Je suis Nicolas. Tu m'écris, ",
-    werAccent: "je réponds",
-    werLead2: ". Pas un système de tickets, pas un chef de projet, pas un stagiaire.",
-    werBody:
-      "Je prends peu de projets en même temps, pour que le tien ne moisisse pas dans un pipeline. En échange, tu connais à la fin chaque décision qui est dans ton site.",
-    zahlen: [
-      ["depuis", "2019"],
-      ["dans l'équipe", "1"],
-      ["langues", "3"],
-      ["contact", "1:1"],
-    ],
+    ts: {
+      label: "plaque signalétique",
+      serie: "lac-01 · cantons de l'est",
+      zeile1: "ici, c'est ",
+      akzent: "une seule personne",
+      zeile2: ". de la première ligne jusqu'au live.",
+      tief: "Pas de système de tickets, pas de chef de projet, pas de stagiaire. Tu m'écris, je réponds.",
+      daten: [
+        ["depuis", "2019"],
+        ["dans l'équipe", "1"],
+        ["contact", "1:1"],
+      ],
+      key: "en savoir plus sur moi",
+      hinweis: "incline-moi",
+    },
 
     refH2: "ce qui tourne déjà.",
     refHint: "Trois canaux, tous en ligne · passe dessus et le niveau part à fond.",
@@ -120,18 +131,21 @@ export const HOME: Record<Locale, HomeDict> = {
     ],
     scroll: "↓ scroll",
 
-    werLabel: "· who builds this",
-    werLead1: "I'm Nicolas. You write to me, ",
-    werAccent: "i answer",
-    werLead2: ". Not a ticket system, not a project manager, not an intern.",
-    werBody:
-      "I take on few projects at a time so yours doesn't rot in a pipeline. In return you know every decision that went into your site by the end.",
-    zahlen: [
-      ["since", "2019"],
-      ["in the team", "1"],
-      ["languages", "3"],
-      ["contact", "1:1"],
-    ],
+    ts: {
+      label: "nameplate",
+      serie: "lac-01 · east belgium",
+      zeile1: "",
+      akzent: "exactly one person",
+      zeile2: " builds this. from the first line to live.",
+      tief: "No ticket system, no project manager, no intern. You write to me, I answer.",
+      daten: [
+        ["since", "2019"],
+        ["on the team", "1"],
+        ["contact", "1:1"],
+      ],
+      key: "more about me",
+      hinweis: "tilt me",
+    },
 
     refH2: "what's already running.",
     refHint: "Three channels, all live · hover them and the level goes full scale.",

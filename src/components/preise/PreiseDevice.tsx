@@ -5,6 +5,7 @@ import { DeviceNav } from "@/components/device/DeviceNav";
 import { HeroRail } from "@/components/device/HeroRail";
 import { HeroAtmo } from "@/components/device/HeroAtmo";
 import { PriceCaliper } from "@/components/preise/PriceCaliper";
+import { Zaehler } from "@/components/preise/Zaehler";
 import { PREISE } from "@/components/preise/preise.dict";
 import { useLocale } from "@/i18n/useLocale";
 import { buildPath } from "@/i18n/config";
@@ -38,7 +39,7 @@ export function PreiseDevice() {
       {/* ═══ DER MESSSCHIEBER ═══ */}
       <section
         data-no-reveal
-        className="relative isolate flex min-h-[100svh] flex-col justify-center px-6 pb-24 pt-28 md:px-12"
+        className="relative isolate flex min-h-[100svh] flex-col justify-center px-6 pb-20 pt-28 md:px-12"
       >
         <HeroAtmo variant="korridor" />
 
@@ -46,7 +47,7 @@ export function PreiseDevice() {
 
           <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
             <h1
-              className="lab-display lab-boot text-[clamp(2.6rem,8vw,7rem)]"
+              className="lab-display lab-boot text-[clamp(2.4rem,6.4vw,5.4rem)]"
               style={{ animationDelay: "180ms" }}
             >
               {t.h1a}
@@ -61,7 +62,7 @@ export function PreiseDevice() {
             </p>
           </div>
 
-          <div className="lab-boot mt-12" style={{ animationDelay: "420ms" }}>
+          <div className="lab-boot mt-10" style={{ animationDelay: "420ms" }}>
             <PriceCaliper t={t.caliper} />
           </div>
         </div>
@@ -102,6 +103,18 @@ export function PreiseDevice() {
               <p className="mt-6 max-w-[380px] text-[14px] leading-relaxed text-[rgba(242,242,242,0.55)]">
                 {t.laufendLead}
               </p>
+
+              {/* das zählwerk trägt die aussage, die zeilen rechts
+                  sagen, woraus der stand besteht */}
+              <div className="mt-9">
+                <Zaehler
+                  label={t.zaehlerLabel}
+                  von={t.zaehlerVon}
+                  bis={t.zaehlerBis}
+                  bisLabel={t.zaehlerBisLabel}
+                  einheit={t.zaehlerEinheit}
+                />
+              </div>
             </div>
             <div>
               {t.laufend.map(([k, v]) => (

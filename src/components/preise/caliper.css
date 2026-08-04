@@ -1,159 +1,177 @@
 /**
- * caliper.css · der messschieber auf /preise.
+ * caliper.css · das messinstrument auf /preise.
  *
  * die seite verweigert fixpreise · also darf das instrument auch keinen
- * einzelwert ausgeben. es misst einen KORRIDOR: zwei backen auf einer
- * gravierten schiene, dazwischen der lime-balken. je mehr du einstellst,
- * desto enger wird er. eine zahl kommt nie raus, und genau das ist die
- * aussage.
+ * einzelwert ausgeben. es misst einen KORRIDOR, und je nach einstellung
+ * wandert und dehnt er sich. eine zahl kommt nie raus, und genau das
+ * ist die aussage.
  *
- * baut auf lab.css auf. prefix .pr-.
+ * lag bis august 2026 quer: eine sehr breite schiene von 0 bis 8000, in
+ * der der eigentliche korridor knapp ein sechstel einnahm · der rest
+ * war leere skala in einem leeren kasten. jetzt steht es hochkant, die
+ * regler stehen als schmale spalte daneben, und die beiden ablesungen
+ * hängen an den enden des korridors statt darüber.
+ *
+ * baut auf device.css auf. prefix .pr-.
  */
 
-.pr-beam {
+.pr-box {
+  display: grid;
+  gap: clamp(28px, 3.4vw, 46px);
+}
+@media (min-width: 820px) {
+  .pr-box {
+    /* die säule bekommt die schmalere spalte · sie braucht höhe,
+       nicht breite, und die regler brauchen lesbare button-labels */
+    grid-template-columns: minmax(0, 1fr) minmax(250px, 0.6fr);
+    align-items: stretch;
+  }
+}
+
+/* ── die regler ─────────────────────────────────────── */
+
+.pr-regler {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 2vw, 24px);
+}
+.pr-regler-zeile {
+  display: block;
+  /* die schalter über die volle chassis-breite laufen zu lassen
+     macht aus drei reglern drei leere balken · sie brauchen nur so
+     viel platz, wie ihre beschriftung braucht */
+  max-width: 470px;
+}
+.pr-note {
+  margin-top: auto;
+  padding-top: 6px;
+  max-width: 42ch;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+/* ── die säule ──────────────────────────────────────── */
+
+.pr-saeule {
   position: relative;
-  height: clamp(84px, 12vw, 116px);
-  border-radius: 8px;
-  /* gefräste schiene · oben lichtkante, unten im schatten */
-  background: linear-gradient(180deg, #202027 0%, #16161c 46%, #0d0d11 100%);
-  overflow: hidden; /* am endanschlag ragt die backe sonst über die schiene */
-  box-shadow:
-    inset 0 1px 0 rgba(242, 242, 242, 0.16),
-    inset 0 -2px 6px rgba(0, 0, 0, 0.8),
-    0 10px 26px -12px rgba(0, 0, 0, 0.9);
-  touch-action: pan-y;
+  display: flex;
+  gap: 12px;
+  min-height: clamp(250px, 28vw, 310px);
   user-select: none;
   -webkit-user-select: none;
 }
 
-/* die gravur · lange striche bei jedem tausender, kurze dazwischen */
-.pr-tick {
+/* die skala steht AUSSERHALB der nut · in der nut wurde sie vom
+   overflow beschnitten und lief ausserdem durch den lime-körper */
+.pr-skala {
+  position: relative;
+  width: 26px;
+  flex: none;
+}
+.pr-skala span {
   position: absolute;
-  top: 0;
-  width: 1px;
-  background: rgba(242, 242, 242, 0.24);
-  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.7);
-}
-.pr-tick[data-major="1"] {
-  height: 22px;
-  background: rgba(242, 242, 242, 0.42);
-}
-.pr-tick[data-major="0"] {
-  height: 11px;
-}
-
-.pr-tick-label {
-  position: absolute;
-  top: 26px;
-  transform: translateX(-50%);
+  right: 0;
+  transform: translateY(50%);
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 9.5px;
   letter-spacing: 0.1em;
   color: rgba(242, 242, 242, 0.38);
-  white-space: nowrap;
 }
 
-/* der gemessene korridor */
-.pr-corridor {
-  position: absolute;
-  bottom: 15px;
-  height: 10px;
-  border-radius: 5px;
-  background: linear-gradient(90deg, rgba(225, 253, 82, 0.55), #e1fd52);
-  box-shadow: 0 0 20px rgba(225, 253, 82, 0.4);
-  transition:
-    left 560ms cubic-bezier(0.22, 1, 0.36, 1),
-    width 560ms cubic-bezier(0.22, 1, 0.36, 1);
+.pr-schiene {
+  position: relative;
+  width: clamp(40px, 5vw, 52px);
+  flex: none;
+  border-radius: 8px;
+  /* gefräste nut · links lichtkante, rechts im schatten */
+  background: linear-gradient(90deg, #202027 0%, #16161c 46%, #0d0d11 100%);
   overflow: hidden;
+  box-shadow:
+    inset 1px 0 0 rgba(242, 242, 242, 0.16),
+    inset -2px 0 6px rgba(0, 0, 0, 0.8),
+    0 10px 26px -12px rgba(0, 0, 0, 0.9);
 }
 
-/* der messglanz wandert dauerhaft durch den balken · das instrument
+/* die gravur · lange striche bei jedem zweitausender, kurze dazwischen */
+.pr-tick {
+  position: absolute;
+  left: 0;
+  height: 1px;
+  background: rgba(242, 242, 242, 0.24);
+  box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.7);
+}
+.pr-tick[data-major="1"] {
+  width: 15px;
+  background: rgba(242, 242, 242, 0.42);
+}
+.pr-tick[data-major="0"] {
+  width: 8px;
+}
+
+/* alles UNTER dem korridor · ohne diese füllung stünde der körper
+   bei kleinen projekten in einer zu drei vierteln leeren säule und
+   die skala wäre nur noch dekoration. so wird die höhe selbst zur
+   aussage: wie weit reicht dein projekt hoch. */
+.pr-pegel {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: clamp(20px, 2.6vw, 26px);
+  margin-left: calc(clamp(20px, 2.6vw, 26px) / -2);
+  border-radius: 13px 13px 0 0;
+  background: linear-gradient(
+    180deg,
+    rgba(225, 253, 82, 0.16),
+    rgba(225, 253, 82, 0.05)
+  );
+  box-shadow: inset 0 0 0 1px rgba(225, 253, 82, 0.12);
+  transition: height 560ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* der gemessene korridor · ein körper in der nut, kein strich */
+.pr-korridor {
+  position: absolute;
+  left: 50%;
+  width: clamp(20px, 2.6vw, 26px);
+  margin-left: calc(clamp(20px, 2.6vw, 26px) / -2);
+  border-radius: 13px;
+  background: linear-gradient(180deg, #e1fd52, rgba(225, 253, 82, 0.55));
+  box-shadow:
+    0 0 22px rgba(225, 253, 82, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+  overflow: hidden;
+  transition:
+    bottom 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 560ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* der messglanz wandert dauerhaft durch den körper · das instrument
    steht nie still, auch ohne dass jemand etwas anfasst */
-.pr-corridor::after {
+.pr-korridor::after {
   content: "";
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 42%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-  animation: prSweep 3200ms cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  left: 0;
+  right: 0;
+  height: 42%;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  animation: prSweep 3400ms cubic-bezier(0.5, 0, 0.5, 1) infinite;
 }
 @keyframes prSweep {
   from {
-    transform: translateX(-120%);
+    transform: translateY(340%);
   }
   to {
-    transform: translateX(340%);
+    transform: translateY(-120%);
   }
-}
-
-/* ── die backen ─────────────────────────────────────── */
-
-.pr-jaw {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 0;
-  transition: left 560ms cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
-}
-
-/* die messkante · dünn, scharf, lime */
-.pr-jaw-blade {
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  width: 2px;
-  margin-left: -1px;
-  border-radius: 1px;
-  background: #e1fd52;
-  box-shadow: 0 0 12px rgba(225, 253, 82, 0.8);
-}
-
-/* der schieber-körper · sitzt auf der schiene, erhaben */
-.pr-jaw-body {
-  position: absolute;
-  top: 50%;
-  width: clamp(26px, 3.4vw, 38px);
-  height: clamp(30px, 4vw, 42px);
-  margin-top: calc(clamp(30px, 4vw, 42px) / -2);
-  border-radius: 5px;
-  background: linear-gradient(180deg, #3b3b45, #1a1a20 62%, #111116);
-  box-shadow:
-    inset 0 1px 0 rgba(242, 242, 242, 0.34),
-    inset 0 -4px 8px rgba(0, 0, 0, 0.6),
-    0 4px 10px -2px rgba(0, 0, 0, 0.85),
-    0 0 0 1px rgba(0, 0, 0, 0.7);
-}
-.pr-jaw[data-side="min"] .pr-jaw-body {
-  right: 2px;
-}
-.pr-jaw[data-side="max"] .pr-jaw-body {
-  left: 2px;
-}
-
-/* der nonius · die feinskala auf dem schieber. rein handwerk, aber
-   ohne sie ist es kein messschieber, sondern ein regler. */
-.pr-vernier {
-  position: absolute;
-  left: 4px;
-  right: 4px;
-  bottom: 5px;
-  height: 7px;
-  background-image: repeating-linear-gradient(
-    90deg,
-    rgba(242, 242, 242, 0.42) 0 1px,
-    transparent 1px 4px
-  );
 }
 
 /* endanschlag · alles über der skala läuft hier auf */
 .pr-endstop {
   position: absolute;
-  top: 3px;
-  bottom: 3px;
+  left: 3px;
   right: 3px;
-  width: 5px;
+  top: 3px;
+  height: 5px;
   border-radius: 3px;
   background: repeating-linear-gradient(
     45deg,
@@ -162,26 +180,51 @@
   );
 }
 
-/* ── ablesung ───────────────────────────────────────── */
+/* ── die ablesungen ─────────────────────────────────── */
 
-.pr-value {
+.pr-tafeln {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.pr-tafel {
+  position: absolute;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transform: translateY(50%);
+  transition: bottom 560ms cubic-bezier(0.22, 1, 0.36, 1);
+  white-space: nowrap;
+}
+
+.pr-tafel-key {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.4);
+}
+.pr-tafel-wert {
   font-family: var(--font-lab), system-ui, sans-serif;
   font-stretch: 118%;
   font-weight: 800;
-  font-size: clamp(2rem, 6vw, 4.2rem);
-  line-height: 0.94;
+  font-size: clamp(1.5rem, 3.4vw, 2.3rem);
+  line-height: 1;
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
   color: #f2f2f2;
 }
-/* der trenner läuft in der mono-schrift · der archivo-subset hat kein
-   U+00B7 und rendert dort ein leeres kästchen */
-.pr-value-sep {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.5em;
-  vertical-align: 0.28em;
-  color: rgba(242, 242, 242, 0.42);
-  margin: 0 0.24em;
+.pr-tafel-wert i {
+  font-style: normal;
+  margin-left: 0.14em;
+  color: #e1fd52;
+}
+/* der obere wert ist die spanne nach oben · leiser gesetzt, sonst
+   liest man ihn zuerst und die seite wirkt teurer als sie ist */
+.pr-tafel[data-end="hi"] .pr-tafel-wert {
+  color: rgba(242, 242, 242, 0.72);
 }
 
 /* ── laufende kosten · kleine ablesung ──────────────── */
@@ -205,12 +248,126 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pr-corridor,
-  .pr-jaw {
+  .pr-korridor,
+  .pr-tafel {
     transition: none;
   }
-  .pr-corridor::after {
+  .pr-korridor::after {
     animation: none;
     opacity: 0;
+  }
+}
+
+/* ── zählwerk · was nach dem launch weiterläuft ──────── */
+
+.zr {
+  display: inline-block;
+}
+
+.zr-werk {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1.6vw, 18px);
+  margin-top: 14px;
+  padding: clamp(12px, 1.6vw, 18px) clamp(14px, 2vw, 22px);
+  border-radius: 10px;
+  /* das gehäuse · gefräste mulde, in der die walzen sitzen */
+  background: linear-gradient(180deg, #141419, #0d0d11);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.9),
+    inset 0 -1px 0 rgba(242, 242, 242, 0.08),
+    0 1px 0 rgba(242, 242, 242, 0.06);
+  /* die zeitachse hängt HIER und nicht an der walze: das walzen-
+     fenster hat overflow:hidden und ist damit ein eigener scroll-
+     container · ein view() an der walze hätte den fortschritt
+     gegen dieses fenster gemessen statt gegen die seite und wäre
+     zwischen zwei ziffern stehengeblieben */
+}
+
+.zr-zahl {
+  display: flex;
+  gap: 3px;
+}
+
+/* das fenster, durch das man genau EINE ziffer sieht */
+.zr-walze {
+  --h: clamp(38px, 5.2vw, 54px);
+  position: relative;
+  display: block;
+  width: calc(var(--h) * 0.66);
+  height: var(--h);
+  overflow: hidden;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #2a2a33, #1b1b21 52%, #24242c);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.8),
+    inset 0 6px 8px -6px rgba(0, 0, 0, 0.95),
+    inset 0 -6px 8px -6px rgba(0, 0, 0, 0.95);
+}
+
+.zr-band {
+  display: block;
+  /* zwanzig zellen · jede fünf prozent des bandes */
+  height: 2000%;
+  transform: translateY(calc(var(--d) * -5%));
+}
+.zr-band span {
+  display: grid;
+  place-items: center;
+  height: 5%;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: calc(var(--h) * 0.62);
+  line-height: 1;
+  color: #f2f2f2;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.7);
+}
+
+/* die umdrehung läuft EINMAL, wenn das zählwerk ins bild kommt ·
+   ausgelöst von einem IntersectionObserver, der sich danach
+   sofort wieder abhängt. kein dauerlauf, kein frame-budget.
+
+   warum nicht animation-timeline: view(), wie bei den trennlinien?
+   weil das walzenfenster overflow:hidden hat und damit sein
+   eigener scroll-container ist · ein view() am band misst dann
+   gegen dieses fenster statt gegen die seite und bleibt stumm auf
+   halber ziffer stehen. das lässt sich zwar über eine benannte
+   zeitachse am gehäuse umgehen, aber dann hängt die mechanik an
+   einer eigenschaft, die zwei ebenen weiter oben steht und beim
+   nächsten umbau still kaputtgeht. der beobachter ist an genau
+   einer stelle sichtbar und läuft genau einmal. */
+.zr[data-lauf="1"] .zr-band {
+  animation: zrDreh 1150ms cubic-bezier(0.16, 0.84, 0.3, 1) both;
+  /* jede walze kommt eine spur später zur ruhe · gleichzeitig
+     einrastende walzen sehen nach grafik aus, nacheinander nach
+     mechanik */
+  animation-delay: calc(var(--v) * 90ms);
+}
+@keyframes zrDreh {
+  from {
+    /* eine ganze umdrehung weiter unten starten */
+    transform: translateY(calc((var(--d) + 10) * -5%));
+  }
+  to {
+    transform: translateY(calc(var(--d) * -5%));
+  }
+}
+
+.zr-bis,
+.zr-einheit {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.42);
+}
+.zr-einheit {
+  color: #e1fd52;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zr[data-lauf="1"] .zr-band {
+    animation: none;
   }
 }
