@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 /**
  * Tageslauf · das gebaute feature zum anfassen.
@@ -142,9 +143,22 @@ export function Tageslauf({ t }: { t: TageslaufT }) {
     <div>
       {/* ── die szene ── */}
       <div className="tl-scene">
+        {/* next/image statt <img> · roh waren das 1,7 MB auf einer seite,
+            die mit 0,4 sekunden wirbt. nur das erste motiv hat priority,
+            der rest lädt faul nach. */}
         {SHOTS.map((src, i) => (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img key={src} src={src} alt="" className="tl-shot" data-on={i === shot ? "1" : "0"} />
+          <Image
+            key={src}
+            src={src}
+            alt=""
+            fill
+            sizes="(max-width: 1200px) 100vw, 1200px"
+            quality={72}
+            priority={i === 0}
+            loading={i === 0 ? undefined : "lazy"}
+            className="tl-shot"
+            data-on={i === shot ? "1" : "0"}
+          />
         ))}
         <span className="tl-grade" style={{ background: l.grade }} aria-hidden />
         <span className="tl-glow" style={{ background: l.glow }} aria-hidden />

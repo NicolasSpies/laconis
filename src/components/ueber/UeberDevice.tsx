@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { LabNav } from "@/components/lab/LabNav";
+import { DeviceNav } from "@/components/device/DeviceNav";
 import { PresetKeys } from "@/components/ueber/PresetKeys";
 import { UEBER } from "@/components/ueber/ueber.dict";
 import { useLocale } from "@/i18n/useLocale";
 import { buildPath } from "@/i18n/config";
-import "@/components/lab/lab.css";
+import "@/components/device/device.css";
 import "@/components/ueber/ueber.css";
 
 /**
@@ -50,7 +50,7 @@ export function UeberDevice() {
         <span />
       </div>
 
-      <LabNav />
+      <DeviceNav />
 
       {/* ═══ HERO · ruhig, das portrait trägt ═══ */}
       <section

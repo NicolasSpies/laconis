@@ -1,18 +1,19 @@
-/* ═══════════════════════════════════════════════════════════════
-   LAB · material-system der geräte-richtung (prototyp)
-
-   isoliert in dieser datei · wird NUR von /lab importiert. wenn die
-   richtung nicht sitzt: route + diese datei löschen, rest unberührt.
-
-   drei materialien:
-     chassis · das dunkle gehäuse (grundfläche)
-     glass   · liquid-glass-panel (refraktion + specular, folgt cursor)
-     metal   · erhabene bedienteile (caps, wippen)
-
-   physik-regel für alle oberflächen:
-     VERTIEFT  = inset-schatten oben dunkel + unten heller lichtsaum
-     ERHABEN   = außenschatten unten + 1px lichtkante oben
-   ═══════════════════════════════════════════════════════════════ */
+/**
+ * device.css · das design-system der ganzen seite.
+ *
+ * hiess bis august 2026 lab.css und lag unter components/lab/ · das war
+ * der name der bastelbude, aus der es entstanden ist. inzwischen hängt
+ * jede seite daran, also heisst es jetzt auch so.
+ *
+ * die klassen behalten den prefix `lab-`. den mitzuziehen wären ~1.300
+ * css-zeilen und 15 komponenten für null sichtbaren nutzen · die
+ * verwechslungsgefahr sass im ordnernamen, nicht im prefix.
+ *
+ * die physik-regeln, die hier überall gelten:
+ *   versenkt = inset-schatten oben dunkel + lichtkante unten
+ *   erhaben  = aussenschatten unten + 1px lichtkante oben
+ *   lime nur auf dunklen flächen, nie abgewandelt
+ */
 
 .lab-root {
   --lime: #e1fd52;

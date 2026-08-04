@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { LabNav } from "@/components/lab/LabNav";
+import { DeviceNav } from "@/components/device/DeviceNav";
 import { KontaktKonsole } from "@/components/kontakt/KontaktKonsole";
 import { KONTAKT } from "@/components/kontakt/kontakt.dict";
 import { CONTACT } from "@/config/contact";
 import { useLocale } from "@/i18n/useLocale";
-import "@/components/lab/lab.css";
+import "@/components/device/device.css";
 import "@/components/kontakt/konsole.css";
 
 /**
@@ -39,7 +39,7 @@ export function KontaktDevice() {
         <span />
       </div>
 
-      <LabNav />
+      <DeviceNav />
 
       {/* ═══ HERO + DIREKTWEGE · ruhig ═══ */}
       <section data-no-reveal className="relative px-6 pb-16 pt-36 md:px-12 md:pt-44">

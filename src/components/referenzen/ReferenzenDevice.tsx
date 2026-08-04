@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { LabNav } from "@/components/lab/LabNav";
+import { DeviceNav } from "@/components/device/DeviceNav";
 import { SplitFlapBoard, type BoardRow } from "@/components/referenzen/SplitFlapBoard";
 import { REFERENZEN } from "@/components/referenzen/referenzen.dict";
 import { referenzen } from "@/data/referenzen";
 import { useLocale } from "@/i18n/useLocale";
 import { buildPath } from "@/i18n/config";
-import "@/components/lab/lab.css";
+import "@/components/device/device.css";
 import "@/components/referenzen/splitflap.css";
 
 /**
@@ -54,7 +54,7 @@ export function ReferenzenDevice() {
         <span />
       </div>
 
-      <LabNav />
+      <DeviceNav />
 
       {/* ═══ DIE TAFEL ═══ */}
       <section

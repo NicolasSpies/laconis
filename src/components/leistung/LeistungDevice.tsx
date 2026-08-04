@@ -2,14 +2,14 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { LabNav } from "@/components/lab/LabNav";
+import { DeviceNav } from "@/components/device/DeviceNav";
 import { LensHero } from "@/components/leistung/LensHero";
 import { BallastDial } from "@/components/leistung/BallastDial";
 import { LiveEditor } from "@/components/leistung/LiveEditor";
 import { LEISTUNG } from "@/components/leistung/leistung.dict";
 import { useLocale } from "@/i18n/useLocale";
 import { buildPath } from "@/i18n/config";
-import "@/components/lab/lab.css";
+import "@/components/device/device.css";
 import "@/components/leistung/lens.css";
 import "@/components/leistung/panel.css";
 
@@ -47,7 +47,7 @@ export function LeistungDevice() {
         <span />
       </div>
 
-      <LabNav />
+      <DeviceNav />
 
       {/* ═══ 1 · DIE LUPE ═══ */}
       <LensHero t={t.hero} />

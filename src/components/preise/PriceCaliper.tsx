@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { RockerSwitch } from "@/components/lab/Controls";
+import { RockerSwitch } from "@/components/device/Controls";
 
 /**
  * PriceCaliper · der messschieber.

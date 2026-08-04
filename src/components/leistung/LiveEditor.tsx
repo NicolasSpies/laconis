@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { RockerSwitch } from "@/components/lab/Controls";
+import { RockerSwitch } from "@/components/device/Controls";
 
 /**
  * LiveEditor · das cms, aber zum anfassen.

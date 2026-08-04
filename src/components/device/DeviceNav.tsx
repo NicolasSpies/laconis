@@ -8,7 +8,7 @@ import { useLocale } from "@/i18n/useLocale";
 import { buildPath, type Locale } from "@/i18n/config";
 
 /**
- * LabNav v3 · leise leiste, das ganze drama im menü. Jetzt mit echten
+ * DeviceNav v3 · leise leiste, das ganze drama im menü. Jetzt mit echten
  * links (v2 waren buttons ohne ziel · man kam nirgends hin).
  *
  * die geräte-sprache bleibt draussen: logo, burger, haarlinie mit
@@ -59,7 +59,7 @@ const ITEMS: Item[] = [
   },
 ];
 
-export function LabNav() {
+export function DeviceNav() {
   const [open, setOpen] = useState(false);
   const locale = useLocale();
   const pathname = usePathname() || "/";

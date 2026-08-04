@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import { ShaderField } from "@/components/lab/ShaderField";
-import { LabNav } from "@/components/lab/LabNav";
-import { SignalChain } from "@/components/lab/SignalChain";
-import { ChannelRack } from "@/components/lab/ChannelRack";
-import { SendButton } from "@/components/lab/SendButton";
-import "@/components/lab/lab.css";
+import { HOME } from "@/components/home/home.dict";
+import { useLocale } from "@/i18n/useLocale";
+import { ShaderField } from "@/components/device/ShaderField";
+import { DeviceNav } from "@/components/device/DeviceNav";
+import { SignalChain } from "@/components/device/SignalChain";
+import { ChannelRack } from "@/components/device/ChannelRack";
+import { SendButton } from "@/components/device/SendButton";
+import "@/components/device/device.css";
 
 /**
  * HomeDevice · die echte startseite in der geräte-richtung.
@@ -20,22 +22,12 @@ import "@/components/lab/lab.css";
  *
  * dosierung: hero und "wer das baut" sind RUHIG (nur typo + licht),
  * die geräte-momente sind kette, kanalzüge und sendeknopf.
- *
- * hinweis: die bausteine liegen noch unter components/lab/ — das ist
- * inzwischen das design-system, nicht mehr prototyp. umbenennen beim
- * aufräumen, wenn alle seiten umgestellt sind.
  */
 
-/* zahlen statt sätze · als grosse ziffern gesetzt ist das ein
-   anderes register als der wort-hero */
-const FACTS: [string, string][] = [
-  ["seit", "2019"],
-  ["im team", "1"],
-  ["sprachen", "3"],
-  ["kontakt", "1:1"],
-];
-
 export function HomeDevice() {
+  const locale = useLocale();
+  const t = HOME[locale];
+
   /* alte nav/footer auf dieser seite stilllegen · die geräte-nav
      übernimmt (root-layout rendert beide global) */
   useEffect(() => {
@@ -52,7 +44,7 @@ export function HomeDevice() {
         <span />
       </div>
 
-      <LabNav />
+      <DeviceNav />
 
       {/* ═══ HERO ═══ */}
       <section
@@ -75,38 +67,33 @@ export function HomeDevice() {
               className="w-1.5 h-1.5 rounded-full lab-led-idle"
               style={{ background: "#e1fd52", boxShadow: "0 0 10px #e1fd52" }}
             />
-            <span className="lab-label">webdesign studio · ostbelgien</span>
+            <span className="lab-label">{t.kicker}</span>
           </div>
 
           <h1
             className="lab-display lab-boot text-[clamp(3rem,11vw,10rem)]"
             style={{ animationDelay: "180ms" }}
           >
-            websites,
+            {t.h1a}
             <br />
-            die man
+            {t.h1b}
             <br />
-            <span style={{ color: "#e1fd52" }}>anfassen</span> will.
+            <span style={{ color: "#e1fd52" }}>{t.h1accent}</span>
+            {t.h1c}
           </h1>
 
           <p
             className="lab-boot mt-10 max-w-[460px] text-[15px] leading-relaxed"
             style={{ animationDelay: "320ms", color: "rgba(242,242,242,0.62)" }}
           >
-            Von null gebaut · kein Template, keine WordPress-Grenzen. Das hier
-            läuft auf einem Shader, nicht auf einem Plugin.
+            {t.sub}
           </p>
 
           <div
             className="lab-boot mt-12 flex flex-wrap gap-x-10 gap-y-4"
             style={{ animationDelay: "440ms" }}
           >
-            {[
-              ["pagespeed", "95+"],
-              ["ladezeit", "0.4s"],
-              ["cms", "eigenbau"],
-              ["3rd-party js", "0 kb"],
-            ].map(([k, v]) => (
+            {t.facts.map(([k, v]) => (
               <div key={k}>
                 <div className="lab-label">{k}</div>
                 <div
@@ -125,7 +112,7 @@ export function HomeDevice() {
           className="absolute bottom-8 left-1/2 -translate-x-1/2 lab-label lab-boot"
           style={{ animationDelay: "700ms" }}
         >
-          ↓ scrollen
+          {t.scroll}
         </div>
       </section>
 
@@ -134,25 +121,23 @@ export function HomeDevice() {
           hier steht ein OBJEKT: das geschraubte typenschild. */}
       <section data-no-reveal className="relative px-6 md:px-12 py-32 md:py-44">
         <div className="max-w-[1200px] mx-auto">
-          <span className="lab-label">· wer das hier baut</span>
+          <span className="lab-label">{t.werLabel}</span>
 
           {/* prosa führt · kein zweiter typo-knall, aber grösser als
               fliesstext gesetzt, damit die sektion trägt */}
           <p className="mt-8 max-w-[720px] text-[clamp(1.15rem,2.2vw,1.65rem)] leading-[1.5] text-[rgba(242,242,242,0.9)]">
-            Ich bin Nicolas. Du schreibst mir,{" "}
-            <span style={{ color: "#e1fd52" }}>ich antworte</span>. Nicht ein
-            Ticket-System, nicht ein Projektmanager, nicht ein Praktikant.
+            {t.werLead1}
+            <span style={{ color: "#e1fd52" }}>{t.werAccent}</span>
+            {t.werLead2}
           </p>
           <p className="mt-6 max-w-[620px] text-[15px] leading-relaxed text-[rgba(242,242,242,0.5)]">
-            Ich nehme wenige Projekte gleichzeitig, damit deins nicht in einer
-            Pipeline versauert. Dafür kennst du am Ende jede Entscheidung, die
-            in deiner Seite steckt.
+            {t.werBody}
           </p>
 
           {/* datenstreifen · zahlen statt worte = anderes register als
               der hero, ohne zweite grosse überschrift */}
           <div className="dv-stats">
-            {FACTS.map(([k, v], i) => (
+            {t.zahlen.map(([k, v], i) => (
               <div key={k} className="dv-stat">
                 <div
                   className="dv-display dv-stat-value"
@@ -174,12 +159,9 @@ export function HomeDevice() {
       <section data-no-reveal className="relative px-6 md:px-12 py-32">
         <div className="max-w-[1200px] mx-auto">
           <div className="mb-10 flex items-end justify-between flex-wrap gap-4">
-            <h2 className="lab-display text-[clamp(2rem,5vw,3.6rem)]">
-              was schon läuft.
-            </h2>
+            <h2 className="lab-display text-[clamp(2rem,5vw,3.6rem)]">{t.refH2}</h2>
             <span className="lab-hint max-w-[300px]">
-              Drei Kanäle, alle live · fahr drüber, dann geht der Pegel auf
-              Vollausschlag.
+              {t.refHint}
             </span>
           </div>
           <ChannelRack />
@@ -197,11 +179,10 @@ export function HomeDevice() {
 
             <div className="max-w-[460px]">
               <h2 className="lab-display text-[clamp(1.9rem,4.2vw,3rem)]">
-                erzähl mir, was du vorhast.
+                {t.sendH2}
               </h2>
               <p className="lab-hint mt-4 text-[13.5px] leading-relaxed">
-                30 Minuten, kein Pitch-Deck, kostet nichts · danach weißt du,
-                ob wir zusammenpassen.
+                {t.sendBody}
               </p>
             </div>
 

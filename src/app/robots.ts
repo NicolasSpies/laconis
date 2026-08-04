@@ -18,7 +18,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/"],
+        /* /lab und /preview sind interne spielwiesen · sie haben zwar
+           noindex im meta-tag, aber ein zweiter riegel kostet nichts */
+        disallow: ["/api/", "/_next/", "/lab", "/preview"],
       },
     ],
     sitemap: `${BASE}/sitemap.xml`,

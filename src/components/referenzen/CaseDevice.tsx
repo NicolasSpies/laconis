@@ -2,14 +2,14 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { LabNav } from "@/components/lab/LabNav";
+import { DeviceNav } from "@/components/device/DeviceNav";
 import { Tageslauf } from "@/components/referenzen/Tageslauf";
 import { CASE } from "@/components/referenzen/case.dict";
 import { REFERENZEN } from "@/components/referenzen/referenzen.dict";
 import { referenzen } from "@/data/referenzen";
 import { useLocale } from "@/i18n/useLocale";
 import { buildPath } from "@/i18n/config";
-import "@/components/lab/lab.css";
+import "@/components/device/device.css";
 import "@/components/referenzen/tageslauf.css";
 
 /**
@@ -51,7 +51,7 @@ export function CaseDevice({ slug }: { slug: string }) {
         <span />
       </div>
 
-      <LabNav />
+      <DeviceNav />
 
       {/* ═══ KOPF ═══ */}
       <section data-no-reveal className="relative px-6 pb-12 pt-36 md:px-12 md:pt-44">
