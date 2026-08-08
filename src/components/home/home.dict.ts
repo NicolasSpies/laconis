@@ -30,6 +30,7 @@ export type HomeDict = {
 
   refH2: string;
   refHint: string;
+  refLink: string;
 
   sendH2: string;
   sendBody: string;
@@ -66,8 +67,9 @@ export const HOME: Record<Locale, HomeDict> = {
         " · mein eigenes CMS. Mehrsprachigkeit, Übersetzung, Bilder, Formulare, Shop und Analytics sind eingebaut, nicht zugekauft. Ein Anbieter statt zehn.",
     },
 
-    refH2: "was schon läuft.",
-    refHint: "Drei Kanäle, alle live · fahr drüber, dann geht der Pegel auf Vollausschlag.",
+    refH2: "drei projekte.",
+    refHint: "Fahr über eine Schicht, dann hebt sie sich raus. Klick führt rein.",
+    refLink: "alle referenzen",
 
     sendH2: "erzähl mir, was du vorhast.",
     sendBody: "30 Minuten, kein Pitch-Deck, kostet nichts · danach weisst du, ob wir zusammenpassen.",
@@ -103,8 +105,9 @@ export const HOME: Record<Locale, HomeDict> = {
         " · mon propre CMS. Multilingue, traduction, images, formulaires, boutique et analytics sont intégrés, pas achetés. Un fournisseur au lieu de dix.",
     },
 
-    refH2: "ce qui tourne déjà.",
-    refHint: "Trois canaux, tous en ligne · passe dessus et le niveau part à fond.",
+    refH2: "trois projets.",
+    refHint: "Survole une couche, elle se soulève. Un clic et tu es dedans.",
+    refLink: "toutes les références",
 
     sendH2: "raconte-moi ce que tu prépares.",
     sendBody: "30 minutes, pas de pitch deck, ça ne coûte rien · ensuite tu sais si on colle.",
@@ -141,7 +144,8 @@ export const HOME: Record<Locale, HomeDict> = {
     },
 
     refH2: "what's already running.",
-    refHint: "Three channels, all live · hover them and the level goes full scale.",
+    refHint: "Hover a layer and it lifts out. A click takes you in.",
+    refLink: "all work",
 
     sendH2: "tell me what you're planning.",
     sendBody: "30 minutes, no pitch deck, costs nothing · after that you know whether we fit.",

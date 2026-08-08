@@ -49,10 +49,13 @@ export function Stapel({
   projekte,
   locale,
   t,
+  klasse = "",
 }: {
   projekte: Referenz[];
   locale: Locale;
   t: { zieh: string; stampLive: string; stampKonzept: string; stampWip: string };
+  /* „st--klein" für die startseite · dasselbe bauteil, kleiner */
+  klasse?: string;
 }) {
   const root = useRef<HTMLDivElement>(null);
   const [oben, setOben] = useState<number | null>(null);
@@ -137,7 +140,7 @@ export function Stapel({
 
   return (
     <div
-      className="st"
+      className={`st ${klasse}`}
       ref={root}
       style={{ "--n": projekte.length - 1 } as React.CSSProperties}
       onPointerLeave={() => setOben(null)}

@@ -67,6 +67,34 @@
 @media (min-width: 1024px) { .st { --s: 0.86; } }
 @media (min-width: 1280px) { .st { --s: 1; } }
 
+/* die kompakte fassung für die startseite · dasselbe bauteil, nur
+   kleiner. die übersichtsseite behält den grossen auftritt, die
+   home zeigt dieselbe sprache im vorbeigehen. */
+.st--klein {
+  --s: 0.5;
+  --sp: 76px;
+  --auf: 74px;
+  /* ohne begrenzung zieht die rechtsbündige namensspalte bis an den
+     rand der breiten schale · zwischen deck und namen klaffte ein
+     halber bildschirm */
+  max-width: 760px;
+}
+
+/* auf der startseite nur die NAMEN · die meta-zeile macht das
+   etikett zweizeilig, und bei halber plattengrösse rücken die
+   schichten so eng, dass zwei zeilen ineinanderlaufen. gleichzeitig
+   zeigt die home damit weniger als die übersichtsseite, was genau
+   richtig ist · sie soll sie nicht überflüssig machen. */
+.st--klein .st-meta {
+  display: none;
+}
+.st--klein .st-titel {
+  font-size: var(--fs-lead);
+}
+@media (min-width: 560px) { .st--klein { --s: 0.6; } }
+@media (min-width: 1024px) { .st--klein { --s: 0.68; } }
+@media (min-width: 1280px) { .st--klein { --s: 0.82; } }
+
 /* schmal: bühne oben, namen als liste darunter. breit: beide in
    derselben rasterzelle, die namen liegen dann rechts neben dem
    deck und wandern mit ihrer schicht mit. */

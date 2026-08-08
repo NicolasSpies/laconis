@@ -1,16 +1,21 @@
 "use client";
 
+import Link from "next/link";
 import { HOME } from "@/components/home/home.dict";
 import { useLocale } from "@/i18n/useLocale";
 import { ShaderField } from "@/components/device/ShaderField";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { HeroRail } from "@/components/device/HeroRail";
 import { SignalChain } from "@/components/device/SignalChain";
-import { ChannelRack } from "@/components/device/ChannelRack";
+import { Stapel } from "@/components/referenzen/Stapel";
+import { referenzen } from "@/data/referenzen";
+import { REFERENZEN } from "@/components/referenzen/referenzen.dict";
+import { buildPath } from "@/i18n/config";
 import { SendButton } from "@/components/device/SendButton";
 import { WegFallen } from "@/components/home/WegFallen";
 import "@/components/device/device.css";
 import "@/components/home/wegfallen.css";
+import "@/components/referenzen/stapel.css";
 
 /**
  * HomeDevice · die echte startseite in der geräte-richtung.
@@ -30,6 +35,10 @@ import "@/components/home/wegfallen.css";
 export function HomeDevice() {
   const locale = useLocale();
   const t = HOME[locale];
+  /* die stempel und der geste-hinweis leben im referenzen-dict ·
+     zwei quellen für denselben satz wären genau die dopplung,
+     die hier weg soll */
+  const rt = REFERENZEN[locale];
 
   return (
     <div className="lab-root" data-no-reveal>
@@ -122,16 +131,42 @@ export function HomeDevice() {
       {/* ═══ SIGNALKETTE · sticky horizontal ═══ */}
       <SignalChain />
 
-      {/* ═══ KANALZÜGE · referenzen ═══ */}
+      {/* ═══ REFERENZEN ═══
+          hier standen kacheln mit erfundenen pagespeed-werten
+          (98/95/96 · echt ist nur fabry mit 95/97), einem shop-tag
+          für ein projekt ohne shop, stockfotos statt der echten
+          aufnahme und einem „öffnen →", das ein button ohne onClick
+          war. dazu die behauptung „drei kanäle, alle live" · live
+          ist genau eines.
+
+          jetzt steht hier DASSELBE bauteil wie auf /referenzen, nur
+          kleiner. die daten kommen aus src/data/referenzen.ts, es
+          gibt also nichts mehr zu erfinden. */}
       <section data-no-reveal className="relative px-gut py-rh-m">
         <div className="max-w-shell-wide mx-auto">
-          <div className="mb-10 flex items-end justify-between flex-wrap gap-4">
+          <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
             <h2 className="lab-display text-headline">{t.refH2}</h2>
-            <span className="lab-hint max-w-[300px]">
-              {t.refHint}
-            </span>
+            <span className="lab-hint max-w-[300px]">{t.refHint}</span>
           </div>
-          <ChannelRack />
+
+          <Stapel
+            projekte={referenzen}
+            locale={locale}
+            klasse="st--klein"
+            t={{
+              zieh: rt.sxZieh,
+              stampLive: rt.stampLive,
+              stampKonzept: rt.stampKonzept,
+              stampWip: rt.stampWip,
+            }}
+          />
+
+          <Link
+            href={buildPath("referenzen", locale)}
+            className="lab-label mt-10 inline-block transition-colors hover:text-[#e1fd52]"
+          >
+            {t.refLink} →
+          </Link>
         </div>
       </section>
 

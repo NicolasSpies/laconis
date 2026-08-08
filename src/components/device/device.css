@@ -388,93 +388,29 @@
     animation: none;
     transform: scaleX(1);
   }
-    .lx-row > *:last-child {
+  .lx-row > *:last-child {
     transition: none;
   }
 
   .lab-boot,
-  .lab-sweep,
-  .lab-vu-seg,
-  .lab-vu-live,
   .lab-led-idle,
-  .lab-glass {
+  .gl {
     animation: none;
   }
-  .lab-sweep {
-    display: none;
-  }
 }
 
-/* ── CHANNEL-STRIP · referenzen als kanalzüge ────────────────── */
 
-.lab-channel {
-  transition: border-color 260ms ease, transform 260ms ease;
-}
-
-.lab-channel[data-live="1"] {
-  border-color: rgb(var(--accent) / 0.34);
-  transform: translateY(-3px);
-}
 
 /* die vorschau · sitzt VERTIEFT hinter glas wie ein display */
-.lab-screen {
-  aspect-ratio: 4 / 3;
-  border-radius: 9px;
-  overflow: hidden;
-  background: #0b0b0b;
-  box-shadow:
-    inset 0 2px 6px rgba(0, 0, 0, 0.95),
-    inset 0 -1px 0 var(--ln-hair);
-}
 
 /* diagonaler glasreflex überm display */
-.lab-screen-glare {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    128deg,
-    rgba(242, 242, 242, 0.15) 0%,
-    rgba(242, 242, 242, 0.03) 26%,
-    transparent 52%
-  );
-}
 
 /* VU-segmente · REGEL: läuft IMMER, hover verstärkt nur.
    hover-only wäre auf mobile tot — dort gibt's keinen hover. */
-.lab-vu-seg {
-  width: 5px;
-  border-radius: 1px;
-  transform-origin: bottom;
-  transition: background 220ms ease, box-shadow 220ms ease;
-  /* ruhezustand · atmet leicht, gestaffelt über die segmente */
-  animation: labVuIdle 2600ms ease-in-out infinite;
-}
 
-@keyframes labVuIdle {
-  0%,
-  100% {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(0.84);
-  }
-}
 
-@keyframes labVu {
-  0%,
-  100% {
-    transform: scaleY(1);
-  }
-  45% {
-    transform: scaleY(0.6);
-  }
-}
 
 /* hover/aktiv · schneller + größerer ausschlag */
-.lab-vu-live {
-  animation: labVu 900ms ease-in-out infinite;
-}
 
 /* LED-punkte · glimmen dauerhaft leicht, hover zündet sie voll */
 @keyframes labLedIdle {
