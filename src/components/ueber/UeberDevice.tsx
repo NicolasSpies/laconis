@@ -55,9 +55,9 @@ export function UeberDevice() {
       {/* ═══ HERO · ruhig, das portrait trägt ═══ */}
       <section
         data-no-reveal
-        className="relative flex min-h-[100svh] flex-col justify-center px-6 pb-24 pt-28 md:px-12"
+        className="relative flex min-h-[100svh] flex-col justify-center px-gut pb-rh-s pt-hero"
       >
-        <div className="mx-auto grid w-full max-w-[1200px] items-center gap-12 md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] md:gap-16">
+        <div className="mx-auto grid w-full max-w-shell items-center gap-12 md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] md:gap-16">
           <div>
             <h1
               className="lab-display lab-boot text-display-xl"
@@ -110,16 +110,16 @@ export function UeberDevice() {
       </section>
 
       {/* ═══ DIE TASTENBANK ═══ */}
-      <section data-no-reveal className="relative px-6 pb-28 md:px-12">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut pb-rh-m">
+        <div className="mx-auto max-w-shell">
           <h2 className="lab-display mb-10 text-headline">{t.fragH2}</h2>
           <PresetKeys items={t.fragen} hint={t.fragHint} />
         </div>
       </section>
 
       {/* ═══ WERDEGANG · ruhig ═══ */}
-      <section data-no-reveal className="relative px-6 pb-28 md:px-12">
-        <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] md:gap-16">
+      <section data-no-reveal className="relative px-gut pb-rh-m">
+        <div className="mx-auto grid max-w-shell gap-10 md:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] md:gap-16">
           <div className="md:sticky md:top-28 md:self-start">
             <h2 className="lab-display text-headline">{t.wegH2}</h2>
             <p className="mt-5 max-w-[320px] text-body leading-relaxed text-[rgba(242,242,242,0.5)]">
@@ -146,8 +146,8 @@ export function UeberDevice() {
       </section>
 
       {/* ═══ DIE THESE · ruhig, aber gross ═══ */}
-      <section data-no-reveal className="relative px-6 py-24 md:px-12 md:py-32">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut py-rh-m">
+        <div className="mx-auto max-w-shell">
           <span className="lab-label">{t.theseH2}</span>
           {/* die breite MUSS am satz hängen, nicht am blockquote · „ch"
               rechnet gegen die schriftgrösse des elements, und aussen
@@ -162,8 +162,8 @@ export function UeberDevice() {
       </section>
 
       {/* ═══ SCHLUSS ═══ */}
-      <section data-no-reveal className="relative px-6 pb-40 md:px-12">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut pb-rh-l">
+        <div className="mx-auto max-w-shell">
           <div className="lab-chassis relative flex flex-col justify-between gap-10 p-6 md:p-12 lg:flex-row lg:items-center">
             <span className="lab-screw" style={{ left: 14, top: 14 }} aria-hidden />
             <span className="lab-screw" style={{ right: 14, top: 14 }} aria-hidden />

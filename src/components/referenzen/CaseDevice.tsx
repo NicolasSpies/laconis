@@ -50,9 +50,9 @@ export function CaseDevice({ slug }: { slug: string }) {
       <DeviceNav />
 
       {/* ═══ KOPF · die gebaute seite steht sofort da ═══ */}
-      <section data-no-reveal className="relative isolate px-6 pb-16 pt-36 md:px-12 md:pt-44">
+      <section data-no-reveal className="relative isolate px-gut pb-rh-s pt-hero">
         <HeroAtmo variant="schweben" />
-        <div className="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:gap-14">
+        <div className="mx-auto grid max-w-shell items-center gap-12 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:gap-14">
           <div>
           <div>
             <Link href={buildPath("referenzen", locale)} className="lab-label lab-boot">
@@ -102,8 +102,8 @@ export function CaseDevice({ slug }: { slug: string }) {
       {isLive ? (
         <>
           {/* ═══ DER BEFUND · ruhig, die geschichte ═══ */}
-          <section data-no-reveal className="relative px-6 pb-28 md:px-12">
-            <div className="mx-auto max-w-[1200px]">
+          <section data-no-reveal className="relative px-gut pb-rh-m">
+            <div className="mx-auto max-w-shell">
               <h2 className="lab-display max-w-[14ch] text-headline">
                 {t.auftragH2}
               </h2>
@@ -132,8 +132,8 @@ export function CaseDevice({ slug }: { slug: string }) {
           </section>
 
           {/* ═══ DER UMSCHALTER · das argument in typografie ═══ */}
-          <section data-no-reveal className="relative px-6 pb-28 md:px-12">
-            <div className="mx-auto max-w-[1200px]">
+          <section data-no-reveal className="relative px-gut pb-rh-m">
+            <div className="mx-auto max-w-shell">
               <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
                 <h2 className="lab-display max-w-[16ch] text-headline">
                   {t.claimH2}
@@ -147,8 +147,8 @@ export function CaseDevice({ slug }: { slug: string }) {
           </section>
 
           {/* ═══ WAS DRIN STECKT · ruhig ═══ */}
-          <section data-no-reveal className="relative px-6 pb-28 md:px-12">
-            <div className="mx-auto max-w-[1200px]">
+          <section data-no-reveal className="relative px-gut pb-rh-m">
+            <div className="mx-auto max-w-shell">
               <h2 className="lab-display max-w-[14ch] text-headline">
                 {t.detailsH2}
               </h2>
@@ -174,8 +174,8 @@ export function CaseDevice({ slug }: { slug: string }) {
 
           {/* ═══ GEMESSEN ═══ */}
           {r.pagespeedMobile != null && (
-            <section data-no-reveal className="relative px-6 pb-28 md:px-12">
-              <div className="mx-auto max-w-[1200px]">
+            <section data-no-reveal className="relative px-gut pb-rh-m">
+              <div className="mx-auto max-w-shell">
                 <span className="lab-label">{t.lTempo}</span>
                 <div className="mt-6 flex flex-wrap gap-x-16 gap-y-8">
                   <div>
@@ -200,8 +200,8 @@ export function CaseDevice({ slug }: { slug: string }) {
 
           {/* ═══ DAS ZITAT ═══ */}
           {r.testimonial && (
-            <section data-no-reveal className="relative px-6 pb-28 md:px-12">
-              <div className="mx-auto max-w-[1200px]">
+            <section data-no-reveal className="relative px-gut pb-rh-m">
+              <div className="mx-auto max-w-shell">
                 {/* der umbruch kommt aus den daten · wo ein zitat
                     bricht, ist gestaltung und keine berechnung */}
                 <ArtQuote
@@ -215,8 +215,8 @@ export function CaseDevice({ slug }: { slug: string }) {
         </>
       ) : (
         /* ═══ KONZEPT-STUDIE · kurz und ehrlich ═══ */
-        <section data-no-reveal className="relative px-6 pb-28 md:px-12">
-          <div className="mx-auto max-w-[1200px]">
+        <section data-no-reveal className="relative px-gut pb-rh-m">
+          <div className="mx-auto max-w-shell">
             <h2 className="lab-display max-w-[14ch] text-headline">
               {t.konzeptH2}
             </h2>
@@ -240,8 +240,8 @@ export function CaseDevice({ slug }: { slug: string }) {
       )}
 
       {/* ═══ SCHLUSS ═══ */}
-      <section data-no-reveal className="relative px-6 pb-40 md:px-12">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut pb-rh-l">
+        <div className="mx-auto max-w-shell">
           <div className="lab-chassis relative flex flex-col justify-between gap-10 p-6 md:p-12 lg:flex-row lg:items-center">
             <span className="lab-screw" style={{ left: 14, top: 14 }} aria-hidden />
             <span className="lab-screw" style={{ right: 14, top: 14 }} aria-hidden />

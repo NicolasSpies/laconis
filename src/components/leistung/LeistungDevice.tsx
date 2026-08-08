@@ -44,8 +44,8 @@ export function LeistungDevice() {
       <LensHero t={t.hero} />
 
       {/* ═══ 2 · WAS DASTEHT · ruhig ═══ */}
-      <section data-no-reveal className="relative px-6 py-32 md:px-12 md:py-44">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut py-rh-l">
+        <div className="mx-auto max-w-shell">
           <h2 className="lab-display max-w-[16ch] text-display">{t.deliverH2}</h2>
           <p className="mt-7 max-w-[560px] text-body leading-relaxed text-[rgba(242,242,242,0.55)]">
             {t.deliverLead}
@@ -67,8 +67,8 @@ export function LeistungDevice() {
       </section>
 
       {/* ═══ 3 · DER FEATURE-VERGLEICH ═══ */}
-      <section data-no-reveal className="relative px-6 pb-32 md:px-12">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut pb-rh-m">
+        <div className="mx-auto max-w-shell">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
             <h2 className="lab-display max-w-[14ch] text-headline">{t.ballastH2}</h2>
             <p className="lab-hint max-w-[340px] text-body-sm leading-relaxed">{t.ballastLead}</p>
@@ -79,8 +79,8 @@ export function LeistungDevice() {
       </section>
 
       {/* ═══ 4 · DER LIVE-EDITOR ═══ */}
-      <section data-no-reveal className="relative px-6 py-24 md:px-12 md:py-32">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut py-rh-m">
+        <div className="mx-auto max-w-shell">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
             <h2 className="lab-display max-w-[14ch] text-headline">{t.cmsH2}</h2>
             <p className="lab-hint max-w-[340px] text-body-sm leading-relaxed">{t.cmsLead}</p>
@@ -91,8 +91,8 @@ export function LeistungDevice() {
       </section>
 
       {/* ═══ 5 · DER STACK · ruhig ═══ */}
-      <section data-no-reveal className="relative px-6 py-24 md:px-12 md:py-32">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut py-rh-m">
+        <div className="mx-auto max-w-shell">
           <h2 className="lab-display max-w-[14ch] text-headline">{t.stackH2}</h2>
 
           <div className="mt-12 grid gap-x-16 md:grid-cols-2">
@@ -120,8 +120,8 @@ export function LeistungDevice() {
       </section>
 
       {/* ═══ 6 · FAQ · ruhig ═══ */}
-      <section data-no-reveal className="relative px-6 pb-32 md:px-12">
-        <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] md:gap-16">
+      <section data-no-reveal className="relative px-gut pb-rh-m">
+        <div className="mx-auto grid max-w-shell gap-10 md:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] md:gap-16">
           <h2 className="lab-display self-start text-headline md:sticky md:top-28">{t.faqH2}</h2>
 
           <div>
@@ -141,8 +141,8 @@ export function LeistungDevice() {
       </section>
 
       {/* ═══ 7 · SCHLUSS ═══ */}
-      <section data-no-reveal className="relative px-6 pb-40 md:px-12">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut pb-rh-l">
+        <div className="mx-auto max-w-shell">
           <div className="lab-chassis relative flex flex-col justify-between gap-10 p-6 md:p-12 lg:flex-row lg:items-center">
             <span className="lab-screw" style={{ left: 14, top: 14 }} aria-hidden />
             <span className="lab-screw" style={{ right: 14, top: 14 }} aria-hidden />

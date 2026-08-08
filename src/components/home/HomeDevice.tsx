@@ -50,7 +50,7 @@ export function HomeDevice() {
            waren höher als der bildschirm, da hilft kein justify-center.
            deshalb: titel etwas kleiner, und die kennzahlen wandern an
            den fuss statt unter den fliesstext */
-        className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden px-6 pb-32 pt-28 md:px-12"
+        className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden px-gut pb-rh-m pt-hero"
       >
         <ShaderField className="absolute inset-0 w-full h-full" />
         <div
@@ -62,7 +62,7 @@ export function HomeDevice() {
           }}
         />
 
-        <div className="relative mx-auto my-auto w-full max-w-[1200px]">
+        <div className="relative mx-auto my-auto w-full max-w-shell">
           <h1
             className="lab-display lab-boot text-display-xl"
             style={{ animationDelay: "180ms" }}
@@ -88,7 +88,7 @@ export function HomeDevice() {
             im fluss hätten sie den titel aus der mitte gedrückt */}
         <div className="pointer-events-none absolute inset-x-6 bottom-9 md:inset-x-12">
           <div
-            className="lab-boot mx-auto flex max-w-[1200px] flex-wrap items-end justify-between gap-x-10 gap-y-4"
+            className="lab-boot mx-auto flex max-w-shell flex-wrap items-end justify-between gap-x-10 gap-y-4"
             style={{ animationDelay: "440ms" }}
           >
             <div className="flex flex-wrap gap-x-10 gap-y-4">
@@ -118,8 +118,8 @@ export function HomeDevice() {
           zu viel über Nicolas für eine startseite. das gehört auf
           /ueber-mich · hier steht jetzt ein objekt, das man kippt,
           und ein knopf, der dorthin führt. */}
-      <section data-no-reveal className="relative px-6 py-32 md:px-12 md:py-44">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut py-rh-l">
+        <div className="mx-auto max-w-shell">
           <div className="max-w-[860px]">
             <Typenschild t={t.ts} href={buildPath("ueber-mich", locale)} />
           </div>
@@ -130,8 +130,8 @@ export function HomeDevice() {
       <SignalChain />
 
       {/* ═══ KANALZÜGE · referenzen ═══ */}
-      <section data-no-reveal className="relative px-6 md:px-12 py-32">
-        <div className="max-w-[1200px] mx-auto">
+      <section data-no-reveal className="relative px-gut py-rh-m">
+        <div className="max-w-shell-wide mx-auto">
           <div className="mb-10 flex items-end justify-between flex-wrap gap-4">
             <h2 className="lab-display text-headline">{t.refH2}</h2>
             <span className="lab-hint max-w-[300px]">
@@ -143,8 +143,8 @@ export function HomeDevice() {
       </section>
 
       {/* ═══ SENDEN ═══ */}
-      <section data-no-reveal className="relative px-6 md:px-12 pb-40">
-        <div className="max-w-[1200px] mx-auto">
+      <section data-no-reveal className="relative px-gut pb-rh-l">
+        <div className="max-w-shell mx-auto">
           <div className="lab-chassis relative p-6 md:p-12 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
             <span className="lab-screw" style={{ left: 14, top: 14 }} aria-hidden />
             <span className="lab-screw" style={{ right: 14, top: 14 }} aria-hidden />

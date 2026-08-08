@@ -39,11 +39,11 @@ export function PreiseDevice() {
       {/* ═══ DER MESSSCHIEBER ═══ */}
       <section
         data-no-reveal
-        className="relative isolate flex min-h-[100svh] flex-col justify-center px-6 pb-20 pt-28 md:px-12"
+        className="relative isolate flex min-h-[100svh] flex-col justify-center px-gut pb-rh-s pt-hero"
       >
         <HeroAtmo variant="korridor" />
 
-        <div className="mx-auto w-full max-w-[1200px]">
+        <div className="mx-auto w-full max-w-shell">
 
           <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
             <h1
@@ -69,8 +69,8 @@ export function PreiseDevice() {
       </section>
 
       {/* ═══ WAS DEN PREIS MACHT · ruhig ═══ */}
-      <section data-no-reveal className="relative px-6 py-24 md:px-12 md:py-32">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut py-rh-m">
+        <div className="mx-auto max-w-shell">
           <h2 className="lab-display max-w-[16ch] text-headline">{t.faktorenH2}</h2>
           <p className="mt-7 max-w-[560px] text-body leading-relaxed text-[rgba(242,242,242,0.55)]">
             {t.faktorenLead}
@@ -94,8 +94,8 @@ export function PreiseDevice() {
       </section>
 
       {/* ═══ LAUFENDE KOSTEN · ruhig ═══ */}
-      <section data-no-reveal className="relative px-6 pb-24 md:px-12 md:pb-32">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut pb-rh-m">
+        <div className="mx-auto max-w-shell">
           <div className="grid gap-10 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:gap-16">
             <div>
               <h2 className="lab-display text-headline">{t.laufendH2}</h2>
@@ -128,8 +128,8 @@ export function PreiseDevice() {
       </section>
 
       {/* ═══ FAQ · ruhig ═══ */}
-      <section data-no-reveal className="relative px-6 pb-32 md:px-12">
-        <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] md:gap-16">
+      <section data-no-reveal className="relative px-gut pb-rh-m">
+        <div className="mx-auto grid max-w-shell gap-10 md:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] md:gap-16">
           <h2 className="lab-display self-start text-headline md:sticky md:top-28">
             {t.faqH2}
           </h2>
@@ -150,8 +150,8 @@ export function PreiseDevice() {
       </section>
 
       {/* ═══ SCHLUSS ═══ */}
-      <section data-no-reveal className="relative px-6 pb-40 md:px-12">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut pb-rh-l">
+        <div className="mx-auto max-w-shell">
           <div className="lab-chassis relative flex flex-col justify-between gap-10 p-6 md:p-12 lg:flex-row lg:items-center">
             <span className="lab-screw" style={{ left: 14, top: 14 }} aria-hidden />
             <span className="lab-screw" style={{ right: 14, top: 14 }} aria-hidden />

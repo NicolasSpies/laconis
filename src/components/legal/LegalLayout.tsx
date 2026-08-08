@@ -42,8 +42,8 @@ export function LegalLayout({ num, label, titel, intro, children }: Props) {
       <DeviceNav />
       <HeroRail label={`${num} · ${label}`} />
 
-      <section data-no-reveal className="relative px-6 pb-20 pt-36 md:px-12 md:pt-44">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut pb-rh-s pt-hero">
+        <div className="mx-auto max-w-shell">
           <h1 className="lab-display lab-boot max-w-[14ch] text-display">
             {titel}
           </h1>
@@ -58,12 +58,12 @@ export function LegalLayout({ num, label, titel, intro, children }: Props) {
         </div>
       </section>
 
-      <section data-no-reveal className="relative px-6 pb-32 md:px-12">
-        <div className="mx-auto max-w-[1200px] space-y-14">{children}</div>
+      <section data-no-reveal className="relative px-gut pb-rh-m">
+        <div className="mx-auto max-w-shell space-y-14">{children}</div>
       </section>
 
-      <section data-no-reveal className="relative px-6 pb-40 md:px-12">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut pb-rh-l">
+        <div className="mx-auto max-w-shell">
           <div className="flex flex-wrap justify-between gap-4 border-t border-[rgba(242,242,242,0.08)] pt-6">
             <Link href={buildPath("home", locale)} className="lab-label">
               ← lacønis

@@ -22,6 +22,30 @@ const config: Config = {
         /* semantic ink — use in place of `white/X` for theme-aware overlays */
         ink: "rgb(var(--ink) / <alpha-value>)",
       },
+      /* ── rhythmus & schalen ───────────────────────────────────
+         es gab neun sektionsabstände ohne system (pb-16 bis pb-40,
+         py-24/32, py-32/44, pt-28/32/36/44). vier stufen reichen ·
+         die kleinste von heute (64px) ist kein rhythmus, sondern
+         innenabstand, den deckt die spacing-skala ab.
+
+         schale 1200 → 1080: bei 1440px sind das 180px rand je seite
+         statt 120 (+50%). das ist der weissraum, den man ohne
+         werkzeug sieht. */
+      spacing: {
+        "rh-s": "var(--rh-s)",
+        "rh-m": "var(--rh-m)",
+        "rh-l": "var(--rh-l)",
+        "rh-xl": "var(--rh-xl)",
+        gut: "var(--gutter)",
+        /* nav-höhe plus eine kleine stufe · der hero darf nicht
+           unter der leiste kleben */
+        hero: "calc(64px + var(--rh-s))",
+      },
+      maxWidth: {
+        shell: "var(--shell)",
+        "shell-wide": "var(--shell-wide)",
+        "shell-narrow": "var(--shell-narrow)",
+      },
       /* ── schriftgrössen · 7 rollen ────────────────────────────
          es gab 37 verschiedene clamp()-ausdrücke bei 62 verwendungen,
          für geschätzt 7 tatsächliche rollen. mehrere sahen faktisch

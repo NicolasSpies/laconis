@@ -37,10 +37,10 @@ export function KontaktDevice() {
       <HeroRail label={t.kicker} />
 
       {/* ═══ HERO + DIREKTWEGE · ruhig ═══ */}
-      <section data-no-reveal className="relative isolate flex min-h-[86svh] flex-col justify-center px-6 pb-20 pt-36 md:px-12 md:pt-44">
+      <section data-no-reveal className="relative isolate flex min-h-[86svh] flex-col justify-center px-gut pb-rh-s pt-hero">
         <HeroAtmo variant="signal" />
 
-        <div className="mx-auto max-w-[1200px]">
+        <div className="mx-auto max-w-shell">
 
           <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
             <h1
@@ -76,8 +76,8 @@ export function KontaktDevice() {
       </section>
 
       {/* ═══ DIE KONSOLE ═══ */}
-      <section id="projekt" data-no-reveal className="relative scroll-mt-24 px-6 pb-28 pt-10 md:px-12">
-        <div className="mx-auto max-w-[1200px]">
+      <section id="projekt" data-no-reveal className="relative scroll-mt-24 px-gut pb-rh-m pt-rh-s">
+        <div className="mx-auto max-w-shell">
           <div className="mb-9 flex flex-wrap items-end justify-between gap-6">
             <h2 className="lab-display max-w-[16ch] text-headline">
               {t.konsoleH2}
@@ -90,8 +90,8 @@ export function KontaktDevice() {
       </section>
 
       {/* ═══ WAS DANACH PASSIERT · ruhig ═══ */}
-      <section data-no-reveal className="relative px-6 pb-32 md:px-12">
-        <div className="mx-auto max-w-[1200px]">
+      <section data-no-reveal className="relative px-gut pb-rh-m">
+        <div className="mx-auto max-w-shell">
           <h2 className="lab-display max-w-[14ch] text-headline">{t.danachH2}</h2>
 
           <div className="mt-12 grid gap-x-16 md:grid-cols-3">
