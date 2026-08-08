@@ -1345,45 +1345,6 @@
   .lab-ambient span { animation: none; }
 }
 
-/* ── DIE SZENE · das raster hinter dem glas ──────────────────
-   auf #08080b bringt backdrop-filter optisch NULL · es gibt nichts
-   zu verwischen. das ist der grund, warum das alte .lab-glass wie
-   ein graues rechteck aussah und nicht wie glas.
-
-   blur zerstört gerade LINIEN sichtbar. ein farbverlauf bleibt beim
-   verwischen ein farbverlauf. deshalb liegt hier ein feines raster ·
-   es ist das, woran man glas überhaupt als glas erkennt.
-
-   62px ist nicht zufällig: das ist exakt der pitch der blaupause
-   unter der lupe auf /leistung (lens.css). damit ist die szene
-   hinter jedem panel dasselbe raster wie unter dem glas, das die
-   seite ohnehin schon hat · eine erzählung statt zwei.
-
-   absolute, nicht fixed: das raster scrollt mit, damit die panels
-   die linien beim vorbeiziehen sichtbar auffressen. genau diese
-   relativbewegung erzeugt den eindruck von tiefe. */
-.lab-szene {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgb(var(--fg-rgb) / 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(var(--fg-rgb) / 0.045) 1px, transparent 1px);
-  background-size: 62px 62px;
-  /* die blende läuft nur WAAGERECHT aus. eine radiale maske war
-     hier falsch: sie ist auf bildschirmhöhe gedacht, das element
-     ist aber die ganze seite hoch (6000px+) · unten war sie längst
-     transparent und das raster fehlte genau dort, wo die panels
-     stehen. eine lineare maske in x ist von der höhe unabhängig. */
-  -webkit-mask-image: linear-gradient(
-    90deg, transparent 0%, #000 16%, #000 84%, transparent 100%
-  );
-  mask-image: linear-gradient(
-    90deg, transparent 0%, #000 16%, #000 84%, transparent 100%
-  );
-}
-
 /* inhalt über die ambient-schicht heben */
 .lab-root > section { position: relative; z-index: 1; }
 

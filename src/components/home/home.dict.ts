@@ -20,16 +20,12 @@ export type HomeDict = {
   facts: [string, string][];
   scroll: string;
 
-  ts: {
+  wf: {
     label: string;
-    serie: string;
-    zeile1: string;
-    akzent: string;
-    zeile2: string;
-    tief: string;
-    daten: [string, string][];
-    key: string;
-    hinweis: string;
+    weg: string[];
+    stattLead: string;
+    stattName: string;
+    stattBody: string;
   };
 
   refH2: string;
@@ -55,20 +51,19 @@ export const HOME: Record<Locale, HomeDict> = {
     ],
     scroll: "↓ scrollen",
 
-    ts: {
-      label: "typenschild",
-      serie: "lac-01 · ostbelgien",
-      zeile1: "hier baut ",
-      akzent: "genau einer",
-      zeile2: ". von der ersten zeile bis live.",
-      tief: "Kein Ticket-System, kein Projektmanager, kein Praktikant. Du schreibst mir, ich antworte.",
-      daten: [
-        ["seit", "2019"],
-        ["im team", "1"],
-        ["kontakt", "1:1"],
+    wf: {
+      label: "was bei dir wegfällt",
+      weg: [
+        "plugin-updates",
+        "theme-lizenzen",
+        "monatliche abos",
+        "update-angst",
+        "agentur-tickets",
       ],
-      key: "mehr über mich",
-      hinweis: "kipp mich",
+      stattLead: "Stattdessen ",
+      stattName: "ContentCore",
+      stattBody:
+        " · mein eigenes CMS. Mehrsprachigkeit, Übersetzung, Bilder, Formulare, Shop und Analytics sind eingebaut, nicht zugekauft. Ein Anbieter statt zehn.",
     },
 
     refH2: "was schon läuft.",
@@ -93,20 +88,19 @@ export const HOME: Record<Locale, HomeDict> = {
     ],
     scroll: "↓ défiler",
 
-    ts: {
-      label: "plaque signalétique",
-      serie: "lac-01 · cantons de l'est",
-      zeile1: "ici, c'est ",
-      akzent: "une seule personne",
-      zeile2: ". de la première ligne jusqu'au live.",
-      tief: "Pas de système de tickets, pas de chef de projet, pas de stagiaire. Tu m'écris, je réponds.",
-      daten: [
-        ["depuis", "2019"],
-        ["dans l'équipe", "1"],
-        ["contact", "1:1"],
+    wf: {
+      label: "ce qui disparaît chez toi",
+      weg: [
+        "mises à jour de plugins",
+        "licences de thème",
+        "abonnements mensuels",
+        "peur des updates",
+        "tickets d'agence",
       ],
-      key: "en savoir plus sur moi",
-      hinweis: "incline-moi",
+      stattLead: "À la place ",
+      stattName: "ContentCore",
+      stattBody:
+        " · mon propre CMS. Multilingue, traduction, images, formulaires, boutique et analytics sont intégrés, pas achetés. Un fournisseur au lieu de dix.",
     },
 
     refH2: "ce qui tourne déjà.",
@@ -131,20 +125,19 @@ export const HOME: Record<Locale, HomeDict> = {
     ],
     scroll: "↓ scroll",
 
-    ts: {
-      label: "nameplate",
-      serie: "lac-01 · east belgium",
-      zeile1: "",
-      akzent: "exactly one person",
-      zeile2: " builds this. from the first line to live.",
-      tief: "No ticket system, no project manager, no intern. You write to me, I answer.",
-      daten: [
-        ["since", "2019"],
-        ["on the team", "1"],
-        ["contact", "1:1"],
+    wf: {
+      label: "what falls away for you",
+      weg: [
+        "plugin updates",
+        "theme licences",
+        "monthly subscriptions",
+        "update anxiety",
+        "agency tickets",
       ],
-      key: "more about me",
-      hinweis: "tilt me",
+      stattLead: "Instead ",
+      stattName: "ContentCore",
+      stattBody:
+        " · my own CMS. Multilingual, translation, images, forms, shop and analytics are built in, not bought in. One vendor instead of ten.",
     },
 
     refH2: "what's already running.",

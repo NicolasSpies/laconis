@@ -37,7 +37,6 @@ export function LeistungDevice() {
         <span />
         <span />
       </div>
-      <div className="lab-szene" aria-hidden />
 
       <DeviceNav />
 

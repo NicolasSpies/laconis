@@ -39,7 +39,6 @@ export function ReferenzenDevice() {
         <span />
         <span />
       </div>
-      <div className="lab-szene" aria-hidden />
 
       <DeviceNav />
       <HeroRail label={t.kicker} />

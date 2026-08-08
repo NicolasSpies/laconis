@@ -8,23 +8,22 @@ import { HeroRail } from "@/components/device/HeroRail";
 import { SignalChain } from "@/components/device/SignalChain";
 import { ChannelRack } from "@/components/device/ChannelRack";
 import { SendButton } from "@/components/device/SendButton";
-import { Typenschild } from "@/components/home/Typenschild";
-import { buildPath } from "@/i18n/config";
+import { WegFallen } from "@/components/home/WegFallen";
 import "@/components/device/device.css";
-import "@/components/home/typenschild.css";
+import "@/components/home/wegfallen.css";
 
 /**
  * HomeDevice · die echte startseite in der geräte-richtung.
  *
- * ablauf: shader-hero → typenschild → signalkette (übernahme) →
+ * ablauf: shader-hero → was wegfällt → signalkette (übernahme) →
  * kanalzüge (referenzen) → sendeknopf.
  *
  * KEINE preise auf der home (Nicolas: "preise will definitiv nicht
  * auf der startseite, da will ich was mehr über lacønis quatschen") —
  * die zahlen leben auf /preise.
  *
- * dosierung: der hero ist RUHIG (nur typo + licht). die geräte-
- * momente sind typenschild, kette, kanalzüge und sendeknopf · jeweils
+ * dosierung: hero und „was wegfällt" sind RUHIG (nur typo + licht).
+ * die geräte-momente sind kette, kanalzüge und sendeknopf · jeweils
  * einer pro bildschirmhöhe.
  */
 
@@ -38,7 +37,6 @@ export function HomeDevice() {
         <span />
         <span />
       </div>
-      <div className="lab-szene" aria-hidden />
 
       <DeviceNav />
       <HeroRail label={t.kicker} />
@@ -113,19 +111,13 @@ export function HomeDevice() {
         </div>
       </section>
 
-      {/* ═══ TYPENSCHILD ═══
-          hier stand ein absatz prosa plus ein zahlenstreifen. es
-          passierte nichts, man konnte nichts anfassen, und es stand
-          zu viel über Nicolas für eine startseite. das gehört auf
-          /ueber-mich · hier steht jetzt ein objekt, das man kippt,
-          und ein knopf, der dorthin führt. */}
-      <section data-no-reveal className="relative px-gut py-rh-l">
-        <div className="mx-auto max-w-shell">
-          <div className="max-w-[860px]">
-            <Typenschild t={t.ts} href={buildPath("ueber-mich", locale)} />
-          </div>
-        </div>
-      </section>
+      {/* ═══ WAS WEGFÄLLT ═══
+          hier sass das typenschild: gebürstetes metall, vier
+          schrauben, „seit 2019 · im team 1 · 1:1 kontakt". das waren
+          angaben über den verkäufer, keine argumente. jetzt steht
+          das argument im weglassen · und es ist nachprüfbar, weil
+          es keine zahl ist, sondern eine liste. */}
+      <WegFallen t={t.wf} />
 
       {/* ═══ SIGNALKETTE · sticky horizontal ═══ */}
       <SignalChain />

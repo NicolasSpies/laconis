@@ -38,7 +38,6 @@ export function LegalLayout({ num, label, titel, intro, children }: Props) {
         <span />
         <span />
       </div>
-      <div className="lab-szene" aria-hidden />
 
       <DeviceNav />
       <HeroRail label={`${num} · ${label}`} />

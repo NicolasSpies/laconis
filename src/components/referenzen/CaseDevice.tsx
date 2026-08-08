@@ -46,7 +46,6 @@ export function CaseDevice({ slug }: { slug: string }) {
         <span />
         <span />
       </div>
-      <div className="lab-szene" aria-hidden />
 
       <DeviceNav />
 
