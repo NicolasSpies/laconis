@@ -1,0 +1,303 @@
+@property --u {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Umzug · die übernahme, eine bildschirmhöhe statt 320vh
+
+   alles hängt an EINER zahl: --u (0..1), aus dem JS. jede zeile
+   rechnet ihre eigene schwelle daraus aus.
+   ═══════════════════════════════════════════════════════════ */
+
+.ub {
+  --u: 0;
+  position: relative;
+  z-index: 1;
+  padding: var(--rh-l) var(--gutter);
+  max-width: var(--shell);
+  margin: 0 auto;
+}
+
+.ub-h2 {
+  /* das enge lesemass gehört dem VORSPANN, nicht der überschrift ·
+     44ch bei 64px schriftgrösse sind fünf zeilen */
+  max-width: var(--measure-h);
+  font-size: var(--fs-display);
+}
+.ub-akzent {
+  color: var(--lime);
+}
+
+.ub-lead {
+  margin-top: var(--sp-5);
+  max-width: var(--measure-lead);
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--tx-3);
+}
+
+/* ── die bühne ───────────────────────────────────────────── */
+
+.ub-buehne {
+  position: relative;
+  display: grid;
+  gap: clamp(20px, 3vw, 40px);
+  margin-top: clamp(48px, 7vw, 88px);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 860px) {
+  .ub-buehne {
+    /* die posten stehen MITTIG zwischen den blättern · sie sind
+       das, was hinüberwandert, nicht eine dritte spalte daneben.
+       die DOM-reihenfolge (alt → posten → neu) ist gleichzeitig die
+       reihenfolge auf schmalen schirmen und liest sich dort genauso */
+    grid-template-columns: minmax(0, 1fr) minmax(160px, 0.72fr) minmax(0, 1fr);
+    align-items: center;
+  }
+}
+
+.ub-blatt {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: clamp(20px, 2.6vw, 30px);
+  min-height: clamp(200px, 24vw, 280px);
+  border-radius: var(--r-m);
+}
+
+/* die alte seite · grau, flach, tritt zurück während der umzug läuft */
+.ub-blatt--alt {
+  background: var(--su-sink);
+  box-shadow: var(--sh-in);
+  opacity: calc(1 - var(--u) * 0.55);
+  transition: opacity 200ms linear;
+}
+
+/* die neue · glas, füllt sich */
+.ub-blatt--neu {
+  opacity: calc(0.32 + var(--u) * 0.68);
+  transition: opacity 200ms linear;
+}
+
+.ub-blatt-label {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: var(--fs-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tx-4);
+  margin-bottom: 4px;
+}
+
+.ub-bar {
+  height: 10px;
+  border-radius: 3px;
+  background: rgb(var(--fg-rgb) / 0.14);
+}
+.ub-bar--bild {
+  height: clamp(46px, 6vw, 72px);
+  width: 100%;
+  border-radius: var(--r-xs);
+  background: rgb(var(--fg-rgb) / 0.07);
+}
+/* im neuen blatt trägt der erste balken die akzentfarbe · das ist
+   der einzige unterschied im inhalt. es zieht dasselbe um. */
+.ub-blatt--neu .ub-bar:nth-of-type(1) {
+  background: rgb(var(--accent) / 0.55);
+}
+
+/* ── was hinüberzieht ────────────────────────────────────── */
+
+.ub-posten {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.4vw, 16px);
+}
+
+.ub-posten-zeile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  /* jede zeile hat ihre eigene schwelle auf der strecke und zündet,
+     wenn --u sie überschreitet. das rechnet die CSS direkt aus --u
+     aus · ein zähler in JS plus attribut-selektoren pro stand wäre
+     brüchig (--n: 1 steckt als teilstring auch in --n: 10). */
+  --schwelle: calc((var(--i) + 0.35) / 5);
+  --an: clamp(0, calc((var(--u) - var(--schwelle)) * 9), 1);
+  opacity: calc(0.24 + var(--an) * 0.76);
+  transform: translateX(calc((1 - var(--an)) * -7px));
+}
+
+.ub-posten-was {
+  color: var(--tx-1);
+}
+.ub-posten-wie {
+  color: rgb(var(--accent) / 0.8);
+}
+
+/* ── der griff ───────────────────────────────────────────── */
+
+.ub-bahn {
+  position: relative;
+  height: 2px;
+  margin: clamp(40px, 5vw, 64px) 0 0;
+  background: var(--ln-hair);
+  border-radius: 2px;
+}
+
+.ub-griff {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--u) * 100%);
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  border-radius: 50%;
+  cursor: grab;
+  touch-action: none;
+  background: radial-gradient(circle at 34% 30%, var(--g-4), var(--g-1) 70%);
+  box-shadow:
+    inset 0 1px 0 rgb(var(--fg-rgb) / 0.18),
+    0 0 0 1px rgb(0 0 0 / 0.6),
+    var(--sh-2);
+}
+.ub-griff:active {
+  cursor: grabbing;
+}
+.ub-griff::after {
+  /* die griffrillen · zwei striche, mehr braucht es nicht */
+  content: "";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 12px;
+  height: 12px;
+  transform: translate(-50%, -50%);
+  background: repeating-linear-gradient(
+    90deg,
+    rgb(var(--fg-rgb) / 0.4) 0 1px,
+    transparent 1px 4px
+  );
+}
+.ub-griff:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 5px;
+}
+
+.ub-griff-text {
+  position: absolute;
+  top: 34px;
+  left: 0;
+  /* verschwindet, sobald der umzug gelaufen ist · dann hat der
+     hinweis seine arbeit getan */
+  opacity: calc(1 - var(--u));
+}
+
+/* ── die pointe ──────────────────────────────────────────── */
+
+.ub-schluss {
+  margin: clamp(56px, 7vw, 96px) 0 0;
+  max-width: 22ch;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 108%;
+  font-weight: 300;
+  font-size: var(--fs-headline);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  text-transform: lowercase;
+  color: var(--tx-1);
+  /* tritt erst hervor, wenn der umzug durch ist */
+  opacity: calc(0.18 + var(--u) * 0.82);
+  transition: opacity 300ms linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ub-posten-zeile,
+  .ub-blatt--alt,
+  .ub-blatt--neu,
+  .ub-schluss {
+    transition: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   VonNull · die greenfield-ansprache, bewusst ohne bauteil
+   ═══════════════════════════════════════════════════════════ */
+
+.vn {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(32px, 5vw, 64px);
+  padding: var(--rh-l) var(--gutter) 0;
+  max-width: var(--shell);
+  margin: 0 auto;
+}
+
+@media (min-width: 860px) {
+  .vn {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(40px, 6vw, 80px);
+  }
+}
+
+.vn-h2 {
+  max-width: var(--measure-h);
+  font-size: var(--fs-display);
+}
+.vn-akzent {
+  color: var(--lime);
+}
+
+.vn-lead {
+  max-width: var(--measure-lead);
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--tx-3);
+}
+
+.vn-schritte {
+  margin: clamp(28px, 4vw, 44px) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.4vw, 16px);
+}
+
+.vn-schritte li {
+  position: relative;
+  padding-left: 22px;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--tx-2);
+}
+
+/* ein strich statt einer nummer · die reihenfolge steht ohnehin
+   in der reihenfolge */
+.vn-schritte li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 10px;
+  height: 1px;
+  background: rgb(var(--accent) / 0.6);
+}
+
+.vn-key {
+  display: inline-block;
+  margin-top: clamp(28px, 4vw, 44px);
+  width: auto;
+  padding: 13px 22px;
+}

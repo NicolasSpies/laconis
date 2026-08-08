@@ -28,6 +28,14 @@ export type HomeDict = {
     stattBody: string;
   };
 
+  /* greenfield ZUERST, übernahme danach · vorher sprach die
+     startseite nur leute mit bestehender seite an */
+  vn: { h2a: string; h2b: string; lead: string; schritte: string[]; key: string };
+  ub: {
+    h2a: string; h2b: string; lead: string; alt: string; neu: string;
+    posten: [string, string][]; griff: string; schluss: string;
+  };
+
   refH2: string;
   refHint: string;
   refLink: string;
@@ -67,6 +75,34 @@ export const HOME: Record<Locale, HomeDict> = {
         " · mein eigenes CMS. Mehrsprachigkeit, Übersetzung, Bilder, Formulare, Shop und Analytics sind eingebaut, nicht zugekauft. Ein Anbieter statt zehn.",
     },
 
+    vn: {
+      h2a: "du hast noch",
+      h2b: "gar nichts?",
+      lead: "Das ist der einfachere Fall. Keine Altlasten, keine Weiterleitungsliste, kein „das war schon immer so\".",
+      schritte: [
+        "du erzählst mir, was du machst",
+        "ich schreibe und baue",
+        "du sagst, was fehlt",
+        "dann steht sie",
+      ],
+      key: "so läuft das",
+    },
+    ub: {
+      h2a: "du hast schon eine seite?",
+      h2b: "die zieht einfach um.",
+      lead: "Zieh am Griff, dann siehst du, was rübergeht.",
+      alt: "deine seite heute",
+      neu: "deine seite danach",
+      posten: [
+        ["texte", "übernommen"],
+        ["bilder", "übernommen"],
+        ["adressen", "301 weitergeleitet"],
+        ["rankings", "bleiben"],
+        ["alte seite", "online bis zum umschalten"],
+      ],
+      griff: "zieh rüber",
+      schluss: "und du hast mir vorher nichts geschickt.",
+    },
     refH2: "drei projekte.",
     refHint: "Fahr über eine Schicht, dann hebt sie sich raus. Klick führt rein.",
     refLink: "alle referenzen",
@@ -105,6 +141,34 @@ export const HOME: Record<Locale, HomeDict> = {
         " · mon propre CMS. Multilingue, traduction, images, formulaires, boutique et analytics sont intégrés, pas achetés. Un fournisseur au lieu de dix.",
     },
 
+    vn: {
+      h2a: "tu n'as encore",
+      h2b: "rien du tout ?",
+      lead: "C'est le cas le plus simple. Pas d'héritage, pas de liste de redirections, pas de « ça a toujours été comme ça ».",
+      schritte: [
+        "tu me racontes ce que tu fais",
+        "j'écris et je construis",
+        "tu me dis ce qui manque",
+        "et il est là",
+      ],
+      key: "comment ça marche",
+    },
+    ub: {
+      h2a: "tu as déjà un site ?",
+      h2b: "il déménage, simplement.",
+      lead: "Tire sur la poignée pour voir ce qui passe de l'autre côté.",
+      alt: "ton site aujourd'hui",
+      neu: "ton site après",
+      posten: [
+        ["textes", "repris"],
+        ["images", "reprises"],
+        ["adresses", "redirigées en 301"],
+        ["positions", "conservées"],
+        ["ancien site", "en ligne jusqu'à la bascule"],
+      ],
+      griff: "tire",
+      schluss: "et tu ne m'as rien envoyé avant.",
+    },
     refH2: "trois projets.",
     refHint: "Survole une couche, elle se soulève. Un clic et tu es dedans.",
     refLink: "toutes les références",
@@ -143,6 +207,34 @@ export const HOME: Record<Locale, HomeDict> = {
         " · my own CMS. Multilingual, translation, images, forms, shop and analytics are built in, not bought in. One vendor instead of ten.",
     },
 
+    vn: {
+      h2a: "you have",
+      h2b: "nothing yet?",
+      lead: "That is the easier case. No legacy, no redirect list, no \"it has always been like that\".",
+      schritte: [
+        "you tell me what you do",
+        "i write and build",
+        "you say what is missing",
+        "then it stands",
+      ],
+      key: "how it works",
+    },
+    ub: {
+      h2a: "you already have a site?",
+      h2b: "it simply moves over.",
+      lead: "Pull the handle and see what comes across.",
+      alt: "your site today",
+      neu: "your site after",
+      posten: [
+        ["text", "carried over"],
+        ["images", "carried over"],
+        ["addresses", "301 redirected"],
+        ["rankings", "kept"],
+        ["old site", "live until the switch"],
+      ],
+      griff: "pull it over",
+      schluss: "and you sent me nothing beforehand.",
+    },
     refH2: "what's already running.",
     refHint: "Hover a layer and it lifts out. A click takes you in.",
     refLink: "all work",

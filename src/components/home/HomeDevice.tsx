@@ -6,7 +6,8 @@ import { useLocale } from "@/i18n/useLocale";
 import { ShaderField } from "@/components/device/ShaderField";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { HeroRail } from "@/components/device/HeroRail";
-import { SignalChain } from "@/components/device/SignalChain";
+import { VonNull } from "@/components/home/VonNull";
+import { Umzug } from "@/components/home/Umzug";
 import { Stapel } from "@/components/referenzen/Stapel";
 import { referenzen } from "@/data/referenzen";
 import { REFERENZEN } from "@/components/referenzen/referenzen.dict";
@@ -16,12 +17,16 @@ import { WegFallen } from "@/components/home/WegFallen";
 import "@/components/device/device.css";
 import "@/components/home/wegfallen.css";
 import "@/components/referenzen/stapel.css";
+import "@/components/home/umzug.css";
 
 /**
  * HomeDevice · die echte startseite in der geräte-richtung.
  *
- * ablauf: shader-hero → was wegfällt → signalkette (übernahme) →
- * kanalzüge (referenzen) → sendeknopf.
+ * ablauf: shader-hero → was wegfällt → von null → übernahme →
+ * referenzen → schluss.
+ *
+ * die reihenfolge der zielgruppen ist absicht: ERST wer noch nichts
+ * hat, DANN wer schon eine seite hat. vorher gab es nur die zweite.
  *
  * KEINE preise auf der home (Nicolas: "preise will definitiv nicht
  * auf der startseite, da will ich was mehr über lacønis quatschen") —
@@ -128,8 +133,18 @@ export function HomeDevice() {
           es keine zahl ist, sondern eine liste. */}
       <WegFallen t={t.wf} />
 
-      {/* ═══ SIGNALKETTE · sticky horizontal ═══ */}
-      <SignalChain />
+      {/* ═══ ERST WER NICHTS HAT ═══
+          für diese gruppe stand vorher kein einziger satz auf der
+          seite · die einzige zielgruppen-frage war „du hast schon
+          eine seite?". */}
+      <VonNull t={t.vn} href={buildPath("leistung", locale)} />
+
+      {/* ═══ DANN DIE ÜBERNAHME ═══
+          ersetzt die SignalChain: 320vh sticky für 120 wörter, text
+          hart deutsch verdrahtet, und eine form (fünf stationen,
+          schiene, fortschrittsbalken), die wie ein prozessdiagramm
+          las und angst machte statt sie zu nehmen. */}
+      <Umzug t={t.ub} />
 
       {/* ═══ REFERENZEN ═══
           hier standen kacheln mit erfundenen pagespeed-werten
