@@ -25,52 +25,29 @@ export type FeatureT = {
   colPlugins: string;
   colMine: string;
   mineNote: string;
-  gPagespeed: string;
-  gLoad: string;
-  gRequests: string;
-  gThirdParty: string;
+  gErweiterungen: string;
+  gAnbieter: string;
   none: string;
   builtIn: string;
+  kommt: string;
   hint: string;
   verdicts: [string, string, string];
-  features: { key: string; label: string; plugin: string }[];
+  features: { key: string; label: string; plugin: string; kommt?: boolean }[];
 };
 
-/* was ein zugekauftes plugin im schnitt mitbringt · grössenordnungen
-   aus messungen an gewachsenen seiten, keine laborwerte */
-const PRO_PLUGIN = { score: 7, load: 0.35, req: 14, js: 180 };
-/* und was dasselbe feature kostet, wenn es teil der seite ist */
-const PRO_EIGEN = { score: 0.7, load: 0.02, req: 1, js: 0 };
-
-const BASIS_PLUGIN = { score: 92, load: 0.6, req: 22, js: 60 };
-const BASIS_EIGEN = { score: 98, load: 0.4, req: 14, js: 0 };
-
-function fmtKb(kb: number) {
-  return kb >= 1000 ? `${(kb / 1024).toFixed(1)} mb` : `${Math.round(kb)} kb`;
-}
+/* der wordpress-core und ein theme sind zwei anbieter, bevor das
+   erste plugin dazukommt · sie updaten unabhängig voneinander */
+const BASIS_ANBIETER = 2;
 
 export function FeatureVergleich({ t }: { t: FeatureT }) {
   const [an, setAn] = useState<Set<string>>(new Set());
   const n = an.size;
 
-  const p = {
-    score: Math.max(8, Math.round(BASIS_PLUGIN.score - n * PRO_PLUGIN.score)),
-    load: BASIS_PLUGIN.load + n * PRO_PLUGIN.load,
-    req: BASIS_PLUGIN.req + n * PRO_PLUGIN.req,
-    js: BASIS_PLUGIN.js + n * PRO_PLUGIN.js,
-  };
-  const e = {
-    score: Math.round(BASIS_EIGEN.score - n * PRO_EIGEN.score),
-    load: BASIS_EIGEN.load + n * PRO_EIGEN.load,
-    req: BASIS_EIGEN.req + n * PRO_EIGEN.req,
-    js: BASIS_EIGEN.js,
-  };
-
+  /* gezählt, nicht geschätzt · beide zahlen kann jeder nachprüfen,
+     der die plugin-namen daneben liest */
   const zeilen: [string, string, string][] = [
-    [t.gPagespeed, String(p.score), String(e.score)],
-    [t.gLoad, `${p.load.toFixed(1)}s`, `${e.load.toFixed(1)}s`],
-    [t.gRequests, String(p.req), String(e.req)],
-    [t.gThirdParty, fmtKb(p.js), fmtKb(e.js)],
+    [t.gErweiterungen, String(n), "0"],
+    [t.gAnbieter, String(BASIS_ANBIETER + n), "1"],
   ];
 
   const verdict = n === 0 ? 0 : n <= 3 ? 1 : 2;
@@ -145,9 +122,18 @@ export function FeatureVergleich({ t }: { t: FeatureT }) {
           </span>
 
           <div className="fv-stack">
-            <span className="fv-builtin">
-              {aktive.length === 0 ? t.none : `${aktive.length}× ${t.builtIn}`}
-            </span>
+            {aktive.length === 0 ? (
+              <span className="fv-builtin">{t.none}</span>
+            ) : (
+              aktive.map((f) => (
+                /* newsletter ist noch nicht drin · das steht dann
+                   auch so da, statt es unter „eingebaut" zu
+                   verstecken */
+                <span key={f.key} className="fv-chip" data-kommt={f.kommt ? "1" : "0"}>
+                  {f.label} · {f.kommt ? t.kommt : t.builtIn}
+                </span>
+              ))
+            )}
             <span className="fv-stack-note">{t.mineNote}</span>
           </div>
 

@@ -453,3 +453,14 @@
     animation: none;
   }
 }
+
+/* die rechte tafel · eingebautes ist lime, was noch kommt ist lila.
+   ehrlich statt unter „eingebaut" versteckt. */
+.fv-panel[data-seite="mine"] .fv-chip {
+  border-color: rgb(var(--accent) / 0.34);
+  color: rgb(var(--accent) / 0.92);
+}
+.fv-panel[data-seite="mine"] .fv-chip[data-kommt="1"] {
+  border-color: rgb(var(--accent-2) / 0.4);
+  color: rgb(var(--accent-2) / 0.92);
+}
