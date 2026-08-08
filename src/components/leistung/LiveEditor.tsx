@@ -67,11 +67,7 @@ export function LiveEditor({ t }: { t: T }) {
   return (
     <div className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-12">
       {/* ═══ das pult ═══ */}
-      <div className="lab-chassis relative p-6 md:p-8">
-        <span className="lab-screw" style={{ left: 12, top: 12 }} aria-hidden />
-        <span className="lab-screw" style={{ right: 12, top: 12 }} aria-hidden />
-        <span className="lab-screw" style={{ left: 12, bottom: 12 }} aria-hidden />
-        <span className="lab-screw" style={{ right: 12, bottom: 12 }} aria-hidden />
+      <div className="gl relative p-7 md:p-10">
 
         <div className="mb-6 flex items-center gap-2.5">
           <span

@@ -143,11 +143,7 @@ export function PriceCaliper({ t }: { t: CaliperT }) {
   ];
 
   return (
-    <div className="lab-chassis pr-box relative p-6 md:p-10">
-      <span className="lab-screw" style={{ left: 14, top: 14 }} aria-hidden />
-      <span className="lab-screw" style={{ right: 14, top: 14 }} aria-hidden />
-      <span className="lab-screw" style={{ left: 14, bottom: 14 }} aria-hidden />
-      <span className="lab-screw" style={{ right: 14, bottom: 14 }} aria-hidden />
+    <div className="gl pr-box relative p-8 md:p-12">
 
       {/* ── die regler ── */}
       <div className="pr-regler">

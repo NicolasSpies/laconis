@@ -77,11 +77,7 @@ export function ChannelRack() {
   const [hot, setHot] = useState<string | null>(null);
 
   return (
-    <div className="lab-chassis relative p-5 md:p-7">
-      <span className="lab-screw" style={{ left: 14, top: 14 }} aria-hidden />
-      <span className="lab-screw" style={{ right: 14, top: 14 }} aria-hidden />
-      <span className="lab-screw" style={{ left: 14, bottom: 14 }} aria-hidden />
-      <span className="lab-screw" style={{ right: 14, bottom: 14 }} aria-hidden />
+    <div className="relative">
 
       {/* erst ab lg drei spalten · die breite archivo braucht platz,
           sonst läuft "baumpflege" aus der karte */}
@@ -93,7 +89,7 @@ export function ChannelRack() {
               key={c.nr}
               onPointerEnter={() => setHot(c.nr)}
               onPointerLeave={() => setHot(null)}
-              className="lab-glass lab-channel p-4 flex flex-col gap-4"
+              className="gl gl--karte lab-glass lab-channel p-4 flex flex-col gap-4"
               data-live={live ? "1" : "0"}
             >
               {/* vorschau hinter glas */}

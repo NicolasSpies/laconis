@@ -27,6 +27,7 @@
    still weg. feuert heute nicht, weil der geräte-baum keine
    semantischen farb-utilities benutzt. war eine gestellte falle. */
 .lab-root {
+  position: relative;
   background: var(--su-void);
   color: var(--tx-1);
   min-height: 100svh;
@@ -82,55 +83,116 @@
   color: var(--lime);
 }
 
-/* ── CHASSIS · das gehäuse ───────────────────────────────────── */
+/* ══ GLAS · eine fläche, drei schichten ═══════════════════════
+   ersetzt das gehäuse aus gebürstetem metall mit vier schrauben.
 
-.lab-chassis {
+   die lehre kommt von der lupe auf /leistung (lens.css): dort
+   verzerrt NUR der äussere ring, die mitte bleibt klar. das ist
+   echte optik. ein gleichmässig mattiertes rechteck ist milchglas,
+   und milchglas ist genau der effekt, der in einem jahr billig
+   aussieht. kanten-refraktion ist physikalisch begründet und
+   altert deshalb nicht.
+
+   die schrauben hatten eine echte aufgabe · sie markierten die
+   ecke als kante und machten die fläche zum objekt. das übernimmt
+   die maske: an den ecken überlagern sich beide gradienten, dort
+   ist die brechung am stärksten. die ecke bleibt das detail, aber
+   als licht statt als hardware.
+
+   REGEL: kein .gl in einem element mit deckendem hintergrund.
+   sonst schaut es auf einen verlauf statt auf die szene, und der
+   ganze aufbau ist tot. genau das war der fehler beim alten
+   .lab-glass, das in einem .lab-chassis sass.
+   ═══════════════════════════════════════════════════════════ */
+
+.gl {
   position: relative;
-  /* farbtemperatur statt neutralgrau · lila im korpus, lime-hauch oben.
-     reines weiss-alpha auf dunkel liest IMMER als billiges grau. */
+  isolation: isolate;
+  border-radius: var(--r-l);
   background:
-    radial-gradient(130% 100% at 50% -15%, rgb(var(--accent) / 0.055), transparent 58%),
-    radial-gradient(90% 120% at 12% 110%, rgb(var(--accent-2) / 0.035), transparent 62%),
-    linear-gradient(180deg, #17161b 0%, #0e0e11 100%);
-  border: 1px solid var(--ln-hair);
-  border-radius: 20px;
+    /* specular · folgt dem zeiger über --mx/--my. auf touch
+       driftet labGlassDrift von selbst weiter */
+    radial-gradient(
+      460px circle at var(--mx, 50%) var(--my, 0%),
+      rgb(233 255 150 / 0.068),
+      transparent 62%
+    ),
+    /* chromatischer saum · lime oben-links, lila unten-rechts.
+       drei prozent sind nichts · und genau der unterschied
+       zwischen "glas" und "graues rechteck mit blur" */
+    radial-gradient(120% 90% at 16% 4%, rgb(var(--accent) / 0.055), transparent 44%),
+    radial-gradient(110% 90% at 86% 98%, rgb(var(--accent-2) / 0.05), transparent 46%),
+    linear-gradient(
+      168deg,
+      rgb(var(--fg-rgb) / 0.05) 0%,
+      rgb(var(--fg-rgb) / 0.026) 52%,
+      rgb(var(--fg-rgb) / 0.038) 100%
+    );
+  -webkit-backdrop-filter: blur(var(--bl-body)) saturate(150%) brightness(1.07);
+  backdrop-filter: blur(var(--bl-body)) saturate(150%) brightness(1.07);
   box-shadow:
-    0 1px 0 var(--ln-hair) inset,
-    0 40px 90px -40px rgba(0, 0, 0, 0.95);
+    0 0 0 1px rgb(0 0 0 / 0.55),
+    inset 0 0 0 1px rgb(var(--fg-rgb) / 0.1),
+    inset 0 1px 0 rgb(255 255 255 / 0.22),
+    inset 0 -1px 0 rgb(0 0 0 / 0.45),
+    inset 0 0 30px rgb(0 0 0 / 0.26),
+    var(--sh-3);
 }
 
-/* schrauben in den ecken · 6px, vertieft */
-.lab-screw {
+/* die rand-refraktion · weicher rahmen statt hartem ring, ecken am
+   stärksten (an der ecke trifft das licht zwei flanken) */
+.gl::before {
+  content: "";
   position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: linear-gradient(180deg, #050505, #242424);
-  box-shadow:
-    inset 0 1px 1px rgba(0, 0, 0, 0.9),
-    0 1px 0 var(--ln-hair);
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(var(--bl-rim)) saturate(190%);
+  backdrop-filter: blur(var(--bl-rim)) saturate(190%);
+  /* -webkit ZUERST, standard danach · schreibt man nur den
+     standard, ignoriert safari die komposition und maskiert mit
+     dem LETZTEN gradienten allein → das ganze panel verwischt
+     statt nur der rand. fällt in chrome nicht auf. */
+  -webkit-mask-image:
+    linear-gradient(to right, #000 0, transparent 24%, transparent 76%, #000 100%),
+    linear-gradient(to bottom, #000 0, transparent 22%, transparent 78%, #000 100%);
+  -webkit-mask-composite: source-over;
+  mask-image:
+    linear-gradient(to right, #000 0, transparent 24%, transparent 76%, #000 100%),
+    linear-gradient(to bottom, #000 0, transparent 22%, transparent 78%, #000 100%);
+  mask-composite: add;
 }
 
-/* ── GLASS · liquid-glass-panel ──────────────────────────────── */
-
-.lab-glass {
-  position: relative;
-  overflow: hidden;
-  border-radius: 16px;
-  /* leicht getöntes glas · lila-kühle unten, lime-wärme oben */
+/* das rim-light · die haarlinie oben, die zu den seiten ausläuft.
+   das einzelne überzeugendste detail · sie sagt "hier ist eine
+   kante", ohne einen strich zu ziehen. */
+.gl::after {
+  content: "";
+  position: absolute;
+  inset-inline: 10%;
+  top: 0;
+  height: 1px;
+  pointer-events: none;
   background: linear-gradient(
-    172deg,
-    rgb(var(--accent) / 0.045) 0%,
-    rgba(242, 242, 242, 0.03) 42%,
-    rgb(var(--accent-2) / 0.022) 100%
+    90deg,
+    transparent,
+    rgb(var(--fg-rgb) / 0.55),
+    transparent
   );
-  backdrop-filter: blur(20px) saturate(185%);
-  -webkit-backdrop-filter: blur(20px) saturate(185%);
-  border: 1px solid var(--ln-hair);
-  box-shadow:
-    inset 0 1px 0 rgba(242, 242, 242, 0.22),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
-    0 30px 60px -30px rgba(0, 0, 0, 0.85);
+}
+
+/* kleinere fassung für karten im raster */
+.gl--karte {
+  border-radius: var(--r-m);
+}
+
+/* ── GLASS · alias auf .gl ───────────────────────────────────
+   hatte bis august 2026 eine eigene rezeptur mit blur(20px) · sie
+   sass aber in einem .lab-chassis mit deckendem verlauf, hat also
+   etwas verwischt, das schon glatt war. rechenlast ohne bild.
+   jetzt dieselbe fläche wie überall, nur mit kleinerem radius. */
+.lab-glass {
+  overflow: hidden;
 }
 
 /* --mx/--my animierbar machen (sonst springen sie statt zu gleiten) */
@@ -162,35 +224,12 @@
   }
 }
 
+/* ohne zeiger kein specular → auf touch wandert das glanzlicht von
+   selbst. gilt für JEDE glasfläche, nicht nur die karten. */
 @media (hover: none) {
-  .lab-glass {
+  .gl {
     animation: labGlassDrift 11s ease-in-out infinite;
   }
-}
-
-/* specular · wanderndes glanzlicht, folgt dem cursor via --mx/--my */
-.lab-glass::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    380px circle at var(--mx, 50%) var(--my, 0%),
-    rgba(233, 255, 150, 0.13),
-    transparent 62%
-  );
-  transition: background 90ms linear;
-}
-
-/* kantenlicht oben · das was glas von "grauer kasten" trennt */
-.lab-glass::after {
-  content: "";
-  position: absolute;
-  inset-inline: 12%;
-  top: 0;
-  height: 1px;
-  pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgba(242, 242, 242, 0.6), transparent);
 }
 
 /* ── FADER ───────────────────────────────────────────────────── */
@@ -1262,10 +1301,13 @@
   overflow: hidden;
 }
 
+/* 120px blur auf einer 60vw-fläche hat praktisch keine kante mehr ·
+   ein zweites blur davor ändert daran nichts. 70px gibt der wolke
+   ihre kante zurück, und erst dann hat das glas etwas zu brechen. */
 .lab-ambient span {
   position: absolute;
   border-radius: 50%;
-  filter: blur(120px);
+  filter: blur(84px);
   will-change: transform;
 }
 
@@ -1274,8 +1316,20 @@
   height: 60vw;
   left: -12vw;
   top: 8vh;
-  background: rgb(var(--accent-2) / 0.07);
+  background: rgb(var(--accent-2) / 0.095);
   animation: labAmbientA 46s ease-in-out infinite;
+}
+
+/* der heisse kern · klein und näher, damit es hinter dem glas
+   nicht nur flächig schimmert sondern eine lichtquelle gibt */
+.lab-ambient span:nth-child(3) {
+  width: 20vw;
+  height: 20vw;
+  left: 38%;
+  top: 44vh;
+  background: rgb(var(--accent) / 0.075);
+  filter: blur(52px);
+  animation: labAmbientA 38s ease-in-out infinite reverse;
 }
 
 .lab-ambient span:nth-child(2) {
@@ -1283,12 +1337,51 @@
   height: 48vw;
   right: -8vw;
   bottom: 4vh;
-  background: rgb(var(--accent) / 0.06);
+  background: rgb(var(--accent) / 0.105);
   animation: labAmbientB 62s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .lab-ambient span { animation: none; }
+}
+
+/* ── DIE SZENE · das raster hinter dem glas ──────────────────
+   auf #08080b bringt backdrop-filter optisch NULL · es gibt nichts
+   zu verwischen. das ist der grund, warum das alte .lab-glass wie
+   ein graues rechteck aussah und nicht wie glas.
+
+   blur zerstört gerade LINIEN sichtbar. ein farbverlauf bleibt beim
+   verwischen ein farbverlauf. deshalb liegt hier ein feines raster ·
+   es ist das, woran man glas überhaupt als glas erkennt.
+
+   62px ist nicht zufällig: das ist exakt der pitch der blaupause
+   unter der lupe auf /leistung (lens.css). damit ist die szene
+   hinter jedem panel dasselbe raster wie unter dem glas, das die
+   seite ohnehin schon hat · eine erzählung statt zwei.
+
+   absolute, nicht fixed: das raster scrollt mit, damit die panels
+   die linien beim vorbeiziehen sichtbar auffressen. genau diese
+   relativbewegung erzeugt den eindruck von tiefe. */
+.lab-szene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(var(--fg-rgb) / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--fg-rgb) / 0.045) 1px, transparent 1px);
+  background-size: 62px 62px;
+  /* die blende läuft nur WAAGERECHT aus. eine radiale maske war
+     hier falsch: sie ist auf bildschirmhöhe gedacht, das element
+     ist aber die ganze seite hoch (6000px+) · unten war sie längst
+     transparent und das raster fehlte genau dort, wo die panels
+     stehen. eine lineare maske in x ist von der höhe unabhängig. */
+  -webkit-mask-image: linear-gradient(
+    90deg, transparent 0%, #000 16%, #000 84%, transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg, transparent 0%, #000 16%, #000 84%, transparent 100%
+  );
 }
 
 /* inhalt über die ambient-schicht heben */

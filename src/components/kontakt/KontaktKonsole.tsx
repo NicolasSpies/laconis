@@ -114,11 +114,7 @@ export function KontaktKonsole({ t }: { t: KonsoleT }) {
   }
 
   return (
-    <div className="lab-chassis relative p-6 md:p-10">
-      <span className="lab-screw" style={{ left: 14, top: 14 }} aria-hidden />
-      <span className="lab-screw" style={{ right: 14, top: 14 }} aria-hidden />
-      <span className="lab-screw" style={{ left: 14, bottom: 14 }} aria-hidden />
-      <span className="lab-screw" style={{ right: 14, bottom: 14 }} aria-hidden />
+    <div className="gl relative p-8 md:p-12">
 
       <div className="mb-7 flex items-center gap-2.5">
         <span

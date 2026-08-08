@@ -38,6 +38,7 @@ export function HomeDevice() {
         <span />
         <span />
       </div>
+      <div className="lab-szene" aria-hidden />
 
       <DeviceNav />
       <HeroRail label={t.kicker} />
@@ -145,11 +146,7 @@ export function HomeDevice() {
       {/* ═══ SENDEN ═══ */}
       <section data-no-reveal className="relative px-gut pb-rh-l">
         <div className="max-w-shell mx-auto">
-          <div className="lab-chassis relative p-6 md:p-12 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
-            <span className="lab-screw" style={{ left: 14, top: 14 }} aria-hidden />
-            <span className="lab-screw" style={{ right: 14, top: 14 }} aria-hidden />
-            <span className="lab-screw" style={{ left: 14, bottom: 14 }} aria-hidden />
-            <span className="lab-screw" style={{ right: 14, bottom: 14 }} aria-hidden />
+          <div className="gl relative p-8 md:p-14 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
 
             <div className="max-w-[460px]">
               <h2 className="lab-display text-headline">

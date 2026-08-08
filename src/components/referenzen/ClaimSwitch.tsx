@@ -50,11 +50,7 @@ export function ClaimSwitch({ t }: { t: ClaimT }) {
   };
 
   return (
-    <div className="lab-chassis relative p-5 md:p-8">
-      <span className="lab-screw" style={{ left: 13, top: 13 }} aria-hidden />
-      <span className="lab-screw" style={{ right: 13, top: 13 }} aria-hidden />
-      <span className="lab-screw" style={{ left: 13, bottom: 13 }} aria-hidden />
-      <span className="lab-screw" style={{ right: 13, bottom: 13 }} aria-hidden />
+    <div className="gl relative p-6 md:p-10">
 
       <div className="cs-screen" data-era={era} data-flip={flip ? "1" : "0"}>
         <div className="cs-stage" key={era}>

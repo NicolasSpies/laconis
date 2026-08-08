@@ -39,6 +39,7 @@ export function ReferenzenDevice() {
         <span />
         <span />
       </div>
+      <div className="lab-szene" aria-hidden />
 
       <DeviceNav />
       <HeroRail label={t.kicker} />
@@ -95,11 +96,7 @@ export function ReferenzenDevice() {
       {/* ═══ SCHLUSS ═══ */}
       <section data-no-reveal className="relative px-gut pb-rh-l">
         <div className="mx-auto max-w-shell">
-          <div className="lab-chassis relative flex flex-col justify-between gap-10 p-6 md:p-12 lg:flex-row lg:items-center">
-            <span className="lab-screw" style={{ left: 14, top: 14 }} aria-hidden />
-            <span className="lab-screw" style={{ right: 14, top: 14 }} aria-hidden />
-            <span className="lab-screw" style={{ left: 14, bottom: 14 }} aria-hidden />
-            <span className="lab-screw" style={{ right: 14, bottom: 14 }} aria-hidden />
+          <div className="gl relative flex flex-col justify-between gap-10 p-8 md:p-14 lg:flex-row lg:items-center">
 
             <div className="max-w-[480px]">
               <h2 className="lab-display text-headline">{t.ctaH2}</h2>

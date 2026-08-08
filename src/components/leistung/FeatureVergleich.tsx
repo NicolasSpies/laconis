@@ -109,7 +109,7 @@ export function FeatureVergleich({ t }: { t: FeatureT }) {
 
       {/* ── die zwei tafeln ── */}
       <div className="fv-panels mt-8">
-        <div className="lab-chassis fv-panel" data-seite="plugins">
+        <div className="gl gl--karte fv-panel" data-seite="plugins">
           <span className="lab-label fv-panel-head" style={{ color: "rgba(176,132,211,0.9)" }}>
             {t.colPlugins}
           </span>
@@ -139,7 +139,7 @@ export function FeatureVergleich({ t }: { t: FeatureT }) {
           </div>
         </div>
 
-        <div className="lab-chassis fv-panel" data-seite="mine">
+        <div className="gl gl--karte fv-panel" data-seite="mine">
           <span className="lab-label fv-panel-head" style={{ color: "rgba(225,253,82,0.9)" }}>
             {t.colMine}
           </span>
