@@ -50,12 +50,12 @@
 }
 .ha-band[data-side="top"] {
   top: 18%;
-  background: linear-gradient(90deg, transparent, rgba(225, 253, 82, 0.34), transparent 92%);
+  background: linear-gradient(90deg, transparent, rgb(var(--accent) / 0.34), transparent 92%);
   animation: haBandTop 17s ease-in-out infinite;
 }
 .ha-band[data-side="bottom"] {
   bottom: 12%;
-  background: linear-gradient(90deg, transparent 8%, rgba(176, 132, 211, 0.3), transparent);
+  background: linear-gradient(90deg, transparent 8%, rgb(var(--accent-2) / 0.3), transparent);
   animation: haBandBottom 21s ease-in-out infinite;
 }
 @keyframes haBandTop {
@@ -89,13 +89,13 @@
   aspect-ratio: 1;
   margin: -23vw 0 0 -23vw;
   border-radius: 50%;
-  border: 1px solid rgba(225, 253, 82, 0.4);
+  border: 1px solid rgb(var(--accent) / 0.4);
   opacity: 0;
   animation: haRing 9s cubic-bezier(0.22, 0.7, 0.3, 1) infinite;
 }
 .ha-ring:nth-of-type(2) {
   animation-delay: -3s;
-  border-color: rgba(176, 132, 211, 0.38);
+  border-color: rgb(var(--accent-2) / 0.38);
 }
 .ha-ring:nth-of-type(3) {
   animation-delay: -6s;
@@ -128,7 +128,7 @@
   height: 54vw;
   left: -8vw;
   top: -12vh;
-  background: rgba(225, 253, 82, 0.075);
+  background: rgb(var(--accent) / 0.075);
   animation: haGlowA 38s ease-in-out infinite;
 }
 .ha-glow[data-b] {
@@ -136,7 +136,7 @@
   height: 46vw;
   right: -10vw;
   bottom: -16vh;
-  background: rgba(176, 132, 211, 0.085);
+  background: rgb(var(--accent-2) / 0.085);
   animation: haGlowB 52s ease-in-out infinite;
 }
 @keyframes haGlowA {
@@ -213,7 +213,7 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow:
-    0 0 0 1px rgba(242, 242, 242, 0.09),
+    0 0 0 1px var(--ln-hair),
     0 44px 80px -34px rgba(0, 0, 0, 0.95);
   opacity: 0.42;
 }

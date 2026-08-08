@@ -150,7 +150,7 @@
 /* wer gerade nicht gemeint ist, tritt einen schritt zurück ·
    ausgrauen wäre zu viel, es sind ja alles echte arbeiten */
 .st-platte[data-ab="1"] .st-flaeche { filter: brightness(0.62) saturate(0.8); }
-.st-platte[data-on="1"] .st-flaeche { border-color: rgba(225, 253, 82, 0.45); }
+.st-platte[data-on="1"] .st-flaeche { border-color: rgb(var(--accent) / 0.45); }
 
 .st-flaeche img {
   display: block;
@@ -222,7 +222,7 @@
 .st-name {
   display: grid;
   padding: 13px 0;
-  border-top: 1px solid rgba(242, 242, 242, 0.09);
+  border-top: 1px solid var(--ln-hair);
   grid-template-columns: auto auto auto;
   /* ohne das verteilt das raster die restbreite auf die spalten
      und der titel landet am rechten rand · die drei namen stünden
@@ -255,7 +255,7 @@
   }
 }
 .st-name:focus-visible {
-  outline: 1px solid rgba(225, 253, 82, 0.6);
+  outline: 1px solid rgb(var(--accent) / 0.6);
   outline-offset: 8px;
   border-radius: 3px;
 }
@@ -282,7 +282,7 @@
   }
 }
 .st-name[data-on="1"] .st-strich {
-  background: linear-gradient(to right, rgba(225, 253, 82, 0), rgba(225, 253, 82, 0.75));
+  background: linear-gradient(to right, rgb(var(--accent) / 0), rgb(var(--accent) / 0.75));
 }
 
 .st-nr {
@@ -293,7 +293,7 @@
   grid-row: 1;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 10px;
-  color: rgba(225, 253, 82, 0.7);
+  color: rgb(var(--accent) / 0.7);
 }
 
 .st-titel {
@@ -305,7 +305,7 @@
   color: #f2f2f2;
   transition: color 300ms ease;
 }
-.st-name[data-on="1"] .st-titel { color: #e1fd52; }
+.st-name[data-on="1"] .st-titel { color: var(--lime); }
 
 .st-meta {
   /* NICHT über zwei spalten spannen · ist die meta-zeile breiter
@@ -333,13 +333,13 @@
   background: rgba(242, 242, 242, 0.24);
 }
 .st-led[data-live="1"] {
-  background: #e1fd52;
-  box-shadow: 0 0 8px rgba(225, 253, 82, 0.85);
+  background: var(--lime);
+  box-shadow: 0 0 8px rgb(var(--accent) / 0.85);
   animation: stPuls 3400ms ease-in-out infinite;
 }
 .st-led[data-live="wip"] {
-  background: #b084d3;
-  box-shadow: 0 0 7px rgba(176, 132, 211, 0.7);
+  background: var(--lila);
+  box-shadow: 0 0 7px rgb(var(--accent-2) / 0.7);
   animation: stPuls 2600ms ease-in-out infinite;
 }
 @keyframes stPuls {
@@ -353,7 +353,7 @@
   display: block;
   margin-top: 26px;
   padding-top: 14px;
-  border-top: 1px solid rgba(242, 242, 242, 0.08);
+  border-top: 1px solid var(--ln-hair);
   animation: stWink 3.8s ease-in-out infinite;
 }
 @keyframes stWink {

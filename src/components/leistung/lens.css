@@ -72,8 +72,8 @@
 /* dichteres, wärmeres raster unter glas */
 .lx-under-inner .lx-grid {
   background-image:
-    linear-gradient(rgba(225, 253, 82, 0.13) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(225, 253, 82, 0.13) 1px, transparent 1px);
+    linear-gradient(rgb(var(--accent) / 0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--accent) / 0.13) 1px, transparent 1px);
   background-size: 31px 31px;
   mask-image: none;
   animation: none;
@@ -82,7 +82,7 @@
 /* die headline als drahtgitter */
 .lx-h1-wire {
   color: transparent;
-  -webkit-text-stroke: 1px rgba(225, 253, 82, 0.92);
+  -webkit-text-stroke: 1px rgb(var(--accent) / 0.92);
   paint-order: stroke fill;
 }
 
@@ -92,7 +92,7 @@
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 9.5px;
   letter-spacing: 0.1em;
-  color: rgba(225, 253, 82, 0.7);
+  color: rgb(var(--accent) / 0.7);
   white-space: nowrap;
 }
 .lx-anno::before {
@@ -102,14 +102,14 @@
   top: 50%;
   width: 6px;
   height: 1px;
-  background: rgba(225, 253, 82, 0.5);
+  background: rgb(var(--accent) / 0.5);
 }
 .lx-anno-rule {
   position: absolute;
   height: 1px;
   background: repeating-linear-gradient(
     90deg,
-    rgba(225, 253, 82, 0.45) 0 5px,
+    rgb(var(--accent) / 0.45) 0 5px,
     transparent 5px 10px
   );
 }
@@ -136,7 +136,7 @@
     inset 0 0 0 1px rgba(242, 242, 242, 0.38),
     0 0 0 1px rgba(0, 0, 0, 0.6),
     0 30px 56px -18px rgba(0, 0, 0, 0.9),
-    0 2px 0 rgba(242, 242, 242, 0.07);
+    0 2px 0 var(--ln-hair);
   transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .lx-stage[data-grab="1"] .lx-lens {
@@ -161,8 +161,8 @@
   inset: 0;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 34% 30%, rgba(225, 253, 82, 0.2), transparent 46%),
-    radial-gradient(circle at 70% 76%, rgba(176, 132, 211, 0.18), transparent 48%);
+    radial-gradient(circle at 34% 30%, rgb(var(--accent) / 0.2), transparent 46%),
+    radial-gradient(circle at 70% 76%, rgb(var(--accent-2) / 0.18), transparent 48%);
   mask-image: radial-gradient(circle, transparent 72%, #000 92%);
   -webkit-mask-image: radial-gradient(circle, transparent 72%, #000 92%);
 }
@@ -193,7 +193,7 @@
 .lx-lens-cross::after {
   content: "";
   position: absolute;
-  background: rgba(225, 253, 82, 0.85);
+  background: rgb(var(--accent) / 0.85);
 }
 .lx-lens-cross::before {
   left: 50%;

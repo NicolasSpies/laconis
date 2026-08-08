@@ -30,7 +30,7 @@
   background: radial-gradient(circle at 50% 40%, #0d0d10, #08080a);
   box-shadow:
     inset 0 3px 8px rgba(0, 0, 0, 0.95),
-    inset 0 -1px 0 rgba(242, 242, 242, 0.09);
+    inset 0 -1px 0 var(--ln-hair);
 }
 
 .lx-dial-tick {
@@ -51,12 +51,12 @@
   transition: background 260ms ease, box-shadow 260ms ease;
 }
 .lx-dial-tick[data-on="1"] span {
-  background: #e1fd52;
-  box-shadow: 0 0 7px rgba(225, 253, 82, 0.85);
+  background: var(--lime);
+  box-shadow: 0 0 7px rgb(var(--accent) / 0.85);
 }
 .lx-dial-tick[data-on="2"] span {
-  background: #b084d3;
-  box-shadow: 0 0 7px rgba(176, 132, 211, 0.75);
+  background: var(--lila);
+  box-shadow: 0 0 7px rgb(var(--accent-2) / 0.75);
 }
 
 /* der knopf · geriffelter rand, erhabene deckfläche */
@@ -82,7 +82,7 @@
   cursor: grabbing;
 }
 .lx-dial-knob:focus-visible {
-  outline: 2px solid #b084d3;
+  outline: 2px solid var(--focus);
   outline-offset: 5px;
 }
 
@@ -109,14 +109,14 @@
   margin-left: -1.5px;
   border-radius: 2px;
   z-index: 2;
-  background: #e1fd52;
-  box-shadow: 0 0 10px rgba(225, 253, 82, 0.9);
+  background: var(--lime);
+  box-shadow: 0 0 10px rgb(var(--accent) / 0.9);
   pointer-events: none;
   transition: background 300ms ease, box-shadow 300ms ease;
 }
 .lx-dial-wrap[data-heavy="1"] .lx-dial-marker {
-  background: #b084d3;
-  box-shadow: 0 0 10px rgba(176, 132, 211, 0.9);
+  background: var(--lila);
+  box-shadow: 0 0 10px rgb(var(--accent-2) / 0.9);
 }
 
 /* ── messwerte ────────────────────────────────────────── */
@@ -126,7 +126,7 @@
   justify-content: flex-end;
   gap: 26px;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(242, 242, 242, 0.08);
+  border-bottom: 1px solid var(--ln-hair);
 }
 .lx-gauge-head span {
   width: 92px;
@@ -153,7 +153,7 @@
   white-space: nowrap; /* „1.3 mb" brach sonst auf zwei zeilen um */
 }
 .lx-gauge-mine {
-  color: #e1fd52;
+  color: var(--lime);
 }
 
 /* die feste marke im balken · sie steht da, wo meine seite steht,
@@ -165,8 +165,8 @@
   bottom: -3px;
   width: 2px;
   border-radius: 1px;
-  background: #e1fd52;
-  box-shadow: 0 0 8px rgba(225, 253, 82, 0.8);
+  background: var(--lime);
+  box-shadow: 0 0 8px rgb(var(--accent) / 0.8);
 }
 .lx-gauge-top {
   display: flex;
@@ -192,20 +192,20 @@
   background: #0a0a0c;
   box-shadow:
     inset 0 1px 3px rgba(0, 0, 0, 0.95),
-    inset 0 -1px 0 rgba(242, 242, 242, 0.07);
+    inset 0 -1px 0 var(--ln-hair);
 }
 .lx-gauge-fill {
   position: absolute;
   inset: 0 auto 0 0;
   border-radius: 3px;
-  background: linear-gradient(90deg, rgba(225, 253, 82, 0.55), #e1fd52);
-  box-shadow: 0 0 12px rgba(225, 253, 82, 0.45);
+  background: linear-gradient(90deg, rgb(var(--accent) / 0.55), var(--lime));
+  box-shadow: 0 0 12px rgb(var(--accent) / 0.45);
   transition: width 320ms cubic-bezier(0.22, 1, 0.36, 1), background 320ms ease,
     box-shadow 320ms ease;
 }
 .lx-gauge[data-bad="1"] .lx-gauge-fill {
-  background: linear-gradient(90deg, rgba(176, 132, 211, 0.4), #b084d3);
-  box-shadow: 0 0 12px rgba(176, 132, 211, 0.4);
+  background: linear-gradient(90deg, rgb(var(--accent-2) / 0.4), var(--lila));
+  box-shadow: 0 0 12px rgb(var(--accent-2) / 0.4);
 }
 
 /* ════════════════════════════════════════════════════════
@@ -230,7 +230,7 @@
     0 0 0 2px rgba(242, 242, 242, 0.55);
 }
 .lx-swatch:focus-visible {
-  outline: 2px solid #b084d3;
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
 }
 
@@ -330,10 +330,10 @@
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.7),
     0 0 0 rgba(0, 0, 0, 0.65),
-    0 0 18px -6px rgba(225, 253, 82, 0.6);
+    0 0 18px -6px rgb(var(--accent) / 0.6);
 }
 .fv-key:focus-visible {
-  outline: 2px solid #b084d3;
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
 }
 
@@ -356,14 +356,14 @@
   /* die linke tafel bekommt die lila-kühle, die rechte die lime-wärme ·
      man soll auf einen blick sehen, welche welche ist */
   background:
-    radial-gradient(120% 90% at 50% -10%, rgba(176, 132, 211, 0.075), transparent 60%),
+    radial-gradient(120% 90% at 50% -10%, rgb(var(--accent-2) / 0.075), transparent 60%),
     linear-gradient(180deg, #17161b 0%, #0e0e11 100%);
 }
 
 .fv-panel-head {
   display: block;
   padding-bottom: 14px;
-  border-bottom: 1px solid rgba(242, 242, 242, 0.09);
+  border-bottom: 1px solid var(--ln-hair);
 }
 
 /* der stapel · links wachsen die zugekauften stücke sichtbar an */
@@ -392,8 +392,8 @@
   font-size: 10px;
   letter-spacing: 0.06em;
   color: rgba(242, 242, 242, 0.72);
-  background: rgba(176, 132, 211, 0.14);
-  border: 1px solid rgba(176, 132, 211, 0.32);
+  background: rgb(var(--accent-2) / 0.14);
+  border: 1px solid rgb(var(--accent-2) / 0.32);
   animation: fvChip 260ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 @keyframes fvChip {
@@ -409,12 +409,12 @@
   font-weight: 700;
   font-size: clamp(1.3rem, 2.6vw, 1.9rem);
   letter-spacing: -0.02em;
-  color: #e1fd52;
+  color: var(--lime);
 }
 
 .fv-rows {
   margin-top: auto;
-  border-top: 1px solid rgba(242, 242, 242, 0.09);
+  border-top: 1px solid var(--ln-hair);
 }
 .fv-row {
   display: flex;
@@ -439,10 +439,10 @@
   transition: color 300ms ease;
 }
 .fv-val[data-bad="1"] {
-  color: #b084d3;
+  color: var(--lila);
 }
 .fv-val[data-good="1"] {
-  color: #e1fd52;
+  color: var(--lime);
 }
 
 @media (prefers-reduced-motion: reduce) {

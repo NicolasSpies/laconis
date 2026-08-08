@@ -121,10 +121,10 @@
   border-radius: 13px 13px 0 0;
   background: linear-gradient(
     180deg,
-    rgba(225, 253, 82, 0.16),
-    rgba(225, 253, 82, 0.05)
+    rgb(var(--accent) / 0.16),
+    rgb(var(--accent) / 0.05)
   );
-  box-shadow: inset 0 0 0 1px rgba(225, 253, 82, 0.12);
+  box-shadow: inset 0 0 0 1px rgb(var(--accent) / 0.12);
   transition: height 560ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -135,9 +135,9 @@
   width: clamp(20px, 2.6vw, 26px);
   margin-left: calc(clamp(20px, 2.6vw, 26px) / -2);
   border-radius: 13px;
-  background: linear-gradient(180deg, #e1fd52, rgba(225, 253, 82, 0.55));
+  background: linear-gradient(180deg, var(--lime), rgb(var(--accent) / 0.55));
   box-shadow:
-    0 0 22px rgba(225, 253, 82, 0.4),
+    0 0 22px rgb(var(--accent) / 0.4),
     inset 0 0 0 1px rgba(255, 255, 255, 0.28);
   overflow: hidden;
   transition:
@@ -175,7 +175,7 @@
   border-radius: 3px;
   background: repeating-linear-gradient(
     45deg,
-    rgba(176, 132, 211, 0.55) 0 4px,
+    rgb(var(--accent-2) / 0.55) 0 4px,
     rgba(10, 10, 10, 0.75) 4px 8px
   );
 }
@@ -219,7 +219,7 @@
 .pr-tafel-wert i {
   font-style: normal;
   margin-left: 0.14em;
-  color: #e1fd52;
+  color: var(--lime);
 }
 /* der obere wert ist die spanne nach oben · leiser gesetzt, sonst
    liest man ihn zuerst und die seite wirkt teurer als sie ist */
@@ -235,7 +235,7 @@
   justify-content: space-between;
   gap: 14px;
   padding: 15px 0;
-  border-top: 1px solid rgba(242, 242, 242, 0.09);
+  border-top: 1px solid var(--ln-hair);
 }
 .pr-mini-value {
   font-family: var(--font-lab), system-ui, sans-serif;
@@ -275,8 +275,8 @@
   background: linear-gradient(180deg, #141419, #0d0d11);
   box-shadow:
     inset 0 2px 6px rgba(0, 0, 0, 0.9),
-    inset 0 -1px 0 rgba(242, 242, 242, 0.08),
-    0 1px 0 rgba(242, 242, 242, 0.06);
+    inset 0 -1px 0 var(--ln-hair),
+    0 1px 0 var(--ln-hair);
   /* die zeitachse hängt HIER und nicht an der walze: das walzen-
      fenster hat overflow:hidden und ist damit ein eigener scroll-
      container · ein view() an der walze hätte den fortschritt
@@ -363,7 +363,7 @@
   color: rgba(242, 242, 242, 0.42);
 }
 .zr-einheit {
-  color: #e1fd52;
+  color: var(--lime);
 }
 
 @media (prefers-reduced-motion: reduce) {

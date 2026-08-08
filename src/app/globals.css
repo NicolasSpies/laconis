@@ -281,7 +281,7 @@
       padding: 5px 11px;
       border-radius: 999px;
       background: rgba(10, 10, 10, 0.92);
-      color: #e1fd52;
+      color: var(--lime);
       font-family: var(--font-geist-mono), ui-monospace, monospace;
       font-size: 9px;
       letter-spacing: 0.12em;
@@ -299,6 +299,146 @@
       transform: scale(1);
     }
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   GLAS-SYSTEM · die eine wahrheit ab august 2026
+
+   bewusst ADDITIV neben den alten tokens (--glass-*, --depth-*,
+   --bg, --surface). die tragen Nav, Footer, ui/Button und die vier
+   alt-routen · jede wertänderung dort wäre ein unsichtbarer
+   kollateralschaden auf seiten, die niemand mehr anschaut. neue
+   namen können per definition nichts brechen, was sie nicht
+   referenziert.
+
+   ausserhalb @layer base, damit die werte nicht von der
+   preflight-reihenfolge abhängen.
+
+   die zahlen sind nicht gerundet worden bis es hübsch aussah ·
+   jede stufe existiert, weil sie auf #08080b unterscheidbar ist.
+   eine fünfte stufe je achse wäre nicht mehr als absicht lesbar,
+   nur als zufall.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── farbe · primitive bleiben triplets, sonst stirbt tailwinds
+        alpha-syntax (bg-accent/40) ── */
+  --accent-2: 176 132 211;
+  --fg-rgb: 242 242 242;
+
+  /* aliase für die komponenten-css · ersetzen 21× var(--lime) und 25× var(--lila) */
+  --lime: rgb(var(--accent));
+  --lila: rgb(var(--accent-2));
+  --focus: var(--lila);
+
+  /* ── flächen · 4 stufen ──
+     grund, glas, erhaben, versenkt. weniger geht auf einer dunklen
+     seite nicht, mehr ist nicht mehr auseinanderzuhalten. */
+  --su-void: #08080b;
+  --su-glass: rgb(var(--fg-rgb) / 0.038);
+  --su-raise: rgb(var(--fg-rgb) / 0.075);
+  --su-sink: rgb(4 4 7 / 0.62);
+
+  /* ── ränder · 3 stufen ──
+     heute 39 varianten von rgba(242,242,242,.07 bis .10), die alle
+     dasselbe meinen. der unterschied ist unsichtbar, also drift. */
+  --ln-hair: rgb(var(--fg-rgb) / 0.08);
+  --ln-soft: rgb(var(--fg-rgb) / 0.14);
+  --ln-loud: rgb(var(--accent) / 0.42);
+
+  /* ── text · 4 stufen ── heute 37 verschiedene alphas */
+  --tx-1: rgb(var(--fg-rgb) / 1);
+  --tx-2: rgb(var(--fg-rgb) / 0.72);
+  --tx-3: rgb(var(--fg-rgb) / 0.46);
+  --tx-4: rgb(var(--fg-rgb) / 0.3);
+
+  /* ── radien · 4 + pille ── heute 16 werte von 2 bis 26px.
+     border-radius:50% und die 1-2px kantenbrüche an mikro-elementen
+     sind KEINE radien im sinne einer skala und bleiben literale. */
+  --r-xs: 6px;
+  --r-s: 10px;
+  --r-m: 16px;
+  --r-l: 24px;
+  --r-pill: 999px;
+
+  /* ── abstand · 8er-raster ──
+     heute sind 7, 9, 11, 13, 15, 17, 19, 22, 26, 34, 38, 42, 46 alle
+     vertreten. das ist kein raster, das ist gewachsen. */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+
+  /* ── blur · 3 stufen ── heute 9 radien (3,16,18,20,22,24,30,32) */
+  --bl-body: 4px;
+  --bl-rim: 14px;
+  --bl-veil: 40px;
+
+  /* ── schatten ── heute 11 varianten desselben inset-schattens */
+  --sh-1: 0 1px 2px rgb(0 0 0 / 0.5);
+  --sh-2: 0 10px 26px -14px rgb(0 0 0 / 0.75);
+  --sh-3: 0 40px 90px -44px rgb(0 0 0 / 0.95);
+  --sh-in: inset 0 2px 6px rgb(0 0 0 / 0.8),
+    inset 0 -1px 0 rgb(var(--fg-rgb) / 0.07);
+
+  /* ── zeit ── heute 15× 260ms, 10× 220ms, 9× 240ms · alles dasselbe gemeint */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-1: 140ms;
+  --t-2: 260ms;
+  --t-3: 520ms;
+
+  /* ── graurampe ──
+     es gab zwei parallele reihen: neutral (#1a1a1a #232323 #2d2d2d)
+     in device.css und blaustichig-kühl (#131317 #16161c #1b1b21) in
+     den seiten-css. auf einer seite nebeneinander sichtbar als
+     farbtemperatur-sprung.
+
+     die KÜHLE gewinnt: das ganze glas ist auf temperatur gebaut
+     (lime warm oben, lila kühl unten) · ein neutrales grau daneben
+     liest sich als schmutz, nicht als neutralität. */
+  --g-0: #08080b;
+  --g-1: #0e0e12;
+  --g-2: #14141a;
+  --g-3: #1c1c23;
+  --g-4: #2a2a33;
+  --g-5: #3d3d49;
+
+  /* ── rhythmus · 9 sektionsabstände werden 4 ──
+     bei 1440px: 168 / 240 / 317px. bei 390px: 96 / 140 / 180px ·
+     auf dem handy bleibt es damit enger als heute (pb-40 = 160px),
+     was richtig ist. */
+  --rh-s: clamp(64px, 8vw, 112px);
+  --rh-m: clamp(96px, 12vw, 168px);
+  --rh-l: clamp(140px, 17vw, 240px);
+  --rh-xl: clamp(180px, 22vw, 320px);
+
+  /* ── schalen ──
+     1200 → 1080. bei 1440px sind das 180px rand je seite statt 120
+     (+50%). das ist der weissraum, den man ohne werkzeug sieht. */
+  --shell: 1080px;
+  --shell-wide: 1240px;
+  --shell-narrow: 720px;
+  --gutter: clamp(24px, 5vw, 72px);
+  --measure: 62ch;
+  --measure-lead: 44ch;
+  --measure-h: 16ch;
+
+  /* ── schriftgrössen · 7 rollen statt 60 ausdrücke ──
+     grösse ist eine SKALA, stimme ist eine KLASSE · font-family und
+     font-stretch bleiben in .lab-display / .lab-label. zwei
+     orthogonale dinge, zwei mechanismen. */
+  --fs-display-xl: clamp(2.75rem, 9vw, 7.5rem);
+  --fs-display: clamp(2.125rem, 5.6vw, 4rem);
+  --fs-headline: clamp(1.875rem, 4.6vw, 3.25rem);
+  --fs-title: clamp(1.375rem, 3.2vw, 2.25rem);
+  --fs-lead: clamp(1.0625rem, 1.7vw, 1.3rem);
+  --fs-body: clamp(0.9375rem, 0.9vw, 1rem);
+  --fs-body-sm: 0.8125rem;
+  --fs-label: 0.625rem;
 }
 
 @layer components {
