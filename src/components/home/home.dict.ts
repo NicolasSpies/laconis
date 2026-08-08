@@ -30,6 +30,10 @@ export type HomeDict = {
 
   /* greenfield ZUERST, übernahme danach · vorher sprach die
      startseite nur leute mit bestehender seite an */
+  ad: {
+    label: string; h2a: string; h2b: string; hinweis: string;
+    seiteTitel: string; seiteText: string; seiteKnopf: string; fuss: string;
+  };
   vn: { h2a: string; h2b: string; lead: string; schritte: string[]; key: string };
   ub: {
     h2a: string; h2b: string; lead: string; alt: string; neu: string;
@@ -78,6 +82,16 @@ export const HOME: Record<Locale, HomeDict> = {
         " · mein eigenes CMS. Mehrsprachigkeit, Übersetzung, Bilder, Formulare, Shop und Analytics sind eingebaut, nicht zugekauft. Ein Anbieter statt zehn.",
     },
 
+    ad: {
+      label: "das ist kein bild",
+      h2a: "änder das hier.",
+      h2b: "jetzt.",
+      hinweis: "klick rein und tipp",
+      seiteTitel: "Baumpflege in deiner Nähe",
+      seiteText: "Wir schneiden, fällen und pflegen · seit 2011, mit Seilklettertechnik statt Hebebühne.",
+      seiteKnopf: "termin anfragen",
+      fuss: "So pflegst du deine Seite später auch: anklicken, tippen, fertig. Kein Login-Labyrinth, keine Schulung, kein Anruf bei mir.",
+    },
     vn: {
       h2a: "du hast noch",
       h2b: "gar nichts?",
@@ -150,6 +164,16 @@ export const HOME: Record<Locale, HomeDict> = {
         " · mon propre CMS. Multilingue, traduction, images, formulaires, boutique et analytics sont intégrés, pas achetés. Un fournisseur au lieu de dix.",
     },
 
+    ad: {
+      label: "ce n'est pas une image",
+      h2a: "change ça.",
+      h2b: "maintenant.",
+      hinweis: "clique dedans et tape",
+      seiteTitel: "Élagage près de chez toi",
+      seiteText: "On taille, on abat, on entretient · depuis 2011, en grimpe sur corde plutôt qu'en nacelle.",
+      seiteKnopf: "demander un rendez-vous",
+      fuss: "C'est comme ça que tu géreras ton site plus tard : cliquer, taper, fini. Pas de labyrinthe de connexion, pas de formation, pas d'appel à moi.",
+    },
     vn: {
       h2a: "tu n'as encore",
       h2b: "rien du tout ?",
@@ -222,6 +246,16 @@ export const HOME: Record<Locale, HomeDict> = {
         " · my own CMS. Multilingual, translation, images, forms, shop and analytics are built in, not bought in. One vendor instead of ten.",
     },
 
+    ad: {
+      label: "this is not an image",
+      h2a: "change this.",
+      h2b: "right now.",
+      hinweis: "click in and type",
+      seiteTitel: "Tree care near you",
+      seiteText: "We prune, fell and maintain · since 2011, on ropes rather than lifts.",
+      seiteKnopf: "request an appointment",
+      fuss: "This is how you will maintain your site later: click, type, done. No login maze, no training, no call to me.",
+    },
     vn: {
       h2a: "you have",
       h2b: "nothing yet?",

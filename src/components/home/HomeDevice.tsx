@@ -7,6 +7,7 @@ import { useLocale } from "@/i18n/useLocale";
 import { ShaderField } from "@/components/device/ShaderField";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { HeroRail } from "@/components/device/HeroRail";
+import { AenderDas } from "@/components/home/AenderDas";
 import { VonNull } from "@/components/home/VonNull";
 import { Umzug } from "@/components/home/Umzug";
 import { Stapel } from "@/components/referenzen/Stapel";
@@ -20,13 +21,14 @@ import "@/components/device/device.css";
 import "@/components/home/wegfallen.css";
 import "@/components/referenzen/stapel.css";
 import "@/components/home/umzug.css";
+import "@/components/home/aenderdas.css";
 import "@/components/home/schluss.css";
 
 /**
  * HomeDevice · die echte startseite in der geräte-richtung.
  *
- * ablauf: shader-hero → was wegfällt → von null → übernahme →
- * referenzen → schluss.
+ * ablauf: shader-hero → was wegfällt → änder das hier → von null →
+ * übernahme → referenzen → schluss.
  *
  * die reihenfolge der zielgruppen ist absicht: ERST wer noch nichts
  * hat, DANN wer schon eine seite hat. vorher gab es nur die zweite.
@@ -136,6 +138,13 @@ export function HomeDevice() {
           das argument im weglassen · und es ist nachprüfbar, weil
           es keine zahl ist, sondern eine liste. */}
       <WegFallen t={t.wf} />
+
+      {/* ═══ ÄNDER DAS HIER ═══
+          das cms-versprechen steht auf fast jeder seite als
+          behauptung · hier kann man es in zwei sekunden prüfen.
+          abgrenzung zum LiveEditor auf /leistung: der hat das volle
+          pult, hier gibt es nur die geste. */}
+      <AenderDas t={t.ad} />
 
       {/* ═══ ERST WER NICHTS HAT ═══
           für diese gruppe stand vorher kein einziger satz auf der
