@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { CONTACT } from "@/config/contact";
 import { HOME } from "@/components/home/home.dict";
 import { useLocale } from "@/i18n/useLocale";
 import { ShaderField } from "@/components/device/ShaderField";
@@ -12,12 +13,14 @@ import { Stapel } from "@/components/referenzen/Stapel";
 import { referenzen } from "@/data/referenzen";
 import { REFERENZEN } from "@/components/referenzen/referenzen.dict";
 import { buildPath } from "@/i18n/config";
-import { SendButton } from "@/components/device/SendButton";
+import { Schluss } from "@/components/home/Schluss";
+import { GlasLicht } from "@/components/device/GlasLicht";
 import { WegFallen } from "@/components/home/WegFallen";
 import "@/components/device/device.css";
 import "@/components/home/wegfallen.css";
 import "@/components/referenzen/stapel.css";
 import "@/components/home/umzug.css";
+import "@/components/home/schluss.css";
 
 /**
  * HomeDevice · die echte startseite in der geräte-richtung.
@@ -53,6 +56,7 @@ export function HomeDevice() {
       </div>
 
       <DeviceNav />
+      <GlasLicht />
       <HeroRail label={t.kicker} />
 
       {/* ═══ HERO ═══ */}
@@ -185,30 +189,32 @@ export function HomeDevice() {
         </div>
       </section>
 
-      {/* ═══ SENDEN ═══ */}
-      <section data-no-reveal className="relative px-gut pb-rh-l">
-        <div className="max-w-shell mx-auto">
-          <div className="gl relative p-8 md:p-14 flex flex-col lg:flex-row lg:items-center gap-10 justify-between">
+      {/* ═══ SCHLUSS · die leere platte ═══
+          hier stand ein metallgehäuse mit vier schrauben, die
+          überschrift „erzähl mir, was du vorhast." (wortgleich auch
+          auf /leistung) und ein SendButton, der OHNE onSend
+          gerendert wurde · man drückte, und bekam „raus damit · ich
+          melde mich." für eine nachricht, die nie existiert hat.
 
-            <div className="max-w-[460px]">
-              <h2 className="lab-display text-headline">
-                {t.sendH2}
-              </h2>
-              <p className="lab-hint mt-4 text-body-sm leading-relaxed">
-                {t.sendBody}
-              </p>
-            </div>
+          jetzt dieselbe platte wie im stapel darüber, nur leer.
+          das löst „nummer vier" als bild statt als zahl. */}
+      <Schluss
+        t={t.sl}
+        href={buildPath("kontakt", locale)}
+        mail={CONTACT.email}
+      />
 
-            <SendButton />
-          </div>
-
-          {/* schlichter fuss · das chrome bleibt still */}
-          <div className="mt-16 pt-6 border-t border-[rgba(242,242,242,0.08)] flex flex-wrap justify-between gap-4">
-            <span className="lab-label">© 2026 lacønis</span>
-            <span className="lab-label">nicolas@laconis.be</span>
-          </div>
-        </div>
-      </section>
+      <footer className="relative z-[1] mx-auto flex max-w-shell flex-wrap justify-between gap-4 border-t border-[var(--ln-hair)] px-gut pb-rh-s pt-6">
+        <span className="lab-label">© 2026 lacønis</span>
+        <span className="flex flex-wrap gap-x-6 gap-y-2">
+          <Link href={buildPath("impressum", locale)} className="lab-label">
+            {t.fussImpressum}
+          </Link>
+          <Link href={buildPath("datenschutz", locale)} className="lab-label">
+            {t.fussDatenschutz}
+          </Link>
+        </span>
+      </footer>
     </div>
   );
 }

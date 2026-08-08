@@ -40,8 +40,11 @@ export type HomeDict = {
   refHint: string;
   refLink: string;
 
-  sendH2: string;
-  sendBody: string;
+  sl: { gravur: string; hinweis: string; key: string; oder: string };
+  /* auf keiner geräte-seite gab es bisher einen link zu impressum
+     oder datenschutz · in belgien pflicht */
+  fussImpressum: string;
+  fussDatenschutz: string;
 };
 
 export const HOME: Record<Locale, HomeDict> = {
@@ -107,8 +110,14 @@ export const HOME: Record<Locale, HomeDict> = {
     refHint: "Fahr über eine Schicht, dann hebt sie sich raus. Klick führt rein.",
     refLink: "alle referenzen",
 
-    sendH2: "erzähl mir, was du vorhast.",
-    sendBody: "30 Minuten, kein Pitch-Deck, kostet nichts · danach weisst du, ob wir zusammenpassen.",
+    sl: {
+      gravur: "sag mir, was du vorhast.",
+      hinweis: "Zwei Sätze reichen: was du machst, und was die Seite können soll. Den Rest frage ich.",
+      key: "schreib mir",
+      oder: "oder direkt an",
+    },
+    fussImpressum: "impressum",
+    fussDatenschutz: "datenschutz",
   },
 
   fr: {
@@ -173,8 +182,14 @@ export const HOME: Record<Locale, HomeDict> = {
     refHint: "Survole une couche, elle se soulève. Un clic et tu es dedans.",
     refLink: "toutes les références",
 
-    sendH2: "raconte-moi ce que tu prépares.",
-    sendBody: "30 minutes, pas de pitch deck, ça ne coûte rien · ensuite tu sais si on colle.",
+    sl: {
+      gravur: "dis-moi ce que tu prépares.",
+      hinweis: "Deux phrases suffisent : ce que tu fais, et ce que le site doit savoir faire. Le reste, je le demande.",
+      key: "écris-moi",
+      oder: "ou directement à",
+    },
+    fussImpressum: "mentions légales",
+    fussDatenschutz: "confidentialité",
   },
 
   en: {
@@ -239,7 +254,13 @@ export const HOME: Record<Locale, HomeDict> = {
     refHint: "Hover a layer and it lifts out. A click takes you in.",
     refLink: "all work",
 
-    sendH2: "tell me what you're planning.",
-    sendBody: "30 minutes, no pitch deck, costs nothing · after that you know whether we fit.",
+    sl: {
+      gravur: "tell me what you are planning.",
+      hinweis: "Two sentences are enough: what you do, and what the site should be able to do. I will ask for the rest.",
+      key: "write to me",
+      oder: "or straight to",
+    },
+    fussImpressum: "legal notice",
+    fussDatenschutz: "privacy",
   },
 };

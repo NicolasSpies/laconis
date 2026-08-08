@@ -1,0 +1,80 @@
+/* ═══════════════════════════════════════════════════════════
+   Schluss · die leere platte
+
+   dieselbe platte wie im stapel darüber, nur ohne inhalt. die
+   projekte liegen als platten mit fertigen seiten drauf, diese
+   wartet noch · das ist „nummer vier" als bild statt als zahl.
+   ═══════════════════════════════════════════════════════════ */
+
+.sl {
+  position: relative;
+  z-index: 1;
+  padding: var(--rh-xl) var(--gutter) var(--rh-l);
+  max-width: var(--shell);
+  margin: 0 auto;
+}
+
+.sl-platte {
+  display: grid;
+  place-items: center;
+  min-height: clamp(220px, 30vw, 340px);
+  padding: clamp(32px, 5vw, 72px);
+  text-align: center;
+}
+
+/* GRAVIERT, nicht geprägt: dunkler als die fläche, mit einer hellen
+   kante UNTEN. genau andersherum als erhaben · das ist der
+   unterschied, den man sieht, ohne ihn benennen zu können. */
+.sl-gravur {
+  max-width: 15ch;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-stretch: 108%;
+  font-weight: 300;
+  font-size: var(--fs-display);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  text-transform: lowercase;
+  color: rgb(0 0 0 / 0.72);
+  /* die helle kante UNTER dem buchstaben ist das, was eine fräsung
+     lesbar macht · sie muss kräftig genug sein, dass der satz auf
+     einen blick geht. es ist die haupt-CTA, kein osterei. */
+  text-shadow:
+    0 1px 0 rgb(var(--fg-rgb) / 0.34),
+    0 -1px 1px rgb(0 0 0 / 0.55);
+}
+
+.sl-fuss {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 28px);
+  margin-top: clamp(32px, 4.4vw, 56px);
+}
+
+.sl-key {
+  width: auto;
+  padding: 14px 24px;
+}
+
+.sl-oder {
+  font-size: var(--fs-body-sm);
+  color: var(--tx-3);
+}
+
+.sl-mail {
+  color: var(--tx-2);
+  border-bottom: 1px solid var(--ln-soft);
+  transition: color var(--t-2) var(--ease), border-color var(--t-2) var(--ease);
+}
+.sl-mail:hover {
+  color: var(--lime);
+  border-color: rgb(var(--accent) / 0.6);
+}
+
+.sl-hinweis {
+  margin-top: var(--sp-5);
+  max-width: var(--measure-lead);
+  font-size: var(--fs-body-sm);
+  line-height: 1.6;
+  color: var(--tx-4);
+}

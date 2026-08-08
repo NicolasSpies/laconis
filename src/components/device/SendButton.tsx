@@ -6,6 +6,15 @@ import { motion, AnimatePresence } from "framer-motion";
 /**
  * SendButton · der abschluss-moment: kippschutz hoch, dann drücken.
  *
+ * ACHTUNG · dieses bauteil hat KEINEN verwender mehr. es stand auf
+ * der startseite, dort aber ohne onSend: man klappte die kappe hoch,
+ * drückte, und bekam „raus damit · ich melde mich." für eine
+ * nachricht, die nie existiert hat.
+ *
+ * es bleibt liegen, weil die geste gut ist · aber sie gehört an die
+ * KontaktKonsole, wo der zweite druck wirklich etwas auslöst. wer es
+ * wieder einbaut: NUR mit onSend.
+ *
  * zwei-stufig wie an echtem gerät — die klappe verhindert den
  * versehentlichen druck. genau das macht den zweiten klick befriedigend
  * und merkt sich der besucher.
