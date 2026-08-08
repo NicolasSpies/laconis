@@ -22,6 +22,28 @@ const config: Config = {
         /* semantic ink — use in place of `white/X` for theme-aware overlays */
         ink: "rgb(var(--ink) / <alpha-value>)",
       },
+      /* ── schriftgrössen · 7 rollen ────────────────────────────
+         es gab 37 verschiedene clamp()-ausdrücke bei 62 verwendungen,
+         für geschätzt 7 tatsächliche rollen. mehrere sahen faktisch
+         gleich aus und existierten trotzdem getrennt (3rem/10vw/9rem
+         neben 3rem/10vw/10rem neben 2.9rem/8.6vw/8rem).
+
+         die werte zeigen auf custom properties, damit die .css-dateien
+         dieselbe quelle lesen können · eine skala, zwei verbraucher.
+
+         GRÖSSE ist eine skala, STIMME ist eine klasse: font-family und
+         font-stretch bleiben in .lab-display / .lab-label. zwei
+         orthogonale dinge, zwei mechanismen. */
+      fontSize: {
+        "display-xl": ["var(--fs-display-xl)", { lineHeight: "0.86", letterSpacing: "-0.035em" }],
+        display: ["var(--fs-display)", { lineHeight: "0.9", letterSpacing: "-0.03em" }],
+        headline: ["var(--fs-headline)", { lineHeight: "0.96", letterSpacing: "-0.025em" }],
+        title: ["var(--fs-title)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
+        lead: ["var(--fs-lead)", { lineHeight: "1.55" }],
+        body: ["var(--fs-body)", { lineHeight: "1.65" }],
+        "body-sm": ["var(--fs-body-sm)", { lineHeight: "1.55" }],
+        label: ["var(--fs-label)", { lineHeight: "1", letterSpacing: "0.16em" }],
+      },
       fontFamily: {
         sans: ["var(--font-sans-v2)", "system-ui", "sans-serif"],
         mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],

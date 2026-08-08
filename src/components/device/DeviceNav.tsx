@@ -140,7 +140,6 @@ export function DeviceNav() {
                       aria-current={on ? "page" : undefined}
                       onClick={() => setOpen(false)}
                     >
-                      <span className="lab-menu-idx">0{i + 1}</span>
                       <span className="lab-display lab-menu-word">{it.label[locale]}</span>
                       <span className="lab-menu-meta">{it.meta[locale]}</span>
                     </Link>

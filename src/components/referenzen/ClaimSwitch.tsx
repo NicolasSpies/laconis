@@ -94,7 +94,7 @@ export function ClaimSwitch({ t }: { t: ClaimT }) {
             </button>
           ))}
         </div>
-        <p className="lab-hint max-w-[330px] text-[12.5px] leading-relaxed">{t.hint}</p>
+        <p className="lab-hint max-w-[330px] text-body-sm leading-relaxed">{t.hint}</p>
       </div>
     </div>
   );

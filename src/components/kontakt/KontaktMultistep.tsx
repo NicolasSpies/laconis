@@ -407,7 +407,7 @@ function Inner() {
           />
         </motion.svg>
 
-        <h2 className="heading-display text-[clamp(1.75rem,4vw,2.5rem)] text-offwhite">
+        <h2 className="heading-display text-title text-offwhite">
           {t.dankePre} {state.name.trim().split(" ")[0] || (locale === "fr" ? "salut" : locale === "en" ? "hey" : "moin")}.
         </h2>
 
@@ -418,7 +418,7 @@ function Inner() {
           {t.hand}
         </p>
 
-        <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55 max-w-[440px] mx-auto">
+        <p className="mt-4 text-body leading-relaxed text-offwhite/55 max-w-[440px] mx-auto">
           {t.thanksBody1}{state.email.includes("@") ? (locale === "fr" ? "mail" : "mail") : (locale === "fr" ? "message" : "message")}
           {state.telefon ? `${t.thanksBody2pre}${state.telefon}${t.thanksBody2tel}` : ""}
           {t.thanksBody3}
@@ -605,10 +605,10 @@ function Step1({
 }) {
   return (
     <div>
-      <h3 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
+      <h3 className="heading-display text-title text-offwhite">
         {t.step1H3}
       </h3>
-      <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/70">
+      <p className="mt-3 max-w-[580px] text-body leading-relaxed text-offwhite/70">
         {t.step1Body}
       </p>
 
@@ -644,7 +644,7 @@ function Step1({
                   </span>
                 )}
               </div>
-              <p className="mt-1.5 text-[13px] leading-snug text-offwhite/70">
+              <p className="mt-1.5 text-body-sm leading-snug text-offwhite/70">
                 {opt.kurz}
               </p>
             </button>
@@ -674,10 +674,10 @@ function Step2({
 
   return (
     <div>
-      <h3 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
+      <h3 className="heading-display text-title text-offwhite">
         {t.step2H3}
       </h3>
-      <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/70">
+      <p className="mt-3 max-w-[580px] text-body leading-relaxed text-offwhite/70">
         {t.step2Body}
       </p>
 
@@ -738,10 +738,10 @@ function Step3({
 
   return (
     <div>
-      <h3 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
+      <h3 className="heading-display text-title text-offwhite">
         {t.step3H3}
       </h3>
-      <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/70">
+      <p className="mt-3 max-w-[580px] text-body leading-relaxed text-offwhite/70">
         {t.step3Body}
       </p>
 
@@ -757,7 +757,7 @@ function Step3({
             <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/55">
               {r.label}
             </span>
-            <span className="text-[14px] text-offwhite/75">{r.value}</span>
+            <span className="text-body text-offwhite/75">{r.value}</span>
             <button
               type="button"
               onClick={() => onEdit(r.editStep)}
@@ -769,7 +769,7 @@ function Step3({
         ))}
       </div>
 
-      <p className="mt-5 text-[12.5px] leading-relaxed text-offwhite/55">
+      <p className="mt-5 text-body-sm leading-relaxed text-offwhite/55">
         {t.step3Footer}
       </p>
     </div>
@@ -806,10 +806,10 @@ function Step4({
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-6">
       <div>
-        <h3 className="heading-display text-[clamp(1.5rem,3.5vw,2.25rem)] text-offwhite">
+        <h3 className="heading-display text-title text-offwhite">
           {t.step4H3}
         </h3>
-        <p className="mt-3 max-w-[580px] text-[14px] leading-relaxed text-offwhite/70">
+        <p className="mt-3 max-w-[580px] text-body leading-relaxed text-offwhite/70">
           {t.step4Body}
         </p>
       </div>
@@ -852,11 +852,11 @@ function Step4({
           onChange={(e) => update("notiz", e.target.value)}
           rows={5}
           placeholder={t.notizPlaceholder}
-          className="w-full bg-ink/[0.03] border-2 border-ink/25 focus:border-[#0a0a0a] focus:bg-[#e1fd52]/10 rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/55 outline-none resize-none transition-colors"
+          className="w-full bg-ink/[0.03] border-2 border-ink/25 focus:border-[#0a0a0a] focus:bg-[#e1fd52]/10 rounded-lg px-4 py-3 text-body text-offwhite placeholder:text-offwhite/55 outline-none resize-none transition-colors"
         />
       </div>
 
-      <label className="flex items-start gap-3 text-[12.5px] leading-relaxed text-offwhite/55 cursor-pointer select-none">
+      <label className="flex items-start gap-3 text-body-sm leading-relaxed text-offwhite/55 cursor-pointer select-none">
         <input
           type="checkbox"
           required
@@ -896,7 +896,7 @@ function Step4({
       {sendError && (
         <div
           role="alert"
-          className="rounded-lg border border-rose-400/40 bg-rose-500/[0.06] px-4 py-3 text-[13px] text-rose-200"
+          className="rounded-lg border border-rose-400/40 bg-rose-500/[0.06] px-4 py-3 text-body-sm text-rose-200"
         >
           {sendError}
         </div>
@@ -967,7 +967,7 @@ function ChipField<T extends string>({
         })}
       </div>
       {hint && (
-        <p className="mt-2 text-[12px] text-offwhite/35">{hint}</p>
+        <p className="mt-2 text-body-sm text-offwhite/35">{hint}</p>
       )}
     </div>
   );
@@ -1005,7 +1005,7 @@ function TextField({
         autoComplete={autoComplete}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-ink/[0.03] border-2 border-ink/25 focus:border-[#0a0a0a] focus:bg-[#e1fd52]/10 rounded-lg px-4 py-3 text-[14px] text-offwhite placeholder:text-offwhite/55 outline-none transition-colors"
+        className="w-full bg-ink/[0.03] border-2 border-ink/25 focus:border-[#0a0a0a] focus:bg-[#e1fd52]/10 rounded-lg px-4 py-3 text-body text-offwhite placeholder:text-offwhite/55 outline-none transition-colors"
       />
     </div>
   );

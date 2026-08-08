@@ -31,7 +31,7 @@ export function HomeFAQ() {
           className="grid md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)] gap-10 md:gap-16 items-start"
         >
           <div className="md:sticky md:top-28">
-            <h2 className="heading-display mt-4 text-[clamp(1.75rem,4.5vw,2.75rem)] text-offwhite leading-[1.05]">
+            <h2 className="heading-display mt-4 text-headline text-offwhite leading-[1.05]">
               {t.headline}
             </h2>
           </div>
@@ -40,14 +40,14 @@ export function HomeFAQ() {
             {t.items.map((item) => (
               <details key={item.q} className="group py-5 cursor-pointer">
                 <summary className="flex items-center justify-between gap-4 list-none">
-                  <h3 className="heading-sans text-[16px] md:text-[17px] text-offwhite group-hover:text-[#b084d3] transition-colors">
+                  <h3 className="heading-sans text-body md:text-[17px] text-offwhite group-hover:text-[#b084d3] transition-colors">
                     {item.q}
                   </h3>
-                  <span className="font-mono text-[16px] text-offwhite/35 group-open:rotate-45 transition-transform shrink-0">
+                  <span className="font-mono text-body text-offwhite/35 group-open:rotate-45 transition-transform shrink-0">
                     +
                   </span>
                 </summary>
-                <p className="mt-3 max-w-[680px] text-[14px] leading-relaxed text-offwhite/60">
+                <p className="mt-3 max-w-[680px] text-body leading-relaxed text-offwhite/60">
                   {item.a}
                 </p>
               </details>

@@ -107,7 +107,7 @@ export function PresetKeys({ items, hint }: { items: QA[]; hint: string }) {
         ))}
       </div>
 
-      <p className="lab-hint mt-6 text-[12px]">{hint}</p>
+      <p className="lab-hint mt-6 text-body-sm">{hint}</p>
     </div>
   );
 }

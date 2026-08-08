@@ -165,7 +165,7 @@ export function FeatureVergleich({ t }: { t: FeatureT }) {
       </div>
 
       <p
-        className="mt-8 max-w-[62ch] text-[15px] leading-relaxed"
+        className="mt-8 max-w-[62ch] text-body leading-relaxed"
         style={{ color: n === 0 ? "rgba(242,242,242,0.62)" : "#e1fd52" }}
       >
         {t.verdicts[verdict]}

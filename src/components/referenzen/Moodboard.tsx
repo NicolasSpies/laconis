@@ -178,7 +178,7 @@ export function Moodboard() {
                       <p className="mt-1.5 font-mono text-[9px] uppercase tracking-label text-offwhite/35 truncate">
                         {r.ort}
                       </p>
-                      <p className="mt-2 text-[12px] leading-snug text-offwhite/55 line-clamp-2">
+                      <p className="mt-2 text-body-sm leading-snug text-offwhite/55 line-clamp-2">
                         {r.kurz}
                       </p>
 
@@ -212,7 +212,7 @@ export function Moodboard() {
 
       {items.length === 0 && (
         <div className="mt-16 text-center">
-          <p className="font-mono text-[12px] uppercase tracking-label text-offwhite/35">
+          <p className="font-mono text-body-sm uppercase tracking-label text-offwhite/35">
             nichts in dieser kategorie · schau gerne in einer anderen
           </p>
         </div>

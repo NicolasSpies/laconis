@@ -47,7 +47,7 @@ export function PreiseDevice() {
 
           <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
             <h1
-              className="lab-display lab-boot text-[clamp(2.4rem,6.4vw,5.4rem)]"
+              className="lab-display lab-boot text-display"
               style={{ animationDelay: "180ms" }}
             >
               {t.h1a}
@@ -55,7 +55,7 @@ export function PreiseDevice() {
               <span style={{ color: "#e1fd52" }}>{t.h1b}</span>
             </h1>
             <p
-              className="lab-boot max-w-[420px] text-[15px] leading-relaxed"
+              className="lab-boot max-w-[420px] text-body leading-relaxed"
               style={{ animationDelay: "300ms", color: "rgba(242,242,242,0.62)" }}
             >
               {t.sub}
@@ -71,20 +71,19 @@ export function PreiseDevice() {
       {/* ═══ WAS DEN PREIS MACHT · ruhig ═══ */}
       <section data-no-reveal className="relative px-6 py-24 md:px-12 md:py-32">
         <div className="mx-auto max-w-[1200px]">
-          <h2 className="lab-display max-w-[16ch] text-[clamp(2rem,5.5vw,4rem)]">{t.faktorenH2}</h2>
-          <p className="mt-7 max-w-[560px] text-[15px] leading-relaxed text-[rgba(242,242,242,0.55)]">
+          <h2 className="lab-display max-w-[16ch] text-headline">{t.faktorenH2}</h2>
+          <p className="mt-7 max-w-[560px] text-body leading-relaxed text-[rgba(242,242,242,0.55)]">
             {t.faktorenLead}
           </p>
 
           <div className="mt-12 grid gap-x-16 md:grid-cols-2">
-            {t.faktoren.map(([title, body], i) => (
+            {t.faktoren.map(([title, body]) => (
               <div key={title} className="lx-row">
-                <span className="lx-row-nr">{String(i + 1).padStart(2, "0")}</span>
                 <div>
                   <h3 className="text-[17px] font-medium tracking-[-0.01em] text-[#f2f2f2]">
                     {title}
                   </h3>
-                  <p className="mt-2 max-w-[46ch] text-[13.5px] leading-relaxed text-[rgba(242,242,242,0.5)]">
+                  <p className="mt-2 max-w-[46ch] text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
                     {body}
                   </p>
                 </div>
@@ -99,8 +98,8 @@ export function PreiseDevice() {
         <div className="mx-auto max-w-[1200px]">
           <div className="grid gap-10 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:gap-16">
             <div>
-              <h2 className="lab-display text-[clamp(2rem,5vw,3.4rem)]">{t.laufendH2}</h2>
-              <p className="mt-6 max-w-[380px] text-[14px] leading-relaxed text-[rgba(242,242,242,0.55)]">
+              <h2 className="lab-display text-headline">{t.laufendH2}</h2>
+              <p className="mt-6 max-w-[380px] text-body leading-relaxed text-[rgba(242,242,242,0.55)]">
                 {t.laufendLead}
               </p>
 
@@ -119,7 +118,7 @@ export function PreiseDevice() {
             <div>
               {t.laufend.map(([k, v]) => (
                 <div key={k} className="pr-mini">
-                  <span className="text-[14px] leading-snug text-[rgba(242,242,242,0.72)]">{k}</span>
+                  <span className="text-body leading-snug text-[rgba(242,242,242,0.72)]">{k}</span>
                   <span className="pr-mini-value">{v}</span>
                 </div>
               ))}
@@ -131,17 +130,17 @@ export function PreiseDevice() {
       {/* ═══ FAQ · ruhig ═══ */}
       <section data-no-reveal className="relative px-6 pb-32 md:px-12">
         <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] md:gap-16">
-          <h2 className="lab-display self-start text-[clamp(2rem,5vw,3.4rem)] md:sticky md:top-28">
+          <h2 className="lab-display self-start text-headline md:sticky md:top-28">
             {t.faqH2}
           </h2>
           <div>
             {t.faq.map(([q, a]) => (
               <details key={q} className="lx-faq">
                 <summary>
-                  <h3 className="text-[16px] font-medium tracking-[-0.01em]">{q}</h3>
+                  <h3 className="text-body font-medium tracking-[-0.01em]">{q}</h3>
                   <span className="lx-faq-sign" aria-hidden />
                 </summary>
-                <p className="max-w-[62ch] pb-6 text-[13.5px] leading-relaxed text-[rgba(242,242,242,0.5)]">
+                <p className="max-w-[62ch] pb-6 text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
                   {a}
                 </p>
               </details>
@@ -160,8 +159,8 @@ export function PreiseDevice() {
             <span className="lab-screw" style={{ right: 14, bottom: 14 }} aria-hidden />
 
             <div className="max-w-[500px]">
-              <h2 className="lab-display text-[clamp(1.9rem,4.2vw,3rem)]">{t.ctaH2}</h2>
-              <p className="lab-hint mt-4 text-[13.5px] leading-relaxed">{t.ctaBody}</p>
+              <h2 className="lab-display text-headline">{t.ctaH2}</h2>
+              <p className="lab-hint mt-4 text-body-sm leading-relaxed">{t.ctaBody}</p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">

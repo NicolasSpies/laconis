@@ -171,7 +171,7 @@ export function LensHero({ t }: { t: T }) {
       <div className="lx-layer">
         <div className={`${box} min-h-[100svh]`}>
           <div className={inner}>
-            <h1 className="lab-display lab-boot text-[clamp(3rem,10vw,9rem)]" style={{ animationDelay: "180ms" }}>
+            <h1 className="lab-display lab-boot text-display-xl" style={{ animationDelay: "180ms" }}>
               {t.l1}
               <br />
               {t.l2}
@@ -180,7 +180,7 @@ export function LensHero({ t }: { t: T }) {
             </h1>
 
             <p
-              className="lab-boot mt-10 max-w-[440px] text-[15px] leading-relaxed"
+              className="lab-boot mt-10 max-w-[440px] text-body leading-relaxed"
               style={{ animationDelay: "320ms", color: "rgba(242,242,242,0.62)" }}
             >
               {t.sub}
@@ -195,14 +195,14 @@ export function LensHero({ t }: { t: T }) {
           <div className="lx-grid" />
           <div className={`${box} h-full`}>
             <div className={inner}>
-              <h1 className="lab-display lx-h1-wire text-[clamp(3rem,10vw,9rem)]">
+              <h1 className="lab-display lx-h1-wire text-display-xl">
                 {t.l1}
                 <br />
                 {t.l2}
                 <br />
                 {t.l3}
               </h1>
-              <p className="mt-10 max-w-[440px] text-[15px] leading-relaxed" style={{ color: "rgba(225,253,82,0.35)" }}>
+              <p className="mt-10 max-w-[440px] text-body leading-relaxed" style={{ color: "rgba(225,253,82,0.35)" }}>
                 {t.sub}
               </p>
             </div>

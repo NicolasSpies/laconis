@@ -75,7 +75,7 @@ export function SplitStatement() {
             container ist auf längste phrase fixed damit kein layout-jump. */}
         <motion.h2
           style={{ skewY }}
-          className="text-[clamp(2.8rem,8vw,7rem)] leading-[0.9] font-black tracking-[-0.035em] text-[#0a0a0a]"
+          className="text-display-xl leading-[0.9] font-black tracking-[-0.035em] text-[#0a0a0a]"
         >
           <GooeyText
             texts={t.phrases}
@@ -85,7 +85,7 @@ export function SplitStatement() {
           />
         </motion.h2>
 
-        <p className="mt-12 max-w-[560px] text-[15px] md:text-[16px] leading-relaxed text-[#0a0a0a]/85">
+        <p className="mt-12 max-w-[560px] text-body md:text-body leading-relaxed text-[#0a0a0a]/85">
           {t.body}
         </p>
 

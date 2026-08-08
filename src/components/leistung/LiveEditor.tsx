@@ -167,13 +167,13 @@ export function LiveEditor({ t }: { t: T }) {
           </div>
 
           <h3
-            className="lab-display mt-5 text-[clamp(1.5rem,3.6vw,2.4rem)]"
+            className="lab-display mt-5 text-title"
             style={{ color: "#0a0a0a", textTransform: "none" }}
           >
             {headline || t.placeholderHeadline}
           </h3>
 
-          <p className="mt-4 max-w-[46ch] text-[13px] leading-relaxed" style={{ color: "rgba(10,10,10,0.6)" }}>
+          <p className="mt-4 max-w-[46ch] text-body-sm leading-relaxed" style={{ color: "rgba(10,10,10,0.6)" }}>
             {t.bodyCopy}
           </p>
 

@@ -223,7 +223,7 @@
   display: grid;
   padding: 13px 0;
   border-top: 1px solid var(--ln-hair);
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto;
   /* ohne das verteilt das raster die restbreite auf die spalten
      und der titel landet am rechten rand · die drei namen stünden
      dann auf drei verschiedenen kanten */
@@ -285,19 +285,8 @@
   background: linear-gradient(to right, rgb(var(--accent) / 0), rgb(var(--accent) / 0.75));
 }
 
-.st-nr {
-  /* alle nummern sind zweistellig, also ist die spalte für jede
-     zeile gleich breit und die namen stehen trotzdem auf einer
-     kante */
-  grid-column: 2;
-  grid-row: 1;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 10px;
-  color: rgb(var(--accent) / 0.7);
-}
-
 .st-titel {
-  grid-column: 3;
+  grid-column: 2;
   grid-row: 1;
   justify-self: start;
   font-size: clamp(0.98rem, 1.8vw, 1.35rem);
@@ -312,7 +301,7 @@
      als nummer plus name, verteilt das raster die mehrbreite auf
      beide spalten und schiebt die nummernspalte auf. die namen
      starteten dann in jeder zeile woanders. */
-  grid-column: 3;
+  grid-column: 2;
   grid-row: 2;
   display: flex;
   align-items: center;

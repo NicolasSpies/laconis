@@ -44,7 +44,7 @@ export function KontaktDevice() {
 
           <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-6">
             <h1
-              className="lab-display lab-boot text-[clamp(2.8rem,9vw,7.5rem)]"
+              className="lab-display lab-boot text-display-xl"
               style={{ animationDelay: "180ms" }}
             >
               {t.h1a}
@@ -52,7 +52,7 @@ export function KontaktDevice() {
               <span style={{ color: "#e1fd52" }}>{t.h1b}</span>
             </h1>
             <p
-              className="lab-boot max-w-[420px] text-[15px] leading-relaxed"
+              className="lab-boot max-w-[420px] text-body leading-relaxed"
               style={{ animationDelay: "300ms", color: "rgba(242,242,242,0.62)" }}
             >
               {t.sub}
@@ -79,10 +79,10 @@ export function KontaktDevice() {
       <section id="projekt" data-no-reveal className="relative scroll-mt-24 px-6 pb-28 pt-10 md:px-12">
         <div className="mx-auto max-w-[1200px]">
           <div className="mb-9 flex flex-wrap items-end justify-between gap-6">
-            <h2 className="lab-display max-w-[16ch] text-[clamp(1.9rem,5vw,3.4rem)]">
+            <h2 className="lab-display max-w-[16ch] text-headline">
               {t.konsoleH2}
             </h2>
-            <p className="lab-hint max-w-[340px] text-[12.5px] leading-relaxed">{t.konsoleLead}</p>
+            <p className="lab-hint max-w-[340px] text-body-sm leading-relaxed">{t.konsoleLead}</p>
           </div>
 
           <KontaktKonsole t={t.konsole} />
@@ -92,17 +92,16 @@ export function KontaktDevice() {
       {/* ═══ WAS DANACH PASSIERT · ruhig ═══ */}
       <section data-no-reveal className="relative px-6 pb-32 md:px-12">
         <div className="mx-auto max-w-[1200px]">
-          <h2 className="lab-display max-w-[14ch] text-[clamp(2rem,5vw,3.4rem)]">{t.danachH2}</h2>
+          <h2 className="lab-display max-w-[14ch] text-headline">{t.danachH2}</h2>
 
           <div className="mt-12 grid gap-x-16 md:grid-cols-3">
-            {t.danach.map(([title, body], i) => (
+            {t.danach.map(([title, body]) => (
               <div key={title} className="lx-row">
-                <span className="lx-row-nr">{String(i + 1).padStart(2, "0")}</span>
                 <div>
                   <h3 className="text-[17px] font-medium tracking-[-0.01em] text-[#f2f2f2]">
                     {title}
                   </h3>
-                  <p className="mt-2 max-w-[42ch] text-[13.5px] leading-relaxed text-[rgba(242,242,242,0.5)]">
+                  <p className="mt-2 max-w-[42ch] text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
                     {body}
                   </p>
                 </div>

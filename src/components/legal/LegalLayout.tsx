@@ -44,12 +44,12 @@ export function LegalLayout({ num, label, titel, intro, children }: Props) {
 
       <section data-no-reveal className="relative px-6 pb-20 pt-36 md:px-12 md:pt-44">
         <div className="mx-auto max-w-[1200px]">
-          <h1 className="lab-display lab-boot max-w-[14ch] text-[clamp(2.4rem,7vw,5.5rem)]">
+          <h1 className="lab-display lab-boot max-w-[14ch] text-display">
             {titel}
           </h1>
           {intro && (
             <p
-              className="lab-boot mt-7 max-w-[620px] text-[clamp(1rem,1.7vw,1.2rem)] leading-[1.6] text-[rgba(242,242,242,0.72)]"
+              className="lab-boot mt-7 max-w-[620px] text-lead leading-[1.6] text-[rgba(242,242,242,0.72)]"
               style={{ animationDelay: "160ms" }}
             >
               {intro}
@@ -93,17 +93,17 @@ export function LegalSection({
         {/* juristische überschriften sind lang ("§5 ddg / art. iii.74
             wer (be)") · in display-grösse fressen sie zwei zeilen und
             schreien lauter als der text, um den es geht */}
-        <h2 className="text-[clamp(1.05rem,1.9vw,1.35rem)] font-medium leading-snug tracking-[-0.015em] text-[#f2f2f2]">
+        <h2 className="text-lead font-medium leading-snug tracking-[-0.015em] text-[#f2f2f2]">
           {titel}
         </h2>
-        <div className="mt-5 space-y-3 text-[14px] leading-relaxed text-[rgba(242,242,242,0.72)]">
+        <div className="mt-5 space-y-3 text-body leading-relaxed text-[rgba(242,242,242,0.72)]">
           {children}
         </div>
       </div>
       {/* die randnotiz stand vorher in handschrift und leicht gedreht ·
           jetzt ist sie einfach eine leise spalte */}
       {aside && (
-        <aside className="text-[13.5px] leading-relaxed text-[rgba(242,242,242,0.45)] md:border-l md:border-[rgba(242,242,242,0.1)] md:pl-6 md:pt-1">
+        <aside className="text-body-sm leading-relaxed text-[rgba(242,242,242,0.45)] md:border-l md:border-[rgba(242,242,242,0.1)] md:pl-6 md:pt-1">
           {aside}
         </aside>
       )}
@@ -115,7 +115,7 @@ export function LegalRow({ k, v }: { k: string; v: React.ReactNode }) {
   return (
     <div className="lx-row" style={{ gridTemplateColumns: "minmax(120px,180px) minmax(0,1fr)" }}>
       <span className="lab-label pt-0.5">{k}</span>
-      <span className="text-[14px] leading-relaxed text-[rgba(242,242,242,0.85)]">{v}</span>
+      <span className="text-body leading-relaxed text-[rgba(242,242,242,0.85)]">{v}</span>
     </div>
   );
 }

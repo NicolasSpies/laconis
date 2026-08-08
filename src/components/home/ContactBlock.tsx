@@ -101,10 +101,10 @@ export function ContactBlock() {
       />
 
       <div className="container-site relative">
-        <h2 className="text-[clamp(3rem,9vw,8rem)] leading-[0.88] font-black tracking-[-0.04em] text-[#0a0a0a]">
+        <h2 className="text-display-xl leading-[0.88] font-black tracking-[-0.04em] text-[#0a0a0a]">
           {t.h1}
         </h2>
-        <p className="mt-8 max-w-[520px] text-[15px] leading-relaxed text-[#0a0a0a]/90">
+        <p className="mt-8 max-w-[520px] text-body leading-relaxed text-[#0a0a0a]/90">
           {t.intro}
         </p>
 
@@ -114,7 +114,7 @@ export function ContactBlock() {
               <div className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/85">
                 {s.label}
               </div>
-              <div className="mt-1 text-[14px] text-[#0a0a0a] break-words">
+              <div className="mt-1 text-body text-[#0a0a0a] break-words">
                 {s.value}
               </div>
             </div>

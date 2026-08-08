@@ -65,13 +65,13 @@ export function CaseDevice({ slug }: { slug: string }) {
           </span>
 
           <h1
-            className="lab-display lab-boot mt-6 text-[clamp(2.1rem,4.6vw,3.8rem)]"
+            className="lab-display lab-boot mt-6 text-headline"
             style={{ animationDelay: "120ms" }}
           >
             {r.name.toLowerCase()}
           </h1>
           <p
-            className="lab-boot mt-5 max-w-[420px] text-[clamp(0.98rem,1.5vw,1.12rem)] leading-[1.55] text-[rgba(242,242,242,0.8)]"
+            className="lab-boot mt-5 max-w-[420px] text-lead leading-[1.55] text-[rgba(242,242,242,0.8)]"
             style={{ animationDelay: "220ms" }}
           >
             {r.kurz}
@@ -85,7 +85,7 @@ export function CaseDevice({ slug }: { slug: string }) {
             ].map(([k, v]) => (
               <div key={k}>
                 <div className="lab-label">{k}</div>
-                <div className="mt-1.5 text-[15px] text-[#f2f2f2]">{v}</div>
+                <div className="mt-1.5 text-body text-[#f2f2f2]">{v}</div>
               </div>
             ))}
             </div>
@@ -104,22 +104,21 @@ export function CaseDevice({ slug }: { slug: string }) {
           {/* ═══ DER BEFUND · ruhig, die geschichte ═══ */}
           <section data-no-reveal className="relative px-6 pb-28 md:px-12">
             <div className="mx-auto max-w-[1200px]">
-              <h2 className="lab-display max-w-[14ch] text-[clamp(2rem,5.5vw,3.8rem)]">
+              <h2 className="lab-display max-w-[14ch] text-headline">
                 {t.auftragH2}
               </h2>
-              <p className="mt-7 max-w-[620px] text-[clamp(1rem,1.7vw,1.2rem)] leading-[1.6] text-[rgba(242,242,242,0.75)]">
+              <p className="mt-7 max-w-[620px] text-lead leading-[1.6] text-[rgba(242,242,242,0.75)]">
                 {t.auftragLead}
               </p>
 
               <div className="mt-12 grid gap-x-16 md:grid-cols-2">
-                {t.auftrag.map(([title, body], i) => (
+                {t.auftrag.map(([title, body]) => (
                   <div key={title} className="lx-row">
-                    <span className="lx-row-nr">{String(i + 1).padStart(2, "0")}</span>
                     <div>
                       <h3 className="text-[17px] font-medium tracking-[-0.01em] text-[#f2f2f2]">
                         {title}
                       </h3>
-                      <p className="mt-2 max-w-[46ch] text-[13.5px] leading-relaxed text-[rgba(242,242,242,0.5)]">
+                      <p className="mt-2 max-w-[46ch] text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
                         {body}
                       </p>
                     </div>
@@ -136,10 +135,10 @@ export function CaseDevice({ slug }: { slug: string }) {
           <section data-no-reveal className="relative px-6 pb-28 md:px-12">
             <div className="mx-auto max-w-[1200px]">
               <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
-                <h2 className="lab-display max-w-[16ch] text-[clamp(1.8rem,4.6vw,3.2rem)]">
+                <h2 className="lab-display max-w-[16ch] text-headline">
                   {t.claimH2}
                 </h2>
-                <p className="lab-hint max-w-[340px] text-[12.5px] leading-relaxed">
+                <p className="lab-hint max-w-[340px] text-body-sm leading-relaxed">
                   {t.claimLead}
                 </p>
               </div>
@@ -150,21 +149,20 @@ export function CaseDevice({ slug }: { slug: string }) {
           {/* ═══ WAS DRIN STECKT · ruhig ═══ */}
           <section data-no-reveal className="relative px-6 pb-28 md:px-12">
             <div className="mx-auto max-w-[1200px]">
-              <h2 className="lab-display max-w-[14ch] text-[clamp(2rem,5vw,3.4rem)]">
+              <h2 className="lab-display max-w-[14ch] text-headline">
                 {t.detailsH2}
               </h2>
-              <p className="mt-7 max-w-[560px] text-[15px] leading-relaxed text-[rgba(242,242,242,0.55)]">
+              <p className="mt-7 max-w-[560px] text-body leading-relaxed text-[rgba(242,242,242,0.55)]">
                 {t.detailsLead}
               </p>
               <div className="mt-12 grid gap-x-16 md:grid-cols-2">
-                {t.details.map(([title, body], i) => (
+                {t.details.map(([title, body]) => (
                   <div key={title} className="lx-row">
-                    <span className="lx-row-nr">{String(i + 1).padStart(2, "0")}</span>
                     <div>
                       <h3 className="text-[17px] font-medium tracking-[-0.01em] text-[#f2f2f2]">
                         {title}
                       </h3>
-                      <p className="mt-2 max-w-[46ch] text-[13.5px] leading-relaxed text-[rgba(242,242,242,0.5)]">
+                      <p className="mt-2 max-w-[46ch] text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
                         {body}
                       </p>
                     </div>
@@ -193,7 +191,7 @@ export function CaseDevice({ slug }: { slug: string }) {
                     </div>
                   )}
                 </div>
-                <p className="lab-hint mt-6 max-w-[440px] text-[12.5px] leading-relaxed">
+                <p className="lab-hint mt-6 max-w-[440px] text-body-sm leading-relaxed">
                   {t.tempoNote}
                 </p>
               </div>
@@ -219,15 +217,15 @@ export function CaseDevice({ slug }: { slug: string }) {
         /* ═══ KONZEPT-STUDIE · kurz und ehrlich ═══ */
         <section data-no-reveal className="relative px-6 pb-28 md:px-12">
           <div className="mx-auto max-w-[1200px]">
-            <h2 className="lab-display max-w-[14ch] text-[clamp(2rem,5vw,3.4rem)]">
+            <h2 className="lab-display max-w-[14ch] text-headline">
               {t.konzeptH2}
             </h2>
-            <p className="mt-8 max-w-[640px] text-[clamp(1rem,1.7vw,1.2rem)] leading-[1.6] text-[rgba(242,242,242,0.72)]">
+            <p className="mt-8 max-w-[640px] text-lead leading-[1.6] text-[rgba(242,242,242,0.72)]">
               {t.konzeptBody}
             </p>
 
             {r.notiz && (
-              <p className="lab-hint mt-8 max-w-[420px] text-[13px] leading-relaxed">{r.notiz}</p>
+              <p className="lab-hint mt-8 max-w-[420px] text-body-sm leading-relaxed">{r.notiz}</p>
             )}
 
             <div className="mt-10 flex flex-wrap gap-2">
@@ -251,8 +249,8 @@ export function CaseDevice({ slug }: { slug: string }) {
             <span className="lab-screw" style={{ right: 14, bottom: 14 }} aria-hidden />
 
             <div className="max-w-[500px]">
-              <h2 className="lab-display text-[clamp(1.9rem,4.2vw,3rem)]">{t.ctaH2}</h2>
-              <p className="lab-hint mt-4 text-[13.5px] leading-relaxed">{t.ctaBody}</p>
+              <h2 className="lab-display text-headline">{t.ctaH2}</h2>
+              <p className="lab-hint mt-4 text-body-sm leading-relaxed">{t.ctaBody}</p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">

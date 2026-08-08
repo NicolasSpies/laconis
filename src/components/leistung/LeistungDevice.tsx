@@ -46,18 +46,17 @@ export function LeistungDevice() {
       {/* ═══ 2 · WAS DASTEHT · ruhig ═══ */}
       <section data-no-reveal className="relative px-6 py-32 md:px-12 md:py-44">
         <div className="mx-auto max-w-[1200px]">
-          <h2 className="lab-display max-w-[16ch] text-[clamp(2.2rem,6vw,4.6rem)]">{t.deliverH2}</h2>
-          <p className="mt-7 max-w-[560px] text-[15px] leading-relaxed text-[rgba(242,242,242,0.55)]">
+          <h2 className="lab-display max-w-[16ch] text-display">{t.deliverH2}</h2>
+          <p className="mt-7 max-w-[560px] text-body leading-relaxed text-[rgba(242,242,242,0.55)]">
             {t.deliverLead}
           </p>
 
           <div className="mt-14 grid gap-x-16 md:grid-cols-2">
-            {t.deliver.map(([title, body], i) => (
+            {t.deliver.map(([title, body]) => (
               <div key={title} className="lx-row">
-                <span className="lx-row-nr">{String(i + 1).padStart(2, "0")}</span>
                 <div>
                   <h3 className="text-[17px] font-medium tracking-[-0.01em] text-[#f2f2f2]">{title}</h3>
-                  <p className="mt-2 max-w-[46ch] text-[13.5px] leading-relaxed text-[rgba(242,242,242,0.5)]">
+                  <p className="mt-2 max-w-[46ch] text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
                     {body}
                   </p>
                 </div>
@@ -71,8 +70,8 @@ export function LeistungDevice() {
       <section data-no-reveal className="relative px-6 pb-32 md:px-12">
         <div className="mx-auto max-w-[1200px]">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
-            <h2 className="lab-display max-w-[14ch] text-[clamp(2rem,5vw,3.6rem)]">{t.ballastH2}</h2>
-            <p className="lab-hint max-w-[340px] text-[12.5px] leading-relaxed">{t.ballastLead}</p>
+            <h2 className="lab-display max-w-[14ch] text-headline">{t.ballastH2}</h2>
+            <p className="lab-hint max-w-[340px] text-body-sm leading-relaxed">{t.ballastLead}</p>
           </div>
 
           <FeatureVergleich t={t.vergleich} />
@@ -83,8 +82,8 @@ export function LeistungDevice() {
       <section data-no-reveal className="relative px-6 py-24 md:px-12 md:py-32">
         <div className="mx-auto max-w-[1200px]">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
-            <h2 className="lab-display max-w-[14ch] text-[clamp(2rem,5vw,3.6rem)]">{t.cmsH2}</h2>
-            <p className="lab-hint max-w-[340px] text-[12.5px] leading-relaxed">{t.cmsLead}</p>
+            <h2 className="lab-display max-w-[14ch] text-headline">{t.cmsH2}</h2>
+            <p className="lab-hint max-w-[340px] text-body-sm leading-relaxed">{t.cmsLead}</p>
           </div>
 
           <LiveEditor t={t.editor} />
@@ -94,7 +93,7 @@ export function LeistungDevice() {
       {/* ═══ 5 · DER STACK · ruhig ═══ */}
       <section data-no-reveal className="relative px-6 py-24 md:px-12 md:py-32">
         <div className="mx-auto max-w-[1200px]">
-          <h2 className="lab-display max-w-[14ch] text-[clamp(2rem,5vw,3.6rem)]">{t.stackH2}</h2>
+          <h2 className="lab-display max-w-[14ch] text-headline">{t.stackH2}</h2>
 
           <div className="mt-12 grid gap-x-16 md:grid-cols-2">
             {t.stack.map(([name, why]) => (
@@ -105,8 +104,8 @@ export function LeistungDevice() {
                   style={{ background: "#e1fd52", boxShadow: "0 0 8px rgba(225,253,82,0.6)" }}
                 />
                 <div>
-                  <h3 className="text-[16px] font-medium tracking-[-0.01em] text-[#f2f2f2]">{name}</h3>
-                  <p className="mt-1.5 max-w-[46ch] text-[13.5px] leading-relaxed text-[rgba(242,242,242,0.5)]">
+                  <h3 className="text-body font-medium tracking-[-0.01em] text-[#f2f2f2]">{name}</h3>
+                  <p className="mt-1.5 max-w-[46ch] text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
                     {why}
                   </p>
                 </div>
@@ -114,7 +113,7 @@ export function LeistungDevice() {
             ))}
           </div>
 
-          <p className="mt-12 max-w-[620px] text-[15px] leading-relaxed text-[rgba(242,242,242,0.72)]">
+          <p className="mt-12 max-w-[620px] text-body leading-relaxed text-[rgba(242,242,242,0.72)]">
             {t.stackNote}
           </p>
         </div>
@@ -123,16 +122,16 @@ export function LeistungDevice() {
       {/* ═══ 6 · FAQ · ruhig ═══ */}
       <section data-no-reveal className="relative px-6 pb-32 md:px-12">
         <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] md:gap-16">
-          <h2 className="lab-display self-start text-[clamp(2rem,5vw,3.4rem)] md:sticky md:top-28">{t.faqH2}</h2>
+          <h2 className="lab-display self-start text-headline md:sticky md:top-28">{t.faqH2}</h2>
 
           <div>
             {t.faq.map(([q, a]) => (
               <details key={q} className="lx-faq">
                 <summary>
-                  <h3 className="text-[16px] font-medium tracking-[-0.01em]">{q}</h3>
+                  <h3 className="text-body font-medium tracking-[-0.01em]">{q}</h3>
                   <span className="lx-faq-sign" aria-hidden />
                 </summary>
-                <p className="max-w-[62ch] pb-6 text-[13.5px] leading-relaxed text-[rgba(242,242,242,0.5)]">
+                <p className="max-w-[62ch] pb-6 text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
                   {a}
                 </p>
               </details>
@@ -151,8 +150,8 @@ export function LeistungDevice() {
             <span className="lab-screw" style={{ right: 14, bottom: 14 }} aria-hidden />
 
             <div className="max-w-[480px]">
-              <h2 className="lab-display text-[clamp(1.9rem,4.2vw,3rem)]">{t.ctaH2}</h2>
-              <p className="lab-hint mt-4 text-[13.5px] leading-relaxed">{t.ctaBody}</p>
+              <h2 className="lab-display text-headline">{t.ctaH2}</h2>
+              <p className="lab-hint mt-4 text-body-sm leading-relaxed">{t.ctaBody}</p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">

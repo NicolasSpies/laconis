@@ -51,7 +51,7 @@ export function ReferenzenDevice() {
         <div className="mx-auto grid w-full max-w-[1200px] items-center gap-14 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-10">
           <div>
             <h1
-              className="lab-display lab-boot text-[clamp(2.6rem,7vw,5.4rem)]"
+              className="lab-display lab-boot text-display"
               style={{ animationDelay: "180ms" }}
             >
               {t.h1a}
@@ -60,7 +60,7 @@ export function ReferenzenDevice() {
             </h1>
 
             <p
-              className="lab-boot mt-7 max-w-[360px] text-[15px] leading-relaxed"
+              className="lab-boot mt-7 max-w-[360px] text-body leading-relaxed"
               style={{ animationDelay: "300ms", color: "rgba(242,242,242,0.6)" }}
             >
               {t.sub}
@@ -85,8 +85,8 @@ export function ReferenzenDevice() {
       {/* ═══ EHRLICH · ein satz, mehr braucht es nicht ═══ */}
       <section data-no-reveal className="relative px-6 pb-32 md:px-12">
         <div className="mx-auto max-w-[1200px]">
-          <h2 className="lab-display max-w-[13ch] text-[clamp(2rem,5vw,3.6rem)]">{t.honestH2}</h2>
-          <p className="mt-7 max-w-[560px] text-[clamp(1rem,1.6vw,1.15rem)] leading-[1.6] text-[rgba(242,242,242,0.7)]">
+          <h2 className="lab-display max-w-[13ch] text-headline">{t.honestH2}</h2>
+          <p className="mt-7 max-w-[560px] text-lead leading-[1.6] text-[rgba(242,242,242,0.7)]">
             {t.honestBody}
           </p>
         </div>
@@ -102,8 +102,8 @@ export function ReferenzenDevice() {
             <span className="lab-screw" style={{ right: 14, bottom: 14 }} aria-hidden />
 
             <div className="max-w-[480px]">
-              <h2 className="lab-display text-[clamp(1.9rem,4.2vw,3rem)]">{t.ctaH2}</h2>
-              <p className="lab-hint mt-4 text-[13.5px] leading-relaxed">{t.ctaBody}</p>
+              <h2 className="lab-display text-headline">{t.ctaH2}</h2>
+              <p className="lab-hint mt-4 text-body-sm leading-relaxed">{t.ctaBody}</p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">

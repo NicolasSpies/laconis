@@ -210,7 +210,7 @@ export function ReferenzenIndex({
                     {t.numberPrefix}
                     <span
                       className={cn(
-                        "text-[13px] md:text-[14px] tabular-nums",
+                        "text-body-sm md:text-body tabular-nums",
                         dark ? "text-[#f2f2f2]/70" : "text-[#0a0a0a]/70",
                       )}
                     >
@@ -222,7 +222,7 @@ export function ReferenzenIndex({
                   <span
                     className={cn(
                       "flex-1 min-w-0 font-display font-black lowercase leading-[0.95] tracking-[-0.03em]",
-                      "text-[clamp(1.75rem,5vw,3.75rem)]",
+                      "text-headline",
                       "transition-[transform,color] duration-300 ease-out",
                       dark
                         ? isActive

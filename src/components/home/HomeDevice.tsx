@@ -64,7 +64,7 @@ export function HomeDevice() {
 
         <div className="relative mx-auto my-auto w-full max-w-[1200px]">
           <h1
-            className="lab-display lab-boot text-[clamp(2.9rem,8.6vw,8rem)]"
+            className="lab-display lab-boot text-display-xl"
             style={{ animationDelay: "180ms" }}
           >
             {t.h1a}
@@ -76,7 +76,7 @@ export function HomeDevice() {
           </h1>
 
           <p
-            className="lab-boot mt-10 max-w-[460px] text-[15px] leading-relaxed"
+            className="lab-boot mt-10 max-w-[460px] text-body leading-relaxed"
             style={{ animationDelay: "320ms", color: "rgba(242,242,242,0.62)" }}
           >
             {t.sub}
@@ -133,7 +133,7 @@ export function HomeDevice() {
       <section data-no-reveal className="relative px-6 md:px-12 py-32">
         <div className="max-w-[1200px] mx-auto">
           <div className="mb-10 flex items-end justify-between flex-wrap gap-4">
-            <h2 className="lab-display text-[clamp(2rem,5vw,3.6rem)]">{t.refH2}</h2>
+            <h2 className="lab-display text-headline">{t.refH2}</h2>
             <span className="lab-hint max-w-[300px]">
               {t.refHint}
             </span>
@@ -152,10 +152,10 @@ export function HomeDevice() {
             <span className="lab-screw" style={{ right: 14, bottom: 14 }} aria-hidden />
 
             <div className="max-w-[460px]">
-              <h2 className="lab-display text-[clamp(1.9rem,4.2vw,3rem)]">
+              <h2 className="lab-display text-headline">
                 {t.sendH2}
               </h2>
-              <p className="lab-hint mt-4 text-[13.5px] leading-relaxed">
+              <p className="lab-hint mt-4 text-body-sm leading-relaxed">
                 {t.sendBody}
               </p>
             </div>

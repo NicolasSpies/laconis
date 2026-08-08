@@ -60,7 +60,7 @@ export function UeberDevice() {
         <div className="mx-auto grid w-full max-w-[1200px] items-center gap-12 md:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] md:gap-16">
           <div>
             <h1
-              className="lab-display lab-boot text-[clamp(2.6rem,8vw,6.5rem)]"
+              className="lab-display lab-boot text-display-xl"
               style={{ animationDelay: "180ms" }}
             >
               {t.h1a}
@@ -69,13 +69,13 @@ export function UeberDevice() {
             </h1>
 
             <p
-              className="lab-boot mt-8 max-w-[520px] text-[clamp(1.02rem,1.8vw,1.3rem)] leading-[1.55] text-[rgba(242,242,242,0.88)]"
+              className="lab-boot mt-8 max-w-[520px] text-lead leading-[1.55] text-[rgba(242,242,242,0.88)]"
               style={{ animationDelay: "300ms" }}
             >
               {t.bio}
             </p>
             <p
-              className="lab-boot mt-5 max-w-[480px] text-[15px] leading-relaxed text-[rgba(242,242,242,0.55)]"
+              className="lab-boot mt-5 max-w-[480px] text-body leading-relaxed text-[rgba(242,242,242,0.55)]"
               style={{ animationDelay: "380ms" }}
             >
               {t.bioSub}
@@ -112,7 +112,7 @@ export function UeberDevice() {
       {/* ═══ DIE TASTENBANK ═══ */}
       <section data-no-reveal className="relative px-6 pb-28 md:px-12">
         <div className="mx-auto max-w-[1200px]">
-          <h2 className="lab-display mb-10 text-[clamp(2rem,5.5vw,3.8rem)]">{t.fragH2}</h2>
+          <h2 className="lab-display mb-10 text-headline">{t.fragH2}</h2>
           <PresetKeys items={t.fragen} hint={t.fragHint} />
         </div>
       </section>
@@ -121,8 +121,8 @@ export function UeberDevice() {
       <section data-no-reveal className="relative px-6 pb-28 md:px-12">
         <div className="mx-auto grid max-w-[1200px] gap-10 md:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] md:gap-16">
           <div className="md:sticky md:top-28 md:self-start">
-            <h2 className="lab-display text-[clamp(2rem,5vw,3.4rem)]">{t.wegH2}</h2>
-            <p className="mt-5 max-w-[320px] text-[14px] leading-relaxed text-[rgba(242,242,242,0.5)]">
+            <h2 className="lab-display text-headline">{t.wegH2}</h2>
+            <p className="mt-5 max-w-[320px] text-body leading-relaxed text-[rgba(242,242,242,0.5)]">
               {t.wegLead}
             </p>
           </div>
@@ -135,7 +135,7 @@ export function UeberDevice() {
                   <h3 className="text-[17px] font-medium tracking-[-0.01em] text-[#f2f2f2]">
                     {titel}
                   </h3>
-                  <p className="mt-2 max-w-[52ch] text-[13.5px] leading-relaxed text-[rgba(242,242,242,0.5)]">
+                  <p className="mt-2 max-w-[52ch] text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
                     {kurz}
                   </p>
                 </div>
@@ -171,8 +171,8 @@ export function UeberDevice() {
             <span className="lab-screw" style={{ right: 14, bottom: 14 }} aria-hidden />
 
             <div className="max-w-[500px]">
-              <h2 className="lab-display text-[clamp(1.9rem,4.2vw,3rem)]">{t.ctaH2}</h2>
-              <p className="lab-hint mt-4 text-[13.5px] leading-relaxed">{t.ctaBody}</p>
+              <h2 className="lab-display text-headline">{t.ctaH2}</h2>
+              <p className="lab-hint mt-4 text-body-sm leading-relaxed">{t.ctaBody}</p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">

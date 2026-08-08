@@ -106,7 +106,7 @@ export function KontaktKonsole({ t }: { t: KonsoleT }) {
         <span className="lab-label" style={{ color: "rgba(225,253,82,0.8)" }}>
           ✓ {t.sentTitle}
         </span>
-        <p className="mt-5 max-w-[46ch] text-[clamp(1rem,1.8vw,1.25rem)] leading-[1.55] text-[rgba(242,242,242,0.88)]">
+        <p className="mt-5 max-w-[46ch] text-lead leading-[1.55] text-[rgba(242,242,242,0.88)]">
           {t.sentBody}
         </p>
       </div>
@@ -239,7 +239,7 @@ export function KontaktKonsole({ t }: { t: KonsoleT }) {
             <span className="lab-label">{t.meterLabel}</span>
             {/* hier der zählerstand · der satz steht schon neben dem
                 knopf, zweimal dasselbe liest sich wie ein fehler */}
-            <span className="lab-hint text-[12px]" aria-hidden>
+            <span className="lab-hint text-body-sm" aria-hidden>
               {segs.filter(Boolean).length} / {segs.length}
             </span>
           </div>
@@ -300,7 +300,7 @@ export function KontaktKonsole({ t }: { t: KonsoleT }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.22 }}
-                className="lab-hint max-w-[240px] text-[12.5px] leading-relaxed"
+                className="lab-hint max-w-[240px] text-body-sm leading-relaxed"
               >
                 {phase === "error" ? t.errorBody : unlocked ? t.readyHint : t.lockedHint}
               </motion.p>
@@ -308,7 +308,7 @@ export function KontaktKonsole({ t }: { t: KonsoleT }) {
           </div>
 
           {phase === "error" && (
-            <p className="mt-4 text-[13px]" style={{ color: "#b084d3" }}>
+            <p className="mt-4 text-body-sm" style={{ color: "#b084d3" }}>
               {t.errorTitle}
             </p>
           )}

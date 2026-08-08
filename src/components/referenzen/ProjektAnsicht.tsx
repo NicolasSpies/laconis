@@ -155,7 +155,7 @@ export function ProjektAnsicht({
           <span className="pv-rail min-w-[140px] flex-1" aria-hidden>
             <span className="pv-rail-fill" ref={fill} />
           </span>
-          <span className="lab-hint text-[12px]">{t.hint}</span>
+          <span className="lab-hint text-body-sm">{t.hint}</span>
         </div>
       )}
     </div>

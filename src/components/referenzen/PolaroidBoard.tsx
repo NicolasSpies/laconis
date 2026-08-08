@@ -118,7 +118,7 @@ function PolaroidCard({
 
         <div className="pt-3 px-1">
           <div className="flex items-baseline justify-between gap-2">
-            <h3 className="heading-sans text-[16px] leading-none text-offwhite truncate lowercase">
+            <h3 className="heading-sans text-body leading-none text-offwhite truncate lowercase">
               {ref_.name}
             </h3>
             <span className="font-mono text-[9px] uppercase tracking-label text-offwhite/35 shrink-0">
@@ -280,7 +280,7 @@ export function PolaroidBoard({ items: itemsProp }: { items?: Referenz[] } = {})
                   </span>
                 </div>
                 <div className="pt-2 px-0.5">
-                  <h3 className="heading-sans text-[15px] leading-none truncate lowercase">
+                  <h3 className="heading-sans text-body leading-none truncate lowercase">
                     {r.name}
                   </h3>
                   <p className="mt-1 font-mono text-[8px] uppercase tracking-label text-offwhite/35 truncate">

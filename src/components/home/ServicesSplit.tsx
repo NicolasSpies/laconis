@@ -130,7 +130,7 @@ function Marquee({ items, duration = 36 }: { items: string[]; duration?: number 
   return (
     <div className="flex w-full overflow-hidden whitespace-nowrap select-none" aria-hidden>
       <div
-        className="marquee-track flex shrink-0 whitespace-nowrap font-display font-black lowercase tracking-[-0.02em] text-[clamp(1.4rem,3vw,2.2rem)] text-offwhite will-change-transform"
+        className="marquee-track flex shrink-0 whitespace-nowrap font-display font-black lowercase tracking-[-0.02em] text-title text-offwhite will-change-transform"
         style={{ animation: `marqueeX ${duration}s linear infinite` }}
       >
         {Copy}
@@ -159,12 +159,12 @@ export function ServicesSplit() {
             </span>
             <div>
               <span
-                className="block font-display font-black lowercase leading-[0.82] tracking-[-0.045em] text-[clamp(4rem,11vw,9rem)]"
+                className="block font-display font-black lowercase leading-[0.82] tracking-[-0.045em] text-display-xl"
                 style={{ color: LIME }}
               >
                 web.
               </span>
-              <p className="mt-5 max-w-[460px] font-display font-light lowercase text-[clamp(1.1rem,1.8vw,1.5rem)] leading-[1.2] tracking-[-0.01em] text-offwhite/80">
+              <p className="mt-5 max-w-[460px] font-display font-light lowercase text-lead leading-[1.2] tracking-[-0.01em] text-offwhite/80">
                 {t.webStatement}
               </p>
               <span className="mt-6 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label text-offwhite">
@@ -179,7 +179,7 @@ export function ServicesSplit() {
           {/* ─── PROOF · lime ─── */}
           <div className="rounded-2xl bg-[#e1fd52] text-[#0a0a0a] p-7 flex flex-col justify-between min-h-[180px] md:min-h-0 md:col-start-3 md:row-start-1">
             <div>
-              <span className="font-display font-black leading-none tracking-[-0.04em] text-[clamp(2.8rem,5vw,4rem)]">
+              <span className="font-display font-black leading-none tracking-[-0.04em] text-display">
                 {t.proofValue}
               </span>
               <span className="ml-2 font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
@@ -202,11 +202,11 @@ export function ServicesSplit() {
             className="group rounded-2xl p-7 flex flex-col justify-between min-h-[180px] md:min-h-0 md:col-start-3 md:row-start-2 text-[#0a0a0a]"
             style={{ background: LILA }}
           >
-            <span className="font-display font-black lowercase leading-none tracking-[-0.03em] text-[clamp(1.9rem,3.4vw,2.6rem)]">
+            <span className="font-display font-black lowercase leading-none tracking-[-0.03em] text-title">
               {t.ansatzTitle}
             </span>
             <div>
-              <p className="text-[13px] md:text-[14px] leading-snug text-[#0a0a0a]/75 max-w-[260px]">
+              <p className="text-body-sm md:text-body leading-snug text-[#0a0a0a]/75 max-w-[260px]">
                 {t.ansatzLine}
               </p>
               <span className="mt-3 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-label">

@@ -68,7 +68,7 @@ export function RedesignTeaser() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h2 className="font-display font-black lowercase tracking-[-0.035em] text-[#0a0a0a] text-[clamp(2rem,5.5vw,3.75rem)] leading-[1.02] max-w-[900px]">
+          <h2 className="font-display font-black lowercase tracking-[-0.035em] text-[#0a0a0a] text-headline leading-[1.02] max-w-[900px]">
             {t.headline}
           </h2>
 
@@ -84,13 +84,13 @@ export function RedesignTeaser() {
             <VorherNachher />
           </div>
 
-          <p className="mt-10 font-display font-light lowercase text-[clamp(1.4rem,3vw,2.1rem)] leading-[1.2] tracking-[-0.02em] text-[#0a0a0a] max-w-[900px]">
+          <p className="mt-10 font-display font-light lowercase text-title leading-[1.2] tracking-[-0.02em] text-[#0a0a0a] max-w-[900px]">
             {t.jobPre}
             <span style={{ color: "#b084d3" }}>{t.jobHi}</span>
             <span className="text-[#0a0a0a]/55">{t.jobPost}</span>
           </p>
 
-          <p className="mt-6 max-w-[620px] text-[15px] md:text-[16px] leading-relaxed text-[#0a0a0a]/70">
+          <p className="mt-6 max-w-[620px] text-body md:text-body leading-relaxed text-[#0a0a0a]/70">
             {t.body}
           </p>
 

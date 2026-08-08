@@ -349,11 +349,7 @@
     animation: none;
     transform: scaleX(1);
   }
-  .lx-row-nr {
-    animation: none;
-    opacity: 1;
-  }
-  .lx-row > *:last-child {
+    .lx-row > *:last-child {
     transition: none;
   }
 
@@ -739,7 +735,6 @@
   position: relative;
   display: flex;
   align-items: baseline;
-  gap: 18px;
   padding: 10px 0;
   text-align: left;
   color: #f2f2f2;
@@ -755,20 +750,6 @@
   outline: 2px solid var(--focus);
   outline-offset: 6px;
   border-radius: 8px;
-}
-
-.lab-menu-idx {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  color: rgba(242, 242, 242, 0.3);
-  flex-shrink: 0;
-  transition: color 260ms ease;
-}
-
-.lab-menu-item[data-on="1"] .lab-menu-idx,
-.lab-menu-item:hover .lab-menu-idx {
-  color: var(--lime);
 }
 
 .lab-menu-word {
@@ -1053,9 +1034,11 @@
 .lx-row {
   position: relative;
   display: grid;
-  grid-template-columns: 26px minmax(0, 1fr);
+  /* die 26px-spalte trug die ordnungszahl · ohne sie bliebe eine
+     geisterspalte stehen und der text hinge 42px vom rand ab */
+  grid-template-columns: minmax(0, 1fr);
   gap: 16px;
-  padding: 17px 0;
+  padding: var(--sp-5) 0;
 }
 
 /* die trennlinie wird gezeichnet, nicht gesetzt · sie fährt beim
@@ -1093,36 +1076,7 @@
   }
 }
 
-.lx-row-nr {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  color: rgb(var(--accent) / 0.55);
-  padding-top: 4px;
-  /* die nummern atmen leicht · versetzt, damit der stapel nicht im
-     gleichtakt blinkt. läuft immer, auch wo niemand hovern kann. */
-  animation: lxNr 5200ms ease-in-out infinite;
-}
-.lx-row:nth-child(2n) .lx-row-nr {
-  animation-delay: -1300ms;
-}
-.lx-row:nth-child(3n) .lx-row-nr {
-  animation-delay: -2600ms;
-}
-.lx-row:nth-child(4n) .lx-row-nr {
-  animation-delay: -3900ms;
-}
-@keyframes lxNr {
-  0%,
-  100% {
-    opacity: 0.62;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-/* beim drüberfahren rückt die zeile leicht auf · nicht klickbar,
+.lx-row:nth-child(4n) /* beim drüberfahren rückt die zeile leicht auf · nicht klickbar,
    also bewusst sehr wenig. es soll leben, nicht locken. */
 .lx-row > *:last-child {
   transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -1130,12 +1084,6 @@
 .lx-row:hover > *:last-child {
   transform: translateX(5px);
 }
-.lx-row:hover .lx-row-nr {
-  color: var(--lime);
-  animation-play-state: paused;
-  opacity: 1;
-}
-
 .lx-faq {
   border-top: 1px solid var(--ln-hair);
 }

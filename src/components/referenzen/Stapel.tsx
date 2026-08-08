@@ -204,9 +204,6 @@ export function Stapel({
               onBlur={() => setOben(null)}
             >
               <span className="st-strich" aria-hidden />
-              <span className="st-nr" aria-hidden>
-                {String(i + 1).padStart(2, "0")}
-              </span>
               <span className="st-titel lab-display">{r.name.toLowerCase()}</span>
               <span className="st-meta">
                 <span

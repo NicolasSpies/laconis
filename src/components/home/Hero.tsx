@@ -286,14 +286,14 @@ export function Hero() {
             initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-6 font-mono text-[11px] md:text-[12px] uppercase tracking-label text-offwhite/55"
+            className="mb-6 font-mono text-[11px] md:text-body-sm uppercase tracking-label text-offwhite/55"
           >
             · {t.kicker}
           </motion.p>
 
           <h1
             aria-label={`${t.line1} ${t.line2} ${t.line3prefix}${t.line3accent}`}
-            className="text-[clamp(3rem,10vw,10rem)] leading-[0.92] tracking-[-0.035em] font-black text-offwhite"
+            className="text-display-xl leading-[0.92] tracking-[-0.035em] font-black text-offwhite"
           >
             <span aria-hidden className="block">
               {/* zeile 1 · lime marker-stroke auf "design" */}
@@ -407,7 +407,7 @@ export function Hero() {
             initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.25, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-10 max-w-[520px] text-[16px] md:text-[18px] leading-relaxed text-offwhite/75 lowercase"
+            className="mt-10 max-w-[520px] text-body md:text-[18px] leading-relaxed text-offwhite/75 lowercase"
           >
             {t.sub}
           </motion.p>
