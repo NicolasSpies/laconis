@@ -26,7 +26,18 @@ export type UeberDict = {
 
   wegH2: string;
   wegLead: string;
-  weg: [string, string, string][];
+  /* KEINE jahreszahlen mehr · „seit 2019" war frei erfunden, und
+     „seit april 2026" ist zwar wahr, aber kein verkaufsargument.
+     die reihenfolge erzählt die geschichte, nicht die zahlen. */
+  weg: [string, string][];
+
+  /* was er NICHT macht · dieselbe rhetorik wie die streichliste auf
+     der startseite: die grenze ist die aussage. er koordiniert, der
+     kunde hat eine ansprechperson. */
+  partnerH2: string;
+  partnerLead: string;
+  partner: [string, string][];
+  partnerFuss: string;
 
   theseH2: string;
   these: string[];
@@ -44,7 +55,7 @@ export const UEBER: Record<Locale, UeberDict> = {
     kicker: "über mich",
     h1a: "einer.",
     h1b: "mehr nicht.",
-    bio: "Ich bin Nicolas. Designer und Web-Entwickler seit 2019, seit 2026 in Vollzeit als lacønis.",
+    bio: "Ich bin Nicolas. Gelernter Grafikdesigner, der bauen gelernt hat · deshalb sehen meine Seiten nicht nur aus, sie laufen auch.",
     bioSub:
       "Ich baue Websites, die sich nach den Leuten anfühlen, die dahinterstehen. Keine Agentur, keine Zwischenschicht. Du redest mit dem, der auch baut.",
     tags: ["design", "entwicklung", "eigenes cms", "remote"],
@@ -62,7 +73,7 @@ export const UEBER: Record<Locale, UeberDict> = {
       },
       {
         q: "warum kein wordpress?",
-        a: "Ich hab damit angefangen, 2019, für einen Freund. 2023 bin ich raus. Nicht aus Prinzip, sondern weil ich keine Lust mehr hatte, für Ladezeiten geradezustehen, die dreissig fremde Plugins bestimmen.",
+        a: "Weil ich damit angefangen habe. Der Web-Teil meiner Ausbildung lief komplett auf WordPress · da hab ich gelernt, wie es nicht geht. Wer WordPress kritisiert, ohne es gemacht zu haben, ist ein Ideologe. Ich hab es gemacht und bin rausgegangen.",
       },
       {
         q: "kannst du auch grösser?",
@@ -79,14 +90,24 @@ export const UEBER: Record<Locale, UeberDict> = {
     ],
 
     wegH2: "wie es dazu kam.",
-    wegLead: "Keine Drei-Seiten-Biografie. Fünf Punkte reichen.",
+    wegLead: "Keine Drei-Seiten-Biografie. Die Reihenfolge reicht.",
     weg: [
-      ["2019", "erste website", "Für einen Freund eine WordPress-Seite gebastelt. Der Haken sass tief."],
-      ["2021", "nebenberuflich", "Erste echte Kunden. Und die ersten „mach ich für lau\"-Fehler, die man genau einmal macht."],
-      ["2023", "raus aus wordpress", "Alles selbst gebaut, von null. Seitdem keine Plugin-Hölle mehr und keine Ausreden."],
-      ["2025", "lacønis als marke", "Aus „Nicolas macht Websites\" wird ein Name, eine Handschrift, eine Haltung."],
-      ["2026", "vollzeit", "Kein Nebenher mehr. Nur noch das hier."],
+      ["ausbildung · web", "Bei Pixelbar, mit WordPress. Da hab ich gelernt, wie es nicht geht · und warum ich heute alles selbst baue."],
+      ["ausbildung · grafik", "Bei Pavonet, dazu ein bisschen Werbetechnik. Danach übernommen."],
+      ["colop arts & crafts", "Grafik und Packaging Design."],
+      ["cloth kreativbüro", "Ein paar Monate im Kreativbüro."],
+      ["nexo", "Mit zwei Freundinnen selbstständig gemacht, als Webdesigner. we-are-nexo.com"],
+      ["lacønis", "Das hier. Alles selbst gebaut, eigenes CMS, keine Zwischenschicht."],
     ],
+
+    partnerH2: "was ich nicht mache.",
+    partnerLead: "Ich baue Websites. Grafik-Strategie, Kampagnen und Social Media können andere besser als ich · und ich sage das lieber vorher als hinterher.",
+    partner: [
+      ["grafik & branding", "Logo, Erscheinungsbild, Druck."],
+      ["strategie", "Positionierung, Botschaft, wer überhaupt angesprochen wird."],
+      ["social media", "Redaktionsplan, Inhalte, laufende Betreuung."],
+    ],
+    partnerFuss: "Du hast trotzdem nur eine Ansprechperson: mich. Ich hole die Leute dazu und halte die Fäden zusammen.",
 
     theseH2: "worauf das hinausläuft.",
     these: [
@@ -112,7 +133,7 @@ export const UEBER: Record<Locale, UeberDict> = {
     kicker: "à propos",
     h1a: "une personne.",
     h1b: "pas plus.",
-    bio: "Je suis Nicolas. Designer et développeur web depuis 2019, à plein temps sous lacønis depuis 2026.",
+    bio: "Je suis Nicolas. Graphiste de formation qui a appris à construire · c'est pour ça que mes sites ne se contentent pas d'être beaux, ils tournent.",
     bioSub:
       "Je construis des sites qui ressemblent aux gens derrière. Pas d'agence, pas d'intermédiaire. Tu parles à celui qui construit aussi.",
     tags: ["design", "développement", "cms maison", "remote"],
@@ -130,7 +151,7 @@ export const UEBER: Record<Locale, UeberDict> = {
       },
       {
         q: "pourquoi pas wordpress ?",
-        a: "J'ai commencé avec, en 2019, pour un ami. En 2023 je suis sorti. Pas par principe, mais parce que je n'avais plus envie de répondre de temps de chargement décidés par trente plugins étrangers.",
+        a: "Parce que j'ai commencé avec. La partie web de ma formation tournait entièrement sur WordPress · c'est là que j'ai appris comment il ne faut pas faire. Critiquer WordPress sans l'avoir pratiqué, c'est de l'idéologie. Moi je l'ai pratiqué, puis je suis sorti.",
       },
       {
         q: "tu peux faire plus grand ?",
@@ -146,15 +167,25 @@ export const UEBER: Record<Locale, UeberDict> = {
       },
     ],
 
-    wegH2: "comment on en arrive là.",
-    wegLead: "Pas de biographie en trois pages. Cinq points suffisent.",
+    wegH2: "comment j'en suis arrivé là.",
+    wegLead: "Pas de biographie sur trois pages. L'ordre suffit.",
     weg: [
-      ["2019", "premier site", "Un site WordPress bricolé pour un ami. L'hameçon était bien planté."],
-      ["2021", "en parallèle", "Premiers vrais clients. Et les premières erreurs « je le fais gratuit » qu'on ne fait qu'une fois."],
-      ["2023", "sortie de wordpress", "Tout construit moi-même, de zéro. Depuis, plus d'enfer des plugins et plus d'excuses."],
-      ["2025", "lacønis comme marque", "« Nicolas fait des sites » devient un nom, une écriture, une position."],
-      ["2026", "plein temps", "Plus rien à côté. Uniquement ça."],
+      ["formation · web", "Chez Pixelbar, avec WordPress. C'est là que j'ai appris comment il ne faut pas faire · et pourquoi je construis tout moi-même aujourd'hui."],
+      ["formation · graphisme", "Chez Pavonet, plus un peu de signalétique. Embauché ensuite."],
+      ["colop arts & crafts", "Graphisme et packaging."],
+      ["cloth kreativbüro", "Quelques mois en studio créatif."],
+      ["nexo", "Indépendant avec deux amies, comme webdesigner. we-are-nexo.com"],
+      ["lacønis", "Ce que tu vois ici. Tout construit moi-même, CMS maison, pas d'intermédiaire."],
     ],
+
+    partnerH2: "ce que je ne fais pas.",
+    partnerLead: "Je construis des sites. La stratégie graphique, les campagnes et les réseaux sociaux, d'autres le font mieux que moi · et je préfère le dire avant qu'après.",
+    partner: [
+      ["graphisme & branding", "Logo, identité visuelle, impression."],
+      ["stratégie", "Positionnement, message, à qui on parle vraiment."],
+      ["réseaux sociaux", "Plan éditorial, contenus, suivi."],
+    ],
+    partnerFuss: "Tu n'as quand même qu'un seul interlocuteur : moi. Je fais venir les gens et je tiens les fils.",
 
     theseH2: "ce que ça donne.",
     these: [
@@ -180,7 +211,7 @@ export const UEBER: Record<Locale, UeberDict> = {
     kicker: "about",
     h1a: "one person.",
     h1b: "that's it.",
-    bio: "I'm Nicolas. Designer and web developer since 2019, full time as lacønis since 2026.",
+    bio: "I'm Nicolas. A trained graphic designer who learned to build · which is why my sites do not just look right, they run.",
     bioSub:
       "I build websites that feel like the people behind them. No agency, no middle layer. You talk to the person who also builds.",
     tags: ["design", "development", "in-house cms", "remote"],
@@ -198,7 +229,7 @@ export const UEBER: Record<Locale, UeberDict> = {
       },
       {
         q: "why not wordpress?",
-        a: "I started with it, in 2019, for a friend. In 2023 i got out. Not on principle, but because i was done answering for load times that thirty foreign plugins decide.",
+        a: "Because i started with it. The web part of my training ran entirely on WordPress · that is where i learned how not to do it. Criticising WordPress without having worked in it is ideology. I worked in it, and then i left.",
       },
       {
         q: "can you go bigger?",
@@ -214,15 +245,25 @@ export const UEBER: Record<Locale, UeberDict> = {
       },
     ],
 
-    wegH2: "how it got here.",
-    wegLead: "No three-page biography. Five points are enough.",
+    wegH2: "how it came to this.",
+    wegLead: "No three-page biography. The order is enough.",
     weg: [
-      ["2019", "first website", "Cobbled together a WordPress site for a friend. The hook went in deep."],
-      ["2021", "on the side", "First real clients. And the first \"i'll do it for free\" mistakes you only make once."],
-      ["2023", "out of wordpress", "Built everything myself, from scratch. No plugin hell since, and no excuses."],
-      ["2025", "lacønis as a brand", "\"Nicolas makes websites\" becomes a name, a handwriting, a position."],
-      ["2026", "full time", "Nothing on the side any more. Only this."],
+      ["training · web", "At Pixelbar, with WordPress. That is where i learned how not to do it · and why i build everything myself today."],
+      ["training · graphic design", "At Pavonet, plus a bit of signage. Taken on afterwards."],
+      ["colop arts & crafts", "Graphic design and packaging."],
+      ["cloth kreativbüro", "A few months at a creative studio."],
+      ["nexo", "Went self-employed with two friends, as a web designer. we-are-nexo.com"],
+      ["lacønis", "This. All built myself, own CMS, no layer in between."],
     ],
+
+    partnerH2: "what i do not do.",
+    partnerLead: "I build websites. Graphic strategy, campaigns and social media are done better by others · and i would rather say so up front than afterwards.",
+    partner: [
+      ["graphic design & branding", "Logo, visual identity, print."],
+      ["strategy", "Positioning, message, who is actually being addressed."],
+      ["social media", "Editorial plan, content, ongoing care."],
+    ],
+    partnerFuss: "You still have only one contact: me. I bring the people in and hold the threads together.",
 
     theseH2: "what it comes down to.",
     these: [

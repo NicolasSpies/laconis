@@ -127,12 +127,14 @@ export function UeberDevice() {
             </p>
           </div>
 
+          {/* ohne jahres-spalte · „seit 2019" war erfunden, und die
+              echten daten sind kein verkaufsargument. die reihenfolge
+              erzählt die geschichte. */}
           <div>
-            {t.weg.map(([jahr, titel, kurz]) => (
-              <div key={jahr} className="lx-row" style={{ gridTemplateColumns: "46px minmax(0,1fr)" }}>
-                <span className="ub-year">{jahr}</span>
+            {t.weg.map(([titel, kurz]) => (
+              <div key={titel} className="lx-row">
                 <div>
-                  <h3 className="text-[17px] font-medium tracking-[-0.01em] text-[#f2f2f2]">
+                  <h3 className="text-lead font-medium tracking-[-0.01em] text-[#f2f2f2]">
                     {titel}
                   </h3>
                   <p className="mt-2 max-w-[52ch] text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
@@ -141,6 +143,41 @@ export function UeberDevice() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ WAS ICH NICHT MACHE ═══
+          dieselbe rhetorik wie die streichliste auf der startseite:
+          die grenze ist die aussage. und es ist die sauberste
+          antwort auf grafik-anfragen · statt selbst als grafiker
+          angefragt zu werden, zeigt die seite jemanden, der das
+          macht. er koordiniert, der kunde hat eine ansprechperson. */}
+      <section data-no-reveal className="relative px-gut pb-rh-m">
+        <div className="mx-auto grid max-w-shell gap-10 md:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] md:gap-16">
+          <div className="md:sticky md:top-28 md:self-start">
+            <h2 className="lab-display text-headline">{t.partnerH2}</h2>
+            <p className="mt-5 max-w-[320px] text-body leading-relaxed text-[rgba(242,242,242,0.5)]">
+              {t.partnerLead}
+            </p>
+          </div>
+
+          <div>
+            {t.partner.map(([was, kurz]) => (
+              <div key={was} className="lx-row">
+                <div>
+                  <h3 className="text-lead font-medium tracking-[-0.01em] text-[#f2f2f2]">
+                    {was}
+                  </h3>
+                  <p className="mt-2 max-w-[52ch] text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
+                    {kurz}
+                  </p>
+                </div>
+              </div>
+            ))}
+            <p className="mt-8 max-w-[52ch] text-body leading-relaxed text-[rgba(242,242,242,0.7)]">
+              {t.partnerFuss}
+            </p>
           </div>
         </div>
       </section>
