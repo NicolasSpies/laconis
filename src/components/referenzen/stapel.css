@@ -388,3 +388,71 @@
     transition: none;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   .st--gross · die fassung für den referenzen-hero
+
+   titel steht darüber, die namen links, das deck GROSS rechts ·
+   es darf über die schale hinauslaufen. html hat overflow-x:clip,
+   es entsteht also keine waagerechte scrollleiste.
+
+   die leiter-linie hängt hier nach RECHTS aus dem block heraus,
+   nicht nach links · sie muss zum deck zeigen, und das steht
+   jetzt auf der anderen seite.
+   ═══════════════════════════════════════════════════════════ */
+
+.st--gross { --sp: 84px; --auf: 96px; }
+
+@media (min-width: 1024px) {
+  .st--gross { --s: 1.05; }
+
+  .st--gross .st-inhalt {
+    /* NICHT überlagert · namen und deck stehen nebeneinander */
+    grid-template-columns: minmax(200px, 0.42fr) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 56px);
+  }
+  .st--gross .st-inhalt > * {
+    grid-area: auto;
+  }
+
+  .st--gross .st-namen {
+    order: -1;
+    width: auto;
+    justify-self: stretch;
+  }
+
+  /* gespiegelt: titel zuerst, dann nummer, der strich hängt rechts
+     raus und zeigt aufs deck */
+  .st--gross .st-name {
+    justify-content: end;
+    text-align: right;
+  }
+  .st--gross .st-titel {
+    grid-column: 1;
+    justify-self: end;
+  }
+  .st--gross .st-nr {
+    grid-column: 2;
+  }
+  .st--gross .st-strich {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    width: 52px;
+    margin-left: 0;
+    margin-right: -52px;
+    background: linear-gradient(to left, rgb(var(--fg-rgb) / 0), rgb(var(--fg-rgb) / 0.3));
+  }
+  .st--gross .st-name[data-on="1"] .st-strich {
+    background: linear-gradient(to left, rgb(var(--accent) / 0), rgb(var(--accent) / 0.75));
+  }
+  .st--gross .st-meta {
+    grid-column: 1 / span 2;
+    justify-content: flex-end;
+  }
+}
+
+@media (min-width: 1280px) {
+  /* „ganz gross rechts" · das deck darf über die schale hinaus.
+     html clippt waagerecht, es entsteht keine scrollleiste. */
+  .st--gross { --s: 1.42; }
+}

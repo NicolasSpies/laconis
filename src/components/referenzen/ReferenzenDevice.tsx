@@ -46,31 +46,31 @@ export function ReferenzenDevice() {
       {/* ═══ DER STAPEL · übersicht und navigation in einem ═══ */}
       <section
         data-no-reveal
-        className="relative isolate flex min-h-[100svh] flex-col justify-center px-gut pb-rh-s pt-hero"
+        className="relative isolate px-gut pb-rh-m pt-hero"
       >
-        <div className="mx-auto grid w-full max-w-shell-wide items-center gap-14 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-10">
-          <div>
-            <h1
-              className="lab-display lab-boot text-display"
-              style={{ animationDelay: "180ms" }}
-            >
-              {t.h1a}
-              <br />
-              <span style={{ color: "#e1fd52" }}>{t.h1b}</span>
-            </h1>
+        {/* titel OBEN über die volle breite · darunter die namen
+            links und das deck gross rechts. das deck darf über die
+            schale hinauslaufen, html clippt waagerecht. */}
+        <div className="mx-auto w-full max-w-shell-wide">
+          <h1
+            className="lab-display lab-boot max-w-[16ch] text-display-xl"
+            style={{ animationDelay: "180ms" }}
+          >
+            {t.h1a} <span style={{ color: "#e1fd52" }}>{t.h1b}</span>
+          </h1>
 
-            <p
-              className="lab-boot mt-7 max-w-[360px] text-body leading-relaxed"
-              style={{ animationDelay: "300ms", color: "rgba(242,242,242,0.6)" }}
-            >
-              {t.sub}
-            </p>
-          </div>
+          <p
+            className="lab-boot mt-6 max-w-[420px] text-lead leading-relaxed"
+            style={{ animationDelay: "300ms", color: "rgba(242,242,242,0.6)" }}
+          >
+            {t.sub}
+          </p>
 
-          <div className="lab-boot" style={{ animationDelay: "440ms" }}>
+          <div className="lab-boot mt-14 md:mt-20" style={{ animationDelay: "440ms" }}>
             <Stapel
               projekte={referenzen}
               locale={locale}
+              klasse="st--gross"
               t={{
                 zieh: t.sxZieh,
                 stampLive: t.stampLive,
