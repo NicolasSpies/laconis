@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
+import "@/components/pagetransition.css";
 import { LegacyChrome } from "@/components/LegacyChrome";
 import { CursorDot } from "@/components/CursorDot";
-import { DriftingBlobs } from "@/components/DriftingBlobs";
 import { PageTransition } from "@/components/PageTransition";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { Tracker } from "@/components/analytics/Tracker";
@@ -148,7 +148,6 @@ export default function RootLayout({
               "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 15%, black 40%)",
           }}
         />
-        <DriftingBlobs />
         <CursorDot />
         <LegacyChrome position="nav" />
         <StructuredData />

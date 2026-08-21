@@ -45,3 +45,6 @@ agentdb.rvf.lock
 
 # Generated preview routes (auto-created by Next.js tooling)
 src/app/preview/
+
+# verworfene generierungs-versuche · die uebernommenen liegen in public/
+/assets/dreh/

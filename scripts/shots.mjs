@@ -21,23 +21,11 @@
  *   npm i -D playwright && npx playwright install chromium
  */
 
-import { mkdir, readFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-let chromium;
-try {
-  ({ chromium } = await import("playwright"));
-} catch {
-  console.error(
-    "playwright fehlt. einmalig:\n" +
-      "  npm i -D playwright && npx playwright install chromium\n\n" +
-      "es ist absichtlich keine feste abhängigkeit · 300 MB browser für ein\n" +
-      "skript, das dreimal im jahr läuft, gehören nicht in jede installation.",
-  );
-  process.exit(1);
-}
-
 const OUT = "public/cases";
+const INDEX = "src/data/shots.generated.ts";
 const VIEWS = [
   { name: "desktop", width: 1440, height: 900 },
   { name: "mobile", width: 390, height: 844 },
@@ -55,6 +43,71 @@ async function projekte() {
     if (slug && url) out.push({ slug, url });
   }
   return out;
+}
+
+/**
+ * index schreiben · das ist der schritt, der die handarbeit ersetzt.
+ *
+ * vorher musste man nach jeder aufnahme die pfade von hand in
+ * src/data/referenzen.ts eintragen. das ist genau die art arbeit, die
+ * keiner macht · und dann steht eine referenz ohne bild auf der seite.
+ *
+ * jetzt gilt eine konvention: public/cases/<slug>-desktop.jpg. dieser
+ * schreiber liest den ordner und legt die liste der slugs ab, die
+ * wirklich eine aufnahme haben. referenzen.ts hängt sie daran ein.
+ *
+ * gelesen wird der ORDNER, nicht das, was das skript gerade aufgenommen
+ * hat · so stimmt der index auch, wenn eine datei von hand dazukommt
+ * oder gelöscht wird.
+ */
+async function schreibIndex() {
+  let dateien = [];
+  try {
+    dateien = await readdir(OUT);
+  } catch {
+    /* ordner gibt es noch nicht · dann eben eine leere liste */
+  }
+  const slugs = [
+    ...new Set(
+      dateien
+        .filter((f) => f.endsWith("-desktop.jpg"))
+        .map((f) => f.slice(0, -"-desktop.jpg".length)),
+    ),
+  ].sort();
+
+  await writeFile(
+    INDEX,
+    `/* AUTOMATISCH ERZEUGT von scripts/shots.mjs · nicht von hand ändern.
+` +
+      ` *\n` +
+      ` * slugs, für die eine aufnahme unter public/cases/ liegt.\n` +
+      ` * neu erzeugen mit:  npm run shots        (nimmt auf + schreibt)\n` +
+      ` *                    npm run shots:index  (nur neu einlesen)\n` +
+      ` */\nexport const AUFNAHMEN: string[] = [\n` +
+      slugs.map((s) => `  "${s}",\n`).join("") +
+      `];\n`,
+    "utf8",
+  );
+  console.log(`✓ ${INDEX} · ${slugs.length} aufnahme(n): ${slugs.join(", ") || "—"}`);
+}
+
+/* nur den index neu einlesen · braucht keinen browser */
+if (process.argv.includes("--index")) {
+  await schreibIndex();
+  process.exit(0);
+}
+
+let chromium;
+try {
+  ({ chromium } = await import("playwright"));
+} catch {
+  console.error(
+    "playwright fehlt. einmalig:\n" +
+      "  npm i -D playwright && npx playwright install chromium\n\n" +
+      "es ist absichtlich keine feste abhängigkeit · 300 MB browser für ein\n" +
+      "skript, das dreimal im jahr läuft, gehören nicht in jede installation.",
+  );
+  process.exit(1);
 }
 
 const nur = process.argv[2];
@@ -123,4 +176,5 @@ for (const { slug, url } of ziele) {
 }
 
 await browser.close();
-console.log("\nfertig. die pfade stehen in src/data/referenzen.ts unter `shots`.");
+await schreibIndex();
+console.log("\nfertig · die vorschauen sind auf der seite. nichts von hand einzutragen.");

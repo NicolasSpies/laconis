@@ -1,0 +1,321 @@
+/* ═══════════════════════════════════════════════════════════
+   Raum · die arbeiten stehen im licht, die kamera fährt
+
+   --cam (px) liegt auf .rm-raum und ist die einzige stelle, die den
+   scroll konsumiert. --nah (0..1, nähe zur bühne) und --sicht (0..1,
+   sichtbarkeit) liegen pro objekt · daran hängen licht, schärfe und
+   das einlaufen des schilds. sonst rechnet hier nichts.
+   ═══════════════════════════════════════════════════════════ */
+
+/* inherits: TRUE ist hier der ganze punkt.
+   --nah und --dunkel beschreiben nicht ein element, sondern eine
+   STELLE IM RAUM · das schild, die karte und der schleier liegen an
+   derselben stelle und müssen denselben wert lesen. mit
+   `inherits: false` bekam jeder nachfahre still den initialwert:
+   das schild rechnete ewig mit nah = 0 (unsichtbar), der schleier mit
+   dunkel = 0.74 (alles finster). beides ohne fehlermeldung.
+   --sicht bleibt lokal · das ist eine deckkraft für genau ein
+   element und darf sich nicht multiplizieren. */
+@property --nah { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --dunkel { syntax: "<number>"; inherits: true; initial-value: 0.74; }
+@property --sicht { syntax: "<number>"; inherits: false; initial-value: 0; }
+
+.rm-buehne {
+  position: relative;
+}
+
+.rm-kamera {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  perspective: 1150px;
+  perspective-origin: 50% 44%;
+  /* der raum hat keine wände · nur eine tiefe, die ins schwarz läuft */
+  background: radial-gradient(115% 78% at 50% 40%, #14141d 0%, #08080e 45%, #05050a 100%);
+}
+
+.rm-raum {
+  --cam: 0px;
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: translate3d(0, 0, var(--cam));
+  /* MUSS none sein. der raum ist selbst auf translateZ(+cam) gefahren
+     und liegt damit NÄHER an der kamera als jedes exponat darin · im
+     3D-hit-test gewinnt seine eigene box gegen seine kinder, und
+     jeder klick landet auf dem container statt auf dem objekt, das
+     man sieht. das ist die art fehler, die man nie findet, weil
+     nichts falsch aussieht.
+     die objekte holen sich `auto` per inline-style zurück, sobald sie
+     im licht stehen (siehe VarianteC). */
+  pointer-events: none;
+}
+
+.rm-objekt {
+  --i: 0;
+  --nah: 0;
+  --sicht: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(58vw, 780px);
+  transform-style: preserve-3d;
+  transform:
+    translate3d(calc(-50% + var(--ox, 0px) * var(--oxm, 1)), -50%, calc(var(--i) * -1000px))
+    /* leicht zur bahn gedreht · ein exponat, das frontal steht,
+       während man daran vorbeifährt, ist ein bild an der wand */
+    rotateY(var(--od, 0deg));
+  opacity: var(--sicht);
+  pointer-events: none;
+}
+
+/* das licht · was nicht auf der bühne steht, ist nicht ausgeblendet,
+   es ist UNBELEUCHTET. das ist der unterschied zwischen einem raum
+   und einer liste mit fade-in.
+
+   als schleier gemalt, nicht als filter gerechnet: `filter` erzeugt
+   einen neuen stapelkontext und flacht preserve-3d ab · die karte
+   verlöre ihre lage im raum. und ein filterdurchlauf über jedes bild
+   in jedem frame ist die teuerste art, dunkel zu sagen. */
+/* die verdunklung liegt AUF DEM EXPONAT, nicht als rechteck darüber.
+   ein schleier über der bounding-box malt eine harte schwarze platte
+   in den raum, sobald der hintergrund heller ist als er · man sah die
+   kisten der unbeleuchteten objekte statt der objekte. licht folgt
+   der silhouette, sonst ist es kein licht. */
+/* pointer-events setzt das script pro objekt · siehe VarianteC.
+   ein exponat im dunkeln darf keine klicks abfangen. */
+.rm-werk {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── exponat ─────────────────────────────────────────────── */
+
+.rm-exponat {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+/* ein schirm · nur wenn es eine echte aufnahme gibt */
+.rm-schirm {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: clamp(10px, 1.4vw, 20px);
+  overflow: hidden;
+  background: #0b0b10;
+  border: 1px solid rgb(var(--fg-rgb) / 0.1);
+  box-shadow:
+    0 40px 90px -40px rgb(0 0 0 / 0.95),
+    0 0 0 1px rgb(0 0 0 / 0.5);
+}
+.rm-schirm img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0;
+}
+/* die scheibe · ohne sie ist es ein bild, mit ihr ein gerät */
+.rm-schirm::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(128deg, rgb(var(--fg-rgb) / 0.14) 0%, transparent 34%, transparent 72%, rgb(var(--fg-rgb) / 0.05) 100%),
+    rgb(4 4 10 / var(--dunkel));
+}
+
+/* eine karte · branding hat keine website, also zeigt es das, was
+   wirklich geliefert wurde */
+.rm-karte {
+  position: relative;
+  isolation: isolate;
+  width: min(64%, 460px);
+  margin-inline: auto;
+  aspect-ratio: 85 / 55;
+  border-radius: clamp(8px, 1vw, 14px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(18px, 2.4vw, 34px);
+  background:
+    linear-gradient(152deg, rgb(255 255 255 / 0.18) 0%, transparent 46%),
+    var(--f, #14141a);
+  /* karton hat eine kante, die das licht fängt */
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.3),
+    inset 0 -1px 0 rgb(0 0 0 / 0.35),
+    0 30px 70px -34px rgb(0 0 0 / 0.95);
+  transform: rotateY(-13deg) rotateX(4deg);
+}
+.rm-karte::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: rgb(4 4 10 / var(--dunkel));
+}
+
+.rm-mark {
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  font-weight: 700;
+  font-stretch: 118%;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: rgb(255 255 255 / 0.94);
+}
+.rm-karte-fuss {
+  font-size: var(--fs-label);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.62);
+}
+
+/* ── schild ──────────────────────────────────────────────── */
+
+.rm-schild {
+  margin-top: clamp(18px, 2.4vw, 34px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  align-items: baseline;
+  /* das schild läuft im STILLSTAND ein · deshalb hängt es an --nah
+     und nicht an einer eigenen zeitachse */
+  opacity: calc((var(--nah) - 0.55) * 3.4);
+  transform: translateY(calc((1 - var(--nah)) * 22px));
+}
+.rm-name {
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.8rem);
+  font-weight: 600;
+  font-stretch: 108%;
+  letter-spacing: -0.025em;
+  color: var(--tx-1);
+}
+.rm-meta {
+  font-size: var(--fs-label);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tx-3);
+}
+
+/* ── kopf und fuss sind stationen wie die arbeiten ─────────── */
+
+.rm-wort {
+  /* schrift hat keine fläche zum abdunkeln · sie dimmt über deckkraft.
+     die 0.08 halten sie als schemen im raum, damit man sieht, dass da
+     noch etwas kommt. */
+  opacity: calc(0.08 + var(--nah) * 0.92);
+}
+.rm-wort h1,
+.rm-wort h2,
+.rm-wort p {
+  margin: 0;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-size: clamp(2.6rem, 7.4vw, 6.6rem);
+  font-weight: 700;
+  font-stretch: 112%;
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+  text-transform: lowercase;
+  color: var(--tx-1);
+}
+.rm-wort p { font-weight: 300; color: var(--tx-2); }
+.rm-lime { color: var(--lime); }
+.rm-wort a {
+  display: inline-block;
+  margin-top: var(--sp-6);
+  font-size: var(--fs-lead);
+  color: var(--lime);
+  border-bottom: 1px solid rgb(var(--accent) / 0.4);
+  /* der raum ist pointer-events: none · links holen es sich zurück */
+  pointer-events: auto;
+}
+/* eine zeile fliesstext unter dem grossen wort · das ist das MAXIMUM
+   an prosa, das eine station verträgt. mehr gehört auf eine seite,
+   die man liest, nicht in einen raum, den man durchgeht. */
+.rm-zeile {
+  display: block;
+  margin-top: var(--sp-5);
+  max-width: 30ch;
+  font-size: var(--fs-lead);
+  line-height: 1.45;
+  color: var(--tx-3);
+}
+
+/* ── licht und boden · gehören der kamera, nicht dem raum ──── */
+
+.rm-licht {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(42% 38% at 50% 42%, rgb(var(--fg-rgb) / 0.07), transparent 72%),
+    linear-gradient(to bottom, rgb(3 3 6 / 0.7) 0%, transparent 22%, transparent 74%, rgb(3 3 6 / 0.78) 100%);
+}
+.rm-boden {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 34%;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, rgb(var(--fg-rgb) / 0.028) 62%, transparent);
+  mask-image: radial-gradient(60% 100% at 50% 100%, #000 20%, transparent 78%);
+}
+
+.rm-hinweis {
+  position: absolute;
+  left: var(--gutter);
+  bottom: 34px;
+  z-index: 2;
+  margin: 0;
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tx-4);
+  pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  .rm-objekt {
+    width: 82vw;
+    /* ±11vw sind hier nur ~41px · zwei objekte stünden übereinander */
+    --oxm: 1.7;
+  }
+  .rm-karte { width: 88%; transform: rotateY(-8deg); }
+  .rm-hinweis { display: none; }
+}
+
+/* ohne bewegung wird aus dem gang eine reihe · gleiche exponate,
+   gleiche reihenfolge, nur ohne fahrt */
+@media (prefers-reduced-motion: reduce) {
+  .rm-buehne { height: auto !important; }
+  .rm-kamera {
+    position: static;
+    height: auto;
+    overflow: visible;
+    perspective: none;
+    padding: var(--rh-m) var(--gutter);
+  }
+  .rm-raum {
+    position: static;
+    transform: none;
+    display: grid;
+    gap: var(--rh-m);
+  }
+  .rm-objekt {
+    position: static;
+    width: 100%;
+    transform: none;
+    filter: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .rm-karte { transform: none; }
+  .rm-schild { opacity: 1; transform: none; }
+  .rm-licht, .rm-boden { display: none; }
+}
+

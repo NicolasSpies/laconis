@@ -1,3 +1,5 @@
+import { AUFNAHMEN } from "./shots.generated";
+
 export type Referenz = {
   slug: string;
   name: string;
@@ -64,7 +66,9 @@ export type Referenz = {
   shots?: { desktop: string; mobile: string };
 };
 
-export const referenzen: Referenz[] = [
+/* die rohliste · `referenzen` unten ist das, was die seite benutzt.
+   dazwischen sitzt der auflöser, der die aufnahmen einhängt. */
+const ROH: Referenz[] = [
   // --- real projects ---
   {
     slug: "fabry-baumpflege",
@@ -83,10 +87,6 @@ export const referenzen: Referenz[] = [
     istEcht: true,
     heroImage:
       "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1800&q=80&auto=format&fit=crop",
-    shots: {
-      desktop: "/cases/fabry-desktop.jpg",
-      mobile: "/cases/fabry-mobile.jpg",
-    },
     testimonial: {
       quote:
         "ich hab einfach angerufen, geschrieben wenn was war. keine tickets, keine agentur-höflichkeit.",
@@ -134,3 +134,31 @@ export const referenzen: Referenz[] = [
   },
   // NICHTS DRUNTER · weitere referenzen kommen später via CMS.
 ];
+
+/**
+ * aufnahmen einhängen · das ist der ganze punkt.
+ *
+ * ablauf für eine neue referenz: slug + urlExtern eintragen,
+ * `npm run shots` laufen lassen, fertig. das skript nimmt die
+ * aufnahmen, legt sie unter public/cases/<slug>-desktop.jpg ab und
+ * schreibt die liste der vorhandenen slugs nach shots.generated.ts.
+ * hier werden sie eingehängt.
+ *
+ * vorher musste man die pfade von hand in jeden eintrag schreiben ·
+ * genau die art arbeit, die keiner macht, und dann steht eine
+ * referenz ohne bild auf der seite.
+ *
+ * ein manuell gesetztes `shots` gewinnt · falls doch mal eine
+ * aufnahme von hand kommt.
+ */
+export const referenzen: Referenz[] = ROH.map((r) => ({
+  ...r,
+  shots:
+    r.shots ??
+    (AUFNAHMEN.includes(r.slug)
+      ? {
+          desktop: `/cases/${r.slug}-desktop.jpg`,
+          mobile: `/cases/${r.slug}-mobile.jpg`,
+        }
+      : undefined),
+}));

@@ -20,8 +20,12 @@ const BASE = "https://laconis.be";
 type ServiceInput = {
   name: string;
   description: string;
-  /** Faustpreis ab — wird zu priceSpecification.minPrice */
-  minPrice: number;
+  /** Faustpreis ab · OPTIONAL. seit august 2026 nennt die seite keine
+      preise mehr ("preis nach gespraech"), und ein preis im
+      strukturierten datensatz waere ein versprechen, das die sichtbare
+      seite nicht mehr einloest · google darf ihn als rich result
+      ausspielen. ohne diesen wert faellt das ganze offers-objekt weg. */
+  minPrice?: number;
   /** default "EUR" */
   priceCurrency?: string;
   /** z.B. "Web Development" oder "Branding" — gruppierung in der SERP */
@@ -46,16 +50,22 @@ export function ServiceSchema({ services }: { services: ServiceInput[] }) {
     serviceType: s.serviceType ?? "Design & Web Development",
     provider: { "@id": `${BASE}/#org` },
     areaServed: [...countryAreas, ...cityAreas],
-    offers: {
-      "@type": "Offer",
-      availability: "https://schema.org/InStock",
-      priceSpecification: {
-        "@type": "PriceSpecification",
-        minPrice: s.minPrice,
-        priceCurrency: s.priceCurrency ?? "EUR",
-        valueAddedTaxIncluded: false,
-      },
-    },
+    /* das angebot steht nur im datensatz, wenn ein preis uebergeben
+       wird · ein leeres Offer ohne preis ist schlechter als keins */
+    ...(s.minPrice === undefined
+      ? {}
+      : {
+          offers: {
+            "@type": "Offer",
+            availability: "https://schema.org/InStock",
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              minPrice: s.minPrice,
+              priceCurrency: s.priceCurrency ?? "EUR",
+              valueAddedTaxIncluded: false,
+            },
+          },
+        }),
   }));
 
   const schema = {

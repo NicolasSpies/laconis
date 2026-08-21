@@ -1,0 +1,181 @@
+/* ═══════════════════════════════════════════════════════════
+   Kopf · die Marke als Koerper, darunter der Satz
+
+   reihenfolge: erst WER, dann WAS. der koerper steht allein und
+   gross, der satz kommt darunter als ein stueck. die vorige fassung
+   hatte das logo mitten in der ueberschrift stehen · das las sich
+   als keines von beidem.
+   ═══════════════════════════════════════════════════════════ */
+
+.kp {
+  --nav: 64px;
+  --rand: clamp(18px, 2.2vw, 34px);
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  /* FAIL-OPEN · dieser verlauf ist der eigentliche grund des heros.
+     kein WebGL, der frame vor dem ersten draw, reduzierte bewegung ·
+     in allen drei faellen steht der hero. das feld ist zugabe. */
+  background:
+    radial-gradient(120% 90% at 50% 42%, #17172099 0%, transparent 62%),
+    radial-gradient(80% 60% at 78% 18%, #2a1f3d66 0%, transparent 70%),
+    #08080b;
+  /* clip, nicht hidden · hidden macht die sektion zu ihrem eigenen
+     scroll-container und bricht scroll-getriebene animationen */
+  overflow: clip;
+  isolation: isolate;
+}
+
+.kp-feld {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+  /* KEIN filter: brightness() · der rechnete #e1fd52 auf
+     (255,255,168) hoch, also blasses gelbweiss statt neon */
+  opacity: 0.5;
+}
+
+/* ── registermarken ─────────────────────────────────────── */
+
+.kp-marke-el {
+  position: absolute;
+  z-index: 2;
+  width: 13px;
+  height: 13px;
+  pointer-events: none;
+  opacity: 0.34;
+}
+.kp-marke-el::before,
+.kp-marke-el::after {
+  content: "";
+  position: absolute;
+  background: var(--tx-2);
+}
+.kp-marke-el::before { left: 50%; top: 0; width: 1px; height: 100%; }
+.kp-marke-el::after { top: 50%; left: 0; height: 1px; width: 100%; }
+
+.kp-marke-lo { left: var(--rand); top: calc(var(--nav) + var(--rand)); }
+.kp-marke-ro { right: var(--rand); top: calc(var(--nav) + var(--rand)); }
+.kp-marke-lu { left: var(--rand); bottom: var(--rand); }
+.kp-marke-ru { right: var(--rand); bottom: var(--rand); }
+
+/* ── die lage ───────────────────────────────────────────── */
+
+.kp-lage {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--shell-wide);
+  margin-inline: auto;
+  /* --rh-s waere hier 112px oben UND unten · in einer 738px hohen
+     bildschirmhoehe faellt damit die einleitung unter die kante */
+  padding:
+    calc(var(--nav) + clamp(20px, 3vh, 44px))
+    var(--gutter)
+    clamp(58px, 8vh, 92px);
+}
+
+.kp-kicker {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--fs-label);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tx-3);
+  animation: kpRein 700ms var(--ease) both;
+}
+
+/* ── mitte · koerper und satz ───────────────────────────── */
+
+.kp-mitte {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(20px, 3.4vh, 48px);
+  text-align: center;
+}
+
+.kp-h1 {
+  margin: 0;
+  max-width: 16ch;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-size: clamp(2.4rem, 7.4vw, 6.4rem);
+  font-weight: 800;
+  font-stretch: 116%;
+  line-height: 0.94;
+  letter-spacing: -0.042em;
+  text-transform: lowercase;
+  color: var(--tx-1);
+  animation: kpRein 700ms var(--ease) 220ms both;
+}
+.kp-akzent { color: var(--lime); }
+
+/* ── fuss ───────────────────────────────────────────────── */
+
+.kp-fuss {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--sp-5);
+}
+
+.kp-lead {
+  margin: 0;
+  max-width: 40ch;
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  color: var(--tx-2);
+  animation: kpRein 700ms var(--ease) 540ms both;
+}
+
+.kp-uhr,
+.kp-hinweis {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tx-3);
+  white-space: nowrap;
+}
+.kp-uhr {
+  /* tabellenziffern · sonst zappelt die zeile jede minute */
+  font-variant-numeric: tabular-nums;
+  animation: kpRein 700ms var(--ease) 640ms both;
+}
+
+.kp-hinweis {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  bottom: clamp(24px, 3.4vh, 40px);
+  z-index: 2;
+  animation: kpRein 700ms var(--ease) 740ms both;
+}
+
+@keyframes kpRein {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 720px) {
+  .kp-h1 { max-width: none; }
+  .kp-lead { max-width: none; }
+  .kp-uhr { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kp-kicker, .kp-lead, .kp-uhr, .kp-hinweis, .kp-h1 {
+    animation: none;
+  }
+  .kp-feld { opacity: 0.35; }
+}

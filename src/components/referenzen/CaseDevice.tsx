@@ -111,21 +111,6 @@ export function CaseDevice({ slug }: { slug: string }) {
                 {t.auftragLead}
               </p>
 
-              <div className="mt-12 grid gap-x-16 md:grid-cols-2">
-                {t.auftrag.map(([title, body]) => (
-                  <div key={title} className="lx-row">
-                    <div>
-                      <h3 className="text-[17px] font-medium tracking-[-0.01em] text-[#f2f2f2]">
-                        {title}
-                      </h3>
-                      <p className="mt-2 max-w-[46ch] text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
-                        {body}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
               {/* das briefing in seinen worten · so kurz stand es da */}
               <ArtQuote className="aq--versetzt mt-20" lines={t.briefing} />
             </div>
@@ -145,58 +130,6 @@ export function CaseDevice({ slug }: { slug: string }) {
               <ClaimSwitch t={t.claim} />
             </div>
           </section>
-
-          {/* ═══ WAS DRIN STECKT · ruhig ═══ */}
-          <section data-no-reveal className="relative px-gut pb-rh-m">
-            <div className="mx-auto max-w-shell">
-              <h2 className="lab-display max-w-[14ch] text-headline">
-                {t.detailsH2}
-              </h2>
-              <p className="mt-7 max-w-[560px] text-body leading-relaxed text-[rgba(242,242,242,0.55)]">
-                {t.detailsLead}
-              </p>
-              <div className="mt-12 grid gap-x-16 md:grid-cols-2">
-                {t.details.map(([title, body]) => (
-                  <div key={title} className="lx-row">
-                    <div>
-                      <h3 className="text-[17px] font-medium tracking-[-0.01em] text-[#f2f2f2]">
-                        {title}
-                      </h3>
-                      <p className="mt-2 max-w-[46ch] text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
-                        {body}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* ═══ GEMESSEN ═══ */}
-          {r.pagespeedMobile != null && (
-            <section data-no-reveal className="relative px-gut pb-rh-m">
-              <div className="mx-auto max-w-shell">
-                <span className="lab-label">{t.lTempo}</span>
-                <div className="mt-6 flex flex-wrap gap-x-16 gap-y-8">
-                  <div>
-                    <div className="lab-readout-value" style={{ color: "#e1fd52" }}>
-                      {r.pagespeedMobile}
-                    </div>
-                    <div className="lab-label mt-2">{tr.mobil}</div>
-                  </div>
-                  {r.pagespeedDesktop != null && (
-                    <div>
-                      <div className="lab-readout-value">{r.pagespeedDesktop}</div>
-                      <div className="lab-label mt-2">{tr.desktop}</div>
-                    </div>
-                  )}
-                </div>
-                <p className="lab-hint mt-6 max-w-[440px] text-body-sm leading-relaxed">
-                  {t.tempoNote}
-                </p>
-              </div>
-            </section>
-          )}
 
           {/* ═══ DAS ZITAT ═══ */}
           {r.testimonial && (

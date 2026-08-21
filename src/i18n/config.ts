@@ -40,13 +40,15 @@ export const HTML_LANG: Record<Locale, string> = {
  */
 export const ROUTES: Record<string, Record<Locale, string>> = {
   home: { de: "", fr: "", en: "" },
-  /* die eine leistungs-seite · web. löst /leistungen/web +
-     /leistungen/web/technik ab (beide 301 hierher, siehe next.config). */
-  leistung: { de: "leistung", fr: "prestation", en: "service" },
-  preise: { de: "preise", fr: "prix", en: "pricing" },
+  /* STUDIO · verschmilzt die frueheren seiten leistung, preise und
+     ueber-mich zu einem ort. alle drei leiten per 301 hierher
+     (siehe next.config). der schluessel heisst weiter `leistung`,
+     damit die rund 14 aufrufstellen nicht angefasst werden muessen ·
+     nur der sichtbare pfad aendert sich. */
+  leistung: { de: "studio", fr: "studio", en: "studio" },
   kontakt: { de: "kontakt", fr: "contact", en: "contact" },
-  referenzen: { de: "referenzen", fr: "references", en: "work" },
-  "ueber-mich": { de: "ueber-mich", fr: "a-propos", en: "about" },
+  /* ARBEITEN · frueher /referenzen. schluessel bleibt, pfad neu. */
+  referenzen: { de: "arbeiten", fr: "travaux", en: "work" },
   impressum: {
     de: "impressum",
     fr: "mentions-legales",

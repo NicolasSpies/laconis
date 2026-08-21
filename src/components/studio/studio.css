@@ -1,0 +1,204 @@
+/* ═══════════════════════════════════════════════════════════
+   Studio · eine Seite aus dreien
+   ═══════════════════════════════════════════════════════════ */
+
+.st-hero {
+  --nav: 64px;
+  position: relative;
+  min-height: 78svh;
+  display: flex;
+  align-items: center;
+  padding: calc(var(--nav) + var(--rh-s)) var(--gutter) var(--rh-m);
+  background:
+    radial-gradient(110% 80% at 30% 30%, #16161f99 0%, transparent 60%),
+    #08080b;
+}
+
+.st-innen {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+}
+
+.st-kicker {
+  margin: 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--fs-label);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tx-3);
+}
+
+.st-h1 {
+  margin: clamp(20px, 3vw, 36px) 0 0;
+  max-width: 18ch;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-size: clamp(2.2rem, 6.4vw, 5.4rem);
+  font-weight: 800;
+  font-stretch: 116%;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  text-transform: lowercase;
+  color: var(--tx-1);
+}
+.st-akzent { color: var(--lime); }
+
+.st-lead {
+  margin: clamp(28px, 3.4vw, 44px) 0 0;
+  max-width: 46ch;
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  color: var(--tx-2);
+}
+
+/* ── blöcke ─────────────────────────────────────────────── */
+
+.st-block {
+  background: #08080b;
+  padding: var(--rh-m) var(--gutter);
+}
+
+.st-kopfzeile {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  margin-bottom: clamp(28px, 4vw, 52px);
+}
+
+.st-h2 {
+  margin: 0;
+  max-width: 16ch;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-size: clamp(1.8rem, 4.6vw, 3.4rem);
+  font-weight: 700;
+  font-stretch: 112%;
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  text-transform: lowercase;
+  color: var(--tx-1);
+}
+.st-h2--klein {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--fs-label);
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tx-3);
+  max-width: none;
+}
+
+.st-neben {
+  margin: 0;
+  max-width: 30ch;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--tx-3);
+}
+
+.st-fliess {
+  margin: clamp(22px, 2.6vw, 34px) 0 0;
+  max-width: 52ch;
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--tx-2);
+}
+.st-fliess--leise { color: var(--tx-3); font-size: var(--fs-body); }
+
+.st-gross {
+  margin: clamp(26px, 3.4vw, 44px) 0 0;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-size: clamp(1.5rem, 4.2vw, 3rem);
+  font-weight: 600;
+  font-stretch: 108%;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  text-transform: lowercase;
+  color: var(--tx-3);
+}
+
+.st-key {
+  display: inline-block;
+  margin-top: clamp(30px, 3.6vw, 48px);
+  font-size: var(--fs-lead);
+  color: var(--lime);
+  border-bottom: 1px solid rgb(var(--accent) / 0.4);
+  transition: border-color var(--t-2) var(--ease);
+}
+.st-key:hover { border-bottom-color: var(--lime); }
+
+/* ── person ─────────────────────────────────────────────── */
+
+.st-person {
+  display: grid;
+  gap: clamp(32px, 5vw, 72px);
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: start;
+}
+
+.st-portrait {
+  margin: 0;
+  position: relative;
+}
+.st-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-m);
+}
+.st-portrait-note {
+  display: block;
+  margin-top: var(--sp-4);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--fs-label);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  /* der platzhalter sagt SELBST, dass er einer ist · sonst steht da
+     ein fremdes bild und sieht aus wie eine behauptung */
+  color: var(--tx-4);
+}
+
+/* ── der weg · zeilen, keine kacheln ────────────────────── */
+
+.st-weg {
+  margin: clamp(24px, 3vw, 40px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.st-weg-zeile {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+  gap: clamp(16px, 2.4vw, 40px);
+  align-items: baseline;
+  padding: clamp(18px, 2.4vw, 30px) 0;
+  border-top: 1px solid var(--ln-hair);
+}
+.st-weg:last-child .st-weg-zeile:last-child {
+  border-bottom: 1px solid var(--ln-hair);
+}
+
+.st-weg-wo {
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-size: clamp(1.1rem, 2.4vw, 1.7rem);
+  font-weight: 600;
+  font-stretch: 108%;
+  letter-spacing: -0.025em;
+  text-transform: lowercase;
+  color: var(--tx-1);
+}
+.st-weg-was {
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--tx-3);
+}
+
+@media (max-width: 860px) {
+  .st-person { grid-template-columns: minmax(0, 1fr); }
+  .st-weg-zeile { grid-template-columns: minmax(0, 1fr); gap: var(--sp-3); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .st-key { transition: none; }
+}

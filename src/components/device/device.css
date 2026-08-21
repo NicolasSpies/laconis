@@ -570,13 +570,16 @@
 }
 
 .lab-nav-logo {
-  font-family: var(--font-lab), system-ui, sans-serif;
-  font-stretch: 112%;
-  font-weight: 700;
-  font-size: 19px;
-  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
   color: #e8e8e8;
 }
+.lab-nav-logo svg {
+  height: 17px;
+  width: auto;
+  display: block;
+}
+.lab-nav-logo:hover { color: #fff; }
 
 /* burger · zwei ungleiche linien · hover gleicht sie an, offen = X */
 .lab-burger {
@@ -1296,5 +1299,57 @@
     translate: none;
     transform: none;
     opacity: 1;
+  }
+}
+
+
+/* ── menue · auf/zu in CSS statt ueber AnimatePresence ──────
+   das menue bleibt im DOM · geschaltet wird ueber data-open.
+   `visibility` nimmt die links im geschlossenen zustand aus der
+   tab-reihenfolge, `transition-delay` staffelt die eintraege. */
+.lab-menu[data-open="0"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 200ms var(--ease),
+    visibility 0s linear 200ms;
+}
+.lab-menu[data-open="1"] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 280ms var(--ease);
+}
+
+.lab-menu .lab-menu-item {
+  transform: translateY(34px);
+  opacity: 0;
+  transition:
+    transform 620ms var(--ease),
+    opacity 620ms var(--ease);
+}
+.lab-menu[data-open="1"] .lab-menu-item {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: calc(140ms + var(--i, 0) * 70ms);
+}
+
+.lab-menu .lab-menu-foot {
+  opacity: 0;
+  transition: opacity 500ms var(--ease);
+}
+.lab-menu[data-open="1"] .lab-menu-foot {
+  opacity: 1;
+  transition-delay: 500ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-menu .lab-menu-item,
+  .lab-menu[data-open="1"] .lab-menu-item,
+  .lab-menu .lab-menu-foot,
+  .lab-menu[data-open="1"] .lab-menu-foot {
+    transform: none;
+    opacity: 1;
+    transition: none;
   }
 }

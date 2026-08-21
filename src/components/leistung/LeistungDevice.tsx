@@ -43,30 +43,7 @@ export function LeistungDevice() {
       {/* ═══ 1 · DIE LUPE ═══ */}
       <LensHero t={t.hero} />
 
-      {/* ═══ 2 · WAS DASTEHT · ruhig ═══ */}
-      <section data-no-reveal className="relative px-gut py-rh-l">
-        <div className="mx-auto max-w-shell">
-          <h2 className="lab-display max-w-[16ch] text-display">{t.deliverH2}</h2>
-          <p className="mt-7 max-w-[560px] text-body leading-relaxed text-[rgba(242,242,242,0.55)]">
-            {t.deliverLead}
-          </p>
-
-          <div className="mt-14 grid gap-x-16 md:grid-cols-2">
-            {t.deliver.map(([title, body]) => (
-              <div key={title} className="lx-row">
-                <div>
-                  <h3 className="text-[17px] font-medium tracking-[-0.01em] text-[#f2f2f2]">{title}</h3>
-                  <p className="mt-2 max-w-[46ch] text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
-                    {body}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ 3 · DER FEATURE-VERGLEICH ═══ */}
+      {/* ═══ 2 · ContentCore gegen den plugin-stapel ═══ */}
       <section data-no-reveal className="relative px-gut pb-rh-m">
         <div className="mx-auto max-w-shell">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
@@ -78,7 +55,7 @@ export function LeistungDevice() {
         </div>
       </section>
 
-      {/* ═══ 4 · DER LIVE-EDITOR ═══ */}
+      {/* ═══ 3 · das CMS, das man anfassen kann ═══ */}
       <section data-no-reveal className="relative px-gut py-rh-m">
         <div className="mx-auto max-w-shell">
           <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
@@ -90,57 +67,7 @@ export function LeistungDevice() {
         </div>
       </section>
 
-      {/* ═══ 5 · DER STACK · ruhig ═══ */}
-      <section data-no-reveal className="relative px-gut py-rh-m">
-        <div className="mx-auto max-w-shell">
-          <h2 className="lab-display max-w-[14ch] text-headline">{t.stackH2}</h2>
-
-          <div className="mt-12 grid gap-x-16 md:grid-cols-2">
-            {t.stack.map(([name, why]) => (
-              <div key={name} className="lx-row" style={{ gridTemplateColumns: "8px minmax(0,1fr)" }}>
-                <span
-                  aria-hidden
-                  className="mt-[7px] h-1.5 w-1.5 rounded-full"
-                  style={{ background: "#e1fd52", boxShadow: "0 0 8px rgba(225,253,82,0.6)" }}
-                />
-                <div>
-                  <h3 className="text-body font-medium tracking-[-0.01em] text-[#f2f2f2]">{name}</h3>
-                  <p className="mt-1.5 max-w-[46ch] text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
-                    {why}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <p className="mt-12 max-w-[620px] text-body leading-relaxed text-[rgba(242,242,242,0.72)]">
-            {t.stackNote}
-          </p>
-        </div>
-      </section>
-
-      {/* ═══ 6 · FAQ · ruhig ═══ */}
-      <section data-no-reveal className="relative px-gut pb-rh-m">
-        <div className="mx-auto grid max-w-shell gap-10 md:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] md:gap-16">
-          <h2 className="lab-display self-start text-headline md:sticky md:top-28">{t.faqH2}</h2>
-
-          <div>
-            {t.faq.map(([q, a]) => (
-              <details key={q} className="lx-faq">
-                <summary>
-                  <h3 className="text-body font-medium tracking-[-0.01em]">{q}</h3>
-                  <span className="lx-faq-sign" aria-hidden />
-                </summary>
-                <p className="max-w-[62ch] pb-6 text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
-                  {a}
-                </p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ 7 · SCHLUSS ═══ */}
+      {/* ═══ 4 · schluss ═══ */}
       <section data-no-reveal className="relative px-gut pb-rh-l">
         <div className="mx-auto max-w-shell">
           <div className="gl relative flex flex-col justify-between gap-10 p-8 md:p-14 lg:flex-row lg:items-center">
@@ -157,7 +84,7 @@ export function LeistungDevice() {
               {/* gleiche bauhöhe wie die lime-taste · sonst sitzen die
                   beiden tasten auf verschiedenen ebenen */}
               <Link
-                href={buildPath("preise", locale)}
+                href={buildPath("leistung", locale)}
                 className="lab-key"
                 style={{ width: "auto", padding: "12px 20px" }}
               >

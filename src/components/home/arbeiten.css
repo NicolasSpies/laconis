@@ -1,0 +1,80 @@
+/* ═══════════════════════════════════════════════════════════
+   Arbeiten · alle gleichrangig · Zeilen statt Kacheln
+   ═══════════════════════════════════════════════════════════ */
+
+.ar {
+  background: #08080b;
+  padding: var(--rh-m) var(--gutter) var(--rh-l);
+}
+.ar-innen {
+  max-width: var(--shell);
+  margin-inline: auto;
+}
+
+.ar-h2 {
+  margin: 0 0 clamp(28px, 4vw, 56px);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--fs-label);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tx-3);
+  font-weight: 400;
+}
+
+.ar-liste {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ar-zeile {
+  display: grid;
+  grid-template-columns: 4px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(18px, 2.6vw, 40px);
+  padding: clamp(22px, 3vw, 40px) 0;
+  border-top: 1px solid var(--ln-hair);
+  color: inherit;
+}
+.ar-liste li:last-child .ar-zeile { border-bottom: 1px solid var(--ln-hair); }
+
+/* die markenfarbe als schmaler streifen · das ist alles, was von
+   einem branding-projekt ohne bildmaterial ehrlich zu zeigen ist */
+.ar-strich {
+  align-self: stretch;
+  min-height: 1.4em;
+  background: var(--f, var(--tx-4));
+  border-radius: 2px;
+  transition: transform var(--t-2) var(--ease);
+}
+.ar-zeile:hover .ar-strich { transform: scaleY(1.35); }
+
+.ar-name {
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-size: clamp(1.6rem, 5vw, 3.6rem);
+  font-weight: 700;
+  font-stretch: 112%;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--tx-2);
+  transition: color var(--t-2) var(--ease);
+}
+.ar-zeile:hover .ar-name { color: var(--tx-1); }
+
+.ar-art {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--fs-label);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tx-4);
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .ar-zeile { grid-template-columns: 4px minmax(0, 1fr); }
+  .ar-art { grid-column: 2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ar-strich, .ar-name { transition: none; }
+}

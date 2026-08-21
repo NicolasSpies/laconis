@@ -21,11 +21,10 @@ const I18N_ROUTES: Array<{
   changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
 }> = [
   { routeKey: "home", priority: 1.0, changeFrequency: "weekly" },
+  /* studio · traegt jetzt leistung, preise und ueber-mich */
   { routeKey: "leistung", priority: 0.9, changeFrequency: "monthly" },
-  { routeKey: "preise", priority: 0.9, changeFrequency: "monthly" },
   { routeKey: "kontakt", priority: 0.9, changeFrequency: "monthly" },
   { routeKey: "referenzen", priority: 0.8, changeFrequency: "weekly" },
-  { routeKey: "ueber-mich", priority: 0.7, changeFrequency: "monthly" },
   { routeKey: "impressum", priority: 0.2, changeFrequency: "yearly" },
   { routeKey: "datenschutz", priority: 0.2, changeFrequency: "yearly" },
 ];

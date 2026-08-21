@@ -50,7 +50,7 @@ export type ReferenzenDict = {
 
 export const REFERENZEN: Record<Locale, ReferenzenDict> = {
   de: {
-    kicker: "referenzen",
+    kicker: "arbeiten",
     h1a: "was schon",
     h1b: "läuft.",
     sub: "Drei Projekte. Zieh am Stapel oder klick dich rein.",
@@ -85,7 +85,7 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
   },
 
   fr: {
-    kicker: "références",
+    kicker: "travaux",
     h1a: "ce qui tourne",
     h1b: "déjà.",
     sub: "Trois projets. Tire sur la pile ou entre directement.",

@@ -23,18 +23,12 @@ import { Footer } from "@/components/Footer";
    dem präfix erschlagen, deshalb reicht der pfad ohne /fr bzw. /en */
 const DEVICE_PATHS = [
   "/",
-  "/leistung",
-  "/prestation",
-  "/service",
-  "/referenzen",
-  "/references",
+  /* STUDIO · frueher leistung, preise und ueber-mich */
+  "/studio",
+  /* ARBEITEN · frueher referenzen */
+  "/arbeiten",
+  "/travaux",
   "/work",
-  "/preise",
-  "/prix",
-  "/pricing",
-  "/ueber-mich",
-  "/a-propos",
-  "/about",
   "/kontakt",
   "/contact",
   /* die pflichtseiten laufen seit august 2026 auch im geräte-stil und
@@ -52,7 +46,7 @@ function istGeraeteSeite(pathname: string): boolean {
   const ohneLocale = pathname.replace(/^\/(fr|en)(?=\/|$)/, "") || "/";
   if (DEVICE_PATHS.includes(ohneLocale)) return true;
   /* die referenz-detailseiten hängen unter den listen-pfaden */
-  return /^\/(referenzen|references|work)\/[^/]+$/.test(ohneLocale);
+  return /^\/(arbeiten|travaux|work)\/[^/]+$/.test(ohneLocale);
 }
 
 export function LegacyChrome({ position }: { position: "nav" | "footer" }) {

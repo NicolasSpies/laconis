@@ -66,65 +66,48 @@ const STATIC_MAP: Record<string, MetaByLocale> = {
       ogDescription: "webdesign studio · east belgium · handmade",
     },
   },
-  "/leistung": {
+  /* STUDIO · traegt seit 2026-08 die frueheren seiten leistung,
+     preise und ueber-mich. drei indexierte URLs werden zu einer,
+     deshalb muss diese beschreibung die begriffe aller drei tragen.
+     die konkreten preise aus der alten /preise-beschreibung sind
+     bewusst RAUS · Nicolas hat entschieden, dass kein preis mehr
+     genannt wird, und eine zahl im suchergebnis waere dann ein
+     versprechen, das die seite nicht mehr einloest. */
+  "/studio": {
     de: {
-      title: "leistung · websites von null gebaut",
-      description: "Websites von null gebaut · kein Template, kein WordPress-Limit. Lighthouse 95+, eigenes CMS zum Selberpflegen, bestehende Seiten werden übernommen. Ostbelgien, dreisprachig.",
-      ogTitle: "leistung · lacønis",
-      ogDescription: "von null gebaut · lighthouse 95+ · eigenes cms · übernahme bestehender seiten.",
+      title: "studio · websites von null gebaut",
+      description:
+        "Nicolas Spies · Webdesigner und Entwickler. Websites von null gebaut, kein Template, kein WordPress-Limit. Eigenes CMS zum Selberpflegen, bestehende Seiten werden übernommen. Ostbelgien, dreisprachig.",
+      ogTitle: "studio · lacønis",
+      ogDescription:
+        "von null gebaut · eigenes cms · übernahme bestehender seiten · eine person, kein team.",
     },
     fr: {
-      title: "prestation · des sites construits de zéro",
-      description: "Sites web construits de zéro · pas de template, pas de limite WordPress. Lighthouse 95+, CMS maison à gérer soi-même, reprise de sites existants. Cantons de l'Est, trilingue.",
-      ogTitle: "prestation · lacønis",
-      ogDescription: "construit de zéro · lighthouse 95+ · cms maison · reprise de sites existants.",
+      title: "studio · des sites construits de zéro",
+      description:
+        "Nicolas Spies · webdesigner et développeur. Sites construits de zéro, sans template, sans limite WordPress. CMS maison à gérer soi-même, reprise de sites existants. Cantons de l'Est, trilingue.",
+      ogTitle: "studio · lacønis",
+      ogDescription:
+        "construit de zéro · cms maison · reprise de sites existants · une personne, pas une équipe.",
     },
     en: {
-      title: "service · websites built from scratch",
-      description: "Websites built from scratch · no template, no WordPress ceiling. Lighthouse 95+, in-house CMS you run yourself, existing sites taken over. East Belgium, trilingual.",
-      ogTitle: "service · lacønis",
-      ogDescription: "built from scratch · lighthouse 95+ · in-house cms · existing sites taken over.",
+      title: "studio · websites built from scratch",
+      description:
+        "Nicolas Spies · web designer and developer. Websites built from scratch, no template, no WordPress ceiling. In-house CMS you maintain yourself, existing sites taken over. East Belgium, trilingual.",
+      ogTitle: "studio · lacønis",
+      ogDescription:
+        "built from scratch · in-house cms · existing sites taken over · one person, not a team.",
     },
   },
-  "/preise": {
+  "/arbeiten": {
     de: {
-      title: "preise · was kostet eine website oder ein logo?",
-      description: "ehrliche faustregeln statt paket-tabelle. websites ab 1.500 €, logos ab 800 €, brand identity ab 1.200 €. keine versteckten kosten, kein 'auf anfrage' bei allem.",
-      ogTitle: "preise · lacønis",
-      ogDescription: "ehrliche faustregeln · websites ab 1.500 €, logos ab 800 €. kein paket-raster, transparente investments.",
-    },
-    fr: {
-      title: "prix · ça coûte combien un site web ou un logo ?",
-      description: "des règles honnêtes plutôt qu'une grille forfaitaire. sites web à partir de 1 500 €, logos à partir de 800 €, brand identity à partir de 1 200 €. pas de coûts cachés, pas de « sur demande » pour tout.",
-      ogTitle: "prix · lacønis",
-      ogDescription: "règles honnêtes · sites web dès 1 500 €, logos dès 800 €. pas de grille, investissements transparents.",
-    },
-    en: {
-      title: "pricing · what does a website or logo cost?",
-      description: "honest rules of thumb instead of a package grid. websites from €1,500, logos from €800, brand identity from €1,200. no hidden costs, no 'on request' for everything.",
-      ogTitle: "pricing · lacønis",
-      ogDescription: "honest rules of thumb · websites from €1,500, logos from €800. no package grid, transparent investments.",
-    },
-  },
-  "/preise/baukasten": {
-    de: {
-      title: "baukasten · preise",
-      description: "weitergeleitet zu /preise · keine paket-konfigurator-seite mehr.",
-      ogTitle: "preise · lacønis",
-      ogDescription: "weitergeleitet zu /preise.",
-      noindex: true,
-      nofollow: true,
-    },
-  },
-  "/referenzen": {
-    de: {
-      title: "referenzen",
+      title: "arbeiten",
       description: "drei projekte · eine website live beim kunden, zwei konzept-studien. was nicht live ist, steht auch so da. webdesign aus ostbelgien.",
       ogTitle: "referenzen · lacønis",
       ogDescription: "drei projekte · eins live, zwei konzept-studien. ehrlich ausgeschildert.",
     },
     fr: {
-      title: "références",
+      title: "travaux",
       description: "trois projets · un site en ligne chez le client, deux études concept. ce qui n'est pas en ligne est marqué comme tel. webdesign des cantons de l'est.",
       ogTitle: "références · lacønis",
       ogDescription: "trois projets · un en ligne, deux études concept. marqué honnêtement.",
@@ -154,29 +137,6 @@ const STATIC_MAP: Record<string, MetaByLocale> = {
       description: "discuss the project · email, call, or briefly fill out the project form.",
       ogTitle: "contact · lacønis",
       ogDescription: "discuss the project · straight with me.",
-    },
-  },
-  "/ueber-mich": {
-    de: {
-      title: "über mich",
-      description: "nicolas spies · freelance designer + web developer. dreisprachig arbeiten (de · fr · en), eigenes CMS, kleiner kundenkreis.",
-      ogTitle: "über mich · lacønis",
-      ogDescription: "nicolas spies · freelance designer + web developer.",
-      ogType: "profile",
-    },
-    fr: {
-      title: "à propos",
-      description: "nicolas spies · freelance designer + développeur web. travail trilingue (de · fr · en), cms maison, cercle de clients restreint.",
-      ogTitle: "à propos · lacønis",
-      ogDescription: "nicolas spies · freelance designer + développeur web.",
-      ogType: "profile",
-    },
-    en: {
-      title: "about",
-      description: "nicolas spies · freelance designer + web developer. trilingual work (de · fr · en), in-house cms, small client circle.",
-      ogTitle: "about · lacønis",
-      ogDescription: "nicolas spies · freelance designer + web developer.",
-      ogType: "profile",
     },
   },
   "/impressum": {

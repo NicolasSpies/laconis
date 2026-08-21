@@ -1,0 +1,61 @@
+/* ═══════════════════════════════════════════════════════════
+   PageTransition · Vorhang in CSS statt in einer Bibliothek
+   ═══════════════════════════════════════════════════════════ */
+
+.pt-wrap { position: relative; }
+
+/* NUR y · keine deckkraft. eine opacity-animation um den seiten-
+   inhalt macht jedes backdrop-filter darunter fuer die dauer der
+   animation flach, und das sprang danach sichtbar an. */
+.pt-inhalt {
+  animation: ptInhalt 520ms cubic-bezier(0.22, 1, 0.36, 1) 140ms both;
+}
+
+.pt-vorhang {
+  position: fixed;
+  inset: 0;
+  /* unter der navigation (10000) · die leiste bleibt stehen und der
+     vorhang laeuft dahinter durch, das wirkt wie eine buehne */
+  z-index: 9998;
+  pointer-events: none;
+  background: #0a0a0a;
+  will-change: transform;
+  animation: ptVorhang 560ms cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+.pt-kante {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: #e1fd52;
+  box-shadow: 0 0 24px rgb(225 253 82 / 0.8);
+}
+
+.pt-marke {
+  position: absolute;
+  left: 50%;
+  bottom: 32px;
+  translate: -50% 0;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: rgb(242 242 242 / 0.5);
+}
+
+@keyframes ptInhalt {
+  from { transform: translateY(16px); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes ptVorhang {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-100.5%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pt-inhalt { animation: none; }
+  /* der vorhang faehrt nicht, er ist einfach weg */
+  .pt-vorhang { animation: none; transform: translateY(-100.5%); }
+}

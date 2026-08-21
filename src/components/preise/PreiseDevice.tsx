@@ -5,7 +5,6 @@ import { DeviceNav } from "@/components/device/DeviceNav";
 import { HeroRail } from "@/components/device/HeroRail";
 import { HeroAtmo } from "@/components/device/HeroAtmo";
 import { PriceCaliper } from "@/components/preise/PriceCaliper";
-import { Zaehler } from "@/components/preise/Zaehler";
 import { PREISE } from "@/components/preise/preise.dict";
 import { useLocale } from "@/i18n/useLocale";
 import { buildPath } from "@/i18n/config";
@@ -68,31 +67,6 @@ export function PreiseDevice() {
         </div>
       </section>
 
-      {/* ═══ WAS DEN PREIS MACHT · ruhig ═══ */}
-      <section data-no-reveal className="relative px-gut py-rh-m">
-        <div className="mx-auto max-w-shell">
-          <h2 className="lab-display max-w-[16ch] text-headline">{t.faktorenH2}</h2>
-          <p className="mt-7 max-w-[560px] text-body leading-relaxed text-[rgba(242,242,242,0.55)]">
-            {t.faktorenLead}
-          </p>
-
-          <div className="mt-12 grid gap-x-16 md:grid-cols-2">
-            {t.faktoren.map(([title, body]) => (
-              <div key={title} className="lx-row">
-                <div>
-                  <h3 className="text-[17px] font-medium tracking-[-0.01em] text-[#f2f2f2]">
-                    {title}
-                  </h3>
-                  <p className="mt-2 max-w-[46ch] text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
-                    {body}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ═══ LAUFENDE KOSTEN · ruhig ═══ */}
       <section data-no-reveal className="relative px-gut pb-rh-m">
         <div className="mx-auto max-w-shell">
@@ -102,18 +76,6 @@ export function PreiseDevice() {
               <p className="mt-6 max-w-[380px] text-body leading-relaxed text-[rgba(242,242,242,0.55)]">
                 {t.laufendLead}
               </p>
-
-              {/* das zählwerk trägt die aussage, die zeilen rechts
-                  sagen, woraus der stand besteht */}
-              <div className="mt-9">
-                <Zaehler
-                  label={t.zaehlerLabel}
-                  von={t.zaehlerVon}
-                  bis={t.zaehlerBis}
-                  bisLabel={t.zaehlerBisLabel}
-                  einheit={t.zaehlerEinheit}
-                />
-              </div>
             </div>
             <div>
               {t.laufend.map(([k, v]) => (

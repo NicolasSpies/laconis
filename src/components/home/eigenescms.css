@@ -1,0 +1,45 @@
+/* ═══════════════════════════════════════════════════════════
+   EigenesCms · drei zahlen statt drei absätzen
+   ═══════════════════════════════════════════════════════════ */
+
+.cc {
+  position: relative;
+  padding: var(--rh-l) var(--gutter);
+  background: #08080b;
+}
+
+.cc-innen {
+  max-width: var(--shell);
+  margin-inline: auto;
+}
+
+.cc-h2 {
+  margin: 0;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-size: clamp(2.4rem, 6.8vw, 5.6rem);
+  font-weight: 700;
+  font-stretch: 110%;
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+  text-transform: lowercase;
+  color: var(--tx-1);
+}
+.cc-akzent { color: var(--lime); }
+
+.cc-zeile {
+  margin: clamp(28px, 3.6vw, 48px) 0 0;
+  max-width: 40ch;
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  color: var(--tx-3);
+}
+
+.cc-key {
+  display: inline-block;
+  margin-top: clamp(36px, 4.4vw, 60px);
+  font-size: var(--fs-lead);
+  color: var(--lime);
+  border-bottom: 1px solid rgb(var(--accent) / 0.4);
+  transition: border-color var(--t-2) var(--ease);
+}
+.cc-key:hover { border-bottom-color: var(--lime); }

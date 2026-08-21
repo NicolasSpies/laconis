@@ -1,80 +1,71 @@
 /* ═══════════════════════════════════════════════════════════
-   Schluss · die leere platte
+   Schluss · die einzige Lime-Vollflaeche der Seite
 
-   dieselbe platte wie im stapel darüber, nur ohne inhalt. die
-   projekte liegen als platten mit fertigen seiten drauf, diese
-   wartet noch · das ist „nummer vier" als bild statt als zahl.
+   lime als flaeche hinter dunklem text · #e1fd52 pur, ink darauf,
+   kontrast rund 15:1. nicht abgewandelt, nicht abgedunkelt, keine
+   deckkraft. haette jede zweite sektion diese flaeche, waere sie
+   tapete · sie knallt, weil sie einmal vorkommt.
    ═══════════════════════════════════════════════════════════ */
 
 .sl {
-  position: relative;
-  z-index: 1;
-  padding: var(--rh-xl) var(--gutter) var(--rh-l);
+  min-height: 78svh;
+  display: flex;
+  align-items: center;
+  padding: var(--rh-m) var(--gutter);
+  background: var(--lime);
+  color: #08080b;
+}
+
+.sl-innen {
+  width: 100%;
   max-width: var(--shell);
-  margin: 0 auto;
+  margin-inline: auto;
 }
 
-.sl-platte {
-  display: grid;
-  place-items: center;
-  min-height: clamp(220px, 30vw, 340px);
-  padding: clamp(32px, 5vw, 72px);
-  text-align: center;
-}
-
-/* GRAVIERT, nicht geprägt: dunkler als die fläche, mit einer hellen
-   kante UNTEN. genau andersherum als erhaben · das ist der
-   unterschied, den man sieht, ohne ihn benennen zu können. */
-.sl-gravur {
-  max-width: 15ch;
+.sl-satz {
+  margin: 0;
+  max-width: 16ch;
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-stretch: 108%;
-  font-weight: 300;
-  font-size: var(--fs-display);
-  line-height: 1.08;
-  letter-spacing: -0.03em;
+  font-size: clamp(2.4rem, 8vw, 6.4rem);
+  font-weight: 800;
+  font-stretch: 118%;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
   text-transform: lowercase;
-  color: rgb(0 0 0 / 0.72);
-  /* die helle kante UNTER dem buchstaben ist das, was eine fräsung
-     lesbar macht · sie muss kräftig genug sein, dass der satz auf
-     einen blick geht. es ist die haupt-CTA, kein osterei. */
-  text-shadow:
-    0 1px 0 rgb(var(--fg-rgb) / 0.34),
-    0 -1px 1px rgb(0 0 0 / 0.55);
+  color: #08080b;
 }
 
-.sl-fuss {
+.sl-tat {
+  margin-top: clamp(40px, 6vw, 80px);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: clamp(16px, 2.4vw, 28px);
-  margin-top: clamp(32px, 4.4vw, 56px);
+  gap: var(--sp-5) var(--sp-7);
 }
 
 .sl-key {
-  width: auto;
-  padding: 14px 24px;
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 26px;
+  border-radius: var(--r-pill);
+  background: #08080b;
+  color: var(--lime);
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  transition: transform var(--t-2) var(--ease);
 }
+.sl-key:hover { transform: translateY(-2px); }
 
 .sl-oder {
-  font-size: var(--fs-body-sm);
-  color: var(--tx-3);
+  font-size: var(--fs-body);
+  color: rgb(8 8 11 / 0.72);
 }
-
 .sl-mail {
-  color: var(--tx-2);
-  border-bottom: 1px solid var(--ln-soft);
-  transition: color var(--t-2) var(--ease), border-color var(--t-2) var(--ease);
+  color: #08080b;
+  border-bottom: 1px solid rgb(8 8 11 / 0.4);
 }
-.sl-mail:hover {
-  color: var(--lime);
-  border-color: rgb(var(--accent) / 0.6);
-}
+.sl-mail:hover { border-bottom-color: #08080b; }
 
-.sl-hinweis {
-  margin-top: var(--sp-5);
-  max-width: var(--measure-lead);
-  font-size: var(--fs-body-sm);
-  line-height: 1.6;
-  color: var(--tx-4);
+@media (prefers-reduced-motion: reduce) {
+  .sl-key { transition: none; }
 }

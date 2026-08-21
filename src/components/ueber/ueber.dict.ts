@@ -56,37 +56,17 @@ export const UEBER: Record<Locale, UeberDict> = {
     h1a: "einer.",
     h1b: "mehr nicht.",
     bio: "Ich bin Nicolas. Gelernter Grafikdesigner, der bauen gelernt hat · deshalb sehen meine Seiten nicht nur aus, sie laufen auch.",
-    bioSub:
-      "Ich baue Websites, die sich nach den Leuten anfühlen, die dahinterstehen. Keine Agentur, keine Zwischenschicht. Du redest mit dem, der auch baut.",
+    bioSub: "Keine Agentur, keine Zwischenschicht. Du redest mit dem, der auch baut.",
     tags: ["design", "entwicklung", "eigenes cms", "remote"],
 
     fragH2: "frag mich was.",
     fragHint: "eine taste drücken · die vorherige springt hoch",
     fragen: [
-      {
-        q: "arbeitest du wirklich allein?",
-        a: "Ja. Kein Team, keine Subunternehmer, kein Praktikant, der die Hälfte macht. Wenn du mir schreibst, antworte ich. Wenn deine Seite gebaut wird, baue ich sie. Das ist der ganze Trick, und es ist gleichzeitig die ganze Einschränkung.",
-      },
-      {
-        q: "und wenn du ausfällst?",
-        a: "Dann steht dein Projekt kurz. Das ist der ehrliche Nachteil an einer Person, und ich rede ihn nicht weg. Dafür gehören Code, Domain und alle Zugänge dir und laufen auf deinen Namen. Du sitzt nie fest, auch nicht bei mir.",
-      },
-      {
-        q: "warum kein wordpress?",
-        a: "Weil ich damit angefangen habe. Der Web-Teil meiner Ausbildung lief komplett auf WordPress · da hab ich gelernt, wie es nicht geht. Wer WordPress kritisiert, ohne es gemacht zu haben, ist ein Ideologe. Ich hab es gemacht und bin rausgegangen.",
-      },
-      {
-        q: "kannst du auch grösser?",
-        a: "Bis zu einem Punkt. Mehrsprachige Seite mit CMS und Shop: ja, das ist genau mein Bereich. Ein Portal mit fünfzig Redakteuren und Rollenrechten: da sage ich dir lieber vorher, dass du jemand anderen brauchst, als es hinterher zu merken.",
-      },
-      {
-        q: "woher kommt der name?",
-        a: "Von lakonisch. Knapp gesagt, viel gemeint. Passt zu dem, was ich baue, und ehrlich gesagt auch dazu, wie ich rede.",
-      },
-      {
-        q: "was kostet es, dich zu fragen?",
-        a: "Nichts. Ein Gespräch ist ein Gespräch. Und wenn dabei rauskommt, dass ich nicht der richtige für dein Projekt bin, sage ich dir das, statt dir ein Angebot zu schicken, das keinem hilft.",
-      },
+      { q: "arbeitest du wirklich allein?", a: "Ja. Wenn du mir schreibst, antworte ich. Wenn deine Seite gebaut wird, baue ich sie." },
+      { q: "und wenn du ausfällst?", a: "Dann steht dein Projekt kurz. Dafür gehören Code, Domain und alle Zugänge dir. Du sitzt nie fest." },
+      { q: "warum kein wordpress?", a: "Weil ich damit angefangen habe. Der Web-Teil meiner Ausbildung lief komplett darauf. Ich hab es gemacht und bin rausgegangen." },
+      { q: "kannst du auch grösser?", a: "Mehrsprachig mit CMS und Shop: ja. Ein Portal mit fünfzig Redakteuren: da sage ich dir das vorher." },
+      { q: "woher kommt der name?", a: "Von lakonisch. Knapp gesagt, viel gemeint." },
     ],
 
     wegH2: "wie es dazu kam.",
@@ -101,13 +81,13 @@ export const UEBER: Record<Locale, UeberDict> = {
     ],
 
     partnerH2: "was ich nicht mache.",
-    partnerLead: "Ich baue Websites. Grafik-Strategie, Kampagnen und Social Media können andere besser als ich · und ich sage das lieber vorher als hinterher.",
+    partnerLead: "Ich baue Websites. Grafik-Strategie und Social Media können andere besser.",
     partner: [
       ["grafik & branding", "Logo, Erscheinungsbild, Druck."],
       ["strategie", "Positionierung, Botschaft, wer überhaupt angesprochen wird."],
       ["social media", "Redaktionsplan, Inhalte, laufende Betreuung."],
     ],
-    partnerFuss: "Du hast trotzdem nur eine Ansprechperson: mich. Ich hole die Leute dazu und halte die Fäden zusammen.",
+    partnerFuss: "Du hast trotzdem nur eine Ansprechperson: mich.",
 
     theseH2: "worauf das hinausläuft.",
     these: [
@@ -134,37 +114,17 @@ export const UEBER: Record<Locale, UeberDict> = {
     h1a: "une personne.",
     h1b: "pas plus.",
     bio: "Je suis Nicolas. Graphiste de formation qui a appris à construire · c'est pour ça que mes sites ne se contentent pas d'être beaux, ils tournent.",
-    bioSub:
-      "Je construis des sites qui ressemblent aux gens derrière. Pas d'agence, pas d'intermédiaire. Tu parles à celui qui construit aussi.",
+    bioSub: "Pas d'agence, pas d'intermédiaire. Tu parles à celui qui construit.",
     tags: ["design", "développement", "cms maison", "remote"],
 
     fragH2: "pose-moi une question.",
     fragHint: "appuie sur une touche · la précédente remonte",
     fragen: [
-      {
-        q: "tu travailles vraiment seul ?",
-        a: "Oui. Pas d'équipe, pas de sous-traitants, pas de stagiaire qui fait la moitié. Si tu m'écris, je réponds. Si ton site se construit, c'est moi qui le construis. C'est tout l'intérêt, et c'est aussi toute la limite.",
-      },
-      {
-        q: "et si tu tombes malade ?",
-        a: "Alors ton projet s'arrête un moment. C'est le vrai inconvénient d'une seule personne, et je ne vais pas le maquiller. En échange, le code, le domaine et tous les accès t'appartiennent et sont à ton nom. Tu n'es jamais coincé, même pas avec moi.",
-      },
-      {
-        q: "pourquoi pas wordpress ?",
-        a: "Parce que j'ai commencé avec. La partie web de ma formation tournait entièrement sur WordPress · c'est là que j'ai appris comment il ne faut pas faire. Critiquer WordPress sans l'avoir pratiqué, c'est de l'idéologie. Moi je l'ai pratiqué, puis je suis sorti.",
-      },
-      {
-        q: "tu peux faire plus grand ?",
-        a: "Jusqu'à un point. Site multilingue avec CMS et boutique : oui, c'est exactement mon terrain. Un portail avec cinquante rédacteurs et des rôles : là je préfère te dire avant que tu as besoin de quelqu'un d'autre, plutôt que de le découvrir après.",
-      },
-      {
-        q: "d'où vient le nom ?",
-        a: "De laconique. Dire peu, signifier beaucoup. Ça colle à ce que je construis, et franchement aussi à ma façon de parler.",
-      },
-      {
-        q: "ça coûte quoi de te demander ?",
-        a: "Rien. Un échange reste un échange. Et s'il en ressort que je ne suis pas le bon pour ton projet, je te le dis, au lieu de t'envoyer une offre qui n'aide personne.",
-      },
+      { q: "tu travailles vraiment seul ?", a: "Oui. Si tu m'écris, c'est moi qui réponds. Si ton site se construit, c'est moi qui le construis." },
+      { q: "et si tu tombes malade ?", a: "Ton projet s'arrête un moment. En échange, le code, le domaine et tous les accès sont à toi. Tu n'es jamais coincé." },
+      { q: "pourquoi pas wordpress ?", a: "Parce que j'ai commencé avec. Toute la partie web de ma formation tournait dessus. Je l'ai fait, et j'en suis sorti." },
+      { q: "tu peux faire plus gros ?", a: "Multilingue avec CMS et boutique : oui. Un portail avec cinquante rédacteurs : je te le dis avant." },
+      { q: "d'où vient le nom ?", a: "De laconique. Peu de mots, beaucoup de sens." },
     ],
 
     wegH2: "comment j'en suis arrivé là.",
@@ -179,13 +139,13 @@ export const UEBER: Record<Locale, UeberDict> = {
     ],
 
     partnerH2: "ce que je ne fais pas.",
-    partnerLead: "Je construis des sites. La stratégie graphique, les campagnes et les réseaux sociaux, d'autres le font mieux que moi · et je préfère le dire avant qu'après.",
+    partnerLead: "Je construis des sites. Stratégie graphique et social media, d'autres font mieux.",
     partner: [
       ["graphisme & branding", "Logo, identité visuelle, impression."],
       ["stratégie", "Positionnement, message, à qui on parle vraiment."],
       ["réseaux sociaux", "Plan éditorial, contenus, suivi."],
     ],
-    partnerFuss: "Tu n'as quand même qu'un seul interlocuteur : moi. Je fais venir les gens et je tiens les fils.",
+    partnerFuss: "Tu gardes un seul interlocuteur : moi.",
 
     theseH2: "ce que ça donne.",
     these: [
@@ -212,37 +172,17 @@ export const UEBER: Record<Locale, UeberDict> = {
     h1a: "one person.",
     h1b: "that's it.",
     bio: "I'm Nicolas. A trained graphic designer who learned to build · which is why my sites do not just look right, they run.",
-    bioSub:
-      "I build websites that feel like the people behind them. No agency, no middle layer. You talk to the person who also builds.",
+    bioSub: "No agency, no middle layer. You talk to the person who builds.",
     tags: ["design", "development", "in-house cms", "remote"],
 
     fragH2: "ask me something.",
     fragHint: "press a key · the previous one pops back up",
     fragen: [
-      {
-        q: "do you really work alone?",
-        a: "Yes. No team, no subcontractors, no intern doing half of it. If you write to me, i answer. If your site gets built, i build it. That's the whole point, and it's also the whole limitation.",
-      },
-      {
-        q: "what if you drop out?",
-        a: "Then your project stops for a while. That's the honest downside of one person and i'm not going to dress it up. In return, the code, the domain and every access belong to you and are in your name. You're never stuck, not even with me.",
-      },
-      {
-        q: "why not wordpress?",
-        a: "Because i started with it. The web part of my training ran entirely on WordPress · that is where i learned how not to do it. Criticising WordPress without having worked in it is ideology. I worked in it, and then i left.",
-      },
-      {
-        q: "can you go bigger?",
-        a: "Up to a point. Multilingual site with CMS and shop: yes, that's exactly my ground. A portal with fifty editors and role permissions: there i'd rather tell you up front that you need someone else than have you find out later.",
-      },
-      {
-        q: "where does the name come from?",
-        a: "From laconic. Say little, mean a lot. It fits what i build, and honestly also how i talk.",
-      },
-      {
-        q: "what does asking you cost?",
-        a: "Nothing. A conversation is a conversation. And if it turns out i'm not the right person for your project, i'll tell you, instead of sending an offer that helps nobody.",
-      },
+      { q: "do you really work alone?", a: "Yes. If you write to me, I answer. If your site gets built, I build it." },
+      { q: "what if you drop out?", a: "Your project pauses. In exchange, the code, domain and every access belong to you. You are never stuck." },
+      { q: "why no wordpress?", a: "Because I started with it. The whole web part of my training ran on it. I did it, and I walked out." },
+      { q: "can you go bigger?", a: "Multilingual with CMS and shop: yes. A portal with fifty editors: I'll tell you that up front." },
+      { q: "where does the name come from?", a: "From laconic. Few words, much meant." },
     ],
 
     wegH2: "how it came to this.",
@@ -257,13 +197,13 @@ export const UEBER: Record<Locale, UeberDict> = {
     ],
 
     partnerH2: "what i do not do.",
-    partnerLead: "I build websites. Graphic strategy, campaigns and social media are done better by others · and i would rather say so up front than afterwards.",
+    partnerLead: "I build websites. Graphic strategy and social media, others do better.",
     partner: [
       ["graphic design & branding", "Logo, visual identity, print."],
       ["strategy", "Positioning, message, who is actually being addressed."],
       ["social media", "Editorial plan, content, ongoing care."],
     ],
-    partnerFuss: "You still have only one contact: me. I bring the people in and hold the threads together.",
+    partnerFuss: "You still have one contact person: me.",
 
     theseH2: "what it comes down to.",
     these: [

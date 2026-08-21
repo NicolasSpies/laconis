@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Logo } from "./Logo";
+import { Wortmarke } from "./Wortmarke";
 import { AnchorMantra } from "./shared/AnchorMantra";
 import { CarbonBadge } from "./shared/CarbonBadge";
 import { useLocale, pick } from "@/i18n/useLocale";
@@ -65,7 +65,7 @@ export function Footer() {
       <div className="container-site pt-8 pb-6 relative">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="flex items-center gap-4 flex-wrap">
-            <Logo size="md" variant="lime" />
+            <Wortmarke className="h-6 w-auto text-accent-ink" title="lacønis" />
             {/* anchor-mantra · ersetzt das alte hardcoded slogan-string
                 · gleiche worte, aber animiert + sitewide konsistent */}
             <AnchorMantra variant="stamp" />

@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 import { useLocale } from "@/i18n/useLocale";
+import { Wortmarke } from "@/components/Wortmarke";
 import { buildPath, type Locale } from "@/i18n/config";
 
 /**
@@ -26,30 +26,18 @@ const ITEMS: Item[] = [
   {
     key: "leistung",
     route: "leistung",
-    label: { de: "leistung", fr: "prestation", en: "service" },
+    label: { de: "studio", fr: "studio", en: "studio" },
     meta: {
-      de: "websites · cms · übernahme",
-      fr: "sites · cms · reprise",
-      en: "websites · cms · takeover",
+      de: "leistung · preise · wer das baut",
+      fr: "prestation · prix · qui construit",
+      en: "service · pricing · who builds it",
     },
   },
   {
     key: "referenzen",
     route: "referenzen",
-    label: { de: "referenzen", fr: "références", en: "work" },
+    label: { de: "arbeiten", fr: "travaux", en: "work" },
     meta: { de: "was schon läuft", fr: "ce qui tourne déjà", en: "what's already running" },
-  },
-  {
-    key: "preise",
-    route: "preise",
-    label: { de: "preise", fr: "prix", en: "pricing" },
-    meta: { de: "richtwerte, ehrlich", fr: "ordres de grandeur, honnêtes", en: "honest ballparks" },
-  },
-  {
-    key: "ueber-mich",
-    route: "ueber-mich",
-    label: { de: "über mich", fr: "à propos", en: "about" },
-    meta: { de: "eine person, kein team", fr: "une personne, pas une équipe", en: "one person, not a team" },
   },
   {
     key: "kontakt",
@@ -86,7 +74,9 @@ export function DeviceNav() {
       <header className="lab-nav">
         <div className="lab-nav-inner">
           <Link href={buildPath("home", locale)} className="lab-nav-logo" aria-label="lacønis · startseite">
-            lac<span style={{ color: "#e1fd52" }}>ø</span>nis
+            {/* das echte logo · vorher stand hier der name in Archivo
+                nachgebaut, mit einem lime eingefärbten „ø" */}
+            <Wortmarke />
           </Link>
 
           <button
@@ -106,62 +96,49 @@ export function DeviceNav() {
         <span className="lab-nav-progress" aria-hidden />
       </header>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="lab-menu"
-          >
-            {/* die lime-linie fährt einmal durch */}
-            <span className="lab-menu-scan" aria-hidden />
+      {/* das menue bleibt IM DOM und wird ueber data-open geschaltet.
+          vorher haing es an AnimatePresence · das brauchte
+          framer-motion nur fuer die ausblend-animation, und die
+          bibliothek lief damit auf jeder seite mit. mit einer
+          transition statt mount/unmount geht beides in CSS, inklusive
+          des versatzes der eintraege ueber --i.
 
-            <nav className="lab-menu-list" aria-label="hauptnavigation">
-              {ITEMS.map((it, i) => {
-                const href = buildPath(it.route, locale);
-                const on = pathname === href;
-                return (
-                  <motion.div
-                    key={it.key}
-                    initial={{ opacity: 0, y: 34 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      delay: 0.14 + i * 0.07,
-                      duration: 0.62,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                  >
-                    <Link
-                      href={href}
-                      className="lab-menu-item"
-                      data-on={on ? "1" : "0"}
-                      aria-current={on ? "page" : undefined}
-                      onClick={() => setOpen(false)}
-                    >
-                      <span className="lab-display lab-menu-word">{it.label[locale]}</span>
-                      <span className="lab-menu-meta">{it.meta[locale]}</span>
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </nav>
+          `visibility: hidden` im geschlossenen zustand nimmt die
+          links aus der tab-reihenfolge · sonst tabbt man in ein
+          unsichtbares menue. */}
+      <div className="lab-menu" data-open={open ? "1" : "0"} aria-hidden={!open}>
+        {/* die lime-linie fährt einmal durch */}
+        <span className="lab-menu-scan" aria-hidden />
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="lab-menu-foot"
-            >
-              <span className="lab-label">de · fr · en</span>
-              <a className="lab-label" href="mailto:nicolas@laconis.be">
-                nicolas@laconis.be
-              </a>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        <nav className="lab-menu-list" aria-label="hauptnavigation">
+          {ITEMS.map((it, i) => {
+            const href = buildPath(it.route, locale);
+            const on = pathname === href;
+            return (
+              <Link
+                key={it.key}
+                href={href}
+                className="lab-menu-item"
+                data-on={on ? "1" : "0"}
+                aria-current={on ? "page" : undefined}
+                tabIndex={open ? undefined : -1}
+                onClick={() => setOpen(false)}
+                style={{ "--i": i } as React.CSSProperties}
+              >
+                <span className="lab-display lab-menu-word">{it.label[locale]}</span>
+                <span className="lab-menu-meta">{it.meta[locale]}</span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="lab-menu-foot">
+          <span className="lab-label">de · fr · en</span>
+          <a className="lab-label" href="mailto:nicolas@laconis.be" tabIndex={open ? undefined : -1}>
+            nicolas@laconis.be
+          </a>
+        </div>
+      </div>
     </>
   );
 }

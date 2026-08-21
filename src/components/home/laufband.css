@@ -1,0 +1,64 @@
+/* ═══════════════════════════════════════════════════════════
+   Laufband · ein wortband, das nie stehenbleibt
+   ═══════════════════════════════════════════════════════════ */
+
+.lb {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(30px, 4vw, 58px) 0;
+  background: var(--lime);
+  color: #08080b;
+}
+
+.lb-lauf {
+  display: flex;
+  width: max-content;
+  /* 34s auf zwei kopien · langsam genug zum lesen, schnell genug,
+     dass man die bewegung nicht suchen muss */
+  animation: lbLauf 34s linear infinite;
+}
+
+.lb-spur {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.lb-wort {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-size: clamp(1.8rem, 5vw, 4.4rem);
+  font-weight: 700;
+  font-stretch: 112%;
+  letter-spacing: -0.035em;
+  text-transform: lowercase;
+  color: #08080b;
+  white-space: nowrap;
+}
+
+/* auf der lime-fläche ist der trenner ein loch · nicht noch eine
+   farbe. zwei akzente auf einer fläche sind einer zu viel. */
+.lb-wort i {
+  font-style: normal;
+  margin: 0 clamp(20px, 2.6vw, 44px);
+  color: rgb(8 8 11 / 0.42);
+}
+
+@keyframes lbLauf {
+  from { transform: translate3d(0, 0, 0); }
+  /* -50 % ist exakt eine kopie · der zustand ist dort identisch zum
+     start, deshalb ist der sprung unsichtbar */
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lb-lauf {
+    animation: none;
+    /* ohne bewegung darf das band nicht abgeschnitten dastehen */
+    flex-wrap: wrap;
+    width: 100%;
+    padding-inline: var(--gutter);
+  }
+  .lb-spur:last-child { display: none; }
+  .lb-spur { flex-wrap: wrap; }
+}

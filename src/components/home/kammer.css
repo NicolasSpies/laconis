@@ -1,0 +1,38 @@
+/* ═══════════════════════════════════════════════════════════
+   Kammer · der helle Schnitt · ein Satz, keine Bewegung
+   ═══════════════════════════════════════════════════════════ */
+
+.ka {
+  /* volle breite, auch wenn ein container drumherum sitzt · eine
+     halbe flaeche waere kein schnitt, sondern ein kasten */
+  min-height: 74svh;
+  display: flex;
+  align-items: center;
+  padding: var(--rh-m) var(--gutter);
+  /* papierhell, nicht weiss · reines weiss neben #08080b blendet */
+  background: #e9e9e7;
+  color: #0a0a0a;
+}
+
+.ka-satz {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-size: clamp(1.7rem, 4.4vw, 3.6rem);
+  font-weight: 500;
+  font-stretch: 104%;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  /* KEIN lowercase · dies ist der eine satz, der wie ein satz
+     aussehen soll, nicht wie eine ueberschrift */
+  color: #0a0a0a;
+}
+
+/* lila statt lime · auf hellgrau hat #e1fd52 rund 1.2:1, das ist
+   keine farbe mehr, das ist ein fleck. dieses lila traegt 4.4:1. */
+.ka-betont { color: #5c3590; }
+
+@media (max-width: 720px) {
+  .ka { min-height: 62svh; }
+}

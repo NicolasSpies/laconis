@@ -107,7 +107,7 @@ export function ReferenzenDevice() {
                 {t.ctaPrimary}
               </Link>
               <Link
-                href={buildPath("preise", locale)}
+                href={buildPath("leistung", locale)}
                 className="lab-key"
                 style={{ width: "auto", padding: "12px 20px" }}
               >

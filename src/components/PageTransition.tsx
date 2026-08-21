@@ -1,93 +1,46 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 /**
- * route transition v2 · ink-shutter mit lime-kante (signature-wipe).
+ * PageTransition · der Vorhang, ohne Bibliothek.
  *
- * statt unsichtbarem fade: beim seitenwechsel senkt sich ein ink-vorhang
- * mit lime-unterkante über die seite (exit), die neue seite mountet
- * dahinter, der vorhang hebt sich (enter). geparkt wird er unsichtbar
- * über dem viewport (idle y:-100.5%) · initial={false} → kein wipe beim
- * allerersten load.
+ * beim seitenwechsel faehrt ein ink-vorhang mit lime-unterkante nach
+ * oben aus dem bild, die neue seite steht dahinter schon bereit.
  *
- * z-9998: unter der nav (10000) — die leiste bleibt beim wipe stehen,
- * wirkt wie eine bühne. reduced-motion: schlichter kurz-fade.
+ * ═══ warum ohne framer-motion ═══
+ *
+ * die seite wirbt mit „0 kb fremdes javascript". framer-motion wiegt
+ * 5,5 MB im paket und lief ueber das layout auf JEDER seite mit ·
+ * damit war der satz durch einen blick in den netzwerk-tab zu
+ * widerlegen. auf einer seite, deren ganze position ehrlichkeit ist,
+ * war das die teuerste zeile code im projekt.
+ *
+ * ═══ was sich dabei mit-repariert hat ═══
+ *
+ * die alte fassung animierte den INHALT von opacity 0 auf 1. jedes
+ * element mit backdrop-filter darunter war waehrend dieser halben
+ * sekunde flach und sprang danach an · und `.reveal-up` trug
+ * dauerhaft will-change: opacity. der inhalt bewegt sich jetzt nur
+ * noch in y, ohne deckkraft.
+ *
+ * der vorhang laeuft ueber eine CSS-keyframe, die durch den
+ * `key={pathname}` bei jedem routenwechsel neu startet. kein exit ·
+ * dafuer braeuchte es AnimatePresence, und der halbe effekt ist den
+ * ganzen import nicht wert.
  */
-
-const EASE = [0.76, 0, 0.24, 1] as const;
 
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const reduced = useReducedMotion();
-
-  if (reduced) {
-    return (
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={pathname}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="page-transition"
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
-    );
-  }
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <motion.div
-        key={pathname}
-        initial="enter"
-        animate="idle"
-        exit="exit"
-        className="page-transition"
-      >
-        {/* content · dezenter lift sobald der vorhang sich hebt */}
-        <motion.div
-          variants={{
-            enter: { opacity: 0, y: 16 },
-            idle: {
-              opacity: 1,
-              y: 0,
-              transition: { duration: 0.5, delay: 0.15, ease: [0.22, 1, 0.36, 1] },
-            },
-            exit: { opacity: 0.55, transition: { duration: 0.3 } },
-          }}
-        >
-          {children}
-        </motion.div>
+    <div key={pathname} className="pt-wrap">
+      <div className="pt-inhalt">{children}</div>
 
-        {/* ink-vorhang · kommt von oben runter (exit), hebt sich (enter) */}
-        <motion.div
-          aria-hidden
-          className="fixed inset-0 z-[9998] pointer-events-none"
-          style={{ background: "#0a0a0a", willChange: "transform" }}
-          variants={{
-            enter: { y: "0%" },
-            idle: { y: "-100.5%", transition: { duration: 0.55, ease: EASE } },
-            exit: { y: "0%", transition: { duration: 0.4, ease: EASE } },
-          }}
-        >
-          {/* lime-kante · die signatur an der vorhang-unterkante */}
-          <span
-            className="absolute left-0 right-0 bottom-0 h-[3px]"
-            style={{ background: "#e1fd52", boxShadow: "0 0 24px rgba(225,253,82,0.8)" }}
-          />
-          {/* wortmarke · mittig überm saum, dezent */}
-          <span
-            className="absolute left-1/2 bottom-8 -translate-x-1/2 font-mono text-[11px] lowercase tracking-mono"
-            style={{ color: "rgba(242,242,242,0.5)" }}
-          >
-            lacønis
-          </span>
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+      <div className="pt-vorhang" aria-hidden>
+        <span className="pt-kante" />
+        <span className="pt-marke">lacønis</span>
+      </div>
+    </div>
   );
 }

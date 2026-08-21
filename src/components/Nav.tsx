@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
-import { Logo } from "./Logo";
+import { Wortmarke } from "./Wortmarke";
 import { Button } from "./ui/Button";
 import { MenuToggleIcon } from "./ui/MenuToggleIcon";
 import { cn } from "@/lib/cn";
@@ -18,7 +18,7 @@ import {
 } from "@/i18n/config";
 
 type NavLink = {
-  routeKey: "referenzen" | "preise" | "ueber-mich";
+  routeKey: "referenzen" | "leistung";
   labels: Record<Locale, string>;
 };
 
@@ -31,18 +31,16 @@ const SERVICE_LABELS: Record<Locale, string> = {
   en: "service",
 };
 
+/* zwei punkte statt vier · preise und ueber-mich sind seit dem
+   umbau teil von /studio und haben keine eigene route mehr */
 const links: readonly NavLink[] = [
   {
     routeKey: "referenzen",
-    labels: { de: "referenzen", fr: "références", en: "work" },
+    labels: { de: "arbeiten", fr: "travaux", en: "work" },
   },
   {
-    routeKey: "preise",
-    labels: { de: "preise", fr: "prix", en: "pricing" },
-  },
-  {
-    routeKey: "ueber-mich",
-    labels: { de: "über mich", fr: "à propos", en: "about" },
+    routeKey: "leistung",
+    labels: { de: "studio", fr: "studio", en: "studio" },
   },
 ] as const;
 
@@ -233,10 +231,12 @@ export function Nav() {
     >
       <div className="container-site flex items-center justify-between h-16">
         {/* logo · auf dem dunklen fullscreen-menü hell, sonst dark */}
-        <Logo
-          size="sm"
-          variant={open ? "light" : "dark"}
-          className="mr-10 relative z-[1]"
+        <Wortmarke
+          className={cn(
+            "mr-10 relative z-[1] h-4 w-auto",
+            open ? "text-offwhite" : "text-ink",
+          )}
+          title="lacønis"
         />
 
         <nav className="hidden md:flex items-center gap-7">

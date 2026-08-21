@@ -17,6 +17,29 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      /* ═══ 2026-08 · vier seiten statt sieben ═══
+         leistung, preise und ueber-mich sind zu /studio verschmolzen,
+         referenzen heisst jetzt arbeiten. alle alten pfade waren
+         indexiert (nachgeprueft: laconis.be/leistung, /preise,
+         /ueber-mich und /referenzen lieferten alle 200) · sie duerfen
+         nicht ins leere laufen. */
+      { source: "/leistung", destination: "/studio", permanent: true },
+      { source: "/preise", destination: "/studio", permanent: true },
+      { source: "/preise/baukasten", destination: "/studio", permanent: true },
+      { source: "/ueber-mich", destination: "/studio", permanent: true },
+      { source: "/referenzen", destination: "/arbeiten", permanent: true },
+      { source: "/referenzen/:slug", destination: "/arbeiten/:slug", permanent: true },
+
+      { source: "/fr/prestation", destination: "/fr/studio", permanent: true },
+      { source: "/fr/prix", destination: "/fr/studio", permanent: true },
+      { source: "/fr/a-propos", destination: "/fr/studio", permanent: true },
+      { source: "/fr/references", destination: "/fr/travaux", permanent: true },
+      { source: "/fr/references/:slug", destination: "/fr/travaux/:slug", permanent: true },
+
+      { source: "/en/service", destination: "/en/studio", permanent: true },
+      { source: "/en/pricing", destination: "/en/studio", permanent: true },
+      { source: "/en/about", destination: "/en/studio", permanent: true },
+
       /* 2026-08 · die branding-seite ist ersatzlos raus. alles was
          mal dorthin zeigte, landet jetzt auf der einen leistungs-
          seite · dort steht das web-angebot, um das es geht. */
@@ -123,24 +146,20 @@ const nextConfig = {
      */
     const fr = [
       { source: "/fr", destination: "/" },
-      { source: "/fr/prestation", destination: "/leistung" },
-      { source: "/fr/prix", destination: "/preise" },
+      { source: "/fr/studio", destination: "/studio" },
       { source: "/fr/contact", destination: "/kontakt" },
-      { source: "/fr/references", destination: "/referenzen" },
-      { source: "/fr/references/:slug", destination: "/referenzen/:slug" },
-      { source: "/fr/a-propos", destination: "/ueber-mich" },
+      { source: "/fr/travaux", destination: "/arbeiten" },
+      { source: "/fr/travaux/:slug", destination: "/arbeiten/:slug" },
       { source: "/fr/mentions-legales", destination: "/impressum" },
       { source: "/fr/confidentialite", destination: "/datenschutz" },
     ];
 
     const en = [
       { source: "/en", destination: "/" },
-      { source: "/en/service", destination: "/leistung" },
-      { source: "/en/pricing", destination: "/preise" },
+      { source: "/en/studio", destination: "/studio" },
       { source: "/en/contact", destination: "/kontakt" },
-      { source: "/en/work", destination: "/referenzen" },
-      { source: "/en/work/:slug", destination: "/referenzen/:slug" },
-      { source: "/en/about", destination: "/ueber-mich" },
+      { source: "/en/work", destination: "/arbeiten" },
+      { source: "/en/work/:slug", destination: "/arbeiten/:slug" },
       { source: "/en/legal-notice", destination: "/impressum" },
       { source: "/en/privacy", destination: "/datenschutz" },
     ];
