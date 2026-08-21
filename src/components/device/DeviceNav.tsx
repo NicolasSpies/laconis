@@ -96,49 +96,56 @@ export function DeviceNav() {
         <span className="lab-nav-progress" aria-hidden />
       </header>
 
-      {/* das menue bleibt IM DOM und wird ueber data-open geschaltet.
-          vorher haing es an AnimatePresence · das brauchte
-          framer-motion nur fuer die ausblend-animation, und die
-          bibliothek lief damit auf jeder seite mit. mit einer
-          transition statt mount/unmount geht beides in CSS, inklusive
-          des versatzes der eintraege ueber --i.
+      {/* das menue wird nur gerendert, WENN es offen ist.
 
-          `visibility: hidden` im geschlossenen zustand nimmt die
-          links aus der tab-reihenfolge · sonst tabbt man in ein
-          unsichtbares menue. */}
-      <div className="lab-menu" data-open={open ? "1" : "0"} aria-hidden={!open}>
-        {/* die lime-linie fährt einmal durch */}
-        <span className="lab-menu-scan" aria-hidden />
+          zwischenschritt war: dauerhaft im DOM lassen und ueber
+          data-open plus visibility schalten · das sollte die
+          ausblend-animation ohne framer-motion moeglich machen. das
+          menue oeffnete danach zwar (data-open sprang auf 1,
+          visibility auf visible), blieb aber auf opacity 0 stehen,
+          obwohl die einzige zutreffende regel opacity: 1 setzt. eine
+          wechselwirkung, die ich nicht schnell genug festnageln
+          konnte · und ein menue, das nicht aufgeht, ist teurer als
+          eine fehlende ausblend-animation.
 
-        <nav className="lab-menu-list" aria-label="hauptnavigation">
-          {ITEMS.map((it, i) => {
-            const href = buildPath(it.route, locale);
-            const on = pathname === href;
-            return (
-              <Link
-                key={it.key}
-                href={href}
-                className="lab-menu-item"
-                data-on={on ? "1" : "0"}
-                aria-current={on ? "page" : undefined}
-                tabIndex={open ? undefined : -1}
-                onClick={() => setOpen(false)}
-                style={{ "--i": i } as React.CSSProperties}
-              >
-                <span className="lab-display lab-menu-word">{it.label[locale]}</span>
-                <span className="lab-menu-meta">{it.meta[locale]}</span>
-              </Link>
-            );
-          })}
-        </nav>
+          jetzt: bedingtes rendern, einblenden ueber eine
+          CSS-keyframe. kein ausblenden · dafuer braeuchte es
+          AnimatePresence, und dafuer lohnt die bibliothek nicht. */}
+      {open && (
+        <div className="lab-menu" data-offen>
+          {/* die lime-linie fährt einmal durch */}
+          <span className="lab-menu-scan" aria-hidden />
 
-        <div className="lab-menu-foot">
-          <span className="lab-label">de · fr · en</span>
-          <a className="lab-label" href="mailto:nicolas@laconis.be" tabIndex={open ? undefined : -1}>
-            nicolas@laconis.be
-          </a>
+          <nav className="lab-menu-list" aria-label="hauptnavigation">
+            {ITEMS.map((it, i) => {
+              const href = buildPath(it.route, locale);
+              const on = pathname === href;
+              return (
+                <Link
+                  key={it.key}
+                  href={href}
+                  className="lab-menu-item"
+                  data-on={on ? "1" : "0"}
+                  aria-current={on ? "page" : undefined}
+                  onClick={() => setOpen(false)}
+                  style={{ "--i": i } as React.CSSProperties}
+                >
+                  <span className="lab-display lab-menu-word">{it.label[locale]}</span>
+                  <span className="lab-menu-meta">{it.meta[locale]}</span>
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="lab-menu-foot">
+            <span className="lab-label">de · fr · en</span>
+            <a className="lab-label" href="mailto:nicolas@laconis.be">
+              nicolas@laconis.be
+            </a>
+          </div>
         </div>
-      </div>
+      )}
+
     </>
   );
 }

@@ -4,11 +4,21 @@
 
 .pt-wrap { position: relative; }
 
-/* NUR y · keine deckkraft. eine opacity-animation um den seiten-
-   inhalt macht jedes backdrop-filter darunter fuer die dauer der
-   animation flach, und das sprang danach sichtbar an. */
+/* .pt-inhalt bekommt KEINE animation.
+   
+   hier stand ein sanfter y-lift des seiteninhalts. der kostete jedes
+   `position: fixed` auf der ganzen seite: ein element mit `transform`
+   wird zum bezugsrahmen fuer fixierte nachfahren, und
+   `animation-fill-mode: both` laesst das transform nach dem ende der
+   animation stehen · sogar als identitaetsmatrix, die trotzdem
+   zaehlt. das vollbild-menue mass danach 0…3980 statt 0…738 und lag
+   ausserhalb des fensters.
+   
+   framer-motion hat das transform im ruhezustand entfernt, deshalb
+   fiel es vorher nicht auf. der vorhang traegt den uebergang ohnehin
+   allein · 16px lift sind diesen preis nicht wert. */
 .pt-inhalt {
-  animation: ptInhalt 520ms cubic-bezier(0.22, 1, 0.36, 1) 140ms both;
+  /* bewusst leer · siehe oben */
 }
 
 .pt-vorhang {
@@ -44,18 +54,12 @@
   color: rgb(242 242 242 / 0.5);
 }
 
-@keyframes ptInhalt {
-  from { transform: translateY(16px); }
-  to   { transform: translateY(0); }
-}
-
 @keyframes ptVorhang {
   from { transform: translateY(0); }
   to   { transform: translateY(-100.5%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pt-inhalt { animation: none; }
   /* der vorhang faehrt nicht, er ist einfach weg */
   .pt-vorhang { animation: none; transform: translateY(-100.5%); }
 }
