@@ -29,7 +29,7 @@ export const HOME_FAQ: Record<Locale, HomeFaqDict> = {
       },
       {
         q: "warum kein wordpress oder baukasten?",
-        a: "ich bau von null, mit eigenem cms. resultat: google-pagespeed 95+, keine plugin-hölle, kein performance-verfall über die jahre · und die seite gehört wirklich dir, mit quelldateien.",
+        a: "ich bau von null, mit eigenem cms. es gibt keine plugins, die veralten können, und keinen verfall über die jahre · und die seite gehört wirklich dir, mit quelldateien.",
       },
       {
         q: "ich hab schon eine website · kannst du die übernehmen?",
@@ -51,7 +51,7 @@ export const HOME_FAQ: Record<Locale, HomeFaqDict> = {
       },
       {
         q: "pourquoi pas wordpress ou un builder ?",
-        a: "je construis de zéro, avec un cms maison. résultat : pagespeed google 95+, pas d'enfer de plugins, pas de dégradation au fil des ans · et le site t'appartient vraiment, fichiers sources inclus.",
+        a: "je construis de zéro, avec un cms maison. il n'y a pas de plugins qui vieillissent, pas de dégradation au fil des ans · et le site t'appartient vraiment, fichiers sources inclus.",
       },
       {
         q: "j'ai déjà un site · tu peux le reprendre ?",
@@ -73,7 +73,7 @@ export const HOME_FAQ: Record<Locale, HomeFaqDict> = {
       },
       {
         q: "why no wordpress or site builder?",
-        a: "i build from scratch, with an in-house cms. result: google pagespeed 95+, no plugin hell, no performance decay over the years · and the site truly belongs to you, source files included.",
+        a: "i build from scratch, with an in-house cms. there are no plugins that can go stale, and no decay over the years · and the site truly belongs to you, source files included.",
       },
       {
         q: "i already have a website · can you take it over?",

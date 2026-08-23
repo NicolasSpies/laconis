@@ -34,7 +34,7 @@ export function generateMetadata({ params }: Props): Metadata {
     description: r.istEcht
       ? `${r.kurz} · ${r.ort}, ${r.jahr}. Live beim Kunden.`
       : `${r.kurz} · ${r.ort}, ${r.jahr}. Konzept-studie, kein veröffentlichtes kundenprojekt.`,
-    alternates: { canonical: `/referenzen/${params.slug}` },
+    alternates: { canonical: `/arbeiten/${params.slug}` },
   };
 }
 

@@ -49,19 +49,19 @@ const STATIC_MAP: Record<string, MetaByLocale> = {
        der brand-claim lebt im ogTitle/ogDescription weiter */
     de: {
       title: "lacønis · webdesign studio ostbelgien",
-      description: "Webdesigner & Web-Entwickler in Ostbelgien · Websites von null gebaut, Lighthouse 95+, eigenes CMS. Übernimmt auch bestehende Seiten · Inhalte bleiben, alles wird schneller. Dreisprachig DE/FR/EN.",
+      description: "Webdesigner & Web-Entwickler in Ostbelgien · Websites von null gebaut, mit eigenem CMS statt Plugin-Stapel. Übernimmt auch bestehende Seiten · Inhalte bleiben, alles wird schneller. Dreisprachig DE/FR/EN.",
       ogTitle: "lacønis · design mit meinung · web mit seele",
       ogDescription: "webdesign studio · ostbelgien · handgemacht",
     },
     fr: {
       title: "lacønis · studio webdesign · est de la belgique",
-      description: "Webdesigner & développeur web dans les Cantons de l'Est · sites construits de zéro, Lighthouse 95+, CMS maison. Reprend aussi ton site existant · contenus conservés, tout devient plus rapide. Trilingue DE/FR/EN.",
+      description: "Webdesigner & développeur web dans les Cantons de l'Est · sites construits de zéro, avec un CMS maison au lieu d'une pile de plugins. Reprend aussi ton site existant · contenus conservés, tout devient plus rapide. Trilingue DE/FR/EN.",
       ogTitle: "lacønis · design avec opinion · web avec âme",
       ogDescription: "studio webdesign · cantons de l'est · fait main",
     },
     en: {
       title: "lacønis · webdesign studio east belgium",
-      description: "Web designer & developer in East Belgium · websites built from scratch, Lighthouse 95+, in-house CMS. Existing sites taken over too · content stays, everything gets faster. Trilingual DE/FR/EN.",
+      description: "Web designer & developer in East Belgium · websites built from scratch, with an in-house CMS instead of a plugin stack. Existing sites taken over too · content stays, everything gets faster. Trilingual DE/FR/EN.",
       ogTitle: "lacønis · design with opinion · web with soul",
       ogDescription: "webdesign studio · east belgium · handmade",
     },

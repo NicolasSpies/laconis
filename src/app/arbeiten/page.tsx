@@ -31,7 +31,7 @@ const itemListSchema = {
   itemListElement: referenzen.map((r, idx) => ({
     "@type": "ListItem",
     position: idx + 1,
-    url: `${BASE}/referenzen/${r.slug}`,
+    url: `${BASE}/arbeiten/${r.slug}`,
     name: r.name,
   })),
 };

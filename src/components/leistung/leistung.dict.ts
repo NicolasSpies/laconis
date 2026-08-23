@@ -92,7 +92,7 @@ export const LEISTUNG: Record<Locale, LeistungDict> = {
       imageHint: "zeigt oder versteckt die bildfläche",
       publish: "veröffentlichen",
       steps: ["build läuft", "dateien gehen raus", "cache wird geleert"],
-      done: "live · 0.4 s",
+      done: "live",
       placeholderHeadline: "Deine Überschrift.",
       placeholderButton: "jetzt anfragen",
       bodyCopy:
@@ -157,7 +157,7 @@ export const LEISTUNG: Record<Locale, LeistungDict> = {
       imageHint: "affiche ou masque la zone image",
       publish: "publier",
       steps: ["build en cours", "fichiers envoyés", "cache vidé"],
-      done: "en ligne · 0.4 s",
+      done: "en ligne",
       placeholderHeadline: "Ton titre.",
       placeholderButton: "demander un devis",
       bodyCopy:
@@ -222,7 +222,7 @@ export const LEISTUNG: Record<Locale, LeistungDict> = {
       imageHint: "shows or hides the image area",
       publish: "publish",
       steps: ["build running", "files shipping", "cache clearing"],
-      done: "live · 0.4 s",
+      done: "live",
       placeholderHeadline: "Your headline.",
       placeholderButton: "get in touch",
       bodyCopy:
