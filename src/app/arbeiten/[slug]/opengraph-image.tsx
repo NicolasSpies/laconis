@@ -51,7 +51,7 @@ export default function OgImage({ params }: { params: { slug: string } }) {
           justifyContent: "space-between",
           padding: "80px",
           backgroundColor: "#0d0f0f",
-          color: "#f2f0e7",
+          color: "#f2f2f2",
           fontFamily: "sans-serif",
           position: "relative",
         }}
@@ -121,7 +121,7 @@ export default function OgImage({ params }: { params: { slug: string } }) {
               fontWeight: 900,
               letterSpacing: "-0.04em",
               lineHeight: 0.95,
-              color: "#f2f0e7",
+              color: "#f2f2f2",
               display: "flex",
               textTransform: "lowercase",
               maxWidth: 1040,

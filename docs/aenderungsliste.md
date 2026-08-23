@@ -11,8 +11,8 @@ vergiss nicht den rest danach noch zu machen."
 
 1. [x] K4 + K5 · tote Bewegungs- und Tiefensysteme anschliessen  · d8769cc→dca303a
 2. [x] G2 · Schriftskala einfangen
-3. [ ] **K3 + G1 · Lime unabgewandelt, eine Knopfform**  ← ALS NÄCHSTES
-4. [ ] K1 · `--font-mono` definieren
+3. [x] K3 + G1 · Lime unabgewandelt, eine Knopfform · dazu K9-teil (FAQ-preise)
+4. [ ] **K1 · `--font-mono` definieren**  ← ALS NÄCHSTES
 5. [ ] K2 · Light-Theme aus dem Root
 6. [ ] K7 · Impressum/Datenschutz auf allen Seiten
 7. [ ] K8 · Sprachumschalter

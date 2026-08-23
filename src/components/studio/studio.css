@@ -111,15 +111,7 @@
   color: var(--tx-3);
 }
 
-.st-key {
-  display: inline-block;
-  margin-top: clamp(30px, 3.6vw, 48px);
-  font-size: var(--fs-lead);
-  color: var(--lime);
-  border-bottom: 1px solid rgb(var(--accent) / 0.4);
-  transition: border-color var(--t-2) var(--ease);
-}
-.st-key:hover { border-bottom-color: var(--lime); }
+.st-abstand { margin-top: clamp(30px, 3.6vw, 48px); }
 
 /* ── person ─────────────────────────────────────────────── */
 

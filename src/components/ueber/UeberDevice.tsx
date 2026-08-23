@@ -209,13 +209,12 @@ export function UeberDevice() {
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
-              <Link href={buildPath("kontakt", locale)} className="lab-key-lime">
+              <Link href={buildPath("kontakt", locale)} className="lab-cta">
                 {t.ctaPrimary}
               </Link>
               <Link
                 href={buildPath("referenzen", locale)}
-                className="lab-key"
-                style={{ width: "auto", padding: "12px 20px" }}
+                className="lab-cta lab-cta--leise"
               >
                 {t.ctaSecondary}
               </Link>

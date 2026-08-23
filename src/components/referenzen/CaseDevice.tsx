@@ -192,7 +192,7 @@ export function CaseDevice({ slug }: { slug: string }) {
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
-              <Link href={buildPath("kontakt", locale)} className="lab-key-lime">
+              <Link href={buildPath("kontakt", locale)} className="lab-cta">
                 {t.ctaPrimary}
               </Link>
               {r.urlExtern && (
@@ -200,8 +200,7 @@ export function CaseDevice({ slug }: { slug: string }) {
                   href={r.urlExtern}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="lab-key"
-                  style={{ width: "auto", padding: "12px 20px" }}
+                  className="lab-cta lab-cta--leise"
                 >
                   {tr.linkLive} ↗
                 </a>

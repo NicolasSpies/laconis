@@ -35,8 +35,9 @@
   display: block;
   z-index: 0;
   /* KEIN filter: brightness() · der rechnete #e1fd52 auf
-     (255,255,168) hoch, also blasses gelbweiss statt neon */
-  opacity: 0.5;
+     (255,255,168) hoch, also blasses gelbweiss statt neon.
+     KEIN opacity · das zog den hellsten punkt auf #737f35.
+     die dämpfung sitzt jetzt im shader selbst. */
 }
 
 /* ── registermarken ─────────────────────────────────────── */

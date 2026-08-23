@@ -81,7 +81,7 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     ctaBody:
       "Kurzes Gespräch, kein Pitch-Deck, kostet nichts. Danach weisst du, ob ich der richtige bin. Und wenn nicht, sage ich dir das auch.",
     ctaPrimary: "schreib mir",
-    ctaSecondary: "preise ansehen",
+    ctaSecondary: "wie ich arbeite",
   },
 
   fr: {
@@ -116,7 +116,7 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     ctaBody:
       "Court échange, pas de pitch deck, ça ne coûte rien. Ensuite tu sais si je suis la bonne personne. Et sinon, je te le dis aussi.",
     ctaPrimary: "écris-moi",
-    ctaSecondary: "voir les prix",
+    ctaSecondary: "comment je travaille",
   },
 
   en: {
@@ -151,6 +151,6 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     ctaBody:
       "Short conversation, no pitch deck, costs nothing. After that you know whether i'm the right person. And if i'm not, i'll say so.",
     ctaPrimary: "write me",
-    ctaSecondary: "see pricing",
+    ctaSecondary: "how i work",
   },
 };

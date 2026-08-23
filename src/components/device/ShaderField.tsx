@@ -74,13 +74,19 @@ void main() {
   vec3 lime = vec3(0.882, 0.992, 0.322);
 
   vec3 col = ink;
-  col = mix(col, lila * 0.42, smoothstep(0.30, 0.72, f));
-  col = mix(col, lime, smoothstep(0.66, 1.00, f) * 0.92);
+  col = mix(col, lila * 0.30, smoothstep(0.34, 0.76, f));
 
-  /* scanline-hauch · gibt der fläche material statt farbverlauf */
+  /* scanline und vignette laufen VOR dem lime-anteil.
+     vorher lagen sie danach und multiplizierten das lime mit
+     runter · zusammen mit opacity:0.5 auf dem canvas landete der
+     hellste punkt des feldes bei #737f35. oliv, nicht neon.
+     jetzt dämpft die fläche sich selbst und lime bleibt lime. */
   col *= 1.0 - 0.045 * sin(gl_FragCoord.y * 1.6);
-  /* vignette */
   col *= 1.0 - 0.55 * smoothstep(0.35, 1.25, length(p));
+
+  /* schmaleres band, dafür voll · zurückhaltung über die FLÄCHE,
+     nicht über die farbe */
+  col = mix(col, lime, smoothstep(0.86, 1.00, f));
 
   gl_FragColor = vec4(col, 1.0);
 }

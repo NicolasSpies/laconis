@@ -24,7 +24,7 @@ export default function TwitterImage() {
           padding: "80px",
           backgroundColor: "#0d0f0f",
           fontFamily: "sans-serif",
-          color: "#f2f0e7",
+          color: "#f2f2f2",
           position: "relative",
         }}
       >
@@ -36,7 +36,7 @@ export default function TwitterImage() {
             width: 560,
             height: 560,
             borderRadius: 999,
-            background: "#d9ff00",
+            background: "#e1fd52",
             opacity: 0.08,
             display: "flex",
           }}
@@ -57,7 +57,7 @@ export default function TwitterImage() {
             style={{
               width: 10,
               height: 10,
-              backgroundColor: "#d9ff00",
+              backgroundColor: "#e1fd52",
               borderRadius: 999,
               display: "flex",
             }}
@@ -72,7 +72,7 @@ export default function TwitterImage() {
               fontWeight: 900,
               letterSpacing: "-0.05em",
               lineHeight: 0.9,
-              color: "#f2f0e7",
+              color: "#f2f2f2",
               display: "flex",
             }}
           >
@@ -104,7 +104,7 @@ export default function TwitterImage() {
           }}
         >
           <div style={{ display: "flex" }}>laconis.be</div>
-          <div style={{ display: "flex", color: "#d9ff00" }}>
+          <div style={{ display: "flex", color: "#e1fd52" }}>
             freelance design · web dev
           </div>
         </div>

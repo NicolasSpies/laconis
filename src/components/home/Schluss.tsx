@@ -36,7 +36,7 @@ export function Schluss({
         <p className="sl-satz">{t.satz}</p>
 
         <div className="sl-tat">
-          <Link href={href} className="sl-key">
+          <Link href={href} className="lab-cta lab-cta--invers">
             {t.key}
           </Link>
           <span className="sl-oder">

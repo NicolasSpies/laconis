@@ -128,7 +128,7 @@ export function StudioDevice() {
         <div className="st-innen">
           <h2 className="st-h2">{t.preisH2}</h2>
           <p className="st-fliess">{t.preis}</p>
-          <Link href={buildPath("kontakt", locale)} className="st-key">
+          <Link href={buildPath("kontakt", locale)} className="lab-link st-abstand">
             {t.preisKey}
           </Link>
         </div>

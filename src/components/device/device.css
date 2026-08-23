@@ -140,7 +140,10 @@
        driftet labGlassDrift von selbst weiter */
     radial-gradient(
       460px circle at var(--mx, 50%) var(--my, 0%),
-      rgb(233 255 150 / 0.068),
+      /* war rgb(233 255 150) · ein aufgehelltes lime ohne grund.
+         das licht IST lime, nur schwach · die zurückhaltung
+         steckt in den 6.8%, nicht im farbton. */
+      rgb(var(--accent) / 0.068),
       transparent 62%
     ),
     /* chromatischer saum · lime oben-links, lila unten-rechts.
@@ -454,36 +457,90 @@
 }
 
 /* taste · flache gerätetaste mit echtem druckweg */
-.lab-key {
-  width: 100%;
-  padding: 11px 14px;
-  border-radius: 9px;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: rgba(242, 242, 242, 0.8);
-  background: linear-gradient(180deg, #2d2d2d, #1a1a1a);
-  border: 1px solid var(--ln-hair);
-  box-shadow:
-    inset 0 1px 0 rgba(242, 242, 242, 0.16),
-    0 2px 0 rgba(0, 0, 0, 0.7);
-  transition: transform 90ms ease, box-shadow 90ms ease, color 200ms ease;
+/* ══ DIE HANDLUNG · eine familie statt fünf sprachen ═══════
+   vorher war dieselbe handlung auf jeder seite eine andere sache:
+     .sl-key        schwarze pille, lime-text, 17-20px sans
+     .cc-key/.st-key blanker lime-text mit 40%-unterstrich · zwei
+                    fast identische regeln in zwei dateien
+     .lab-key-lime  10px mono-versalien, plastiktaste mit 4px sockel
+     .lab-key       graue taste, ZWEIMAL per inline-style repariert,
+                    weil die basisklasse width:100% festnagelte
+   gemeinsame eigenschaften: keine. nicht radius, nicht schrift,
+   nicht grösse (17-20px gegen 10px), nicht material.
+
+   jetzt: eine pille. gefüllt für die erste handlung, als umriss
+   für die zweite, invers auf der lime-vollplatte (dort wäre lime
+   auf lime unsichtbar). extrusion gibt es auf der ganzen seite
+   nur noch EINMAL · am sendeknopf mit schutzkappe. ein
+   gerätemoment pro seite, nicht fünf. */
+.lab-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 28px;
+  border-radius: var(--r-pill);
+  background: var(--lime);
+  color: #08080b;
+  font-size: var(--fs-lead);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  transition: transform var(--t-2) var(--ease), box-shadow var(--t-2) var(--ease);
+}
+.lab-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px -14px rgb(0 0 0 / 0.95);
+}
+.lab-cta:active { transform: translateY(0); }
+.lab-cta:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
+.lab-cta:disabled,
+.lab-cta[data-busy="1"] {
+  cursor: default;
+  transform: none;
+  box-shadow: none;
 }
 
-.lab-key:hover {
+/* die zweite handlung · gleiche form, nur kante */
+.lab-cta--leise {
+  background: transparent;
+  color: var(--tx-1);
+  box-shadow: inset 0 0 0 1px var(--ln-soft);
+}
+.lab-cta--leise:hover {
+  color: var(--lime);
+  box-shadow: inset 0 0 0 1px var(--lime);
+}
+
+/* auf der lime-vollplatte */
+.lab-cta--invers {
+  background: #08080b;
   color: var(--lime);
 }
 
-.lab-key:active {
-  transform: translateY(2px);
-  box-shadow: inset 0 1px 0 var(--ln-hair), 0 0 0 rgba(0, 0, 0, 0);
+/* der beiläufige weg · kein knopf, ein satz mit kante.
+   die kante ist VOLL lime, nicht 40% · zurückhaltung kommt aus
+   der grösse (1px), nicht aus deckkraft. hover bewegt, statt die
+   farbe zu verwaschen. */
+.lab-link {
+  display: inline-block;
+  font-size: var(--fs-lead);
+  color: var(--lime);
+  border-bottom: 1px solid var(--lime);
+  padding-bottom: 3px;
+  transition: transform var(--t-2) var(--ease);
+}
+.lab-link:hover { transform: translateX(4px); }
+.lab-link:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
 }
 
-.lab-key:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 2px;
-}
+
+
 
 /* ── SENDEKNOPF MIT SCHUTZKAPPE ──────────────────────────────── */
 
@@ -509,7 +566,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: linear-gradient(180deg, var(--lime), #b9d233);
+  background: var(--lime);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.55),
     0 6px 16px -4px rgba(0, 0, 0, 0.8);
@@ -556,10 +613,10 @@
 
 .lab-guard-key[data-armed="1"] {
   color: #0a0a0a;
-  background: linear-gradient(180deg, var(--lime), #c4dd3c);
+  background: var(--lime);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    0 3px 0 #7d8f1c,
+    0 3px 0 rgb(0 0 0 / 0.55),
     0 10px 26px -8px rgb(var(--accent) / 0.55);
   cursor: pointer;
 }
@@ -580,9 +637,16 @@
   left: 0;
   right: 0;
   z-index: 60;
-  background: linear-gradient(180deg, rgba(10, 10, 10, 0.78), rgba(10, 10, 10, 0.36));
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  /* KEIN verlauf, KEIN backdrop-filter.
+     beides zusammen legte ein 64px hohes band aus rgb(148,166,56)
+     über die lime-vollplatte · oliv, quer über die ganze breite,
+     auf jeder seite. jetzt: über dem hero gar nichts, ab dem
+     ersten pixel scroll eine deckende fläche. */
+  background: transparent;
+  transition: background var(--t-2) var(--ease);
+}
+.lab-nav[data-gescrollt="1"] {
+  background: #08080b;
 }
 
 .lab-nav-inner {
@@ -827,7 +891,12 @@
 }
 
 /* die lime-haupttaste · echte taste mit hub, 4px anschlag unten.
-   sitewide der primäre klick: CTAs, veröffentlichen, absenden.
+   NICHT mehr sitewide · seit august 2026 gibt es genau EINEN
+   verwender: die veröffentlichen-taste im CMS-pult (LiveEditor).
+   sie bleibt eine taste, weil sie teil einer DARGESTELLTEN
+   oberfläche ist, nicht eine handlung dieser seite · dieselbe
+   entscheidung wie beim laptop-gehäuse und bei .cs-alt-*.
+   jede echte handlung der seite ist .lab-cta.
    data-busy hält sie gedrückt, solange etwas läuft. */
 .lab-key-lime {
   padding: 12px 20px;
@@ -837,24 +906,21 @@
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
   color: #0a0a0a;
-  background: linear-gradient(180deg, #eaffa0, #cbe93c);
+  background: var(--lime);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.75),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.22),
-    0 4px 0 #7f9917,
-    0 12px 22px -8px rgb(var(--accent) / 0.5);
-  transition: transform 90ms ease, box-shadow 90ms ease, filter 200ms ease;
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 3px 0 rgb(0 0 0 / 0.55);
+  transition: transform 90ms ease, box-shadow 90ms ease;
 }
 .lab-key-lime:hover {
-  filter: brightness(1.06);
+  transform: translateY(-1px);
 }
 .lab-key-lime:active,
 .lab-key-lime[data-busy="1"] {
-  transform: translateY(4px);
+  transform: translateY(3px);
   box-shadow:
     inset 0 2px 5px rgba(0, 0, 0, 0.28),
-    0 0 0 #7f9917,
-    0 6px 14px -8px rgb(var(--accent) / 0.4);
+    0 0 0 rgb(0 0 0 / 0.55);
 }
 .lab-key-lime:disabled {
   cursor: default;
@@ -1046,7 +1112,7 @@
 }
 .lab-switch button[data-on="1"] {
   color: #0a0a0a;
-  background: linear-gradient(180deg, #eaffa0, #cbe93c);
+  background: var(--lime);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.7),
     0 2px 0 rgba(0, 0, 0, 0.55);

@@ -69,9 +69,21 @@ export function DeviceNav() {
     setOpen(false);
   }, [pathname]);
 
+  /* die leiste ist über dem hero unsichtbar und wird erst beim
+     scrollen zur fläche. vorher lag dort ein verlauf mit
+     backdrop-filter · über der lime-vollplatte ergab das ein
+     64px hohes olivband quer über die seite. */
+  const [gescrollt, setGescrollt] = useState(false);
+  useEffect(() => {
+    const mal = () => setGescrollt(window.scrollY > 0);
+    mal();
+    window.addEventListener("scroll", mal, { passive: true });
+    return () => window.removeEventListener("scroll", mal);
+  }, []);
+
   return (
     <>
-      <header className="lab-nav">
+      <header className="lab-nav" data-gescrollt={gescrollt ? "1" : "0"}>
         <div className="lab-nav-inner">
           <Link href={buildPath("home", locale)} className="lab-nav-logo" aria-label="lacønis · startseite">
             {/* das echte logo · vorher stand hier der name in Archivo

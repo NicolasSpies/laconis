@@ -38,7 +38,7 @@ export function EigenesCms({ t, href }: { t: CmsT; href: string }) {
 
         <p className="cc-zeile">{t.zeile}</p>
 
-        <Link href={href} className="cc-key">
+        <Link href={href} className="lab-link cc-abstand">
           {t.key}
         </Link>
       </div>

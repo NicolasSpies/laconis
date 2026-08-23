@@ -44,19 +44,6 @@
   gap: var(--sp-5) var(--sp-7);
 }
 
-.sl-key {
-  display: inline-flex;
-  align-items: center;
-  padding: 14px 26px;
-  border-radius: var(--r-pill);
-  background: #08080b;
-  color: var(--lime);
-  font-size: var(--fs-lead);
-  font-weight: 500;
-  transition: transform var(--t-2) var(--ease);
-}
-.sl-key:hover { transform: translateY(-2px); }
-
 .sl-oder {
   font-size: var(--fs-body);
   color: rgb(8 8 11 / 0.72);

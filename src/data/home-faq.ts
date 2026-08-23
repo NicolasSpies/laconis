@@ -21,7 +21,7 @@ export const HOME_FAQ: Record<Locale, HomeFaqDict> = {
     items: [
       {
         q: "was kostet eine website?",
-        a: "onepager ab 1.500 €, mehrseitig mit cms zwischen 2.800 und 4.500 €. ehrliche faustregeln statt paket-tabelle · die details stehen auf der preise-seite.",
+        a: "das hängt vom umfang ab, und ich nenne dir eine zahl erst, wenn ich weiss, was du brauchst. ein kurzes gespräch reicht dafür · danach bekommst du einen festen preis, keine spanne.",
       },
       {
         q: "wie lange dauert's, bis die seite live ist?",
@@ -43,7 +43,7 @@ export const HOME_FAQ: Record<Locale, HomeFaqDict> = {
     items: [
       {
         q: "combien coûte un site web ?",
-        a: "onepager à partir de 1 500 €, multi-pages avec cms entre 2 800 et 4 500 €. des règles honnêtes plutôt qu'une grille · les détails sont sur la page prix.",
+        a: "cela dépend de l'ampleur du projet, et je ne donne un chiffre qu'une fois que je sais ce qu'il te faut. une courte conversation suffit · ensuite tu reçois un prix fixe, pas une fourchette.",
       },
       {
         q: "combien de temps avant la mise en ligne ?",
@@ -65,7 +65,7 @@ export const HOME_FAQ: Record<Locale, HomeFaqDict> = {
     items: [
       {
         q: "what does a website cost?",
-        a: "onepager from €1,500, multi-page with cms between €2,800 and €4,500. honest rules of thumb instead of a package grid · details on the pricing page.",
+        a: "it depends on the scope, and i only name a number once i know what you need. a short conversation is enough · after that you get a fixed price, not a range.",
       },
       {
         q: "how long until the site is live?",
