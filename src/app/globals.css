@@ -195,9 +195,17 @@
     background-size: 260px 260px;
     /* auf papier-hell subtiler · soll textur sein, kein schmutzfilm */
     opacity: 0.055;
-    mix-blend-mode: overlay;
+    /* overlay hellt helle flächen auf und dunkelt dunkle ab · über
+       der lime-vollplatte und der hellen kammer wurde daraus ein
+       schmutzfilm auf genau den zwei flächen, die rein sein
+       sollen. soft-light lässt beide in ruhe und behält die
+       textur auf dem dunklen grund. */
+    mix-blend-mode: soft-light;
     pointer-events: none;
-    z-index: 9999;
+    /* UNTER der navigation (9999) und dem seitenvorhang (9998) ·
+       lag vorher darüber und legte seine textur auch auf die
+       leiste */
+    z-index: 9997;
   }
   [data-theme="dark"] body::after {
     opacity: 0.04;
@@ -217,17 +225,22 @@
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: transparent;
+    /* echte bahn statt transparent · sonst hat der daumen nichts,
+       wogegen er sich abhebt, und die 55% waren der versuch, das
+       auszugleichen */
+    background: rgb(var(--fg-rgb) / 0.06);
   }
   ::-webkit-scrollbar-thumb {
-    background: rgb(var(--accent) / 0.55);
+    /* war 55% · lime als fläche ist immer voll, die zurückhaltung
+       kommt aus der breite (10px), nicht aus deckkraft */
+    background: rgb(var(--accent));
     border-radius: 999px;
     border: 2px solid transparent;
     background-clip: padding-box;
     transition: background 0.2s ease;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgb(var(--accent) / 0.9);
+    background: rgb(var(--accent));
     background-clip: padding-box;
   }
   ::-webkit-scrollbar-corner {
@@ -351,6 +364,9 @@
 
   --lime: rgb(var(--accent));
   --lila: rgb(var(--accent-2));
+  /* lila für TEXT auf hellem grund · #b084d3 hat auf #e9e9e7 nur
+     1,9:1. dieser ton trägt 7,3:1. */
+  --lila-ink: #5c3590;
   --focus: var(--lila);
 
   /* ── flächen · 4 stufen ──
@@ -395,14 +411,10 @@
   /* ── abstand · 8er-raster ──
      heute sind 7, 9, 11, 13, 15, 17, 19, 22, 26, 34, 38, 42, 46 alle
      vertreten. das ist kein raster, das ist gewachsen. */
-  --sp-1: 4px;
-  --sp-2: 8px;
   --sp-3: 12px;
-  --sp-4: 16px;
   --sp-5: 24px;
   --sp-6: 32px;
   --sp-7: 48px;
-  --sp-8: 64px;
 
   /* ── blur · 3 stufen ── heute 9 radien (3,16,18,20,22,24,30,32) */
   --bl-body: 4px;
@@ -452,11 +464,23 @@
      (+50%). das ist der weissraum, den man ohne werkzeug sieht. */
   --shell: 1080px;
   --shell-wide: 1240px;
-  --shell-narrow: 720px;
   --gutter: clamp(24px, 5vw, 72px);
+
+  /* G9 · standen als literal in kopf.css UND studio.css, und die
+     leiste selbst rechnete daneben mit hartem 64px */
+  --nav: 64px;
+  /* EINE hero-höhe · es gab vier (100/86/78/keine) */
+  --h-hero: 100svh;
+  /* die schlussplatte ist kein hero, aber auch keine sektion */
+  --h-platte: 78svh;
+  /* als tailwind-maxWidth registriert (max-w-measure,
+     max-w-measure-lead) · vorher standen sie hier und WURDEN VON
+     NIEMANDEM GELESEN, während 18 zeilenlängen daneben halb in ch
+     und halb in px festgeschrieben waren. 620px sind auf dem handy
+     72 zeichen und auf dem desktop 58 · die zeilenlänge änderte
+     sich genau dort, wo sie stabil bleiben soll. */
   --measure: 62ch;
   --measure-lead: 44ch;
-  --measure-h: 16ch;
 
   /* ── schriftgrössen · 7 rollen statt 60 ausdrücke ──
      grösse ist eine SKALA, stimme ist eine KLASSE · font-family und

@@ -9,9 +9,9 @@
   display: flex;
   align-items: center;
   padding: var(--rh-m) var(--gutter);
-  /* papierhell, nicht weiss · reines weiss neben #08080b blendet */
+  /* papierhell, nicht weiss · reines weiss neben var(--g-0) blendet */
   background: #e9e9e7;
-  color: #0a0a0a;
+  color: var(--g-0);
 }
 
 /* die schmale bahn · dieselbe farbe, halbe höhe. so ist der
@@ -49,12 +49,13 @@
   text-wrap: balance;
   /* KEIN lowercase · dies ist der eine satz, der wie ein satz
      aussehen soll, nicht wie eine ueberschrift */
-  color: #0a0a0a;
+  color: var(--g-0);
 }
 
 /* lila statt lime · auf hellgrau hat #e1fd52 rund 1.2:1, das ist
-   keine farbe mehr, das ist ein fleck. dieses lila traegt 4.4:1. */
-.ka-betont { color: #5c3590; }
+   keine farbe mehr, das ist ein fleck. dieses lila traegt 7,3:1
+   (der kommentar behauptete vorher 4.4:1 · nachgerechnet). */
+.ka-betont { color: var(--lila-ink); }
 
 @media (max-width: 720px) {
   .ka { min-height: 62svh; }

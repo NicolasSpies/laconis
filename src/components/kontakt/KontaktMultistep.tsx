@@ -372,7 +372,7 @@ function Inner() {
       <motion.div
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-[640px] mx-auto rounded-2xl border border-lime/25 bg-gradient-to-br from-lime/[0.06] to-transparent p-10 md:p-14 text-center"
+        className="max-w-measure mx-auto rounded-2xl border border-lime/25 bg-gradient-to-br from-lime/[0.06] to-transparent p-10 md:p-14 text-center"
       >
         <motion.svg
           viewBox="0 0 120 80"
@@ -418,7 +418,7 @@ function Inner() {
           {t.hand}
         </p>
 
-        <p className="mt-4 text-body leading-relaxed text-offwhite/55 max-w-[440px] mx-auto">
+        <p className="mt-4 text-body leading-relaxed text-offwhite/55 max-w-measure-lead mx-auto">
           {t.thanksBody1}{state.email.includes("@") ? (locale === "fr" ? "mail" : "mail") : (locale === "fr" ? "message" : "message")}
           {state.telefon ? `${t.thanksBody2pre}${state.telefon}${t.thanksBody2tel}` : ""}
           {t.thanksBody3}
@@ -517,7 +517,7 @@ function Inner() {
 
 function Progress({ step, labels }: { step: StepId; labels: string[] }) {
   return (
-    <div className="flex items-start justify-between gap-2 max-w-[560px]">
+    <div className="flex items-start justify-between gap-2 max-w-measure">
       {labels.map((label, i) => {
         const s = (i + 1) as StepId;
         const active = s === step;
@@ -608,7 +608,7 @@ function Step1({
       <h3 className="heading-display text-title text-offwhite">
         {t.step1H3}
       </h3>
-      <p className="mt-3 max-w-[580px] text-body leading-relaxed text-offwhite/70">
+      <p className="mt-3 max-w-measure text-body leading-relaxed text-offwhite/70">
         {t.step1Body}
       </p>
 
@@ -677,7 +677,7 @@ function Step2({
       <h3 className="heading-display text-title text-offwhite">
         {t.step2H3}
       </h3>
-      <p className="mt-3 max-w-[580px] text-body leading-relaxed text-offwhite/70">
+      <p className="mt-3 max-w-measure text-body leading-relaxed text-offwhite/70">
         {t.step2Body}
       </p>
 
@@ -741,7 +741,7 @@ function Step3({
       <h3 className="heading-display text-title text-offwhite">
         {t.step3H3}
       </h3>
-      <p className="mt-3 max-w-[580px] text-body leading-relaxed text-offwhite/70">
+      <p className="mt-3 max-w-measure text-body leading-relaxed text-offwhite/70">
         {t.step3Body}
       </p>
 
@@ -809,7 +809,7 @@ function Step4({
         <h3 className="heading-display text-title text-offwhite">
           {t.step4H3}
         </h3>
-        <p className="mt-3 max-w-[580px] text-body leading-relaxed text-offwhite/70">
+        <p className="mt-3 max-w-measure text-body leading-relaxed text-offwhite/70">
           {t.step4Body}
         </p>
       </div>

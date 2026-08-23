@@ -8,12 +8,12 @@
    ═══════════════════════════════════════════════════════════ */
 
 .sl {
-  min-height: 78svh;
+  min-height: var(--h-platte);
   display: flex;
   align-items: center;
   padding: var(--rh-m) var(--gutter);
   background: var(--lime);
-  color: #08080b;
+  color: var(--g-0);
 }
 
 .sl-innen {
@@ -33,7 +33,7 @@
   letter-spacing: var(--ls-display);
   text-transform: lowercase;
   text-wrap: balance;
-  color: #08080b;
+  color: var(--g-0);
 }
 
 .sl-tat {
@@ -49,10 +49,10 @@
   color: rgb(8 8 11 / 0.72);
 }
 .sl-mail {
-  color: #08080b;
+  color: var(--g-0);
   border-bottom: 1px solid rgb(8 8 11 / 0.4);
 }
-.sl-mail:hover { border-bottom-color: #08080b; }
+.sl-mail:hover { border-bottom-color: var(--g-0); }
 
 @media (prefers-reduced-motion: reduce) {
   .sl-key { transition: none; }

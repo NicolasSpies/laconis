@@ -5,7 +5,7 @@
 .cc {
   position: relative;
   padding: var(--rh-l) var(--gutter);
-  background: #08080b;
+  background: var(--g-0);
 }
 
 .cc-innen {

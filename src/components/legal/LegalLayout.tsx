@@ -54,7 +54,7 @@ export function LegalLayout({ num, label, titel, intro, children }: Props) {
           </h1>
           {intro && (
             <p
-              className="lab-boot mt-7 max-w-[620px] text-lead leading-[1.6] text-[rgba(242,242,242,0.72)]"
+              className="lab-boot mt-7 max-w-measure text-lead leading-[1.6] text-[rgba(242,242,242,0.72)]"
               style={{ animationDelay: "160ms" }}
             >
               {intro}

@@ -42,6 +42,8 @@ const config: Config = {
         hero: "calc(64px + var(--rh-s))",
       },
       maxWidth: {
+        measure: "var(--measure)",
+        "measure-lead": "var(--measure-lead)",
         shell: "var(--shell)",
         "shell-wide": "var(--shell-wide)",
         "shell-narrow": "var(--shell-narrow)",

@@ -8,19 +8,18 @@
    ═══════════════════════════════════════════════════════════ */
 
 .kp {
-  --nav: 64px;
   --rand: clamp(18px, 2.2vw, 34px);
   position: relative;
-  min-height: 100svh;
+  min-height: var(--h-hero);
   display: flex;
   flex-direction: column;
   /* FAIL-OPEN · dieser verlauf ist der eigentliche grund des heros.
      kein WebGL, der frame vor dem ersten draw, reduzierte bewegung ·
      in allen drei faellen steht der hero. das feld ist zugabe. */
   background:
-    radial-gradient(120% 90% at 50% 42%, #17172099 0%, transparent 62%),
-    radial-gradient(80% 60% at 78% 18%, #2a1f3d66 0%, transparent 70%),
-    #08080b;
+    radial-gradient(120% 90% at 50% 42%, rgb(20 20 26 / 0.6) 0%, transparent 62%),
+    radial-gradient(80% 60% at 78% 18%, rgb(var(--accent-2) / 0.14) 0%, transparent 70%),
+    var(--g-0);
   /* clip, nicht hidden · hidden macht die sektion zu ihrem eigenen
      scroll-container und bricht scroll-getriebene animationen */
   overflow: clip;

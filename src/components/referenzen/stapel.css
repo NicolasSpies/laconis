@@ -170,7 +170,7 @@
   inset: 0;
   overflow: hidden;
   display: block;
-  background: #131317;
+  background: var(--g-2);
   border: 1px solid rgba(242, 242, 242, 0.14);
   /* der schlagschatten wächst mit dem abstand · das ist der
      eigentliche tiefen-hinweis, mehr als die verschiebung selbst */
@@ -203,7 +203,7 @@
   height: 100%;
   background:
     radial-gradient(120% 100% at 22% 12%, rgba(255, 255, 255, 0.07), transparent 62%),
-    linear-gradient(158deg, color-mix(in srgb, var(--f) 34%, #131317), #101014);
+    linear-gradient(158deg, color-mix(in srgb, var(--f) 34%, var(--g-2)), var(--g-2));
   font-family: var(--font-lab), system-ui, sans-serif;
   font-stretch: var(--wd-display);
   font-weight: 900;

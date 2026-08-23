@@ -3,15 +3,14 @@
    ═══════════════════════════════════════════════════════════ */
 
 .st-hero {
-  --nav: 64px;
   position: relative;
-  min-height: 78svh;
+  min-height: var(--h-hero);
   display: flex;
   align-items: center;
   padding: calc(var(--nav) + var(--rh-s)) var(--gutter) var(--rh-m);
   background:
-    radial-gradient(110% 80% at 30% 30%, #16161f99 0%, transparent 60%),
-    #08080b;
+    radial-gradient(110% 80% at 30% 30%, rgb(22 22 31 / 0.6) 0%, transparent 60%),
+    var(--g-0);
 }
 
 .st-innen {
@@ -55,7 +54,7 @@
 /* ── blöcke ─────────────────────────────────────────────── */
 
 .st-block {
-  background: #08080b;
+  background: var(--g-0);
   padding: var(--rh-m) var(--gutter);
 }
 

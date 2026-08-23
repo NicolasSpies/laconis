@@ -117,7 +117,7 @@ export function CaseDevice({ slug }: { slug: string }) {
               <h2 className="lab-display max-w-[14ch] text-headline">
                 {t.auftragH2}
               </h2>
-              <p className="mt-7 max-w-[620px] text-lead leading-[1.6] text-[rgba(242,242,242,0.75)]">
+              <p className="mt-7 max-w-measure text-lead leading-[1.6] text-[rgba(242,242,242,0.75)]">
                 {t.auftragLead}
               </p>
 
@@ -163,7 +163,7 @@ export function CaseDevice({ slug }: { slug: string }) {
             <h2 className="lab-display max-w-[14ch] text-headline">
               {t.konzeptH2}
             </h2>
-            <p className="mt-8 max-w-[640px] text-lead leading-[1.6] text-[rgba(242,242,242,0.72)]">
+            <p className="mt-8 max-w-measure text-lead leading-[1.6] text-[rgba(242,242,242,0.72)]">
               {t.konzeptBody}
             </p>
 

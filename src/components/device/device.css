@@ -21,16 +21,16 @@
 
    --ink musste weg, nicht nur aufräumen: globals.css definiert es
    als triplet für tailwind (ink: rgb(var(--ink) / <alpha-value>)),
-   und diese zeile hat es im ganzen subtree mit #0a0a0a
+   und diese zeile hat es im ganzen subtree mit var(--g-0)
    überschrieben. jede utility border-ink/20 innerhalb .lab-root
-   hätte zu rgb(#0a0a0a / 0.2) kompiliert · ungültig, property fällt
+   hätte zu rgb(var(--g-0) / 0.2) kompiliert · ungültig, property fällt
    still weg. feuert heute nicht, weil der geräte-baum keine
    semantischen farb-utilities benutzt. war eine gestellte falle. */
 .lab-root {
   position: relative;
   background: var(--su-void);
   color: var(--tx-1);
-  min-height: 100svh;
+  min-height: var(--h-hero);
   font-family: var(--font-sans-v2), system-ui, sans-serif;
 }
 
@@ -164,7 +164,7 @@
      die rand-refraktion malt, sammelte danach nur noch die
      eigenen verläufe statt der szene dahinter. genau der effekt,
      für den das ganze konstrukt gebaut ist, kam nie an.
-     bei --bl-body: 4px auf #08080b verwischt der körper ohnehin
+     bei --bl-body: 4px auf var(--g-0) verwischt der körper ohnehin
      fast nichts · die refraktion sitzt im RAND (siehe ::before). */
   box-shadow:
     0 0 0 1px rgb(0 0 0 / 0.55),
@@ -272,7 +272,7 @@
 
 .lab-fader-track {
   border-radius: 999px;
-  background: linear-gradient(180deg, #070707, #131313);
+  background: linear-gradient(180deg, var(--g-0), var(--g-2));
   box-shadow:
     inset 0 2px 5px rgba(0, 0, 0, 0.95),
     inset 0 -1px 0 var(--ln-hair);
@@ -282,7 +282,7 @@
   width: 34px;
   height: 30px;
   border-radius: 7px;
-  background: linear-gradient(180deg, #5a5a5a 0%, #2a2a2a 48%, #171717 100%);
+  background: linear-gradient(180deg, #5a5a5a 0%, var(--g-4) 48%, var(--g-2) 100%);
   box-shadow:
     inset 0 1px 0 rgba(242, 242, 242, 0.45),
     inset 0 -1px 0 rgba(0, 0, 0, 0.9),
@@ -351,7 +351,7 @@
   width: 52px;
   height: 30px;
   border-radius: 999px;
-  background: linear-gradient(180deg, #060606, #141414);
+  background: linear-gradient(180deg, var(--g-0), var(--g-2));
   box-shadow:
     inset 0 2px 5px rgba(0, 0, 0, 0.95),
     inset 0 -1px 0 var(--ln-hair);
@@ -381,7 +381,7 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: linear-gradient(180deg, #5e5e5e, #232323);
+  background: linear-gradient(180deg, #5e5e5e, var(--g-4));
   box-shadow:
     inset 0 1px 0 rgba(242, 242, 242, 0.5),
     0 2px 5px rgba(0, 0, 0, 0.8);
@@ -497,7 +497,7 @@
   padding: 15px 28px;
   border-radius: var(--r-pill);
   background: var(--lime);
-  color: #08080b;
+  color: var(--g-0);
   font-size: var(--fs-lead);
   font-weight: 600;
   line-height: 1;
@@ -533,7 +533,7 @@
 
 /* auf der lime-vollplatte */
 .lab-cta--invers {
-  background: #08080b;
+  background: var(--g-0);
   color: var(--lime);
 }
 
@@ -566,7 +566,7 @@
   width: 214px;
   height: 72px;
   border-radius: 12px;
-  background: linear-gradient(180deg, #0a0a0a, #151515);
+  background: linear-gradient(180deg, var(--g-0), var(--g-2));
   box-shadow:
     inset 0 2px 6px rgba(0, 0, 0, 0.95),
     inset 0 -1px 0 var(--ln-hair);
@@ -634,7 +634,7 @@
   opacity: 0.22;
   background: repeating-linear-gradient(
     -45deg,
-    #0a0a0a 0 9px,
+    var(--g-0) 0 9px,
     transparent 9px 20px
   );
 }
@@ -654,7 +654,7 @@
      gesperrte bedienelemente sind von der kontrastregel zwar
      ausgenommen, aber diese hier trägt die anleitung. */
   color: rgba(242, 242, 242, 0.62);
-  background: linear-gradient(180deg, #262626, #141414);
+  background: linear-gradient(180deg, var(--g-4), var(--g-2));
   box-shadow:
     inset 0 1px 0 rgba(242, 242, 242, 0.12),
     0 3px 0 rgba(0, 0, 0, 0.75);
@@ -664,7 +664,7 @@
 }
 
 .lab-guard-key[data-armed="1"] {
-  color: #0a0a0a;
+  color: var(--g-0);
   background: var(--lime);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.5),
@@ -702,14 +702,19 @@
   transition: background var(--t-2) var(--ease);
 }
 .lab-nav[data-gescrollt="1"] {
-  background: #08080b;
+  background: var(--g-0);
 }
 
 .lab-nav-inner {
-  max-width: 1280px;
+  /* die leiste hatte ihr EIGENES raster: 1280px breit, 22px rand ·
+     eine vierte schalenbreite neben --shell, --shell-wide und dem
+     gutter. das logo stand dadurch auf keiner bildschirmbreite auf
+     derselben kante wie die headline darunter, mal 2px daneben,
+     mal 78px. */
+  max-width: var(--shell-wide);
   margin: 0 auto;
-  height: 64px;
-  padding: 0 22px;
+  height: var(--nav);
+  padding: 0 var(--gutter);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -966,7 +971,7 @@
   font-size: 10px;
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
-  color: #0a0a0a;
+  color: var(--g-0);
   background: var(--lime);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.6),
@@ -1173,7 +1178,7 @@
   color: rgba(242, 242, 242, 0.85);
 }
 .lab-switch button[data-on="1"] {
-  color: #0a0a0a;
+  color: var(--g-0);
   background: var(--lime);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.7),
@@ -1539,7 +1544,7 @@
 }
 .lab-sprache:hover { color: var(--tx-1); }
 .lab-sprache[data-an="1"] {
-  color: #08080b;
+  color: var(--g-0);
   background: var(--lime);
 }
 .lab-sprache:focus-visible {
@@ -1561,7 +1566,7 @@
   color: rgb(8 8 11 / 0.72);
 }
 [data-auf-lime="1"] .lab-label-lg:hover {
-  color: #08080b;
+  color: var(--g-0);
 }
 
 /* ── der aktive menü-eintrag ──────────────────────────────

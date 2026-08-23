@@ -3,7 +3,7 @@
    ═══════════════════════════════════════════════════════════ */
 
 .ar {
-  background: #08080b;
+  background: var(--g-0);
   padding: var(--rh-m) var(--gutter) var(--rh-l);
 }
 .ar-innen {
@@ -130,7 +130,7 @@
    CSS-dateien hatten zusammen null box-shadow, während /kontakt
    zwölf auf einer bildschirmhöhe hat). */
 /* NICHT über ein ::after mit z-index:-1 · die sektion hat einen
-   deckenden grund (#08080b), eine ebene dahinter ist unsichtbar.
+   deckenden grund (var(--g-0)), eine ebene dahinter ist unsichtbar.
    die fläche liegt auf der zeile selbst. */
 .ar-zeile {
   position: relative;
