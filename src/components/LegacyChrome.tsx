@@ -5,52 +5,35 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 
 /**
- * LegacyChrome · nav und footer der alten seiten.
+ * LegacyChrome · nav und footer der ALTEN seiten.
  *
- * die geräte-seiten bringen ihre eigene navigation mit. bis august 2026
- * wurden nav und footer trotzdem auf JEDER seite gerendert und dann per
- * `body[data-lab="1"]` weggeblendet · doppeltes DOM und unnötiges JS auf
- * jeder seite, nur damit man es nicht sieht.
+ * bis august 2026 führte diese datei die GERÄTE-seiten und gab
+ * überall sonst die alte navigation aus. das war eine falle: eine
+ * 404 hat keinen eigenen pfad — sie rendert unter der adresse, die
+ * der besucher aufgerufen hat. die stand naturgemäss in keiner
+ * liste, also bekam ausgerechnet die seite, auf der jeder alte
+ * indexierte link landet, nav und footer aus dem alten projekt.
  *
- * jetzt entscheidet der pfad, ob es überhaupt gerendert wird.
- *
- * die liste führt die GERÄTE-seiten, nicht die alten · so bekommt eine
- * neu umgestellte seite die alte navigation nicht versehentlich zurück,
- * sondern man muss sie hier eintragen. vergessen fällt sofort auf.
+ * jetzt andersherum: hier stehen die wenigen seiten, die die alte
+ * oberfläche NOCH tragen. alles andere — auch jeder unbekannte
+ * pfad — bekommt nichts, und die seite bringt ihre navigation
+ * selbst mit. eine neue seite kann so nicht mehr versehentlich
+ * altes chrome erben.
  */
 
-/* canonical-pfade der geräte-seiten · die locale-aliase werden aus
-   dem präfix erschlagen, deshalb reicht der pfad ohne /fr bzw. /en */
-const DEVICE_PATHS = [
-  "/",
-  /* STUDIO · frueher leistung, preise und ueber-mich */
-  "/studio",
-  /* ARBEITEN · frueher referenzen */
-  "/arbeiten",
-  "/travaux",
-  "/work",
-  "/kontakt",
-  "/contact",
-  /* die pflichtseiten laufen seit august 2026 auch im geräte-stil und
-     bringen ihre nav über LegalLayout mit */
-  "/impressum",
-  "/mentions-legales",
-  "/legal-notice",
-  "/datenschutz",
-  "/confidentialite",
-  "/privacy",
-];
+/* die letzten seiten der alten oberfläche · locale-präfixe werden
+   abgezogen, deshalb reicht der pfad ohne /fr bzw. /en */
+const ALTE_PFADE = ["/preview", "/web-performance-ostbelgien"];
 
-function istGeraeteSeite(pathname: string): boolean {
-  /* locale-präfix abziehen · /fr/prestation → /prestation */
+function istAlteSeite(pathname: string): boolean {
   const ohneLocale = pathname.replace(/^\/(fr|en)(?=\/|$)/, "") || "/";
-  if (DEVICE_PATHS.includes(ohneLocale)) return true;
-  /* die referenz-detailseiten hängen unter den listen-pfaden */
-  return /^\/(arbeiten|travaux|work)\/[^/]+$/.test(ohneLocale);
+  if (ALTE_PFADE.includes(ohneLocale)) return true;
+  /* die prototypen unter /labor hängen noch am alten chrome */
+  return ohneLocale === "/labor" || ohneLocale.startsWith("/labor/");
 }
 
 export function LegacyChrome({ position }: { position: "nav" | "footer" }) {
   const pathname = usePathname() || "/";
-  if (istGeraeteSeite(pathname)) return null;
+  if (!istAlteSeite(pathname)) return null;
   return position === "nav" ? <Nav /> : <Footer />;
 }

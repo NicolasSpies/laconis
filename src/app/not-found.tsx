@@ -1,34 +1,50 @@
 import Link from "next/link";
-import { CONTACT } from "@/config/contact";
-import { CssPlayground } from "@/components/404/CssPlayground";
+import { DeviceNav } from "@/components/device/DeviceNav";
+import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { getLocale } from "@/i18n/getLocale";
-import type { Locale } from "@/i18n/config";
+import { buildPath, type Locale } from "@/i18n/config";
+import "@/components/device/device.css";
+
+/**
+ * 404 · hier landet jeder alte indexierte link.
+ *
+ * bis august 2026 lief diese seite auf hellem grund, mit einem
+ * lila handkritzel-SVG, einem 360-zeiligen CSS-quiz und — weil ihr
+ * pfad nirgends erfasst war — mit der alten navigation plus altem
+ * footer. handschrift und kritzel sind zwei der ausdrücklich
+ * ausgeschlossenen dinge, und ausgerechnet auf der seite, die den
+ * meisten fremden verkehr abbekommt.
+ *
+ * jetzt: dieselbe sprache wie der rest, und drei echte wege raus
+ * statt eines spiels.
+ */
 
 const DICT: Record<
   Locale,
-  {
-    headline: string;
-    cta: string;
-    note: string;
-    bug: string;
-  }
+  { headline: string; note: string; start: string; arbeiten: string; kontakt: string; bug: string }
 > = {
   de: {
     headline: "diese seite gibts nicht. die anderen schon.",
-    cta: "zurück zur startseite →",
     note: "vielleicht ein tippfehler · vielleicht ein alter link · egal.",
+    start: "zur startseite",
+    arbeiten: "arbeiten ansehen",
+    kontakt: "schreib mir",
     bug: "wenn du denkst, das ist ein bug · sag bescheid",
   },
   fr: {
     headline: "cette page n'existe pas. les autres oui.",
-    cta: "retour à l'accueil →",
     note: "peut-être une faute de frappe · peut-être un vieux lien · peu importe.",
+    start: "vers l'accueil",
+    arbeiten: "voir les travaux",
+    kontakt: "écris-moi",
     bug: "si tu penses que c'est un bug · fais-le savoir",
   },
   en: {
     headline: "this page doesn't exist. the others do.",
-    cta: "back to home →",
     note: "maybe a typo · maybe an old link · doesn't matter.",
+    start: "to the home page",
+    arbeiten: "see the work",
+    kontakt: "write to me",
     bug: "if you think this is a bug · let me know",
   },
 };
@@ -38,96 +54,42 @@ export default function NotFound() {
   const t = DICT[locale] ?? DICT.de;
 
   return (
-    <>
-      <section
-        className="relative min-h-[100svh] flex items-center overflow-hidden"
-        style={{ color: "#0a0a0a" }}
-      >
-        {/* atmospheric dot-grid · matched zu PageHero */}
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-[0.10] pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at center, rgba(20,20,20,0.55) 1px, transparent 1.4px)",
-            backgroundSize: "26px 26px",
-          }}
-        />
+    <div className="lab-root" data-no-reveal>
+      <div className="lab-ambient" aria-hidden>
+        <span />
+        <span />
+        <span />
+      </div>
 
-        {/* dekoratives lila scribble-X · rechts oben (desktop) */}
-        <svg
-          aria-hidden
-          viewBox="0 0 200 200"
-          className="absolute right-[-2%] top-[8%] w-[200px] md:w-[280px] opacity-70 pointer-events-none -rotate-[8deg]"
-        >
-          <path
-            d="M20 24 C 70 60, 130 120, 188 178"
-            stroke="#b084d3"
-            strokeWidth="6"
-            strokeLinecap="round"
-            fill="none"
-          />
-          <path
-            d="M180 22 C 130 64, 76 124, 22 180"
-            stroke="#b084d3"
-            strokeWidth="5"
-            strokeLinecap="round"
-            fill="none"
-          />
-        </svg>
+      <DeviceNav />
 
-        <div className="container-site relative">
-          <div className="max-w-[820px]">
-            {/* massive 404 mit lime-akzent in der mitte */}
-            <div
-              className="leading-none font-black lowercase select-none"
-              style={{
-                fontSize: "clamp(6rem, 22vw, 16rem)",
-                letterSpacing: "-0.06em",
-                color: "#0a0a0a",
-              }}
-            >
-              4<span style={{ color: "#e1fd52" }}>0</span>4
-            </div>
+      <section data-no-reveal className="relative flex min-h-[76svh] items-center px-gut pt-hero">
+        <div className="mx-auto w-full max-w-shell">
+          <p className="lab-display text-display-xl" aria-hidden>
+            4<span style={{ color: "#e1fd52" }}>0</span>4
+          </p>
 
-            <h1
-              className="mt-6 lowercase font-black"
-              style={{
-                fontSize: "clamp(1.75rem, 5vw, 3rem)",
-                letterSpacing: "-0.035em",
-                lineHeight: 1.05,
-                color: "#0a0a0a",
-              }}
-            >
-              {t.headline}
-            </h1>
+          <h1 className="lab-display lab-boot mt-6 max-w-[16ch] text-display">{t.headline}</h1>
 
-            <p className="mt-6 max-w-[520px] text-[14px] md:text-[16px] leading-relaxed text-[#0a0a0a]/70">
-              {t.note}
-            </p>
+          <p className="mt-6 max-w-measure-lead text-lead text-[var(--tx-3)]">{t.note}</p>
 
-            <div className="mt-10">
-              <Link
-                href="/"
-                className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label px-6 py-4 rounded-full bg-[#0a0a0a] text-[#e1fd52] hover:bg-[#1a1a1a] transition-colors"
-              >
-                {t.cta}
-              </Link>
-            </div>
-
-            <p className="mt-12 font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55">
-              {t.bug} ·{" "}
-              <a
-                href={`mailto:${CONTACT.email}`}
-                className="underline underline-offset-4 hover:text-[#0a0a0a]"
-              >
-                {CONTACT.email}
-              </a>
-            </p>
+          <div className="mt-rh-s flex flex-wrap items-center gap-5">
+            <Link href={buildPath("home", locale)} className="lab-cta">
+              {t.start}
+            </Link>
+            <Link href={buildPath("referenzen", locale)} className="lab-cta lab-cta--leise">
+              {t.arbeiten}
+            </Link>
+            <Link href={buildPath("kontakt", locale)} className="lab-link">
+              {t.kontakt}
+            </Link>
           </div>
+
+          <p className="lab-hint mt-rh-s">{t.bug}</p>
         </div>
       </section>
-      <CssPlayground />
-    </>
+
+      <DeviceFuss />
+    </div>
   );
 }

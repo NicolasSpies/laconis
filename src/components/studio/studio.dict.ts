@@ -34,7 +34,7 @@ export type StudioT = {
   personH2: string;
   bio: string;
   bioSub: string;
-  portraitNote: string;
+  portraitAlt: string;
 
   wegH2: string;
   weg: [string, string][];
@@ -72,7 +72,7 @@ export const STUDIO: Record<Locale, StudioT> = {
     bio: "Ich bin Nicolas. Gelernter Grafikdesigner, der bauen gelernt hat.",
     bioSub:
       "Keine Agentur, keine Zwischenschicht. Du redest mit dem, der auch baut. Nebenbei lege ich auf · Trance, Progressive, Breakbeats.",
-    portraitNote: "platzhalter · so soll das foto aussehen",
+    portraitAlt: "arbeitsplatz bei nacht · das licht kommt vom bildschirm",
 
     wegH2: "wie es dazu kam",
     weg: [
@@ -118,7 +118,7 @@ export const STUDIO: Record<Locale, StudioT> = {
     bio: "Je suis Nicolas. Graphiste de formation, qui a appris à construire.",
     bioSub:
       "Pas d'agence, pas d'intermédiaire. Tu parles à celui qui construit. À côté, je mixe · trance, progressive, breakbeats.",
-    portraitNote: "placeholder · voilà à quoi doit ressembler la photo",
+    portraitAlt: "poste de travail la nuit · la lumière vient de l'écran",
 
     wegH2: "comment j'en suis arrivé là",
     weg: [
@@ -164,7 +164,7 @@ export const STUDIO: Record<Locale, StudioT> = {
     bio: "I'm Nicolas. A trained graphic designer who learned to build.",
     bioSub:
       "No agency, no middle layer. You talk to the person who builds. On the side I DJ · trance, progressive, breakbeats.",
-    portraitNote: "placeholder · this is what the photo should look like",
+    portraitAlt: "workspace at night · the light comes from the screen",
 
     wegH2: "how it came to this",
     weg: [

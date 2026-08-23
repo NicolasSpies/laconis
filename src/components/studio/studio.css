@@ -122,28 +122,6 @@
   align-items: start;
 }
 
-.st-portrait {
-  margin: 0;
-  position: relative;
-}
-.st-portrait img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: var(--r-m);
-}
-.st-portrait-note {
-  display: block;
-  margin-top: var(--sp-4);
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: var(--fs-label);
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  /* der platzhalter sagt SELBST, dass er einer ist · sonst steht da
-     ein fremdes bild und sieht aus wie eine behauptung */
-  color: var(--tx-4);
-}
-
 /* ── der weg · zeilen, keine kacheln ────────────────────── */
 
 .st-weg {

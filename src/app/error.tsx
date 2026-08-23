@@ -1,14 +1,51 @@
 "use client";
 
 /**
- * route-level error boundary.
- * greift bei render-errors unterhalb von layout.tsx.
- * layout-fehler fallen auf global-error.tsx zurück.
+ * route-level error boundary · greift bei render-fehlern unterhalb
+ * von layout.tsx. layout-fehler fallen auf global-error.tsx zurück.
+ *
+ * bis august 2026 stand hier "ups." in Caveat-schreibschrift, um 6°
+ * gedreht, mit einem pfeil-kritzel darunter. handschrift, rotation
+ * und kritzel sind drei der vier ausdrücklich ausgeschlossenen
+ * dinge · und der besucher hat gerade einen fehler gesehen, dem
+ * hilft kein augenzwinkern, sondern ein weg.
  */
 
 import { useEffect } from "react";
-import { Button } from "@/components/ui/Button";
+import Link from "next/link";
+import { DeviceNav } from "@/components/device/DeviceNav";
+import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { CONTACT } from "@/config/contact";
+import { useLocale } from "@/i18n/useLocale";
+import { buildPath, type Locale } from "@/i18n/config";
+import "@/components/device/device.css";
+
+const DICT: Record<
+  Locale,
+  { headline: string; note: string; nochmal: string; start: string; schreib: string }
+> = {
+  de: {
+    headline: "da ist was schiefgelaufen.",
+    note: "nicht bei dir · bei mir. der versuch nochmal kostet nichts.",
+    nochmal: "nochmal versuchen",
+    start: "zur startseite",
+    schreib: "bleibt es dabei, schreib mir",
+  },
+  fr: {
+    headline: "quelque chose a mal tourné.",
+    note: "pas chez toi · chez moi. réessayer ne coûte rien.",
+    nochmal: "réessayer",
+    start: "vers l'accueil",
+    schreib: "si ça persiste, écris-moi",
+  },
+  en: {
+    headline: "something went wrong.",
+    note: "not on your side · on mine. trying again costs nothing.",
+    nochmal: "try again",
+    start: "to the home page",
+    schreib: "if it keeps happening, write to me",
+  },
+};
 
 export default function Error({
   error,
@@ -17,97 +54,51 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const locale = useLocale();
+  const t = DICT[locale] ?? DICT.de;
+
   useEffect(() => {
     // TODO: später über ContentCore analytics.ts loggen
     console.error("[route-error]", error);
   }, [error]);
 
   return (
-    <section className="min-h-[80vh] flex items-center justify-center py-24">
-      <div className="container-site">
-        <div className="relative mx-auto max-w-[640px] text-center">
-          {/* big 500 */}
-          <div
-            className="heading-display text-offwhite/10 leading-none select-none"
-            style={{
-              fontSize: "clamp(8rem, 24vw, 18rem)",
-              letterSpacing: "-0.08em",
-            }}
-          >
-            500
-          </div>
-
-          {/* handwritten scribble overlay */}
-          <div
-            className="absolute inset-0 flex items-center justify-center pointer-events-none"
-            aria-hidden
-          >
-            <span className="font-hand text-accent-ink text-[clamp(2.5rem,8vw,5rem)] -rotate-[6deg]">
-              ups.
-            </span>
-          </div>
-
-          {/* scribble divider */}
-          <div className="mt-4 flex justify-center">
-            <svg
-              width="120"
-              height="60"
-              viewBox="0 0 120 60"
-              fill="none"
-              className="text-accent-ink/80"
-            >
-              <path
-                d="M10 30 Q 40 10, 70 30 T 110 30"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                fill="none"
-              />
-              <path
-                d="M110 30 L100 22 M110 30 L100 38"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                fill="none"
-              />
-            </svg>
-          </div>
-
-          <h1 className="heading-sans text-[clamp(1.5rem,3vw,2rem)] text-offwhite mt-6">
-            da ist was schiefgegangen.
-          </h1>
-          <p className="mt-4 text-[14px] leading-relaxed text-offwhite/55 max-w-[440px] mx-auto">
-            passiert den besten. entweder nochmal versuchen · oder zurück zur
-            startseite, dort ist meistens noch alles an seinem platz.
-          </p>
-
-          {error.digest && (
-            <p className="mt-4 font-mono text-[10px] uppercase tracking-label text-offwhite/35">
-              fehler-id · {error.digest}
-            </p>
-          )}
-
-          <div className="mt-10 flex justify-center gap-3 flex-wrap">
-            <Button onClick={() => reset()} variant="primary" size="lg">
-              nochmal versuchen
-            </Button>
-            <Button href="/" variant="glass" size="lg">
-              ← zurück zur startseite
-            </Button>
-          </div>
-
-          <p className="mt-12 font-mono text-[10px] uppercase tracking-label text-offwhite/55">
-            wenn das öfter passiert ·{" "}
-            <a
-              href={`mailto:${CONTACT.email}`}
-              className="text-accent-ink hover:underline"
-            >
-              sag bescheid
-            </a>
-            .
-          </p>
-        </div>
+    <div className="lab-root" data-no-reveal>
+      <div className="lab-ambient" aria-hidden>
+        <span />
+        <span />
+        <span />
       </div>
-    </section>
+
+      <DeviceNav />
+
+      <section data-no-reveal className="relative flex min-h-[76svh] items-center px-gut pt-hero">
+        <div className="mx-auto w-full max-w-shell">
+          <p className="lab-display text-display-xl" aria-hidden>
+            5<span style={{ color: "#e1fd52" }}>0</span>0
+          </p>
+
+          <h1 className="lab-display lab-boot mt-6 max-w-[16ch] text-display">{t.headline}</h1>
+
+          <p className="mt-6 max-w-measure-lead text-lead text-[var(--tx-3)]">{t.note}</p>
+
+          <div className="mt-rh-s flex flex-wrap items-center gap-5">
+            <button type="button" onClick={reset} className="lab-cta">
+              {t.nochmal}
+            </button>
+            <Link href={buildPath("home", locale)} className="lab-cta lab-cta--leise">
+              {t.start}
+            </Link>
+            <a href={`mailto:${CONTACT.email}`} className="lab-link">
+              {t.schreib}
+            </a>
+          </div>
+
+          {error.digest && <p className="lab-hint mt-rh-s font-mono">ref · {error.digest}</p>}
+        </div>
+      </section>
+
+      <DeviceFuss />
+    </div>
   );
 }

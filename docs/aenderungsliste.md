@@ -17,8 +17,19 @@ vergiss nicht den rest danach noch zu machen."
 6. [x] K7 · Impressum/Datenschutz auf allen Seiten
 7. [x] K8 · Sprachumschalter
 8. [x] K9 · verbotene Zahlen in Schema und Meta
-9. [ ] **K5, K6, K10–K16 · restliche Defekte**  ← ALS NÄCHSTES (K5 ist mit punkt 1 erledigt)
-10. [ ] G3–G16 · grafische Angleichung
+9. [x] K5, K6, K10–K16 · restliche Defekte
+10. [ ] **G3–G16 · grafische Angleichung**  ← ALS NÄCHSTES
+
+### offen, beim arbeiten gefunden (gehört zu G16)
+- Die alte Positionierung **„design mit meinung · web mit seele"** steht
+  an 10 Stellen: Standard-`<title>` (greift auf 404/500), OG- und
+  Twitter-Bild (was beim Teilen erscheint), `StructuredData` als
+  `slogan`, ConsoleGreeting. Sie führt mit *design*, obwohl Branding
+  laut Regel nur im Flüsterton vorkommt. `StructuredData:68` nennt
+  ausserdem „freelance designer + web-developer in Eupen".
+- `KontaktKonsole`: die fünf Formularfelder haben weder `name`, noch
+  `id`, noch ein verbundenes `<label>` (beim Messen aufgefallen).
+- `CssPlayground` (360 Zeilen) ist seit K11 verwaist → P1.
 11. [ ] P1–P8 · Politur
 
 ## Korrektur zur Prüfung

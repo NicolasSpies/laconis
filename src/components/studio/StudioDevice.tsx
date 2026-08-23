@@ -81,15 +81,20 @@ export function StudioDevice() {
       {/* ═══ DIE PERSON ═══ */}
       <section className="st-block" data-no-reveal>
         <div className="st-innen st-person">
+          {/* PLATZHALTER · eine silhouette von hinten am
+              bildschirm, kein gesicht · sie behauptet niemanden.
+              darunter stand bis august 2026 "platzhalter · so soll
+              das foto aussehen" · eine arbeitsnotiz, live auf der
+              seite, die erklärt wer da baut.
+              das echte foto ersetzt einfach diese datei. */}
           <figure className="st-portrait">
             <Image
               src="/portrait-platzhalter.jpg"
-              alt=""
+              alt={t.portraitAlt}
               width={1400}
               height={1867}
               sizes="(max-width: 860px) 88vw, 38vw"
             />
-            <figcaption className="st-portrait-note">{t.portraitNote}</figcaption>
           </figure>
 
           <div>
