@@ -79,7 +79,11 @@ const config: Config = {
       },
       letterSpacing: {
         mono: "0.02em",
-        label: "0.12em",
+        /* zeigt auf das token · vorher stand hier 0.12em, während
+           --ls-label auf 0.2em steht. dieselbe rolle, zwei
+           wahrheiten · welche griff, hing davon ab, ob eine stelle
+           die tailwind-klasse oder das token benutzt. */
+        label: "var(--ls-label)",
       },
       backgroundImage: {
         grid: "linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)",

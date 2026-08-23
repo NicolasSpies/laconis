@@ -11,13 +11,9 @@
     "shots:index": "node scripts/shots.mjs --index"
   },
   "dependencies": {
-    "@fontsource-variable/bricolage-grotesque": "^5.2.10",
-    "@fontsource-variable/caveat": "^5.2.8",
-    "@fontsource-variable/instrument-sans": "^5.2.8",
     "framer-motion": "^12.38.0",
     "geist": "^1.7.2",
     "next": "14.2.35",
-    "next-intl": "^4.9.1",
     "react": "^18",
     "react-dom": "^18",
     "resend": "^6.12.0",

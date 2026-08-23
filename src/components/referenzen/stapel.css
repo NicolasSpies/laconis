@@ -329,7 +329,6 @@
   font-weight: 700;
   line-height: var(--lh-head);
   letter-spacing: var(--ls-mid);
-  line-height: 1.1;
   color: #f2f2f2;
   transition: color 300ms ease;
 }
