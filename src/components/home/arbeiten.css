@@ -84,3 +84,35 @@
 @media (prefers-reduced-motion: reduce) {
   .ar-strich, .ar-name { transition: none; }
 }
+
+/* ── der pfeil · die zeile sagt jetzt selbst, dass sie ein weg ist
+   sie trug ihre klickbarkeit vorher NUR im hover · auf dem handy
+   gibt es keinen hover, dort waren es drei graue zeilen zwischen
+   haarlinien. läuft immer, hover verstärkt nur. */
+.ar-zeile {
+  grid-template-columns: 4px minmax(0, 1fr) auto auto;
+}
+.ar-pfeil {
+  font-size: var(--fs-lead);
+  color: var(--tx-3);
+  transition: transform var(--t-2) var(--ease), color var(--t-2) var(--ease);
+}
+.ar-zeile:hover .ar-pfeil {
+  color: var(--lime);
+  transform: translateX(4px);
+}
+
+/* der weg auf die übersicht · den gab es bis august 2026 auf
+   KEINER seite. die überschrift "arbeiten" sah aus wie ein
+   einstieg und war keiner. */
+.ar-alle {
+  margin-top: clamp(30px, 3.6vw, 52px);
+}
+
+/* der pfeil bleibt AUCH auf dem handy · er ist dort die einzige
+   klickbarkeits-anzeige, weil es keinen hover gibt. was weicht,
+   ist die kategorie. */
+@media (max-width: 560px) {
+  .ar-art { display: none; }
+  .ar-zeile { grid-template-columns: 4px minmax(0, 1fr) auto; }
+}

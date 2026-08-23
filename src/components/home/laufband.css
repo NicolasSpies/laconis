@@ -6,8 +6,14 @@
   position: relative;
   overflow: hidden;
   padding: clamp(30px, 4vw, 58px) 0;
-  background: var(--lime);
-  color: #08080b;
+  /* G6 · war eine randlose LIME-VOLLFLÄCHE mit schrift bis 70px ·
+     zwei sektionen vor der schlussplatte, die in ihrer eigenen
+     datei mehrfach als "die EINZIGE grosse lime-fläche" beschrieben
+     ist. die wirkung war verbraucht, bevor man ankam.
+     jetzt lime als SCHRIFT auf dunkel · der zweite erlaubte
+     einsatz, und die fläche am ende bleibt die einzige. */
+  background: var(--su-void);
+  color: var(--lime);
 }
 
 .lb-lauf {
@@ -32,16 +38,18 @@
   font-stretch: var(--wd-display);
   letter-spacing: var(--ls-display);
   text-transform: lowercase;
-  color: #08080b;
+  color: var(--lime);
   white-space: nowrap;
 }
 
-/* auf der lime-fläche ist der trenner ein loch · nicht noch eine
-   farbe. zwei akzente auf einer fläche sind einer zu viel. */
+/* der trenner ist ein loch, nicht noch eine farbe · zwei akzente
+   auf einer fläche sind einer zu viel. LIME BLEIBT LIME: die
+   zurückhaltung kommt aus der grösse des zeichens, nicht aus
+   deckkraft auf der farbe selbst. */
 .lb-wort i {
   font-style: normal;
   margin: 0 clamp(20px, 2.6vw, 44px);
-  color: rgb(8 8 11 / 0.42);
+  color: var(--tx-4);
 }
 
 @keyframes lbLauf {

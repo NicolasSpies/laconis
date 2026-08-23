@@ -32,6 +32,8 @@ export type HomeT = {
 
   /** ueberschrift ueber den arbeiten · ein wort reicht */
   arbeitenH2: string;
+  /** der weg auf die uebersicht · bis august 2026 gab es keinen */
+  arbeitenAlle: string;
 
   /** wortband · eine nachricht, keine leistungsliste */
   band: string[];
@@ -58,6 +60,7 @@ export const HOME: Record<Locale, HomeT> = {
     },
 
     arbeitenH2: "arbeiten",
+    arbeitenAlle: "alle arbeiten",
 
     band: ["nehme aktuell projekte an", "schreib mir"],
 
@@ -70,7 +73,7 @@ export const HOME: Record<Locale, HomeT> = {
     },
 
     schluss: {
-      satz: "reden wir.",
+      satz: "sag mir, was du vorhast.",
       key: "schreib mir",
       oder: "oder direkt an",
     },
@@ -93,6 +96,7 @@ export const HOME: Record<Locale, HomeT> = {
     },
 
     arbeitenH2: "travaux",
+    arbeitenAlle: "tous les travaux",
 
     band: ["je prends des projets en ce moment", "écris-moi"],
 
@@ -105,7 +109,7 @@ export const HOME: Record<Locale, HomeT> = {
     },
 
     schluss: {
-      satz: "parlons-en.",
+      satz: "dis-moi ce que tu prépares.",
       key: "écris-moi",
       oder: "ou directement à",
     },
@@ -128,6 +132,7 @@ export const HOME: Record<Locale, HomeT> = {
     },
 
     arbeitenH2: "work",
+    arbeitenAlle: "all work",
 
     band: ["taking on projects right now", "write to me"],
 
@@ -140,7 +145,7 @@ export const HOME: Record<Locale, HomeT> = {
     },
 
     schluss: {
-      satz: "let's talk.",
+      satz: "tell me what you're planning.",
       key: "write to me",
       oder: "or straight to",
     },

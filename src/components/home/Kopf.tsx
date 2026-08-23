@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { ShaderField } from "@/components/device/ShaderField";
 
 /**
@@ -38,23 +37,13 @@ export type KopfT = {
   hinweis: string;
 };
 
+/* die uhr rechts unten ist im august 2026 rausgeflogen. sie zeigte
+   die zeit des BESUCHERS in dessen zeitzone · sie sagte also nichts
+   über nicolas, war aria-hidden, auf dem handy versteckt — und war
+   der einzige JS-abhängige inhalt der ganzen startseite. dafür ein
+   setInterval alle 20 sekunden. */
+
 export function Kopf({ t }: { t: KopfT }) {
-  const [uhr, setUhr] = useState<string | null>(null);
-
-  useEffect(() => {
-    const stell = () =>
-      setUhr(
-        new Intl.DateTimeFormat("de-BE", {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-        }).format(new Date()),
-      );
-    stell();
-    const id = setInterval(stell, 20_000);
-    return () => clearInterval(id);
-  }, []);
-
   return (
     <section className="kp" data-no-reveal>
       <ShaderField className="kp-feld" />
@@ -76,9 +65,6 @@ export function Kopf({ t }: { t: KopfT }) {
 
         <div className="kp-fuss">
           <p className="kp-lead">{t.zeile}</p>
-          <span className="kp-uhr" aria-hidden>
-            {uhr ?? " "}
-          </span>
         </div>
       </div>
 

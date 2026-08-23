@@ -99,10 +99,15 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* G3 · stand auf center/center · der hero war der einzige
+     block der ganzen seite mit mittelachse, während kicker, lead
+     und alle drei anderen seiten links standen. zentriert und
+     linksbündig im selben block ist der klassischste grund,
+     warum eine seite nach einzelteilen aussieht. */
+  justify-content: flex-start;
   align-items: center;
   gap: clamp(20px, 3.4vh, 48px);
-  text-align: center;
+  text-align: left;
 }
 
 .kp-h1 {
@@ -140,7 +145,6 @@
   animation: kpRein 700ms var(--ease) 540ms both;
 }
 
-.kp-uhr,
 .kp-hinweis {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: var(--fs-label);
@@ -149,16 +153,9 @@
   color: var(--tx-3);
   white-space: nowrap;
 }
-.kp-uhr {
-  /* tabellenziffern · sonst zappelt die zeile jede minute */
-  font-variant-numeric: tabular-nums;
-  animation: kpRein 700ms var(--ease) 640ms both;
-}
-
 .kp-hinweis {
   position: absolute;
-  left: 50%;
-  translate: -50% 0;
+  left: var(--gutter);
   bottom: clamp(24px, 3.4vh, 40px);
   z-index: 2;
   animation: kpRein 700ms var(--ease) 740ms both;

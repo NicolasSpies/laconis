@@ -64,7 +64,7 @@ export function HomeDevice() {
 
       <Kammer t={t.kammer} />
 
-      <Arbeiten werke={referenzen} t={{ h2: t.arbeitenH2 }} href={arbeiten} />
+      <Arbeiten werke={referenzen} t={{ h2: t.arbeitenH2, alle: t.arbeitenAlle }} href={arbeiten} />
 
       <Laufband worte={t.band} />
 
@@ -74,9 +74,8 @@ export function HomeDevice() {
         t={t.schluss}
         href={buildPath("kontakt", locale)}
         mail={CONTACT.email}
+        fuss={<DeviceFuss aufLime />}
       />
-
-      <DeviceFuss />
     </div>
   );
 }

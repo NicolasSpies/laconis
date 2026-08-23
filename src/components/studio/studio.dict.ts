@@ -94,7 +94,7 @@ export const STUDIO: Record<Locale, StudioT> = {
       "Das sage ich dir nach einem kurzen Gespräch. Eine Preisliste würde bei jedem Projekt anders lügen · zwei Seiten mit gleich vielen Unterseiten können Faktor zwei auseinanderliegen.",
     preisKey: "kurz reden →",
 
-    schluss: { satz: "reden wir.", key: "schreib mir", oder: "oder direkt an" },
+    schluss: { satz: "erzähl mir davon.", key: "schreib mir", oder: "oder direkt an" },
     fussImpressum: "impressum",
     fussDatenschutz: "datenschutz",
   },
@@ -140,7 +140,7 @@ export const STUDIO: Record<Locale, StudioT> = {
       "Je te le dis après un court échange. Une grille tarifaire mentirait différemment sur chaque projet · deux sites avec autant de pages peuvent varier du simple au double.",
     preisKey: "en parler →",
 
-    schluss: { satz: "parlons-en.", key: "écris-moi", oder: "ou directement à" },
+    schluss: { satz: "raconte-moi.", key: "écris-moi", oder: "ou directement à" },
     fussImpressum: "mentions légales",
     fussDatenschutz: "confidentialité",
   },
@@ -186,7 +186,7 @@ export const STUDIO: Record<Locale, StudioT> = {
       "I'll tell you after a short conversation. A price list would lie differently on every project · two sites with the same number of pages can differ by a factor of two.",
     preisKey: "let's talk →",
 
-    schluss: { satz: "let's talk.", key: "write to me", oder: "or straight to" },
+    schluss: { satz: "tell me about it.", key: "write to me", oder: "or straight to" },
     fussImpressum: "legal notice",
     fussDatenschutz: "privacy",
   },

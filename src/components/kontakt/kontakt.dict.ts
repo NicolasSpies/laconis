@@ -73,7 +73,7 @@ export const KONTAKT: Record<Locale, KontaktDict> = {
     danachH2: "was danach passiert.",
     danach: [
       ["ich lese", "Deine Nachricht landet in meinem Postfach, nicht in einem Ticket-System. Es gibt keine Zwischenschicht, die vorsortiert."],
-      ["wir reden", "Ein kurzes Gespräch, damit ich verstehe, was du wirklich brauchst. Kein Pitch-Deck, keine Präsentation."],
+      ["ich melde mich", "Ein kurzes Gespräch, damit ich verstehe, was du wirklich brauchst. Kein Pitch-Deck, keine Präsentation."],
       ["du kriegst eine zahl", "Ein konkretes Angebot, schriftlich, ohne Kleingedrucktes. Und wenn ich nicht der richtige bin, sage ich dir das statt dir etwas zu verkaufen."],
     ],
   },
@@ -121,7 +121,7 @@ export const KONTAKT: Record<Locale, KontaktDict> = {
     danachH2: "ce qui se passe ensuite.",
     danach: [
       ["je lis", "Ton message arrive dans ma boîte, pas dans un système de tickets. Il n'y a pas d'intermédiaire qui trie avant."],
-      ["on parle", "Un court échange, pour que je comprenne ce dont tu as vraiment besoin. Pas de pitch deck, pas de présentation."],
+      ["je te réponds", "Un court échange, pour que je comprenne ce dont tu as vraiment besoin. Pas de pitch deck, pas de présentation."],
       ["tu reçois un chiffre", "Une offre concrète, par écrit, sans petits caractères. Et si je ne suis pas le bon, je te le dis au lieu de te vendre quelque chose."],
     ],
   },
@@ -169,7 +169,7 @@ export const KONTAKT: Record<Locale, KontaktDict> = {
     danachH2: "what happens next.",
     danach: [
       ["i read it", "Your message lands in my inbox, not in a ticket system. There's no middle layer pre-sorting it."],
-      ["we talk", "A short conversation so i understand what you actually need. No pitch deck, no presentation."],
+      ["i get back to you", "A short conversation so i understand what you actually need. No pitch deck, no presentation."],
       ["you get a number", "A concrete offer, in writing, without small print. And if i'm not the right person, i'll tell you instead of selling you something."],
     ],
   },

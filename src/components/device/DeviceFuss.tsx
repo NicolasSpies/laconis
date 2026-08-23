@@ -31,12 +31,24 @@ const FUSS: Record<Locale, { impressum: string; datenschutz: string }> = {
   en: { impressum: "legal notice", datenschutz: "privacy" },
 };
 
-export function DeviceFuss({ vorne }: { vorne?: React.ReactNode }) {
+export function DeviceFuss({
+  vorne,
+  aufLime = false,
+}: {
+  vorne?: React.ReactNode;
+  /** sitzt die zeile IN der lime-schlussplatte statt darunter?
+      sonst endet die startseite auf einem grauen streifen unter
+      der farbe, statt auf der farbe. */
+  aufLime?: boolean;
+}) {
   const locale = useLocale();
   const t = FUSS[locale];
 
   return (
-    <footer className="relative z-[1] mt-rh-m px-gut pb-rh-s">
+    <footer
+      className={aufLime ? "relative z-[1] mt-rh-m" : "relative z-[1] mt-rh-m px-gut pb-rh-s"}
+      data-auf-lime={aufLime ? "1" : "0"}
+    >
       <div className="mx-auto flex max-w-shell flex-wrap items-center justify-between gap-x-8 gap-y-4 border-t border-[var(--ln-hair)] pt-6">
         <span className="flex flex-wrap items-center gap-x-6 gap-y-2">
           {vorne}

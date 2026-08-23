@@ -25,10 +25,14 @@ export function Schluss({
   t,
   href,
   mail,
+  fuss,
 }: {
   t: SchlussT;
   href: string;
   mail: string;
+  /** die fusszeile sitzt IN der platte · sonst endet die seite auf
+      einem grauen streifen unter der farbe statt auf der farbe */
+  fuss?: React.ReactNode;
 }) {
   return (
     <section className="sl" data-no-reveal>
@@ -46,6 +50,8 @@ export function Schluss({
             </a>
           </span>
         </div>
+
+        {fuss}
       </div>
     </section>
   );

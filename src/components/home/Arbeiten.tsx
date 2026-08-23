@@ -21,6 +21,8 @@ import type { Referenz } from "@/data/referenzen";
 export type ArbeitenT = {
   /** ueberschrift der sektion · ein wort reicht */
   h2: string;
+  /** der weg auf die uebersicht */
+  alle: string;
 };
 
 export function Arbeiten({
@@ -53,10 +55,22 @@ export function Arbeiten({
                   {w.kategorieLabel}
                   {w.inArbeit ? " · in arbeit" : ""}
                 </span>
+                {/* die zeilen trugen ihre klickbarkeit NUR im hover
+                    (streifen-scale, farbwechsel) · auf dem handy
+                    waren es drei graue zeilen zwischen haarlinien,
+                    während dieselbe seite das pfeil-motiv am
+                    CMS-link schon benutzt. */}
+                <span className="ar-pfeil" aria-hidden>
+                  →
+                </span>
               </Link>
             </li>
           ))}
         </ul>
+
+        <Link className="ar-alle lab-link" href={href}>
+          {t.alle} →
+        </Link>
       </div>
     </section>
   );

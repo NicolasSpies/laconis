@@ -1529,3 +1529,20 @@
   outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
+
+/* ── die fusszeile IN der lime-schlussplatte ──────────────
+   die startseite endete auf 90-140px schwarzem streifen mit
+   10px grauer schrift · der letzte eindruck war eine graue
+   fusszeile, nicht die farbe. jetzt sitzt sie in der platte,
+   ink auf lime, und die seite endet auf der fläche, die enden
+   soll. */
+[data-auf-lime="1"] > div {
+  border-top-color: rgb(8 8 11 / 0.25);
+}
+[data-auf-lime="1"] .lab-label,
+[data-auf-lime="1"] .lab-label-lg {
+  color: rgb(8 8 11 / 0.72);
+}
+[data-auf-lime="1"] .lab-label-lg:hover {
+  color: #08080b;
+}
