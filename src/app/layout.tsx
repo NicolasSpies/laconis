@@ -31,10 +31,16 @@ import { getLocale } from "@/i18n/getLocale";
  *   mono    → Geist Mono · variable (npm-package, war schon lokal)
  *   hand    → Caveat · variable (wght 400-700, genutzt: 400)
  */
+/* P2 · Bricolage und Caveat rendern auf den VIER lebenden seiten
+   null elemente · sie hängen nur noch an /preview und
+   /web-performance-ostbelgien, also der alten oberfläche.
+   preload: false nimmt sie aus dem <head> jeder seite, ohne die
+   zwei alten kaputtzumachen · sie laden dort nach bedarf. */
 const displayFont = localFont({
   src: "../fonts/bricolage-grotesque-var.woff2",
   variable: "--font-display",
   display: "swap",
+  preload: false,
   weight: "200 800",
 });
 
@@ -52,6 +58,7 @@ const caveat = localFont({
   src: "../fonts/caveat-var.woff2",
   variable: "--font-caveat",
   display: "swap",
+  preload: false,
   weight: "400 700",
 });
 

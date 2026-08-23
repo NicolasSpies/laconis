@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { CONTACT } from "@/config/contact";
 import { STUDIO } from "@/components/studio/studio.dict";
-import { LEISTUNG } from "@/components/leistung/leistung.dict";
+import { EDITOR } from "@/components/leistung/editor.dict";
 import { useLocale } from "@/i18n/useLocale";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { DeviceFuss } from "@/components/device/DeviceFuss";
@@ -50,7 +50,7 @@ export function StudioDevice() {
   const t = STUDIO[locale];
   /* der editor bringt sein eigenes woerterbuch mit · zweimal
      pflegen hiesse, dass die beiden still auseinanderlaufen */
-  const editor = LEISTUNG[locale].editor;
+  const editor = EDITOR[locale];
 
   return (
     <div className="lab-root" data-no-reveal>

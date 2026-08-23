@@ -180,7 +180,10 @@
   h1,
   h2,
   h3 {
-    font-family: var(--font-display), system-ui, sans-serif;
+    /* war var(--font-display) · Bricolage. jedes heading ohne
+       eigene klasse fiel damit still in eine VIERTE schrift, die
+       auf den geräte-seiten sonst nicht vorkommt. */
+    font-family: var(--font-lab), system-ui, sans-serif;
     font-optical-sizing: auto;
   }
 

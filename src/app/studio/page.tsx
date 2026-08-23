@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { StudioDevice } from "@/components/studio/StudioDevice";
-import { LEISTUNG } from "@/components/leistung/leistung.dict";
+import { STUDIO } from "@/components/studio/studio.dict";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 import { ServiceSchema } from "@/components/seo/ServiceSchema";
 import { getMeta } from "@/lib/seo/getMeta";
@@ -46,14 +46,14 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function Page() {
   const locale = getLocale();
-  const t = LEISTUNG[locale];
+  const t = STUDIO[locale];
 
   return (
     <>
       <BreadcrumbSchema
         items={[
           { name: "home", url: `${BASE}/` },
-          { name: t.hero.kicker, url: `${BASE}${buildPath("leistung", locale)}` },
+          { name: t.kicker, url: `${BASE}${buildPath("leistung", locale)}` },
         ]}
       />
       <ServiceSchema services={SERVICES[locale]} />
