@@ -115,7 +115,7 @@ export const STUDIO: Record<Locale, StudioT> = {
     cmsLead: "Tape dedans. C'est réel.",
 
     personH2: "qui construit ça.",
-    bio: "Je suis Nicolas. Graphiste de formation, qui a appris à construire.",
+    bio: "Je suis Nicolas. La partie web de ma formation s'est faite avec WordPress · d'où la décision de tout construire moi-même aujourd'hui.",
     bioSub:
       "Pas d'agence, pas d'intermédiaire. Tu parles à celui qui construit. À côté, je mixe · trance, progressive, breakbeats.",
     portraitAlt: "poste de travail la nuit · la lumière vient de l'écran",
@@ -161,7 +161,7 @@ export const STUDIO: Record<Locale, StudioT> = {
     cmsLead: "Type in it. It's real.",
 
     personH2: "who builds this.",
-    bio: "I'm Nicolas. A trained graphic designer who learned to build.",
+    bio: "I'm Nicolas. The web part of my training ran on WordPress · that is where the decision to build everything myself comes from.",
     bioSub:
       "No agency, no middle layer. You talk to the person who builds. On the side I DJ · trance, progressive, breakbeats.",
     portraitAlt: "workspace at night · the light comes from the screen",

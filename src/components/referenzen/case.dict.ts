@@ -60,7 +60,7 @@ export const CASE: Record<Locale, CaseDict> = {
       altLink: "» Kontakt",
       altFoot: "Letzte Aktualisierung: 14.03.2009",
       neuTitle: "wir halten ihre bäume gesund.",
-      neuBody: "Ein Baumpfleger. Keine Agentur. Sechs Wörter, die sagen, was er tut · und nicht, was jeder Anbieter über sich sagen würde.",
+      neuBody: "Ein Baumpfleger. Keine Agentur. Fünf Wörter, die sagen, was er tut · und nicht, was jeder Anbieter über sich sagen würde.",
       hint: "Die Typografie führt hier das Argument. Kein Text musste erklären, was sich geändert hat.",
     },
 
@@ -105,7 +105,7 @@ export const CASE: Record<Locale, CaseDict> = {
       altLink: "» Kontakt",
       altFoot: "Letzte Aktualisierung: 14.03.2009",
       neuTitle: "wir halten ihre bäume gesund.",
-      neuBody: "Un élagueur. Pas une agence. Six mots qui disent ce qu'il fait · et pas ce que n'importe quel prestataire dirait de lui-même.",
+      neuBody: "Un élagueur. Pas une agence. Cinq mots qui disent ce qu'il fait · et pas ce que n'importe quel prestataire dirait de lui-même.",
       hint: "C'est la typographie qui porte l'argument ici. Aucun texte n'a eu besoin d'expliquer ce qui a changé.",
     },
 
@@ -150,7 +150,7 @@ export const CASE: Record<Locale, CaseDict> = {
       altLink: "» Kontakt",
       altFoot: "Letzte Aktualisierung: 14.03.2009",
       neuTitle: "wir halten ihre bäume gesund.",
-      neuBody: "One arborist. Not an agency. Six words that say what he does · and not what any provider would say about themselves.",
+      neuBody: "One arborist. Not an agency. Five words that say what he does · and not what any provider would say about themselves.",
       hint: "The typography carries the argument here. No copy had to explain what changed.",
     },
 

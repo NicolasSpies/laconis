@@ -52,7 +52,21 @@ export function ProjektAnsicht({
     let raf = 0;
     let last = 0;
     let dragging = false;
-    let startY = 0;
+    /* DIE GESTE LIEST DIE WAAGERECHTE, NICHT DIE SENKRECHTE.
+       vorher las sie die senkrechte, während .pv-wrap auf
+       touch-action: pan-y stand · der browser nimmt sich damit
+       genau diese achse und schickt pointercancel. auf dem handy
+       war das ziehen tot, während der hinweistext in allen drei
+       sprachen dazu auffordert. dieselbe ursache wie bei K6 am
+       projektstapel.
+
+       DORT war touch-action: none die lösung, HIER nicht: .st-buehne
+       ist auf 340px gedeckelt, .pv-wrap ist auf dem handy höher als
+       ein bildschirm (laptop 16/10 über die volle breite plus
+       handy darunter) · mit none käme niemand mehr daran vorbei.
+       die achse zu drehen kostet nichts und passt besser: die
+       fortschritts-schiene darunter läuft ohnehin waagerecht. */
+    let startX = 0;
     let startPos = 0;
 
     /* jede aufnahme darf nur um ihren ÜBERSTAND wandern, nicht um ihre
@@ -93,14 +107,15 @@ export function ProjektAnsicht({
     const onDown = (e: PointerEvent) => {
       dragging = true;
       setGrab(true);
-      startY = e.clientY;
+      startX = e.clientX;
       startPos = pos.current;
       el.setPointerCapture(e.pointerId);
     };
     const onMove = (e: PointerEvent) => {
       if (!dragging) return;
-      /* 420 px ziehen = einmal komplett durch die seite */
-      pos.current = Math.max(0, Math.min(1, startPos + (startY - e.clientY) / 420));
+      /* 420 px ziehen = einmal komplett durch die seite ·
+         nach links ziehen heisst vorwärts, wie an einer schiene */
+      pos.current = Math.max(0, Math.min(1, startPos + (startX - e.clientX) / 420));
       paint();
     };
     const onUp = () => {

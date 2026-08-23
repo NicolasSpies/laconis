@@ -114,7 +114,7 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
 
     ctaH2: "et le tien ?",
     ctaBody:
-      "Court échange, pas de pitch deck, ça ne coûte rien. Ensuite tu sais si je suis la bonne personne. Et sinon, je te le dis aussi.",
+      "Court échange, pas de pitch deck, ça ne coûte rien.",
     ctaPrimary: "écris-moi",
     ctaSecondary: "comment je travaille",
   },

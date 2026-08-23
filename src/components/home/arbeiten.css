@@ -76,11 +76,6 @@
   white-space: nowrap;
 }
 
-@media (max-width: 560px) {
-  .ar-zeile { grid-template-columns: 4px minmax(0, 1fr); }
-  .ar-art { grid-column: 2; }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .ar-strich, .ar-name { transition: none; }
 }

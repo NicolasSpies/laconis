@@ -172,8 +172,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kp-kicker, .kp-lead, .kp-uhr, .kp-hinweis, .kp-h1 {
+  /* .kp-uhr gibt es nicht mehr (G3) */
+  .kp-kicker, .kp-lead, .kp-hinweis, .kp-h1 {
     animation: none;
   }
-  .kp-feld { opacity: 0.35; }
+  /* HIER STAND `.kp-feld { opacity: 0.35 }`.
+     das ist genau der fehler, den ich mit K3 aus der basisregel
+     entfernt habe, nur im reduced-zweig übersehen: opacity auf
+     dem feld rechnet #e1fd52 gegen #08080b und macht daraus rund
+     #555f29 · noch olivener als die 0.5, die vorher da stand.
+     das standbild zeigt dieselbe szene wie die animierte fassung,
+     es bewegt sich nur nicht — es gibt keinen grund, es dunkler
+     zu machen. */
 }

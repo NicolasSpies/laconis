@@ -45,61 +45,61 @@ const nextConfig = {
          seite · dort steht das web-angebot, um das es geht. */
       {
         source: "/leistungen/branding",
-        destination: "/leistung",
+        destination: "/studio",
         permanent: true,
       },
       {
         source: "/leistungen/grafik",
-        destination: "/leistung",
+        destination: "/studio",
         permanent: true,
       },
       {
         source: "/leistungen/grafik/:path*",
-        destination: "/leistung",
+        destination: "/studio",
         permanent: true,
       },
       {
         source: "/fr/services/branding",
-        destination: "/fr/prestation",
+        destination: "/fr/studio",
         permanent: true,
       },
       {
         source: "/en/services/branding",
-        destination: "/en/service",
+        destination: "/en/studio",
         permanent: true,
       },
       // Übersichts-page entfernt 2026-05 · nav-dropdown ersetzt sie
       // alte deep-links → primary service (/leistungen/web)
       {
         source: "/leistungen",
-        destination: "/leistung",
+        destination: "/studio",
         permanent: true,
       },
       {
         source: "/fr/services",
-        destination: "/fr/prestation",
+        destination: "/fr/studio",
         permanent: true,
       },
       {
         source: "/en/services",
-        destination: "/en/service",
+        destination: "/en/studio",
         permanent: true,
       },
       // /ansatz aufgelöst (2026-06) · inhalte verteilt: 4-schritte →
       // leistung, nicht-liste → /preise, haltung → /ueber-mich
       {
         source: "/ansatz",
-        destination: "/leistung",
+        destination: "/studio",
         permanent: true,
       },
       {
         source: "/fr/approche",
-        destination: "/fr/prestation",
+        destination: "/fr/studio",
         permanent: true,
       },
       {
         source: "/en/approach",
-        destination: "/en/service",
+        destination: "/en/studio",
         permanent: true,
       },
       /* 2026-08 · /leistungen/web + .../technik zusammengelegt zu EINER
@@ -108,32 +108,32 @@ const nextConfig = {
          rewrites, die alten alias-urls sind damit auch abgedeckt. */
       {
         source: "/leistungen/web/technik",
-        destination: "/leistung",
+        destination: "/studio",
         permanent: true,
       },
       {
         source: "/leistungen/web",
-        destination: "/leistung",
+        destination: "/studio",
         permanent: true,
       },
       {
         source: "/fr/services/web/technique",
-        destination: "/fr/prestation",
+        destination: "/fr/studio",
         permanent: true,
       },
       {
         source: "/fr/services/web",
-        destination: "/fr/prestation",
+        destination: "/fr/studio",
         permanent: true,
       },
       {
         source: "/en/services/web/tech",
-        destination: "/en/service",
+        destination: "/en/studio",
         permanent: true,
       },
       {
         source: "/en/services/web",
-        destination: "/en/service",
+        destination: "/en/studio",
         permanent: true,
       },
     ];

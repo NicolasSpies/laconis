@@ -122,7 +122,7 @@ const STATIC_MAP: Record<string, MetaByLocale> = {
   "/kontakt": {
     de: {
       title: "kontakt",
-      description: "projekt besprechen · direkt mit mir. e-mail, call buchen, oder kurz das projekt-formular ausfüllen.",
+      description: "projekt besprechen · direkt mit mir. e-mail oder kurz das projekt-formular ausfüllen, es landet in meinem postfach.",
       ogTitle: "kontakt · lacønis",
       ogDescription: "projekt besprechen · direkt mit mir.",
     },
