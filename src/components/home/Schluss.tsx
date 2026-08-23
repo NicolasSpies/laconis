@@ -1,4 +1,5 @@
 import Link from "next/link";
+import "@/components/home/schluss.css";
 
 /**
  * Schluss · die Lime-Vollplatte.

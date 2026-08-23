@@ -1575,3 +1575,51 @@
 @media (prefers-reduced-motion: reduce) {
   .lab-menu-item[data-on="1"]::before { animation: none; opacity: 1; }
 }
+
+/* ══ ZEILENLISTE · label links, halbsatz rechts ════════════
+   lag bis august 2026 in studio.css und hiess .st-weg. seit
+   /kontakt dieselbe form benutzt (statt der kachelliste, die
+   dort stand), gehört sie hierher · sonst rendert die zweite
+   seite die liste ungestylt, label und text ohne trennung
+   ineinander. genau das ist passiert. */
+/* ── der weg · zeilen, keine kacheln ────────────────────── */
+
+.st-weg {
+  margin: clamp(24px, 3vw, 40px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.st-weg-zeile {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+  gap: clamp(16px, 2.4vw, 40px);
+  align-items: baseline;
+  padding: clamp(18px, 2.4vw, 30px) 0;
+  border-top: 1px solid var(--ln-hair);
+}
+.st-weg:last-child .st-weg-zeile:last-child {
+  border-bottom: 1px solid var(--ln-hair);
+}
+
+.st-weg-wo {
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-size: var(--fs-title);
+  font-weight: 700;
+  font-stretch: var(--wd-mid);
+  letter-spacing: var(--ls-mid);
+  text-transform: lowercase;
+  color: var(--tx-1);
+}
+.st-weg-was {
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--tx-3);
+}
+
+@media (max-width: 860px) {
+  .st-weg-zeile {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-3);
+  }
+}

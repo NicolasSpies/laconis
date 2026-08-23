@@ -5,6 +5,7 @@ import { DeviceNav } from "@/components/device/DeviceNav";
 import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { HeroRail } from "@/components/device/HeroRail";
 import { Stapel } from "@/components/referenzen/Stapel";
+import { Kammer } from "@/components/home/Kammer";
 import { REFERENZEN } from "@/components/referenzen/referenzen.dict";
 import { referenzen } from "@/data/referenzen";
 import { useLocale } from "@/i18n/useLocale";
@@ -87,15 +88,15 @@ export function ReferenzenDevice() {
         </div>
       </section>
 
-      {/* ═══ EHRLICH · ein satz, mehr braucht es nicht ═══ */}
-      <section data-no-reveal className="relative px-gut pb-rh-m">
-        <div className="mx-auto max-w-shell">
-          <h2 className="lab-display max-w-[13ch] text-headline">{t.honestH2}</h2>
-          <p className="mt-7 max-w-[560px] text-lead leading-[1.6] text-[rgba(242,242,242,0.7)]">
-            {t.honestBody}
-          </p>
-        </div>
-      </section>
+      {/* ═══ EHRLICH · und zugleich der helle schnitt dieser seite
+          hier stand derselbe satz auf schwarz wie alles davor ·
+          /arbeiten hatte keine einzige helle fläche. der ehrliche
+          satz ist der richtige moment dafür: er ist das, was man
+          sich merken soll. ═══ */}
+      <Kammer
+        t={{ satz: t.honestH2, betont: "", body: t.honestBody }}
+        variante="bahn"
+      />
 
       {/* ═══ SCHLUSS ═══ */}
       <section data-no-reveal className="relative px-gut pb-rh-l">

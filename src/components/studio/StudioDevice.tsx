@@ -9,6 +9,7 @@ import { useLocale } from "@/i18n/useLocale";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { Kammer } from "@/components/home/Kammer";
+import { Zeilenliste } from "@/components/device/Zeilenliste";
 import { LiveEditor } from "@/components/leistung/LiveEditor";
 import { Schluss } from "@/components/home/Schluss";
 import { buildPath } from "@/i18n/config";
@@ -65,8 +66,6 @@ export function StudioDevice() {
         </div>
       </section>
 
-      <Kammer t={t.kammer} />
-
       {/* ═══ DAS CMS · anfassen statt lesen ═══ */}
       <section className="st-block" data-no-reveal>
         <div className="st-innen">
@@ -105,18 +104,17 @@ export function StudioDevice() {
         </div>
       </section>
 
+      {/* die helle bahn steht hier, NICHT auf position zwei · dort
+          hätte sie an derselben stelle und in derselben höhe
+          gestanden wie auf der startseite. ein schnitt, der sich
+          wiederholt, ist kein schnitt mehr. */}
+      <Kammer t={t.kammer} variante="bahn" />
+
       {/* ═══ DER WEG · zeilen, keine kacheln ═══ */}
       <section className="st-block" data-no-reveal>
         <div className="st-innen">
           <h2 className="st-h2">{t.wegH2}</h2>
-          <ul className="st-weg">
-            {t.weg.map(([wo, was]) => (
-              <li key={wo} className="st-weg-zeile">
-                <span className="st-weg-wo">{wo}</span>
-                <span className="st-weg-was">{was}</span>
-              </li>
-            ))}
-          </ul>
+          <Zeilenliste eintraege={t.weg} />
         </div>
       </section>
 

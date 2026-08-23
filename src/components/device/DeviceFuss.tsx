@@ -5,6 +5,7 @@ import { CONTACT } from "@/config/contact";
 import { buildPath } from "@/i18n/config";
 import { useLocale } from "@/i18n/useLocale";
 import type { Locale } from "@/i18n/config";
+import "@/components/device/device.css";
 
 /**
  * DeviceFuss · die eine fusszeile aller geräte-seiten.

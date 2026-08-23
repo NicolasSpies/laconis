@@ -14,10 +14,32 @@
   color: #0a0a0a;
 }
 
-.ka-satz {
+/* die schmale bahn · dieselbe farbe, halbe höhe. so ist der
+   schnitt auf jeder seite erkennbar derselbe und trotzdem nicht
+   dieselbe geste. */
+.ka[data-variante="bahn"] {
+  min-height: 0;
+  padding-block: var(--rh-m);
+}
+
+.ka-innen {
   width: 100%;
   max-width: var(--shell);
   margin-inline: auto;
+}
+
+.ka-body {
+  margin: clamp(20px, 2.4vw, 34px) 0 0;
+  max-width: 52ch;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  color: rgb(10 10 10 / 0.66);
+  text-wrap: pretty;
+}
+
+.ka-satz {
+  width: 100%;
+  margin: 0;
   font-family: var(--font-lab), system-ui, sans-serif;
   font-size: var(--fs-headline);
   font-weight: 700;

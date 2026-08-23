@@ -5,6 +5,8 @@ import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { HeroRail } from "@/components/device/HeroRail";
 import { HeroAtmo } from "@/components/device/HeroAtmo";
 import { KontaktKonsole } from "@/components/kontakt/KontaktKonsole";
+import { Kammer } from "@/components/home/Kammer";
+import { Zeilenliste } from "@/components/device/Zeilenliste";
 import { KONTAKT } from "@/components/kontakt/kontakt.dict";
 import { CONTACT } from "@/config/contact";
 import { useLocale } from "@/i18n/useLocale";
@@ -94,24 +96,22 @@ export function KontaktDevice() {
         </div>
       </section>
 
-      {/* ═══ WAS DANACH PASSIERT · ruhig ═══ */}
+      {/* die helle bahn dieser seite · /kontakt hatte keine
+          einzige. sie sitzt zwischen konsole und ablauf, also an
+          anderer stelle als auf home und /studio. */}
+      <Kammer t={t.kammer} variante="bahn" />
+
+      {/* ═══ WAS DANACH PASSIERT · zeilen, keine kacheln ═══
+          hier stand `grid md:grid-cols-3` mit <h3> plus <p> pro
+          zelle · der standardblock, wörtlich, am ende einer seite,
+          die sonst als gerät gebaut ist. /studio löste dieselbe
+          datenform längst als zeilenliste. */}
       <section data-no-reveal className="relative px-gut pb-rh-m">
         <div className="mx-auto max-w-shell">
           <h2 className="lab-display max-w-[14ch] text-headline">{t.danachH2}</h2>
 
-          <div className="mt-12 grid gap-x-16 md:grid-cols-3">
-            {t.danach.map(([title, body]) => (
-              <div key={title} className="lx-row">
-                <div>
-                  <h3 className="text-[17px] font-medium tracking-[-0.01em] text-[#f2f2f2]">
-                    {title}
-                  </h3>
-                  <p className="mt-2 max-w-[42ch] text-body-sm leading-relaxed text-[rgba(242,242,242,0.5)]">
-                    {body}
-                  </p>
-                </div>
-              </div>
-            ))}
+          <div className="mt-12">
+            <Zeilenliste eintraege={t.danach} />
           </div>
 
           <DeviceFuss />

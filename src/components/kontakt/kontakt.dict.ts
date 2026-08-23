@@ -25,6 +25,7 @@ export type KontaktDict = {
   konsoleLead: string;
   konsole: KonsoleT;
 
+  kammer: { satz: string; betont: string };
   danachH2: string;
   danach: [string, string][];
 };
@@ -70,11 +71,12 @@ export const KONTAKT: Record<Locale, KontaktDict> = {
         "Der Versand hat nicht geklappt. Schreib mir stattdessen direkt an nicolas@laconis.be, dann geht nichts verloren.",
     },
 
+    kammer: { satz: "und wenn ich nicht der richtige bin,", betont: "sage ich dir das." },
     danachH2: "was danach passiert.",
     danach: [
-      ["ich lese", "Deine Nachricht landet in meinem Postfach, nicht in einem Ticket-System. Es gibt keine Zwischenschicht, die vorsortiert."],
-      ["ich melde mich", "Ein kurzes Gespräch, damit ich verstehe, was du wirklich brauchst. Kein Pitch-Deck, keine Präsentation."],
-      ["du kriegst eine zahl", "Ein konkretes Angebot, schriftlich, ohne Kleingedrucktes. Und wenn ich nicht der richtige bin, sage ich dir das statt dir etwas zu verkaufen."],
+      ["ich lese", "Direkt, ohne Zwischenschicht, die vorsortiert."],
+      ["ich melde mich", "Ein kurzes Gespräch, kein Pitch-Deck."],
+      ["du kriegst eine zahl", "Ein festes Angebot, schriftlich, ohne Kleingedrucktes."],
     ],
   },
 
@@ -118,11 +120,12 @@ export const KONTAKT: Record<Locale, KontaktDict> = {
         "L'envoi n'a pas fonctionné. Écris-moi plutôt directement à nicolas@laconis.be, comme ça rien ne se perd.",
     },
 
+    kammer: { satz: "et si je ne suis pas le bon,", betont: "je te le dis." },
     danachH2: "ce qui se passe ensuite.",
     danach: [
-      ["je lis", "Ton message arrive dans ma boîte, pas dans un système de tickets. Il n'y a pas d'intermédiaire qui trie avant."],
-      ["je te réponds", "Un court échange, pour que je comprenne ce dont tu as vraiment besoin. Pas de pitch deck, pas de présentation."],
-      ["tu reçois un chiffre", "Une offre concrète, par écrit, sans petits caractères. Et si je ne suis pas le bon, je te le dis au lieu de te vendre quelque chose."],
+      ["je lis", "Directement, sans intermédiaire qui trie avant."],
+      ["je te réponds", "Un court échange, pas de pitch deck."],
+      ["tu reçois un chiffre", "Une offre ferme, par écrit, sans petits caractères."],
     ],
   },
 
@@ -166,11 +169,12 @@ export const KONTAKT: Record<Locale, KontaktDict> = {
         "Sending didn't work. Write to me directly at nicolas@laconis.be instead, then nothing gets lost.",
     },
 
+    kammer: { satz: "and if i'm not the right person,", betont: "i'll tell you." },
     danachH2: "what happens next.",
     danach: [
-      ["i read it", "Your message lands in my inbox, not in a ticket system. There's no middle layer pre-sorting it."],
-      ["i get back to you", "A short conversation so i understand what you actually need. No pitch deck, no presentation."],
-      ["you get a number", "A concrete offer, in writing, without small print. And if i'm not the right person, i'll tell you instead of selling you something."],
+      ["i read it", "Directly, with no middle layer pre-sorting it."],
+      ["i get back to you", "A short conversation, no pitch deck."],
+      ["you get a number", "A firm offer, in writing, without small print."],
     ],
   },
 };
