@@ -4,11 +4,19 @@
   "description": "freelance design + web development aus Eupen, Belgien.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0d0f0f",
-  "theme_color": "#0d0f0f",
+  "background_color": "#08080b",
+  "theme_color": "#08080b",
   "lang": "de-BE",
   "icons": [
-    { "src": "/icon", "sizes": "32x32", "type": "image/png" },
-    { "src": "/apple-icon", "sizes": "180x180", "type": "image/png" }
+    {
+      "src": "/icon",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-icon",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
   ]
 }

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
@@ -112,9 +112,13 @@ export const metadata: Metadata = {
   },
 };
 
-/* sprint-5-rework: theme-toggle entfernt · site ist jetzt light-first.
-   einzelne sections können sich via `<div data-theme="dark">` als
-   dark-island überschreiben. kein localStorage, kein system-pref-listen. */
+/* august 2026: light-first war ein relikt · die seite ist dunkel,
+   die EINE helle fläche (kammer) trägt ihre farbe selbst. der root
+   ist wieder der dunkle default aus :root. einzelne sections können
+   sich weiterhin via `<div data-theme="light">` aufhellen. */
+export const viewport: Viewport = {
+  themeColor: "#08080b",
+};
 
 export default function RootLayout({
   children,
@@ -130,7 +134,6 @@ export default function RootLayout({
   return (
     <html
       lang={htmlLang}
-      data-theme="light"
       suppressHydrationWarning
       className={`${displayFont.variable} ${sansFont.variable} ${monoFont.variable} ${caveat.variable} ${labDisplay.variable}`}
     >

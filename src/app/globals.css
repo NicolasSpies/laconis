@@ -13,7 +13,7 @@
     --accent-text: 225 253 82;
 
     --bg: 26 26 26; /* #1A1A1A page bg */
-    --bg-root: 0 0 0; /* deepest shell behind everything */
+    --bg-root: 8 8 11; /* = --su-void · der grund hinter allem */
     --surface: 20 20 20; /* elevated surfaces */
     --surface-elev: 24 24 24;
 
@@ -139,6 +139,14 @@
 
   html {
     background: rgb(var(--bg-root));
+    /* K2 · vorher stand data-theme="light" fest am <html>, also
+       lag hinter einer durchgehend dunklen seite ein papierton
+       (#e9e9e7). sichtbar wurde das beim rubber-band-overscroll,
+       im first paint und in der mobilen browserleiste. dazu
+       kämpfte er gegen body{text-offwhite} · heller text auf
+       hellem grund, überall wo eine seite sich nicht selbst
+       schwarz malt. */
+    overscroll-behavior-y: none;
     transition: background 0.35s ease;
     /* clip statt hidden · lässt position:sticky funktionieren, clippt aber
        weiterhin horizontal-overflow. wichtig für den pinned referenzen-track. */
@@ -327,6 +335,13 @@
   --fg-rgb: 242 242 242;
 
   /* aliase für die komponenten-css · ersetzen 21× var(--lime) und 25× var(--lila) */
+  /* K1 · sechs regeln schrieben font-family: var(--font-mono) ·
+     die variable war im ganzen repo NIRGENDS definiert. sie
+     liefen alle in der systemschrift, und niemand hat es
+     gemerkt, weil ui-monospace als fallback danebenstand.
+     layout.tsx setzt --font-geist-mono. */
+  --font-mono: var(--font-geist-mono);
+
   --lime: rgb(var(--accent));
   --lila: rgb(var(--accent-2));
   --focus: var(--lila);
