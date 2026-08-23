@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 /**
  * KontaktKonsole · das formular als sendekonsole.
@@ -251,22 +250,25 @@ export function KontaktKonsole({ t }: { t: KonsoleT }) {
           </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-6">
-            <div className="lab-guard-housing relative" style={{ perspective: "620px" }}>
-              <motion.button
+            <div className="lab-guard-housing relative">
+              {/* die klappe lief über eine framer-feder · die hat
+                  prefers-reduced-motion ignoriert und kippte auch
+                  dann um 108°, wenn die seite sonst stillstand.
+                  jetzt CSS-transition am data-attribut, dasselbe
+                  muster wie .kx-lock direkt darunter. */}
+              <button
                 type="button"
                 aria-label={phase === "closed" ? t.guardClosed : t.guardOpen}
                 disabled={!unlocked}
                 onClick={() => setPhase((p) => (p === "closed" ? "armed" : "closed"))}
                 className="lab-guard-lid"
-                animate={{ rotateX: phase === "closed" ? 0 : -108 }}
-                transition={{ type: "spring", stiffness: 260, damping: 20, mass: 0.7 }}
-                style={{ transformOrigin: "top center", transformStyle: "preserve-3d" }}
+                data-zu={phase === "closed" ? "1" : "0"}
               >
                 <span className="lab-guard-stripes" aria-hidden />
                 <span className="lab-label" style={{ color: "rgba(10,10,10,0.75)" }}>
                   {phase === "closed" ? t.guardClosed : ""}
                 </span>
-              </motion.button>
+              </button>
 
               <button
                 type="submit"
@@ -289,18 +291,16 @@ export function KontaktKonsole({ t }: { t: KonsoleT }) {
               </span>
             </div>
 
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={phase}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.22 }}
-                className="lab-hint max-w-[240px] text-body-sm leading-relaxed"
-              >
-                {phase === "error" ? t.errorBody : unlocked ? t.readyHint : t.lockedHint}
-              </motion.p>
-            </AnimatePresence>
+            {/* der key wechselt mit der phase · react hängt das
+                element neu ein und die CSS-animation läuft von
+                selbst wieder an. eine ausblende gibt es nicht mehr,
+                die war 48 kB nicht wert. */}
+            <p
+              key={phase}
+              className="kx-hinweis lab-hint max-w-[240px] text-body-sm leading-relaxed"
+            >
+              {phase === "error" ? t.errorBody : unlocked ? t.readyHint : t.lockedHint}
+            </p>
           </div>
 
           {phase === "error" && (
