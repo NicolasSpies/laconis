@@ -23,6 +23,46 @@ vergiss nicht den rest danach noch zu machen."
 
 **Damit ist die Liste vollständig durch.**
 
+---
+
+## Nachlauf · Regressionsprüfung (24.08.2026)
+
+Nach den 20 Commits eine adversarisch geprüfte Analyse über fünf
+Dimensionen: 61 Befunde, **45 haben die Gegenprüfung überstanden**, 16
+wurden widerlegt. Alle 45 sind abgearbeitet.
+
+**Sieben davon waren Regressionen aus dieser Runde selbst:**
+1. **Das Menü war unbenutzbar.** Der G14-Fix setzte `inert` auf
+   `.lab-root` — und `DeviceNav` wird *darin* gerendert. Das Menü erbte
+   sein eigenes `inert`: kein Klick, kein Fokus. Gemessen: erster Link
+   nicht fokussierbar, Fokus auf `BODY`. Mein Test damals hatte nur die
+   `href`s gelesen, nie geklickt.
+2. **Das Portrait-CSS ging mit der Arbeitsnotiz mit** — der Schnitt für
+   `.st-portrait-note` suchte die Leerzeile *davor* und nahm
+   `.st-portrait` samt `img`-Regel mit.
+3. **Zwei Fusszeilen** auf den Rechtsseiten, Mailadresse dreimal.
+4. **Die Fusszeile in einer zweiten Schale** → 936 statt 1080 px auf
+   drei Seiten. Derselbe Fehler, den K14 an anderer Stelle behob.
+5. **/studio endete auf dunklem Streifen** unter der Lime-Platte.
+6. **Die Ehrlich-Sektion verlor ihre Überschrift** beim Umbau auf Kammer.
+7. **`reduced-motion` griff auf der neuen Knopffamilie nicht** — die
+   Regeln zeigten noch auf `.sl-key`/`.st-key`.
+
+**Der schwerste Befund insgesamt:** jede FR- und EN-Seite trug einen
+Canonical auf die *deutsche* URL und wies Google damit an, sie nicht zu
+indexieren. Dazu hatten `/studio`, `/arbeiten` und die Case-Seiten
+**null** hreflang-Tags, weil `pathToRouteKey()` gegen die ROUTES-*Keys*
+prüfte, während der Relaunch die *Slugs* umgestellt hatte.
+
+**P4 musste zweimal gemacht werden.** Commit `fdc49b0` trägt die
+Botschaft, enthält aber keine Quelldatei — nur `.claude/launch.json` und
+`.playwright-mcp/`-Artefakte. Der Arbeitsbaum wurde zwischen der
+Browser-Prüfung (die die Fixes live gemessen hatte) und dem Commit
+zurückgesetzt; kein Stash, kein Reset im Reflog, keine Hooks. Parallel
+lief ein `playwright-mcp`-Prozess auf demselben Repo. Neu gemacht und
+diesmal **vor** dem Commit gegengezählt.
+
+
 Nachtrag zu **P4** (24.08., eigene Runde): alle vier Schleifen gebremst.
 Zwei Behauptungen der Liste stimmten so nicht — `ShaderField` hatte
 längst einen IntersectionObserver und zeichnete bei reduced-motion
