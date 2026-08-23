@@ -165,7 +165,7 @@ export default function Page() {
         <LegalRow k={t.kSitz} v={locale === "fr" ? "Eupen, Belgique" : locale === "en" ? "Eupen, Belgium" : "Eupen, Belgien"} />
         <LegalRow
           k={t.kAnschrift}
-          v={<span className="text-[#0a0a0a]/55">{t.vAnschrift}</span>}
+          v={<span className="text-[color:var(--tx-3)]">{t.vAnschrift}</span>}
         />
         <LegalRow
           k={t.kMail}
@@ -187,11 +187,11 @@ export default function Page() {
 
       <LegalSection titel={t.s3Title} aside={t.s3Aside}>
         <p>
-          <strong className="text-[#0a0a0a]">{t.s3p1Bold}</strong>
+          <strong className="text-[color:var(--tx-1)]">{t.s3p1Bold}</strong>
           {t.s3p1}
         </p>
         <p>
-          <strong className="text-[#0a0a0a]">{t.s3p2Bold}</strong>
+          <strong className="text-[color:var(--tx-1)]">{t.s3p2Bold}</strong>
           {t.s3p2}
         </p>
       </LegalSection>
@@ -216,7 +216,7 @@ export default function Page() {
         </p>
       </LegalSection>
 
-      <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55 pt-6 border-t border-[#0a0a0a]/12">
+      <p className="font-mono text-[10px] uppercase tracking-label text-[color:var(--tx-3)] pt-6 border-t border-[var(--ln-hair)]">
         {t.stand}
       </p>
     </LegalLayout>

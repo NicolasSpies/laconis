@@ -25,7 +25,12 @@
 /* der versatz der zeilenanfänge · in em der schriftgrösse gerechnet,
    damit er auf jedem schirm gleich proportioniert bleibt. bewusst
    unregelmässig und wiederholend, wie von hand gesetzt. */
-const INDENTS = [1.4, -0.6, 2.6, 2.9, 0.4, 1.9, 2.1, 0.9];
+/* der zweite wert war -0.6em · bei bis zu 96px schrift plus dem
+   negativen margin von .aq--versetzt lag die zeile bei 1280px
+   (13-zoll-standardbreite) auf -20,8px und wurde von
+   html{overflow-x:clip} lautlos abgeschnitten. der versatz lebt
+   von den POSITIVEN werten, der eine negative war nie nötig. */
+const INDENTS = [1.4, 0.2, 2.6, 2.9, 0.4, 1.9, 2.1, 0.9];
 
 export function ArtQuote({
   lines,

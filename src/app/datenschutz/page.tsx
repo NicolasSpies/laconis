@@ -233,15 +233,15 @@ export default function Page() {
 
       <LegalSection titel={t.s2Title} aside={t.s2Aside}>
         <p>
-          <strong className="text-[#0a0a0a]">{t.s2p1Bold}</strong>
+          <strong className="text-[color:var(--tx-1)]">{t.s2p1Bold}</strong>
           {t.s2p1}
         </p>
         <p>
-          <strong className="text-[#0a0a0a]">{t.s2p2Bold}</strong>
+          <strong className="text-[color:var(--tx-1)]">{t.s2p2Bold}</strong>
           {t.s2p2}
         </p>
         <p>
-          <strong className="text-[#0a0a0a]">{t.s2p3Bold}</strong>
+          <strong className="text-[color:var(--tx-1)]">{t.s2p3Bold}</strong>
           {t.s2p3}
         </p>
       </LegalSection>
@@ -252,10 +252,10 @@ export default function Page() {
 
       <LegalSection titel={t.s4Title} aside={t.s4Aside}>
         <p>{t.s4Intro}</p>
-        <ul className="list-disc pl-5 space-y-1.5 text-[#0a0a0a]/80">
+        <ul className="list-disc pl-5 space-y-1.5 text-[color:var(--tx-2)]">
           {t.s4Items.map((item, i) => (
             <li key={i}>
-              <strong className="text-[#0a0a0a]">{item.bold}</strong>
+              <strong className="text-[color:var(--tx-1)]">{item.bold}</strong>
               {item.rest}
             </li>
           ))}
@@ -264,7 +264,7 @@ export default function Page() {
 
       <LegalSection titel={t.s5Title} aside={t.s5Aside}>
         <p>{t.s5Lead}</p>
-        <ul className="list-disc pl-5 space-y-1.5 text-[#0a0a0a]/80">
+        <ul className="list-disc pl-5 space-y-1.5 text-[color:var(--tx-2)]">
           {t.s5Items.map((item, i) => (
             <li key={i}>{item}</li>
           ))}
@@ -289,7 +289,7 @@ export default function Page() {
         <p>{t.s7Body}</p>
       </LegalSection>
 
-      <p className="font-mono text-[10px] uppercase tracking-label text-[#0a0a0a]/55 pt-6 border-t border-[#0a0a0a]/12">
+      <p className="font-mono text-[10px] uppercase tracking-label text-[color:var(--tx-3)] pt-6 border-t border-[var(--ln-hair)]">
         {t.stand}
       </p>
     </LegalLayout>

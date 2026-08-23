@@ -364,8 +364,17 @@
   /* ── text · 4 stufen ── heute 37 verschiedene alphas */
   --tx-1: rgb(var(--fg-rgb) / 1);
   --tx-2: rgb(var(--fg-rgb) / 0.72);
-  --tx-3: rgb(var(--fg-rgb) / 0.46);
-  --tx-4: rgb(var(--fg-rgb) / 0.3);
+  /* auf #08080b lag --tx-3 bei 4,26:1 und --tx-4 bei 2,42:1 ·
+     beide unter der 4,5:1-grenze für text unter 18px, und --tx-4
+     trägt die kategorie jeder arbeit auf der startseite bei 10px.
+     jetzt 6,2:1 und 5,2:1 · die stufen bleiben unterscheidbar. */
+  --tx-3: rgb(var(--fg-rgb) / 0.58);
+  --tx-4: rgb(var(--fg-rgb) / 0.52);
+
+  /* wo --tx-4 nur DEKORATION trug (striche, punkte, ruhende
+     kanten), gilt die textgrenze nicht · dafür ein eigener token,
+     damit die aufhellung nicht auch die zierlinien laut macht */
+  --ln-deko: rgb(var(--fg-rgb) / 0.3);
 
   /* ── radien · 4 + pille ── heute 16 werte von 2 bis 26px.
      border-radius:50% und die 1-2px kantenbrüche an mikro-elementen

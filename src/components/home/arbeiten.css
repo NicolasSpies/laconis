@@ -46,7 +46,10 @@
 .ar-strich {
   align-self: stretch;
   min-height: 1.4em;
-  background: var(--f, var(--tx-4));
+  /* dekoration, kein text · deshalb --ln-deko statt --tx-4.
+     die textstufen wurden für die 4,5:1-grenze aufgehellt, der
+     ruhende farbstrich soll davon nicht laut werden. */
+  background: var(--f, var(--ln-deko));
   border-radius: 2px;
   transition: transform var(--t-2) var(--ease);
 }

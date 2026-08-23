@@ -115,7 +115,12 @@
   position: relative;
   height: calc(340px * var(--s));
   cursor: grab;
-  touch-action: pan-y;
+  /* war pan-y · die geste wertet AUSSCHLIESSLICH die senkrechte
+     aus, der browser nahm sich dieselbe achse und schickte
+     pointercancel. auf dem handy blieb vom stapel nur die
+     atmung, während der hinweis "ziehen · klicken" daneben
+     stand. */
+  touch-action: none;
 }
 .st-buehne:active { cursor: grabbing; }
 
@@ -345,7 +350,7 @@
   font-size: var(--fs-label);
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
-  color: rgba(242, 242, 242, 0.4);
+  color: rgba(242, 242, 242, 0.6);
 }
 
 .st-led {

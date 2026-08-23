@@ -83,7 +83,9 @@
 .lab-hint {
   font-size: var(--fs-body-sm);
   line-height: 1.4;
-  color: rgba(242, 242, 242, 0.38);
+  /* trug alle CTA-texte und "name und e-mail entriegeln den
+     knopf" bei 3,23:1 · jetzt 6,7:1 */
+  color: rgba(242, 242, 242, 0.6);
 }
 
 .lab-readout-value {
@@ -598,10 +600,14 @@
   z-index: 1;
   border-radius: 8px;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 11px;
+  font-size: var(--fs-label);
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
-  color: rgba(242, 242, 242, 0.35);
+  /* der gesperrte zustand ERKLÄRT, was noch fehlt ("name und
+     e-mail entriegeln den knopf") · bei 2,90:1 liest das niemand.
+     gesperrte bedienelemente sind von der kontrastregel zwar
+     ausgenommen, aber diese hier trägt die anleitung. */
+  color: rgba(242, 242, 242, 0.62);
   background: linear-gradient(180deg, #262626, #141414);
   box-shadow:
     inset 0 1px 0 rgba(242, 242, 242, 0.12),
@@ -844,9 +850,10 @@
 
 .lab-menu-meta {
   font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 10px;
+  font-size: var(--fs-label);
   letter-spacing: var(--ls-label);
-  color: rgba(242, 242, 242, 0.32);
+  /* die EINZIGE erklärung im hauptmenü stand bei 2,60:1 */
+  color: rgba(242, 242, 242, 0.62);
   margin-left: auto;
   flex-shrink: 0;
   display: none;

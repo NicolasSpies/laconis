@@ -161,8 +161,8 @@ export function LiveEditor({ t }: { t: T }) {
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-[3px]" style={{ background: a.css }} aria-hidden />
             <span
-              className="font-mono text-[9px] uppercase tracking-[0.18em]"
-              style={{ color: "rgba(10,10,10,0.45)" }}
+              className="font-mono text-label uppercase"
+              style={{ color: "rgba(10,10,10,0.7)" }}
             >
               contentcore
             </span>

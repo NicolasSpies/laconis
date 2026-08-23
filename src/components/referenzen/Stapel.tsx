@@ -95,6 +95,9 @@ export function Stapel({
   };
 
   const onDown = (ev: React.PointerEvent) => {
+    /* zusammen mit touch-action:none · sonst scrollt die seite
+       unter dem finger weg, statt den stapel aufzufächern */
+    ev.preventDefault();
     (ev.currentTarget as HTMLElement).setPointerCapture(ev.pointerId);
     griff.current = { y: ev.clientY, z: ziel.current, weit: 0 };
     lauf();

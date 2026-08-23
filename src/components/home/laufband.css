@@ -60,5 +60,14 @@
     padding-inline: var(--gutter);
   }
   .lb-spur:last-child { display: none; }
-  .lb-spur { flex-wrap: wrap; }
+  /* flex-wrap allein reicht NICHT · .lb-spur hat flex-shrink: 0,
+     behält also seine max-content-breite, der umbruch greift nie
+     und .lb { overflow: hidden } schneidet ab. bei 375px ist
+     schon die erste phrase breiter als die fläche. */
+  .lb-spur {
+    flex-wrap: wrap;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  .lb-wort { white-space: normal; }
 }
