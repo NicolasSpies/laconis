@@ -114,7 +114,7 @@ export function LegalSection({
       {/* die randnotiz stand vorher in handschrift und leicht gedreht ·
           jetzt ist sie einfach eine leise spalte */}
       {aside && (
-        <aside className="text-body-sm leading-relaxed text-[rgba(242,242,242,0.45)] md:border-l md:border-[rgba(242,242,242,0.1)] md:pl-6 md:pt-1">
+        <aside className="text-body-sm leading-relaxed text-[var(--tx-3)] md:border-l md:border-[rgba(242,242,242,0.1)] md:pl-6 md:pt-1">
           {aside}
         </aside>
       )}
