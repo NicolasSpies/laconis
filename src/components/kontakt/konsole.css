@@ -172,10 +172,10 @@
   display: block;
   margin-top: 7px;
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-stretch: 112%;
+  font-stretch: var(--wd-mid);
   font-weight: 700;
-  font-size: clamp(1rem, 2vw, 1.35rem);
-  letter-spacing: -0.015em;
+  font-size: var(--fs-lead);
+  letter-spacing: var(--ls-mid);
   color: #f2f2f2;
   word-break: break-word;
   transition: color 240ms ease;

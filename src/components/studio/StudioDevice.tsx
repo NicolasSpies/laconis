@@ -102,7 +102,7 @@ export function StudioDevice() {
       {/* ═══ DER WEG · zeilen, keine kacheln ═══ */}
       <section className="st-block" data-no-reveal>
         <div className="st-innen">
-          <h2 className="st-h2 st-h2--klein">{t.wegH2}</h2>
+          <h2 className="st-h2">{t.wegH2}</h2>
           <ul className="st-weg">
             {t.weg.map(([wo, was]) => (
               <li key={wo} className="st-weg-zeile">

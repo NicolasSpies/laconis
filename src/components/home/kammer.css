@@ -19,11 +19,12 @@
   max-width: var(--shell);
   margin-inline: auto;
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-size: clamp(1.7rem, 4.4vw, 3.6rem);
-  font-weight: 500;
-  font-stretch: 104%;
-  line-height: 1.06;
-  letter-spacing: -0.035em;
+  font-size: var(--fs-headline);
+  font-weight: 700;
+  font-stretch: var(--wd-mid);
+  line-height: var(--lh-head);
+  letter-spacing: var(--ls-mid);
+  text-wrap: balance;
   /* KEIN lowercase · dies ist der eine satz, der wie ein satz
      aussehen soll, nicht wie eine ueberschrift */
   color: #0a0a0a;

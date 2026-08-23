@@ -9,9 +9,9 @@ https://claude.ai/code/artifact/840fff79-9280-49d7-8670-fece2443dfda
 Nicolas: "denke wir müssen eh alles machen. dann fang mit 2 an aber
 vergiss nicht den rest danach noch zu machen."
 
-1. [ ] **K4 + G8 · tote Bewegungs- und Tiefensysteme anschliessen**  ← LÄUFT
-2. [ ] G2 · Schriftskala einfangen
-3. [ ] K3 + G1 · Lime unabgewandelt, eine Knopfform
+1. [x] K4 + K5 · tote Bewegungs- und Tiefensysteme anschliessen  · d8769cc→dca303a
+2. [x] G2 · Schriftskala einfangen
+3. [ ] **K3 + G1 · Lime unabgewandelt, eine Knopfform**  ← ALS NÄCHSTES
 4. [ ] K1 · `--font-mono` definieren
 5. [ ] K2 · Light-Theme aus dem Root
 6. [ ] K7 · Impressum/Datenschutz auf allen Seiten
@@ -191,7 +191,12 @@ Alle ausserhalb der Dicts — die Dicts selbst sind sauber.
 - **Die Kammer** — der eine Satz auf der hellen Vollfläche, laut Kommentar der Schnitt, der wehtun soll — steht bei Gewicht 500 und 104% und ist damit die schwächste Display-Schrift der Seite.
 - **Die Zitate** stehen bei 96px in Gewicht 300 — hell auf dunkel ausgezehrt, die einzige Stelle mit echtem Raum nutzt ihn nicht.
 
-**Soll:** Zwei h1-Stufen statt fünf (`--fs-display-xl` für /, /arbeiten, /studio, /kontakt · `--fs-display` für die Case-Seite). h1 auf wght 900 / wdth 125%, drei Breiten-Tokens (`--wd-display: 118%`, `--wd-mid: 108%`, `--wd-text: 100%`), drei letter-spacing- und drei line-height-Stufen — alle in der `fontSize`-Rolle, keine in `.lab-display` (die Klasse setzt nur Familie/Breite/Gewicht/lowercase). `.ar-h2`/`.st-h2--klein` entscheiden: Etikett → als `<p class="kicker">`, Überschrift → `--fs-headline` ohne Mono. `.sl-satz` auf `--fs-display` senken. `.ka-satz` auf 700/112%. `.aq-line` auf 500–600 bei `--fs-display`. `--fs-body` auf `clamp(1rem, 0.4vw + 0.9rem, 1.125rem)`. `--fs-label` auf 11px, zweite Rolle `--fs-label-lg: 13px` für Footer-Links und Mail. `text-wrap: balance` auf alle Display-Rollen, `pretty` auf Lead/Body. Die drei toten `.heading-*`-Klassen und `.label-mono`/`.quote-lime` löschen.
+**Soll:** Zwei h1-Stufen statt fünf (`--fs-display-xl` für /, /arbeiten, /studio, /kontakt · `--fs-display` für die Case-Seite). h1 auf wght 900 / wdth 125%, drei Breiten-Tokens (`--wd-display: 118%`, `--wd-mid: 108%`, `--wd-text: 100%`), drei letter-spacing- und drei line-height-Stufen — alle in der `fontSize`-Rolle, keine in `.lab-display` (die Klasse setzt nur Familie/Breite/Gewicht/lowercase). `.ar-h2`/`.st-h2--klein` entscheiden: Etikett → als `<p class="kicker">`, Überschrift → `--fs-headline` ohne Mono. `.sl-satz` auf `--fs-display` senken. `.ka-satz` auf 700/112%. `.aq-line` auf 500–600 bei `--fs-display`. `--fs-body` auf `clamp(1rem, 0.4vw + 0.9rem, 1.125rem)`. `--fs-label` auf 11px, zweite Rolle `--fs-label-lg: 13px` für Footer-Links und Mail. `text-wrap: balance` auf alle Display-Rollen, `pretty` auf Lead/Body. ~~Die drei toten `.heading-*`-Klassen und `.label-mono`/`.quote-lime` löschen.~~
+**KORREKTUR (23.08.):** die sind NICHT tot. beim prüfen mit den echten
+namen (`.heading-sans`, `.heading-display`, `.heading-hero-xl/-lg`,
+`.heading-section`) kommen 24 treffer in `app/error.tsx`,
+`/preview`, `/web-performance-ostbelgien` und vier komponenten der
+alten oberfläche. gehört zu P1, nicht hierher · stehen gelassen.
 **Dateien:** `globals.css:434-441,448-481`, `tailwind.config.ts:61-80`, `device/device.css:42-45,1218-1220`, `home/kopf.css`, `kammer.css`, `arbeiten.css`, `eigenescms.css`, `schluss.css`, `studio/studio.css`, `CaseDevice.tsx:68,107-181`, `ReferenzenDevice.tsx:56`, `KontaktDevice.tsx:47,101`
 **Zahlt auf:** fette Schrift · **das ist der Punkt, an dem „geile Typo" entsteht oder nicht**
 

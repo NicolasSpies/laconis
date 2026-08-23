@@ -26,12 +26,13 @@
   margin: 0;
   max-width: 16ch;
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-size: clamp(2.4rem, 8vw, 6.4rem);
-  font-weight: 800;
-  font-stretch: 118%;
-  line-height: 0.88;
-  letter-spacing: -0.05em;
+  font-size: var(--fs-display);
+  font-weight: 900;
+  font-stretch: var(--wd-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
   text-transform: lowercase;
+  text-wrap: balance;
   color: #08080b;
 }
 

@@ -77,14 +77,14 @@ export function HomeDevice() {
       />
 
       <footer className="relative z-[1] mx-auto flex max-w-shell flex-wrap justify-between gap-4 border-t border-[var(--ln-hair)] px-gut pb-rh-s pt-6">
-        <a className="lab-label" href={`mailto:${CONTACT.email}`}>
+        <a className="lab-label-lg" href={`mailto:${CONTACT.email}`}>
           {CONTACT.email}
         </a>
         <span className="flex flex-wrap gap-x-6 gap-y-2">
-          <Link href={buildPath("impressum", locale)} className="lab-label">
+          <Link href={buildPath("impressum", locale)} className="lab-label-lg">
             {t.fussImpressum}
           </Link>
-          <Link href={buildPath("datenschutz", locale)} className="lab-label">
+          <Link href={buildPath("datenschutz", locale)} className="lab-label-lg">
             {t.fussDatenschutz}
           </Link>
         </span>

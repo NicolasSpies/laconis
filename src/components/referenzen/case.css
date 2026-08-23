@@ -89,6 +89,10 @@
   max-width: 560px;
   margin: 0 auto;
 }
+/* die beiden folgenden clamps lesen ABSICHTLICH nicht die skala.
+   .cs-alt-* stellt die ALTE website dar, nicht unser interface ·
+   sie muss nach 2010 aussehen. gleiche entscheidung wie beim
+   laptop-gehäuse: eine darstellung, kein bauteil. */
 .cs-alt-title {
   font-size: clamp(15px, 2.1vw, 20px);
   font-weight: bold;
@@ -119,11 +123,11 @@
 
 .cs-neu-title {
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-stretch: 125%;
+  font-stretch: var(--wd-display);
   font-weight: 800;
-  font-size: clamp(1.9rem, 5.6vw, 4rem);
-  line-height: 0.94;
-  letter-spacing: -0.035em;
+  font-size: var(--fs-headline);
+  line-height: var(--lh-head);
+  letter-spacing: var(--ls-mid);
   text-transform: lowercase;
   color: #f2f2f2;
   max-width: 15ch;
@@ -131,8 +135,9 @@
 .cs-neu-body {
   margin-top: 22px;
   max-width: 44ch;
-  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
-  line-height: 1.6;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  text-wrap: pretty;
   color: rgba(242, 242, 242, 0.6);
 }
 
@@ -152,7 +157,7 @@
   padding: 12px 24px;
   border-radius: 8px;
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-stretch: 112%;
+  font-stretch: var(--wd-mid);
   font-weight: 700;
   font-size: 15px;
   font-variant-numeric: tabular-nums;

@@ -176,11 +176,11 @@
 }
 .lx-gauge-val {
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-stretch: 112%;
+  font-stretch: var(--wd-mid);
   font-weight: 700;
   font-size: 26px;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--ls-mid);
   font-variant-numeric: tabular-nums;
   color: #f2f2f2;
 }
@@ -268,7 +268,7 @@
   border-radius: 5px;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 9.5px;
-  letter-spacing: 0.05em;
+  letter-spacing: var(--ls-wide);
   color: rgba(10, 10, 10, 0.5);
   background: #f6f6f4;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.14);
@@ -307,7 +307,7 @@
   border-radius: 9px;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 10.5px;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--ls-label);
   text-transform: lowercase;
   color: rgba(242, 242, 242, 0.6);
   background: linear-gradient(180deg, #2b2b33, #17171d);
@@ -390,7 +390,7 @@
   border-radius: 6px;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 10px;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--ls-wide);
   color: rgba(242, 242, 242, 0.72);
   background: rgb(var(--accent-2) / 0.14);
   border: 1px solid rgb(var(--accent-2) / 0.32);
@@ -405,10 +405,10 @@
 
 .fv-builtin {
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-stretch: 112%;
+  font-stretch: var(--wd-mid);
   font-weight: 700;
-  font-size: clamp(1.3rem, 2.6vw, 1.9rem);
-  letter-spacing: -0.02em;
+  font-size: var(--fs-title);
+  letter-spacing: var(--ls-mid);
   color: var(--lime);
 }
 
@@ -429,11 +429,11 @@
 
 .fv-val {
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-stretch: 112%;
+  font-stretch: var(--wd-mid);
   font-weight: 700;
-  font-size: clamp(1.2rem, 2.3vw, 1.7rem);
+  font-size: var(--fs-title);
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--ls-mid);
   color: #f2f2f2;
   white-space: nowrap;
   transition: color 300ms ease;

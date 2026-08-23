@@ -16,12 +16,13 @@
 .cc-h2 {
   margin: 0;
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-size: clamp(2.4rem, 6.8vw, 5.6rem);
-  font-weight: 700;
-  font-stretch: 110%;
-  line-height: 0.94;
-  letter-spacing: -0.04em;
+  font-size: var(--fs-display);
+  font-weight: 800;
+  font-stretch: var(--wd-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
   text-transform: lowercase;
+  text-wrap: balance;
   color: var(--tx-1);
 }
 .cc-akzent { color: var(--lime); }

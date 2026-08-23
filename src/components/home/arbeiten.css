@@ -13,12 +13,15 @@
 
 .ar-h2 {
   margin: 0 0 clamp(28px, 4vw, 56px);
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: var(--fs-label);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--tx-3);
-  font-weight: 400;
+  font-family: var(--font-lab), system-ui, sans-serif;
+  font-size: var(--fs-display);
+  font-stretch: var(--wd-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
+  text-transform: lowercase;
+  color: var(--tx-1);
+  font-weight: 800;
+  text-wrap: balance;
 }
 
 .ar-liste {
@@ -51,11 +54,11 @@
 
 .ar-name {
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-size: clamp(1.6rem, 5vw, 3.6rem);
-  font-weight: 700;
-  font-stretch: 112%;
-  line-height: 1;
-  letter-spacing: -0.04em;
+  font-size: var(--fs-headline);
+  font-weight: 800;
+  font-stretch: var(--wd-display);
+  line-height: var(--lh-head);
+  letter-spacing: var(--ls-mid);
   color: var(--tx-2);
   transition: color var(--t-2) var(--ease);
 }
@@ -64,7 +67,7 @@
 .ar-art {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: var(--fs-label);
-  letter-spacing: 0.18em;
+  letter-spacing: var(--ls-label);
   text-transform: uppercase;
   color: var(--tx-4);
   white-space: nowrap;

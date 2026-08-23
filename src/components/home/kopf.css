@@ -86,7 +86,7 @@
   margin: 0;
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: var(--fs-label);
-  letter-spacing: 0.22em;
+  letter-spacing: var(--ls-label);
   text-transform: uppercase;
   color: var(--tx-3);
   animation: kpRein 700ms var(--ease) both;
@@ -108,12 +108,13 @@
   margin: 0;
   max-width: 16ch;
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-size: clamp(2.4rem, 7.4vw, 6.4rem);
-  font-weight: 800;
-  font-stretch: 116%;
-  line-height: 0.94;
-  letter-spacing: -0.042em;
+  font-size: var(--fs-display-xl);
+  font-weight: 900;
+  font-stretch: var(--wd-display);
+  line-height: var(--lh-xl);
+  letter-spacing: var(--ls-display);
   text-transform: lowercase;
+  text-wrap: balance;
   color: var(--tx-1);
   animation: kpRein 700ms var(--ease) 220ms both;
 }
@@ -142,7 +143,7 @@
 .kp-hinweis {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: var(--fs-label);
-  letter-spacing: 0.2em;
+  letter-spacing: var(--ls-label);
   text-transform: uppercase;
   color: var(--tx-3);
   white-space: nowrap;

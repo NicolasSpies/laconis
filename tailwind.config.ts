@@ -59,14 +59,15 @@ const config: Config = {
          font-stretch bleiben in .lab-display / .lab-label. zwei
          orthogonale dinge, zwei mechanismen. */
       fontSize: {
-        "display-xl": ["var(--fs-display-xl)", { lineHeight: "0.86", letterSpacing: "-0.035em" }],
-        display: ["var(--fs-display)", { lineHeight: "0.9", letterSpacing: "-0.03em" }],
-        headline: ["var(--fs-headline)", { lineHeight: "0.96", letterSpacing: "-0.025em" }],
-        title: ["var(--fs-title)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
-        lead: ["var(--fs-lead)", { lineHeight: "1.55" }],
-        body: ["var(--fs-body)", { lineHeight: "1.65" }],
-        "body-sm": ["var(--fs-body-sm)", { lineHeight: "1.55" }],
-        label: ["var(--fs-label)", { lineHeight: "1", letterSpacing: "0.16em" }],
+        "display-xl": ["var(--fs-display-xl)", { lineHeight: "var(--lh-xl)", letterSpacing: "var(--ls-display)" }],
+        display: ["var(--fs-display)", { lineHeight: "var(--lh-display)", letterSpacing: "var(--ls-display)" }],
+        headline: ["var(--fs-headline)", { lineHeight: "var(--lh-head)", letterSpacing: "var(--ls-mid)" }],
+        title: ["var(--fs-title)", { lineHeight: "var(--lh-head)", letterSpacing: "var(--ls-mid)" }],
+        lead: ["var(--fs-lead)", { lineHeight: "var(--lh-lead)" }],
+        body: ["var(--fs-body)", { lineHeight: "var(--lh-body)" }],
+        "body-sm": ["var(--fs-body-sm)", { lineHeight: "var(--lh-lead)" }],
+        label: ["var(--fs-label)", { lineHeight: "1", letterSpacing: "var(--ls-label)" }],
+        "label-lg": ["var(--fs-label-lg)", { lineHeight: "1.4", letterSpacing: "var(--ls-wide)" }],
       },
       fontFamily: {
         sans: ["var(--font-sans-v2)", "system-ui", "sans-serif"],

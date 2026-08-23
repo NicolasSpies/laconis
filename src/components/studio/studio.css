@@ -24,7 +24,7 @@
   margin: 0;
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: var(--fs-label);
-  letter-spacing: 0.22em;
+  letter-spacing: var(--ls-label);
   text-transform: uppercase;
   color: var(--tx-3);
 }
@@ -33,12 +33,13 @@
   margin: clamp(20px, 3vw, 36px) 0 0;
   max-width: 18ch;
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-size: clamp(2.2rem, 6.4vw, 5.4rem);
-  font-weight: 800;
-  font-stretch: 116%;
-  line-height: 0.92;
-  letter-spacing: -0.045em;
+  font-size: var(--fs-display-xl);
+  font-weight: 900;
+  font-stretch: var(--wd-display);
+  line-height: var(--lh-xl);
+  letter-spacing: var(--ls-display);
   text-transform: lowercase;
+  text-wrap: balance;
   color: var(--tx-1);
 }
 .st-akzent { color: var(--lime); }
@@ -71,22 +72,14 @@
   margin: 0;
   max-width: 16ch;
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-size: clamp(1.8rem, 4.6vw, 3.4rem);
-  font-weight: 700;
-  font-stretch: 112%;
-  line-height: 0.96;
-  letter-spacing: -0.04em;
+  font-size: var(--fs-display);
+  font-weight: 800;
+  font-stretch: var(--wd-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
   text-transform: lowercase;
+  text-wrap: balance;
   color: var(--tx-1);
-}
-.st-h2--klein {
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: var(--fs-label);
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--tx-3);
-  max-width: none;
 }
 
 .st-neben {
@@ -109,11 +102,11 @@
 .st-gross {
   margin: clamp(26px, 3.4vw, 44px) 0 0;
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-size: clamp(1.5rem, 4.2vw, 3rem);
+  font-size: var(--fs-headline);
   font-weight: 600;
-  font-stretch: 108%;
-  line-height: 1.06;
-  letter-spacing: -0.035em;
+  font-stretch: var(--wd-mid);
+  line-height: var(--lh-head);
+  letter-spacing: var(--ls-mid);
   text-transform: lowercase;
   color: var(--tx-3);
 }
@@ -152,7 +145,7 @@
   margin-top: var(--sp-4);
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: var(--fs-label);
-  letter-spacing: 0.18em;
+  letter-spacing: var(--ls-label);
   text-transform: uppercase;
   /* der platzhalter sagt SELBST, dass er einer ist · sonst steht da
      ein fremdes bild und sieht aus wie eine behauptung */
@@ -181,10 +174,10 @@
 
 .st-weg-wo {
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-size: clamp(1.1rem, 2.4vw, 1.7rem);
-  font-weight: 600;
-  font-stretch: 108%;
-  letter-spacing: -0.025em;
+  font-size: var(--fs-title);
+  font-weight: 700;
+  font-stretch: var(--wd-mid);
+  letter-spacing: var(--ls-mid);
   text-transform: lowercase;
   color: var(--tx-1);
 }

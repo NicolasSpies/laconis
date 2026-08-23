@@ -74,7 +74,7 @@ export function CaseDevice({ slug }: { slug: string }) {
           </span>
 
           <h1
-            className="lab-display lab-boot mt-6 text-headline"
+            className="lab-display lab-boot mt-6 text-display"
             style={{ animationDelay: "120ms" }}
           >
             {r.name.toLowerCase()}

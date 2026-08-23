@@ -27,10 +27,10 @@
   display: inline-flex;
   align-items: center;
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-size: clamp(1.8rem, 5vw, 4.4rem);
-  font-weight: 700;
-  font-stretch: 112%;
-  letter-spacing: -0.035em;
+  font-size: var(--fs-display);
+  font-weight: 800;
+  font-stretch: var(--wd-display);
+  letter-spacing: var(--ls-display);
   text-transform: lowercase;
   color: #08080b;
   white-space: nowrap;
