@@ -116,3 +116,38 @@
   .ar-art { display: none; }
   .ar-zeile { grid-template-columns: 4px minmax(0, 1fr) auto; }
 }
+
+/* ── G4/G7 · die zeile als SCHICHT ────────────────────────
+   dieselben drei projekte waren auf der startseite flache
+   textzeilen und auf /arbeiten ein gekipptes deck mit
+   preserve-3d · zwei darstellungen ohne eine gemeinsame
+   eigenschaft, ausgerechnet an der kante vom schaufenster ins
+   portfolio.
+
+   die zeile übernimmt jetzt das vokabular des stapels: sie ist
+   eine schicht, die sich beim berühren aus dem block hebt. das
+   ist zugleich der EINE tiefen-moment der startseite (sechs
+   CSS-dateien hatten zusammen null box-shadow, während /kontakt
+   zwölf auf einer bildschirmhöhe hat). */
+/* NICHT über ein ::after mit z-index:-1 · die sektion hat einen
+   deckenden grund (#08080b), eine ebene dahinter ist unsichtbar.
+   die fläche liegt auf der zeile selbst. */
+.ar-zeile {
+  position: relative;
+  border-radius: var(--r-s);
+  padding-inline: clamp(12px, 1.4vw, 22px);
+  margin-inline: calc(clamp(12px, 1.4vw, 22px) * -1);
+  transition:
+    transform var(--t-2) var(--ease),
+    background var(--t-2) var(--ease),
+    box-shadow var(--t-2) var(--ease);
+}
+.ar-zeile:hover {
+  transform: translateX(6px);
+  background: var(--su-glass);
+  box-shadow: var(--sh-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ar-zeile { transition: none; }
+}

@@ -159,8 +159,13 @@
       rgb(var(--fg-rgb) / 0.026) 52%,
       rgb(var(--fg-rgb) / 0.038) 100%
     );
-  -webkit-backdrop-filter: blur(var(--bl-body)) saturate(150%) brightness(1.07);
-  backdrop-filter: blur(var(--bl-body)) saturate(150%) brightness(1.07);
+  /* KEIN backdrop-filter auf dem KÖRPER.
+     es machte .gl selbst zum backdrop-root · sein ::before, das
+     die rand-refraktion malt, sammelte danach nur noch die
+     eigenen verläufe statt der szene dahinter. genau der effekt,
+     für den das ganze konstrukt gebaut ist, kam nie an.
+     bei --bl-body: 4px auf #08080b verwischt der körper ohnehin
+     fast nichts · die refraktion sitzt im RAND (siehe ::before). */
   box-shadow:
     0 0 0 1px rgb(0 0 0 / 0.55),
     inset 0 0 0 1px rgb(var(--fg-rgb) / 0.1),
@@ -933,13 +938,17 @@
    driften. bei 6% deckkraft merkt man sie nicht bewusst — die
    fläche wirkt nur nicht mehr tot. blur macht sie konturlos. */
 
+/* KEIN scale() mehr. eine fläche mit filter:blur(84px) und 60vw
+   kantenlänge muss bei jeder skalierung neu gerastert werden ·
+   verschieben kann die GPU als reine komposition, skalieren nicht.
+   die bewegung sieht identisch aus, kostet aber nichts. */
 @keyframes labAmbientA {
-  0%, 100% { transform: translate3d(-6%, 0, 0) scale(1); }
-  50%      { transform: translate3d(10%, -6%, 0) scale(1.18); }
+  0%, 100% { transform: translate3d(-6%, 0, 0); }
+  50%      { transform: translate3d(10%, -6%, 0); }
 }
 @keyframes labAmbientB {
-  0%, 100% { transform: translate3d(8%, 4%, 0) scale(1.1); }
-  50%      { transform: translate3d(-8%, -4%, 0) scale(0.92); }
+  0%, 100% { transform: translate3d(8%, 4%, 0); }
+  50%      { transform: translate3d(-8%, -4%, 0); }
 }
 
 /* die lime-haupttaste · echte taste mit hub, 4px anschlag unten.
@@ -1113,12 +1122,15 @@
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 13px;
   color: #f2f2f2;
-  background: #0a0a0c;
-  border: 1px solid var(--ln-hair);
-  box-shadow:
-    inset 0 2px 5px rgba(0, 0, 0, 0.9),
-    inset 0 -1px 0 var(--ln-hair);
-  transition: box-shadow 220ms ease;
+  /* G7 · war eine versenkte wanne mit zwei inset-schatten. auf
+     /kontakt standen zwölf solcher tiefen-blöcke in EINER
+     bildschirmhöhe, während home und /studio zusammen null
+     hatten · die regel lautet ein gerätemoment pro
+     bildschirmhöhe, und der ist hier die schutzkappe.
+     das feld ist jetzt eine fläche mit kante. */
+  background: rgb(4 4 7 / 0.62);
+  border: 1px solid var(--ln-soft);
+  transition: border-color 220ms ease;
 }
 .lab-field::placeholder {
   color: rgba(242, 242, 242, 0.26);
@@ -1141,10 +1153,8 @@
   padding: 4px;
   border-radius: 11px;
   gap: 4px;
-  background: #0a0a0c;
-  box-shadow:
-    inset 0 2px 6px rgba(0, 0, 0, 0.92),
-    inset 0 -1px 0 var(--ln-hair);
+  background: rgb(4 4 7 / 0.62);
+  border: 1px solid var(--ln-hair);
 }
 
 .lab-switch button {
@@ -1231,7 +1241,10 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(84px);
-  will-change: transform;
+  /* KEIN will-change · es lag dauerhaft auf drei vollflächigen
+     blur-ebenen pro seite und hielt sie permanent als eigene
+     komposition im speicher. die animation läuft ohnehin
+     durchgehend, der hint bringt hier nichts. */
 }
 
 .lab-ambient span:nth-child(1) {
