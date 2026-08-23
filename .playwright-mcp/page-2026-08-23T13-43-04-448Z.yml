@@ -1,0 +1,92 @@
+- generic [active] [ref=f1e1]:
+  - link "zum inhalt" [ref=f1e2]:
+    - /url: "#inhalt"
+  - main [ref=f1e3]:
+    - generic [ref=f1e6]:
+      - banner [ref=f1e7]:
+        - generic [ref=f1e8]:
+          - link "lacønis · startseite" [ref=f1e9]:
+            - /url: /
+          - button "menü öffnen" [ref=f1e19]
+      - generic: kontakt
+      - generic [ref=f1e23]:
+        - generic [ref=f1e24]:
+          - heading "lass reden." [level=1] [ref=f1e25]: lassreden.
+          - paragraph [ref=f1e26]: Eine kurze Nachricht reicht. Kein Verkaufs-Pitch, kein Formular-Zwang. Du landest direkt bei mir, nicht in einem Ticket-System.
+        - generic [ref=f1e27]:
+          - text: direkter draht
+          - generic [ref=f1e28]:
+            - link "schreiben nicolas@laconis.be" [ref=f1e29]:
+              - /url: mailto:nicolas@laconis.be
+              - text: schreiben
+              - generic [ref=f1e30]: nicolas@laconis.be
+            - link "anrufen +32 488 43 91 47" [ref=f1e31]:
+              - /url: tel:+32488439147
+              - text: anrufen
+              - generic [ref=f1e32]: +32 488 43 91 47
+      - generic [ref=f1e34]:
+        - generic [ref=f1e35]:
+          - heading "oder sag mir gleich, was du vorhast." [level=2] [ref=f1e36]
+          - paragraph [ref=f1e37]: Zwei Felder reichen, um die Verriegelung zu lösen. Alles andere hebt nur den Pegel · und macht meine erste Antwort brauchbarer.
+        - generic [ref=f1e38]:
+          - generic [ref=f1e39]: anfrage · konsole
+          - generic [ref=f1e42]:
+            - textbox [ref=f1e43]
+            - generic [ref=f1e44]:
+              - text: name
+              - textbox "name" [ref=f1e45]
+            - generic [ref=f1e46]:
+              - text: e-mail
+              - textbox "e-mail" [ref=f1e47]
+            - generic [ref=f1e48]:
+              - generic [ref=f1e49]: telefon (optional)
+              - textbox "telefon (optional)" [ref=f1e50]
+            - generic [ref=f1e51]:
+              - text: was brauchst du
+              - radiogroup "was brauchst du" [ref=f1e52]:
+                - radio "website" [ref=f1e53]
+                - radio "branding" [ref=f1e54]
+                - radio "beides" [ref=f1e55]
+            - generic [ref=f1e56]:
+              - text: wie eilig
+              - radiogroup "wie eilig" [ref=f1e57]:
+                - radio "entspannt" [ref=f1e58]
+                - radio "diesen monat" [ref=f1e59]
+                - radio "eilig" [ref=f1e60]
+            - generic [ref=f1e61]:
+              - text: worum geht es
+              - textbox "worum geht es" [ref=f1e62]:
+                - /placeholder: Ein paar Sätze reichen. Was hast du vor, was stört dich an der jetzigen Seite, was soll am Ende dastehen?
+            - generic [ref=f1e63]:
+              - generic [ref=f1e64]:
+                - generic [ref=f1e65]: pegel
+                - generic [ref=f1e66]: 0 / 8
+              - generic [ref=f1e76]:
+                - generic [ref=f1e77]:
+                  - button "kappe öffnen" [disabled] [ref=f1e78]
+                  - button "senden" [disabled] [ref=f1e81]
+                - paragraph [ref=f1e85]: Name und E-Mail entriegeln den Knopf.
+      - paragraph [ref=f1e88]: und wenn ich nicht der richtige bin, sage ich dir das.
+      - generic [ref=f1e90]:
+        - heading "was danach passiert." [level=2] [ref=f1e91]
+        - list [ref=f1e93]:
+          - listitem [ref=f1e94]:
+            - generic [ref=f1e95]: ich lese
+            - generic [ref=f1e96]: Direkt, ohne Zwischenschicht, die vorsortiert.
+          - listitem [ref=f1e97]:
+            - generic [ref=f1e98]: ich melde mich
+            - generic [ref=f1e99]: Ein kurzes Gespräch, kein Pitch-Deck.
+          - listitem [ref=f1e100]:
+            - generic [ref=f1e101]: du kriegst eine zahl
+            - generic [ref=f1e102]: Ein festes Angebot, schriftlich, ohne Kleingedrucktes.
+        - contentinfo [ref=f1e103]:
+          - generic [ref=f1e104]:
+            - link "nicolas@laconis.be" [ref=f1e106]:
+              - /url: mailto:nicolas@laconis.be
+            - generic [ref=f1e107]:
+              - link "impressum" [ref=f1e108]:
+                - /url: /impressum
+              - link "datenschutz" [ref=f1e109]:
+                - /url: /datenschutz
+              - generic [ref=f1e110]: © 2026 lacønis
+  - alert [ref=f1e111]

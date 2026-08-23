@@ -1,0 +1,87 @@
+- generic [active] [ref=f9e1]:
+  - link "zum inhalt" [ref=f9e2]:
+    - /url: "#inhalt"
+  - main [ref=f9e3]:
+    - generic [ref=f9e6]:
+      - banner [ref=f9e7]:
+        - generic [ref=f9e8]:
+          - link "lacønis · startseite" [ref=f9e9]:
+            - /url: /
+          - button "menü öffnen" [ref=f9e19]
+      - generic [ref=f9e23]:
+        - generic [ref=f9e24]:
+          - link "← alle referenzen" [ref=f9e26]:
+            - /url: /arbeiten
+          - generic [ref=f9e27]: live
+          - heading "fabry baumpflege" [level=1] [ref=f9e28]
+          - paragraph [ref=f9e29]: Website · Design & Development · eigenes CMS
+          - generic [ref=f9e30]:
+            - generic [ref=f9e31]:
+              - generic [ref=f9e32]: ort
+              - generic [ref=f9e33]: Ostbelgien
+            - generic [ref=f9e34]:
+              - generic [ref=f9e35]: jahr
+              - generic [ref=f9e36]: "2025"
+            - generic [ref=f9e37]:
+              - generic [ref=f9e38]: art
+              - generic [ref=f9e39]: web
+        - generic [ref=f9e41]:
+          - generic [ref=f9e42]:
+            - img "Desktop-Ansicht der gebauten Seite" [ref=f9e46]
+            - img "Mobile Ansicht der gebauten Seite" [ref=f9e50]
+          - generic [ref=f9e51]: Ziehen scrubbt durch die Seite. Losgelassen läuft sie weiter.
+      - generic [ref=f9e56]:
+        - heading "der befund." [level=2] [ref=f9e57]
+        - paragraph [ref=f9e58]: "Reimund Fabry klettert seit über zwanzig Jahren in Bäume. Seine Website war das Gegenteil davon: ein gekauftes WordPress-Theme, das er nie selbst ändern konnte."
+        - blockquote [ref=f9e59]:
+          - generic [ref=f9e60]: gefunden werden,
+          - generic [ref=f9e61]: selbst pflegen
+          - generic [ref=f9e62]: können
+      - generic [ref=f9e64]:
+        - generic [ref=f9e65]:
+          - heading "derselbe betrieb, zwei welten." [level=2] [ref=f9e66]
+          - paragraph [ref=f9e67]: Wirf den Schalter. Beides sind die echten Sätze · links wie er 2009 dastand, rechts wie er heute dasteht.
+        - generic [ref=f9e68]:
+          - generic [ref=f9e71]:
+            - paragraph [ref=f9e72]: Wir sind Ihr zuverlässiger Partner für Baumpflege, Baumfällung und Heckenschnitt in der Region.
+            - paragraph [ref=f9e73]: Fragen Sie uns! Wir beraten Sie gerne.
+            - generic [ref=f9e74]: » Kontakt
+            - paragraph [ref=f9e75]: "Letzte Aktualisierung: 14.03.2009"
+          - generic [ref=f9e76]:
+            - radiogroup "Die Typografie führt hier das Argument. Kein Text musste erklären, was sich geändert hat." [ref=f9e77]:
+              - radio "2009" [checked] [ref=f9e78]
+              - radio "heute" [ref=f9e79]
+            - paragraph [ref=f9e80]: Die Typografie führt hier das Argument. Kein Text musste erklären, was sich geändert hat.
+      - blockquote [ref=f9e83]:
+        - generic [ref=f9e84]: ich hab einfach
+        - generic [ref=f9e85]: angerufen,
+        - generic [ref=f9e86]: geschrieben
+        - generic [ref=f9e87]: wenn was war.
+        - generic [ref=f9e88]: keine tickets,
+        - generic [ref=f9e89]: keine agentur-
+        - generic [ref=f9e90]: höflichkeit.
+        - generic [ref=f9e91]: Reimund Fabry · Fabry Baumpflege
+      - generic [ref=f9e93]:
+        - generic [ref=f9e94]:
+          - generic [ref=f9e95]:
+            - heading "sowas für dich?" [level=2] [ref=f9e96]
+            - paragraph [ref=f9e97]: Erzähl mir kurz, was du vorhast. Kostet nichts, verpflichtet zu nichts. Und wenn ich nicht der richtige bin, sage ich dir das auch.
+          - generic [ref=f9e98]:
+            - link "schreib mir" [ref=f9e99]:
+              - /url: /kontakt
+            - link "seite ansehen ↗" [ref=f9e100]:
+              - /url: https://fabry-baumpflege.be
+        - contentinfo [ref=f9e101]:
+          - generic [ref=f9e102]:
+            - generic [ref=f9e103]:
+              - link "← alle referenzen" [ref=f9e104]:
+                - /url: /arbeiten
+              - link "nicolas@laconis.be" [ref=f9e105]:
+                - /url: mailto:nicolas@laconis.be
+            - generic [ref=f9e106]:
+              - link "impressum" [ref=f9e107]:
+                - /url: /impressum
+              - link "datenschutz" [ref=f9e108]:
+                - /url: /datenschutz
+              - generic [ref=f9e109]: © 2026 lacønis
+  - alert [ref=f9e110]

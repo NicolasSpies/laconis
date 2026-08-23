@@ -1,0 +1,63 @@
+- generic [active] [ref=f4e1]:
+  - link "zum inhalt" [ref=f4e2]:
+    - /url: "#inhalt"
+  - main [ref=f4e3]:
+    - generic [ref=f4e6]:
+      - banner [ref=f4e7]:
+        - generic [ref=f4e8]:
+          - link "lacønis · startseite" [ref=f4e9]:
+            - /url: /
+          - button "menü öffnen" [ref=f4e19]
+      - generic: arbeiten
+      - generic [ref=f4e23]:
+        - heading "was schon läuft." [level=1] [ref=f4e24]
+        - paragraph [ref=f4e25]: Jede Schicht ist ein Projekt.
+        - generic [ref=f4e27]:
+          - generic [ref=f4e28]:
+            - generic [ref=f4e30]:
+              - link [ref=f4e31]:
+                - /url: /arbeiten/fabry-baumpflege
+              - link [ref=f4e33]:
+                - /url: /arbeiten/holoroom
+                - generic [ref=f4e34]: ho
+              - link [ref=f4e36]:
+                - /url: /arbeiten/lespoir-asbl
+                - generic [ref=f4e37]: lé
+            - generic:
+              - link "fabry baumpflege web · 2025 · live" [ref=f4e39]:
+                - /url: /arbeiten/fabry-baumpflege
+                - generic [ref=f4e41]: fabry baumpflege
+                - generic [ref=f4e42]: web · 2025 · live
+              - link "holoroom branding · 2025 · konzept" [ref=f4e44]:
+                - /url: /arbeiten/holoroom
+                - generic [ref=f4e46]: holoroom
+                - generic [ref=f4e47]: branding · 2025 · konzept
+              - link "léspoir asbl web + branding · 2026 · in arbeit" [ref=f4e49]:
+                - /url: /arbeiten/lespoir-asbl
+                - generic [ref=f4e51]: léspoir asbl
+                - generic [ref=f4e52]: web + branding · 2026 · in arbeit
+          - generic [ref=f4e54]: ziehen · klicken
+      - generic [ref=f4e56]:
+        - paragraph [ref=f4e57]: kein aufgeblasenes regal.
+        - paragraph [ref=f4e58]: Hier steht nur, was ich selbst gebaut habe. Was noch nicht live ist, sagt das an seiner Schicht auch.
+      - generic [ref=f4e60]:
+        - generic [ref=f4e61]:
+          - generic [ref=f4e62]:
+            - heading "und deins?" [level=2] [ref=f4e63]
+            - paragraph [ref=f4e64]: Kurzes Gespräch, kein Pitch-Deck, kostet nichts.
+          - generic [ref=f4e65]:
+            - link "schreib mir" [ref=f4e66]:
+              - /url: /kontakt
+            - link "wie ich arbeite" [ref=f4e67]:
+              - /url: /studio
+        - contentinfo [ref=f4e68]:
+          - generic [ref=f4e69]:
+            - link "nicolas@laconis.be" [ref=f4e71]:
+              - /url: mailto:nicolas@laconis.be
+            - generic [ref=f4e72]:
+              - link "impressum" [ref=f4e73]:
+                - /url: /impressum
+              - link "datenschutz" [ref=f4e74]:
+                - /url: /datenschutz
+              - generic [ref=f4e75]: © 2026 lacønis
+  - alert [ref=f4e76]

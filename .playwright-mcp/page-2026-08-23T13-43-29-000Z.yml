@@ -1,0 +1,80 @@
+- generic [active] [ref=f3e1]:
+  - link "zum inhalt" [ref=f3e2]:
+    - /url: "#inhalt"
+  - main [ref=f3e3]:
+    - generic [ref=f3e6]:
+      - banner [ref=f3e7]:
+        - generic [ref=f3e8]:
+          - link "lacønis · startseite" [ref=f3e9]:
+            - /url: /
+          - button "menü öffnen" [ref=f3e19]
+      - generic [ref=f3e22]:
+        - generic [ref=f3e24]:
+          - paragraph [ref=f3e25]: webdesign · entwicklung · eigenes cms
+          - heading "websites, die man anfassen will." [level=1] [ref=f3e27]
+          - paragraph [ref=f3e29]: Webdesign und Entwicklung aus einer Hand. Ich baue Websites von null · mit eigenem CMS, ohne Template und ohne Plugin-Stapel. Bestehende Seiten ziehen mit um, Inhalte und Rankings bleiben.
+        - generic [ref=f3e30]: ↓ die arbeit
+      - paragraph [ref=f3e33]: Die meisten Websites sind zusammengesteckt. Deine wird gebaut.
+      - generic [ref=f3e35]:
+        - heading "arbeiten" [level=2] [ref=f3e36]
+        - list [ref=f3e37]:
+          - listitem [ref=f3e38]:
+            - link "fabry baumpflege web" [ref=f3e39]:
+              - /url: /arbeiten/fabry-baumpflege
+              - generic [ref=f3e41]: fabry baumpflege
+              - generic [ref=f3e42]: web
+              - generic [ref=f3e43]: →
+          - listitem [ref=f3e44]:
+            - link "holoroom branding" [ref=f3e45]:
+              - /url: /arbeiten/holoroom
+              - generic [ref=f3e47]: holoroom
+              - generic [ref=f3e48]: branding
+              - generic [ref=f3e49]: →
+          - listitem [ref=f3e50]:
+            - link "léspoir asbl web + branding · in arbeit" [ref=f3e51]:
+              - /url: /arbeiten/lespoir-asbl
+              - generic [ref=f3e53]: léspoir asbl
+              - generic [ref=f3e54]: web + branding · in arbeit
+              - generic [ref=f3e55]: →
+        - link "alle arbeiten →" [ref=f3e56]:
+          - /url: /arbeiten
+      - generic [ref=f3e58]:
+        - generic [ref=f3e59]:
+          - generic [ref=f3e60]:
+            - text: nehme aktuell projekte an
+            - generic [ref=f3e61]: ·
+          - generic [ref=f3e62]:
+            - text: schreib mir
+            - generic [ref=f3e63]: ·
+        - generic [ref=f3e64]:
+          - generic [ref=f3e65]:
+            - text: nehme aktuell projekte an
+            - generic [ref=f3e66]: ·
+          - generic [ref=f3e67]:
+            - text: schreib mir
+            - generic [ref=f3e68]: ·
+      - generic [ref=f3e70]:
+        - heading "gebaut mit contentcore." [level=2] [ref=f3e71]: gebaut mitcontentcore.
+        - paragraph [ref=f3e72]: Mein eigenes CMS. Du änderst alles selbst, es hängt kein Abo dran, und es gehört dir mit der Seite.
+        - link "was drin ist →" [ref=f3e73]:
+          - /url: /studio
+      - generic [ref=f3e75]:
+        - paragraph [ref=f3e76]: sag mir, was du vorhast.
+        - generic [ref=f3e77]:
+          - link "schreib mir" [ref=f3e78]:
+            - /url: /kontakt
+          - generic [ref=f3e79]:
+            - text: oder direkt an
+            - link "nicolas@laconis.be" [ref=f3e80]:
+              - /url: mailto:nicolas@laconis.be
+        - contentinfo [ref=f3e81]:
+          - generic [ref=f3e82]:
+            - link "nicolas@laconis.be" [ref=f3e84]:
+              - /url: mailto:nicolas@laconis.be
+            - generic [ref=f3e85]:
+              - link "impressum" [ref=f3e86]:
+                - /url: /impressum
+              - link "datenschutz" [ref=f3e87]:
+                - /url: /datenschutz
+              - generic [ref=f3e88]: © 2026 lacønis
+  - alert [ref=f3e89]
