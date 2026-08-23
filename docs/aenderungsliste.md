@@ -19,14 +19,18 @@ vergiss nicht den rest danach noch zu machen."
 8. [x] K9 · verbotene Zahlen in Schema und Meta
 9. [x] K5, K6, K10–K16 · restliche Defekte
 10. [x] G3–G16 · grafische Angleichung
-11. [x] P1–P8 · Politur (P4 teilweise · siehe unten)
+11. [x] P1–P8 · Politur
 
-**Damit ist die Liste durch.** Offen geblieben und bewusst so:
-- **P4 · rAF-Bremsen** — die vier Schleifen (ProjektAnsicht, ShaderField,
-  CursorDot, Stapel-Atmung) laufen weiter ungedrosselt. Nicht angefasst,
-  weil jede einzelne eine sichtbare Bewegung trägt und ein Fehler dort
-  sofort auffällt — das gehört in eine eigene Runde mit Messung davor
-  und danach, nicht ans Ende eines langen Durchgangs.
+**Damit ist die Liste vollständig durch.**
+
+Nachtrag zu **P4** (24.08., eigene Runde): alle vier Schleifen gebremst.
+Zwei Behauptungen der Liste stimmten so nicht — `ShaderField` hatte
+längst einen IntersectionObserver und zeichnete bei reduced-motion
+korrekt nur ein Standbild; und die `Stapel`-rAF-Schleife beendet sich
+selbst. Der Stapel-Befund war trotzdem echt, nur in CSS: `stAtmen`
+trieb den **Blur-Radius** dreier Schlagschatten, dauerhaft.
+
+Offen geblieben und bewusst so:
 - **/preview und /web-performance-ostbelgien** — beides lebende Routen
   auf der alten Oberfläche. Sie halten `framer-motion`, Caveat und
   Bricolage in `package.json`. Ob sie bleiben, ist eine inhaltliche
