@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
+import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { HeroRail } from "@/components/device/HeroRail";
 import { Stapel } from "@/components/referenzen/Stapel";
 import { REFERENZEN } from "@/components/referenzen/referenzen.dict";
@@ -119,12 +120,7 @@ export function ReferenzenDevice() {
             </div>
           </div>
 
-          <div className="mt-16 flex flex-wrap justify-between gap-4 border-t border-[rgba(242,242,242,0.08)] pt-6">
-            <span className="lab-label">© 2026 lacønis</span>
-            <a className="lab-label" href="mailto:nicolas@laconis.be">
-              nicolas@laconis.be
-            </a>
-          </div>
+          <DeviceFuss />
         </div>
       </section>
     </div>

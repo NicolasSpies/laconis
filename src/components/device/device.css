@@ -1456,3 +1456,28 @@
     animation: none;
   }
 }
+
+/* ── sprachumschalter im menüfuss ─────────────────────────
+   vorher stand hier "de · fr · en" als toter <span>: text, der
+   aussah wie ein umschalter und keiner war. der einzige echte
+   hing in Nav.tsx, das auf keiner der vier seiten rendert. */
+.lab-sprachen {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.lab-sprache {
+  padding: 6px 9px;
+  border-radius: var(--r-xs);
+  color: var(--tx-4);
+  transition: color var(--t-2) var(--ease), background var(--t-2) var(--ease);
+}
+.lab-sprache:hover { color: var(--tx-1); }
+.lab-sprache[data-an="1"] {
+  color: #08080b;
+  background: var(--lime);
+}
+.lab-sprache:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}

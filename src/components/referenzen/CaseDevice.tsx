@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
+import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { ArtQuote } from "@/components/device/ArtQuote";
 import { ClaimSwitch } from "@/components/referenzen/ClaimSwitch";
 import { ProjektAnsicht } from "@/components/referenzen/ProjektAnsicht";
@@ -208,14 +209,13 @@ export function CaseDevice({ slug }: { slug: string }) {
             </div>
           </div>
 
-          <div className="mt-16 flex flex-wrap justify-between gap-4 border-t border-[rgba(242,242,242,0.08)] pt-6">
-            <Link href={buildPath("referenzen", locale)} className="lab-label">
-              ← {t.back}
-            </Link>
-            <a className="lab-label" href="mailto:nicolas@laconis.be">
-              nicolas@laconis.be
-            </a>
-          </div>
+          <DeviceFuss
+            vorne={
+              <Link href={buildPath("referenzen", locale)} className="lab-label-lg">
+                ← {t.back}
+              </Link>
+            }
+          />
         </div>
       </section>
     </div>

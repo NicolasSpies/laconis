@@ -1,6 +1,7 @@
 "use client";
 
 import { DeviceNav } from "@/components/device/DeviceNav";
+import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { HeroRail } from "@/components/device/HeroRail";
 import { HeroAtmo } from "@/components/device/HeroAtmo";
 import { KontaktKonsole } from "@/components/kontakt/KontaktKonsole";
@@ -113,12 +114,7 @@ export function KontaktDevice() {
             ))}
           </div>
 
-          <div className="mt-20 flex flex-wrap justify-between gap-4 border-t border-[rgba(242,242,242,0.08)] pt-6">
-            <span className="lab-label">© 2026 lacønis</span>
-            <a className="lab-label" href={`mailto:${CONTACT.email}`}>
-              {CONTACT.email}
-            </a>
-          </div>
+          <DeviceFuss />
         </div>
       </section>
     </div>

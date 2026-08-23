@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
+import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { HeroRail } from "@/components/device/HeroRail";
 import { useLocale } from "@/i18n/useLocale";
 import { buildPath } from "@/i18n/config";
@@ -78,6 +79,8 @@ export function LegalLayout({ num, label, titel, intro, children }: Props) {
           </div>
         </div>
       </section>
+
+      <DeviceFuss />
     </div>
   );
 }

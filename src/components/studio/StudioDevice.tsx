@@ -7,6 +7,7 @@ import { STUDIO } from "@/components/studio/studio.dict";
 import { LEISTUNG } from "@/components/leistung/leistung.dict";
 import { useLocale } from "@/i18n/useLocale";
 import { DeviceNav } from "@/components/device/DeviceNav";
+import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { Kammer } from "@/components/home/Kammer";
 import { LiveEditor } from "@/components/leistung/LiveEditor";
 import { Schluss } from "@/components/home/Schluss";
@@ -140,19 +141,7 @@ export function StudioDevice() {
         mail={CONTACT.email}
       />
 
-      <footer className="relative z-[1] mx-auto flex max-w-shell flex-wrap justify-between gap-4 border-t border-[var(--ln-hair)] px-gut pb-rh-s pt-6">
-        <a className="lab-label" href={`mailto:${CONTACT.email}`}>
-          {CONTACT.email}
-        </a>
-        <span className="flex flex-wrap gap-x-6 gap-y-2">
-          <Link href={buildPath("impressum", locale)} className="lab-label">
-            {t.fussImpressum}
-          </Link>
-          <Link href={buildPath("datenschutz", locale)} className="lab-label">
-            {t.fussDatenschutz}
-          </Link>
-        </span>
-      </footer>
+      <DeviceFuss />
     </div>
   );
 }

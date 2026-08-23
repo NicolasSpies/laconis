@@ -14,9 +14,9 @@ vergiss nicht den rest danach noch zu machen."
 3. [x] K3 + G1 · Lime unabgewandelt, eine Knopfform · dazu K9-teil (FAQ-preise)
 4. [x] K1 · `--font-mono` definieren
 5. [x] K2 · Light-Theme aus dem Root
-6. [ ] **K7 · Impressum/Datenschutz auf allen Seiten**  ← ALS NÄCHSTES
-7. [ ] K8 · Sprachumschalter
-8. [ ] K9 · verbotene Zahlen in Schema und Meta
+6. [x] K7 · Impressum/Datenschutz auf allen Seiten
+7. [x] K8 · Sprachumschalter
+8. [ ] **K9 · verbotene Zahlen in Schema und Meta** (FAQ-teil ist raus) ← ALS NÄCHSTES
 9. [ ] K5, K6, K10–K16 · restliche Defekte
 10. [ ] G3–G16 · grafische Angleichung
 11. [ ] P1–P8 · Politur

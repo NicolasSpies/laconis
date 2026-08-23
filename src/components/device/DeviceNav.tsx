@@ -5,7 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLocale } from "@/i18n/useLocale";
 import { Wortmarke } from "@/components/Wortmarke";
-import { buildPath, type Locale } from "@/i18n/config";
+import { buildPath, switchLocale, LOCALES, type Locale } from "@/i18n/config";
+import { CONTACT } from "@/config/contact";
 
 /**
  * DeviceNav v3 · leise leiste, das ganze drama im menü. Jetzt mit echten
@@ -27,10 +28,13 @@ const ITEMS: Item[] = [
     key: "leistung",
     route: "leistung",
     label: { de: "studio", fr: "studio", en: "studio" },
+    /* "leistung · preise" versprach zwei seiten, die es seit dem
+       relaunch nicht mehr gibt · und preise nennt er ohnehin
+       erst im gespräch */
     meta: {
-      de: "leistung · preise · wer das baut",
-      fr: "prestation · prix · qui construit",
-      en: "service · pricing · who builds it",
+      de: "wie ich baue · und wer das ist",
+      fr: "comment je construis · et qui je suis",
+      en: "how i build · and who i am",
     },
   },
   {
@@ -47,10 +51,20 @@ const ITEMS: Item[] = [
   },
 ];
 
+/* die drei beschriftungen der leiste standen fest auf deutsch ·
+   auch auf /fr und /en. sie sind das einzige, was ein screenreader
+   von der navigation hört. */
+const NAV_TEXT: Record<Locale, { logo: string; auf: string; zu: string; nav: string; sprache: string }> = {
+  de: { logo: "lacønis · startseite", auf: "menü öffnen", zu: "menü schliessen", nav: "hauptnavigation", sprache: "sprache wählen" },
+  fr: { logo: "lacønis · accueil", auf: "ouvrir le menu", zu: "fermer le menu", nav: "navigation principale", sprache: "choisir la langue" },
+  en: { logo: "lacønis · home", auf: "open menu", zu: "close menu", nav: "main navigation", sprache: "choose language" },
+};
+
 export function DeviceNav() {
   const [open, setOpen] = useState(false);
   const locale = useLocale();
   const pathname = usePathname() || "/";
+  const nt = NAV_TEXT[locale];
 
   useEffect(() => {
     if (!open) return;
@@ -85,7 +99,7 @@ export function DeviceNav() {
     <>
       <header className="lab-nav" data-gescrollt={gescrollt ? "1" : "0"}>
         <div className="lab-nav-inner">
-          <Link href={buildPath("home", locale)} className="lab-nav-logo" aria-label="lacønis · startseite">
+          <Link href={buildPath("home", locale)} className="lab-nav-logo" aria-label={nt.logo}>
             {/* das echte logo · vorher stand hier der name in Archivo
                 nachgebaut, mit einem lime eingefärbten „ø" */}
             <Wortmarke />
@@ -95,7 +109,7 @@ export function DeviceNav() {
             type="button"
             className="lab-burger"
             aria-expanded={open}
-            aria-label={open ? "menü schließen" : "menü öffnen"}
+            aria-label={open ? nt.zu : nt.auf}
             onClick={() => setOpen((v) => !v)}
             data-open={open ? "1" : "0"}
           >
@@ -128,7 +142,7 @@ export function DeviceNav() {
           {/* die lime-linie fährt einmal durch */}
           <span className="lab-menu-scan" aria-hidden />
 
-          <nav className="lab-menu-list" aria-label="hauptnavigation">
+          <nav className="lab-menu-list" aria-label={nt.nav}>
             {ITEMS.map((it, i) => {
               const href = buildPath(it.route, locale);
               const on = pathname === href;
@@ -150,9 +164,27 @@ export function DeviceNav() {
           </nav>
 
           <div className="lab-menu-foot">
-            <span className="lab-label">de · fr · en</span>
-            <a className="lab-label" href="mailto:nicolas@laconis.be">
-              nicolas@laconis.be
+            {/* hier stand "de · fr · en" als toter <span> · text, der
+                aussah wie ein umschalter. der einzige echte
+                (switchLocale) hing in Nav.tsx, das auf keiner der
+                vier seiten rendert. */}
+            <span className="lab-sprachen" aria-label={nt.sprache}>
+              {LOCALES.map((code) => (
+                <Link
+                  key={code}
+                  href={switchLocale(pathname, code)}
+                  hrefLang={code}
+                  className="lab-label lab-sprache"
+                  aria-current={code === locale ? "true" : undefined}
+                  data-an={code === locale ? "1" : "0"}
+                  onClick={() => setOpen(false)}
+                >
+                  {code}
+                </Link>
+              ))}
+            </span>
+            <a className="lab-label-lg" href={`mailto:${CONTACT.email}`}>
+              {CONTACT.email}
             </a>
           </div>
         </div>
