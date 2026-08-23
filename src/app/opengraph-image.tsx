@@ -58,7 +58,7 @@ export default function OpengraphImage() {
               display: "flex",
             }}
           />
-          eupen · belgien
+          ostbelgien · belgien
         </div>
 
         {/* middle · wordmark + tagline */}

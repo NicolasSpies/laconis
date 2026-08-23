@@ -25,7 +25,7 @@ export const HOME_FAQ: Record<Locale, HomeFaqDict> = {
       },
       {
         q: "wie lange dauert's, bis die seite live ist?",
-        a: "onepager rund 2 wochen, mehrseitige projekte 3 bis 5. der größte faktor bist du · je schneller dein feedback, desto schneller der launch.",
+        a: "das hängt vom umfang ab. der größte faktor bist du · je schneller dein feedback, desto schneller der launch. eine belastbare zeitangabe bekommst du mit dem angebot, nicht vorher.",
       },
       {
         q: "warum kein wordpress oder baukasten?",
@@ -47,7 +47,7 @@ export const HOME_FAQ: Record<Locale, HomeFaqDict> = {
       },
       {
         q: "combien de temps avant la mise en ligne ?",
-        a: "onepager environ 2 semaines, projets multi-pages 3 à 5. le plus grand facteur, c'est toi · plus ton feedback est rapide, plus vite c'est en ligne.",
+        a: "cela dépend de l'ampleur. le plus grand facteur, c'est toi · plus ton feedback est rapide, plus vite c'est en ligne. une date fiable arrive avec l'offre, pas avant.",
       },
       {
         q: "pourquoi pas wordpress ou un builder ?",
@@ -69,7 +69,7 @@ export const HOME_FAQ: Record<Locale, HomeFaqDict> = {
       },
       {
         q: "how long until the site is live?",
-        a: "onepager about 2 weeks, multi-page projects 3 to 5. the biggest factor is you · the faster your feedback, the faster the launch.",
+        a: "it depends on the scope. the biggest factor is you · the faster your feedback, the faster the launch. a reliable date comes with the offer, not before.",
       },
       {
         q: "why no wordpress or site builder?",

@@ -161,7 +161,10 @@ const schema = {
       logo: `${BASE}/icon.png`,
       email: `mailto:${CONTACT.email}`,
       ...(CONTACT.phone ? { telephone: CONTACT.phoneE164 } : {}),
-      priceRange: "€€",
+      /* priceRange stand hier, während der preis aus jedem
+         anderen schema entfernt wurde (K9). "€€" ist genau die
+         art halbe behauptung, die er nicht will · und sie taucht
+         in google-panels auf. */
       currenciesAccepted: "EUR",
       paymentAccepted: ["Bank Transfer", "SEPA"],
       address: {

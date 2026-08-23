@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ROUTES, getAlternates, LOCALES, type Locale } from "@/i18n/config";
+import { ROUTES, getAlternates, buildPath, LOCALES, type Locale } from "@/i18n/config";
 import { getLocale } from "@/i18n/getLocale";
 
 /**
@@ -188,13 +188,28 @@ const STATIC_MAP: Record<string, MetaByLocale> = {
 };
 
 /**
- * mappt einen canonical DE-path (z.b. "/leistungen/web") auf den
- * route-key in src/i18n/config.ts ("leistungen/web") · für hreflang.
+ * mappt einen deutschen pfad auf den route-key in
+ * src/i18n/config.ts · für hreflang und canonical.
+ *
+ * ES WIRD ÜBER DIE DEUTSCHEN SLUGS GESUCHT, NICHT ÜBER DIE KEYS.
+ * beim relaunch wurden die sichtbaren slugs umgestellt (leistung →
+ * studio, referenzen → arbeiten) und die KEYS bewusst behalten,
+ * damit die ~34 buildPath-aufrufe unverändert bleiben konnten. der
+ * alte vergleich `key in ROUTES` fragte also "gibt es einen key
+ * namens 'studio'" — nein, der key heisst weiter 'leistung'.
+ * ergebnis: /studio und /arbeiten bekamen KEIN hreflang, gemessen
+ * 0 tags gegen 4 auf /kontakt.
  */
+const SLUG_ZU_KEY: Record<string, string> = Object.fromEntries(
+  Object.entries(ROUTES).map(([key, slugs]) => [slugs.de, key]),
+);
+
 function pathToRouteKey(path: string): string | null {
   if (path === "/") return "home";
-  const key = path.replace(/^\/+|\/+$/g, "");
-  return key in ROUTES ? key : null;
+  const slug = path.replace(/^\/+|\/+$/g, "");
+  if (slug in SLUG_ZU_KEY) return SLUG_ZU_KEY[slug];
+  /* fallback: manche aufrufer übergeben schon den key */
+  return slug in ROUTES ? slug : null;
 }
 
 /**
@@ -222,13 +237,28 @@ export async function getMeta(path: string): Promise<Metadata> {
     ? (getAlternates(routeKey as keyof typeof ROUTES) as Record<string, string>)
     : undefined;
 
+  /* DER CANONICAL MUSS DER SPRACHE FOLGEN.
+     vorher stand hier hart `canonical: path`, und path ist immer
+     der deutsche pfad (getMeta("/studio") wird für alle drei
+     sprachen mit demselben string aufgerufen). damit trug
+     /fr/studio einen canonical auf /studio und /en/work einen auf
+     /arbeiten · jede französische und englische seite erklärte
+     sich selbst zur kopie der deutschen und bat google, sie nicht
+     zu indexieren. die ganze dreisprachigkeit war damit
+     unsichtbar. gemessen vor dem fix:
+       /fr/studio  → canonical https://laconis.be/studio
+       /en/work    → canonical https://laconis.be/arbeiten */
+  const canonical = routeKey
+    ? buildPath(routeKey as keyof typeof ROUTES, locale)
+    : path;
+
   return {
     title: entry.title,
     description: entry.description,
     openGraph: {
       title: entry.ogTitle ?? entry.title,
       description: entry.ogDescription ?? entry.description,
-      url: path,
+      url: canonical,
       locale: OG_LOCALE[locale],
       alternateLocale: LOCALES.filter((l) => l !== locale).map((l) => OG_LOCALE[l]),
       type: entry.ogType ?? "website",
@@ -239,7 +269,7 @@ export async function getMeta(path: string): Promise<Metadata> {
       description: entry.ogDescription ?? entry.description,
     },
     alternates: {
-      canonical: path,
+      canonical,
       ...(languages ? { languages } : {}),
     },
     ...(entry.noindex || entry.nofollow

@@ -21,6 +21,10 @@ import { buildPath } from "@/i18n/config";
 
 const BASE = "https://laconis.be";
 
+/* der breadcrumb-name folgt der sprache · google zeigt ihn im
+   suchergebnis an */
+const BROT: Record<string, string> = { de: "arbeiten", fr: "travaux", en: "work" };
+
 export async function generateMetadata(): Promise<Metadata> {
   return getMeta("/arbeiten");
 }
@@ -44,7 +48,10 @@ export default function Page() {
       <BreadcrumbSchema
         items={[
           { name: "home", url: `${BASE}/` },
-          { name: "referenzen", url: `${BASE}${buildPath("referenzen", locale)}` },
+          /* hiess in ALLEN drei sprachen "referenzen" · google zeigt den
+             breadcrumb im suchergebnis an, und die route heisst seit
+             dem relaunch /arbeiten bzw. /travaux bzw. /work */
+          { name: BROT[locale], url: `${BASE}${buildPath("referenzen", locale)}` },
         ]}
       />
       <Script id="referenzen-itemlist" type="application/ld+json" strategy="beforeInteractive">

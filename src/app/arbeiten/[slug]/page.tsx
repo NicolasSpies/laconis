@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { referenzen } from "@/data/referenzen";
 import { CaseDevice } from "@/components/referenzen/CaseDevice";
+import { getLocale } from "@/i18n/getLocale";
+import { buildPath, LOCALES, type Locale } from "@/i18n/config";
 
 /**
  * /referenzen/[slug] · die detailseite.
@@ -25,16 +27,54 @@ export function generateStaticParams() {
   return referenzen.map((r) => ({ slug: r.slug }));
 }
 
+/* die eine zeile, die pro sprache anders lautet · der rest der
+   beschreibung kommt aus den projektdaten und ist (noch) einsprachig,
+   das ist ein eigener punkt. */
+const CASE_META: Record<Locale, { liste: string; live: string; konzept: string }> = {
+  de: {
+    liste: "arbeiten",
+    live: "Live beim Kunden.",
+    konzept: "Konzept-studie, kein veröffentlichtes Kundenprojekt.",
+  },
+  fr: {
+    liste: "travaux",
+    live: "En ligne chez le client.",
+    konzept: "Étude concept, pas un projet client publié.",
+  },
+  en: {
+    liste: "work",
+    live: "Live at the client.",
+    konzept: "Concept study, not a published client project.",
+  },
+};
+
 export function generateMetadata({ params }: Props): Metadata {
   const r = referenzen.find((x) => x.slug === params.slug);
-  if (!r) return { title: "arbeiten" };
+  const locale = getLocale();
+  const t = CASE_META[locale];
+  if (!r) return { title: t.liste };
+
+  /* DER CANONICAL FOLGT DER SPRACHE.
+     vorher stand hier hart `/arbeiten/${slug}` · /en/work/<slug>
+     trug damit einen canonical auf die DEUTSCHE url und
+     kanonisierte sich selbst weg, während die sitemap dieselbe
+     url gleichzeitig als eigenständige sprachfassung mit hreflang
+     anmeldet. sitemap und canonical widersprachen sich. */
+  const basis = buildPath("referenzen", locale);
+  const sprachen = Object.fromEntries(
+    LOCALES.map((l) => [l, `${buildPath("referenzen", l)}/${params.slug}`]),
+  );
 
   return {
-    title: `${r.name.toLowerCase()} · arbeiten`,
-    description: r.istEcht
-      ? `${r.kurz} · ${r.ort}, ${r.jahr}. Live beim Kunden.`
-      : `${r.kurz} · ${r.ort}, ${r.jahr}. Konzept-studie, kein veröffentlichtes kundenprojekt.`,
-    alternates: { canonical: `/arbeiten/${params.slug}` },
+    title: `${r.name.toLowerCase()} · ${t.liste}`,
+    description: `${r.kurz} · ${r.ort}, ${r.jahr}. ${r.istEcht ? t.live : t.konzept}`,
+    alternates: {
+      canonical: `${basis}/${params.slug}`,
+      languages: {
+        ...sprachen,
+        "x-default": `${buildPath("referenzen", "de")}/${params.slug}`,
+      },
+    },
   };
 }
 

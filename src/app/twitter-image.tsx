@@ -62,7 +62,7 @@ export default function TwitterImage() {
               display: "flex",
             }}
           />
-          eupen · belgien
+          ostbelgien · belgien
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
