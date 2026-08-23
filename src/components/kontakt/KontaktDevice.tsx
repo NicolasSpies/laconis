@@ -114,9 +114,15 @@ export function KontaktDevice() {
             <Zeilenliste eintraege={t.danach} />
           </div>
 
-          <DeviceFuss />
         </div>
       </section>
+
+      {/* AUSSERHALB der sektion · DeviceFuss bringt seine eigene
+          schale mit (aussen px-gut, innen max-w-shell). in einer
+          zweiten schale wurde daraus 936 statt 1080px, und die
+          zeile hing um einen gutter eingerückt unter der seite —
+          genau der fehler, den K14 an anderer stelle behoben hat. */}
+      <DeviceFuss />
     </div>
   );
 }

@@ -71,6 +71,7 @@ export function DeviceNav() {
      zurück. wer mit der tastatur öffnete, tabte weiter durch die
      seite DAHINTER, die er nicht sehen konnte. */
   const menueRef = useRef<HTMLDivElement>(null);
+  const kopfRef = useRef<HTMLElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -79,14 +80,31 @@ export function DeviceNav() {
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
 
-    const dahinter = document.querySelector<HTMLElement>(".lab-root");
-    dahinter?.setAttribute("inert", "");
+    /* inert liegt auf den GESCHWISTERN, nicht auf .lab-root.
+       erster anlauf setzte es auf .lab-root — dort steckt aber die
+       navigation selbst drin, das menü hat sein eigenes inert also
+       geerbt und war weder klickbar noch fokussierbar. im browser
+       gemessen: erster link nicht fokussierbar, fokus fiel auf body.
+
+       nur knoten markieren, die es NICHT schon tragen · sonst
+       räumt das cleanup fremdes inert mit weg. */
+    const wurzel = document.querySelector<HTMLElement>(".lab-root");
+    const markiert: HTMLElement[] = [];
+    if (wurzel) {
+      for (const kind of Array.from(wurzel.children) as HTMLElement[]) {
+        if (kind === kopfRef.current || kind === menueRef.current) continue;
+        if (kind.hasAttribute("inert")) continue;
+        kind.setAttribute("inert", "");
+        markiert.push(kind);
+      }
+    }
+
     menueRef.current?.querySelector<HTMLElement>("a, button")?.focus();
 
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
-      dahinter?.removeAttribute("inert");
+      for (const kind of markiert) kind.removeAttribute("inert");
       /* zurück auf den knopf, der es geöffnet hat · sonst landet
          der fokus beim schliessen am seitenanfang */
       burgerRef.current?.focus();
@@ -114,6 +132,7 @@ export function DeviceNav() {
   return (
     <>
       <header
+        ref={kopfRef}
         className="lab-nav"
         role="banner"
         data-gescrollt={gescrollt ? "1" : "0"}

@@ -54,6 +54,6 @@
 }
 .sl-mail:hover { border-bottom-color: var(--g-0); }
 
-@media (prefers-reduced-motion: reduce) {
-  .sl-key { transition: none; }
-}
+/* .sl-key gibt es seit der knopf-vereinheitlichung (G1) nicht
+   mehr · die regel lief ins leere. die eine knopffamilie liegt in
+   device.css, dort steht jetzt auch ihr reduce-gegenstück. */

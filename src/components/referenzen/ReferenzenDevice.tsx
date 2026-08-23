@@ -96,6 +96,7 @@ export function ReferenzenDevice() {
       <Kammer
         t={{ satz: t.honestH2, betont: "", body: t.honestBody }}
         variante="bahn"
+        als="h2"
       />
 
       {/* ═══ SCHLUSS ═══ */}
@@ -121,9 +122,15 @@ export function ReferenzenDevice() {
             </div>
           </div>
 
-          <DeviceFuss />
         </div>
       </section>
+
+      {/* AUSSERHALB der sektion · DeviceFuss bringt seine eigene
+          schale mit (aussen px-gut, innen max-w-shell). in einer
+          zweiten schale wurde daraus 936 statt 1080px, und die
+          zeile hing um einen gutter eingerückt unter der seite —
+          genau der fehler, den K14 an anderer stelle behoben hat. */}
+      <DeviceFuss />
     </div>
   );
 }

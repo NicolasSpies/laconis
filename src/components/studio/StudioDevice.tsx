@@ -138,13 +138,15 @@ export function StudioDevice() {
         </div>
       </section>
 
+      {/* die fusszeile sitzt IN der platte, wie auf der startseite ·
+          sonst endet die seite auf einem dunklen streifen UNTER der
+          farbe statt auf der farbe. genau dafür gibt es fuss/aufLime. */}
       <Schluss
         t={t.schluss}
         href={buildPath("kontakt", locale)}
         mail={CONTACT.email}
+        fuss={<DeviceFuss aufLime />}
       />
-
-      <DeviceFuss />
     </div>
   );
 }

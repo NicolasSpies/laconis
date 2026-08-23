@@ -1641,3 +1641,19 @@
     gap: var(--sp-3);
   }
 }
+
+/* ── reduce für DIE knopffamilie ──────────────────────────
+   die alten regeln zeigten nach G1 noch auf .sl-key, .cc-key und
+   .st-key · alle drei gelöscht, alle drei liefen ins leere. */
+@media (prefers-reduced-motion: reduce) {
+  .lab-cta,
+  .lab-link,
+  .ar-zeile {
+    transition: none;
+  }
+  .lab-cta:hover,
+  .lab-link:hover,
+  .ar-zeile:hover {
+    transform: none;
+  }
+}

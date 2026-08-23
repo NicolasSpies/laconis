@@ -114,6 +114,23 @@
 
 /* ── person ─────────────────────────────────────────────── */
 
+/* WIEDERHERGESTELLT · beim entfernen der platzhalter-notiz (K10)
+   hat mein schnitt zwei regeln zu viel mitgenommen: er suchte die
+   leerzeile VOR .st-portrait-note und traf damit den block davor
+   mit. dieselbe slice-falle wie schon einmal in dieser runde.
+   das portrait stand seitdem ohne breite und ohne radius. */
+.st-portrait {
+  margin: 0;
+  position: relative;
+}
+.st-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-m);
+}
+
+
 .st-person {
   display: grid;
   gap: clamp(32px, 5vw, 72px);
@@ -125,6 +142,5 @@
   .st-person { grid-template-columns: minmax(0, 1fr); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .st-key { transition: none; }
-}
+/* .st-key ist mit G1 in .lab-link aufgegangen · reduce-regel
+   dafür steht in device.css */

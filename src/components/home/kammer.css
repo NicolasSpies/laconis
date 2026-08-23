@@ -37,6 +37,8 @@
   text-wrap: pretty;
 }
 
+/* gilt für <p> UND <h2> · der satz ist auf /arbeiten die
+   überschrift des abschnitts, überall sonst ein satz */
 .ka-satz {
   width: 100%;
   margin: 0;

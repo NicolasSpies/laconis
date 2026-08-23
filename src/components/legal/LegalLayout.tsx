@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
-import { CONTACT } from "@/config/contact";
 import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { HeroRail } from "@/components/device/HeroRail";
 import { useLocale } from "@/i18n/useLocale";
@@ -71,20 +70,17 @@ export function LegalLayout({ num, label, titel, intro, children }: Props) {
         <div className="mx-auto max-w-shell space-y-14">{children}</div>
       </section>
 
-      <section data-no-reveal className="relative px-gut pb-rh-l">
-        <div className="mx-auto max-w-shell">
-          <div className="flex flex-wrap justify-between gap-4 border-t border-[rgba(242,242,242,0.08)] pt-6">
-            <Link href={buildPath("home", locale)} className="lab-label">
-              ← lacønis
-            </Link>
-            <a className="lab-label" href={`mailto:${CONTACT.email}`}>
-              {CONTACT.email}
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <DeviceFuss />
+      {/* hier stand bis eben eine EIGENE fusszeile · als DeviceFuss
+          dazukam (K7), standen zwei untereinander und die
+          mailadresse dreimal auf der seite. der zurück-weg wandert
+          in den vorne-slot, wie auf der case-seite. */}
+      <DeviceFuss
+        vorne={
+          <Link href={buildPath("home", locale)} className="lab-label-lg">
+            ← lacønis
+          </Link>
+        }
+      />
     </div>
   );
 }

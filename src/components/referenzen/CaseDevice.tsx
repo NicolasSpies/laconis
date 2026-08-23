@@ -209,15 +209,18 @@ export function CaseDevice({ slug }: { slug: string }) {
             </div>
           </div>
 
-          <DeviceFuss
-            vorne={
-              <Link href={buildPath("referenzen", locale)} className="lab-label-lg">
-                ← {t.back}
-              </Link>
-            }
-          />
         </div>
       </section>
+
+      {/* siehe KontaktDevice · ausserhalb der sektion, sonst misst
+          die zeile 936 statt 1080px */}
+      <DeviceFuss
+        vorne={
+          <Link href={buildPath("referenzen", locale)} className="lab-label-lg">
+            ← {t.back}
+          </Link>
+        }
+      />
     </div>
   );
 }

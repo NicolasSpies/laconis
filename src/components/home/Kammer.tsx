@@ -42,13 +42,29 @@ export type KammerT = {
  * mal nicht mehr weh. jede unterseite bekommt jetzt genau eine, an
  * anderer stelle und in anderem mass.
  */
-export function Kammer({ t, variante }: { t: KammerT; variante?: "bahn" }) {
+export function Kammer({
+  t,
+  variante,
+  als = "p",
+}: {
+  t: KammerT;
+  variante?: "bahn";
+  /** `h2`, wenn der satz die überschrift der sektion IST.
+      auf /arbeiten trägt er den ehrlich-abschnitt · er sieht aus
+      wie eine überschrift (gleiche grösse wie die h2 daneben) und
+      stand trotzdem in keiner gliederung. */
+  als?: "p" | "h2";
+}) {
+  const Satz = als;
   return (
     <section className="ka" data-variante={variante ?? "voll"} data-no-reveal>
       <div className="ka-innen">
-        <p className="ka-satz">
-          {t.satz} <span className="ka-betont">{t.betont}</span>
-        </p>
+        <Satz className="ka-satz">
+          {t.satz}
+          {/* ohne betonung KEIN leeres span · sonst steht auf der
+              seite ein element, das nichts trägt */}
+          {t.betont ? <> <span className="ka-betont">{t.betont}</span></> : null}
+        </Satz>
         {t.body && <p className="ka-body">{t.body}</p>}
       </div>
     </section>
