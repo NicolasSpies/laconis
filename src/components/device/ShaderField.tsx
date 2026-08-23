@@ -135,17 +135,75 @@ export function ShaderField({ className = "" }: { className?: string }) {
     const uTime = gl.getUniformLocation(prog, "u_time");
     const uMouse = gl.getUniformLocation(prog, "u_mouse");
 
-    /* dpr gedeckelt · retina voll auflösen kostet 4x fillrate für nix */
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+    /* dpr gedeckelt · retina voll auflösen kostet 4x fillrate für nix.
+       ZUSÄTZLICH ein deckel auf die absolute breite: der shader
+       rechnet fünf fbm-oktaven pro fragment, das sind rund hundert
+       sinus-aufrufe je pixel. auf einem 5K-schirm wären das über
+       elf millionen fragmente pro frame. das feld ist eine weiche,
+       konturlose wolke — auf 1600 gerechnet und vom browser
+       hochskaliert sieht man keinen unterschied, weil es nichts
+       gibt, dessen kante man vermissen könnte. */
+    const MAX_BREITE = 1600;
+    const rohDpr = Math.min(window.devicePixelRatio || 1, 1.75);
     let w = 0;
     let h = 0;
-    const resize = () => {
+    let dpr = rohDpr;
+
+    const reduziert = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* die geometrie der fläche wird GEMERKT · onMove holte sie sich
+       vorher bei jedem pointermove neu, und der listener hängt am
+       window, feuert also auch dann, wenn der hero längst
+       weggescrollt ist. jedes getBoundingClientRect erzwingt ein
+       layout. */
+    const flaeche = { left: 0, top: 0, height: 0 };
+
+    /* ein einzelnes bild derselben szene · gebraucht bei
+       reduced-motion und nach jedem echten resize */
+    const standbild = () => {
+      gl.uniform2f(uRes, w, h);
+      gl.uniform1f(uTime, 12);
+      gl.uniform2f(uMouse, w * 0.5, h * 0.55);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    };
+
+    /* ZWEI GETRENNTE DINGE, und das ist wichtig:
+         messen()  liest nur die geometrie · billig, darf bei jedem
+                   scroll laufen.
+         resize()  legt den zeichenpuffer NEU an · canvas.width zu
+                   setzen leert ihn, auch wenn der wert gleich
+                   bleibt. nur bei echtem grössenwechsel. */
+    const messen = () => {
       const r = canvas.getBoundingClientRect();
-      w = Math.max(1, Math.round(r.width * dpr));
-      h = Math.max(1, Math.round(r.height * dpr));
+      flaeche.left = r.left;
+      flaeche.top = r.top;
+      flaeche.height = r.height;
+      return r;
+    };
+
+    const resize = () => {
+      const r = messen();
+      /* deckel auf die absolute breite: der shader rechnet fünf
+         fbm-oktaven pro fragment, rund hundert sinus je pixel. auf
+         einem 5K-schirm wären das über elf millionen fragmente pro
+         frame. das feld ist eine weiche, konturlose wolke · auf
+         1600 gerechnet und hochskaliert sieht man keinen
+         unterschied, weil es keine kante gibt, die man vermisst. */
+      dpr = Math.min(rohDpr, MAX_BREITE / Math.max(1, r.width));
+      const nw = Math.max(1, Math.round(r.width * dpr));
+      const nh = Math.max(1, Math.round(r.height * dpr));
+      if (nw === w && nh === h) return;
+      w = nw;
+      h = nh;
       canvas.width = w;
       canvas.height = h;
       gl.viewport(0, 0, w, h);
+      /* canvas.width zu setzen LEERT den puffer. bei reduced-motion
+         läuft keine schleife, die ihn wieder füllt · das feld blieb
+         nach jedem resize schwarz (und weil der kontext mit
+         alpha:false läuft, ist das deckendes schwarz, kein
+         durchscheinender verlauf). */
+      if (reduziert) standbild();
     };
     resize();
     window.addEventListener("resize", resize);
@@ -153,20 +211,23 @@ export function ShaderField({ className = "" }: { className?: string }) {
     /* maus mit trägheit · target vs. aktuell, jeden frame angenähert */
     const target = { x: w * 0.5, y: h * 0.55 };
     const cur = { x: target.x, y: target.y };
-    const onMove = (e: PointerEvent) => {
-      const r = canvas.getBoundingClientRect();
-      target.x = (e.clientX - r.left) * dpr;
-      target.y = (r.height - (e.clientY - r.top)) * dpr;
-    };
-    window.addEventListener("pointermove", onMove, { passive: true });
-
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let visible = true;
     const io = new IntersectionObserver(([e]) => {
       visible = e.isIntersecting;
     });
     io.observe(canvas);
+
+    const onMove = (e: PointerEvent) => {
+      if (!visible) return;
+      target.x = (e.clientX - flaeche.left) * dpr;
+      target.y = (flaeche.height - (e.clientY - flaeche.top)) * dpr;
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    /* die gemerkte geometrie wandert beim scrollen mit · messen(),
+       NICHT resize(), sonst wird der puffer bei jedem scroll-
+       ereignis geleert */
+    window.addEventListener("scroll", messen, { passive: true });
 
     let raf = 0;
     const t0 = performance.now();
@@ -181,11 +242,8 @@ export function ShaderField({ className = "" }: { className?: string }) {
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
 
-    if (reduced) {
-      gl.uniform2f(uRes, w, h);
-      gl.uniform1f(uTime, 12);
-      gl.uniform2f(uMouse, w * 0.5, h * 0.55);
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    if (reduziert) {
+      standbild();
     } else {
       raf = requestAnimationFrame(draw);
     }
@@ -194,6 +252,7 @@ export function ShaderField({ className = "" }: { className?: string }) {
       cancelAnimationFrame(raf);
       io.disconnect();
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", messen);
       window.removeEventListener("pointermove", onMove);
       gl.deleteProgram(prog);
       gl.deleteShader(vs);

@@ -12,9 +12,23 @@ export function CursorDot() {
     if ("ontouchstart" in window || navigator.maxTouchPoints > 0) return;
     setMounted(true);
 
-    const move = (e: PointerEvent | MouseEvent) => {
+    /* pointerrawupdate feuert mit der nativen zeigerrate — in chrome
+       bis 1000 mal die sekunde. jedes ereignis schrieb direkt einen
+       style, also bis zu 1000 style-invalidierungen pro sekunde für
+       höchstens 120 bilder. jetzt wird nur die POSITION gemerkt und
+       einmal pro frame gemalt. */
+    let zx = 0;
+    let zy = 0;
+    let malRaf = 0;
+    const malen = () => {
+      malRaf = 0;
       if (!dot.current) return;
-      dot.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      dot.current.style.transform = `translate3d(${zx}px, ${zy}px, 0)`;
+    };
+    const move = (e: PointerEvent | MouseEvent) => {
+      zx = e.clientX;
+      zy = e.clientY;
+      if (!malRaf) malRaf = requestAnimationFrame(malen);
     };
 
     const enter = (e: MouseEvent) => {
@@ -74,6 +88,7 @@ export function CursorDot() {
       );
       document.removeEventListener("mouseover", enter);
       document.removeEventListener("mouseout", leave);
+      cancelAnimationFrame(malRaf);
     };
   }, []);
 

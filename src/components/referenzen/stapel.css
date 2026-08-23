@@ -174,8 +174,15 @@
   border: 1px solid rgba(242, 242, 242, 0.14);
   /* der schlagschatten wächst mit dem abstand · das ist der
      eigentliche tiefen-hinweis, mehr als die verschiebung selbst */
+  /* DER BLUR-RADIUS HÄNGT NUR NOCH AN --z, NICHT AN --e.
+     --e atmet über stAtmen 13s endlos · solange der radius daran
+     hing, musste der browser drei grosse weiche schatten in JEDEM
+     frame neu rastern, dauerhaft, auf jeder ansicht dieser seite.
+     versatz und deckkraft atmen weiter — die kosten nur einen
+     repaint, keine neu-rasterung. der tiefen-hinweis ist ohnehin
+     --z (der abstand der schicht), nicht der atem. */
   box-shadow:
-    0 calc(var(--z) * var(--e) * 10px) calc(16px + var(--z) * var(--e) * 22px)
+    0 calc(var(--z) * var(--e) * 10px) calc(16px + var(--z) * 16px)
       rgba(0, 0, 0, calc(0.4 + var(--e) * 0.2)),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
   transition: filter 380ms ease, border-color 380ms ease;

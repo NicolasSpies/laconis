@@ -914,24 +914,6 @@ textarea:-webkit-autofill {
   }
 }
 
-/* ═══════════ page-transition · zero-js fade ═══════════ */
-@keyframes pt-fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.page-transition {
-  animation: pt-fade 0.3s ease-out both;
-}
-@media (prefers-reduced-motion: reduce) {
-  .page-transition {
-    animation: none;
-  }
-}
-
 /* ══════════════════════════════════════════════════════════
    scribble-mode — easter-egg aktiviert via konami-code.
    sessionStorage-flag + body.class = "scribble-mode".

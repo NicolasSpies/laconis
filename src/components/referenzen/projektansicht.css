@@ -193,7 +193,13 @@
 }
 .pv-rail-fill {
   position: absolute;
-  inset: 0 auto 0 0;
+  /* volle breite plus scaleX(p) statt width: p% · width ist eine
+     LAYOUT-eigenschaft und zwang jeden frame ein reflow. der
+     ursprung muss links liegen, sonst wächst der balken aus der
+     mitte. */
+  inset: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
   border-radius: 3px;
   background: linear-gradient(90deg, rgb(var(--accent) / 0.5), var(--lime));
   box-shadow: 0 0 12px rgb(var(--accent) / 0.45);

@@ -70,23 +70,64 @@ export function ProjektAnsicht({
     let startPos = 0;
 
     /* jede aufnahme darf nur um ihren ÜBERSTAND wandern, nicht um ihre
-       ganze höhe · sonst läuft das bild unten aus der scheibe raus */
-    const shift = (img: HTMLImageElement | null) => {
-      if (!img?.parentElement) return 0;
-      return Math.max(0, img.offsetHeight - img.parentElement.clientHeight);
+       ganze höhe · sonst läuft das bild unten aus der scheibe raus.
+
+       DIE WERTE WERDEN GEMESSEN, NICHT JEDEN FRAME NEU BERECHNET:
+       offsetHeight und clientHeight erzwingen beide ein layout. bei
+       zwei aufnahmen waren das VIER erzwungene messungen pro frame,
+       sechzig mal die sekunde, für zwei zahlen die sich nur beim
+       resize ändern. */
+    const hub = { desk: 0, phone: 0 };
+    const messen = () => {
+      const h = (img: HTMLImageElement | null) =>
+        img?.parentElement ? Math.max(0, img.offsetHeight - img.parentElement.clientHeight) : 0;
+      hub.desk = h(deskShot.current);
+      hub.phone = h(phoneShot.current);
     };
+    messen();
+    window.addEventListener("resize", messen);
+    /* die aufnahmen laden lazy · vorher ist offsetHeight 0 */
+    deskShot.current?.addEventListener("load", messen);
+    phoneShot.current?.addEventListener("load", messen);
 
     const paint = () => {
       const p = pos.current;
-      if (deskShot.current) deskShot.current.style.transform = `translate3d(0,${-p * shift(deskShot.current)}px,0)`;
-      if (phoneShot.current) phoneShot.current.style.transform = `translate3d(0,${-p * shift(phoneShot.current)}px,0)`;
-      if (fill.current) fill.current.style.width = `${p * 100}%`;
+      if (deskShot.current) deskShot.current.style.transform = `translate3d(0,${-p * hub.desk}px,0)`;
+      if (phoneShot.current) phoneShot.current.style.transform = `translate3d(0,${-p * hub.phone}px,0)`;
+      /* scaleX statt width · width ist eine LAYOUT-eigenschaft und
+         zwang jeden frame ein reflow des ganzen zweigs. genau
+         dieses reflow machte die messungen oben teuer: erst
+         schmutzt der schreibvorgang das layout, dann liest der
+         nächste frame es synchron zurück. */
+      if (fill.current) fill.current.style.transform = `scaleX(${p})`;
     };
 
+    /* ausserhalb des sichtfelds passiert nichts · die aufnahme
+       wanderte sonst 60 mal pro sekunde durch einen bildschirm,
+       den niemand ansieht */
+    let sichtbar = true;
+    const io = new IntersectionObserver(([e]) => {
+      sichtbar = e.isIntersecting;
+      /* beim wiedereintritt die uhr neu setzen, sonst holt der
+         nächste frame die ganze pause auf einmal nach */
+      if (sichtbar) last = 0;
+    });
+    io.observe(el);
+
+    const dirRef = { current: 1 as 1 | -1 };
+
     const tick = (time: number) => {
-      const dt = last ? (time - last) / 1000 : 0;
+      raf = requestAnimationFrame(tick);
+      if (!sichtbar) return;
+      /* dt auf einen frame gedeckelt. ohne deckel addiert die erste
+         messung nach einem hintergrund-tab die GANZE pause: schon
+         zehn sekunden abwesenheit sind 0.022 × 10 = 0.22, die
+         aufnahme rutscht um ein fünftel weiter; ab etwa
+         fünfundvierzig sekunden schlägt sie an einen anschlag und
+         läuft in die gegenrichtung. */
+      const dt = last ? Math.min((time - last) / 1000, 1 / 30) : 0;
       last = time;
-      if (!dragging && !reduced) {
+      if (!dragging) {
         /* hin und zurück statt springen · ein sprung von unten nach
            oben sieht aus wie ein fehler */
         pos.current += DRIFT_PER_SEC * dt * (dirRef.current || 1);
@@ -99,10 +140,16 @@ export function ProjektAnsicht({
         }
       }
       paint();
-      raf = requestAnimationFrame(tick);
     };
-    const dirRef = { current: 1 as 1 | -1 };
-    raf = requestAnimationFrame(tick);
+
+    /* bei reduced-motion lief die schleife WEITER · der check sparte
+       nur die positionsänderung, paint() und requestAnimationFrame
+       liefen sechzig mal die sekunde für ein standbild. */
+    if (reduced) {
+      paint();
+    } else {
+      raf = requestAnimationFrame(tick);
+    }
 
     const onDown = (e: PointerEvent) => {
       dragging = true;
@@ -129,6 +176,10 @@ export function ProjektAnsicht({
     el.addEventListener("pointercancel", onUp);
     return () => {
       cancelAnimationFrame(raf);
+      io.disconnect();
+      window.removeEventListener("resize", messen);
+      deskShot.current?.removeEventListener("load", messen);
+      phoneShot.current?.removeEventListener("load", messen);
       el.removeEventListener("pointerdown", onDown);
       el.removeEventListener("pointermove", onMove);
       el.removeEventListener("pointerup", onUp);
