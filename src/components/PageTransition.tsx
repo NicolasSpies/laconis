@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import { Wortmarke } from "@/components/Wortmarke";
 
 /**
  * PageTransition · der Vorhang, ohne Bibliothek.
@@ -33,14 +35,36 @@ import { usePathname } from "next/navigation";
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
+  /* der vorhang lief auch beim ERSTEN laden · für jeden
+     erstbesucher 560ms ladebildschirm, bevor er irgendetwas
+     gesehen hat.
+
+     NICHT über den pfad vergleichen: dann fehlt der vorhang auch,
+     sobald jemand auf die startseite ZURÜCK navigiert, weil das
+     wieder der erste pfad ist. der ref merkt sich den MOUNT ·
+     PageTransition selbst ist nicht gekeyed, er überlebt also
+     jeden routenwechsel. */
+  const ersterMount = useRef(true);
+  const istErsterAufruf = ersterMount.current;
+  useEffect(() => {
+    ersterMount.current = false;
+  }, []);
+
   return (
     <div key={pathname} className="pt-wrap">
       <div className="pt-inhalt">{children}</div>
 
-      <div className="pt-vorhang" aria-hidden>
-        <span className="pt-kante" />
-        <span className="pt-marke">lacønis</span>
-      </div>
+      {!istErsterAufruf && (
+        <div className="pt-vorhang" aria-hidden>
+          <span className="pt-kante" />
+          {/* stand hier als 11px-text bei 50% in der mono-schrift ·
+              auf der perfekten bühne (schwarze vollfläche, lime-
+              kante) der markenname in briefmarkengrösse. das
+              gezeichnete logo kam auf der ganzen seite nie grösser
+              als 17px vor. */}
+          <Wortmarke className="pt-marke" />
+        </div>
+      )}
     </div>
   );
 }

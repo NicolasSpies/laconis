@@ -24,12 +24,17 @@
 .pt-vorhang {
   position: fixed;
   inset: 0;
-  /* unter der navigation (10000) · die leiste bleibt stehen und der
-     vorhang laeuft dahinter durch, das wirkt wie eine buehne */
+  /* der kommentar behauptete "unter der navigation (10000)" · die
+     nav steht auf 60, der vorhang lief also DARÜBER und nahm die
+     leiste mit. jetzt liegt die nav auf 9999 und die beschreibung
+     stimmt: die leiste bleibt stehen, der vorhang läuft dahinter
+     durch. das ist erst die bühne. */
   z-index: 9998;
   pointer-events: none;
-  background: #0a0a0a;
-  will-change: transform;
+  background: var(--su-void);
+  /* KEIN will-change · es lag dauerhaft auf einer fixed-
+     vollbildebene, also auch die 99% der zeit, in denen sich
+     nichts bewegt */
   animation: ptVorhang 560ms cubic-bezier(0.76, 0, 0.24, 1) both;
 }
 
@@ -46,12 +51,11 @@
 .pt-marke {
   position: absolute;
   left: 50%;
-  bottom: 32px;
+  bottom: clamp(40px, 8vh, 88px);
   translate: -50% 0;
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  color: rgb(242 242 242 / 0.5);
+  height: clamp(28px, 6vw, 64px);
+  width: auto;
+  color: rgb(242 242 242 / 0.35);
 }
 
 @keyframes ptVorhang {

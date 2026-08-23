@@ -151,6 +151,13 @@
     /* clip statt hidden · lässt position:sticky funktionieren, clippt aber
        weiterhin horizontal-overflow. wichtig für den pinned referenzen-track. */
     overflow-x: clip;
+    /* G14 · das menü setzt body{overflow:hidden}. ohne diese zeile
+       verschwindet die bildlaufleiste beim öffnen und seite UND
+       fixierte kopfleiste rücken um ihre breite · "der eine grosse
+       moment" begann mit einem ruck des ganzen bildschirms. am mac
+       fällt es nicht auf (overlay-leisten), auf windows und linux
+       sofort. */
+    scrollbar-gutter: stable;
     scrollbar-color: rgb(var(--accent)) transparent;
     scrollbar-width: thin;
   }

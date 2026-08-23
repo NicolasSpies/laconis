@@ -683,7 +683,11 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 60;
+  /* ÜBER dem seitenvorhang (9998) · der lief bisher über die
+     leiste hinweg, obwohl sein eigener kommentar das gegenteil
+     behauptete. jetzt bleibt die leiste stehen und der vorhang
+     zieht dahinter durch. */
+  z-index: 9999;
   /* KEIN verlauf, KEIN backdrop-filter.
      beides zusammen legte ein 64px hohes band aus rgb(148,166,56)
      über die lime-vollplatte · oliv, quer über die ganze breite,
@@ -1545,4 +1549,29 @@
 }
 [data-auf-lime="1"] .lab-label-lg:hover {
   color: #08080b;
+}
+
+/* ── der aktive menü-eintrag ──────────────────────────────
+   war nur über translateX(14px) im hover markiert · auf touch
+   gibt es keinen hover, dort sah man nicht, wo man ist. jetzt
+   eine lime-haarlinie, die dauerhaft atmet. */
+.lab-menu-item[data-on="1"] {
+  position: relative;
+}
+.lab-menu-item[data-on="1"]::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--gutter) * -0.42);
+  top: 12%;
+  bottom: 12%;
+  width: 2px;
+  background: var(--lime);
+  animation: labAktivAtem 3600ms ease-in-out infinite;
+}
+@keyframes labAktivAtem {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lab-menu-item[data-on="1"]::before { animation: none; opacity: 1; }
 }

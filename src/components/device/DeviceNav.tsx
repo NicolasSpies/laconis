@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLocale } from "@/i18n/useLocale";
@@ -66,14 +66,30 @@ export function DeviceNav() {
   const pathname = usePathname() || "/";
   const nt = NAV_TEXT[locale];
 
+  /* G14 · das menü war optisch ein dialog und semantisch keiner:
+     kein role, kein inert auf dem rest, kein fokus rein und keiner
+     zurück. wer mit der tastatur öffnete, tabte weiter durch die
+     seite DAHINTER, die er nicht sehen konnte. */
+  const menueRef = useRef<HTMLDivElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+
+    const dahinter = document.querySelector<HTMLElement>(".lab-root");
+    dahinter?.setAttribute("inert", "");
+    menueRef.current?.querySelector<HTMLElement>("a, button")?.focus();
+
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      dahinter?.removeAttribute("inert");
+      /* zurück auf den knopf, der es geöffnet hat · sonst landet
+         der fokus beim schliessen am seitenanfang */
+      burgerRef.current?.focus();
     };
   }, [open]);
 
@@ -107,6 +123,7 @@ export function DeviceNav() {
 
           <button
             type="button"
+            ref={burgerRef}
             className="lab-burger"
             aria-expanded={open}
             aria-label={open ? nt.zu : nt.auf}
@@ -138,7 +155,14 @@ export function DeviceNav() {
           CSS-keyframe. kein ausblenden · dafuer braeuchte es
           AnimatePresence, und dafuer lohnt die bibliothek nicht. */}
       {open && (
-        <div className="lab-menu" data-offen>
+        <div
+          ref={menueRef}
+          className="lab-menu"
+          data-offen
+          role="dialog"
+          aria-modal="true"
+          aria-label={nt.nav}
+        >
           {/* die lime-linie fährt einmal durch */}
           <span className="lab-menu-scan" aria-hidden />
 

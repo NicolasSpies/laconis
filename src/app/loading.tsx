@@ -7,7 +7,14 @@
 
 export default function Loading() {
   return (
-    <section className="min-h-[80vh] flex items-center justify-center py-24">
+    /* lief ohne eigenen grund, also auf dem hellen html-hintergrund
+       (K2) · der lime-indikator hatte darauf 1,2:1 und war
+       praktisch unsichtbar, während davor und danach schwarz war.
+       erst schwarz, dann hell, dann schwarz. */
+    <section
+      className="flex min-h-[100svh] items-center justify-center py-24"
+      style={{ background: "var(--su-void)" }}
+    >
       <div
         className="flex flex-col items-center gap-4"
         role="status"
@@ -18,7 +25,7 @@ export default function Loading() {
           <span className="absolute inset-0 rounded-full bg-lime/80" />
           <span className="absolute inset-0 rounded-full bg-lime animate-ping" />
         </div>
-        <span className="font-mono text-[10px] uppercase tracking-label text-offwhite/35">
+        <span className="lab-label">
           einen moment
         </span>
       </div>
