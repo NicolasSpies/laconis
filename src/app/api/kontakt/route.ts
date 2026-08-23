@@ -1,7 +1,7 @@
 /**
  * POST /api/kontakt
  *
- * Nimmt die projekt-anfrage aus KontaktMultistep entgegen und schickt sie
+ * Nimmt die projekt-anfrage aus KontaktKonsole entgegen und schickt sie
  * per resend als mail an mich.
  *
  * env:

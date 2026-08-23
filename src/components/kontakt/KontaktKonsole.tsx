@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * KontaktKonsole · das formular als sendekonsole.
@@ -99,13 +99,22 @@ export function KontaktKonsole({ t }: { t: KonsoleT }) {
     }
   }
 
+  /* der fokus muss aktiv AUF die quittung · tabIndex allein macht
+     das element nur fokussierbar, es springt nicht von selbst
+     dorthin. ohne den ruf blieb der fokus auf <body>, und für
+     tastatur-nutzer war nach dem absenden nicht klar, wo sie sind. */
+  const quittung = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (phase === "sent" || phase === "error") quittung.current?.focus();
+  }, [phase]);
+
   if (phase === "sent") {
     return (
       /* der eine moment, der zählt, war für screenreader
          unsichtbar: das formular verschwindet, die quittung
          erscheint, der fokus fällt auf <body> und nichts wird
          angesagt. */
-      <div className="kx-receipt" role="status" aria-live="polite" tabIndex={-1}>
+      <div ref={quittung} className="kx-receipt" role="status" aria-live="polite" tabIndex={-1}>
         <span className="lab-label" style={{ color: "rgba(225,253,82,0.8)" }}>
           ✓ {t.sentTitle}
         </span>

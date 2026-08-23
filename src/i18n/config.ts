@@ -85,49 +85,6 @@ export function buildPath(routeKey: keyof typeof ROUTES, locale: Locale): string
 }
 
 /**
- * Mappt einen lokalisierten path zurück auf den canonical route-key.
- * Beispiele:
- *   parsePath('/leistung')         → { routeKey: 'leistung', locale: 'de' }
- *   parsePath('/fr/prestation')    → { routeKey: 'leistung', locale: 'fr' }
- *   parsePath('/en/pricing')       → { routeKey: 'preise', locale: 'en' }
- *   parsePath('/')                 → { routeKey: 'home', locale: 'de' }
- *   parsePath('/fr')               → { routeKey: 'home', locale: 'fr' }
- */
-export function parsePath(
-  pathname: string,
-): { routeKey: string; locale: Locale } | null {
-  // strip trailing slash + leading /
-  const clean = pathname.replace(/^\/+|\/+$/g, "");
-
-  // root
-  if (clean === "") return { routeKey: "home", locale: DEFAULT_LOCALE };
-
-  // detect locale prefix
-  const segments = clean.split("/");
-  const firstSeg = segments[0];
-
-  let locale: Locale = DEFAULT_LOCALE;
-  let pathWithoutLocale = clean;
-
-  if (firstSeg === "fr" || firstSeg === "en") {
-    locale = firstSeg;
-    pathWithoutLocale = segments.slice(1).join("/");
-    if (pathWithoutLocale === "") {
-      return { routeKey: "home", locale };
-    }
-  }
-
-  // find matching route-key for this locale + path
-  for (const [routeKey, slugMap] of Object.entries(ROUTES)) {
-    if (slugMap[locale] === pathWithoutLocale) {
-      return { routeKey, locale };
-    }
-  }
-
-  return null;
-}
-
-/**
  * Gibt die path-alternates für einen route-key zurück · für hreflang-tags.
  * Beispiele:
  *   getAlternates('leistung')

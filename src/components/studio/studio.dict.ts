@@ -48,8 +48,6 @@ export type StudioT = {
   preisKey: string;
 
   schluss: { satz: string; key: string; oder: string };
-  fussImpressum: string;
-  fussDatenschutz: string;
 };
 
 export const STUDIO: Record<Locale, StudioT> = {
@@ -95,8 +93,6 @@ export const STUDIO: Record<Locale, StudioT> = {
     preisKey: "kurz reden →",
 
     schluss: { satz: "erzähl mir davon.", key: "schreib mir", oder: "oder direkt an" },
-    fussImpressum: "impressum",
-    fussDatenschutz: "datenschutz",
   },
 
   fr: {
@@ -141,8 +137,6 @@ export const STUDIO: Record<Locale, StudioT> = {
     preisKey: "en parler →",
 
     schluss: { satz: "raconte-moi.", key: "écris-moi", oder: "ou directement à" },
-    fussImpressum: "mentions légales",
-    fussDatenschutz: "confidentialité",
   },
 
   en: {
@@ -187,7 +181,5 @@ export const STUDIO: Record<Locale, StudioT> = {
     preisKey: "let's talk →",
 
     schluss: { satz: "tell me about it.", key: "write to me", oder: "or straight to" },
-    fussImpressum: "legal notice",
-    fussDatenschutz: "privacy",
   },
 };

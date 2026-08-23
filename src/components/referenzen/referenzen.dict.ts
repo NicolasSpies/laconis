@@ -22,13 +22,9 @@ export type ReferenzenDict = {
   /* der einzige hinweistext am stapel · alles andere steht als
      name oder stempel direkt an der schicht */
   sxZieh: string;
-
-  lStatus: string;
-  lLeistung: string;
   lOrt: string;
   lJahr: string;
   lTempo: string;
-  lStimme: string;
   mobil: string;
   desktop: string;
 
@@ -37,7 +33,6 @@ export type ReferenzenDict = {
   stampWip: string;
 
   linkLive: string;
-  linkCase: string;
 
   honestH2: string;
   honestBody: string;
@@ -56,13 +51,9 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     sub: "Jede Schicht ist ein Projekt.",
 
     sxZieh: "ziehen · klicken",
-
-    lStatus: "status",
-    lLeistung: "leistung",
     lOrt: "ort",
     lJahr: "jahr",
     lTempo: "gemessen",
-    lStimme: "der kunde dazu",
     mobil: "mobil",
     desktop: "desktop",
 
@@ -71,7 +62,6 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     stampWip: "in arbeit",
 
     linkLive: "seite ansehen",
-    linkCase: "case lesen",
 
     honestH2: "kein aufgeblasenes regal.",
     honestBody:
@@ -91,13 +81,9 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     sub: "Chaque couche est un projet.",
 
     sxZieh: "tirer · cliquer",
-
-    lStatus: "statut",
-    lLeistung: "prestation",
     lOrt: "lieu",
     lJahr: "année",
     lTempo: "mesuré",
-    lStimme: "le client en dit",
     mobil: "mobile",
     desktop: "desktop",
 
@@ -106,7 +92,6 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     stampWip: "en cours",
 
     linkLive: "voir le site",
-    linkCase: "lire le case",
 
     honestH2: "pas d'étagère gonflée.",
     honestBody:
@@ -126,13 +111,9 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     sub: "Each layer is one project.",
 
     sxZieh: "drag · click",
-
-    lStatus: "status",
-    lLeistung: "scope",
     lOrt: "place",
     lJahr: "year",
     lTempo: "measured",
-    lStimme: "the client on it",
     mobil: "mobile",
     desktop: "desktop",
 
@@ -141,7 +122,6 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     stampWip: "in progress",
 
     linkLive: "visit the site",
-    linkCase: "read the case",
 
     honestH2: "no padded shelf.",
     honestBody:

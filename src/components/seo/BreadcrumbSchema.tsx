@@ -7,7 +7,7 @@
  *   <BreadcrumbSchema items={[
  *     { name: "home",       url: "https://laconis.be/" },
  *     { name: "leistungen", url: "https://laconis.be/leistungen" },
- *     { name: "web",        url: "https://laconis.be/leistungen/web" },
+ *     { name: "arbeiten",   url: "https://laconis.be/arbeiten" },
  *   ]} />
  */
 

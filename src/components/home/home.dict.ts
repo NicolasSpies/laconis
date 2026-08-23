@@ -40,9 +40,6 @@ export type HomeT = {
 
   cms: { h2a: string; h2b: string; zeile: string; key: string };
   schluss: { satz: string; key: string; oder: string };
-
-  fussImpressum: string;
-  fussDatenschutz: string;
 };
 
 export const HOME: Record<Locale, HomeT> = {
@@ -77,9 +74,6 @@ export const HOME: Record<Locale, HomeT> = {
       key: "schreib mir",
       oder: "oder direkt an",
     },
-
-    fussImpressum: "impressum",
-    fussDatenschutz: "datenschutz",
   },
 
   fr: {
@@ -113,9 +107,6 @@ export const HOME: Record<Locale, HomeT> = {
       key: "écris-moi",
       oder: "ou directement à",
     },
-
-    fussImpressum: "mentions légales",
-    fussDatenschutz: "confidentialité",
   },
 
   en: {
@@ -149,8 +140,5 @@ export const HOME: Record<Locale, HomeT> = {
       key: "write to me",
       oder: "or straight to",
     },
-
-    fussImpressum: "legal notice",
-    fussDatenschutz: "privacy",
   },
 };

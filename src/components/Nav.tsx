@@ -22,7 +22,9 @@ type NavLink = {
   labels: Record<Locale, string>;
 };
 
-/* web-only: EIN direkter "leistungen"-link auf /leistungen/web ·
+/* NUR NOCH auf der alten oberfläche · /leistungen/web gibt es
+   seit dem relaunch nicht mehr, der link geht auf /studio.
+   web-only: EIN direkter leistungs-link ·
    kein dropdown ("web" als label wäre doppelt — die ganze seite IST web) ·
    branding hat keine eigene seite mehr (august 2026) */
 const SERVICE_LABELS: Record<Locale, string> = {

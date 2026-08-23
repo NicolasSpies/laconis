@@ -1,3 +1,9 @@
+> **VERALTET (24.08.2026).** Diese Notiz beschreibt zwei Sections für
+> `/leistungen/web`. Diese Route **gibt es seit dem Relaunch nicht mehr**,
+> und `app/leistungen/web/page.tsx` ist gelöscht. Wer den Inhalt noch will,
+> muss ihn auf `/studio` einbauen — die Anleitung unten zeigt an eine Datei
+> und eine Adresse, die beide nicht mehr existieren.
+
 # TODO · zwei sections für /leistungen/web
 
 Diese beiden sections wurden aus der konzept-studie `src/app/preview/referenz-konzept/page.tsx`
