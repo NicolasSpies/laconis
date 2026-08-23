@@ -53,7 +53,7 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     kicker: "arbeiten",
     h1a: "was schon",
     h1b: "läuft.",
-    sub: "Drei Projekte. Zieh am Stapel oder klick dich rein.",
+    sub: "Jede Schicht ist ein Projekt.",
 
     sxZieh: "ziehen · klicken",
 
@@ -77,9 +77,9 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     honestBody:
       "Hier steht nur, was ich selbst gebaut habe. Was noch nicht live ist, sagt das an seiner Schicht auch.",
 
-    ctaH2: "dein projekt als nummer vier?",
+    ctaH2: "und deins?",
     ctaBody:
-      "Kurzes Gespräch, kein Pitch-Deck, kostet nichts. Danach weisst du, ob ich der richtige bin. Und wenn nicht, sage ich dir das auch.",
+      "Kurzes Gespräch, kein Pitch-Deck, kostet nichts.",
     ctaPrimary: "schreib mir",
     ctaSecondary: "wie ich arbeite",
   },
@@ -88,7 +88,7 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     kicker: "travaux",
     h1a: "ce qui tourne",
     h1b: "déjà.",
-    sub: "Trois projets. Tire sur la pile ou entre directement.",
+    sub: "Chaque couche est un projet.",
 
     sxZieh: "tirer · cliquer",
 
@@ -112,7 +112,7 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     honestBody:
       "Ici, il n'y a que ce que j'ai construit moi-même. Ce qui n'est pas encore en ligne le dit sur sa couche.",
 
-    ctaH2: "ton projet en numéro quatre ?",
+    ctaH2: "et le tien ?",
     ctaBody:
       "Court échange, pas de pitch deck, ça ne coûte rien. Ensuite tu sais si je suis la bonne personne. Et sinon, je te le dis aussi.",
     ctaPrimary: "écris-moi",
@@ -123,7 +123,7 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     kicker: "work",
     h1a: "what's already",
     h1b: "running.",
-    sub: "Three projects. Pull the stack apart or click straight in.",
+    sub: "Each layer is one project.",
 
     sxZieh: "drag · click",
 
@@ -147,9 +147,9 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     honestBody:
       "Only what I built myself is on here. Whatever is not live yet says so on its own layer.",
 
-    ctaH2: "your project as number four?",
+    ctaH2: "and yours?",
     ctaBody:
-      "Short conversation, no pitch deck, costs nothing. After that you know whether i'm the right person. And if i'm not, i'll say so.",
+      "Short conversation, no pitch deck, costs nothing.",
     ctaPrimary: "write me",
     ctaSecondary: "how i work",
   },

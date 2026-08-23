@@ -58,7 +58,7 @@ export const STUDIO: Record<Locale, StudioT> = {
     h1: "gelernter grafiker,",
     h1akzent: "der bauen gelernt hat.",
     lead:
-      "Deshalb sehen meine Seiten nicht nur aus, sie laufen auch. Design, Entwicklung und ein eigenes CMS aus einer Hand · keine Agentur, keine Zwischenschicht.",
+      "Deshalb sehen meine Seiten nicht nur aus, sie laufen auch. Design, Entwicklung und ein eigenes CMS aus einer Hand.",
 
     kammer: {
       satz: "Ich habe mit WordPress angefangen.",
@@ -69,7 +69,7 @@ export const STUDIO: Record<Locale, StudioT> = {
     cmsLead: "Tipp rein. Es ist echt.",
 
     personH2: "wer das baut.",
-    bio: "Ich bin Nicolas. Gelernter Grafikdesigner, der bauen gelernt hat.",
+    bio: "Ich bin Nicolas. Der Web-Teil meiner Ausbildung lief mit WordPress · daher die Entscheidung, heute alles selbst zu bauen.",
     bioSub:
       "Keine Agentur, keine Zwischenschicht. Du redest mit dem, der auch baut. Nebenbei lege ich auf · Trance, Progressive, Breakbeats.",
     portraitAlt: "arbeitsplatz bei nacht · das licht kommt vom bildschirm",

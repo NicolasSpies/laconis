@@ -188,7 +188,7 @@ export const UEBER: Record<Locale, UeberDict> = {
     wegH2: "how it came to this.",
     wegLead: "No three-page biography. The order is enough.",
     weg: [
-      ["training · web", "At Pixelbar, with WordPress. That is where i learned how not to do it · and why i build everything myself today."],
+      ["training · web", "At Pixelbar, with WordPress. That is where I learned how not to do it · and why I build everything myself today."],
       ["training · graphic design", "At Pavonet, plus a bit of signage. Taken on afterwards."],
       ["colop arts & crafts", "Graphic design and packaging."],
       ["cloth kreativbüro", "A few months at a creative studio."],

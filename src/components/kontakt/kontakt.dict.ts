@@ -163,7 +163,7 @@ export const KONTAKT: Record<Locale, KontaktDict> = {
       send: "send",
       sentTitle: "off it goes",
       sentBody:
-        "Your request is with me. I'll get back to you once i've had a look at it. If you want to add something in the meantime, just write to nicolas@laconis.be.",
+        "Your request is with me. I'll get back to you once I've had a look at it. If you want to add something in the meantime, just write to nicolas@laconis.be.",
       errorTitle: "that went wrong",
       errorBody:
         "Sending didn't work. Write to me directly at nicolas@laconis.be instead, then nothing gets lost.",

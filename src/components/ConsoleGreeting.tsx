@@ -61,7 +61,7 @@ export function ConsoleGreeting() {
 
     /* eslint-disable no-console */
     console.log("%clacønis", wordmarkStyle);
-    console.log("%cdesign mit meinung · web mit seele.", taglineStyle);
+    console.log("%cwebsites von null gebaut, mit eigenem CMS.", taglineStyle);
     console.log(
       "%cweb   %chttps://laconis.be",
       labelStyle,
@@ -73,7 +73,7 @@ export function ConsoleGreeting() {
       valueStyle,
     );
     console.log(
-      "%cort   %cEupen · Belgien (Ostbelgien)",
+      "%cort   %cOstbelgien · Belgien",
       labelStyle,
       valueStyle,
     );

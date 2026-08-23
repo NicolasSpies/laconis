@@ -198,7 +198,7 @@ export const PREISE: Record<Locale, PreiseDict> = {
 
     ctaH2: "i'll tell you honestly where we stand.",
     ctaBody:
-      "Write me briefly what you're planning. Free, no strings, no form labyrinth. And if i'm not the right person, i'll say that too.",
+      "Write me briefly what you're planning. Free, no strings, no form labyrinth. And if I'm not the right person, I'll say that too.",
     ctaPrimary: "write me",
     ctaSecondary: "see the service",
   },

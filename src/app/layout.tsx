@@ -69,13 +69,16 @@ const labDisplay = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://laconis.be"),
   title: {
-    default: "lacønis · design mit meinung · web mit seele",
+    /* führte mit "design" · branding gehört laut regel in den
+       flüsterton, nicht in den standard-titel jeder seite ohne
+       eigene metadaten (404, 500, loading). */
+    default: "lacønis · webdesign studio ostbelgien",
     template: "%s · lacønis",
   },
   description:
-    "Webdesign & Webentwicklung aus Eupen, Belgien. Websites von null gebaut, die für sich selbst sprechen. Eigenes CMS inklusive. Dreisprachig: Deutsch, Französisch, Englisch.",
+    "Webdesign & Webentwicklung aus Ostbelgien. Websites von null gebaut, mit eigenem CMS statt Plugin-Stapel. Dreisprachig: Deutsch, Französisch, Englisch.",
   applicationName: "lacønis",
-  authors: [{ name: "Nicolas Spies", url: "https://laconis.be/ueber-mich" }],
+  authors: [{ name: "Nicolas Spies", url: "https://laconis.be/studio" }],
   creator: "Nicolas Spies",
   publisher: "lacønis",
   keywords: [
@@ -91,7 +94,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "lacønis",
-    description: "design mit meinung · web mit seele",
+    description: "websites von null gebaut, mit eigenem CMS.",
     locale: "de_BE",
     alternateLocale: ["fr_BE", "en_BE"],
     type: "website",
@@ -100,7 +103,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "lacønis",
-    description: "design mit meinung · web mit seele",
+    description: "websites von null gebaut, mit eigenem CMS.",
   },
   alternates: { canonical: "/" },
   manifest: "/site.webmanifest",

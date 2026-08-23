@@ -65,7 +65,7 @@ const schema = {
       url: BASE,
       name: "lacønis",
       description:
-        "design mit meinung · web mit seele. freelance designer + web-developer in Eupen.",
+        "websites von null gebaut, mit eigenem CMS. webdesign und entwicklung aus ostbelgien.",
       inLanguage: ["de-BE", "fr-BE", "en"],
       publisher: { "@id": `${BASE}/#org` },
       potentialAction: {
@@ -86,7 +86,7 @@ const schema = {
       jobTitle: "Freelance Designer & Web Developer",
       description:
         "Freelance Designer + Web Developer in Eupen, Belgien · dreisprachig DE/FR/EN · Branding und Websites aus einer Hand.",
-      url: `${BASE}/ueber-mich`,
+      url: `${BASE}/studio`,
       worksFor: { "@id": `${BASE}/#org` },
       knowsLanguage: Array.from(CONTACT.languages),
       knowsAbout: [
@@ -132,7 +132,7 @@ const schema = {
           addressCountry: CONTACT.country,
         },
       },
-      slogan: "design mit meinung · web mit seele",
+      slogan: "websites von null gebaut, mit eigenem CMS",
       description:
         "Freelance Web- und Branding-Studio in Eupen, Belgien · dreisprachig DE/FR/EN · Websites, Logos und Brand-Identities aus einer Hand.",
       areaServed: [...countryAreas, ...cityAreas],

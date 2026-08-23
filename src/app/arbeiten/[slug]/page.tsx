@@ -27,10 +27,10 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: Props): Metadata {
   const r = referenzen.find((x) => x.slug === params.slug);
-  if (!r) return { title: "referenzen" };
+  if (!r) return { title: "arbeiten" };
 
   return {
-    title: `${r.name.toLowerCase()} · referenzen`,
+    title: `${r.name.toLowerCase()} · arbeiten`,
     description: r.istEcht
       ? `${r.kurz} · ${r.ort}, ${r.jahr}. Live beim Kunden.`
       : `${r.kurz} · ${r.ort}, ${r.jahr}. Konzept-studie, kein veröffentlichtes kundenprojekt.`,

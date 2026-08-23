@@ -76,7 +76,7 @@ export const CASE: Record<Locale, CaseDict> = {
 
     konzeptH2: "eine studie, kein kundenprojekt.",
     konzeptBody:
-      "Diese Arbeit ist eine Konzept-Studie. Sie zeigt, wie ich denke und arbeite, aber sie läuft nicht live bei einem Kunden. Ich markiere das lieber deutlich, als sie zwischen echte Projekte zu mischen und darauf zu hoffen, dass niemand nachfragt. Sobald daraus etwas Veröffentlichtes wird, steht es hier.",
+      "Eine Konzept-Studie · sie zeigt, wie ich arbeite, läuft aber nicht live bei einem Kunden. Sobald sie das tut, steht es hier.",
 
     ctaH2: "sowas für dich?",
     ctaBody:
@@ -121,7 +121,7 @@ export const CASE: Record<Locale, CaseDict> = {
 
     konzeptH2: "une étude, pas un projet client.",
     konzeptBody:
-      "Ce travail est une étude concept. Il montre comment je pense et travaille, mais il ne tourne pas en ligne chez un client. Je préfère le marquer clairement plutôt que de le mélanger aux vrais projets en espérant que personne ne demande. Dès que ça devient publié, ce sera écrit ici.",
+      "Une étude concept · elle montre comment je travaille, mais elle ne tourne pas en ligne chez un client. Dès que ce sera le cas, ce sera écrit ici.",
 
     ctaH2: "quelque chose comme ça pour toi ?",
     ctaBody:
@@ -166,11 +166,11 @@ export const CASE: Record<Locale, CaseDict> = {
 
     konzeptH2: "a study, not a client project.",
     konzeptBody:
-      "This work is a concept study. It shows how i think and work, but it isn't running live at a client. I'd rather mark that clearly than mix it in with real projects and hope nobody asks. As soon as it becomes something published, it will say so here.",
+      "A concept study · it shows how I work, but it isn't running live at a client. As soon as it is, it will say so here.",
 
     ctaH2: "something like this for you?",
     ctaBody:
-      "Tell me briefly what you're planning. Costs nothing, commits to nothing. And if i'm not the right person, i'll say so.",
+      "Tell me briefly what you're planning. Costs nothing, commits to nothing. And if I'm not the right person, I'll say so.",
     ctaPrimary: "write me",
   },
 };

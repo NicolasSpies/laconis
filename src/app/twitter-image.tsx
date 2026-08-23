@@ -7,7 +7,7 @@ import { ImageResponse } from "next/og";
  */
 
 export const runtime = "nodejs";
-export const alt = "lacønis · design mit meinung · web mit seele";
+export const alt = "lacønis · websites von null gebaut, mit eigenem CMS";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -88,7 +88,7 @@ export default function TwitterImage() {
               display: "flex",
             }}
           >
-            design mit meinung · web mit seele.
+            websites von null gebaut, mit eigenem CMS.
           </div>
         </div>
 

@@ -50,7 +50,7 @@ const STATIC_MAP: Record<string, MetaByLocale> = {
     de: {
       title: "lacønis · webdesign studio ostbelgien",
       description: "Webdesigner & Web-Entwickler in Ostbelgien · Websites von null gebaut, mit eigenem CMS statt Plugin-Stapel. Übernimmt auch bestehende Seiten · Inhalte bleiben, alles wird schneller. Dreisprachig DE/FR/EN.",
-      ogTitle: "lacønis · design mit meinung · web mit seele",
+      ogTitle: "lacønis · webdesign studio ostbelgien",
       ogDescription: "webdesign studio · ostbelgien · handgemacht",
     },
     fr: {
@@ -102,21 +102,21 @@ const STATIC_MAP: Record<string, MetaByLocale> = {
   "/arbeiten": {
     de: {
       title: "arbeiten",
-      description: "drei projekte · eine website live beim kunden, zwei konzept-studien. was nicht live ist, steht auch so da. webdesign aus ostbelgien.",
-      ogTitle: "referenzen · lacønis",
-      ogDescription: "drei projekte · eins live, zwei konzept-studien. ehrlich ausgeschildert.",
+      description: "was ich selbst gebaut habe · live beim kunden und als konzept-studie. was nicht live ist, steht auch so da. webdesign aus ostbelgien.",
+      ogTitle: "arbeiten · lacønis",
+      ogDescription: "was ich selbst gebaut habe · ehrlich ausgeschildert.",
     },
     fr: {
       title: "travaux",
-      description: "trois projets · un site en ligne chez le client, deux études concept. ce qui n'est pas en ligne est marqué comme tel. webdesign des cantons de l'est.",
-      ogTitle: "références · lacønis",
-      ogDescription: "trois projets · un en ligne, deux études concept. marqué honnêtement.",
+      description: "ce que j'ai construit moi-même · en ligne chez le client et en étude concept. ce qui n'est pas en ligne est marqué comme tel. webdesign des cantons de l'est.",
+      ogTitle: "travaux · lacønis",
+      ogDescription: "ce que j'ai construit moi-même · marqué honnêtement.",
     },
     en: {
       title: "work",
-      description: "three projects · one website live at the client, two concept studies. what is not live says so. webdesign from east belgium.",
+      description: "what I built myself · live at the client and as concept study. what is not live says so. webdesign from east belgium.",
       ogTitle: "work · lacønis",
-      ogDescription: "three projects · one live, two concept studies. honestly labelled.",
+      ogDescription: "what I built myself · honestly labelled.",
     },
   },
   "/kontakt": {
