@@ -18,18 +18,18 @@ vergiss nicht den rest danach noch zu machen."
 7. [x] K8 · Sprachumschalter
 8. [x] K9 · verbotene Zahlen in Schema und Meta
 9. [x] K5, K6, K10–K16 · restliche Defekte
-10. [ ] **G3–G16 · grafische Angleichung**  ← ALS NÄCHSTES
+10. [x] G3–G16 · grafische Angleichung
+11. [ ] **P1–P8 · Politur**  ← ALS NÄCHSTES
 
-### offen, beim arbeiten gefunden (gehört zu G16)
-- Die alte Positionierung **„design mit meinung · web mit seele"** steht
-  an 10 Stellen: Standard-`<title>` (greift auf 404/500), OG- und
-  Twitter-Bild (was beim Teilen erscheint), `StructuredData` als
-  `slogan`, ConsoleGreeting. Sie führt mit *design*, obwohl Branding
-  laut Regel nur im Flüsterton vorkommt. `StructuredData:68` nennt
-  ausserdem „freelance designer + web-developer in Eupen".
+### offen, beim arbeiten gefunden
 - `KontaktKonsole`: die fünf Formularfelder haben weder `name`, noch
-  `id`, noch ein verbundenes `<label>` (beim Messen aufgefallen).
+  `id`, noch ein verbundenes `<label>` (beim Messen aufgefallen) → P5.
 - `CssPlayground` (360 Zeilen) ist seit K11 verwaist → P1.
+- `framer-motion` hängt noch an der alten Oberfläche (/preview,
+  KontaktMultistep, Moodboard, PolaroidBoard, ReferenzenIndex) und
+  kann erst mit deren Löschung aus `package.json` → P1.
+- Erledigt: die alte Positionierung „design mit meinung · web mit
+  seele" ist an allen 10 Stellen raus (G16).
 11. [ ] P1–P8 · Politur
 
 ## Korrektur zur Prüfung
