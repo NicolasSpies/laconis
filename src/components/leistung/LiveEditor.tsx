@@ -1,5 +1,11 @@
 "use client";
 
+/* das eigene stylesheet · es hing frueher am aufrufer
+   (LeistungDevice), und mit dessen wegfall stand der editor auf
+   /studio ohne regeln da. ein bauteil, das acht klassen braucht,
+   soll sie selbst mitbringen. */
+import "@/components/leistung/panel.css";
+
 import { useEffect, useRef, useState } from "react";
 import { RockerSwitch } from "@/components/device/Controls";
 

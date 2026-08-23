@@ -34,7 +34,11 @@ export function LegalLayout({ num, label, titel, intro, children }: Props) {
 
   return (
     <div className="lab-root" data-no-reveal>
+      {/* DREI spans · der dritte ist der heisse kern, den
+          .lab-ambient span:nth-child(3) einfaerbt. alle aufrufer
+          rendern bisher nur zwei, die regel lief ins leere. */}
       <div className="lab-ambient" aria-hidden>
+        <span />
         <span />
         <span />
       </div>

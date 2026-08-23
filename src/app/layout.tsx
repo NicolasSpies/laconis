@@ -5,6 +5,7 @@ import "./globals.css";
 import "@/components/pagetransition.css";
 import { LegacyChrome } from "@/components/LegacyChrome";
 import { CursorDot } from "@/components/CursorDot";
+import { GlasLicht } from "@/components/device/GlasLicht";
 import { PageTransition } from "@/components/PageTransition";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { Tracker } from "@/components/analytics/Tracker";
@@ -149,6 +150,10 @@ export default function RootLayout({
           }}
         />
         <CursorDot />
+        {/* fuehrt das streiflicht ueber alle .gl-flaechen · war nie
+            eingehaengt, deshalb stand das specular auf dem desktop
+            dauerhaft bei 50% / 0% */}
+        <GlasLicht />
         <LegacyChrome position="nav" />
         <StructuredData />
         <Tracker />

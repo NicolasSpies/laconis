@@ -645,8 +645,22 @@
   transform-origin: left center;
   transform: scaleX(0);
   background: linear-gradient(90deg, rgb(var(--accent-2) / 0.7), var(--lime));
-  animation: labProgress linear both;
-  animation-timeline: scroll(root block);
+}
+
+/* die animation NUR, wo es die zeitachse gibt.
+
+   vorher stand sie ungeschuetzt auf der regel. ohne unterstuetzung
+   ignoriert der browser `animation-timeline`, laesst die animation
+   aber auf der dokument-zeitachse laufen · ohne dauer heisst das
+   0s, und mit `both` springt sie sofort ans ende. der balken stand
+   damit dauerhaft auf scaleX(1), also "ganz unten", auf jeder seite.
+   die basisregel scaleX(0) darueber hat keine chance, weil eine
+   animation normale deklarationen schlaegt. */
+@supports (animation-timeline: scroll(root block)) {
+  .lab-nav-progress {
+    animation: labProgress linear both;
+    animation-timeline: scroll(root block);
+  }
 }
 
 @keyframes labProgress {
@@ -870,8 +884,15 @@
   }
 }
 
-.lx-row:nth-child(4n) /* beim drüberfahren rückt die zeile leicht auf · nicht klickbar,
-   also bewusst sehr wenig. es soll leben, nicht locken. */
+/* beim drüberfahren rückt die zeile leicht auf · nicht klickbar,
+   also bewusst sehr wenig. es soll leben, nicht locken.
+
+   ACHTUNG: hier stand der kommentar ZWISCHEN zwei selektoren, ohne
+   komma dazwischen. nach dem entfernen des kommentars las der
+   browser `.lx-row:nth-child(4n) .lx-row > *:last-child` · ein
+   nachfahren-selektor, der ein .lx-row IN einem .lx-row sucht und
+   damit nie trifft. die transition existierte nicht, und der
+   hover-versatz sprang hart um 5px. */
 .lx-row > *:last-child {
   transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }

@@ -42,7 +42,11 @@ export function CaseDevice({ slug }: { slug: string }) {
 
   return (
     <div className="lab-root" data-no-reveal>
+      {/* DREI spans · der dritte ist der heisse kern, den
+          .lab-ambient span:nth-child(3) einfaerbt. alle aufrufer
+          rendern bisher nur zwei, die regel lief ins leere. */}
       <div className="lab-ambient" aria-hidden>
+        <span />
         <span />
         <span />
       </div>
@@ -51,7 +55,12 @@ export function CaseDevice({ slug }: { slug: string }) {
 
       {/* ═══ KOPF · die gebaute seite steht sofort da ═══ */}
       <section data-no-reveal className="relative isolate px-gut pb-rh-s pt-hero">
-        <HeroAtmo variant="schweben" />
+        <HeroAtmo
+          variant="schweben"
+          /* ohne shots rendert die variante NICHTS · sie lief seit dem
+             umbau leer, weil der aufrufer sie nie durchgereicht hat */
+          shots={r.shots ? [r.shots.desktop, r.shots.mobile] : undefined}
+        />
         <div className="mx-auto grid max-w-shell items-center gap-12 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:gap-14">
           <div>
           <div>
