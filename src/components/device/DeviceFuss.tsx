@@ -46,7 +46,13 @@ export function DeviceFuss({
   const t = FUSS[locale];
 
   return (
+    /* role EXPLIZIT · <header> und <footer> bekommen ihre
+       landmark-rolle nur, wenn sie NICHT in einem <main> stecken.
+       hier stecken sie darin (layout.tsx wickelt jede seite in
+       <main>), also fand ein screenreader auf keiner seite kopf
+       oder fuss. die explizite rolle sticht die verschachtelung. */
     <footer
+      role="contentinfo"
       className={aufLime ? "relative z-[1] mt-rh-m" : "relative z-[1] mt-rh-m px-gut pb-rh-s"}
       data-auf-lime={aufLime ? "1" : "0"}
     >

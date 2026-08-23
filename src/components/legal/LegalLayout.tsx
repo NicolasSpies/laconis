@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
+import { CONTACT } from "@/config/contact";
 import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { HeroRail } from "@/components/device/HeroRail";
 import { useLocale } from "@/i18n/useLocale";
@@ -30,6 +31,9 @@ type Props = {
   children: React.ReactNode;
 };
 
+/* `num` ist bei BEIDEN aufrufern das zeichen ⎔ · er ist eine
+   nummerierungs-spalte, die keine nummer trägt und beim nächsten
+   mal zu 01/02 einlädt. sektions-nummerierung ist raus. */
 export function LegalLayout({ num, label, titel, intro, children }: Props) {
   const locale = useLocale();
 
@@ -73,8 +77,8 @@ export function LegalLayout({ num, label, titel, intro, children }: Props) {
             <Link href={buildPath("home", locale)} className="lab-label">
               ← lacønis
             </Link>
-            <a className="lab-label" href="mailto:nicolas@laconis.be">
-              nicolas@laconis.be
+            <a className="lab-label" href={`mailto:${CONTACT.email}`}>
+              {CONTACT.email}
             </a>
           </div>
         </div>

@@ -3,7 +3,7 @@ import type { Locale } from "@/i18n/config";
 /**
  * Startseiten-Copy.
  *
- * die seite hat sieben flaechen und trotzdem unter 120 woerter. das
+ * die seite hat sechs flaechen und trotzdem unter 120 woerter. das
  * ist keine sparsamkeit, das ist die form: ein portfolio zeigt, ein
  * produkt erklaert.
  *

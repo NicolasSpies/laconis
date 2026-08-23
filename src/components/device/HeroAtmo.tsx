@@ -10,7 +10,8 @@ import "@/components/device/hero-atmo.css";
  *   korridor  · /preise    · zwei lichtbänder, die sich annähern
  *   signal    · /kontakt   · ringe laufen nach aussen, wie eine stimme
  *   schweben  · /referenzen· die drei gebauten seiten liegen im raum
- *   lampe     · /ueber-mich· das licht folgt der hand
+ *   lampe     · das licht folgt der hand (die seite, für die sie
+ *               gebaut wurde, ist in /studio aufgegangen)
  *
  * alles warm und weich · die geräte-sprache trägt die bedienelemente,
  * ein hero soll einladen und nicht nach werkbank aussehen.
@@ -87,8 +88,18 @@ export function HeroAtmo({
       {variant === "schweben" &&
         shots?.slice(0, 3).map((src) => (
           <span className="ha-float" key={src}>
+            {/* siehe Stapel · auch diese liegen in einer
+                transformierten ebene, next/image bemisst sie dort
+                falsch */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={src} alt="" loading="lazy" />
+            <img
+              src={src}
+              alt=""
+              width={1440}
+              height={6496}
+              loading="lazy"
+              decoding="async"
+            />
           </span>
         ))}
 

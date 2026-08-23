@@ -128,8 +128,21 @@ export function ProjektAnsicht({
           <div className="pv-lid">
             <div className="pv-screen">
               {shots ? (
+                /* KEIN next/image · die animation schiebt die
+                   aufnahme in voller höhe durch den bildschirm,
+                   das ist der zweck. aber masse und decoding
+                   fehlten · daher layout-shift bei jedem laden. */
                 /* eslint-disable-next-line @next/next/no-img-element */
-                <img ref={deskShot} src={shots.desktop} alt={t.desktopLabel} className="pv-shot" />
+                <img
+                  ref={deskShot}
+                  src={shots.desktop}
+                  alt={t.desktopLabel}
+                  className="pv-shot"
+                  width={1440}
+                  height={6496}
+                  decoding="async"
+                  loading="lazy"
+                />
               ) : (
                 <span className="pv-empty">{t.empty}</span>
               )}
@@ -142,7 +155,16 @@ export function ProjektAnsicht({
           <div className="pv-screen">
             {shots ? (
               /* eslint-disable-next-line @next/next/no-img-element */
-              <img ref={phoneShot} src={shots.mobile} alt={t.mobileLabel} className="pv-shot" />
+              <img
+                ref={phoneShot}
+                src={shots.mobile}
+                alt={t.mobileLabel}
+                className="pv-shot"
+                width={390}
+                height={7085}
+                decoding="async"
+                loading="lazy"
+              />
             ) : (
               <span className="pv-empty" />
             )}

@@ -15,8 +15,11 @@ import Link from "next/link";
  * ändern kann, ob ein abo dranhängt und wem sie am ende gehört.
  * genau das steht jetzt da, in einem satz.
  *
- * KEINE dopplung mit /leistung: dort steht der volle vergleich zum
- * durchschalten. die home sagt DASS, /leistung zeigt WIE.
+ * der knopf führt auf /studio · dort steht das CMS-pult zum
+ * anfassen. bis august 2026 stand hier "dort steht der volle
+ * vergleich zum durchschalten" und meinte /leistung · diese seite
+ * gibt es seit dem relaunch nicht mehr, den vergleich auch nicht.
+ * DESHALB zeigte "was drin ist →" ins leere.
  */
 
 export type CmsT = {

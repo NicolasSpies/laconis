@@ -101,7 +101,11 @@ export function KontaktKonsole({ t }: { t: KonsoleT }) {
 
   if (phase === "sent") {
     return (
-      <div className="kx-receipt">
+      /* der eine moment, der zählt, war für screenreader
+         unsichtbar: das formular verschwindet, die quittung
+         erscheint, der fokus fällt auf <body> und nichts wird
+         angesagt. */
+      <div className="kx-receipt" role="status" aria-live="polite" tabIndex={-1}>
         <span className="lab-label" style={{ color: "rgba(225,253,82,0.8)" }}>
           ✓ {t.sentTitle}
         </span>
@@ -303,8 +307,11 @@ export function KontaktKonsole({ t }: { t: KonsoleT }) {
             </p>
           </div>
 
+          {/* role=alert · ein fehler beim absenden ist der andere
+              moment, der zählt, und er wurde ebenfalls stumm
+              gemeldet */}
           {phase === "error" && (
-            <p className="mt-4 text-body-sm" style={{ color: "#b084d3" }}>
+            <p className="mt-4 text-body-sm" role="alert" style={{ color: "var(--lila)" }}>
               {t.errorTitle}
             </p>
           )}

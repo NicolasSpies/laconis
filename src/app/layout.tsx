@@ -174,7 +174,12 @@ export default function RootLayout({
         <KonamiListener />
         <AutoReveal />
         <HashScroll />
-        <main className="relative z-[1]">
+        {/* P5 · es gab keinen. wer mit der tastatur ankommt, musste
+            auf jeder seite erst durch logo und burger. */}
+        <a href="#inhalt" className="lab-skip">
+          zum inhalt
+        </a>
+        <main id="inhalt" className="relative z-[1]">
           <PageTransition>{children}</PageTransition>
         </main>
         <LegacyChrome position="footer" />

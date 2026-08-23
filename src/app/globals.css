@@ -1171,3 +1171,37 @@ body.scribble-mode h2::after {
     transform: none !important;
   }
 }
+
+/* ── P5 · der weg an der navigation vorbei ────────────────
+   es gab keinen. wer mit der tastatur ankommt, musste auf jeder
+   seite erst durch logo und burger, bevor der erste inhalt kam. */
+.lab-skip {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 10000;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: rgb(var(--accent));
+  color: #08080b;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transform: translateY(-160%);
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lab-skip:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid #08080b;
+  outline-offset: 2px;
+}
+
+/* ── P5 · fokus auf den lime-flächen ──────────────────────
+   der globale ring ist lila · auf #e1fd52 hat er 2,4:1 und ist
+   damit praktisch unsichtbar. genau dort liegen der wichtigste
+   knopf und die mailadresse. */
+[data-auf-lime="1"] a:focus-visible,
+.sl a:focus-visible,
+.sl-mail:focus-visible {
+  outline: 2px solid #08080b;
+  outline-offset: 3px;
+}

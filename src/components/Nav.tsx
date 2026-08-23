@@ -31,7 +31,10 @@ const SERVICE_LABELS: Record<Locale, string> = {
   en: "service",
 };
 
-/* zwei punkte statt vier · preise und ueber-mich sind seit dem
+/* NUR NOCH auf der alten oberfläche (/preview,
+   /web-performance-ostbelgien, /labor) · die vier lebenden seiten
+   bringen DeviceNav mit.
+   zwei punkte statt vier · preise und ueber-mich sind seit dem
    umbau teil von /studio und haben keine eigene route mehr */
 const links: readonly NavLink[] = [
   {

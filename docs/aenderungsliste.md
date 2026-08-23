@@ -19,7 +19,20 @@ vergiss nicht den rest danach noch zu machen."
 8. [x] K9 · verbotene Zahlen in Schema und Meta
 9. [x] K5, K6, K10–K16 · restliche Defekte
 10. [x] G3–G16 · grafische Angleichung
-11. [ ] **P1–P8 · Politur**  ← ALS NÄCHSTES
+11. [x] P1–P8 · Politur (P4 teilweise · siehe unten)
+
+**Damit ist die Liste durch.** Offen geblieben und bewusst so:
+- **P4 · rAF-Bremsen** — die vier Schleifen (ProjektAnsicht, ShaderField,
+  CursorDot, Stapel-Atmung) laufen weiter ungedrosselt. Nicht angefasst,
+  weil jede einzelne eine sichtbare Bewegung trägt und ein Fehler dort
+  sofort auffällt — das gehört in eine eigene Runde mit Messung davor
+  und danach, nicht ans Ende eines langen Durchgangs.
+- **/preview und /web-performance-ostbelgien** — beides lebende Routen
+  auf der alten Oberfläche. Sie halten `framer-motion`, Caveat und
+  Bricolage in `package.json`. Ob sie bleiben, ist eine inhaltliche
+  Entscheidung.
+- **P8 · Mailadresse in `kontakt.dict.ts`** — sechs Stellen in
+  statischen Strings; braucht Interpolation im Dict-Typ.
 
 ### offen, beim arbeiten gefunden
 - `KontaktKonsole`: die fünf Formularfelder haben weder `name`, noch

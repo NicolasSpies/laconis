@@ -113,7 +113,11 @@ export function DeviceNav() {
 
   return (
     <>
-      <header className="lab-nav" data-gescrollt={gescrollt ? "1" : "0"}>
+      <header
+        className="lab-nav"
+        role="banner"
+        data-gescrollt={gescrollt ? "1" : "0"}
+      >
         <div className="lab-nav-inner">
           <Link href={buildPath("home", locale)} className="lab-nav-logo" aria-label={nt.logo}>
             {/* das echte logo · vorher stand hier der name in Archivo

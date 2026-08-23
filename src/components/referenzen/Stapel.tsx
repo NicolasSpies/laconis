@@ -181,8 +181,24 @@ export function Stapel({
               >
                 <span className="st-flaeche">
                   {r.shots ? (
+                    /* KEIN next/image hier · versucht und im
+                       browser wieder verworfen. die platte steht in
+                       einem rotateX/rotateZ-stapel mit
+                       preserve-3d; mit `fill` bekam das bild dort
+                       388px statt der 606px des containers und die
+                       oberste schicht blieb schwarz. eine
+                       optimierung, die das hauptobjekt der seite
+                       kaputtmacht, ist keine.
+                       was P3 wirklich löste, war der layout-shift:
+                       masse standen nirgends. */
                     /* eslint-disable-next-line @next/next/no-img-element */
-                    <img src={r.shots.desktop} alt="" />
+                    <img
+                      src={r.shots.desktop}
+                      alt=""
+                      width={1440}
+                      height={6496}
+                      decoding="async"
+                    />
                   ) : (
                     /* ohne aufnahme trägt die projektfarbe das kürzel ·
                        ehrlicher als ein platzhalter-bild */

@@ -163,6 +163,8 @@
   font-variant-numeric: tabular-nums;
   color: rgba(242, 242, 242, 0.58);
   background: transparent;
+  /* P6 · hatte als einziges element der gruppe kein
+     reduce-gegenstück (siehe unten) */
   transition: color 200ms ease, background 200ms ease, box-shadow 200ms ease,
     transform 140ms cubic-bezier(0.3, 1.4, 0.5, 1);
 }
@@ -185,5 +187,17 @@
   .cs-screen[data-flip="1"]::after,
   .cs-screen[data-flip="1"] .cs-stage {
     animation: none;
+  }
+}
+
+/* ── P6 · die letzte lücke im reduced-motion-netz ──────────
+   .cs-toggle button fuhr eine überschwinger-kurve, während die
+   gleichartigen nachbarn längst ein reduce-gegenstück hatten.
+   der globale sicherheitsnetz-block in globals.css fängt sie
+   nicht · er kennt nur klassen, die es nicht mehr gibt. */
+@media (prefers-reduced-motion: reduce) {
+  .cs-toggle button,
+  .cs-toggle button::before {
+    transition: none;
   }
 }
