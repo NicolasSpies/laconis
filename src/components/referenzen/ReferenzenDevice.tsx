@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { DeviceNav } from "@/components/device/DeviceNav";
+import { Lauf } from "@/components/device/Lauf";
 import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { HeroRail } from "@/components/device/HeroRail";
 import { Stapel } from "@/components/referenzen/Stapel";
@@ -46,6 +47,7 @@ export function ReferenzenDevice() {
         <span />
       </div>
 
+      <Lauf />
       <DeviceNav />
       <HeroRail label={t.kicker} />
 

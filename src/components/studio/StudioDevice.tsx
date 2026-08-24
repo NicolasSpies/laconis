@@ -7,6 +7,7 @@ import { STUDIO } from "@/components/studio/studio.dict";
 import { EDITOR } from "@/components/leistung/editor.dict";
 import { useLocale } from "@/i18n/useLocale";
 import { DeviceNav } from "@/components/device/DeviceNav";
+import { Lauf } from "@/components/device/Lauf";
 import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { Kammer } from "@/components/home/Kammer";
 import { Zeilenliste } from "@/components/device/Zeilenliste";
@@ -54,6 +55,7 @@ export function StudioDevice() {
 
   return (
     <div className="lab-root" data-no-reveal>
+      <Lauf />
       <DeviceNav />
 
       <section className="st-hero" data-no-reveal>

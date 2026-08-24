@@ -1,0 +1,77 @@
+/* ═══════════════════════════════════════════════════════════
+   Wortmarke · die Ebene, die stehen bleibt
+   die Herleitung steht im Docstring von Wortmarke.tsx
+   ═══════════════════════════════════════════════════════════ */
+
+.wm {
+  position: fixed;
+  inset: 0;
+  /* HINTER allem · die Sektionen liegen auf z-index 1 und decken
+     sie zu, solange sie einen eigenen Grund tragen */
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  /* clip, nicht hidden · hidden würde die Ebene zu ihrem eigenen
+     Scroll-Container machen */
+  overflow: clip;
+}
+
+.wm-wort {
+  /* dieselbe Achse wie der Hero, drei Nummern grösser. Bei wdth 62 %
+     und wght 900 ist die Schrift eine Fläche, keine Zeile — und
+     genau als Fläche soll sie hier wirken. */
+  font-family: var(--font-lab), system-ui, sans-serif;
+  /* GEMESSEN: bei 27vw war das Wort 914 px breit in einem 1512 px
+     breiten Fenster — 60 % der Fläche, also eine Beschriftung in
+     der Mitte statt einer Fläche. "lacønis" ist bei wdth 62 %
+     rund 2,24× so breit wie sein Grad hoch ist; 45vw ergibt damit
+     etwa 100 % der Fensterbreite, mit leichtem Anschnitt. */
+  font-size: min(45vw, 44rem);
+  font-weight: 900;
+  font-stretch: 62%;
+  line-height: 0.78;
+  letter-spacing: -0.05em;
+  text-transform: lowercase;
+  white-space: nowrap;
+
+  /* SIE SOLL ANGESCHNITTEN SEIN. Das Wort ist breiter als jeder
+     Bildschirm; man sieht immer nur seine Mitte, und das ø sitzt
+     darin. Ein Zeichen, das ganz ins Bild passt, ist eine
+     Beschriftung — eines, das hinausläuft, ist eine Fläche. */
+
+  /* der Ton liegt knapp über dem Grund (#08080b). Bei mehr
+     konkurriert er mit dem Inhalt, bei weniger ist er auf einem
+     schlecht kalibrierten Schirm gar nicht da. */
+  color: rgb(var(--fg-rgb) / 0.062);
+  user-select: none;
+}
+
+/* DAMIT SIE ÜBERHAUPT ZU SEHEN IST, geben zwei Sektionen ihren
+   deckenden Grund ab — das steht in ihren EIGENEN Dateien
+   (arbeiten.css, kopf.css) und nicht hier. Gleiche Spezifität
+   entscheidet über die Importreihenfolge, und arbeiten.css wird
+   nach dieser Datei geladen: eine Übersteuerung von hier aus hätte
+   schlicht verloren. Gemessen, nicht vermutet. */
+
+/* die Sektionen liegen ÜBER der Ebene · ohne das hier stünde das
+   Zeichen vor dem Inhalt */
+.lab-root > section,
+.lab-root > div:not(.wm) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── HANDY ───────────────────────────────────────────────────
+   Auf 390 px ist das Wort bei 27vw nur noch 105 px hoch und liest
+   sich als Beschriftung statt als Fläche. Es darf dort ruhig
+   deutlich weiter hinauslaufen. */
+@media (max-width: 720px) {
+  .wm-wort {
+    font-size: 58vw;
+  }
+}
+
+/* ── REDUZIERTE BEWEGUNG ─────────────────────────────────────
+   Nichts abzuschalten. Die Ebene bewegt sich nicht — das ist ihr
+   ganzer Zweck. Sie steht auch dann, wenn alles andere steht. */

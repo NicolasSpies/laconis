@@ -26,18 +26,6 @@ export type Referenz = {
    */
   istEcht?: boolean;
   /**
-   * optional · zeigt einen vorher/nachher-slider für eigene iterationen.
-   * framing: „iteration 1 → iteration 2" bzw. „launch v1 → 2 jahre später".
-   * NICHT für vergleiche mit fremd-designern — nur eigene arbeiten.
-   */
-  evolutionFrames?: {
-    before: string; // image path
-    after: string; // image path
-    labelBefore: string; // z.b. „iteration 1"
-    labelAfter: string; // z.b. „iteration 2"
-    caption?: string; // hand-text unter slider, z.b. „zwischen diesen: 18 monate."
-  };
-  /**
    * optionales kundenzitat · wird auf der referenzen-card inline unter dem
    * titel gerendert. kurz halten (≤ 180 zeichen) · formatter zählt drauf.
    */

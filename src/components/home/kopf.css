@@ -16,10 +16,13 @@
   /* FAIL-OPEN · dieser verlauf ist der eigentliche grund des heros.
      kein WebGL, der frame vor dem ersten draw, reduzierte bewegung ·
      in allen drei faellen steht der hero. das feld ist zugabe. */
+  /* die deckende Grundfarbe ist RAUS · sie war identisch mit dem
+     Grund von .lab-root und hat nur die Wortmarken-Ebene verdeckt.
+     Die beiden Verläufe bleiben; wo sie auslaufen, kommt das
+     Zeichen durch. Siehe Wortmarke.tsx. */
   background:
     radial-gradient(120% 90% at 50% 42%, rgb(20 20 26 / 0.6) 0%, transparent 62%),
-    radial-gradient(80% 60% at 78% 18%, rgb(var(--accent-2) / 0.14) 0%, transparent 70%),
-    var(--g-0);
+    radial-gradient(80% 60% at 78% 18%, rgb(var(--accent-2) / 0.14) 0%, transparent 70%);
   /* clip, nicht hidden · hidden macht die sektion zu ihrem eigenen
      scroll-container und bricht scroll-getriebene animationen */
   overflow: clip;

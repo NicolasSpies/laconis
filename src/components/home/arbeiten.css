@@ -2,8 +2,13 @@
    Arbeiten · alle gleichrangig · Zeilen statt Kacheln
    ═══════════════════════════════════════════════════════════ */
 
+/* KEIN eigener Grund mehr. `--g-0` ist bitgenau derselbe Ton wie
+   `--su-void` auf .lab-root — die Sektion hat ihn also nur
+   wiederholt und dabei die Wortmarken-Ebene dahinter verdeckt.
+   Ohne ihn ändert sich kein Farbwert, aber das Zeichen kommt durch.
+   Siehe Wortmarke.tsx. */
 .ar {
-  background: var(--g-0);
+  background: transparent;
   padding: var(--rh-m) var(--gutter) var(--rh-l);
 }
 .ar-innen {

@@ -1,6 +1,7 @@
 "use client";
 
 import { DeviceNav } from "@/components/device/DeviceNav";
+import { Lauf } from "@/components/device/Lauf";
 import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { HeroRail } from "@/components/device/HeroRail";
 import { HeroAtmo } from "@/components/device/HeroAtmo";
@@ -40,6 +41,7 @@ export function KontaktDevice() {
         <span />
       </div>
 
+      <Lauf />
       <DeviceNav />
       <HeroRail label={t.kicker} />
 
