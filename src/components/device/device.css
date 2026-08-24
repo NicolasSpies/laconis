@@ -898,7 +898,7 @@
 .lab-menu-word {
   /* eigene grösse · deshalb setzt sie durchschuss und laufweite
      selbst, seit .lab-display beides abgegeben hat */
-  font-size: var(--fs-display-xl);
+  font-size: var(--fs-display-lg);
   line-height: var(--lh-xl);
   letter-spacing: var(--ls-display);
 }

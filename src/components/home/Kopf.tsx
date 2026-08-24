@@ -56,8 +56,19 @@ export function Kopf({ t }: { t: KopfT }) {
         <p className="kp-kicker">{t.kicker}</p>
 
         <div className="kp-mitte">
+          {/* JEDER EINTRAG IST EIN BAND, kein umbruch-vorschlag.
+              vorher: `t.h1.join(" ")` plus `text-wrap: balance` —
+              der browser entschied, wo die zeile bricht. bei einem
+              satz, der die spalte von kante zu kante füllen soll,
+              ist der umbruch aber eine gestalterische entscheidung
+              und darf nicht ausgerechnet werden. */}
           <h1 className="kp-h1">
-            {t.h1.join(" ")} <span className="kp-akzent">{t.akzent}</span>
+            {t.h1.map((band) => (
+              <span className="kp-band" key={band}>
+                {band}
+              </span>
+            ))}
+            <span className="kp-band kp-akzent">{t.akzent}</span>
           </h1>
         </div>
 

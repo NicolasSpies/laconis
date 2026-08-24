@@ -89,7 +89,6 @@
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
   color: var(--tx-3);
-  animation: kpRein 700ms var(--ease) both;
 }
 
 /* ── mitte · koerper und satz ───────────────────────────── */
@@ -104,25 +103,52 @@
      linksbündig im selben block ist der klassischste grund,
      warum eine seite nach einzelteilen aussieht. */
   justify-content: flex-start;
-  align-items: center;
+  /* war center · bei einem block, der die spalte von kante zu
+     kante füllen soll, zentriert das nichts und schneidet nur ab */
+  align-items: stretch;
   gap: clamp(20px, 3.4vh, 48px);
   text-align: left;
 }
 
+/* ── DIE SCHRIFT IST DIE FLÄCHE ───────────────────────────
+   Die Seite stand ausschliesslich am BREITEN ende der wdth-achse
+   (--wd-display: 125%). Die untere hälfte, 62 bis 100 %, wurde auf
+   keiner seite ein einziges mal gerendert — eine ganze dimension
+   der eingebundenen schrift lag brach.
+
+   Bei wdth 62 % und wght 900 hört eine zeile auf, eine zeile zu
+   sein: die buchstaben stehen so eng und so schwer, dass ein band
+   entsteht. Das ist derselbe gedanke wie beim kamm, nur an der
+   anderen skala — dasselbe bauteil, dreimal so gross gedacht.
+
+   KEIN font-variation-settings, sondern font-stretch. Die
+   kurzschreibweise setzt nur wdth und lässt wght in ruhe;
+   font-variation-settings würde jede nicht genannte achse auf
+   ihren default zurücksetzen und das gewicht mitreissen. */
 .kp-h1 {
   margin: 0;
-  max-width: 16ch;
+  /* KEIN max-width: 16ch · die umbrüche stehen jetzt im dict, ein
+     zeichenmass würde nochmal dazwischenfunken */
+  max-width: none;
   font-family: var(--font-lab), system-ui, sans-serif;
   font-size: var(--fs-display-xl);
   font-weight: 900;
-  font-stretch: var(--wd-display);
-  line-height: var(--lh-xl);
-  letter-spacing: var(--ls-display);
+  font-stretch: 62%;
+  /* dichter als --lh-xl (0.88) · bei dieser breite und diesem
+     gewicht sollen die bänder aufeinander liegen, nicht atmen */
+  line-height: 0.82;
+  letter-spacing: -0.045em;
   text-transform: lowercase;
-  text-wrap: balance;
   color: var(--tx-1);
-  animation: kpRein 700ms var(--ease) 220ms both;
 }
+
+/* jeder eintrag im dict ist ein BAND · text-wrap: balance ist raus,
+   weil der umbruch eine gestalterische entscheidung ist und keine
+   ausgleichsrechnung */
+.kp-band {
+  display: block;
+}
+
 .kp-akzent { color: var(--lime); }
 
 /* ── fuss ───────────────────────────────────────────────── */
@@ -141,7 +167,6 @@
   font-size: var(--fs-lead);
   line-height: 1.5;
   color: var(--tx-2);
-  animation: kpRein 700ms var(--ease) 540ms both;
 }
 
 .kp-hinweis {
@@ -157,25 +182,42 @@
   left: var(--gutter);
   bottom: clamp(24px, 3.4vh, 40px);
   z-index: 2;
-  animation: kpRein 700ms var(--ease) 740ms both;
 }
 
-@keyframes kpRein {
-  from { transform: translateY(12px); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
-}
+/* HIER STAND `@keyframes kpRein` · vier gestaffelte translateY-
+   und-fade-einflüge (0/220/540/740 ms) auf EINER bildschirmhöhe.
+   Das ist das meistgebaute muster im web und das erste, was eine
+   seite generisch aussehen lässt. Der hero trägt jetzt durch
+   massstab, nicht durch einen auftritt beim laden. */
 
 @media (max-width: 720px) {
   .kp-h1 { max-width: none; }
   .kp-lead { max-width: none; }
   .kp-uhr { display: none; }
+
+  /* GEMESSEN: `.kp-mitte { flex: 1 }` drückte Headline und
+     Einleitung auf 390 px Breite um 366 px auseinander — 43 % des
+     Bildschirms als Loch dazwischen. Am Schreibtisch trägt dieselbe
+     Regel (dort ist der Block 590 px hoch und die Lücke klein),
+     auf dem Handy zerreisst sie den Hero in zwei Hälften.
+
+     Der Satz steht jetzt direkt unter der Headline, und die freie
+     Fläche sammelt sich unten, wo der Scroll-Hinweis sitzt. */
+  .kp-mitte {
+    flex: 0 0 auto;
+  }
+  .kp-fuss {
+    margin-top: clamp(28px, 5vh, 48px);
+  }
+  .kp-lage {
+    justify-content: flex-start;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   /* .kp-uhr gibt es nicht mehr (G3) */
-  .kp-kicker, .kp-lead, .kp-hinweis, .kp-h1 {
-    animation: none;
-  }
+  /* die vier einflüge sind ersatzlos raus · hier bleibt nichts
+     abzuschalten */
   /* HIER STAND `.kp-feld { opacity: 0.35 }`.
      das ist genau der fehler, den ich mit K3 aus der basisregel
      entfernt habe, nur im reduced-zweig übersehen: opacity auf

@@ -32,7 +32,8 @@
   margin: clamp(20px, 3vw, 36px) 0 0;
   max-width: 18ch;
   font-family: var(--font-lab), system-ui, sans-serif;
-  font-size: var(--fs-display-xl);
+  /* noch NICHT die bandskala · siehe --fs-display-lg in globals.css */
+  font-size: var(--fs-display-lg);
   font-weight: 900;
   font-stretch: var(--wd-display);
   line-height: var(--lh-xl);

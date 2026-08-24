@@ -45,7 +45,7 @@ export type HomeT = {
 export const HOME: Record<Locale, HomeT> = {
   de: {
     kicker: "webdesign · entwicklung · eigenes cms",
-    h1: ["websites, die man"],
+    h1: ["websites,", "die man"],
     akzent: "anfassen will.",
     zeile:
       "Webdesign und Entwicklung aus einer Hand. Ich baue Websites von null · mit eigenem CMS, ohne Template und ohne Plugin-Stapel. Bestehende Seiten ziehen mit um, Inhalte und Rankings bleiben.",
@@ -78,7 +78,7 @@ export const HOME: Record<Locale, HomeT> = {
 
   fr: {
     kicker: "webdesign · développement · cms maison",
-    h1: ["des sites qu'on"],
+    h1: ["des sites", "qu'on"],
     akzent: "veut toucher.",
     zeile:
       "Webdesign et développement d'une seule main. Je construis des sites de zéro · avec mon propre CMS, sans template et sans pile de plugins. Ton site existant déménage avec, contenus et référencement restent.",
@@ -111,7 +111,7 @@ export const HOME: Record<Locale, HomeT> = {
 
   en: {
     kicker: "webdesign · development · in-house cms",
-    h1: ["websites you"],
+    h1: ["websites", "you"],
     akzent: "want to touch.",
     zeile:
       "Web design and development from one hand. I build websites from scratch · with my own CMS, no template and no plugin stack. Existing sites move across, content and rankings stay.",

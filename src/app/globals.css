@@ -172,19 +172,21 @@
       background 0.35s ease;
   }
 
-  /* ═══════════ HEADLINES → DISPLAY-FONT (Bricolage Grotesque) ═══════════
-     globale regel statt 50 komponenten anfassen · alle h1-h3 sind headlines.
-     font-black (900) in komponenten clamp der variable font automatisch
-     auf 800 (max axis) · optical-sizing nutzt die opsz-achse für schärfere
-     display-schnitte bei großen größen. */
+  /* ═══════════ HEADLINES → DISPLAY-FONT ═══════════
+     globale regel statt 50 komponenten anfassen. */
   h1,
   h2,
   h3 {
     /* war var(--font-display) · Bricolage. jedes heading ohne
        eigene klasse fiel damit still in eine VIERTE schrift, die
-       auf den geräte-seiten sonst nicht vorkommt. */
+       auf den geräte-seiten sonst nicht vorkommt.
+
+       HIER STAND `font-optical-sizing: auto` mit einem Kommentar
+       über die opsz-achse. Archivo HAT keine opsz-achse — die
+       zeile war seit dem schriftwechsel ein no-op, und der
+       kommentar beschrieb Bricolage, das es hier nicht mehr gibt.
+       wght geht bis 900, nicht bis 800. */
     font-family: var(--font-lab), system-ui, sans-serif;
-    font-optical-sizing: auto;
   }
 
   /* ═══════════ PAPER GRAIN · body-weit textur-overlay ═══════════
@@ -409,7 +411,45 @@
      grösse ist eine SKALA, stimme ist eine KLASSE · font-family und
      font-stretch bleiben in .lab-display / .lab-label. zwei
      orthogonale dinge, zwei mechanismen. */
-  --fs-display-xl: clamp(2.75rem, 9vw, 7.5rem);
+  /* 44–120 px war die grösste Type der ganzen Seite · Spreizung
+     11:1 gegen den Fliesstext. Gemessen an den Vorbildern, die
+     Nicolas selbst nennt: matvoyce.tv fährt 412 px, runrobrun 220,
+     pxpush 172. laconis hatte halb so viel Spreizung wie die
+     ZAHMSTE davon — das ist die messbare Ursache für "ich schlafe
+     da ein wenn ich drauf bin".
+
+     GEMESSEN, nicht geschätzt: bei 1512 px Viewport ist die Spalte
+     1096 px breit, und der längste Band der drei Sprachen ("want to
+     touch.") ist bei 240 px Grad 1044 px breit — 95 % der Spalte.
+     Der Grad, der sie exakt füllt, wäre 252.
+
+     Das `min(16vw, 27vh)` ist KEIN Rückzug auf einen kleineren
+     Grad, sondern eine Höhenbremse: drei Bänder à 240 px mal 0,82
+     Durchschuss sind 590 px, und darüber stehen noch Leiste,
+     Kicker und Einleitung. Auf 900 px Höhe passt das exakt, auf
+     813 px liefe es über. 27vh greift erst UNTER 889 px Höhe —
+     auf jedem normalen Schirm bleiben die 240 px stehen.
+
+     Der Boden 4.875rem (78 px) ist ebenfalls gemessen: auf 390 px
+     Viewport ist die Spalte 342 px, und der längste Band ("want to
+     touch.") füllt sie bei 78 px zu 99 %. Bei den vorher gesetzten
+     72 px blieben 9 % Luft rechts — auf dem Handy ist die
+     Spaltenbreite die einzige Grenze, die es gibt, und sie soll
+     genutzt werden. */
+  --fs-display-xl: clamp(4.875rem, min(16vw, 27vh), 15rem);
+
+  /* der ALTE display-xl-grad · 44–120 px.
+     Er wird noch von zwei Stellen gebraucht, die NICHT die eine
+     grosse Aussage einer Seite sind und den Bandgrad deshalb nicht
+     erben dürfen:
+       .lab-menu-word — vier bis fünf Menü-Einträge untereinander.
+         Bei 240 px wäre jeder ein Drittel Bildschirm hoch.
+       .st-h1 — die Überschrift von /studio. Sie SOLL in die
+         Bandskala, aber erst mit eigenen Umbrüchen im Dict und
+         font-stretch 62%. Bis dahin bliebe sie sonst bei wdth 125%
+         und text-wrap: balance auf 240 px stehen, und das sieht
+         kaputt aus statt gross. */
+  --fs-display-lg: clamp(2.75rem, 9vw, 7.5rem);
   --fs-display: clamp(2.125rem, 5.6vw, 4rem);
   --fs-headline: clamp(1.875rem, 4.6vw, 3.25rem);
   --fs-title: clamp(1.375rem, 3.2vw, 2.25rem);
