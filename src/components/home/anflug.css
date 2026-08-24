@@ -1,0 +1,588 @@
+/* ═══════════════════════════════════════════════════════════
+   Der Anflug · die Arbeiten kommen aus der Tiefe auf dich zu
+   die Erzählung steht im Docstring von Arbeiten.tsx
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── DIE UHR DES HALTS ──────────────────────────────────────
+   `--halt` ist der einzige Schalter der ganzen Choreografie:
+   0 = die Platte ist unterwegs, 1 = sie steht und tritt auf.
+
+   `initial-value: 1` ist die wichtigste Zeile dieser Datei. Der
+   UNANGETRIEBENE Zustand ist damit der fertig komponierte. Firefox,
+   Safari ohne Scroll-Timelines und `prefers-reduced-motion` lesen
+   alle dieselbe 1 und sehen die fertige Liste — es gibt keinen
+   zweiten Codepfad, den man vergessen könnte zurückzusetzen.
+
+   `inherits: true` ist Pflicht: `--halt` wird auf dem <a> gesetzt
+   und von vier Kindern gelesen. Bei `inherits: false` läsen die
+   Kinder still den Initialwert und nichts würde je passieren. */
+@property --halt {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+/* ── DAS EXPONAT ────────────────────────────────────────────
+   Die Platte gibt es AUCH ohne Tunnel nicht — im Fallback bleibt
+   die abgenommene Zeilenliste stehen. Deshalb steht hier nur, was
+   in beiden Welten gilt: das Feld ist aus. */
+/* OHNE TUNNEL trägt die Bahn die Schale.
+
+   Die Bahn musste Geschwister von .ar-innen werden, damit die Bühne
+   randlos sein kann — .ar-innen deckelt auf var(--shell). Ohne diese
+   vier Zeilen liefe die Liste im Fallback über die volle Breite
+   statt über 1080 px, und Firefox bekäme eine andere Zeilenlänge als
+   Chrome. */
+.ar-bahn {
+  max-width: var(--shell);
+  margin-inline: auto;
+}
+
+.ar-feld {
+  display: none;
+}
+
+.ar-weg {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   AB HIER: NUR MIT SCROLL-TIMELINE UND NUR OHNE REDUCED-MOTION
+
+   Der @supports-Block umschliesst ALLES, auch Höhe, sticky und
+   perspective. Zwei Gründe, beide hart:
+
+   1. Ohne ihn bekäme Firefox 334svh leere Fläche.
+   2. Schlimmer: ohne @supports wird nur die animation-timeline-
+      Deklaration verworfen, die Animation läuft dann beim Laden
+      EINMAL komplett durch und bleibt bei drei unsichtbaren
+      Platten stehen. `both` als fill-mode macht das lautlos.
+   ═══════════════════════════════════════════════════════════ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* ── DIE STRECKE ────────────────────────────────────────
+       Die Bahn IST die Zeitachse und die Klebestrecke zugleich.
+       Der `contain`-Bereich einer View-Timeline läuft von „Element
+       deckt den Scrollport gerade vollständig" bis „Oberkante
+       liegt an der Oberkante" — das ist exakt so lang wie die
+       Bühne klebt. Deshalb braucht keine einzige Zahl hier eine
+       Messung im JavaScript. */
+    .ar-bahn {
+      /* die EINE stellschraube · fühlt es sich zäh an, hier runter */
+      --pro-station: 78svh;
+      position: relative;
+      height: calc(100svh + var(--n) * var(--pro-station));
+      view-timeline-name: --tunnel;
+      view-timeline-axis: block;
+
+      /* randlos · die Sektion trägt var(--gutter) als Innenrand,
+         die Bühne muss darüber hinaus. Exakt gegengerechnet statt
+         100vw — 100vw schliesst die Scrollleiste ein und erzeugt
+         waagerechten Überlauf.
+
+         `max-width: none` hebt die Schale des Fallbacks auf. */
+      max-width: none;
+      margin-inline: calc(var(--gutter) * -1);
+    }
+
+    /* svh für die Strecke (stabil, springt nicht), dvh für die
+       Bühne (fährt mit der Android-Toolbar mit). Andersherum
+       driften Klebestrecke und contain-Achse gegeneinander, und
+       der Auftritt landet auf halber Höhe. */
+    .ar-buehne {
+      position: sticky;
+      top: 0;
+      height: 100dvh;
+      /* clip, NICHT hidden · hidden macht die Bühne zu ihrem
+         eigenen Scroll-Container und schneidet die Timeline ab */
+      overflow: clip;
+    }
+
+    .ar-liste {
+      position: absolute;
+      inset: 0;
+      /* PFLICHT · das <li> ist auf translateZ gefahren und liegt
+         damit im 3D-Hit-Test näher an der Kamera als sein Kind.
+         Ohne das hier gewinnt seine eigene Box jeden Klick und
+         der Link darunter ist tot. */
+      pointer-events: none;
+    }
+
+    .ar-liste li {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      perspective: 900px;
+      pointer-events: none;
+    }
+
+    /* die Kanten der Bühne · ein bewusst RECHTECKIGER Rahmen, kein
+       Schleier über dem Objekt. Ein Schleier müsste der Silhouette
+       folgen, sonst malt er schwarze Kästen in den Raum. */
+    .ar-buehne::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 40;
+      pointer-events: none;
+      background: linear-gradient(
+        var(--g-0) 0,
+        transparent 10%,
+        transparent 90%,
+        var(--g-0) 100%
+      );
+    }
+
+    /* ── DIE PLATTE ─────────────────────────────────────────
+       Layoutgrösse = DURCHBRUCHSGRÖSSE, nicht Ruhegrösse.
+
+       Perspektive 900, Halt bei z = -300 → Massstab 0,75.
+       Durchbruch bei z = +150 → Massstab 1,2. Der grösste Upscale
+       ist damit 1,2 statt 1,92. Rechnete man die Ruhegrösse als
+       Layoutgrösse, würde Chrome ausgerechnet im lautesten Moment
+       fette Display-Type um 92 % hochrastern — matschig oder
+       teuer, beides falsch. */
+    .ar-zeile {
+      /* PLAKAT, nicht Karte.
+
+         Erster Wurf war Bild oben, Textband unten — die Anatomie
+         jeder Agenturkachel, nur in 3D. Jetzt liegt das Material
+         über die ganze Fläche und der Name steht DARAUF, unten
+         links, mit der Markenfarbe als Rückgrat an der Kante. Das
+         ist ein Objekt, keine Kachel.
+
+         Layoutgrösse = DURCHBRUCHSGRÖSSE, nicht Ruhegrösse.
+         Perspektive 900, Halt bei z = -200 → Massstab 0,82.
+         Durchbruch bei z = +150 → Massstab 1,2. Der grösste
+         Upscale ist damit 1,2. Rechnete man die Ruhegrösse als
+         Layoutgrösse, würde Chrome ausgerechnet im lautesten
+         Moment fette Display-Type um 92 % hochrastern. */
+      /* die zwei Tiefen als Stellschrauben · Perspektive 900:
+         z = -200 → Massstab 0,82 (Halt)
+         z = +150 → Massstab 1,20 (Durchbruch)
+         Auf dem Handy stehen andere Werte, sonst ist der Anflug
+         dort flach (gemessen: 0,90 → 1,09 · da kommt einem nichts
+         entgegen). */
+      --ruhe: -200px;
+      --durch: 150px;
+
+      width: min(92vw, 1040px);
+      display: grid;
+      grid-template-columns: clamp(5px, 0.5vw, 8px) minmax(0, 1fr) auto;
+      grid-template-rows: auto auto auto;
+      grid-template-areas:
+        "strich feld feld"
+        "strich name pfeil"
+        "strich art  pfeil";
+      column-gap: clamp(18px, 2vw, 32px);
+      row-gap: 4px;
+
+      /* der Fallback-Zustand wird komplett zurückgenommen */
+      border: 0;
+      border-radius: 0;
+      margin: 0;
+      padding: 0;
+      background: none;
+      box-shadow: none;
+      transform: none;
+      transition: none;
+
+      /* pointer-events kommt aus der Klick-Keyframe · `auto` ist
+         der Standard, damit der Fallback klickbar bleibt */
+      pointer-events: auto;
+
+      animation-name: anflug, halt, klick;
+      animation-fill-mode: both;
+      animation-timing-function: linear, step-end, step-end;
+      animation-timeline: --tunnel, --tunnel, --tunnel;
+      animation-range:
+        contain var(--von) contain var(--bis),
+        contain var(--von) contain var(--bis),
+        contain var(--von) contain var(--bis);
+    }
+
+    .ar-liste li:last-child .ar-zeile {
+      border-bottom: 0;
+      animation-name: anflug-halt, halt, klick;
+    }
+
+    /* ── DIE FAHRT ──────────────────────────────────────────
+       `--tief` ist pro Element STATISCH und wird einmal aufgelöst ·
+       keine animierte Custom Property im Transform. Die Fahrt
+       bleibt damit auf dem Compositor. */
+    @keyframes anflug {
+      0% {
+        translate: 0 0 var(--tief);
+        opacity: 0;
+        animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
+      9% {
+        opacity: 0.1;
+      }
+      /* ANGEKOMMEN */
+      46% {
+        translate: 0 0 var(--ruhe);
+        opacity: 1;
+        animation-timing-function: linear;
+      }
+      /* HALT · dieselben Werte, deshalb steht die Kamera still */
+      72% {
+        translate: 0 0 var(--ruhe);
+        opacity: 1;
+        animation-timing-function: cubic-bezier(0.6, 0, 0.9, 0.3);
+      }
+      /* DURCHBRUCH */
+      100% {
+        translate: 0 0 var(--durch);
+        opacity: 0;
+      }
+    }
+
+    /* die letzte Station bleibt · sonst ist Station drei die
+       Wiederholung von Station eins und nach zwölf Sekunden weiss
+       der Besucher alles */
+    @keyframes anflug-halt {
+      0% {
+        translate: 0 0 var(--tief);
+        opacity: 0;
+        animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
+      9% {
+        opacity: 0.1;
+      }
+      46%,
+      100% {
+        translate: 0 0 var(--ruhe);
+        opacity: 1;
+      }
+    }
+
+    /* ── DER AUFTRITT IM HALT ───────────────────────────────
+       `step-end` macht den Schalter diskret: bis 46 % ist er 0, ab
+       46 % ist er 1 und bleibt es. Daran hängen gewöhnliche
+       transitions — die laufen auf der UHR, nicht am Scrollrad.
+       Deshalb sieht man den Auftritt auch beim Durchscrollen. */
+    @keyframes halt {
+      0% {
+        --halt: 0;
+      }
+      46% {
+        --halt: 1;
+      }
+    }
+
+    /* pointer-events direkt in Keyframes · diskret animierbar,
+       braucht keine Custom Property.
+
+       Fenster 46–88 %, NICHT 46–72: zwischen 72 und 88 ist die
+       Platte am grössten, hellsten und vordersten. Ein sichtbares
+       Ziel ohne Reaktion ist ein Defekt, kein Geschmack — und auf
+       iOS endet das Momentum meistens genau dort. */
+    @keyframes klick {
+      0%,
+      45.99% {
+        pointer-events: none;
+      }
+      46%,
+      88% {
+        pointer-events: auto;
+      }
+      88.01%,
+      100% {
+        pointer-events: none;
+      }
+    }
+
+    /* ── DAS FELD ───────────────────────────────────────────
+       Bei fabry die echte Aufnahme, sonst die Markenfarbe als
+       Vollfläche. Kein Monogramm, kein Platzhalter-Icon: bei einem
+       Branding-Projekt IST die Farbe das Exponat. */
+    /* EXPONAT UND SCHILD, nicht Plakat.
+
+       Zwischenstand war der Name AUF dem Material, getragen von
+       einem Verlauf. Gemessen und verworfen: die Fabry-Aufnahme
+       geht bei 11 % vom dunklen Hero in weissen Inhalt über, der
+       Verlauf legte dort einen schmutzigen Grauschleier hin und
+       die Fliesstexte der fremden Seite geisterten durch den
+       Namen. Ein Verlauf, der über beliebiges Material tragen
+       soll, muss so dicht sein, dass er das Material verdeckt —
+       dann kann man es auch weglassen.
+
+       Jetzt hängt das Schild UNTER dem Exponat, auf dem Schwarz
+       des Raums. Museumsvokabular, und es passt zur Kamerafahrt:
+       die Fläche bleibt unangetastet, die Beschriftung liegt im
+       Raum. Nebenbei ist es exakt dieselbe Zeile wie im Fallback —
+       nur mit einer Fläche darüber. */
+    .ar-feld {
+      display: block;
+      grid-area: feld;
+      position: relative;
+      /* 16/9 · liest sich als Bildschirm, und die Gruppe stand mit
+         16/10 auf 90 % der Bildschirmhöhe — das Schild klebte am
+         unteren Rand */
+      aspect-ratio: 16 / 9;
+      overflow: clip;
+      border-radius: 3px;
+      background: var(--f, var(--g-2));
+      /* das Exponat wirft, die Beschriftung nicht · daran erkennt
+         man, was im Raum hängt und was daneben steht */
+      box-shadow: var(--sh-3);
+    }
+
+    /* die Lieferliste · sitzt im Feld unten links, spiegelbildlich
+       zum Namen unter dem Feld. Die Schrift kommt aus aufFarbe() in
+       Arbeiten.tsx, nicht aus einer Annahme über die Markenfarbe. */
+    .ar-liefer {
+      position: absolute;
+      left: clamp(16px, 1.8vw, 28px);
+      bottom: clamp(14px, 1.6vw, 24px);
+      right: clamp(16px, 1.8vw, 28px);
+      font-family: var(--font-mono), ui-monospace, monospace;
+      font-size: var(--fs-label);
+      letter-spacing: var(--ls-label);
+      text-transform: uppercase;
+      color: var(--auf-f, #fff);
+      opacity: 0.72;
+    }
+
+    .ar-bild {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* GEMESSEN, nicht geraten: die oberen 1083 px der Aufnahme
+         sind der dunkle Hero (71 % dunkle Pixel), ab 1083 px
+         beginnt der weisse Inhalt. Mit `top` sah die Platte aus
+         wie ihre eigene Platzhalterfarbe — die eine Referenz mit
+         echtem Material war von den zweien ohne nicht zu
+         unterscheiden.
+
+         11 % legt den Ausschnitt auf die KANTE zwischen Hero und
+         Inhalt. Das ist die einzige Zone, die auf den ersten Blick
+         unverwechselbar als gebaute Seite liest. */
+      object-position: 50% 11%;
+      display: block;
+      /* die Farbfläche darunter bleibt als Rahmen stehen, solange
+         das Bild lädt */
+      background: var(--f);
+    }
+
+    /* ── DIE VIER BEWEGUNGEN, die im Halt loslaufen ─────────
+       Alle vier hängen an `--halt` und haben eigene Verzögerungen.
+       Zusammen knapp eine Sekunde: erst die Kante, dann die Linie,
+       dann die Kategorie, zuletzt der Pfeil. Vier Bewegungen
+       hintereinander lesen sich als Auftritt, vier gleichzeitig
+       als Aufblitzen. */
+    /* das Rückgrat · läuft über Exponat UND Schild und bindet
+       beides zu einem Objekt. Es fährt im Halt von oben aus. */
+    .ar-zeile > .ar-strich {
+      grid-area: strich;
+      align-self: stretch;
+      min-height: 0;
+      border-radius: 2px;
+      background: var(--f, var(--ln-deko));
+      transform-origin: top;
+      scale: 1 calc(0.12 + 0.88 * var(--halt));
+      transform: none;
+      transition: scale 420ms var(--ease);
+    }
+
+    .ar-zeile > .ar-name {
+      grid-area: name;
+      position: relative;
+      align-self: end;
+      /* am Exponat darf der Name grösser sein als in der Zeile ·
+         er beschriftet eine Fläche, keine Zeile */
+      font-size: var(--fs-display);
+      padding-top: clamp(12px, 1.4vw, 20px);
+      color: var(--tx-1);
+      transition: none;
+    }
+    /* die Haarlinie zieht sich unter dem Namen durch */
+    .ar-zeile > .ar-name::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -4px;
+      height: 1px;
+      background: var(--ln-soft);
+      transform-origin: left;
+      scale: var(--halt) 1;
+      transition: scale 520ms var(--ease) 80ms;
+    }
+
+    .ar-zeile > .ar-art {
+      grid-area: art;
+      align-self: start;
+      color: var(--tx-3);
+      translate: calc((1 - var(--halt)) * 14px) 0;
+      opacity: var(--halt);
+      transition:
+        translate 300ms var(--ease) 160ms,
+        opacity 300ms var(--ease) 160ms;
+    }
+
+    .ar-zeile > .ar-pfeil {
+      grid-area: pfeil;
+      align-self: end;
+      font-size: var(--fs-lead);
+      /* color-mix zwischen zwei fertigen Tönen · NICHT opacity auf
+         dem Lime. #e1fd52 wird nie abgewandelt, es wird
+         übergeblendet. */
+      color: color-mix(
+        in srgb,
+        #e1fd52 calc(var(--halt) * 100%),
+        var(--tx-4)
+      );
+      translate: calc(var(--halt) * 6px) 0;
+      transform: none;
+      transition:
+        color 260ms var(--ease) 280ms,
+        translate 260ms var(--ease) 280ms;
+    }
+
+    /* der Strich atmet · reine CSS-Keyframes, damit es auch im
+       Hintergrund-Tab und auf dem Handy läuft. rAF friert dort
+       ein. */
+    @keyframes atem {
+      0%,
+      100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.62;
+      }
+    }
+    .ar-zeile > .ar-strich {
+      animation: atem 6s ease-in-out infinite;
+    }
+
+    /* ── DER WEG ────────────────────────────────────────────
+       Die einzige Antwort auf „wie lang geht das noch". Läuft über
+       die GANZE Strecke, nicht pro Station. */
+    .ar-weg {
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 41;
+      height: 2px;
+      background: rgb(var(--fg-rgb) / 0.09);
+      pointer-events: none;
+    }
+    .ar-weg > i {
+      display: block;
+      height: 100%;
+      background: #e1fd52;
+      transform-origin: left;
+      scale: 0 1;
+      animation: wegVoll linear both;
+      animation-timeline: --tunnel;
+      animation-range: contain 0% contain 100%;
+    }
+    @keyframes wegVoll {
+      to {
+        scale: 1 1;
+      }
+    }
+
+    /* ── TASTATUR ───────────────────────────────────────────
+       Die Platten stehen die meiste Zeit auf opacity 0 und sind
+       trotzdem fokussierbar. Ein unsichtbares Tab-Ziel ist ein
+       echter Verstoss (WCAG 2.4.11), kein Schönheitsfehler.
+
+       Sobald der Fokus in der Bahn liegt, fällt der ganze Tunnel
+       weg und die flache Liste steht da. Das ist ein Sprung im
+       Layout — und der ist allemal besser als ein Ziel, das man
+       nicht sieht. Zeigerbenutzer merken davon nichts. */
+    .ar-bahn:has(:focus-visible) {
+      height: auto;
+      margin-inline: 0;
+      max-width: var(--shell);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .ar-bahn:has(:focus-visible) .ar-buehne {
+      position: static;
+      height: auto;
+      overflow: visible;
+    }
+    .ar-bahn:has(:focus-visible) .ar-buehne::after,
+    .ar-bahn:has(:focus-visible) .ar-weg,
+    .ar-bahn:has(:focus-visible) .ar-feld {
+      display: none;
+    }
+    .ar-bahn:has(:focus-visible) .ar-liste,
+    .ar-bahn:has(:focus-visible) .ar-liste li {
+      position: static;
+      inset: auto;
+      display: block;
+      perspective: none;
+      pointer-events: auto;
+    }
+    .ar-bahn:has(:focus-visible) .ar-zeile {
+      width: auto;
+      aspect-ratio: auto;
+      animation: none;
+      background: none;
+      box-shadow: none;
+      padding: clamp(22px, 3vw, 40px) 0;
+      border-top: 1px solid var(--ln-hair);
+      grid-template-columns: 4px minmax(0, 1fr) auto auto;
+      grid-template-rows: auto;
+      grid-template-areas: none;
+    }
+    .ar-bahn:has(:focus-visible) .ar-zeile > * {
+      grid-area: auto;
+    }
+
+    /* ── HANDY ──────────────────────────────────────────────
+       Der Tunnel läuft, randlos, eine Platte pro Bildschirm. Die
+       Platte kippt ins Hochformat, sonst ist sie ein Briefschlitz.
+       Die Perspektive wird FLACHER (1400 statt 900), damit die
+       Platte im Halt nicht auf zwei Drittel schrumpft. */
+    @media (max-width: 720px) {
+      .ar-bahn {
+        --pro-station: 68svh;
+      }
+      /* DIESELBE Perspektive wie am Schreibtisch, aber flacherer
+         Halt und tieferer Durchbruch.
+
+         Erster Versuch war perspective: 1800 gegen das Schrumpfen —
+         gemessen 0,90 → 1,09. Das ist kein Anflug mehr, sondern ein
+         Zoom um neun Prozent. Die Perspektive zu ändern verkleinert
+         den ganzen Weg; richtig ist, die zwei Haltepunkte zu
+         verschieben:
+           z = -80  → Massstab 0,92 (Halt · füllt den Schirm)
+           z = +210 → Massstab 1,30 (Durchbruch · läuft heraus) */
+      .ar-zeile {
+        --ruhe: -80px;
+        --durch: 210px;
+        width: 92vw;
+        column-gap: 14px;
+      }
+      .ar-feld {
+        aspect-ratio: 3 / 4;
+      }
+      /* GEMESSEN wie am Schreibtisch, aber an der HANDY-Aufnahme:
+         dunkler Hero bis ~443 px, ab ~886 px weisser Inhalt. Die
+         11 % vom Schreibtisch landeten hier mitten im Fliesstext,
+         weil die Handy-Seite anders aufgebaut ist. 5 % legt den
+         Ausschnitt auf dieselbe Kante Hero→Inhalt. */
+      .ar-bild {
+        object-position: 50% 5%;
+      }
+      .ar-zeile > .ar-name {
+        font-size: clamp(2rem, 9.4vw, 3rem);
+      }
+      /* die Kategorie bleibt HIER · anders als in der Zeilenliste
+         ist auf der Platte Platz dafür, und sie ist die einzige
+         Angabe, was das Projekt überhaupt war */
+      .ar-zeile > .ar-art {
+        display: block;
+      }
+    }
+  }
+}

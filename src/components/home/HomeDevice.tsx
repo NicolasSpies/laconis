@@ -17,6 +17,7 @@ import "@/components/device/device.css";
 import "@/components/home/kopf.css";
 import "@/components/home/kammer.css";
 import "@/components/home/arbeiten.css";
+import "@/components/home/anflug.css";
 import "@/components/home/laufband.css";
 import "@/components/home/eigenescms.css";
 import "@/components/home/schluss.css";
