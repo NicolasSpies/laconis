@@ -1,4 +1,10 @@
+import { Kamm } from "@/components/shared/Kamm";
 import "@/components/home/kammer.css";
+
+/* dieselbe farbe wie .ka in kammer.css · steht hier, weil der
+   kamm sie als prop braucht und zwei wahrheiten für dieselbe
+   fläche genau der fehler wären, den die farbrunde beseitigt hat */
+const PAPIER = "#e9e9e7";
 
 /**
  * Kammer · der helle Schnitt.
@@ -57,16 +63,35 @@ export function Kammer({
 }) {
   const Satz = als;
   return (
-    <section className="ka" data-variante={variante ?? "voll"} data-no-reveal>
-      <div className="ka-innen">
-        <Satz className="ka-satz">
-          {t.satz}
-          {/* ohne betonung KEIN leeres span · sonst steht auf der
-              seite ein element, das nichts trägt */}
-          {t.betont ? <> <span className="ka-betont">{t.betont}</span></> : null}
-        </Satz>
-        {t.body && <p className="ka-body">{t.body}</p>}
-      </div>
-    </section>
+    <>
+      {/* DER SCHNITT AN BEIDEN KANTEN.
+
+          weil der kamm hier sitzt und nicht in den einzelnen
+          seiten, bekommen home, /studio, /arbeiten und /kontakt
+          ihn in einem zug — vier seiten, acht kanten, ein
+          bauteil. genau das ist der punkt: ökonomie statt
+          aufwand.
+
+          der ton ist BEIDE MALE das papier, nicht das schwarz.
+          das band führt immer von schwarz (oben) nach ton
+          (unten); an der unterkante steht es also gespiegelt
+          (`richtung="auf"`), damit das papier oben und das
+          schwarz unten liegt. */}
+      <Kamm ton={PAPIER} platz="kammer-oben" />
+
+      <section className="ka" data-variante={variante ?? "voll"} data-no-reveal>
+        <div className="ka-innen">
+          <Satz className="ka-satz">
+            {t.satz}
+            {/* ohne betonung KEIN leeres span · sonst steht auf der
+                seite ein element, das nichts trägt */}
+            {t.betont ? <> <span className="ka-betont">{t.betont}</span></> : null}
+          </Satz>
+          {t.body && <p className="ka-body">{t.body}</p>}
+        </div>
+      </section>
+
+      <Kamm ton={PAPIER} richtung="auf" platz="kammer-unten" />
+    </>
   );
 }

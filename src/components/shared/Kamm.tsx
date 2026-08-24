@@ -91,12 +91,25 @@ function ungerade(n: number): number {
   return n % 2 === 0 ? n - 1 : n;
 }
 
-export function wellen(): Welle[] {
+/**
+ * `platz` unterscheidet die instanzen.
+ *
+ * ohne ihn bekämen alle kämme derselben seite dasselbe profil UND
+ * dieselben phasen — die kanten über und unter der hellen kammer
+ * standen dann exakt spiegelgleich und blieben für immer im
+ * gleichtakt. das liest sich mechanisch statt lebendig.
+ *
+ * der platz wird in den hash gemischt, nicht auf das ergebnis
+ * addiert · so verschiebt sich nicht nur die phase, sondern auch
+ * periode, füllung und tempo. jede kante bekommt ein eigenes
+ * profil aus denselben daten.
+ */
+export function wellen(platz = ""): Welle[] {
   const quelle = referenzen.slice(0, MAX_REIHEN);
   const anzahl = Math.max(1, ungerade(quelle.length));
 
   return quelle.slice(0, anzahl).map((r, i) => {
-    const h = hash(r.slug);
+    const h = hash(r.slug + "·" + platz);
     return {
       key: r.slug,
       /* jede Reihe eine andere Sprosse der Leiter · der Rang sorgt
@@ -134,15 +147,18 @@ export function wellen(): Welle[] {
 export function Kamm({
   richtung = "ab",
   ton,
+  platz = "",
   className,
 }: {
   /** `ab` = Zähne hängen nach unten, `auf` = sie wachsen nach oben */
   richtung?: "ab" | "auf";
   /** die Farbe der Fläche, in die der Kamm beisst */
   ton: string;
+  /** unterscheidet die instanzen · siehe wellen() */
+  platz?: string;
   className?: string;
 }) {
-  const reihen = wellen();
+  const reihen = wellen(platz);
 
   return (
     <div

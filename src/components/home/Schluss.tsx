@@ -41,7 +41,7 @@ export function Schluss({
       {/* der kamm sitzt VOR der platte, nicht darin · er ist die
           kante zwischen der dunklen sektion darüber und dem lime
           darunter. sein ton ist deshalb genau die plattenfarbe. */}
-      <Kamm ton="#e1fd52" />
+      <Kamm ton="#e1fd52" platz="schluss" />
 
       <section className="sl" data-no-reveal>
         <div className="sl-innen">
