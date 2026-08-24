@@ -1,5 +1,7 @@
 import Link from "next/link";
 import type { Referenz } from "@/data/referenzen";
+import { FILME } from "@/data/filme.generated";
+import { Film } from "@/components/home/Film";
 
 /**
  * Arbeiten · der Anflug.
@@ -38,14 +40,28 @@ import type { Referenz } from "@/data/referenzen";
  * Zahlen, server-seitig, deterministisch, und sie wachsen trotzdem
  * mit den Daten mit.
  *
- * ═══ KEIN STOCKBILD AUF DIE PLATTE ═══
+ * ═══ DIE PLATTE LÄUFT ═══
+ *
+ * Gemessen an schultzschultz.com, dem Vorbild: 12 Videos, 18 Bilder,
+ * 2 Canvas. Ihre grösste Type ist 160 px — KLEINER als hier — und
+ * sie haben genau vier CSS-Animationen. Der Unterschied war nie
+ * Typografie oder CSS. Es ist bewegtes Material der eigenen Arbeit.
+ *
+ * Also läuft die gebaute Seite jetzt wirklich: `scripts/film.mjs`
+ * öffnet `urlExtern`, scrollt mit konstanter Geschwindigkeit durch
+ * und nimmt das auf. Beim echten Scrollen laufen die Animationen der
+ * Kundenseite mit — Reveals, Sticky-Elemente, Mikrobewegungen. Genau
+ * das ist der Beweis, dass da eine Seite LÄUFT und nicht ein Bild
+ * hängt. Ein CSS-Schwenk über ein langes Standbild sähe fast gleich
+ * aus, und "fast" ist der Unterschied.
+ *
+ * ═══ KEIN STOCKBILD, KEIN LEERES RECHTECK ═══
  *
  * `heroImage` ist bei ALLEN DREI Referenzen ein Unsplash-Bild. Auf
  * einer Platte, die für die Arbeit steht, wäre das ein Fremdbild,
- * das als eigene Arbeit gelesen wird. Deshalb kommt ausschliesslich
- * `shots` auf die Platte — die echte Aufnahme der gebauten Seite.
- * Wer keine hat, bekommt seine Markenfarbe als Vollfläche. Das ist
- * bei einem Branding-Projekt ohnehin das ehrlichere Exponat.
+ * das als eigene Arbeit gelesen wird. Deshalb kommt nur eigenes
+ * Material drauf: Film, wenn einer existiert, sonst Aufnahme, sonst
+ * die Markenfarbe mit der Lieferliste aus `tags`.
  */
 
 export type ArbeitenT = {
@@ -145,7 +161,9 @@ export function Arbeiten({
                     {/* das Feld ist im Fallback display:none · dort
                         bleibt die abgenommene Zeilenliste stehen */}
                     <span className="ar-feld" aria-hidden>
-                      {w.shots ? (
+                                            {FILME.includes(w.slug) ? (
+                        <Film slug={w.slug} />
+                      ) : w.shots ? (
                         /* <picture> statt <img>: auf dem Handy liegt
                            die HANDY-Aufnahme im Repo und wurde bis
                            hierher nicht benutzt — dort stand die

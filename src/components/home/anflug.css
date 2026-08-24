@@ -346,6 +346,37 @@
       opacity: 0.72;
     }
 
+    /* ── DER FILM ───────────────────────────────────────────
+       Die gebaute Kundenseite läuft in der Platte. Aufgenommen von
+       scripts/film.mjs, nicht simuliert.
+
+       Kein autoplay-Gate im JavaScript nötig: ein Browser startet
+       kein Video, das nicht gerendert wird. Die reduced-motion-
+       Regel weiter unten setzt display: none, damit spielt es gar
+       nicht erst an — und das Standbild übernimmt. */
+    /* die Hülle stapelt Standbild und Film übereinander · das
+       Standbild liegt darunter und trägt, solange kein Film
+       entschieden oder geladen ist */
+    .ar-film-huelle {
+      display: block;
+      position: absolute;
+      inset: 0;
+    }
+    .ar-standbild,
+    .ar-film {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      background: var(--f);
+    }
+    .ar-film {
+      z-index: 1;
+    }
+
     .ar-bild {
       width: 100%;
       height: 100%;
@@ -586,3 +617,15 @@
     }
   }
 }
+
+/* HIER STAND ein @media (prefers-reduced-motion: reduce)-Block, der
+   den Film per `display: none` verstecken sollte.
+
+   GEMESSEN und verworfen: Chrome lädt und spielt ein
+   display:none-Video vollständig ab (readyState 4, paused false,
+   currentTime läuft). Das Gate war also nur optisch — der Film
+   hätte unsichtbar weitergespielt und Akku gezogen.
+
+   Film.tsx entscheidet jetzt wirklich: bei reduzierter Bewegung
+   wird gar kein <video> gerendert, und das server-gerenderte
+   Standbild bleibt stehen. */

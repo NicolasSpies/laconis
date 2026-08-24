@@ -82,13 +82,21 @@
     clamp(58px, 8vh, 92px);
 }
 
+/* KLARTEXT.
+   Hier stand "WEBDESIGN · ENTWICKLUNG · EIGENES CMS" in 11 px
+   Mono, versalien, 0,2 em gesperrt, auf --tx-3. Also die drei
+   wichtigsten Wörter der Seite, gesetzt wie ein Kleingedrucktes.
+
+   Nicolas: "dann will ich klartext keine kleinen versteckten texte
+   wie oben im header."
+
+   Jetzt: Fliesstextgrösse, gemischte Schreibung, volle Textfarbe.
+   Man liest es, ohne hinzusehen. */
 .kp-kicker {
   margin: 0;
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: var(--fs-label);
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: var(--tx-3);
+  font-size: var(--fs-lead);
+  line-height: 1.4;
+  color: var(--tx-2);
 }
 
 /* ── mitte · koerper und satz ───────────────────────────── */
@@ -167,21 +175,6 @@
   font-size: var(--fs-lead);
   line-height: 1.5;
   color: var(--tx-2);
-}
-
-.kp-hinweis {
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: var(--fs-label);
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: var(--tx-3);
-  white-space: nowrap;
-}
-.kp-hinweis {
-  position: absolute;
-  left: var(--gutter);
-  bottom: clamp(24px, 3.4vh, 40px);
-  z-index: 2;
 }
 
 /* HIER STAND `@keyframes kpRein` · vier gestaffelte translateY-

@@ -59,11 +59,10 @@ export function HomeDevice() {
           h1: t.h1,
           akzent: t.akzent,
           zeile: t.zeile,
-          hinweis: t.hinweis,
         }}
       />
 
-      <Kammer t={t.kammer} kamm />
+      <Kammer t={t.kammer} />
 
       <Arbeiten werke={referenzen} t={{ h2: t.arbeitenH2, alle: t.arbeitenAlle }} href={arbeiten} />
 

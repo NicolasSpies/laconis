@@ -1,10 +1,4 @@
-import { Kamm } from "@/components/shared/Kamm";
 import "@/components/home/kammer.css";
-
-/* dieselbe farbe wie .ka in kammer.css · steht hier, weil der
-   kamm sie als prop braucht und zwei wahrheiten für dieselbe
-   fläche genau der fehler wären, den die farbrunde beseitigt hat */
-const PAPIER = "#e9e9e7";
 
 /**
  * Kammer · der helle Schnitt.
@@ -52,22 +46,9 @@ export function Kammer({
   t,
   variante,
   als = "p",
-  kamm = false,
 }: {
   t: KammerT;
   variante?: "bahn";
-  /** Zinkenprofil an der OBEREN kante · standardmässig aus.
-
-      erster wurf hatte den kamm an BEIDEN kanten jeder kammer, auf
-      allen vier seiten — zehn instanzen. nicolas: "sieht mir
-      teilweise zu sehr aus wie ein piano. gerne ab und zu solche
-      sachen mit dem kamm aber nicht immer."
-
-      die diagnose ist genau: eine einzelne gebissene kante liest
-      sich als KANTE. zwei gespiegelte, die eine helle bahn
-      einrahmen, ergeben eine KLAVIATUR. deshalb nur noch oben, und
-      nur dort, wo es gesetzt wird. */
-  kamm?: boolean;
   /** `h2`, wenn der satz die überschrift der sektion IST.
       auf /arbeiten trägt er den ehrlich-abschnitt · er sieht aus
       wie eine überschrift (gleiche grösse wie die h2 daneben) und
@@ -77,11 +58,6 @@ export function Kammer({
   const Satz = als;
   return (
     <>
-      {/* nur die OBERE kante, und nur wenn gesetzt · der harte
-          schnitt an der unterkante bleibt hart, so wie er gedacht
-          war */}
-      {kamm && <Kamm ton={PAPIER} platz="kammer-oben" />}
-
       <section className="ka" data-variante={variante ?? "voll"} data-no-reveal>
         <div className="ka-innen">
           <Satz className="ka-satz">

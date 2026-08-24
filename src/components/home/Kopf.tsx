@@ -33,7 +33,6 @@ export type KopfT = {
   h1: string[];
   akzent: string;
   zeile: string;
-  hinweis: string;
 };
 
 /* die uhr rechts unten ist im august 2026 rausgeflogen. sie zeigte
@@ -77,9 +76,6 @@ export function Kopf({ t }: { t: KopfT }) {
         </div>
       </div>
 
-      <span className="kp-hinweis" aria-hidden>
-        {t.hinweis}
-      </span>
     </section>
   );
 }

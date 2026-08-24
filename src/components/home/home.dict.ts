@@ -25,7 +25,6 @@ export type HomeT = {
   h1: string[];
   akzent: string;
   zeile: string;
-  hinweis: string;
 
   /** der eine satz auf der hellen flaeche */
   kammer: { satz: string; betont: string };
@@ -49,7 +48,6 @@ export const HOME: Record<Locale, HomeT> = {
     akzent: "anfassen will.",
     zeile:
       "Webdesign und Entwicklung aus einer Hand. Ich baue Websites von null · mit eigenem CMS, ohne Template und ohne Plugin-Stapel. Bestehende Seiten ziehen mit um, Inhalte und Rankings bleiben.",
-    hinweis: "↓ die arbeit",
 
     kammer: {
       satz: "Die meisten Websites sind zusammengesteckt.",
@@ -82,7 +80,6 @@ export const HOME: Record<Locale, HomeT> = {
     akzent: "veut toucher.",
     zeile:
       "Webdesign et développement d'une seule main. Je construis des sites de zéro · avec mon propre CMS, sans template et sans pile de plugins. Ton site existant déménage avec, contenus et référencement restent.",
-    hinweis: "↓ le travail",
 
     kammer: {
       satz: "La plupart des sites sont assemblés.",
@@ -115,7 +112,6 @@ export const HOME: Record<Locale, HomeT> = {
     akzent: "want to touch.",
     zeile:
       "Web design and development from one hand. I build websites from scratch · with my own CMS, no template and no plugin stack. Existing sites move across, content and rankings stay.",
-    hinweis: "↓ the work",
 
     kammer: {
       satz: "Most websites are assembled.",
