@@ -62,7 +62,7 @@ export function HomeDevice() {
         }}
       />
 
-      <Kammer t={t.kammer} />
+      <Kammer t={t.kammer} kamm />
 
       <Arbeiten werke={referenzen} t={{ h2: t.arbeitenH2, alle: t.arbeitenAlle }} href={arbeiten} />
 

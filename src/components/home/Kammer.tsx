@@ -52,9 +52,22 @@ export function Kammer({
   t,
   variante,
   als = "p",
+  kamm = false,
 }: {
   t: KammerT;
   variante?: "bahn";
+  /** Zinkenprofil an der OBEREN kante · standardmässig aus.
+
+      erster wurf hatte den kamm an BEIDEN kanten jeder kammer, auf
+      allen vier seiten — zehn instanzen. nicolas: "sieht mir
+      teilweise zu sehr aus wie ein piano. gerne ab und zu solche
+      sachen mit dem kamm aber nicht immer."
+
+      die diagnose ist genau: eine einzelne gebissene kante liest
+      sich als KANTE. zwei gespiegelte, die eine helle bahn
+      einrahmen, ergeben eine KLAVIATUR. deshalb nur noch oben, und
+      nur dort, wo es gesetzt wird. */
+  kamm?: boolean;
   /** `h2`, wenn der satz die überschrift der sektion IST.
       auf /arbeiten trägt er den ehrlich-abschnitt · er sieht aus
       wie eine überschrift (gleiche grösse wie die h2 daneben) und
@@ -64,20 +77,10 @@ export function Kammer({
   const Satz = als;
   return (
     <>
-      {/* DER SCHNITT AN BEIDEN KANTEN.
-
-          weil der kamm hier sitzt und nicht in den einzelnen
-          seiten, bekommen home, /studio, /arbeiten und /kontakt
-          ihn in einem zug — vier seiten, acht kanten, ein
-          bauteil. genau das ist der punkt: ökonomie statt
-          aufwand.
-
-          der ton ist BEIDE MALE das papier, nicht das schwarz.
-          das band führt immer von schwarz (oben) nach ton
-          (unten); an der unterkante steht es also gespiegelt
-          (`richtung="auf"`), damit das papier oben und das
-          schwarz unten liegt. */}
-      <Kamm ton={PAPIER} platz="kammer-oben" />
+      {/* nur die OBERE kante, und nur wenn gesetzt · der harte
+          schnitt an der unterkante bleibt hart, so wie er gedacht
+          war */}
+      {kamm && <Kamm ton={PAPIER} platz="kammer-oben" />}
 
       <section className="ka" data-variante={variante ?? "voll"} data-no-reveal>
         <div className="ka-innen">
@@ -90,8 +93,6 @@ export function Kammer({
           {t.body && <p className="ka-body">{t.body}</p>}
         </div>
       </section>
-
-      <Kamm ton={PAPIER} richtung="auf" platz="kammer-unten" />
     </>
   );
 }
