@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Kamm } from "@/components/shared/Kamm";
 import "@/components/home/schluss.css";
 
 /**
@@ -36,24 +37,31 @@ export function Schluss({
   fuss?: React.ReactNode;
 }) {
   return (
-    <section className="sl" data-no-reveal>
-      <div className="sl-innen">
-        <p className="sl-satz">{t.satz}</p>
+    <>
+      {/* der kamm sitzt VOR der platte, nicht darin · er ist die
+          kante zwischen der dunklen sektion darüber und dem lime
+          darunter. sein ton ist deshalb genau die plattenfarbe. */}
+      <Kamm ton="#e1fd52" />
 
-        <div className="sl-tat">
-          <Link href={href} className="lab-cta lab-cta--invers">
-            {t.key}
-          </Link>
-          <span className="sl-oder">
-            {t.oder}{" "}
-            <a href={`mailto:${mail}`} className="sl-mail">
-              {mail}
-            </a>
-          </span>
+      <section className="sl" data-no-reveal>
+        <div className="sl-innen">
+          <p className="sl-satz">{t.satz}</p>
+
+          <div className="sl-tat">
+            <Link href={href} className="lab-cta lab-cta--invers">
+              {t.key}
+            </Link>
+            <span className="sl-oder">
+              {t.oder}{" "}
+              <a href={`mailto:${mail}`} className="sl-mail">
+                {mail}
+              </a>
+            </span>
+          </div>
+
+          {fuss}
         </div>
-
-        {fuss}
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
