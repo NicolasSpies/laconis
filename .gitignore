@@ -48,3 +48,6 @@ src/app/preview/
 
 # verworfene generierungs-versuche · die uebernommenen liegen in public/
 /assets/dreh/
+
+# artefakte des browser-tools · landeten schon zweimal versehentlich im commit
+.playwright-mcp/
