@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
  * HashScroll · scrollt zu #anker bei cross-page-links.
  *
  * drei stolpersteine umschifft:
- *  1. PageTransition (AnimatePresence mode="wait") mountet die neue seite
+ *  1. next/navigation mountet die neue seite
  *     erst nach dem exit · der native next-hash-scroll läuft da ins leere.
  *     → kurz warten + ziel mit retry suchen.
  *  2. `overflow: clip` auf <html> (sticky-fix) macht natives smooth-scrollen

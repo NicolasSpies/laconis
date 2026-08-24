@@ -2,11 +2,8 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
-import "@/components/pagetransition.css";
 import { LegacyChrome } from "@/components/LegacyChrome";
-import { CursorDot } from "@/components/CursorDot";
 import { GlasLicht } from "@/components/device/GlasLicht";
-import { PageTransition } from "@/components/PageTransition";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { Tracker } from "@/components/analytics/Tracker";
 import { ConsoleGreeting } from "@/components/ConsoleGreeting";
@@ -162,7 +159,6 @@ export default function RootLayout({
               "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 15%, black 40%)",
           }}
         />
-        <CursorDot />
         {/* fuehrt das streiflicht ueber alle .gl-flaechen · war nie
             eingehaengt, deshalb stand das specular auf dem desktop
             dauerhaft bei 50% / 0% */}
@@ -180,7 +176,7 @@ export default function RootLayout({
           zum inhalt
         </a>
         <main id="inhalt" className="relative z-[1]">
-          <PageTransition>{children}</PageTransition>
+          {children}
         </main>
         <LegacyChrome position="footer" />
       </body>

@@ -1,6 +1,5 @@
 "use client";
 
-import { ShaderField } from "@/components/device/ShaderField";
 
 /**
  * Kopf · die Schrift traegt allein.
@@ -46,7 +45,6 @@ export type KopfT = {
 export function Kopf({ t }: { t: KopfT }) {
   return (
     <section className="kp" data-no-reveal>
-      <ShaderField className="kp-feld" />
 
       {/* registermarken · vier ecken wie auf einem druckbogen */}
       <span className="kp-marke-el kp-marke-lo" aria-hidden />
