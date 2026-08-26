@@ -24,8 +24,6 @@ export type ReferenzenDict = {
   sxZieh: string;
   lOrt: string;
   lJahr: string;
-  lTempo: string;
-  mobil: string;
   desktop: string;
 
   stampLive: string;
@@ -53,8 +51,6 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     sxZieh: "ziehen · klicken",
     lOrt: "ort",
     lJahr: "jahr",
-    lTempo: "gemessen",
-    mobil: "mobil",
     desktop: "desktop",
 
     stampLive: "live",
@@ -83,8 +79,6 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     sxZieh: "tirer · cliquer",
     lOrt: "lieu",
     lJahr: "année",
-    lTempo: "mesuré",
-    mobil: "mobile",
     desktop: "desktop",
 
     stampLive: "en ligne",
@@ -113,8 +107,6 @@ export const REFERENZEN: Record<Locale, ReferenzenDict> = {
     sxZieh: "drag · click",
     lOrt: "place",
     lJahr: "year",
-    lTempo: "measured",
-    mobil: "mobile",
     desktop: "desktop",
 
     stampLive: "live",

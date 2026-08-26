@@ -6,7 +6,7 @@ import { HOME } from "@/components/home/home.dict";
 import { useLocale } from "@/i18n/useLocale";
 import { DeviceNav } from "@/components/device/DeviceNav";
 import { Lauf } from "@/components/device/Lauf";
-import { Wortmarke } from "@/components/device/Wortmarke";
+import { Grundmarke } from "@/components/device/Grundmarke";
 import { DeviceFuss } from "@/components/device/DeviceFuss";
 import { Kopf } from "@/components/home/Kopf";
 import { Kammer } from "@/components/home/Kammer";
@@ -54,7 +54,7 @@ export function HomeDevice() {
   return (
     <div className="lab-root" data-no-reveal>
       <Lauf />
-      <Wortmarke />
+      <Grundmarke />
       <DeviceNav />
 
       <Kopf

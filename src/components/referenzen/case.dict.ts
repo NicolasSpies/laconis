@@ -26,8 +26,6 @@ export type CaseDict = {
   claimLead: string;
   claim: ClaimT;
 
-  ansichtH2: string;
-  ansichtLead: string;
   ansicht: ProjektAnsichtT;
 
   konzeptH2: string;
@@ -64,9 +62,6 @@ export const CASE: Record<Locale, CaseDict> = {
       hint: "Die Typografie führt hier das Argument. Kein Text musste erklären, was sich geändert hat.",
     },
 
-    ansichtH2: "so läuft sie heute.",
-    ansichtLead:
-      "Die echte Seite, auf beiden Geräten. Zieh sie durch · oder lass sie laufen, sie fährt von selbst.",
     ansicht: {
       hint: "Ziehen scrubbt durch die Seite. Losgelassen läuft sie weiter.",
       empty: "aufnahmen folgen",
@@ -109,9 +104,6 @@ export const CASE: Record<Locale, CaseDict> = {
       hint: "C'est la typographie qui porte l'argument ici. Aucun texte n'a eu besoin d'expliquer ce qui a changé.",
     },
 
-    ansichtH2: "voilà comment il tourne.",
-    ansichtLead:
-      "Le vrai site, sur les deux appareils. Fais-le défiler · ou laisse-le, il avance tout seul.",
     ansicht: {
       hint: "Tirer fait défiler le site. Relâché, il continue.",
       empty: "captures à venir",
@@ -154,9 +146,6 @@ export const CASE: Record<Locale, CaseDict> = {
       hint: "The typography carries the argument here. No copy had to explain what changed.",
     },
 
-    ansichtH2: "how it runs today.",
-    ansichtLead:
-      "The real site, on both devices. Drag it through · or leave it, it moves on its own.",
     ansicht: {
       hint: "Dragging scrubs through the site. Let go and it keeps going.",
       empty: "captures to follow",

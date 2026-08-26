@@ -27,9 +27,7 @@ const ALTE_PFADE = ["/preview", "/web-performance-ostbelgien"];
 
 function istAlteSeite(pathname: string): boolean {
   const ohneLocale = pathname.replace(/^\/(fr|en)(?=\/|$)/, "") || "/";
-  if (ALTE_PFADE.includes(ohneLocale)) return true;
-  /* die prototypen unter /labor hängen noch am alten chrome */
-  return ohneLocale === "/labor" || ohneLocale.startsWith("/labor/");
+  return ALTE_PFADE.includes(ohneLocale);
 }
 
 export function LegacyChrome({ position }: { position: "nav" | "footer" }) {

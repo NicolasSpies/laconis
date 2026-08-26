@@ -1,28 +1,3 @@
-/**
- * panel.css · die bedienelemente des CMS-pults. der name kommt
- * von /leistung, die es seit dem relaunch nicht mehr gibt · das
- * pult lebt auf /studio weiter. ursprünglich: ballast-regler,
- * live-editor und die ruhigen typo-strecken dazwischen.
- *
- * physik wie überall im geräte-system:
- *   versenkt = inset-schatten oben dunkel + lichtkante unten
- *   erhaben  = aussenschatten unten + 1px lichtkante oben
- *
- * dosierung: pro bildschirmhöhe EIN objekt zum anfassen · der regler und
- * der editor stehen deshalb in getrennten sektionen, nie nebeneinander.
- */
-
-/* ════════════════════════════════════════════════════════
-   2 · BALLAST-REGLER
-   ════════════════════════════════════════════════════════ */
-
-.lx-dial-wrap {
-  position: relative;
-  width: 178px;
-  height: 178px;
-  flex-shrink: 0;
-  touch-action: none;
-}
 
 /* die versenkte mulde, in der der knopf sitzt */
 .lx-dial-well {
@@ -34,33 +9,6 @@
     inset 0 3px 8px rgba(0, 0, 0, 0.95),
     inset 0 -1px 0 var(--ln-hair);
 }
-
-.lx-dial-tick {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 1px;
-  height: 50%;
-  transform-origin: 50% 100%;
-  margin-left: -0.5px;
-}
-.lx-dial-tick span {
-  display: block;
-  width: 1px;
-  height: 9px;
-  border-radius: 1px;
-  background: rgba(242, 242, 242, 0.3);
-  transition: background 260ms ease, box-shadow 260ms ease;
-}
-.lx-dial-tick[data-on="1"] span {
-  background: var(--lime);
-  box-shadow: 0 0 7px rgb(var(--accent) / 0.85);
-}
-.lx-dial-tick[data-on="2"] span {
-  background: var(--lila);
-  box-shadow: 0 0 7px rgb(var(--accent-2) / 0.75);
-}
-
 /* der knopf · geriffelter rand, erhabene deckfläche */
 .lx-dial-knob {
   position: absolute;
@@ -80,14 +28,6 @@
     0 14px 30px -10px rgba(0, 0, 0, 0.95),
     0 0 0 1px rgba(0, 0, 0, 0.7);
 }
-.lx-dial-knob:active {
-  cursor: grabbing;
-}
-.lx-dial-knob:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 5px;
-}
-
 /* deckfläche · glatt, hebt sich vom riffel-rand ab */
 .lx-dial-face {
   position: absolute;
@@ -101,26 +41,6 @@
     0 5px 11px rgba(0, 0, 0, 0.7);
   pointer-events: none;
 }
-
-.lx-dial-marker {
-  position: absolute;
-  left: 50%;
-  top: 9px;
-  width: 3px;
-  height: 34px;
-  margin-left: -1.5px;
-  border-radius: 2px;
-  z-index: 2;
-  background: var(--lime);
-  box-shadow: 0 0 10px rgb(var(--accent) / 0.9);
-  pointer-events: none;
-  transition: background 300ms ease, box-shadow 300ms ease;
-}
-.lx-dial-wrap[data-heavy="1"] .lx-dial-marker {
-  background: var(--lila);
-  box-shadow: 0 0 10px rgb(var(--accent-2) / 0.9);
-}
-
 /* ── messwerte ────────────────────────────────────────── */
 
 

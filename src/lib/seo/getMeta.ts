@@ -283,9 +283,3 @@ export async function getMeta(path: string): Promise<Metadata> {
   };
 }
 
-/**
- * export für sitemap + andere konsumenten die nur die keys brauchen.
- */
-export function getStaticPaths(): string[] {
-  return Object.keys(STATIC_MAP);
-}

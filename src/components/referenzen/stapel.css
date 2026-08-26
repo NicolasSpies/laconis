@@ -447,11 +447,7 @@
   .st--gross .st-titel {
     grid-column: 1;
     justify-self: end;
-  }
-  .st--gross .st-nr {
-    grid-column: 2;
-  }
-  .st--gross .st-strich {
+  }  .st--gross .st-strich {
     grid-column: 3;
     grid-row: 1 / span 2;
     width: 52px;

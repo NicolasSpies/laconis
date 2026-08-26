@@ -3,7 +3,6 @@ import { AUFNAHMEN } from "./shots.generated";
 export type Referenz = {
   slug: string;
   name: string;
-  kategorie: "web" | "branding" | "grafik" | "web-branding";
   kategorieLabel: string;
   ort: string;
   jahr: number;
@@ -13,8 +12,6 @@ export type Referenz = {
   farbe: string; // hex brand colour for thumbnail background
   monogram?: string; // override for centre initials (default = first letter of name)
   notiz?: string; // short handwritten caption for the moodboard view
-  pagespeedMobile?: number;
-  pagespeedDesktop?: number;
   urlExtern?: string;
   inArbeit?: boolean;
   /**
@@ -38,11 +35,6 @@ export type Referenz = {
     rolle?: string;
   };
   /**
-   * optionales hero-bild · wird im home-featured-stack (vollbreite karte)
-   * verwendet. 16:10 oder 16:9 querformat, ≥ 1600px breite idealerweise.
-   */
-  heroImage?: string;
-  /**
    * ganzseitige aufnahmen der gebauten seite · desktop 1440 breit,
    * mobil 390 breit, jeweils volle seitenhöhe. sie laufen auf der
    * detailseite in laptop und handy durch.
@@ -61,20 +53,15 @@ const ROH: Referenz[] = [
   {
     slug: "fabry-baumpflege",
     name: "Fabry Baumpflege",
-    kategorie: "web",
     kategorieLabel: "web",
     ort: "Ostbelgien",
     jahr: 2025,
     kurz: "Website · Design & Development · eigenes CMS",
     tags: ["design", "development", "eigenes cms", "seo"],
-    pagespeedMobile: 95,
-    pagespeedDesktop: 97,
     urlExtern: "https://fabry-baumpflege.be",
     farbe: "#2f5d3a",
     notiz: "erstes CMS-projekt · ging richtig schnell",
     istEcht: true,
-    heroImage:
-      "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1800&q=80&auto=format&fit=crop",
     testimonial: {
       quote:
         "ich hab einfach angerufen, geschrieben wenn was war. keine tickets, keine agentur-höflichkeit.",
@@ -94,7 +81,6 @@ const ROH: Referenz[] = [
   {
     slug: "holoroom",
     name: "Holoroom",
-    kategorie: "branding",
     kategorieLabel: "branding",
     ort: "Ostbelgien",
     jahr: 2025,
@@ -102,13 +88,10 @@ const ROH: Referenz[] = [
     tags: ["logo", "brand guide", "visitenkarte"],
     farbe: "#7a4bd1",
     notiz: "violett war am ersten tag klar",
-    heroImage:
-      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1800&q=80&auto=format&fit=crop",
   },
   {
     slug: "lespoir-asbl",
     name: "Léspoir ASBL",
-    kategorie: "web-branding",
     kategorieLabel: "web + branding",
     ort: "Huy, Belgien",
     jahr: 2026,
@@ -117,8 +100,6 @@ const ROH: Referenz[] = [
     inArbeit: true,
     farbe: "#d94f4f",
     notiz: "erstes asbl-projekt · ganz viel herz",
-    heroImage:
-      "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1800&q=80&auto=format&fit=crop",
   },
   // NICHTS DRUNTER · weitere referenzen kommen später via CMS.
 ];

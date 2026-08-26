@@ -490,14 +490,7 @@
 @layer components {
   .container-site {
     @apply mx-auto w-full max-w-[1200px] px-6 md:px-10;
-  }
-  .label-mono {
-    @apply font-mono text-[11px] uppercase tracking-label text-offwhite/55;
-  }
-  .quote-lime {
-    @apply border-l-2 border-lime pl-4 italic text-offwhite;
-  }
-  .heading-sans {
+  }  .heading-sans {
     font-family: var(--font-display), system-ui, sans-serif;
     font-weight: 800;
     letter-spacing: -0.025em;
@@ -512,19 +505,6 @@
     text-transform: lowercase;
   }
 
-  /* Heading-size-tokens · 3 canonical clamps · für konsistente h-hierarchie */
-  .heading-hero-xl {
-    font-size: clamp(2.5rem, 8vw, 6rem);
-    line-height: 0.98;
-  }
-  .heading-hero-lg {
-    font-size: clamp(2rem, 5.5vw, 3.75rem);
-    line-height: 1.02;
-  }
-  .heading-section {
-    font-size: clamp(1.75rem, 4.5vw, 3rem);
-    line-height: 1.08;
-  }
 
   /* nav-glass · tint = body-bg (statt weiß) damit die navi fast den gleichen
      ton wie der hintergrund hat. nur blur verrät die überlagerung. */
@@ -538,15 +518,6 @@
     backdrop-filter: blur(22px);
     -webkit-backdrop-filter: blur(22px);
   }
-  .nav-glass-drawer {
-    background: rgb(var(--glass-tint) / 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-  }
-  [data-theme="dark"] .nav-glass-drawer {
-    background: rgb(var(--bg) / 0.92);
-  }
-
   /* Glass — nur backdrop-blur + hair-line border · kein saturate, kein noise,
      kein gradient-ring. content unter der card scheint blurred durch. */
   .glass {
@@ -557,32 +528,8 @@
     box-shadow: var(--depth-2);
   }
 
-  .glass-hover {
-    @apply transition-all duration-700 ease-out;
-  }
-  .glass-hover:hover {
-    background: rgb(var(--glass-tint) / var(--glass-alpha-hover));
-    border-color: rgb(var(--glass-border) / var(--glass-border-alpha-strong));
-  }
 
-  .glass-strong {
-    @apply glass;
-    background: rgb(var(--glass-tint) / var(--glass-alpha-strong));
-    border-color: rgb(var(--glass-border) / var(--glass-border-alpha-strong));
-  }
 
-  .glass-lime {
-    position: relative;
-    background: linear-gradient(
-      135deg,
-      rgb(var(--accent) / 0.08) 0%,
-      rgb(var(--accent) / 0.02) 100%
-    );
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 0.5px solid rgb(var(--accent) / 0.22);
-    isolation: isolate;
-  }
 
   /* Liquid glass — alias auf .glass · selbes clean blur-treatment */
   .liquid-glass {
@@ -592,28 +539,6 @@
     border: 1px solid rgb(var(--glass-border) / var(--glass-border-alpha));
     box-shadow: var(--depth-2);
   }
-
-  /* lime-tint modifier · liquid-glass mit grünem akzent
-     für "mein platz"-cards in einordnung-sections */
-  .liquid-glass-lime-tint {
-    background: linear-gradient(
-      135deg,
-      rgb(var(--accent) / 0.10) 0%,
-      rgb(var(--accent) / 0.04) 50%,
-      rgb(var(--accent) / 0.08) 100%
-    );
-    border-color: rgb(var(--accent) / 0.38);
-  }
-
-  /* liquid-glass-dark · identisch zu .liquid-glass · name aus legacy behalten */
-  .liquid-glass-dark {
-    background: rgb(var(--glass-tint) / var(--glass-alpha));
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid rgb(var(--glass-border) / var(--glass-border-alpha));
-    box-shadow: var(--depth-2);
-  }
-
   /* polaroid-card bg · home.PolaroidBoard · clean blur, kein saturate */
   .polaroid-card-bg {
     background: linear-gradient(
@@ -624,30 +549,6 @@
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
   }
-
-  /* portrait-stand · ueber-mich hero portrait-placeholder · clean blur + lime-glow */
-  .portrait-stand {
-    background:
-      radial-gradient(ellipse at 30% 20%, rgb(var(--accent) / 0.14) 0%, transparent 55%),
-      linear-gradient(
-        145deg,
-        rgb(var(--glass-tint) / var(--glass-alpha-strong)) 0%,
-        rgb(var(--glass-tint) / var(--glass-alpha)) 100%
-      );
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-  }
-
-  /* ambient-glow · einheitliche blur-blobs · dark + light = lime */
-  .ambient-glow-sm { background: rgb(var(--accent) / 0.14); filter: blur(70px); }
-  .ambient-glow-md { background: rgb(var(--accent) / 0.20); filter: blur(140px); }
-  .ambient-glow-lg { background: rgb(var(--accent) / 0.28); filter: blur(220px); }
-
-  /* light mode · alpha etwas runter damit lime auf grau nicht grell wirkt */
-  [data-theme="light"] .ambient-glow-sm { background: rgb(var(--accent) / 0.10); }
-  [data-theme="light"] .ambient-glow-md { background: rgb(var(--accent) / 0.14); }
-  [data-theme="light"] .ambient-glow-lg { background: rgb(var(--accent) / 0.18); }
-
   /* ═══════════ TACTILE BUTTONS · sanfte hover-lift + sanfter press ═══════════
      default = depth-2 (gehoben) · hover = depth-sink + leichter lift (-2px)
      active  = depth-press + sanftes shrinken · alles mit langer ease-transition
@@ -696,25 +597,9 @@
   /* primary-button · lime fill · reiner tactile-feel, kein ring */
   .btn-primary {
     position: relative;
-  }
+  }}
 
-  .card-lift {
-    @apply transition-all duration-700 ease-out;
-  }
-  .card-lift:hover {
-    transform: translateY(-3px);
-    border-color: rgba(255, 255, 255, 0.14);
-    box-shadow:
-      0 24px 60px -28px rgb(var(--accent) / 0.05),
-      0 0 0 1px rgba(255, 255, 255, 0.04) inset;
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  /* link-draw · DAS sitewide hover-pattern (phase 4) ·
+@layer utilities {  /* link-draw · DAS sitewide hover-pattern (phase 4) ·
      underline zeichnet sich von links nach rechts · passt zu den scribbles.
      currentColor → erbt automatisch text-farbe (nav, footer, body-links). */
   .link-draw {
@@ -740,38 +625,7 @@
       linear-gradient(to right, rgba(255, 255, 255, 0.014) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.014) 1px, transparent 1px);
     background-size: 80px 80px;
-  }
-  .grid-bg-bright {
-    background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-    background-size: 80px 80px;
-  }
-  .noise {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    background-size: 200px 200px;
-  }
-  .tick-corner::before,
-  .tick-corner::after {
-    content: "";
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    border-color: rgb(var(--accent) / 0.55);
-    border-style: solid;
-    z-index: 1;
-  }
-  .tick-corner::before {
-    top: 12px;
-    left: 12px;
-    border-width: 1px 0 0 1px;
-  }
-  .tick-corner::after {
-    bottom: 12px;
-    right: 12px;
-    border-width: 0 1px 1px 0;
-  }
-}
+  }}
 
 /* Make autofill blend */
 input:-webkit-autofill,
@@ -794,21 +648,6 @@ textarea:-webkit-autofill {
     linear-gradient(to right, rgba(17, 17, 17, 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(17, 17, 17, 0.03) 1px, transparent 1px);
 }
-[data-theme="light"] .grid-bg-bright {
-  background-image:
-    linear-gradient(to right, rgba(17, 17, 17, 0.09) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(17, 17, 17, 0.09) 1px, transparent 1px);
-}
-
-/* glass-theme · tokens erledigen theme-flip automatisch · keine light-overrides nötig */
-
-[data-theme="light"] .card-lift:hover {
-  border-color: rgba(17, 17, 17, 0.14);
-  box-shadow:
-    0 24px 60px -28px rgb(var(--accent) / 0.25),
-    0 0 0 1px rgba(17, 17, 17, 0.04) inset;
-}
-
 /* ═══════════ reveal-on-view · zero-js stagger ═══════════ */
 /* einsatz: element bekommt .reveal-up + optional style={{ "--rd": "240ms" }}
    und wird via shared IntersectionObserver-hook (useReveal) auf data-show="1"
@@ -826,53 +665,14 @@ textarea:-webkit-autofill {
 .reveal-root[data-show="1"] .reveal-up {
   opacity: 1;
   transform: translateY(0);
-}
-.reveal-fade,
-.reveal-root .reveal-fade {
-  opacity: 0;
-  transition: opacity 0.7s ease-out var(--rd, 0ms);
-}
-.reveal-fade[data-show="1"],
-.reveal-root[data-show="1"] .reveal-fade {
-  opacity: 1;
-}
-@media (prefers-reduced-motion: reduce) {
+}@media (prefers-reduced-motion: reduce) {
   .reveal-up,
   .reveal-fade {
     opacity: 1;
     transform: none;
     transition: none;
   }
-}
-
-/* ═══════════ reveal-clip · wischt von links rein ═══════════ */
-/* gesteuert via useReveal · kein view-timeline (browser-support noch lückenhaft).
-   bekommt --rd für stagger · dauert bewusst 1.4s damit man's wahrnimmt. */
-.reveal-clip,
-.reveal-root .reveal-clip {
-  clip-path: inset(0 100% 0 0);
-  transform: scale(1.06);
-  filter: saturate(0.5) brightness(0.85);
-  transition:
-    clip-path 1.4s cubic-bezier(0.22, 1, 0.36, 1) var(--rd, 0ms),
-    transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) var(--rd, 0ms),
-    filter 1.4s cubic-bezier(0.22, 1, 0.36, 1) var(--rd, 0ms);
-  will-change: clip-path, transform, filter;
-}
-.reveal-clip[data-show="1"],
-.reveal-root[data-show="1"] .reveal-clip {
-  clip-path: inset(0 0 0 0);
-  transform: scale(1);
-  filter: saturate(1) brightness(1);
-}
-@media (prefers-reduced-motion: reduce) {
-  .reveal-clip {
-    clip-path: none;
-    transform: none;
-    filter: none;
-    transition: none;
-  }
-}
+}@media (prefers-reduced-motion: reduce) {}
 
 /* ══════════════════════════════════════════════════════════
    scribble-mode — easter-egg aktiviert via konami-code.
@@ -962,19 +762,7 @@ body.scribble-mode h2::after {
   50% {
     opacity: 0;
   }
-}
-.vn-idle {
-  animation: vnNudge 1.5s ease-in-out infinite;
-}
-.vn-blink {
-  animation: vnBlink 1.1s steps(1) infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .vn-idle,
-  .vn-blink {
-    animation: none;
-  }
-}
+}@media (prefers-reduced-motion: reduce) {}
 
 @media (pointer: coarse) {
   /* touch-geräte → kein cursor-/hover-scribble */

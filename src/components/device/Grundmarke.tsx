@@ -1,7 +1,12 @@
-import "@/components/device/wortmarke.css";
+import "@/components/device/grundmarke.css";
 
 /**
- * Wortmarke · die Ebene, die stehen bleibt.
+ * Grundmarke · die Ebene, die stehen bleibt.
+ *
+ * HEISST NICHT "Wortmarke" · src/components/Wortmarke.tsx ist das
+ * echte Inline-SVG-Logo und wird von Nav, Footer und DeviceNav
+ * benutzt. Zwei Komponenten gleichen Namens in einem Projekt sind
+ * die Sorte Falle, die erst beim Umbenennen eines Imports zuschnappt.
  *
  * ═══ WOHER DIE IDEE KOMMT ═══
  *
@@ -50,7 +55,7 @@ import "@/components/device/wortmarke.css";
  * dahinter, nicht darüber.
  */
 
-export function Wortmarke() {
+export function Grundmarke() {
   return (
     <div className="wm" aria-hidden>
       <span className="wm-wort">lacønis</span>
